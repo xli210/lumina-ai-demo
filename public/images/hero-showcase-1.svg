@@ -1,0 +1,17 @@
+<svg width="800" height="1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#16213e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f3460;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#e94560;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#e94560;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <circle cx="400" cy="500" r="200" fill="url(#glow)"/>
+  <text x="400" y="490" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="24" opacity="0.7">Lumina AI</text>
+  <text x="400" y="525" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="16" opacity="0.4">Placeholder Image</text>
+</svg>
