@@ -1,20 +1,38 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, Sparkles } from "lucide-react";
+import { ArrowRight, Play, Sparkles, Star } from "lucide-react";
 
 const showcaseImages = [
-  { src: "/images/hero-showcase-1.svg", alt: "AI-generated cosmic landscape" },
-  { src: "/images/hero-showcase-2.svg", alt: "AI-generated glass portrait" },
-  { src: "/images/hero-showcase-3.svg", alt: "AI-generated futuristic city" },
-  { src: "/images/hero-showcase-4.svg", alt: "AI-generated fluid art" },
+  {
+    src: "https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=800&h=1000&fit=crop&q=80",
+    alt: "AI-generated cosmic landscape",
+    prompt: '"A cosmic dreamscape with nebula colors"',
+  },
+  {
+    src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=1000&fit=crop&q=80",
+    alt: "AI-generated abstract art",
+    prompt: '"Liquid glass morphism in sunset hues"',
+  },
+  {
+    src: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&h=1000&fit=crop&q=80",
+    alt: "AI-generated gradient art",
+    prompt: '"Vibrant gradient fluid dynamics"',
+  },
+  {
+    src: "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=800&h=1000&fit=crop&q=80",
+    alt: "AI-generated fluid art",
+    prompt: '"Abstract marble ink flow"',
+  },
 ];
 
 export function HeroSection() {
   const [activeImage, setActiveImage] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,20 +41,64 @@ export function HeroSection() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        setMousePos({
+          x: ((e.clientX - rect.left) / rect.width - 0.5) * 20,
+          y: ((e.clientY - rect.top) / rect.height - 0.5) * 20,
+        });
+      }
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-16">
-      {/* Background gradient orbs */}
+    <section
+      ref={heroRef}
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-16"
+    >
+      {/* Animated background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/4 -left-1/4 h-[600px] w-[600px] rounded-full bg-primary/10 blur-[120px]" />
-        <div className="absolute -right-1/4 -bottom-1/4 h-[500px] w-[500px] rounded-full bg-primary/5 blur-[100px]" />
+        <div
+          className="absolute -top-1/3 -left-1/3 h-[800px] w-[800px] rounded-full opacity-30 blur-[120px] animate-pulse-slow"
+          style={{
+            background: "radial-gradient(circle, hsl(215, 100%, 55%) 0%, transparent 70%)",
+            transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)`,
+            transition: "transform 0.3s ease-out",
+          }}
+        />
+        <div
+          className="absolute -right-1/4 top-1/4 h-[600px] w-[600px] rounded-full opacity-20 blur-[100px] animate-pulse-slow"
+          style={{
+            background: "radial-gradient(circle, hsl(280, 80%, 55%) 0%, transparent 70%)",
+            animationDelay: "2s",
+            transform: `translate(${mousePos.x * -0.3}px, ${mousePos.y * -0.3}px)`,
+            transition: "transform 0.3s ease-out",
+          }}
+        />
+        <div
+          className="absolute -bottom-1/4 left-1/3 h-[500px] w-[500px] rounded-full opacity-15 blur-[100px] animate-pulse-slow"
+          style={{
+            background: "radial-gradient(circle, hsl(170, 80%, 50%) 0%, transparent 70%)",
+            animationDelay: "4s",
+          }}
+        />
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
       </div>
 
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center gap-16 lg:flex-row lg:gap-20">
         {/* Text content */}
         <div className="flex max-w-xl flex-1 flex-col items-center text-center lg:items-start lg:text-left">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full glass-subtle px-4 py-2 text-sm text-muted-foreground animate-fade-in">
-            <Sparkles className="h-4 w-4 text-primary" />
+            <Sparkles className="h-4 w-4 text-primary animate-spin-slow" />
             <span>AI-Powered Creative Studio</span>
+            <span className="flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+              <Star className="h-3 w-3" /> New
+            </span>
           </div>
 
           <h1
@@ -44,8 +106,11 @@ export function HeroSection() {
             style={{ animationDelay: "0.1s" }}
           >
             Create Beyond{" "}
-            <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
-              Imagination
+            <span className="relative inline-block">
+              <span className="bg-gradient-to-r from-primary via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+                Imagination
+              </span>
+              <span className="absolute -bottom-2 left-0 right-0 h-1 rounded-full bg-gradient-to-r from-primary via-purple-400 to-cyan-400 opacity-50 blur-sm" />
             </span>
           </h1>
 
@@ -54,7 +119,7 @@ export function HeroSection() {
             style={{ animationDelay: "0.2s" }}
           >
             Transform your ideas into stunning visuals. Generate breathtaking
-            images and cinematic videos with the power of AI, right from your
+            images and cinematic videos with the power of AI — right from your
             phone.
           </p>
 
@@ -63,72 +128,44 @@ export function HeroSection() {
             style={{ animationDelay: "0.3s" }}
           >
             <Link href="#pricing">
-              <Button size="lg" className="gap-2 rounded-full px-8">
+              <Button size="lg" className="group gap-2 rounded-full px-8 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all">
                 Get Lumina AI
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
             <Link href="#showcase">
               <Button
                 variant="outline"
                 size="lg"
-                className="gap-2 rounded-full px-8 bg-transparent"
+                className="group gap-2 rounded-full px-8 bg-transparent backdrop-blur-sm hover:bg-accent/50 transition-all"
               >
-                <Play className="h-4 w-4" />
+                <Play className="h-4 w-4 transition-transform group-hover:scale-110" />
                 See It in Action
               </Button>
             </Link>
           </div>
 
-          {/* App store badges */}
+          {/* Stats */}
           <div
-            className="mt-8 flex items-center gap-3 opacity-0 animate-fade-in"
+            className="mt-10 flex items-center gap-8 opacity-0 animate-fade-in"
             style={{ animationDelay: "0.4s" }}
           >
-            <a
-              href="https://apps.apple.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-xl glass-subtle px-4 py-2.5 text-foreground transition-all hover:scale-105"
-            >
-              <svg
-                className="h-5 w-5"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-              </svg>
-              <div className="flex flex-col">
-                <span className="text-[10px] leading-tight text-muted-foreground">
-                  Download on the
-                </span>
-                <span className="text-sm font-semibold leading-tight">
-                  App Store
-                </span>
-              </div>
-            </a>
-            <a
-              href="https://play.google.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-xl glass-subtle px-4 py-2.5 text-foreground transition-all hover:scale-105"
-            >
-              <svg
-                className="h-5 w-5"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M3.609 1.814L13.792 12 3.61 22.186a2.372 2.372 0 0 1-.497-.697L2.51 14.88 2 12c0-.305.05-.604.14-.89l.61-6.608c.094-.25.23-.477.41-.688l.45-.001zm.786-.612L14.63 11.157l2.878-2.878-10.84-6.255a2.375 2.375 0 0 0-2.273-.822zM18.73 8.992l-2.88 2.88 2.88 2.88 2.584-1.493a2.375 2.375 0 0 0 0-4.274L18.73 8.992zM14.63 12.843L4.395 22.798a2.375 2.375 0 0 0 2.273-.822l10.84-6.255-2.878-2.878z" />
-              </svg>
-              <div className="flex flex-col">
-                <span className="text-[10px] leading-tight text-muted-foreground">
-                  Get it on
-                </span>
-                <span className="text-sm font-semibold leading-tight">
-                  Google Play
-                </span>
-              </div>
-            </a>
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold text-foreground">50K+</span>
+              <span className="text-xs text-muted-foreground">Active Creators</span>
+            </div>
+            <div className="h-8 w-px bg-border" />
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold text-foreground">2M+</span>
+              <span className="text-xs text-muted-foreground">Images Generated</span>
+            </div>
+            <div className="h-8 w-px bg-border" />
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold text-foreground">4.9</span>
+              <span className="text-xs text-muted-foreground flex items-center gap-1">
+                <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" /> Rating
+              </span>
+            </div>
           </div>
         </div>
 
@@ -137,15 +174,24 @@ export function HeroSection() {
           className="relative flex-1 opacity-0 animate-fade-in"
           style={{ animationDelay: "0.3s" }}
         >
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl glass-strong">
+          <div
+            className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl glass-strong shadow-2xl shadow-primary/10"
+            style={{
+              transform: `perspective(1000px) rotateY(${mousePos.x * 0.1}deg) rotateX(${mousePos.y * -0.1}deg)`,
+              transition: "transform 0.3s ease-out",
+            }}
+          >
             {showcaseImages.map((img, i) => (
               <div
                 key={img.src}
-                className="absolute inset-0 transition-opacity duration-1000"
-                style={{ opacity: activeImage === i ? 1 : 0 }}
+                className="absolute inset-0 transition-all duration-1000"
+                style={{
+                  opacity: activeImage === i ? 1 : 0,
+                  transform: activeImage === i ? "scale(1)" : "scale(1.05)",
+                }}
               >
                 <Image
-                  src={img.src || "/placeholder.svg"}
+                  src={img.src}
                   alt={img.alt}
                   fill
                   className="object-cover"
@@ -155,45 +201,57 @@ export function HeroSection() {
               </div>
             ))}
 
-            {/* Glass overlay at bottom */}
-            <div className="absolute inset-x-0 bottom-0 glass-strong p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs text-muted-foreground">
-                    Generated with Lumina AI
-                  </p>
-                  <p className="text-sm font-medium text-foreground">
-                    {showcaseImages[activeImage].alt}
-                  </p>
-                </div>
-                <div className="flex gap-1.5">
-                  {showcaseImages.map((_, i) => (
-                    <button
-                      key={`dot-${
-                        // biome-ignore lint/suspicious/noArrayIndexKey: dots are static
-                        i
-                      }`}
-                      type="button"
-                      onClick={() => setActiveImage(i)}
-                      className={`h-1.5 rounded-full transition-all ${
-                        activeImage === i
-                          ? "w-6 bg-primary"
-                          : "w-1.5 bg-muted-foreground/40"
-                      }`}
-                      aria-label={`Show image ${i + 1}`}
-                    />
-                  ))}
-                </div>
+            {/* Prompt overlay at bottom */}
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 pt-20">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-xs text-white/60 font-mono">lumina-ai v3.2</span>
+              </div>
+              <p className="text-sm text-white/80 font-mono">
+                {showcaseImages[activeImage].prompt}
+              </p>
+              <div className="mt-3 flex gap-1.5">
+                {showcaseImages.map((_, i) => (
+                  <button
+                    key={`dot-${i}`}
+                    type="button"
+                    onClick={() => setActiveImage(i)}
+                    className={`h-1 rounded-full transition-all duration-500 ${
+                      activeImage === i
+                        ? "w-8 bg-white"
+                        : "w-2 bg-white/30 hover:bg-white/50"
+                    }`}
+                    aria-label={`Show image ${i + 1}`}
+                  />
+                ))}
               </div>
             </div>
           </div>
 
           {/* Floating accent elements */}
-          <div className="absolute -top-4 -right-4 h-24 w-24 rounded-2xl glass animate-float" />
           <div
-            className="absolute -bottom-6 -left-6 h-20 w-20 rounded-2xl glass animate-float"
-            style={{ animationDelay: "3s" }}
-          />
+            className="absolute -top-6 -right-6 h-24 w-24 rounded-2xl glass animate-float border border-white/10"
+            style={{
+              transform: `translate(${mousePos.x * -0.2}px, ${mousePos.y * -0.2}px)`,
+              transition: "transform 0.3s ease-out",
+            }}
+          >
+            <div className="flex h-full w-full items-center justify-center">
+              <Sparkles className="h-8 w-8 text-primary/40" />
+            </div>
+          </div>
+          <div
+            className="absolute -bottom-8 -left-8 h-20 w-20 rounded-2xl glass animate-float border border-white/10"
+            style={{
+              animationDelay: "3s",
+              transform: `translate(${mousePos.x * 0.15}px, ${mousePos.y * 0.15}px)`,
+              transition: "transform 0.3s ease-out",
+            }}
+          >
+            <div className="flex h-full w-full items-center justify-center text-2xl">
+              🎨
+            </div>
+          </div>
         </div>
       </div>
     </section>

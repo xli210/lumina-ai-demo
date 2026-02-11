@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, Download } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
 
 export function PricingSection() {
@@ -10,6 +10,7 @@ export function PricingSection() {
     <section id="pricing" className="relative px-6 py-24">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -bottom-1/4 left-1/4 h-[500px] w-[500px] rounded-full bg-primary/5 blur-[120px]" />
+        <div className="absolute top-1/4 right-1/4 h-[300px] w-[300px] rounded-full bg-purple-500/5 blur-[100px]" />
       </div>
 
       <div className="relative mx-auto max-w-3xl">
@@ -18,7 +19,10 @@ export function PricingSection() {
             Pricing
           </p>
           <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            One Price. Unlimited Creativity.
+            One Price.{" "}
+            <span className="bg-gradient-to-r from-primary via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+              Unlimited Creativity.
+            </span>
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
             No subscriptions, no hidden fees. Pay once and unlock the full power
@@ -26,7 +30,7 @@ export function PricingSection() {
           </p>
         </div>
 
-        <div className="glass-strong rounded-3xl p-8 md:p-12">
+        <div className="glass-strong rounded-3xl p-8 md:p-12 border border-primary/10">
           <div className="flex flex-col items-center text-center">
             <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
               Lifetime Access
@@ -58,12 +62,20 @@ export function PricingSection() {
               ))}
             </div>
 
-            <Link href="/checkout" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full gap-2 rounded-full px-12 sm:w-auto">
-                Purchase Now
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+              <Link href="/checkout" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full gap-2 rounded-full px-12 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all sm:w-auto">
+                  Purchase Now
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/download" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="w-full gap-2 rounded-full px-8 bg-transparent sm:w-auto">
+                  <Download className="h-4 w-4" />
+                  Try Free
+                </Button>
+              </Link>
+            </div>
 
             <p className="mt-4 text-xs text-muted-foreground">
               Secure payment powered by Stripe. 30-day money-back guarantee.

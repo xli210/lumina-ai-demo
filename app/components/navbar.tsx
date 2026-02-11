@@ -41,6 +41,12 @@ export async function Navbar() {
           >
             Pricing
           </Link>
+          <Link
+            href="/download"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Download
+          </Link>
         </div>
 
         <div className="flex items-center gap-3">

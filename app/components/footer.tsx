@@ -34,6 +34,12 @@ export function Footer() {
             Pricing
           </Link>
           <Link
+            href="/download"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Download
+          </Link>
+          <Link
             href="/auth/login"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
