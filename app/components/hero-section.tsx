@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, Sparkles, Star } from "lucide-react";
+import { ArrowRight, Download, Play, Sparkles, Star } from "lucide-react";
 
 const showcaseImages = [
   {
@@ -127,20 +127,21 @@ export function HeroSection() {
             className="flex flex-wrap items-center gap-4 opacity-0 animate-fade-in"
             style={{ animationDelay: "0.3s" }}
           >
-            <Link href="#pricing">
+            <Link href="/download">
               <Button size="lg" className="group gap-2 rounded-full px-8 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all">
-                Get Lumina AI
+                <Download className="h-4 w-4" />
+                Download Now
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <Link href="#showcase">
+            <Link href="#pricing">
               <Button
                 variant="outline"
                 size="lg"
                 className="group gap-2 rounded-full px-8 bg-transparent backdrop-blur-sm hover:bg-accent/50 transition-all"
               >
-                <Play className="h-4 w-4 transition-transform group-hover:scale-110" />
-                See It in Action
+                <Sparkles className="h-4 w-4 transition-transform group-hover:scale-110" />
+                Purchase Full Version
               </Button>
             </Link>
           </div>
