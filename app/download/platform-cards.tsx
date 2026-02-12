@@ -22,6 +22,8 @@ interface PlatformInfo {
   badge?: string;
 }
 
+const DOWNLOAD_URL = "/downloads/LuminaAI-3.2.1.zip";
+
 const platforms: PlatformInfo[] = [
   {
     id: "windows",
@@ -29,9 +31,9 @@ const platforms: PlatformInfo[] = [
     icon: <Monitor className="h-8 w-8" />,
     description: "Windows 10 / 11 (64-bit)",
     version: "3.2.1",
-    size: "124 MB",
-    fileName: "LuminaAI-Setup-3.2.1.exe",
-    downloadUrl: "#",
+    size: "1.4 MB",
+    fileName: "LuminaAI-3.2.1.zip",
+    downloadUrl: DOWNLOAD_URL,
     badge: "Most Popular",
   },
   {
@@ -40,9 +42,9 @@ const platforms: PlatformInfo[] = [
     icon: <Apple className="h-8 w-8" />,
     description: "macOS 13 Ventura or later",
     version: "3.2.1",
-    size: "118 MB",
-    fileName: "LuminaAI-3.2.1.dmg",
-    downloadUrl: "#",
+    size: "1.4 MB",
+    fileName: "LuminaAI-3.2.1.zip",
+    downloadUrl: DOWNLOAD_URL,
   },
   {
     id: "linux",
@@ -50,9 +52,9 @@ const platforms: PlatformInfo[] = [
     icon: <Monitor className="h-8 w-8" />,
     description: "Ubuntu 22.04+ / Fedora 38+",
     version: "3.2.1",
-    size: "132 MB",
-    fileName: "LuminaAI-3.2.1.AppImage",
-    downloadUrl: "#",
+    size: "1.4 MB",
+    fileName: "LuminaAI-3.2.1.zip",
+    downloadUrl: DOWNLOAD_URL,
   },
   {
     id: "ios",
@@ -60,9 +62,9 @@ const platforms: PlatformInfo[] = [
     icon: <Smartphone className="h-8 w-8" />,
     description: "iPhone & iPad (iOS 17+)",
     version: "3.2.1",
-    size: "89 MB",
-    fileName: "App Store",
-    downloadUrl: "https://apps.apple.com",
+    size: "1.4 MB",
+    fileName: "LuminaAI-3.2.1.zip",
+    downloadUrl: DOWNLOAD_URL,
   },
   {
     id: "android",
@@ -70,9 +72,9 @@ const platforms: PlatformInfo[] = [
     icon: <Smartphone className="h-8 w-8" />,
     description: "Android 12+ (API 31)",
     version: "3.2.1",
-    size: "78 MB",
-    fileName: "Google Play",
-    downloadUrl: "https://play.google.com",
+    size: "1.4 MB",
+    fileName: "LuminaAI-3.2.1.zip",
+    downloadUrl: DOWNLOAD_URL,
   },
 ];
 
@@ -104,11 +106,15 @@ export function PlatformCards() {
 
   function handleDownload(platform: PlatformInfo) {
     setDownloading(platform.id);
-    // Simulate download start
+    // Create a temporary anchor to trigger the download
+    const link = document.createElement("a");
+    link.href = platform.downloadUrl;
+    link.download = platform.fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
     setTimeout(() => {
       setDownloading(null);
-      // In production, this would trigger the actual download
-      // window.location.href = platform.downloadUrl;
     }, 2000);
   }
 
