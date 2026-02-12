@@ -1,7 +1,7 @@
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { DownloadHero } from "./download-hero";
-import { PlatformCards } from "./platform-cards";
+import { AppCards } from "./app-cards";
 import { ReleaseNotes } from "./release-notes";
 import { SystemRequirements } from "./system-requirements";
 
@@ -10,7 +10,7 @@ export default function DownloadPage() {
     <main className="relative min-h-screen">
       <Navbar />
       <DownloadHero />
-      <PlatformCards />
+      <AppCards />
       <SystemRequirements />
       <ReleaseNotes />
       <Footer />

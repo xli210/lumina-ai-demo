@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles, Download } from "lucide-react";
+import { Sparkles, Download, Package } from "lucide-react";
 
 export function DownloadHero() {
   return (
@@ -15,8 +15,8 @@ export function DownloadHero() {
 
       <div className="relative z-10 mx-auto max-w-3xl text-center">
         <div className="mb-6 inline-flex items-center gap-2 rounded-full glass-subtle px-4 py-2 text-sm text-muted-foreground animate-fade-in">
-          <Download className="h-4 w-4 text-primary" />
-          <span>Version 3.2.1 — Latest Release</span>
+          <Package className="h-4 w-4 text-primary" />
+          <span>Our Products — Download &amp; Get Started</span>
         </div>
 
         <h1 className="mb-4 text-balance text-5xl font-bold tracking-tight text-foreground opacity-0 animate-fade-in md:text-6xl"
@@ -25,7 +25,7 @@ export function DownloadHero() {
           Download{" "}
           <span className="relative inline-block">
             <span className="bg-gradient-to-r from-primary via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
-              Lumina AI
+              Our Apps
             </span>
           </span>
         </h1>
@@ -33,20 +33,26 @@ export function DownloadHero() {
         <p className="mb-8 text-pretty text-lg text-muted-foreground opacity-0 animate-fade-in"
           style={{ animationDelay: "0.2s" }}
         >
-          Get the full creative studio on your device. Available for all major platforms.
-          One license, every device.
+          Explore our suite of AI-powered tools. Each app is designed to run locally
+          on your machine — no cloud dependency, full privacy.
         </p>
 
-        <div className="flex items-center justify-center gap-6 opacity-0 animate-fade-in"
+        <div className="flex flex-wrap items-center justify-center gap-6 opacity-0 animate-fade-in"
           style={{ animationDelay: "0.3s" }}
         >
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Sparkles className="h-4 w-4 text-primary" />
-            <span>Free trial included</span>
+            <span>Free trials included</span>
           </div>
           <div className="h-4 w-px bg-border" />
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span>No account required to download</span>
+            <Download className="h-4 w-4 text-primary" />
+            <span>No account required</span>
+          </div>
+          <div className="h-4 w-px bg-border" />
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Package className="h-4 w-4 text-primary" />
+            <span>Runs 100% locally</span>
           </div>
         </div>
       </div>
