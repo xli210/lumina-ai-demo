@@ -54,8 +54,8 @@ const appReleases: AppRelease[] = [
     gradient: "from-emerald-500 to-teal-400",
     releases: [
       {
-        version: "1.0.0",
-        date: "February 10, 2026",
+        version: "0.0.01",
+        date: "February 12, 2026",
         tag: "Initial Release",
         changes: [
           { type: "feature", text: "Extract text from images (PNG, JPG, BMP, TIFF)" },

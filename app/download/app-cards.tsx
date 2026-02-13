@@ -77,7 +77,7 @@ const apps: AppInfo[] = [
     description:
       "Extract text from images, PDFs, and scanned documents with state-of-the-art OCR powered by local AI models. Fast, private, and accurate.",
     icon: ScanText,
-    version: "1.0.0",
+    version: "0.0.01",
     gradient: "from-emerald-500 to-teal-400",
     shadowColor: "shadow-emerald-500/25",
     badge: "New",
@@ -85,8 +85,8 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "OCR_Demo.zip",
-        downloadUrl: "/downloads/OCR_Demo.zip",
+        fileName: "OCR_Demo0.0.01.zip",
+        downloadUrl: "/downloads/OCR_Demo0.0.01.zip",
         size: "1.2 MB",
       },
     ],
