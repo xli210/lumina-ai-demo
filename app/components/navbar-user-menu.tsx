@@ -11,9 +11,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User as UserIcon, LogOut } from "lucide-react";
+import { User as UserIcon, LogOut, Shield } from "lucide-react";
 
-export function NavbarUserMenu({ user }: { user: User }) {
+export function NavbarUserMenu({
+  user,
+  isAdmin,
+}: {
+  user: User;
+  isAdmin?: boolean;
+}) {
   const router = useRouter();
   const supabase = createClient();
 
@@ -61,6 +67,12 @@ export function NavbarUserMenu({ user }: { user: User }) {
           <UserIcon className="mr-2 h-4 w-4" />
           Account
         </DropdownMenuItem>
+        {isAdmin && (
+          <DropdownMenuItem onClick={() => router.push("/admin")}>
+            <Shield className="mr-2 h-4 w-4" />
+            Admin Console
+          </DropdownMenuItem>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut}>
           <LogOut className="mr-2 h-4 w-4" />

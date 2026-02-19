@@ -51,21 +51,21 @@ const apps: AppInfo[] = [
         platform: "Windows",
         icon: Monitor,
         fileName: "LuminaAI-3.2.1.zip",
-        downloadUrl: "/downloads/LuminaAI-3.2.1.zip",
+        downloadUrl: "/api/downloads/LuminaAI-3.2.1.zip",
         size: "1.4 MB",
       },
       {
         platform: "macOS",
         icon: Apple,
         fileName: "LuminaAI-3.2.1.zip",
-        downloadUrl: "/downloads/LuminaAI-3.2.1.zip",
+        downloadUrl: "/api/downloads/LuminaAI-3.2.1.zip",
         size: "1.4 MB",
       },
       {
         platform: "Linux",
         icon: Monitor,
         fileName: "LuminaAI-3.2.1.zip",
-        downloadUrl: "/downloads/LuminaAI-3.2.1.zip",
+        downloadUrl: "/api/downloads/LuminaAI-3.2.1.zip",
         size: "1.4 MB",
       },
     ],
@@ -86,7 +86,7 @@ const apps: AppInfo[] = [
         platform: "Windows",
         icon: Monitor,
         fileName: "OCR_Demo0.0.01.zip",
-        downloadUrl: "/downloads/OCR_Demo0.0.01.zip",
+        downloadUrl: "/api/downloads/OCR_Demo0.0.01.zip",
         size: "1.2 MB",
       },
     ],
@@ -99,15 +99,11 @@ export function AppCards() {
   function handleDownload(appId: string, platform: PlatformDownload) {
     const key = `${appId}-${platform.platform}`;
     setDownloading(key);
-    const link = document.createElement("a");
-    link.href = platform.downloadUrl;
-    link.download = platform.fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Use window.location to trigger the authenticated download
+    window.location.href = platform.downloadUrl;
     setTimeout(() => {
       setDownloading(null);
-    }, 2000);
+    }, 3000);
   }
 
   return (

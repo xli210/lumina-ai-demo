@@ -13,8 +13,9 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
-     * Feel free to modify this pattern to include more paths.
+     * - api/webhooks (Stripe webhooks need to bypass auth)
+     * - api/license (desktop app API calls)
      */
-    '/((?!_next/static|_next/image|favicon.ico|downloads/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|zip)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|api/webhooks|api/license|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }

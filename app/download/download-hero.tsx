@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles, Download, Package } from "lucide-react";
+import { Sparkles, Download, Package, Shield } from "lucide-react";
 
 export function DownloadHero() {
   return (
@@ -46,12 +46,12 @@ export function DownloadHero() {
           </div>
           <div className="h-4 w-px bg-border" />
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Download className="h-4 w-4 text-primary" />
-            <span>No account required</span>
+            <Shield className="h-4 w-4 text-primary" />
+            <span>Signed-in users only</span>
           </div>
           <div className="h-4 w-px bg-border" />
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Package className="h-4 w-4 text-primary" />
+            <Download className="h-4 w-4 text-primary" />
             <span>Runs 100% locally</span>
           </div>
         </div>

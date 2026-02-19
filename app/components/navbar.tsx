@@ -10,6 +10,16 @@ export async function Navbar() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  let isAdmin = false;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+    isAdmin = profile?.role === "admin";
+  }
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-strong">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
@@ -51,7 +61,7 @@ export async function Navbar() {
 
         <div className="flex items-center gap-3">
           {user ? (
-            <NavbarUserMenu user={user} />
+            <NavbarUserMenu user={user} isAdmin={isAdmin} />
           ) : (
             <>
               <Link href="/auth/login">

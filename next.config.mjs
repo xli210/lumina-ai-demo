@@ -11,6 +11,10 @@ const nextConfig = {
       },
     ],
   },
+  // Include private download files in Vercel deployment
+  outputFileTracingIncludes: {
+    "/api/downloads/\\[filename\\]": ["./downloads-private/**/*"],
+  },
 }
 
 export default nextConfig
