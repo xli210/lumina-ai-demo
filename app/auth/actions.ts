@@ -1,7 +1,39 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
+
+/**
+ * Detect the site URL at runtime.
+ * Priority: NEXT_PUBLIC_SITE_URL > request origin > VERCEL_URL > localhost
+ */
+async function getSiteUrl(): Promise<string> {
+  // 1. Explicit env var (best)
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL;
+  }
+
+  // 2. Derive from the incoming request (works on Vercel)
+  try {
+    const headersList = await headers();
+    const host = headersList.get("host");
+    const proto = headersList.get("x-forwarded-proto") || "https";
+    if (host && !host.includes("localhost")) {
+      return `${proto}://${host}`;
+    }
+  } catch {
+    // headers() may fail in some contexts
+  }
+
+  // 3. Vercel auto-set env var
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  // 4. Fallback for local dev
+  return "http://localhost:3000";
+}
 
 export async function login(formData: FormData) {
   const supabase = await createClient();
@@ -27,13 +59,13 @@ export async function signup(formData: FormData) {
   const password = formData.get("password") as string;
   const displayName = formData.get("displayName") as string;
 
+  const siteUrl = await getSiteUrl();
+
   const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      emailRedirectTo:
-        process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ||
-        `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/account`,
+      emailRedirectTo: `${siteUrl}/account`,
       data: {
         display_name: displayName,
       },
@@ -49,9 +81,7 @@ export async function signup(formData: FormData) {
 
 export async function signInWithGoogle() {
   const supabase = await createClient();
-
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = await getSiteUrl();
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
@@ -75,9 +105,7 @@ export async function signInWithGoogle() {
 
 export async function signInWithGitHub() {
   const supabase = await createClient();
-
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = await getSiteUrl();
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "github",
