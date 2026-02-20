@@ -65,6 +65,20 @@ export async function POST(req: NextRequest) {
 
   const admin = createAdminClient();
 
+  // 3b. Check if user is banned
+  const { data: profile } = await admin
+    .from("profiles")
+    .select("is_banned")
+    .eq("id", user.id)
+    .single();
+
+  if (profile?.is_banned) {
+    return NextResponse.json(
+      { error: "Your account has been suspended." },
+      { status: 403 }
+    );
+  }
+
   // 4. Check if user already has a license for this product
   const { data: existingLicense } = await admin
     .from("licenses")
@@ -82,18 +96,28 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  // 5. Generate unique license key
-  let licenseKey = generateLicenseKey();
-  let attempts = 0;
-  while (attempts < 10) {
+  // 5. Generate unique license key (retry up to 10 times)
+  let licenseKey = "";
+  let keyIsUnique = false;
+  for (let attempts = 0; attempts < 10; attempts++) {
+    licenseKey = generateLicenseKey();
     const { data: dup } = await admin
       .from("licenses")
       .select("id")
       .eq("license_key", licenseKey)
       .single();
-    if (!dup) break;
-    licenseKey = generateLicenseKey();
-    attempts++;
+    if (!dup) {
+      keyIsUnique = true;
+      break;
+    }
+  }
+
+  if (!keyIsUnique) {
+    console.error("Failed to generate a unique license key after 10 attempts");
+    return NextResponse.json(
+      { error: "Failed to generate license. Please try again." },
+      { status: 500 }
+    );
   }
 
   // 6. Insert the license (max_activations = 1 per machine)

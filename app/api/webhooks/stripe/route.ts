@@ -51,26 +51,46 @@ export async function POST(req: NextRequest) {
 
     const supabase = createAdminClient();
 
-    // Look up the Supabase user by email
+    // Look up the Supabase user
     let userId: string | null = null;
-    if (customerEmail) {
+
+    // Primary: use the supabase_user_id we pass in checkout session metadata
+    const metadataUserId = (session.metadata as Record<string, string>)
+      ?.supabase_user_id;
+    if (metadataUserId) {
+      userId = metadataUserId;
+    } else if (customerEmail) {
+      // Fallback: scan users by email (slower, only if metadata missing)
       const { data } = await supabase.auth.admin.listUsers();
       const match = data?.users?.find((u) => u.email === customerEmail);
       if (match) userId = match.id;
+      console.warn(
+        "Webhook: supabase_user_id missing from metadata, fell back to email scan"
+      );
     }
 
-    // Generate a unique license key
-    let licenseKey = generateLicenseKey();
-    let attempts = 0;
-    while (attempts < 10) {
+    // Generate a unique license key (retry up to 10 times)
+    let licenseKey = "";
+    let keyIsUnique = false;
+    for (let attempts = 0; attempts < 10; attempts++) {
+      licenseKey = generateLicenseKey();
       const { data: existing } = await supabase
         .from("licenses")
         .select("id")
         .eq("license_key", licenseKey)
         .single();
-      if (!existing) break;
-      licenseKey = generateLicenseKey();
-      attempts++;
+      if (!existing) {
+        keyIsUnique = true;
+        break;
+      }
+    }
+
+    if (!keyIsUnique) {
+      console.error("Failed to generate unique license key after 10 attempts");
+      return NextResponse.json(
+        { error: "License key generation failed" },
+        { status: 500 }
+      );
     }
 
     // Determine product_id from session metadata or default

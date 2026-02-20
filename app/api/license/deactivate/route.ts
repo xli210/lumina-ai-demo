@@ -23,9 +23,10 @@ export async function POST(req: NextRequest) {
 
   const supabase = createAdminClient();
 
+  // 1. Validate the license exists and is not revoked
   const { data: license } = await supabase
     .from("licenses")
-    .select("id")
+    .select("id, is_revoked, user_id")
     .eq("license_key", license_key.toUpperCase().trim())
     .single();
 
@@ -33,11 +34,49 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid license" }, { status: 404 });
   }
 
+  if (license.is_revoked) {
+    return NextResponse.json(
+      { error: "This license has been revoked" },
+      { status: 403 }
+    );
+  }
+
+  // 2. Check if the user is banned
+  if (license.user_id) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("is_banned")
+      .eq("id", license.user_id)
+      .single();
+
+    if (profile?.is_banned) {
+      return NextResponse.json(
+        { error: "Account has been suspended" },
+        { status: 403 }
+      );
+    }
+  }
+
+  // 3. Verify the activation actually exists before deleting
+  const { data: activation } = await supabase
+    .from("activations")
+    .select("id")
+    .eq("license_id", license.id)
+    .eq("machine_id", machine_id)
+    .single();
+
+  if (!activation) {
+    return NextResponse.json(
+      { error: "No activation found for this machine" },
+      { status: 404 }
+    );
+  }
+
+  // 4. Delete the activation
   const { error } = await supabase
     .from("activations")
     .delete()
-    .eq("license_id", license.id)
-    .eq("machine_id", machine_id);
+    .eq("id", activation.id);
 
   if (error) {
     return NextResponse.json(

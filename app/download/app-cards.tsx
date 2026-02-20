@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Download,
@@ -13,6 +13,7 @@ import {
   Key,
   Copy,
   Check,
+  Loader2,
   type LucideIcon,
 } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
@@ -106,6 +107,28 @@ export function AppCards() {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [downloading, setDownloading] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loadingLicenses, setLoadingLicenses] = useState(true);
+
+  // Load existing licenses on mount so they survive page refreshes
+  const loadExistingLicenses = useCallback(async () => {
+    try {
+      const res = await fetch("/api/license/my-licenses");
+      if (res.ok) {
+        const data = await res.json();
+        if (data.licenses) {
+          setLicenseKeys(data.licenses);
+        }
+      }
+    } catch {
+      // Silently fail — user can still claim manually
+    } finally {
+      setLoadingLicenses(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadExistingLicenses();
+  }, [loadExistingLicenses]);
 
   async function handleGetLicense(appId: string) {
     setClaimingApp(appId);
@@ -161,6 +184,16 @@ export function AppCards() {
   function formatPrice(priceInCents: number) {
     if (priceInCents === 0) return "Free";
     return `$${(priceInCents / 100).toFixed(2)}`;
+  }
+
+  if (loadingLicenses) {
+    return (
+      <section className="relative px-6 pb-16">
+        <div className="mx-auto max-w-5xl flex items-center justify-center py-16">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </section>
+    );
   }
 
   return (
