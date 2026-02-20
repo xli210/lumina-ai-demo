@@ -8,7 +8,7 @@ create table if not exists public.licenses (
   license_key text unique not null,
   product_id text not null,
   stripe_payment_intent_id text unique,
-  max_activations int default 2,
+  max_activations int default 1,
   is_revoked boolean default false,
   last_force_takeover_at timestamptz,
   created_at timestamptz default now(),

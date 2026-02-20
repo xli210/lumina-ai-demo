@@ -4,22 +4,37 @@ export interface Product {
   description: string
   priceInCents: number
   features: string[]
+  /** Maximum number of machines this license can be activated on */
+  maxActivations: number
 }
 
 export const PRODUCTS: Product[] = [
   {
-    id: "creator-pro",
-    name: "Creator Pro",
+    id: "lumina-ai",
+    name: "Lumina AI",
     description:
-      "Unlock the full power of AI-driven creative tools. One-time purchase, lifetime access.",
-    priceInCents: 4999,
+      "AI Creative Studio — Transform your ideas into stunning visuals with AI-powered creative tools.",
+    priceInCents: 0,
     features: [
-      "Unlimited AI image generation",
+      "AI image generation",
       "HD video creation & export",
       "100+ creative style presets",
-      "Priority rendering queue",
-      "Commercial usage rights",
       "All future updates included",
     ],
+    maxActivations: 1,
+  },
+  {
+    id: "ocr-demo",
+    name: "OCR Demo",
+    description:
+      "Intelligent Text Recognition — Extract text from images, PDFs, and scanned documents with local AI.",
+    priceInCents: 0,
+    features: [
+      "State-of-the-art OCR",
+      "PDF & image support",
+      "100% offline & private",
+      "All future updates included",
+    ],
+    maxActivations: 1,
   },
 ]

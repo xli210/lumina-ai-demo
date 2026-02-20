@@ -40,3 +40,5 @@ next-env.d.ts
 
 # Cursor AI rules
 .cursor/rules/codacy.mdc
+test.zip
+.codacy/

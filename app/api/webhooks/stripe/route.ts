@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { PRODUCTS } from "@/lib/products";
 import crypto from "crypto";
 
 function generateLicenseKey(): string {
@@ -74,13 +75,18 @@ export async function POST(req: NextRequest) {
 
     // Determine product_id from session metadata or default
     const productId =
-      (session.metadata as Record<string, string>)?.product_id || "creator-pro";
+      (session.metadata as Record<string, string>)?.product_id || "lumina-ai";
+
+    // Look up product to get max_activations (default 1)
+    const product = PRODUCTS.find((p) => p.id === productId);
+    const maxActivations = product?.maxActivations ?? 1;
 
     // Insert the license
     const { error: insertError } = await supabase.from("licenses").insert({
       user_id: userId,
       license_key: licenseKey,
       product_id: productId,
+      max_activations: maxActivations,
       stripe_payment_intent_id: paymentIntentId,
     });
 
