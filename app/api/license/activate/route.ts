@@ -1,5 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import crypto from "crypto";
+
+/**
+ * Derive a one-time transport key from the machine fingerprint so the
+ * master key is never sent in plaintext (even over HTTPS, defense-in-depth).
+ * Client uses the same derivation to decrypt.
+ */
+function encryptMasterKey(masterKey: string, machineId: string): string {
+  const secret = crypto
+    .createHash("sha256")
+    .update(`machine-transport:${machineId}`)
+    .digest();
+  const iv = crypto.randomBytes(12);
+  const cipher = crypto.createCipheriv("aes-256-gcm", secret, iv);
+  const enc = Buffer.concat([cipher.update(masterKey, "utf8"), cipher.final()]);
+  const tag = cipher.getAuthTag();
+  // Return iv + tag + ciphertext as hex
+  return Buffer.concat([iv, tag, enc]).toString("hex");
+}
 
 export async function POST(req: NextRequest) {
   let body: Record<string, unknown>;
@@ -79,11 +98,15 @@ export async function POST(req: NextRequest) {
       .update({ last_seen_at: new Date().toISOString() })
       .eq("id", existingActivation.id);
 
+    const masterKey = process.env.LICENSE_MASTER_KEY;
     return NextResponse.json({
       status: "activated",
       message: "Machine already activated",
       license_id: license.id,
       product_id: license.product_id,
+      ...(masterKey && machine_id
+        ? { encrypted_master_key: encryptMasterKey(masterKey, machine_id) }
+        : {}),
     });
   }
 
@@ -141,10 +164,15 @@ export async function POST(req: NextRequest) {
     machine_label: machine_label || null,
   });
 
+  const masterKey = process.env.LICENSE_MASTER_KEY;
+
   return NextResponse.json({
     status: "activated",
     message: "Machine activated successfully",
     license_id: license.id,
     product_id: license.product_id,
+    ...(masterKey && machine_id
+      ? { encrypted_master_key: encryptMasterKey(masterKey, machine_id) }
+      : {}),
   });
 }
