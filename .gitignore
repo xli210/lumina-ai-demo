@@ -42,3 +42,9 @@ next-env.d.ts
 .cursor/rules/codacy.mdc
 test.zip
 .codacy/
+
+# Desktop app secrets & runtime files (never commit)
+.license
+.machine_lock
+.download_status
+.hf_download_cache/

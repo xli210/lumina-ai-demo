@@ -6,6 +6,8 @@ export interface Product {
   features: string[]
   /** Maximum number of machines this license can be activated on */
   maxActivations: number
+  /** Environment variable name for this product's master encryption key */
+  masterKeyEnv: string
 }
 
 export const PRODUCTS: Product[] = [
@@ -22,6 +24,7 @@ export const PRODUCTS: Product[] = [
       "All future updates included",
     ],
     maxActivations: 1,
+    masterKeyEnv: "LICENSE_MASTER_KEY_LUMINA_AI",
   },
   {
     id: "ocr-demo",
@@ -36,5 +39,6 @@ export const PRODUCTS: Product[] = [
       "All future updates included",
     ],
     maxActivations: 1,
+    masterKeyEnv: "LICENSE_MASTER_KEY_OCR_DEMO",
   },
 ]

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { PRODUCTS } from "@/lib/products";
 import crypto from "crypto";
 
 /**
@@ -20,6 +21,20 @@ function encryptMasterKey(masterKey: string, machineId: string): string {
   return Buffer.concat([iv, tag, enc]).toString("hex");
 }
 
+/**
+ * Resolve the master encryption key for a given product.
+ * Checks the per-product env var first, then falls back to the global key.
+ */
+function getMasterKeyForProduct(productId: string): string | undefined {
+  const product = PRODUCTS.find((p) => p.id === productId);
+  if (product) {
+    const perProductKey = process.env[product.masterKeyEnv];
+    if (perProductKey) return perProductKey;
+  }
+  // Fallback to global key (legacy / single-product setups)
+  return process.env.LICENSE_MASTER_KEY;
+}
+
 export async function POST(req: NextRequest) {
   let body: Record<string, unknown>;
   try {
@@ -32,17 +47,28 @@ export async function POST(req: NextRequest) {
     license_key,
     machine_id,
     machine_label,
+    product_id,
     force_takeover,
   } = body as {
     license_key?: string;
     machine_id?: string;
     machine_label?: string;
+    product_id?: string;
     force_takeover?: boolean;
   };
 
-  if (!license_key || !machine_id) {
+  if (!license_key || !machine_id || !product_id) {
     return NextResponse.json(
-      { error: "Missing license_key or machine_id" },
+      { error: "Missing license_key, machine_id, or product_id" },
+      { status: 400 }
+    );
+  }
+
+  // Validate that the product_id is a known product
+  const knownProduct = PRODUCTS.find((p) => p.id === product_id);
+  if (!knownProduct) {
+    return NextResponse.json(
+      { error: "Unknown product" },
       { status: 400 }
     );
   }
@@ -58,6 +84,14 @@ export async function POST(req: NextRequest) {
 
   if (!license || error) {
     return NextResponse.json({ error: "Invalid license key" }, { status: 404 });
+  }
+
+  // 2. Verify the license belongs to the requested product
+  if (license.product_id !== product_id) {
+    return NextResponse.json(
+      { error: "This license key is not valid for this application." },
+      { status: 403 }
+    );
   }
 
   if (license.is_revoked) {
@@ -83,7 +117,7 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // 2. Check if this machine is already activated
+  // 3. Check if this machine is already activated
   const { data: existingActivation } = await supabase
     .from("activations")
     .select("*")
@@ -98,7 +132,7 @@ export async function POST(req: NextRequest) {
       .update({ last_seen_at: new Date().toISOString() })
       .eq("id", existingActivation.id);
 
-    const masterKey = process.env.LICENSE_MASTER_KEY;
+    const masterKey = getMasterKeyForProduct(license.product_id);
     return NextResponse.json({
       status: "activated",
       message: "Machine already activated",
@@ -110,7 +144,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  // 3. Count current activations
+  // 4. Count current activations
   const { count } = await supabase
     .from("activations")
     .select("*", { count: "exact", head: true })
@@ -157,14 +191,14 @@ export async function POST(req: NextRequest) {
       .eq("id", license.id);
   }
 
-  // 4. Create the activation
+  // 5. Create the activation
   await supabase.from("activations").insert({
     license_id: license.id,
     machine_id,
     machine_label: machine_label || null,
   });
 
-  const masterKey = process.env.LICENSE_MASTER_KEY;
+  const masterKey = getMasterKeyForProduct(license.product_id);
 
   return NextResponse.json({
     status: "activated",

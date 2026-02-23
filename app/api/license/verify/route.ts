@@ -9,9 +9,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const { license_key, machine_id } = body as {
+  const { license_key, machine_id, product_id } = body as {
     license_key?: string;
     machine_id?: string;
+    product_id?: string;
   };
 
   if (!license_key || !machine_id) {
@@ -33,6 +34,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       { valid: false, error: "Invalid license" },
       { status: 404 }
+    );
+  }
+
+  // If the client sent a product_id, verify it matches the license
+  if (product_id && license.product_id !== product_id) {
+    return NextResponse.json(
+      { valid: false, error: "License does not belong to this application" },
+      { status: 403 }
     );
   }
 
