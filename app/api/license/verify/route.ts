@@ -37,14 +37,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // If the client sent a product_id, verify it matches the license
-  if (product_id && license.product_id !== product_id) {
-    return NextResponse.json(
-      { valid: false, error: "License does not belong to this application" },
-      { status: 403 }
-    );
-  }
-
   if (license.is_revoked) {
     return NextResponse.json(
       { valid: false, error: "License revoked" },
@@ -52,11 +44,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Check if user is banned
+  // Check user status (ban + admin role)
+  let isAdmin = false;
   if (license.user_id) {
     const { data: profile } = await supabase
       .from("profiles")
-      .select("is_banned")
+      .select("is_banned, role")
       .eq("id", license.user_id)
       .single();
 
@@ -66,6 +59,17 @@ export async function POST(req: NextRequest) {
         { status: 403 }
       );
     }
+
+    isAdmin = profile?.role === "admin";
+  }
+
+  // If the client sent a product_id, verify it matches the license
+  // Admin users have "super license" — skip this check
+  if (!isAdmin && product_id && license.product_id !== product_id) {
+    return NextResponse.json(
+      { valid: false, error: "License does not belong to this application" },
+      { status: 403 }
+    );
   }
 
   const { data: activation } = await supabase

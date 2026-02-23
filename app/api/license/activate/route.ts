@@ -86,14 +86,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid license key" }, { status: 404 });
   }
 
-  // 2. Verify the license belongs to the requested product
-  if (license.product_id !== product_id) {
-    return NextResponse.json(
-      { error: "This license key is not valid for this application." },
-      { status: 403 }
-    );
-  }
-
   if (license.is_revoked) {
     return NextResponse.json(
       { error: "This license has been revoked" },
@@ -101,11 +93,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Check if the user is banned
+  // Look up the license owner's profile (role + ban status)
+  let isAdmin = false;
   if (license.user_id) {
     const { data: profile } = await supabase
       .from("profiles")
-      .select("is_banned")
+      .select("is_banned, role")
       .eq("id", license.user_id)
       .single();
 
@@ -115,7 +108,22 @@ export async function POST(req: NextRequest) {
         { status: 403 }
       );
     }
+
+    isAdmin = profile?.role === "admin";
   }
+
+  // 2. Verify the license belongs to the requested product
+  //    Admin users have "super license" — any of their licenses works for any product.
+  if (!isAdmin && license.product_id !== product_id) {
+    return NextResponse.json(
+      { error: "This license key is not valid for this application." },
+      { status: 403 }
+    );
+  }
+
+  // For admin super-license: the "effective product" is the one being activated,
+  // so the correct per-product master key is returned to the desktop app.
+  const effectiveProductId = isAdmin ? product_id : license.product_id;
 
   // 3. Check if this machine is already activated
   const { data: existingActivation } = await supabase
@@ -132,12 +140,13 @@ export async function POST(req: NextRequest) {
       .update({ last_seen_at: new Date().toISOString() })
       .eq("id", existingActivation.id);
 
-    const masterKey = getMasterKeyForProduct(license.product_id);
+    const masterKey = getMasterKeyForProduct(effectiveProductId);
     return NextResponse.json({
       status: "activated",
       message: "Machine already activated",
       license_id: license.id,
-      product_id: license.product_id,
+      product_id: effectiveProductId,
+      ...(isAdmin ? { super_license: true } : {}),
       ...(masterKey && machine_id
         ? { encrypted_master_key: encryptMasterKey(masterKey, machine_id) }
         : {}),
@@ -198,13 +207,14 @@ export async function POST(req: NextRequest) {
     machine_label: machine_label || null,
   });
 
-  const masterKey = getMasterKeyForProduct(license.product_id);
+  const masterKey = getMasterKeyForProduct(effectiveProductId);
 
   return NextResponse.json({
     status: "activated",
     message: "Machine activated successfully",
     license_id: license.id,
-    product_id: license.product_id,
+    product_id: effectiveProductId,
+    ...(isAdmin ? { super_license: true } : {}),
     ...(masterKey && machine_id
       ? { encrypted_master_key: encryptMasterKey(masterKey, machine_id) }
       : {}),
