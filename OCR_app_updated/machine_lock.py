@@ -192,8 +192,12 @@ def _clear_lock() -> None:
 
 
 def is_activated() -> bool:
-    """Check if a valid .machine_lock file exists with an encrypted master key
-    AND the product_id matches this app."""
+    """Check if a valid .machine_lock file exists with a *decryptable* master
+    key AND the product_id matches this app.
+
+    Unlike a simple field-existence check, this actually tries to decrypt
+    the stored key so we catch corrupted / wrong-machine scenarios early.
+    """
     lock = _load_lock()
     if not lock:
         return False
@@ -204,7 +208,8 @@ def is_activated() -> bool:
     stored_product = lock.get("product_id")
     if stored_product and stored_product != PRODUCT_ID:
         return False
-    return True
+    # Actually verify the key is retrievable
+    return get_master_key() is not None
 
 
 def get_master_key() -> str | None:
@@ -461,6 +466,7 @@ def activate_or_verify() -> dict:
     """
     High-level check used at app startup:
       • If not activated → return needs_activation=True
+      • If lock exists but master key can't be decrypted → clear & re-activate
       • If activated for wrong product → clear & re-activate
       • If activated → try heartbeat (if due) → return ok
     """
@@ -475,6 +481,16 @@ def activate_or_verify() -> dict:
         return {"ok": False, "needs_activation": True,
                 "message": "This license was activated for a different application. "
                            "Please enter a license key for this product."}
+
+    # ── Critical: verify the master key is actually decryptable ──
+    # A lock file can look valid (mk_enc present) but still fail to
+    # decrypt — e.g. copied from another machine, corrupted, or left
+    # over from a code change.  Catch that BEFORE the GUI opens.
+    if get_master_key() is None:
+        _clear_lock()
+        return {"ok": False, "needs_activation": True,
+                "message": "Stored license data is invalid or corrupted. "
+                           "Please re-enter your license key."}
 
     # Check if heartbeat is due
     last_v = lock.get("last_verified", lock.get("activated_at", 0))

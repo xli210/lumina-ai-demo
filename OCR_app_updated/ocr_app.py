@@ -651,10 +651,22 @@ class OCRApp(tk.Tk):
                 # Detect runner crash
                 if self._runner_proc and self._runner_proc.poll() is not None:
                     exit_code = self._runner_proc.returncode
+                    flog(f"Runner crashed with exit code {exit_code}", "ERROR")
+
+                    # If the master key is missing/invalid, the runner will
+                    # crash because it can't decrypt the model.  Re-prompt
+                    # for activation instead of showing a generic crash msg.
+                    mk = machine_lock.get_master_key()
+                    if mk is None:
+                        flog("Runner crash likely caused by missing master key — "
+                             "re-prompting activation", "WARN")
+                        self.after(0, self._hide_progress)
+                        self.after(0, self._reactivate_and_retry)
+                        return
+
                     self.after(0, lambda ec=exit_code: self._set_status(
                         f"Runner crashed (exit code {ec}). Check GPU drivers or logs.", "err"))
                     self.after(0, self._hide_progress)
-                    flog(f"Runner crashed with exit code {exit_code}", "ERROR")
                     return
 
                 # Check if model_setup.py is writing download progress
@@ -704,6 +716,19 @@ class OCRApp(tk.Tk):
 
         self._start_task_refresh()
         self._start_log_refresh()
+
+    # ── Re-activation (runner crashed due to missing key) ──
+    def _reactivate_and_retry(self):
+        """If the runner crashed because the master key is missing/invalid,
+        show the activation dialog again and restart the runner on success."""
+        self._set_status("License issue detected — please re-activate.", "err")
+        machine_lock._clear_lock()  # wipe corrupted/stale lock
+        if self._show_activation_dialog():
+            flog("Re-activation succeeded, restarting runner")
+            self._set_status("Re-activated. Restarting runner...", "warn")
+            self.after(500, self._init_runner)
+        else:
+            self._set_status("Activation required. Cannot start without a valid license.", "err")
 
     # ── Deactivation ───────────────────────────────────────
     def _do_deactivate(self):
