@@ -1,6 +1,22 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
+/**
+ * Map raw Supabase/PKCE errors to user-friendly messages.
+ */
+function friendlyCallbackError(raw: string): string {
+  const lower = raw.toLowerCase();
+  if (lower.includes("pkce") || lower.includes("code verifier"))
+    return "Your sign-in link is no longer valid. This can happen if you opened it in a different browser. Please try signing in again.";
+  if (lower.includes("expired"))
+    return "Your link has expired. Please try again.";
+  if (lower.includes("already been used") || lower.includes("already used"))
+    return "This link has already been used. Please sign in or request a new link.";
+  if (lower.includes("rate limit") || lower.includes("too many"))
+    return "Too many attempts. Please wait a few minutes and try again.";
+  return raw;
+}
+
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
@@ -10,7 +26,7 @@ export async function GET(request: Request) {
 
   // If Supabase sent an error directly (e.g. access_denied)
   if (errorParam) {
-    const msg = errorDescription || errorParam;
+    const msg = friendlyCallbackError(errorDescription || errorParam);
     return NextResponse.redirect(
       `${origin}/auth/login?error=${encodeURIComponent(msg)}`
     );
@@ -26,11 +42,7 @@ export async function GET(request: Request) {
     if (!error) {
       return NextResponse.redirect(`${origin}${safeNext}`);
     }
-    // Code exchange failed — give a useful message
-    const msg =
-      error.message.toLowerCase().includes("expired")
-        ? "Your link has expired. Please try again."
-        : error.message;
+    const msg = friendlyCallbackError(error.message);
     return NextResponse.redirect(
       `${origin}/auth/login?error=${encodeURIComponent(msg)}`
     );
