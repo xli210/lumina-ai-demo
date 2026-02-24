@@ -65,7 +65,8 @@ export async function signup(formData: FormData) {
     email,
     password,
     options: {
-      emailRedirectTo: `${siteUrl}/account`,
+      // Must point to /auth/callback so the PKCE code can be exchanged
+      emailRedirectTo: `${siteUrl}/auth/callback`,
       data: {
         display_name: displayName,
       },
@@ -77,6 +78,57 @@ export async function signup(formData: FormData) {
   }
 
   redirect("/auth/sign-up-success");
+}
+
+export async function forgotPassword(formData: FormData) {
+  const supabase = await createClient();
+  const email = formData.get("email") as string;
+
+  if (!email) {
+    redirect("/auth/forgot-password?error=Please+enter+your+email+address");
+  }
+
+  const siteUrl = await getSiteUrl();
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${siteUrl}/auth/callback?next=/auth/reset-password`,
+  });
+
+  if (error) {
+    redirect(
+      `/auth/forgot-password?error=${encodeURIComponent(error.message)}`
+    );
+  }
+
+  redirect("/auth/forgot-password?success=true");
+}
+
+export async function updatePassword(formData: FormData) {
+  const supabase = await createClient();
+  const password = formData.get("password") as string;
+  const confirmPassword = formData.get("confirmPassword") as string;
+
+  if (!password || password.length < 6) {
+    redirect(
+      "/auth/reset-password?error=Password+must+be+at+least+6+characters"
+    );
+  }
+
+  if (password !== confirmPassword) {
+    redirect("/auth/reset-password?error=Passwords+do+not+match");
+  }
+
+  const { error } = await supabase.auth.updateUser({ password });
+
+  if (error) {
+    redirect(
+      `/auth/reset-password?error=${encodeURIComponent(error.message)}`
+    );
+  }
+
+  redirect(
+    "/auth/login?message=Password+updated+successfully.+Please+sign+in."
+  );
 }
 
 export async function signInWithGoogle() {
