@@ -91,7 +91,11 @@ export async function forgotPassword(formData: FormData) {
   const siteUrl = await getSiteUrl();
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${siteUrl}/auth/callback?next=/auth/reset-password`,
+    // Redirect directly to the reset-password page — it will handle the
+    // Supabase auth code exchange on the client side.  Going through
+    // /auth/callback?next=… breaks because Supabase appends ?code= to a
+    // URL that already has query parameters.
+    redirectTo: `${siteUrl}/auth/reset-password`,
   });
 
   if (error) {
