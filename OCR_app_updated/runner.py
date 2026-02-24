@@ -151,8 +151,11 @@ def _resolve_engine() -> str:
         license_key = _read_license()
         if not license_key:
             raise RuntimeError(
-                "No master key found. Please activate your license first "
-                "(run launch_app.py and enter your license key)."
+                "No master key found. Your license needs to be activated.\n"
+                "  → Run 'Launch OCR.bat' (Windows) or 'python launch_app.py' (Linux/Mac)\n"
+                "     and enter your license key when prompted.\n"
+                "  If you previously activated, your stored license may have been\n"
+                "  deleted or corrupted. Re-entering your key will fix this."
             )
         if not verify_license(enc_dir, license_key):
             raise RuntimeError("Invalid license key.")

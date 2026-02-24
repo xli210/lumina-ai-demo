@@ -23,9 +23,11 @@ from urllib.request import Request, urlopen
 from urllib.error import URLError
 
 # ---------------------------------------------------------------------------
-# Paths
+# Paths & license module
 # ---------------------------------------------------------------------------
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, PROJECT_ROOT)
+import machine_lock  # noqa: E402
 WEB_DIR = os.path.join(PROJECT_ROOT, "web")
 RUNNER_SCRIPT = os.path.join(PROJECT_ROOT, "runner.py")
 OCR_APP_SCRIPT = os.path.join(PROJECT_ROOT, "ocr_app.py")
@@ -119,6 +121,180 @@ def stop_all():
                 proc.kill()
     server_process = None
     runner_process = None
+
+
+# ---------------------------------------------------------------------------
+# License activation gate (runs BEFORE any app/runner is started)
+# ---------------------------------------------------------------------------
+def _ensure_activated() -> bool:
+    """
+    Check if the machine has a valid, decryptable license.
+    If not, prompt the user to enter a license key (GUI if possible,
+    otherwise console).  Returns True if activation is confirmed.
+    """
+    check = machine_lock.activate_or_verify()
+    if check["ok"]:
+        return True
+
+    if not check.get("needs_activation"):
+        # Non-recoverable license error (e.g. banned)
+        msg = check.get("error", "Unknown license error.")
+        print(f"\n  [LICENSE ERROR] {msg}\n")
+        return False
+
+    # Prompt message (e.g. "Stored license data is invalid…")
+    prompt_msg = check.get("message", "")
+    if prompt_msg:
+        print(f"\n  {prompt_msg}\n")
+
+    # Try GUI activation dialog first, fall back to console
+    try:
+        return _activate_gui()
+    except Exception:
+        return _activate_console()
+
+
+def _activate_gui() -> bool:
+    """Show a tkinter activation dialog. Raises on import failure."""
+    import tkinter as tk
+    from tkinter import ttk, messagebox
+
+    root = tk.Tk()
+    root.title("Activate OCR Engine")
+    root.minsize(420, 220)
+    root.resizable(True, True)
+    try:
+        root.configure(bg="#1a1b26")
+    except Exception:
+        pass
+
+    icon_path = os.path.join(PROJECT_ROOT, "ocr_engine.ico")
+    if os.path.isfile(icon_path):
+        try:
+            root.iconbitmap(icon_path)
+        except Exception:
+            pass
+
+    style = ttk.Style()
+    try:
+        style.configure("Act.TLabel", background="#1a1b26", foreground="#c0caf5",
+                        font=("Segoe UI", 10))
+        style.configure("Act.TButton", font=("Segoe UI", 10))
+    except Exception:
+        pass
+
+    activated = [False]
+
+    ttk.Label(root, text="Enter your license key to activate:",
+              style="Act.TLabel", padding=(10, 15, 10, 5)).pack(fill=tk.X)
+
+    key_var = tk.StringVar()
+    entry = ttk.Entry(root, textvariable=key_var, font=("Consolas", 13),
+                      justify="center")
+    entry.pack(padx=20, pady=5, fill=tk.X)
+    entry.focus_set()
+
+    status_lbl = ttk.Label(root, text="", style="Act.TLabel",
+                           padding=5, wraplength=380)
+    status_lbl.pack(fill=tk.X)
+
+    btn_frame = ttk.Frame(root)
+    btn_frame.pack(pady=10)
+    btn_activate = ttk.Button(btn_frame, text="Activate", style="Act.TButton")
+    btn_activate.pack(side=tk.LEFT, padx=5)
+    btn_quit = ttk.Button(btn_frame, text="Quit", style="Act.TButton",
+                          command=root.destroy)
+    btn_quit.pack(side=tk.LEFT, padx=5)
+
+    def do_activate():
+        key = key_var.get().strip()
+        if not key:
+            status_lbl.config(text="Please enter a license key.")
+            return
+        btn_activate.state(["disabled"])
+        status_lbl.config(text="Contacting activation server...")
+        root.update()
+
+        result = machine_lock.activate_online(key)
+
+        if result["ok"]:
+            activated[0] = True
+            status_lbl.config(text="Activated successfully!")
+            root.update()
+            time.sleep(1)
+            root.destroy()
+            return
+
+        if result.get("error") == "activation_limit_reached":
+            answer = messagebox.askyesno(
+                "Activation Limit",
+                f"{result['message']}\n\nDeactivate other machines and bind this one?",
+                parent=root,
+            )
+            if answer:
+                status_lbl.config(text="Force takeover in progress...")
+                root.update()
+                r2 = machine_lock.activate_online(key, force_takeover=True)
+                if r2["ok"]:
+                    activated[0] = True
+                    status_lbl.config(text="Activated (previous machines deactivated).")
+                    root.update()
+                    time.sleep(1)
+                    root.destroy()
+                    return
+                status_lbl.config(text=r2.get("message", "Force takeover failed."))
+            else:
+                status_lbl.config(text="Activation cancelled.")
+        else:
+            status_lbl.config(text=result.get("message", "Activation failed."))
+
+        btn_activate.state(["!disabled"])
+
+    btn_activate.config(command=do_activate)
+    entry.bind("<Return>", lambda _: do_activate())
+    root.protocol("WM_DELETE_WINDOW", root.destroy)
+    root.mainloop()
+    return activated[0]
+
+
+def _activate_console() -> bool:
+    """Console-mode activation prompt."""
+    print("\n" + "=" * 50)
+    print("  OCR Engine — License Activation Required")
+    print("=" * 50)
+
+    for attempt in range(3):
+        try:
+            key = input("\n  Enter license key (or 'q' to quit): ").strip()
+        except (EOFError, KeyboardInterrupt):
+            return False
+        if not key or key.lower() == "q":
+            return False
+
+        print("  Contacting activation server...")
+        result = machine_lock.activate_online(key)
+
+        if result["ok"]:
+            print("  ✓ Activated successfully!\n")
+            return True
+
+        if result.get("error") == "activation_limit_reached":
+            try:
+                answer = input("  Activation limit reached. Force takeover? (y/n): ").strip().lower()
+            except (EOFError, KeyboardInterrupt):
+                return False
+            if answer == "y":
+                r2 = machine_lock.activate_online(key, force_takeover=True)
+                if r2["ok"]:
+                    print("  ✓ Activated (previous machines deactivated)!\n")
+                    return True
+                print(f"  ✗ {r2.get('message', 'Force takeover failed.')}")
+            continue
+
+        print(f"  ✗ {result.get('message', 'Activation failed.')}")
+
+    print("\n  Too many failed attempts.\n")
+    return False
 
 
 # ---------------------------------------------------------------------------
@@ -255,6 +431,11 @@ def run_launcher_console():
 # Main
 # ---------------------------------------------------------------------------
 def main():
+    # ── Activation gate — MUST pass before anything starts ──
+    if not _ensure_activated():
+        print("License activation required. Exiting.")
+        sys.exit(1)
+
     use_web = "--web" in sys.argv
     use_console = "--no-gui" in sys.argv
 
