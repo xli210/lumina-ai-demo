@@ -8,7 +8,8 @@ import { existsSync } from "fs";
 // Map allowed filenames to their product_id for license verification
 const FILE_PRODUCT_MAP: Record<string, string> = {
   "LuminaAI-3.2.1.zip": "lumina-ai",
-  "OCR_Demo0.0.01.zip": "ocr-demo",
+  "OCR_Demo0.0.02.zip": "ocr-demo",
+  "FLUX_Klein-1.0.0.zip": "flux-klein",
 };
 
 const ALLOWED_FILES = Object.keys(FILE_PRODUCT_MAP);
