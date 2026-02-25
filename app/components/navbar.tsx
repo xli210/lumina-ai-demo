@@ -34,6 +34,12 @@ export async function Navbar() {
 
         <div className="hidden items-center gap-6 md:flex lg:gap-8">
           <Link
+            href="#demo"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Demo
+          </Link>
+          <Link
             href="#showcase"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >

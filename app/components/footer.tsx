@@ -16,6 +16,12 @@ export function Footer() {
 
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
           <Link
+            href="#demo"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            Demo
+          </Link>
+          <Link
             href="#showcase"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >

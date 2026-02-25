@@ -1,5 +1,6 @@
 import { Navbar } from "./components/navbar";
 import { HeroSection } from "./components/hero-section";
+import { DemoSection } from "./components/demo-section";
 import { ShowcaseSection } from "./components/showcase-section";
 import { HowItWorksSection } from "./components/how-it-works-section";
 import { FeaturesSection } from "./components/features-section";
@@ -11,6 +12,7 @@ export default function Page() {
     <main className="relative min-h-screen">
       <Navbar />
       <HeroSection />
+      <DemoSection />
       <ShowcaseSection />
       <HowItWorksSection />
       <FeaturesSection />
