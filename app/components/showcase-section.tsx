@@ -6,58 +6,70 @@ import { Play, Maximize2, Sparkles } from "lucide-react";
 
 const gallery = [
   {
-    src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&h=1100&fit=crop&q=85",
-    alt: "AI-generated majestic mountain landscape at sunrise",
-    label: "Alpine Majesty",
+    src: "/images/showcase/gallery-1-lg.jpg",
+    width: 1000,
+    height: 1250,
+    alt: "AI-generated cosmic nebula with vibrant purple and blue hues",
+    label: "Cosmic Dreamscape",
     type: "image" as const,
     span: "col-span-2 row-span-2",
-    style: "Landscape",
-    prompt: "Majestic alpine peaks at golden hour",
+    style: "Cosmic",
+    prompt: "Deep space nebula, star formation, vibrant colors",
   },
   {
-    src: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&h=600&fit=crop&q=85",
-    alt: "AI-generated artistic portrait with dramatic lighting",
-    label: "Prismatic Portrait",
-    type: "image" as const,
-    span: "col-span-1 row-span-1",
-    style: "Portrait",
-    prompt: "Artistic portrait with prismatic light",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=600&h=600&fit=crop&q=85",
-    alt: "AI-generated futuristic neon cityscape",
-    label: "Neon Metropolis",
+    src: "/images/showcase/gallery-2-sq.jpg",
+    width: 800,
+    height: 800,
+    alt: "AI-generated futuristic neon tunnel with perspective",
+    label: "Neon Corridor",
     type: "video" as const,
     span: "col-span-1 row-span-1",
     style: "Sci-Fi",
-    prompt: "Cyberpunk city in neon rain",
+    prompt: "Futuristic neon tunnel with depth, cinematic",
   },
   {
-    src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=800&fit=crop&q=85",
-    alt: "AI-generated cosmic Earth visualization with data networks",
-    label: "Digital Earth",
-    type: "image" as const,
-    span: "col-span-1 row-span-2",
-    style: "Cosmic",
-    prompt: "Earth from orbit with neural networks",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1635776062127-d379bfcba9f8?w=600&h=600&fit=crop&q=85",
-    alt: "AI-generated vibrant abstract color explosion",
-    label: "Chromatic Burst",
+    src: "/images/showcase/gallery-3-sq.jpg",
+    width: 800,
+    height: 800,
+    alt: "AI-generated liquid glass morphism in gradient colors",
+    label: "Liquid Glass",
     type: "image" as const,
     span: "col-span-1 row-span-1",
     style: "Abstract",
-    prompt: "Explosion of iridescent pigments",
+    prompt: "Liquid glass with iridescent gradient, 4k",
   },
   {
-    src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&h=600&fit=crop&q=85",
-    alt: "AI-generated mystical misty forest landscape",
-    label: "Enchanted Forest",
+    src: "/images/showcase/gallery-4-tall.jpg",
+    width: 800,
+    height: 1000,
+    alt: "AI-generated vibrant neon cityscape at night",
+    label: "Neon Metropolis",
+    type: "image" as const,
+    span: "col-span-1 row-span-2",
+    style: "Cyberpunk",
+    prompt: "Cyberpunk city, neon rain, night atmosphere",
+  },
+  {
+    src: "/images/showcase/gallery-5-sq.jpg",
+    width: 800,
+    height: 800,
+    alt: "AI-generated digital matrix code visualization",
+    label: "Digital Matrix",
     type: "image" as const,
     span: "col-span-1 row-span-1",
-    style: "Nature",
-    prompt: "Mystical forest with volumetric fog",
+    style: "Data Art",
+    prompt: "Matrix data streams, green on black, cinematic",
+  },
+  {
+    src: "/images/showcase/gallery-6-sq.jpg",
+    width: 800,
+    height: 800,
+    alt: "AI-generated vibrant color explosion and paint splash",
+    label: "Chromatic Burst",
+    type: "video" as const,
+    span: "col-span-1 row-span-1",
+    style: "Abstract",
+    prompt: "Explosion of iridescent pigment in slow motion",
   },
 ];
 
@@ -72,26 +84,28 @@ export function ShowcaseSection() {
         <div className="absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-[150px]" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl">
-        <div className="mb-16 text-center">
+      {/* ── Constrained container so text & grid feel balanced ── */}
+      <div className="relative mx-auto max-w-6xl">
+        {/* Header — wider text area */}
+        <div className="mb-14 text-center">
           <p className="mb-3 text-sm font-medium uppercase tracking-widest text-primary">
             Gallery
           </p>
-          <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+          <h2 className="mb-5 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
             See What&apos;s{" "}
             <span className="bg-gradient-to-r from-primary via-purple-400 to-cyan-400 bg-clip-text text-transparent">
               Possible
             </span>
           </h2>
-          <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
+          <p className="mx-auto max-w-3xl text-pretty text-base text-muted-foreground sm:text-lg">
             Every image below was generated locally — no cloud, no API calls.
             From photorealistic landscapes to creative abstracts, explore what
             your GPU can create.
           </p>
         </div>
 
-        {/* Bento Grid */}
-        <div className="grid auto-rows-[220px] grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:auto-rows-[260px] lg:grid-cols-4">
+        {/* Bento Grid — narrower (max-w-6xl) so it matches the text width */}
+        <div className="grid auto-rows-[200px] grid-cols-2 gap-3 sm:auto-rows-[220px] sm:gap-4 md:grid-cols-3 lg:auto-rows-[240px] lg:grid-cols-4">
           {gallery.map((item, index) => (
             <div
               key={item.src}
@@ -126,7 +140,7 @@ export function ShowcaseSection() {
                 </div>
               )}
 
-              {/* Style tag - always visible */}
+              {/* Style tag */}
               <div className="absolute top-3 left-3">
                 <span className="rounded-full bg-black/30 backdrop-blur-md px-3 py-1 text-[10px] font-medium text-white/90 border border-white/10 sm:text-xs">
                   {item.style}

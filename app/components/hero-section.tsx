@@ -8,24 +8,24 @@ import { ArrowRight, Download, Sparkles, Shield, Cpu } from "lucide-react";
 
 const showcaseImages = [
   {
-    src: "https://images.unsplash.com/photo-1682687982501-1e58ab814714?w=800&h=1000&fit=crop&q=85",
-    alt: "AI-generated surreal landscape with dramatic lighting",
-    prompt: '"Surreal alpine valley at golden hour, cinematic"',
+    src: "/images/showcase/hero-1.jpg",
+    alt: "AI-generated deep space galaxy with vibrant nebula colors",
+    prompt: '"Deep space nebula with stellar nursery, 8k"',
   },
   {
-    src: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&h=1000&fit=crop&q=85",
-    alt: "AI-generated artistic portrait with vibrant colors",
-    prompt: '"Artistic portrait with prismatic light effects"',
+    src: "/images/showcase/hero-2.jpg",
+    alt: "AI-generated artistic double-exposure portrait",
+    prompt: '"Double exposure portrait with city skyline overlay"',
   },
   {
-    src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=1000&fit=crop&q=85",
-    alt: "AI-generated cosmic visualization of Earth",
-    prompt: '"Earth from orbit with aurora and city lights"',
+    src: "/images/showcase/hero-3.jpg",
+    alt: "AI-generated northern lights aurora over mountains",
+    prompt: '"Aurora borealis over volcanic landscape, cinematic"',
   },
   {
-    src: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=800&h=1000&fit=crop&q=85",
-    alt: "AI-generated abstract fluid art",
-    prompt: '"Abstract fluid dynamics in iridescent colors"',
+    src: "/images/showcase/hero-4.jpg",
+    alt: "AI-generated abstract geometric light composition",
+    prompt: '"Abstract prisms refracting light, minimalist"',
   },
 ];
 
@@ -93,9 +93,10 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
       </div>
 
-      <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center gap-12 lg:flex-row lg:items-center lg:gap-20">
-        {/* Text content */}
-        <div className="flex max-w-xl flex-1 flex-col items-center text-center lg:items-start lg:text-left">
+      {/* ── Main content: text-heavy left (60%) + image right (40%) ── */}
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-12 lg:flex-row lg:items-center lg:gap-16">
+        {/* Text content — takes 60% on desktop */}
+        <div className="flex w-full flex-[3] flex-col items-center text-center lg:items-start lg:text-left">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full glass-subtle px-4 py-2 text-sm text-muted-foreground animate-fade-in">
             <Sparkles className="h-4 w-4 text-primary animate-spin-slow" />
             <span>Local AI Creative Suite</span>
@@ -118,13 +119,13 @@ export function HeroSection() {
           </h1>
 
           <p
-            className="mb-8 max-w-md text-pretty text-base leading-relaxed text-muted-foreground opacity-0 animate-fade-in sm:text-lg"
+            className="mb-8 max-w-lg text-pretty text-base leading-relaxed text-muted-foreground opacity-0 animate-fade-in sm:text-lg"
             style={{ animationDelay: "0.2s" }}
           >
-            Generate stunning images, extract text from any document, and unleash
-            AI creativity — all running{" "}
-            <span className="font-medium text-foreground">100% locally</span> on
-            your machine. No cloud. No data leaves your computer.
+            Generate stunning images, extract text from any document, and
+            unleash AI creativity — all running{" "}
+            <span className="font-medium text-foreground">100% locally</span>{" "}
+            on your machine. No cloud. No data leaves your computer.
           </p>
 
           <div
@@ -202,13 +203,13 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Showcase image carousel */}
+        {/* Showcase image carousel — takes 40% on desktop, capped width */}
         <div
-          className="relative w-full max-w-sm flex-1 opacity-0 animate-fade-in sm:max-w-md"
+          className="relative w-full flex-[2] opacity-0 animate-fade-in lg:max-w-[380px] xl:max-w-[420px]"
           style={{ animationDelay: "0.3s" }}
         >
           <div
-            className="relative mx-auto aspect-[4/5] w-full overflow-hidden rounded-3xl glass-strong shadow-2xl shadow-primary/10"
+            className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-3xl glass-strong shadow-2xl shadow-primary/10 lg:max-w-none"
             style={{
               transform: `perspective(1000px) rotateY(${mousePos.x * 0.1}deg) rotateX(${mousePos.y * -0.1}deg)`,
               transition: "transform 0.3s ease-out",
@@ -230,7 +231,7 @@ export function HeroSection() {
                   fill
                   className="object-cover"
                   priority={i === 0}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 448px"
+                  sizes="(max-width: 1024px) 384px, 420px"
                 />
               </div>
             ))}
