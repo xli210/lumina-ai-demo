@@ -1,4 +1,4 @@
-import { Tag, Sparkles, Bug, Zap, ScanText } from "lucide-react";
+import { Tag, Sparkles, Bug, Zap, ScanText, ImagePlus } from "lucide-react";
 
 interface ReleaseChange {
   type: "feature" | "improvement" | "fix";
@@ -26,19 +26,9 @@ const appReleases: AppRelease[] = [
     gradient: "from-primary to-blue-400",
     releases: [
       {
-        version: "3.2.2",
-        date: "February 24, 2026",
-        tag: "Latest",
-        changes: [
-          { type: "feature", text: "Product-bound license activation — licenses are now tied to each product" },
-          { type: "improvement", text: "Enhanced license security with per-product master keys" },
-          { type: "improvement", text: "Improved error messages during activation and model download" },
-          { type: "fix", text: "Fixed cross-product license activation vulnerability" },
-        ],
-      },
-      {
         version: "3.2.1",
         date: "February 8, 2026",
+        tag: "Latest",
         changes: [
           { type: "feature", text: "New cinematic video generation mode with 4K output" },
           { type: "feature", text: "Added 25 new creative style presets (Manga, Baroque, etc.)" },
@@ -84,6 +74,25 @@ const appReleases: AppRelease[] = [
           { type: "feature", text: "Multi-language support (English, Chinese, Japanese, Korean, and more)" },
           { type: "feature", text: "Runs entirely offline — no data leaves your machine" },
           { type: "improvement", text: "Optimized for low-resource devices" },
+        ],
+      },
+    ],
+  },
+  {
+    app: "FLUX.2 Klein",
+    icon: ImagePlus,
+    gradient: "from-violet-500 to-fuchsia-400",
+    releases: [
+      {
+        version: "1.0.0",
+        date: "February 24, 2026",
+        tag: "Initial Release",
+        changes: [
+          { type: "feature", text: "Text-to-image generation with FLUX.2 Klein 4B model" },
+          { type: "feature", text: "Image-to-image generation with reference photos" },
+          { type: "feature", text: "Product-bound license activation for secure model protection" },
+          { type: "feature", text: "Streaming DiT mode for GPUs with less than 12 GB VRAM" },
+          { type: "feature", text: "Runs 100% locally on your GPU — no cloud dependency" },
         ],
       },
     ],

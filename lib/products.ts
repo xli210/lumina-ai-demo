@@ -41,4 +41,19 @@ export const PRODUCTS: Product[] = [
     maxActivations: 1,
     masterKeyEnv: "LICENSE_MASTER_KEY_OCR_DEMO",
   },
+  {
+    id: "flux-klein",
+    name: "FLUX.2 Klein",
+    description:
+      "AI Image Generation — Generate stunning images from text prompts with the FLUX.2 Klein 4B model, running locally on your GPU.",
+    priceInCents: 0,
+    features: [
+      "Text-to-image generation",
+      "Image-to-image with reference photos",
+      "Runs 100% locally on your GPU",
+      "All future updates included",
+    ],
+    maxActivations: 1,
+    masterKeyEnv: "LICENSE_MASTER_KEY_FLUX_KLEIN",
+  },
 ]

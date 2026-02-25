@@ -47,7 +47,7 @@ HEARTBEAT_INTERVAL_DAYS = 14 # silent background re-verify interval
 #     (see lib/products.ts).  A license for a different product will be
 #     rejected by the server.
 # ---------------------------------------------------------------------------
-PRODUCT_ID = "lumina-ai"
+PRODUCT_ID = "flux-klein"
 
 # ---------------------------------------------------------------------------
 # Hardware fingerprint
