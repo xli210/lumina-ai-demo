@@ -1,0 +1,19 @@
+model_list:
+  - name: "paddleocr-vl-1.5"
+    serve_name: "OCR Engine"
+    type: "PaddleOCR-VL-1.5"
+    framework: "transformers"
+    multigpu: false
+    tasks:
+      - ocr
+      - table
+      - formula
+      - chart
+      - spotting
+      - seal
+    model_paths:
+      - models
+    dtype_priority:
+      - bfloat16    # Ampere+ (RTX 30xx, A100, RTX 40xx)
+      - float16     # Turing/Volta (RTX 20xx, GTX 16xx)
+      - float32     # CPU fallback

@@ -26,9 +26,19 @@ const appReleases: AppRelease[] = [
     gradient: "from-primary to-blue-400",
     releases: [
       {
+        version: "3.2.2",
+        date: "February 24, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "feature", text: "Product-bound license activation — licenses are now tied to each product" },
+          { type: "improvement", text: "Enhanced license security with per-product master keys" },
+          { type: "improvement", text: "Improved error messages during activation and model download" },
+          { type: "fix", text: "Fixed cross-product license activation vulnerability" },
+        ],
+      },
+      {
         version: "3.2.1",
         date: "February 8, 2026",
-        tag: "Latest",
         changes: [
           { type: "feature", text: "New cinematic video generation mode with 4K output" },
           { type: "feature", text: "Added 25 new creative style presets (Manga, Baroque, etc.)" },
@@ -53,6 +63,17 @@ const appReleases: AppRelease[] = [
     icon: ScanText,
     gradient: "from-emerald-500 to-teal-400",
     releases: [
+      {
+        version: "0.0.02",
+        date: "February 24, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "feature", text: "Product-bound license activation — licenses are now tied to each product" },
+          { type: "improvement", text: "Enhanced license security with per-product master keys" },
+          { type: "improvement", text: "Improved error messages during activation and model download" },
+          { type: "fix", text: "Fixed cross-product license activation vulnerability" },
+        ],
+      },
       {
         version: "0.0.01",
         date: "February 12, 2026",
