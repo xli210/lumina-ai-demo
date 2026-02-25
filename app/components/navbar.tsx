@@ -22,22 +22,28 @@ export async function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-strong">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
-            <Sparkles className="h-5 w-5 text-primary-foreground" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary sm:h-9 sm:w-9">
+            <Sparkles className="h-4 w-4 text-primary-foreground sm:h-5 sm:w-5" />
           </div>
-          <span className="text-lg font-semibold tracking-tight text-foreground">
+          <span className="text-base font-semibold tracking-tight text-foreground sm:text-lg">
             Lumina AI
           </span>
         </Link>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-6 md:flex lg:gap-8">
           <Link
             href="#showcase"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
-            Showcase
+            Gallery
+          </Link>
+          <Link
+            href="#how-it-works"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            How It Works
           </Link>
           <Link
             href="#features"
@@ -49,7 +55,7 @@ export async function Navbar() {
             href="#pricing"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
-            Pricing
+            Apps
           </Link>
           <Link
             href="/download"
@@ -59,7 +65,7 @@ export async function Navbar() {
           </Link>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           {user ? (
             <NavbarUserMenu user={user} isAdmin={isAdmin} />
           ) : (
@@ -68,13 +74,15 @@ export async function Navbar() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-xs text-muted-foreground hover:text-foreground sm:text-sm"
                 >
                   Sign In
                 </Button>
               </Link>
               <Link href="/auth/sign-up">
-                <Button size="sm">Get Started</Button>
+                <Button size="sm" className="text-xs sm:text-sm">
+                  Get Started
+                </Button>
               </Link>
             </>
           )}

@@ -14,41 +14,47 @@ export function Footer() {
           </span>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
           <Link
             href="#showcase"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Showcase
+            Gallery
+          </Link>
+          <Link
+            href="#how-it-works"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            How It Works
           </Link>
           <Link
             href="#features"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
             Features
           </Link>
           <Link
             href="#pricing"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Pricing
+            Apps
           </Link>
           <Link
             href="/download"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
             Download
           </Link>
           <Link
             href="/auth/login"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
             Sign In
           </Link>
         </div>
 
         <p className="text-xs text-muted-foreground">
-          {new Date().getFullYear()} Lumina AI. All rights reserved.
+          &copy; {new Date().getFullYear()} Lumina AI. All rights reserved.
         </p>
       </div>
     </footer>

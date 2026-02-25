@@ -127,6 +127,17 @@ html {
   animation: gradient-shift 4s ease-in-out infinite;
 }
 
+/* Selection color */
+::selection {
+  background: hsl(215, 100%, 55% / 0.25);
+}
+
+/* Smoother font rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* Custom scrollbar for dark mode */
 .dark ::-webkit-scrollbar {
   width: 8px;
