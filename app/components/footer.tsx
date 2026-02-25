@@ -16,31 +16,31 @@ export function Footer() {
 
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
           <Link
-            href="#demo"
+            href="/#demo"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
             Demo
           </Link>
           <Link
-            href="#showcase"
+            href="/#showcase"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
             Gallery
           </Link>
           <Link
-            href="#how-it-works"
+            href="/#how-it-works"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
             How It Works
           </Link>
           <Link
-            href="#features"
+            href="/#features"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
             Features
           </Link>
           <Link
-            href="#pricing"
+            href="/#pricing"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
             Apps

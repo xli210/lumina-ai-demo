@@ -34,31 +34,31 @@ export async function Navbar() {
 
         <div className="hidden items-center gap-6 md:flex lg:gap-8">
           <Link
-            href="#demo"
+            href="/#demo"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             Demo
           </Link>
           <Link
-            href="#showcase"
+            href="/#showcase"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             Gallery
           </Link>
           <Link
-            href="#how-it-works"
+            href="/#how-it-works"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             How It Works
           </Link>
           <Link
-            href="#features"
+            href="/#features"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             Features
           </Link>
           <Link
-            href="#pricing"
+            href="/#pricing"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             Apps
