@@ -84,10 +84,11 @@ const appReleases: AppRelease[] = [
     gradient: "from-violet-500 to-fuchsia-400",
     releases: [
       {
-        version: "1.0.2",
-        date: "February 25, 2026",
-        tag: "Update",
+        version: "1.0.3",
+        date: "February 26, 2026",
+        tag: "Latest",
         changes: [
+          { type: "improvement", text: "Updated installer package for improved setup experience" },
           { type: "feature", text: "Text-to-image generation with FLUX.2 Klein 4B model" },
           { type: "feature", text: "Image-to-image generation with reference photos" },
           { type: "feature", text: "Product-bound license activation for secure model protection" },

@@ -9,7 +9,7 @@ import { existsSync } from "fs";
 const FILE_PRODUCT_MAP: Record<string, string> = {
   "LuminaAI-3.2.1.zip": "lumina-ai",
   "OCR_Demo0.0.02.zip": "ocr-demo",
-  "FLUX_Klein-1.0.2.zip": "flux-klein",
+  "FLUX_Klein-1.0.3.zip": "flux-klein",
   "LTX2_Video-1.0.1.zip": "ltx-video",
 };
 
