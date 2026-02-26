@@ -103,9 +103,9 @@ const appReleases: AppRelease[] = [
     gradient: "from-orange-500 to-amber-400",
     releases: [
       {
-        version: "1.0.0",
-        date: "February 25, 2026",
-        tag: "Initial Release",
+        version: "1.0.1",
+        date: "February 26, 2026",
+        tag: "Update",
         changes: [
           { type: "feature", text: "Text-to-video generation with LTX-2 19B model (distilled 8-step & dev)" },
           { type: "feature", text: "Image-to-video generation with IC-LoRA structural control" },

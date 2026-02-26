@@ -131,7 +131,7 @@ const apps: AppInfo[] = [
     description:
       "Create stunning videos from text prompts or images using the LTX-2 19B model. Supports text-to-video, image-to-video, keyframe interpolation, and camera control LoRAs — all running 100% locally on your GPU.",
     icon: Video,
-    version: "1.0.0",
+    version: "1.0.1",
     gradient: "from-orange-500 to-amber-400",
     shadowColor: "shadow-orange-500/25",
     badge: "New",
@@ -139,8 +139,8 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "LTX2_Video-1.0.0.zip",
-        downloadUrl: "/api/downloads/LTX2_Video-1.0.0.zip",
+        fileName: "LTX2_Video-1.0.1.zip",
+        downloadUrl: "/api/downloads/LTX2_Video-1.0.1.zip",
         size: "82 KB",
       },
     ],
