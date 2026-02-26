@@ -56,4 +56,19 @@ export const PRODUCTS: Product[] = [
     maxActivations: 1,
     masterKeyEnv: "LICENSE_MASTER_KEY_FLUX_KLEIN",
   },
+  {
+    id: "ltx-video",
+    name: "LTX-2 Video Studio",
+    description:
+      "AI Video Generation — Create stunning videos from text prompts or images with the LTX-2 19B model, running 100% locally on your GPU.",
+    priceInCents: 0,
+    features: [
+      "Text-to-video generation",
+      "Image-to-video & keyframe interpolation",
+      "Camera control LoRAs (dolly, jib, static)",
+      "All future updates included",
+    ],
+    maxActivations: 1,
+    masterKeyEnv: "LICENSE_MASTER_KEY_LTX_VIDEO",
+  },
 ]

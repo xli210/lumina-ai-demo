@@ -10,6 +10,7 @@ const FILE_PRODUCT_MAP: Record<string, string> = {
   "LuminaAI-3.2.1.zip": "lumina-ai",
   "OCR_Demo0.0.02.zip": "ocr-demo",
   "FLUX_Klein-1.0.2.zip": "flux-klein",
+  "LTX2_Video-1.0.0.zip": "ltx-video",
 };
 
 const ALLOWED_FILES = Object.keys(FILE_PRODUCT_MAP);

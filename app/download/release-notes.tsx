@@ -1,4 +1,4 @@
-import { Tag, Sparkles, Bug, Zap, ScanText, ImagePlus } from "lucide-react";
+import { Tag, Sparkles, Bug, Zap, ScanText, ImagePlus, Video } from "lucide-react";
 
 interface ReleaseChange {
   type: "feature" | "improvement" | "fix";
@@ -93,6 +93,27 @@ const appReleases: AppRelease[] = [
           { type: "feature", text: "Product-bound license activation for secure model protection" },
           { type: "feature", text: "Streaming DiT mode for GPUs with less than 12 GB VRAM" },
           { type: "feature", text: "Runs 100% locally on your GPU — no cloud dependency" },
+        ],
+      },
+    ],
+  },
+  {
+    app: "LTX-2 Video Studio",
+    icon: Video,
+    gradient: "from-orange-500 to-amber-400",
+    releases: [
+      {
+        version: "1.0.0",
+        date: "February 25, 2026",
+        tag: "Initial Release",
+        changes: [
+          { type: "feature", text: "Text-to-video generation with LTX-2 19B model (distilled 8-step & dev)" },
+          { type: "feature", text: "Image-to-video generation with IC-LoRA structural control" },
+          { type: "feature", text: "Keyframe interpolation — morph between two images" },
+          { type: "feature", text: "Camera control LoRAs (dolly in/out/left/right, jib up/down, static)" },
+          { type: "feature", text: "Spatial upscaler for 2× resolution boost" },
+          { type: "feature", text: "Smart VRAM management for GPUs with limited memory" },
+          { type: "feature", text: "Product-bound license activation" },
         ],
       },
     ],
