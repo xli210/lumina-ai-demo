@@ -84,7 +84,7 @@ const appReleases: AppRelease[] = [
     gradient: "from-violet-500 to-fuchsia-400",
     releases: [
       {
-        version: "1.0.1",
+        version: "1.0.2",
         date: "February 25, 2026",
         tag: "Update",
         changes: [

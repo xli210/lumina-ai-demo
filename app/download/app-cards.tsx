@@ -108,7 +108,7 @@ const apps: AppInfo[] = [
     description:
       "Generate stunning images from text prompts using the FLUX.2 Klein 4B model. Supports text-to-image and image-to-image, running 100% locally on your GPU.",
     icon: ImagePlus,
-    version: "1.0.1",
+    version: "1.0.2",
     gradient: "from-violet-500 to-fuchsia-400",
     shadowColor: "shadow-violet-500/25",
     badge: "New",
@@ -116,8 +116,8 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "FLUX_Klein-1.0.1.zip",
-        downloadUrl: "/api/downloads/FLUX_Klein-1.0.1.zip",
+        fileName: "FLUX_Klein-1.0.2.zip",
+        downloadUrl: "/api/downloads/FLUX_Klein-1.0.2.zip",
         size: "54 KB",
       },
     ],
