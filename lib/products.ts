@@ -57,10 +57,10 @@ export const PRODUCTS: Product[] = [
     masterKeyEnv: "LICENSE_MASTER_KEY_NANO_IMAGEEDIT",
   },
   {
-    id: "ltx-video",
-    name: "LTX-2 Video Studio",
+    id: "nano-videogen",
+    name: "Nano VideoGen",
     description:
-      "AI Video Generation — Create stunning videos from text prompts or images with the LTX-2 19B model, running 100% locally on your GPU.",
+      "AI Video Generation — Create stunning videos from text prompts or images with Nano VideoGen, running 100% locally on your GPU.",
     priceInCents: 0,
     features: [
       "Text-to-video generation",
@@ -69,6 +69,6 @@ export const PRODUCTS: Product[] = [
       "All future updates included",
     ],
     maxActivations: 1,
-    masterKeyEnv: "LICENSE_MASTER_KEY_LTX_VIDEO",
+    masterKeyEnv: "LICENSE_MASTER_KEY_NANO_VIDEOGEN",
   },
 ]

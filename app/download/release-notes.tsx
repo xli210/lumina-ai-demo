@@ -99,17 +99,18 @@ const appReleases: AppRelease[] = [
     ],
   },
   {
-    app: "LTX-2 Video Studio",
+    app: "Nano VideoGen",
     icon: Video,
     gradient: "from-orange-500 to-amber-400",
     releases: [
       {
-        version: "1.0.1",
-        date: "February 26, 2026",
-        tag: "Update",
+        version: "1.0.2",
+        date: "February 27, 2026",
+        tag: "Latest",
         changes: [
-          { type: "feature", text: "Text-to-video generation with LTX-2 19B model (distilled 8-step & dev)" },
-          { type: "feature", text: "Image-to-video generation with IC-LoRA structural control" },
+          { type: "improvement", text: "Rebranded to Nano VideoGen with new installer" },
+          { type: "feature", text: "Text-to-video generation with advanced AI models" },
+          { type: "feature", text: "Image-to-video generation with structural control" },
           { type: "feature", text: "Keyframe interpolation — morph between two images" },
           { type: "feature", text: "Camera control LoRAs (dolly in/out/left/right, jib up/down, static)" },
           { type: "feature", text: "Spatial upscaler for 2× resolution boost" },
