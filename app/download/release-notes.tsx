@@ -79,17 +79,17 @@ const appReleases: AppRelease[] = [
     ],
   },
   {
-    app: "FLUX.2 Klein",
+    app: "Nano ImageEdit",
     icon: ImagePlus,
     gradient: "from-violet-500 to-fuchsia-400",
     releases: [
       {
-        version: "1.0.3",
-        date: "February 26, 2026",
+        version: "1.0.4",
+        date: "February 27, 2026",
         tag: "Latest",
         changes: [
-          { type: "improvement", text: "Updated installer package for improved setup experience" },
-          { type: "feature", text: "Text-to-image generation with FLUX.2 Klein 4B model" },
+          { type: "improvement", text: "Rebranded to Nano ImageEdit with new installer" },
+          { type: "feature", text: "Text-to-image generation from text prompts" },
           { type: "feature", text: "Image-to-image generation with reference photos" },
           { type: "feature", text: "Product-bound license activation for secure model protection" },
           { type: "feature", text: "Streaming DiT mode for GPUs with less than 12 GB VRAM" },

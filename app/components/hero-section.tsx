@@ -19,14 +19,14 @@ const demoSlides = [
     src: "/images/showcase/hero-1.jpg",
     alt: "AI-generated deep space galaxy",
     prompt: "Deep space nebula with stellar nursery, ultra-realistic, 8k",
-    model: "FLUX.2 Klein",
+    model: "Nano ImageEdit",
     tag: "Text → Image",
   },
   {
     src: "/images/showcase/hero-2.jpg",
     alt: "AI-generated double-exposure portrait",
     prompt: "Double exposure portrait, city skyline silhouette overlay, golden hour",
-    model: "FLUX.2 Klein",
+    model: "Nano ImageEdit",
     tag: "Portrait",
   },
   {
@@ -40,7 +40,7 @@ const demoSlides = [
     src: "/images/showcase/hero-4.jpg",
     alt: "AI-generated geometric light art",
     prompt: "Prisms refracting white light into spectrum, minimalist, dark bg",
-    model: "FLUX.2 Klein",
+    model: "Nano ImageEdit",
     tag: "Abstract",
   },
 ];

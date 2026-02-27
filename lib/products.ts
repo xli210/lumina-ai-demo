@@ -42,10 +42,10 @@ export const PRODUCTS: Product[] = [
     masterKeyEnv: "LICENSE_MASTER_KEY_OCR_DEMO",
   },
   {
-    id: "flux-klein",
-    name: "FLUX.2 Klein",
+    id: "nano-imageedit",
+    name: "Nano ImageEdit",
     description:
-      "AI Image Generation — Generate stunning images from text prompts with the FLUX.2 Klein 4B model, running locally on your GPU.",
+      "AI Image Generation — Generate and edit stunning images from text prompts with Nano ImageEdit, running locally on your GPU.",
     priceInCents: 0,
     features: [
       "Text-to-image generation",
@@ -54,7 +54,7 @@ export const PRODUCTS: Product[] = [
       "All future updates included",
     ],
     maxActivations: 1,
-    masterKeyEnv: "LICENSE_MASTER_KEY_FLUX_KLEIN",
+    masterKeyEnv: "LICENSE_MASTER_KEY_NANO_IMAGEEDIT",
   },
   {
     id: "ltx-video",

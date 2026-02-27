@@ -15,7 +15,7 @@ const features = [
     icon: Sparkles,
     title: "State-of-the-Art Models",
     description:
-      "Run the latest AI models locally — FLUX.2 for image generation, PaddleOCR for text extraction, and more coming soon.",
+      "Run the latest AI models locally — Nano ImageEdit for image generation, PaddleOCR for text extraction, and more coming soon.",
     gradient: "from-blue-500 to-cyan-400",
     shadowColor: "shadow-blue-500/20",
   },

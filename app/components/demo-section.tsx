@@ -12,11 +12,11 @@ const demos = [
     label: "Image Generation",
     headline: "From Text to Stunning Visuals",
     description:
-      "Type a prompt, and FLUX.2 Klein generates a high-resolution image in seconds — entirely on your local GPU. No internet, no cloud, no waiting in queues.",
+      "Type a prompt, and Nano ImageEdit generates a high-resolution image in seconds — entirely on your local GPU. No internet, no cloud, no waiting in queues.",
     image: "/images/showcase/gallery-1-lg.jpg",
-    imageAlt: "FLUX.2 Klein generating cosmic nebula from text prompt",
+    imageAlt: "Nano ImageEdit generating cosmic nebula from text prompt",
     prompt: '"Cosmic nebula with vivid purple and blue, stellar dust, 8k"',
-    model: "FLUX.2 Klein · 4B params",
+    model: "Nano ImageEdit",
     badge: "Text → Image",
   },
   {
