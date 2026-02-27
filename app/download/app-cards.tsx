@@ -139,8 +139,8 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "LTX2_Video-1.0.2.zip",
-        downloadUrl: "/api/downloads/LTX2_Video-1.0.2.zip",
+        fileName: "NanoVideoGen-1.0.2.zip",
+        downloadUrl: "/api/downloads/NanoVideoGen-1.0.2.zip",
         size: "916 KB",
       },
     ],
