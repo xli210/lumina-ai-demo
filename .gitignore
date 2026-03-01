@@ -43,6 +43,14 @@ next-env.d.ts
 test.zip
 .codacy/
 
+# Desktop app source/build folders (should not be in web repo)
+NanoImageEditApp/
+NanoVideoGenApp/
+FLUX_app/
+OCR_app/
+LTX2_app/
+*.exe
+
 # Desktop app secrets & runtime files (never commit)
 .license
 .machine_lock
