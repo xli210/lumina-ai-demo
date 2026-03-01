@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='utf8'?>
+<nuitka-compilation-report nuitka_version="4.0.1" nuitka_commercial_version="not installed" mode="module" completion="exception">
+  <exception exception_type="OSError" exception_value="[Errno 22] Invalid argument">
+Traceback (most recent call last):
+  File "C:\Users\YuNan\miniconda3\Lib\site-packages\nuitka\MainControl.py", line 1348, in main
+    _main()
+  File "C:\Users\YuNan\miniconda3\Lib\site-packages\nuitka\MainControl.py", line 1190, in _main
+    general.sysexit(
+  File "C:\Users\YuNan\miniconda3\Lib\site-packages\nuitka\Tracing.py", line 434, in sysexit
+    self.my_print(
+  File "C:\Users\YuNan\miniconda3\Lib\site-packages\nuitka\Tracing.py", line 345, in my_print
+    my_print(message, **kwargs)
+  File "C:\Users\YuNan\miniconda3\Lib\site-packages\nuitka\Tracing.py", line 325, in my_print
+    _my_print(is_atty, args, kwargs)
+  File "C:\Users\YuNan\miniconda3\Lib\site-packages\nuitka\Tracing.py", line 259, in _my_print
+    _my_print2(is_atty, args, kwargs)
+  File "C:\Users\YuNan\miniconda3\Lib\site-packages\nuitka\Tracing.py", line 294, in _my_print2
+    print(*args, end=end, **kwargs)
+  File "C:\Users\YuNan\miniconda3\Lib\site-packages\colorama\ansitowin32.py", line 47, in write
+    self.__convertor.write(text)
+  File "C:\Users\YuNan\miniconda3\Lib\site-packages\colorama\ansitowin32.py", line 177, in write
+    self.write_and_convert(text)
+  File "C:\Users\YuNan\miniconda3\Lib\site-packages\colorama\ansitowin32.py", line 205, in write_and_convert
+    self.write_plain_text(text, cursor, len(text))
+  File "C:\Users\YuNan\miniconda3\Lib\site-packages\colorama\ansitowin32.py", line 211, in write_plain_text
+    self.wrapped.flush()
+OSError: [Errno 22] Invalid argument
+</exception>
+  <module name="key_vault" kind="CompiledPythonModule" usage="root_module" reason="Root module" source_path="${cwd}\_nuitka_build\key_vault.py">
+    <optimization-time pass="1" time="0.02" micro_passes="4" max_branch_merge="17" merged_total="510" />
+    <optimization-time pass="2" time="0.02" micro_passes="1" max_branch_merge="16" merged_total="111" />
+    <code-generation-time time="0.05" />
+    <module_usages>
+      <module_usage name="__future__" finding="excluded" line="11" exclusion_reason="Not following into stdlib unless standalone or requested to follow into stdlib." />
+      <module_usage name="os" finding="excluded" line="13" exclusion_reason="Not following into stdlib unless standalone or requested to follow into stdlib." />
+      <module_usage name="sys" finding="absolute" line="14" />
+      <module_usage name="ctypes" finding="excluded" line="20" exclusion_reason="Not following into stdlib unless standalone or requested to follow into stdlib." />
+      <module_usage name="ctypes.wintypes" finding="absolute" line="21" />
+      <module_usage name="ctypes.wintypes" finding="absolute" line="25" />
+      <module_usage name="ctypes.wintypes" finding="absolute" line="39" />
+      <module_usage name="ctypes.wintypes" finding="absolute" line="42" />
+      <module_usage name="ctypes.wintypes" finding="absolute" line="51" />
+      <module_usage name="ctypes.wintypes" finding="absolute" line="54" />
+      <module_usage name="hashlib" finding="excluded" line="133" exclusion_reason="Not following into stdlib unless standalone or requested to follow into stdlib." />
+    </module_usages>
+  </module>
+  <performance>
+    <memory_usage name="after_launch" value="36134912" />
+    <memory_usage name="before_c_code_generation" value="49160192" />
+    <memory_usage name="before_running_scons" value="50487296" />
+  </performance>
+  <data_composer blob_size="2864" total="184">
+    <module_data filename="__bytecode.const" blob_name=".bytecode" blob_size="3" input_size="0" />
+    <module_data filename="__constants.const" blob_name="" blob_size="847" input_size="2136" />
+    <module_data filename="module.key_vault.const" blob_name="key_vault" blob_size="1973" input_size="2941" />
+  </data_composer>
+  <command_line>
+    <option value="--module" />
+    <option value="--output-dir=C:\Users\YuNan\Downloads\flux2klein_package\NanoImageEditApp\_nuitka_build\out" />
+    <option value="--remove-output" />
+    <option value="C:\Users\YuNan\Downloads\flux2klein_package\NanoImageEditApp\_nuitka_build\key_vault.py" />
+  </command_line>
+  <plugins>
+    <plugin name="anti-bloat" user_enabled="no" />
+    <plugin name="eventlet" user_enabled="no" />
+    <plugin name="gi" user_enabled="no" />
+    <plugin name="implicit-imports" user_enabled="no" />
+    <plugin name="options-nanny" user_enabled="no" />
+    <plugin name="pkg-resources" user_enabled="no" />
+    <plugin name="transformers" user_enabled="no" />
+  </plugins>
+  <distributions />
+  <python python_exe="${sys.prefix}\python.exe" python_flavor="Anaconda Python" python_version="3.12.12" os_name="Windows" os_release="11" arch_name="x86_64" filesystem_encoding="utf-8">
+    <search_path>
+      <path value="${cwd}" />
+      <path value="${cwd}\_nuitka_build" />
+      <path value="${sys.prefix}\DLLs" />
+      <path value="${sys.prefix}\Lib" />
+      <path value="${sys.prefix}" />
+      <path value="${sys.prefix}\Lib\site-packages" />
+    </search_path>
+  </python>
+  <output run_filename="${cwd}\_nuitka_build\out\key_vault.cp312-win_amd64.pyd" />
+</nuitka-compilation-report>

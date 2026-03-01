@@ -3,6 +3,16 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { PRODUCTS } from "@/lib/products";
 import crypto from "crypto";
 
+// Transport-key constants — must match the client-side _TK_SALT and _TK_PEPPER
+const TK_SALT = Buffer.from([
+  0x4e, 0x49, 0x45, 0x2d, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x70, 0x6f, 0x72,
+  0x74, 0x2d, 0x76, 0x32,
+]);
+const TK_PEPPER = Buffer.from([
+  0xc7, 0x3a, 0x91, 0xf2, 0x5d, 0x0b, 0xe8, 0x44, 0xa6, 0x19, 0x7c, 0xd3,
+  0x8e, 0x52, 0xb1, 0x6f,
+]);
+
 /**
  * Derive a one-time transport key from the machine fingerprint so the
  * master key is never sent in plaintext (even over HTTPS, defense-in-depth).
@@ -11,7 +21,7 @@ import crypto from "crypto";
 function encryptMasterKey(masterKey: string, machineId: string): string {
   const secret = crypto
     .createHash("sha256")
-    .update(`machine-transport:${machineId}`)
+    .update(Buffer.concat([TK_SALT, Buffer.from(machineId, "utf8"), TK_PEPPER]))
     .digest();
   const iv = crypto.randomBytes(12);
   const cipher = crypto.createCipheriv("aes-256-gcm", secret, iv);
