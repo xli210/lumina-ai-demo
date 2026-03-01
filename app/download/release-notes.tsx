@@ -84,9 +84,17 @@ const appReleases: AppRelease[] = [
     gradient: "from-violet-500 to-fuchsia-400",
     releases: [
       {
+        version: "1.0.5",
+        date: "February 28, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "Updated installer and packaging" },
+          { type: "improvement", text: "General stability and performance improvements" },
+        ],
+      },
+      {
         version: "1.0.4",
         date: "February 27, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "Rebranded to Nano ImageEdit with new installer" },
           { type: "feature", text: "Text-to-image generation from text prompts" },
