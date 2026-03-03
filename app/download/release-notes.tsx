@@ -1,4 +1,4 @@
-import { Tag, Sparkles, Bug, Zap, ScanText, ImagePlus, Video } from "lucide-react";
+import { Tag, Sparkles, Bug, Zap, ScanText, ImagePlus, Video, ScanFace } from "lucide-react";
 
 interface ReleaseChange {
   type: "feature" | "improvement" | "fix";
@@ -132,6 +132,25 @@ const appReleases: AppRelease[] = [
           { type: "feature", text: "Spatial upscaler for 2× resolution boost" },
           { type: "feature", text: "Smart VRAM management for GPUs with limited memory" },
           { type: "feature", text: "Product-bound license activation" },
+        ],
+      },
+    ],
+  },
+  {
+    app: "Nano FacialEdit",
+    icon: ScanFace,
+    gradient: "from-pink-500 to-rose-400",
+    releases: [
+      {
+        version: "1.0.0",
+        date: "March 3, 2026",
+        tag: "Initial Release",
+        changes: [
+          { type: "feature", text: "AI-powered facial retouching and enhancement" },
+          { type: "feature", text: "Face swap and expression editing" },
+          { type: "feature", text: "Portrait enhancement with natural results" },
+          { type: "feature", text: "Product-bound license activation for secure model protection" },
+          { type: "feature", text: "Runs 100% locally on your GPU — no cloud dependency" },
         ],
       },
     ],

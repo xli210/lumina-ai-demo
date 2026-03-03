@@ -71,4 +71,19 @@ export const PRODUCTS: Product[] = [
     maxActivations: 1,
     masterKeyEnv: "LICENSE_MASTER_KEY_NANO_VIDEOGEN",
   },
+  {
+    id: "nano-facialedit",
+    name: "Nano FacialEdit",
+    description:
+      "AI Facial Editing — Retouch, enhance, and transform facial features with Nano FacialEdit, running 100% locally on your GPU.",
+    priceInCents: 0,
+    features: [
+      "AI-powered facial retouching & enhancement",
+      "Face swap and expression editing",
+      "Runs 100% locally on your GPU",
+      "All future updates included",
+    ],
+    maxActivations: 1,
+    masterKeyEnv: "LICENSE_MASTER_KEY_NANO_FACIALEDIT",
+  },
 ]
