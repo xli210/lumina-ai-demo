@@ -84,9 +84,17 @@ const appReleases: AppRelease[] = [
     gradient: "from-violet-500 to-fuchsia-400",
     releases: [
       {
+        version: "1.0.7",
+        date: "March 4, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "Updated installer with latest fixes and improvements" },
+          { type: "improvement", text: "General stability and performance improvements" },
+        ],
+      },
+      {
         version: "1.0.6",
         date: "February 28, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "Updated transport-key encryption for enhanced security" },
           { type: "improvement", text: "General stability and performance improvements" },
