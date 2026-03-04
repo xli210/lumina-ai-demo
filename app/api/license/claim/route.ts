@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 3. Validate product exists and is free
+  // 3. Validate product exists
   const product = PRODUCTS.find((p) => p.id === productId);
   if (!product) {
     return NextResponse.json(
@@ -56,7 +56,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  if (product.priceInCents > 0) {
+  // Block paid products that have no trial period — those must go through Stripe checkout
+  if (product.priceInCents > 0 && !product.trialDays) {
     return NextResponse.json(
       { error: "This product requires payment. Use the checkout flow." },
       { status: 400 }
@@ -82,7 +83,7 @@ export async function POST(req: NextRequest) {
   // 4. Check if user already has a license for this product
   const { data: existingLicense } = await admin
     .from("licenses")
-    .select("id, license_key")
+    .select("id, license_key, is_trial, trial_ends_at")
     .eq("user_id", user.id)
     .eq("product_id", productId)
     .eq("is_revoked", false)
@@ -92,6 +93,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       status: "already_claimed",
       license_key: existingLicense.license_key,
+      is_trial: existingLicense.is_trial ?? false,
+      trial_ends_at: existingLicense.trial_ends_at ?? null,
       message: "You already have a license for this product.",
     });
   }
@@ -120,13 +123,21 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 6. Insert the license (max_activations = 1 per machine)
+  // 6. Determine if this is a trial license
+  const isTrial = product.priceInCents > 0 && (product.trialDays ?? 0) > 0;
+  const trialEndsAt = isTrial
+    ? new Date(Date.now() + product.trialDays! * 24 * 60 * 60 * 1000).toISOString()
+    : null;
+
+  // 7. Insert the license
   const { error: insertError } = await admin.from("licenses").insert({
     user_id: user.id,
     license_key: licenseKey,
     product_id: productId,
     max_activations: product.maxActivations,
     stripe_payment_intent_id: null,
+    is_trial: isTrial,
+    trial_ends_at: trialEndsAt,
   });
 
   if (insertError) {
@@ -137,7 +148,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 7. Update user profile
+  // 8. Update user profile
   await admin
     .from("profiles")
     .update({ has_purchased: true, updated_at: new Date().toISOString() })
@@ -147,6 +158,10 @@ export async function POST(req: NextRequest) {
     status: "claimed",
     license_key: licenseKey,
     product_id: productId,
-    message: "License generated successfully!",
+    is_trial: isTrial,
+    trial_ends_at: trialEndsAt,
+    message: isTrial
+      ? `${product.trialDays}-day free trial started!`
+      : "License generated successfully!",
   });
 }

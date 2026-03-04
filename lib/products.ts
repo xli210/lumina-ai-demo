@@ -3,6 +3,8 @@ export interface Product {
   name: string
   description: string
   priceInCents: number
+  /** Number of days for free trial. 0 or undefined = no trial. */
+  trialDays?: number
   features: string[]
   /** Maximum number of machines this license can be activated on */
   maxActivations: number
@@ -46,11 +48,13 @@ export const PRODUCTS: Product[] = [
     name: "Nano ImageEdit",
     description:
       "AI Image Generation — Generate and edit stunning images from text prompts with Nano ImageEdit, running locally on your GPU.",
-    priceInCents: 0,
+    priceInCents: 4990,
+    trialDays: 14,
     features: [
       "Text-to-image generation",
       "Image-to-image with reference photos",
       "Runs 100% locally on your GPU",
+      "14-day free trial included",
       "All future updates included",
     ],
     maxActivations: 1,
@@ -61,11 +65,13 @@ export const PRODUCTS: Product[] = [
     name: "Nano VideoGen",
     description:
       "AI Video Generation — Create stunning videos from text prompts or images with Nano VideoGen, running 100% locally on your GPU.",
-    priceInCents: 0,
+    priceInCents: 4990,
+    trialDays: 14,
     features: [
       "Text-to-video generation",
       "Image-to-video & keyframe interpolation",
       "Camera control LoRAs (dolly, jib, static)",
+      "14-day free trial included",
       "All future updates included",
     ],
     maxActivations: 1,

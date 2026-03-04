@@ -17,6 +17,8 @@ import {
   Copy,
   Check,
   Loader2,
+  Clock,
+  AlertTriangle,
   type LucideIcon,
 } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
@@ -41,6 +43,12 @@ interface AppInfo {
   shadowColor: string;
   badge?: string;
   platforms: PlatformDownload[];
+}
+
+interface LicenseInfo {
+  license_key: string;
+  is_trial: boolean;
+  trial_ends_at: string | null;
 }
 
 const apps: AppInfo[] = [
@@ -113,7 +121,7 @@ const apps: AppInfo[] = [
     version: "1.0.6",
     gradient: "from-violet-500 to-fuchsia-400",
     shadowColor: "shadow-violet-500/25",
-    badge: "New",
+    badge: "Pro",
     platforms: [
       {
         platform: "Windows",
@@ -135,7 +143,7 @@ const apps: AppInfo[] = [
     version: "1.0.2",
     gradient: "from-orange-500 to-amber-400",
     shadowColor: "shadow-orange-500/25",
-    badge: "New",
+    badge: "Pro",
     platforms: [
       {
         platform: "Windows",
@@ -170,9 +178,18 @@ const apps: AppInfo[] = [
   },
 ];
 
+function getDaysRemaining(trialEndsAt: string): number {
+  const now = new Date();
+  const end = new Date(trialEndsAt);
+  const diff = end.getTime() - now.getTime();
+  return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+}
+
 export function AppCards() {
   const [claimingApp, setClaimingApp] = useState<string | null>(null);
-  const [licenseKeys, setLicenseKeys] = useState<Record<string, string>>({});
+  const [licenseData, setLicenseData] = useState<Record<string, LicenseInfo>>(
+    {}
+  );
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [downloading, setDownloading] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -185,7 +202,7 @@ export function AppCards() {
       if (res.ok) {
         const data = await res.json();
         if (data.licenses) {
-          setLicenseKeys(data.licenses);
+          setLicenseData(data.licenses);
         }
       }
     } catch {
@@ -220,7 +237,14 @@ export function AppCards() {
         return;
       }
 
-      setLicenseKeys((prev) => ({ ...prev, [appId]: data.license_key }));
+      setLicenseData((prev) => ({
+        ...prev,
+        [appId]: {
+          license_key: data.license_key,
+          is_trial: data.is_trial ?? false,
+          trial_ends_at: data.trial_ends_at ?? null,
+        },
+      }));
     } catch {
       setErrors((prev) => ({
         ...prev,
@@ -232,7 +256,7 @@ export function AppCards() {
   }
 
   async function handleCopyKey(appId: string) {
-    const key = licenseKeys[appId];
+    const key = licenseData[appId]?.license_key;
     if (!key) return;
     await navigator.clipboard.writeText(key);
     setCopiedKey(appId);
@@ -273,9 +297,19 @@ export function AppCards() {
             const Icon = app.icon;
             const product = getProduct(app.productId);
             const price = product?.priceInCents ?? 0;
-            const hasLicense = !!licenseKeys[app.id];
+            const trialDays = product?.trialDays ?? 0;
+            const licInfo = licenseData[app.id];
+            const hasLicense = !!licInfo;
+            const isTrial = licInfo?.is_trial ?? false;
+            const trialEndsAt = licInfo?.trial_ends_at;
+            const daysRemaining = trialEndsAt
+              ? getDaysRemaining(trialEndsAt)
+              : 0;
+            const trialExpired = isTrial && daysRemaining <= 0;
             const isClaiming = claimingApp === app.id;
             const error = errors[app.id];
+            // A "paid" product that supports trial
+            const isPaidWithTrial = price > 0 && trialDays > 0;
 
             return (
               <div
@@ -296,7 +330,13 @@ export function AppCards() {
                           {app.name}
                         </h3>
                         {app.badge && (
-                          <span className="rounded-full bg-primary/10 px-3 py-0.5 text-xs font-medium text-primary">
+                          <span
+                            className={`rounded-full px-3 py-0.5 text-xs font-medium ${
+                              app.badge === "Pro"
+                                ? "bg-amber-500/10 text-amber-500"
+                                : "bg-primary/10 text-primary"
+                            }`}
+                          >
                             {app.badge}
                           </span>
                         )}
@@ -330,65 +370,220 @@ export function AppCards() {
                         </span>
                       )}
                     </div>
+                    {isPaidWithTrial && (
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {trialDays}-day free trial
+                      </p>
+                    )}
                   </div>
                 </div>
 
-                {/* License Key Section */}
-                {!hasLicense ? (
+                {/* License Key Section — no license yet */}
+                {!hasLicense && (
                   <div className="border-t border-border/50 pt-6 mb-6">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-foreground mb-1">
-                          {price === 0
-                            ? "Get your free activation license"
-                            : "Purchase to get your activation license"}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          Each license activates on 1 machine. You&apos;ll
-                          receive a license key to activate the app.
-                        </p>
+                        {isPaidWithTrial ? (
+                          <>
+                            <p className="text-sm font-medium text-foreground mb-1">
+                              Start your {trialDays}-day free trial
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              Try the full app for free. No payment required
+                              upfront. Purchase anytime to keep using after the
+                              trial.
+                            </p>
+                          </>
+                        ) : price === 0 ? (
+                          <>
+                            <p className="text-sm font-medium text-foreground mb-1">
+                              Get your free activation license
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              Each license activates on 1 machine. You&apos;ll
+                              receive a license key to activate the app.
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <p className="text-sm font-medium text-foreground mb-1">
+                              Purchase to get your activation license
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              Each license activates on 1 machine. You&apos;ll
+                              receive a license key to activate the app.
+                            </p>
+                          </>
+                        )}
                       </div>
-                      {price === 0 ? (
-                        <Button
-                          className={`gap-2 rounded-full px-8 shrink-0 bg-gradient-to-r ${app.gradient} text-white border-0 hover:opacity-90 shadow-md ${app.shadowColor}`}
-                          onClick={() => handleGetLicense(app.id)}
-                          disabled={isClaiming}
-                        >
-                          {isClaiming ? (
-                            <>
-                              <Key className="h-4 w-4 animate-spin" />
-                              Generating...
-                            </>
-                          ) : (
-                            <>
-                              <Key className="h-4 w-4" />
-                              Get Free License
-                            </>
-                          )}
-                        </Button>
-                      ) : (
-                        <Button
-                          className={`gap-2 rounded-full px-8 shrink-0 bg-gradient-to-r ${app.gradient} text-white border-0 hover:opacity-90 shadow-md ${app.shadowColor}`}
-                          onClick={() =>
-                            (window.location.href = `/checkout?product=${app.productId}`)
-                          }
-                        >
-                          <ShoppingCart className="h-4 w-4" />
-                          Purchase — {formatPrice(price)}
-                        </Button>
-                      )}
+                      <div className="flex flex-col sm:flex-row gap-2 shrink-0">
+                        {isPaidWithTrial ? (
+                          <>
+                            <Button
+                              className={`gap-2 rounded-full px-8 bg-gradient-to-r ${app.gradient} text-white border-0 hover:opacity-90 shadow-md ${app.shadowColor}`}
+                              onClick={() => handleGetLicense(app.id)}
+                              disabled={isClaiming}
+                            >
+                              {isClaiming ? (
+                                <>
+                                  <Key className="h-4 w-4 animate-spin" />
+                                  Starting...
+                                </>
+                              ) : (
+                                <>
+                                  <Clock className="h-4 w-4" />
+                                  Start Free Trial
+                                </>
+                              )}
+                            </Button>
+                            <Button
+                              variant="outline"
+                              className="gap-2 rounded-full px-6"
+                              onClick={() =>
+                                (window.location.href = `/checkout?product=${app.productId}`)
+                              }
+                            >
+                              <ShoppingCart className="h-4 w-4" />
+                              Buy — {formatPrice(price)}
+                            </Button>
+                          </>
+                        ) : price === 0 ? (
+                          <Button
+                            className={`gap-2 rounded-full px-8 bg-gradient-to-r ${app.gradient} text-white border-0 hover:opacity-90 shadow-md ${app.shadowColor}`}
+                            onClick={() => handleGetLicense(app.id)}
+                            disabled={isClaiming}
+                          >
+                            {isClaiming ? (
+                              <>
+                                <Key className="h-4 w-4 animate-spin" />
+                                Generating...
+                              </>
+                            ) : (
+                              <>
+                                <Key className="h-4 w-4" />
+                                Get Free License
+                              </>
+                            )}
+                          </Button>
+                        ) : (
+                          <Button
+                            className={`gap-2 rounded-full px-8 bg-gradient-to-r ${app.gradient} text-white border-0 hover:opacity-90 shadow-md ${app.shadowColor}`}
+                            onClick={() =>
+                              (window.location.href = `/checkout?product=${app.productId}`)
+                            }
+                          >
+                            <ShoppingCart className="h-4 w-4" />
+                            Purchase — {formatPrice(price)}
+                          </Button>
+                        )}
+                      </div>
                     </div>
                     {error && (
                       <p className="mt-3 text-sm text-red-500">{error}</p>
                     )}
                   </div>
-                ) : (
+                )}
+
+                {/* License active — trial (not expired) */}
+                {hasLicense && isTrial && !trialExpired && (
+                  <div className="border-t border-border/50 pt-6 mb-6">
+                    <div className="rounded-2xl bg-amber-500/5 border border-amber-500/20 p-5">
+                      <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+                        <div className="flex items-center gap-2">
+                          <Clock className="h-5 w-5 text-amber-500" />
+                          <span className="text-sm font-semibold text-amber-500">
+                            Free Trial — {daysRemaining} day
+                            {daysRemaining !== 1 ? "s" : ""} remaining
+                          </span>
+                        </div>
+                        <Button
+                          size="sm"
+                          className="gap-1.5 rounded-full px-5 bg-gradient-to-r from-primary to-purple-500 text-white border-0 hover:opacity-90"
+                          onClick={() =>
+                            (window.location.href = `/checkout?product=${app.productId}`)
+                          }
+                        >
+                          <ShoppingCart className="h-3.5 w-3.5" />
+                          Upgrade — {formatPrice(price)}
+                        </Button>
+                      </div>
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                        <div className="flex-1">
+                          <p className="text-xs text-muted-foreground mb-1">
+                            Your Trial License Key (save this!)
+                          </p>
+                          <code className="text-lg font-mono font-bold tracking-wider text-foreground">
+                            {licInfo.license_key}
+                          </code>
+                        </div>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="gap-1.5 rounded-full shrink-0"
+                          onClick={() => handleCopyKey(app.id)}
+                        >
+                          {copiedKey === app.id ? (
+                            <>
+                              <Check className="h-3.5 w-3.5" />
+                              Copied!
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="h-3.5 w-3.5" />
+                              Copy Key
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                      <p className="mt-3 text-xs text-muted-foreground">
+                        Enter this key in the app after installation. Purchase
+                        anytime to keep using after the trial ends.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* License — trial expired */}
+                {hasLicense && trialExpired && (
+                  <div className="border-t border-border/50 pt-6 mb-6">
+                    <div className="rounded-2xl bg-red-500/5 border border-red-500/20 p-5">
+                      <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+                        <div className="flex items-center gap-2">
+                          <AlertTriangle className="h-5 w-5 text-red-500" />
+                          <span className="text-sm font-semibold text-red-500">
+                            Trial Expired
+                          </span>
+                        </div>
+                        <Button
+                          size="sm"
+                          className="gap-1.5 rounded-full px-6 bg-gradient-to-r from-primary to-purple-500 text-white border-0 hover:opacity-90 shadow-md"
+                          onClick={() =>
+                            (window.location.href = `/checkout?product=${app.productId}`)
+                          }
+                        >
+                          <ShoppingCart className="h-3.5 w-3.5" />
+                          Purchase — {formatPrice(price)}
+                        </Button>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        Your {trialDays}-day free trial has ended. Purchase a
+                        full license to continue using {app.name}. Your existing
+                        license key will be upgraded automatically.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* License active — permanent (free or purchased) */}
+                {hasLicense && !isTrial && (
                   <div className="border-t border-border/50 pt-6 mb-6">
                     <div className="rounded-2xl bg-emerald-500/5 border border-emerald-500/20 p-5">
                       <div className="flex items-center gap-2 mb-3">
                         <CheckCircle2 className="h-5 w-5 text-emerald-500" />
                         <span className="text-sm font-semibold text-emerald-500">
-                          License Activated
+                          {price > 0
+                            ? "Licensed — Full Version"
+                            : "License Activated"}
                         </span>
                       </div>
                       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
@@ -397,7 +592,7 @@ export function AppCards() {
                             Your License Key (save this!)
                           </p>
                           <code className="text-lg font-mono font-bold tracking-wider text-foreground">
-                            {licenseKeys[app.id]}
+                            {licInfo.license_key}
                           </code>
                         </div>
                         <Button
@@ -427,8 +622,8 @@ export function AppCards() {
                   </div>
                 )}
 
-                {/* Platform Downloads — only visible once license is obtained */}
-                {hasLicense && (
+                {/* Platform Downloads — visible if license exists and not trial-expired */}
+                {hasLicense && !trialExpired && (
                   <div className="border-t border-border/50 pt-6">
                     <p className="mb-4 text-sm font-medium text-muted-foreground">
                       Download for your platform

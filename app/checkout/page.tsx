@@ -1,10 +1,23 @@
+"use client";
+
+import { Suspense } from "react";
 import Link from "next/link";
-import { Sparkles, ArrowLeft, Check, Lock } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { ArrowLeft, Check, Lock, ImagePlus, Video, Sparkles } from "lucide-react";
 import Checkout from "../components/checkout";
 import { PRODUCTS } from "@/lib/products";
 
-export default function CheckoutPage() {
-  const product = PRODUCTS[0];
+function CheckoutContent() {
+  const searchParams = useSearchParams();
+  const productId = searchParams.get("product") || PRODUCTS[0].id;
+  const product = PRODUCTS.find((p) => p.id === productId) || PRODUCTS[0];
+
+  // Pick an icon based on the product id
+  const iconMap: Record<string, typeof Sparkles> = {
+    "nano-imageedit": ImagePlus,
+    "nano-videogen": Video,
+  };
+  const ProductIcon = iconMap[product.id] || Sparkles;
 
   return (
     <div className="min-h-screen px-6 py-12">
@@ -17,11 +30,11 @@ export default function CheckoutPage() {
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
           <Link
-            href="/"
+            href="/download"
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Lumina AI
+            Back to Downloads
           </Link>
           <div className="flex items-center gap-2">
             <Lock className="h-4 w-4 text-muted-foreground" />
@@ -37,10 +50,10 @@ export default function CheckoutPage() {
             <div className="glass-strong rounded-2xl p-8">
               <div className="mb-6 flex items-center gap-2">
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
-                  <Sparkles className="h-5 w-5 text-primary-foreground" />
+                  <ProductIcon className="h-5 w-5 text-primary-foreground" />
                 </div>
                 <span className="text-lg font-semibold text-foreground">
-                  Lumina AI
+                  {product.name}
                 </span>
               </div>
 
@@ -60,6 +73,11 @@ export default function CheckoutPage() {
                     ${(product.priceInCents / 100).toFixed(2)}
                   </span>
                 </div>
+                {product.trialDays && product.trialDays > 0 && (
+                  <p className="mt-2 text-xs text-emerald-500">
+                    Includes upgrade from your free trial — same license key
+                  </p>
+                )}
               </div>
 
               <div className="flex flex-col gap-3">
@@ -84,5 +102,19 @@ export default function CheckoutPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        </div>
+      }
+    >
+      <CheckoutContent />
+    </Suspense>
   );
 }

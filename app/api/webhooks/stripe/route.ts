@@ -69,7 +69,55 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Generate a unique license key (retry up to 10 times)
+    // Determine product_id from session metadata or default
+    const productId =
+      (session.metadata as Record<string, string>)?.product_id || "lumina-ai";
+
+    // Look up product to get max_activations (default 1)
+    const product = PRODUCTS.find((p) => p.id === productId);
+    const maxActivations = product?.maxActivations ?? 1;
+
+    // Check if user already has a trial license for this product — upgrade it
+    if (userId) {
+      const { data: existingTrial } = await supabase
+        .from("licenses")
+        .select("id, license_key")
+        .eq("user_id", userId)
+        .eq("product_id", productId)
+        .eq("is_trial", true)
+        .eq("is_revoked", false)
+        .single();
+
+      if (existingTrial) {
+        // Upgrade trial → permanent license (keep same license key!)
+        const { error: upgradeError } = await supabase
+          .from("licenses")
+          .update({
+            is_trial: false,
+            trial_ends_at: null,
+            stripe_payment_intent_id: paymentIntentId,
+          })
+          .eq("id", existingTrial.id);
+
+        if (upgradeError) {
+          console.error("Failed to upgrade trial license:", upgradeError);
+        } else {
+          console.log(
+            `Trial license ${existingTrial.license_key} upgraded to permanent for ${customerEmail || userId}`
+          );
+        }
+
+        // Update the user's profile
+        await supabase
+          .from("profiles")
+          .update({ has_purchased: true, updated_at: new Date().toISOString() })
+          .eq("id", userId);
+
+        return NextResponse.json({ received: true });
+      }
+    }
+
+    // No existing trial — generate a brand-new permanent license
     let licenseKey = "";
     let keyIsUnique = false;
     for (let attempts = 0; attempts < 10; attempts++) {
@@ -93,21 +141,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Determine product_id from session metadata or default
-    const productId =
-      (session.metadata as Record<string, string>)?.product_id || "lumina-ai";
-
-    // Look up product to get max_activations (default 1)
-    const product = PRODUCTS.find((p) => p.id === productId);
-    const maxActivations = product?.maxActivations ?? 1;
-
-    // Insert the license
+    // Insert the permanent license
     const { error: insertError } = await supabase.from("licenses").insert({
       user_id: userId,
       license_key: licenseKey,
       product_id: productId,
       max_activations: maxActivations,
       stripe_payment_intent_id: paymentIntentId,
+      is_trial: false,
+      trial_ends_at: null,
     });
 
     if (insertError) {

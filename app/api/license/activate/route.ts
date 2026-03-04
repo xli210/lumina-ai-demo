@@ -103,6 +103,24 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // 1b. Check trial expiry
+  if (license.is_trial && license.trial_ends_at) {
+    const now = new Date();
+    const trialEnd = new Date(license.trial_ends_at);
+    if (now > trialEnd) {
+      return NextResponse.json(
+        {
+          error: "trial_expired",
+          message:
+            "Your free trial has expired. Please purchase a full license to continue.",
+          trial_ends_at: license.trial_ends_at,
+          product_id: license.product_id,
+        },
+        { status: 403 }
+      );
+    }
+  }
+
   // Look up the license owner's profile (role + ban status)
   let isAdmin = false;
   if (license.user_id) {
@@ -156,6 +174,8 @@ export async function POST(req: NextRequest) {
       message: "Machine already activated",
       license_id: license.id,
       product_id: effectiveProductId,
+      is_trial: license.is_trial ?? false,
+      trial_ends_at: license.trial_ends_at ?? null,
       ...(isAdmin ? { super_license: true } : {}),
       ...(masterKey && machine_id
         ? { encrypted_master_key: encryptMasterKey(masterKey, machine_id) }
@@ -224,6 +244,8 @@ export async function POST(req: NextRequest) {
     message: "Machine activated successfully",
     license_id: license.id,
     product_id: effectiveProductId,
+    is_trial: license.is_trial ?? false,
+    trial_ends_at: license.trial_ends_at ?? null,
     ...(isAdmin ? { super_license: true } : {}),
     ...(masterKey && machine_id
       ? { encrypted_master_key: encryptMasterKey(masterKey, machine_id) }
