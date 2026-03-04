@@ -119,7 +119,7 @@ const apps: AppInfo[] = [
     description:
       "Generate and edit stunning images from text prompts with Nano ImageEdit. Supports text-to-image and image-to-image, running 100% locally on your GPU.",
     icon: ImagePlus,
-    version: "1.0.7",
+    version: "1.0.2",
     gradient: "from-violet-500 to-fuchsia-400",
     shadowColor: "shadow-violet-500/25",
     badge: "Pro",
@@ -127,9 +127,9 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoImageEdit-1.0.7.zip",
-        downloadUrl: "/api/downloads/NanoImageEdit-1.0.7.zip",
-        size: "449 KB",
+        fileName: "NanoImageEdit-1.0.2.zip",
+        downloadUrl: "/api/downloads/NanoImageEdit-1.0.2.zip",
+        size: "2.4 MB",
       },
     ],
   },
