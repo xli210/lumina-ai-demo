@@ -92,4 +92,19 @@ export const PRODUCTS: Product[] = [
     maxActivations: 1,
     masterKeyEnv: "LICENSE_MASTER_KEY_NANO_FACIALEDIT",
   },
+  {
+    id: "nano-faceswap",
+    name: "Nano FaceSwap",
+    description:
+      "AI Face Swap — Swap faces in photos and videos with realistic results using Nano FaceSwap, running 100% locally on your GPU.",
+    priceInCents: 0,
+    features: [
+      "AI-powered face swapping",
+      "Photo and video support",
+      "Runs 100% locally on your GPU",
+      "All future updates included",
+    ],
+    maxActivations: 1,
+    masterKeyEnv: "LICENSE_MASTER_KEY_NANO_FACESWAP",
+  },
 ]

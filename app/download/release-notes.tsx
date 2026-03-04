@@ -1,4 +1,4 @@
-import { Tag, Sparkles, Bug, Zap, ScanText, ImagePlus, Video, ScanFace } from "lucide-react";
+import { Tag, Sparkles, Bug, Zap, ScanText, ImagePlus, Video, ScanFace, ArrowLeftRight } from "lucide-react";
 
 interface ReleaseChange {
   type: "feature" | "improvement" | "fix";
@@ -120,9 +120,17 @@ const appReleases: AppRelease[] = [
     gradient: "from-orange-500 to-amber-400",
     releases: [
       {
+        version: "1.0.3",
+        date: "March 4, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "Updated installer with latest fixes and improvements" },
+          { type: "improvement", text: "General stability and performance improvements" },
+        ],
+      },
+      {
         version: "1.0.2",
         date: "February 27, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "Rebranded to Nano VideoGen with new installer" },
           { type: "feature", text: "Text-to-video generation with advanced AI models" },
@@ -149,6 +157,24 @@ const appReleases: AppRelease[] = [
           { type: "feature", text: "AI-powered facial retouching and enhancement" },
           { type: "feature", text: "Face swap and expression editing" },
           { type: "feature", text: "Portrait enhancement with natural results" },
+          { type: "feature", text: "Product-bound license activation for secure model protection" },
+          { type: "feature", text: "Runs 100% locally on your GPU — no cloud dependency" },
+        ],
+      },
+    ],
+  },
+  {
+    app: "Nano FaceSwap",
+    icon: ArrowLeftRight,
+    gradient: "from-cyan-500 to-blue-400",
+    releases: [
+      {
+        version: "1.0.0",
+        date: "March 4, 2026",
+        tag: "Initial Release",
+        changes: [
+          { type: "feature", text: "AI-powered face swapping in photos and videos" },
+          { type: "feature", text: "Realistic and natural-looking results" },
           { type: "feature", text: "Product-bound license activation for secure model protection" },
           { type: "feature", text: "Runs 100% locally on your GPU — no cloud dependency" },
         ],
