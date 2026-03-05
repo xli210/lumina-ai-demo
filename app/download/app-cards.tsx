@@ -163,7 +163,7 @@ const apps: AppInfo[] = [
     description:
       "Retouch, enhance, and transform facial features with AI. Supports face swap, expression editing, and portrait retouching — all running 100% locally on your GPU.",
     icon: ScanFace,
-    version: "1.0.0",
+    version: "1.0.1",
     gradient: "from-pink-500 to-rose-400",
     shadowColor: "shadow-pink-500/25",
     badge: "New",
@@ -171,9 +171,9 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoFacialEdit-1.0.0.zip",
-        downloadUrl: "/api/downloads/NanoFacialEdit-1.0.0.zip",
-        size: "2.3 MB",
+        fileName: "NanoFacialEdit-1.0.1.zip",
+        downloadUrl: "/api/downloads/NanoFacialEdit-1.0.1.zip",
+        size: "2.2 MB",
       },
     ],
   },
@@ -185,7 +185,7 @@ const apps: AppInfo[] = [
     description:
       "Swap faces in photos and videos with realistic AI-powered results. Fast, private, and running 100% locally on your GPU.",
     icon: ArrowLeftRight,
-    version: "1.0.0",
+    version: "1.0.1",
     gradient: "from-cyan-500 to-blue-400",
     shadowColor: "shadow-cyan-500/25",
     badge: "New",
@@ -193,9 +193,9 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoFaceSwap-1.0.0.zip",
-        downloadUrl: "/api/downloads/NanoFaceSwap-1.0.0.zip",
-        size: "2.4 MB",
+        fileName: "NanoFaceSwap-1.0.1.zip",
+        downloadUrl: "/api/downloads/NanoFaceSwap-1.0.1.zip",
+        size: "8.3 MB",
       },
     ],
   },

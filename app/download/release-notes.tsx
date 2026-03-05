@@ -142,6 +142,15 @@ const appReleases: AppRelease[] = [
     gradient: "from-pink-500 to-rose-400",
     releases: [
       {
+        version: "1.0.1",
+        date: "March 5, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "Updated installer with latest fixes and improvements" },
+          { type: "improvement", text: "General stability and performance improvements" },
+        ],
+      },
+      {
         version: "1.0.0",
         date: "March 3, 2026",
         tag: "Initial Release",
@@ -160,6 +169,15 @@ const appReleases: AppRelease[] = [
     icon: ArrowLeftRight,
     gradient: "from-cyan-500 to-blue-400",
     releases: [
+      {
+        version: "1.0.1",
+        date: "March 5, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "Updated installer with latest fixes and improvements" },
+          { type: "improvement", text: "General stability and performance improvements" },
+        ],
+      },
       {
         version: "1.0.0",
         date: "March 4, 2026",

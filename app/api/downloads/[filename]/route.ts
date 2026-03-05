@@ -11,8 +11,8 @@ const FILE_PRODUCT_MAP: Record<string, string> = {
   "OCR_Demo0.0.02.zip": "ocr-demo",
   "NanoImageEdit-1.0.2.zip": "nano-imageedit",
   "NanoVideoGen-1.0.3.zip": "nano-videogen",
-  "NanoFacialEdit-1.0.0.zip": "nano-facialedit",
-  "NanoFaceSwap-1.0.0.zip": "nano-faceswap",
+  "NanoFacialEdit-1.0.1.zip": "nano-facialedit",
+  "NanoFaceSwap-1.0.1.zip": "nano-faceswap",
 };
 
 const ALLOWED_FILES = Object.keys(FILE_PRODUCT_MAP);
