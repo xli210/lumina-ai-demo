@@ -46,6 +46,12 @@ export function Footer() {
             Apps
           </Link>
           <Link
+            href="/#faq"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            FAQ
+          </Link>
+          <Link
             href="/download"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >

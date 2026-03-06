@@ -64,6 +64,12 @@ export async function Navbar() {
             Apps
           </Link>
           <Link
+            href="/#faq"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            FAQ
+          </Link>
+          <Link
             href="/download"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
