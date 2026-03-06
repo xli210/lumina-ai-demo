@@ -79,17 +79,17 @@ export function HeroSection() {
       {/* Animated background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
-          className="absolute -top-1/3 left-1/4 h-[700px] w-[700px] rounded-full opacity-25 blur-[120px] animate-pulse-slow"
+          className="absolute -top-1/3 left-1/4 h-[700px] w-[700px] rounded-full opacity-15 blur-[140px] animate-pulse-slow"
           style={{
             background:
-              "radial-gradient(circle, hsl(215, 100%, 55%) 0%, transparent 70%)",
+              "radial-gradient(circle, hsl(220, 70%, 55%) 0%, transparent 70%)",
           }}
         />
         <div
-          className="absolute top-1/4 -right-1/4 h-[500px] w-[500px] rounded-full opacity-15 blur-[100px] animate-pulse-slow"
+          className="absolute top-1/4 -right-1/4 h-[500px] w-[500px] rounded-full opacity-8 blur-[120px] animate-pulse-slow"
           style={{
             background:
-              "radial-gradient(circle, hsl(280, 80%, 55%) 0%, transparent 70%)",
+              "radial-gradient(circle, hsl(220, 50%, 45%) 0%, transparent 70%)",
             animationDelay: "2s",
           }}
         />
@@ -112,10 +112,10 @@ export function HeroSection() {
         >
           Create Beyond{" "}
           <span className="relative inline-block">
-            <span className="bg-gradient-to-r from-primary via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
               Imagination
             </span>
-            <span className="absolute -bottom-1 left-0 right-0 h-1 rounded-full bg-gradient-to-r from-primary via-purple-400 to-cyan-400 opacity-50 blur-sm" />
+            <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-primary to-blue-300 opacity-40 blur-sm" />
           </span>
         </h1>
 
@@ -248,8 +248,8 @@ export function HeroSection() {
         style={{ animationDelay: "0.5s" }}
       >
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10">
-            <Shield className="h-4 w-4 text-emerald-400" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+            <Shield className="h-4 w-4 text-primary" />
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-semibold text-foreground">
@@ -262,8 +262,8 @@ export function HeroSection() {
         </div>
         <div className="h-8 w-px bg-border hidden sm:block" />
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10">
-            <Cpu className="h-4 w-4 text-blue-400" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+            <Cpu className="h-4 w-4 text-primary" />
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-semibold text-foreground">
@@ -276,8 +276,8 @@ export function HeroSection() {
         </div>
         <div className="h-8 w-px bg-border hidden sm:block" />
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-500/10">
-            <Download className="h-4 w-4 text-purple-400" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+            <Download className="h-4 w-4 text-primary" />
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-semibold text-foreground">

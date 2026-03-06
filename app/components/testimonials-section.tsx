@@ -18,7 +18,7 @@ const testimonials: Testimonial[] = [
     quote:
       "Nano ImageEdit replaced my entire cloud AI workflow. Generating concept art locally means no API costs, no rate limits, and I keep full rights to everything I create.",
     rating: 5,
-    gradient: "from-primary to-blue-400",
+    gradient: "from-blue-500 to-blue-400",
   },
   {
     name: "Sarah K.",
@@ -26,7 +26,7 @@ const testimonials: Testimonial[] = [
     quote:
       "The face swap tool is incredibly fast running on my RTX 4070. What used to take minutes on cloud services happens in seconds, and I never have to worry about uploading sensitive client photos.",
     rating: 5,
-    gradient: "from-purple-500 to-pink-400",
+    gradient: "from-slate-600 to-slate-500",
   },
   {
     name: "Marcus T.",
@@ -34,7 +34,7 @@ const testimonials: Testimonial[] = [
     quote:
       "Nano VideoGen changed my pre-visualization process. I can iterate on shots without burning through cloud credits. The camera control LoRAs are a game-changer for storyboarding.",
     rating: 5,
-    gradient: "from-orange-500 to-amber-400",
+    gradient: "from-blue-600 to-blue-500",
   },
   {
     name: "Priya M.",
@@ -42,7 +42,7 @@ const testimonials: Testimonial[] = [
     quote:
       "Finally, AI tools that respect data sovereignty. I recommend Lumina AI to every colleague who handles sensitive documents. Zero data leaves the machine — exactly how it should be.",
     rating: 5,
-    gradient: "from-emerald-500 to-green-400",
+    gradient: "from-sky-500 to-blue-400",
   },
   {
     name: "James L.",
@@ -50,7 +50,7 @@ const testimonials: Testimonial[] = [
     quote:
       "The facial editing tools produce natural results that don't look AI-generated. My retouching workflow went from 30 minutes per photo to under 5. Absolute time saver.",
     rating: 5,
-    gradient: "from-cyan-500 to-blue-400",
+    gradient: "from-slate-500 to-slate-400",
   },
   {
     name: "Nina W.",
@@ -58,7 +58,7 @@ const testimonials: Testimonial[] = [
     quote:
       "The one-time pricing is refreshing in a world of subscriptions. I paid once for Nano ImageEdit and I've been using it daily for months. Free updates keep coming.",
     rating: 5,
-    gradient: "from-pink-500 to-rose-400",
+    gradient: "from-blue-500 to-sky-400",
   },
 ];
 
@@ -69,7 +69,7 @@ export function TestimonialsSection() {
     <section className="relative px-6 py-24">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-        <div className="absolute top-1/3 right-0 h-[500px] w-[500px] rounded-full bg-purple-500/5 blur-[150px]" />
+        <div className="absolute top-1/3 right-0 h-[500px] w-[500px] rounded-full bg-primary/3 blur-[150px]" />
         <div className="absolute bottom-1/4 left-0 h-[400px] w-[400px] rounded-full bg-primary/5 blur-[120px]" />
       </div>
 
@@ -80,7 +80,7 @@ export function TestimonialsSection() {
           </p>
           <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
             Loved by{" "}
-            <span className="bg-gradient-to-r from-primary via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
               Creators
             </span>
           </h2>
@@ -106,7 +106,7 @@ export function TestimonialsSection() {
                   {Array.from({ length: t.rating }).map((_, i) => (
                     <Star
                       key={i}
-                      className="h-4 w-4 fill-amber-400 text-amber-400"
+                      className="h-3.5 w-3.5 fill-primary/70 text-primary/70"
                     />
                   ))}
                 </div>

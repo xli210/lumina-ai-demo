@@ -13,7 +13,7 @@ const steps = [
     description:
       "Pick the AI tool you need — image generation, OCR, or video. Download the installer and extract it to any folder.",
     detail: "Works on Windows 10/11. No admin rights needed.",
-    gradient: "from-blue-500 to-cyan-400",
+    gradient: "from-blue-500 to-blue-400",
   },
   {
     number: "02",
@@ -22,7 +22,7 @@ const steps = [
     description:
       "Create a free account, claim your license key, and enter it in the app. One click — your machine is activated.",
     detail: "Free license. One key per machine.",
-    gradient: "from-purple-500 to-pink-400",
+    gradient: "from-slate-600 to-slate-500",
   },
   {
     number: "03",
@@ -31,7 +31,7 @@ const steps = [
     description:
       "The AI model downloads automatically on first launch. After that, everything runs 100% offline on your GPU.",
     detail: "No internet needed after setup.",
-    gradient: "from-orange-500 to-yellow-400",
+    gradient: "from-sky-500 to-blue-400",
   },
 ];
 
@@ -53,7 +53,7 @@ export function HowItWorksSection() {
           </p>
           <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
             Up and Running in{" "}
-            <span className="bg-gradient-to-r from-primary via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
               3 Easy Steps
             </span>
           </h2>

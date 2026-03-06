@@ -93,7 +93,7 @@ export function ShowcaseSection() {
           </p>
           <h2 className="mb-5 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
             See What&apos;s{" "}
-            <span className="bg-gradient-to-r from-primary via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
               Possible
             </span>
           </h2>

@@ -9,7 +9,7 @@ export function PricingSection() {
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
         <div className="absolute -bottom-1/4 left-1/4 h-[500px] w-[500px] rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute top-1/4 right-1/4 h-[300px] w-[300px] rounded-full bg-purple-500/5 blur-[100px]" />
+        <div className="absolute top-1/4 right-1/4 h-[300px] w-[300px] rounded-full bg-primary/3 blur-[100px]" />
       </div>
 
       <div className="relative mx-auto max-w-6xl">
@@ -19,7 +19,7 @@ export function PricingSection() {
           </p>
           <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
             Powerful AI Tools.{" "}
-            <span className="bg-gradient-to-r from-primary via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
               Free to Start.
             </span>
           </h2>
@@ -46,7 +46,7 @@ export function PricingSection() {
                 <span
                   className={`mb-4 inline-block self-start rounded-full px-4 py-1.5 text-xs font-medium sm:text-sm ${
                     isPaidWithTrial
-                      ? "bg-amber-500/10 text-amber-500"
+                      ? "bg-blue-500/10 text-blue-400"
                       : product.priceInCents === 0
                         ? "bg-primary/10 text-primary"
                         : "bg-primary/10 text-primary"
@@ -69,7 +69,7 @@ export function PricingSection() {
 
                 <div className="mb-2 flex items-baseline gap-1">
                   {product.priceInCents === 0 ? (
-                    <span className="text-4xl font-bold tracking-tight text-emerald-500 sm:text-5xl">
+                    <span className="text-4xl font-bold tracking-tight text-primary sm:text-5xl">
                       Free
                     </span>
                   ) : (
@@ -111,7 +111,7 @@ export function PricingSection() {
                     size="lg"
                     className={`w-full gap-2 rounded-full shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all text-sm ${
                       isPaidWithTrial
-                        ? "bg-gradient-to-r from-primary to-purple-500 text-white border-0"
+                        ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white border-0"
                         : ""
                     }`}
                   >

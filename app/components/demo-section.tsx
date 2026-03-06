@@ -67,7 +67,7 @@ export function DemoSection() {
           </p>
           <h2 className="mb-5 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
             Powerful AI Tools.{" "}
-            <span className="bg-gradient-to-r from-primary via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
               Running Locally.
             </span>
           </h2>
@@ -158,7 +158,7 @@ export function DemoSection() {
           {/* Description panel — 2 cols */}
           <div className="flex flex-col justify-center lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-purple-500 text-white shadow-lg">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-400 text-white shadow-lg">
                 <current.icon className="h-6 w-6" />
               </div>
               <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
@@ -177,19 +177,19 @@ export function DemoSection() {
             {/* Feature bullets */}
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3">
-                <div className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                <div className="h-1.5 w-1.5 rounded-full bg-primary" />
                 <span className="text-sm text-muted-foreground">
                   Runs on your local GPU
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <div className="h-1.5 w-1.5 rounded-full bg-blue-400" />
+                <div className="h-1.5 w-1.5 rounded-full bg-primary/60" />
                 <span className="text-sm text-muted-foreground">
                   No internet required after setup
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <div className="h-1.5 w-1.5 rounded-full bg-purple-400" />
+                <div className="h-1.5 w-1.5 rounded-full bg-primary/40" />
                 <span className="text-sm text-muted-foreground">
                   Free license included
                 </span>

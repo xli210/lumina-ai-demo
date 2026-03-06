@@ -24,7 +24,7 @@ export function DownloadHero() {
         >
           Download{" "}
           <span className="relative inline-block">
-            <span className="bg-gradient-to-r from-primary via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
               Our Apps
             </span>
           </span>

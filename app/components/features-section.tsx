@@ -16,48 +16,48 @@ const features = [
     title: "State-of-the-Art Models",
     description:
       "Run the latest AI models locally — Nano ImageEdit for image generation, PaddleOCR for text extraction, and more coming soon.",
-    gradient: "from-blue-500 to-cyan-400",
-    shadowColor: "shadow-blue-500/20",
+    gradient: "from-blue-500 to-blue-400",
+    shadowColor: "shadow-blue-500/15",
   },
   {
     icon: Shield,
     title: "Complete Privacy",
     description:
       "Your data never leaves your machine. No cloud uploads, no API calls, no tracking. What you create stays yours.",
-    gradient: "from-emerald-500 to-green-400",
-    shadowColor: "shadow-emerald-500/20",
+    gradient: "from-slate-600 to-slate-500",
+    shadowColor: "shadow-slate-500/15",
   },
   {
     icon: Cpu,
     title: "GPU Accelerated",
     description:
       "Leverages your NVIDIA GPU for fast inference. Supports CUDA with automatic VRAM management and streaming for lower-end cards.",
-    gradient: "from-purple-500 to-pink-400",
-    shadowColor: "shadow-purple-500/20",
+    gradient: "from-blue-600 to-blue-500",
+    shadowColor: "shadow-blue-600/15",
   },
   {
     icon: Zap,
     title: "One-Click Launch",
     description:
       "No terminal commands, no Python setup. Double-click to launch. The app handles model downloads, activation, and updates automatically.",
-    gradient: "from-yellow-500 to-orange-400",
-    shadowColor: "shadow-yellow-500/20",
+    gradient: "from-sky-500 to-sky-400",
+    shadowColor: "shadow-sky-500/15",
   },
   {
     icon: HardDrive,
     title: "Works Offline",
     description:
       "After the initial model download, everything runs without internet. Perfect for air-gapped environments and field work.",
-    gradient: "from-cyan-500 to-blue-400",
-    shadowColor: "shadow-cyan-500/20",
+    gradient: "from-slate-500 to-slate-400",
+    shadowColor: "shadow-slate-500/15",
   },
   {
     icon: RefreshCw,
     title: "Free Updates Forever",
     description:
       "Every license includes lifetime updates. As we add new models and features, you get them — no extra cost, no subscription.",
-    gradient: "from-orange-500 to-red-400",
-    shadowColor: "shadow-orange-500/20",
+    gradient: "from-blue-500 to-sky-400",
+    shadowColor: "shadow-blue-500/15",
   },
 ];
 
@@ -79,7 +79,7 @@ export function FeaturesSection() {
           </p>
           <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
             Your Machine.{" "}
-            <span className="bg-gradient-to-r from-primary via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
               Your AI.
             </span>
           </h2>
@@ -108,7 +108,7 @@ export function FeaturesSection() {
                 }`}
                 style={{
                   background:
-                    "linear-gradient(135deg, transparent 40%, hsl(215, 100%, 55%) 100%)",
+                    "linear-gradient(135deg, transparent 40%, hsl(220, 70%, 58%) 100%)",
                   mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
                   maskComposite: "exclude",
                   WebkitMaskComposite: "xor",
