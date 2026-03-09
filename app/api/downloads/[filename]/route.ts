@@ -13,7 +13,7 @@ const FILE_PRODUCT_MAP: Record<string, string> = {
   "NanoVideoGen-1.0.3.zip": "nano-videogen",
   "NanoFacialEdit-1.0.1.zip": "nano-facialedit",
   "NanoFaceSwap-1.0.1.zip": "nano-faceswap",
-  "NanoImageEnh_Setup_1.0.0.zip": "nnanoimageenh",
+  "NanoImageEnh_1.0.0.zip": "nnanoimageenh",
 };
 
 const ALLOWED_FILES = Object.keys(FILE_PRODUCT_MAP);

@@ -216,8 +216,8 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoImageEnh_Setup_1.0.0.zip",
-        downloadUrl: "/api/downloads/NanoImageEnh_Setup_1.0.0.zip",
+        fileName: "NanoImageEnh_1.0.0.zip",
+        downloadUrl: "/api/downloads/NanoImageEnh_1.0.0.zip",
         size: "2.1 MB",
       },
     ],
