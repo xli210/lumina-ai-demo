@@ -1,4 +1,4 @@
-import { Tag, Sparkles, Bug, Zap, ScanText, ImagePlus, Video, ScanFace, ArrowLeftRight } from "lucide-react";
+import { Tag, Sparkles, Bug, Zap, ScanText, ImagePlus, Video, ScanFace, ArrowLeftRight, Wand2 } from "lucide-react";
 
 interface ReleaseChange {
   type: "feature" | "improvement" | "fix";
@@ -186,6 +186,25 @@ const appReleases: AppRelease[] = [
           { type: "feature", text: "AI-powered face swapping in photos and videos" },
           { type: "feature", text: "Realistic and natural-looking results" },
           { type: "feature", text: "Product-bound license activation for secure model protection" },
+          { type: "feature", text: "Runs 100% locally on your GPU — no cloud dependency" },
+        ],
+      },
+    ],
+  },
+  {
+    app: "Nano ImageEnh",
+    icon: Wand2,
+    gradient: "from-teal-500 to-cyan-400",
+    releases: [
+      {
+        version: "1.0.0",
+        date: "March 5, 2026",
+        tag: "Initial Release",
+        changes: [
+          { type: "feature", text: "AI-powered image upscaling and denoising" },
+          { type: "feature", text: "Photo restoration and detail enhancement" },
+          { type: "feature", text: "Product-bound license activation for secure model protection" },
+          { type: "feature", text: "14-day free trial included" },
           { type: "feature", text: "Runs 100% locally on your GPU — no cloud dependency" },
         ],
       },

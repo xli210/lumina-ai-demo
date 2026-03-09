@@ -20,6 +20,7 @@ import {
   Loader2,
   Clock,
   AlertTriangle,
+  Wand2,
   type LucideIcon,
 } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
@@ -196,6 +197,28 @@ const apps: AppInfo[] = [
         fileName: "NanoFaceSwap-1.0.1.zip",
         downloadUrl: "/api/downloads/NanoFaceSwap-1.0.1.zip",
         size: "8.3 MB",
+      },
+    ],
+  },
+  {
+    id: "nnanoimageenh",
+    productId: "nnanoimageenh",
+    name: "Nano ImageEnh",
+    tagline: "AI Image Enhancement",
+    description:
+      "Upscale, denoise, and restore images with AI. Supports photo enhancement and restoration — all running 100% locally on your GPU.",
+    icon: Wand2,
+    version: "1.0.0",
+    gradient: "from-teal-500 to-cyan-400",
+    shadowColor: "shadow-teal-500/25",
+    badge: "Pro",
+    platforms: [
+      {
+        platform: "Windows",
+        icon: Monitor,
+        fileName: "NanoImageEnh_Setup_1.0.0.zip",
+        downloadUrl: "/api/downloads/NanoImageEnh_Setup_1.0.0.zip",
+        size: "2.1 MB",
       },
     ],
   },

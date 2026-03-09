@@ -107,4 +107,21 @@ export const PRODUCTS: Product[] = [
     maxActivations: 1,
     masterKeyEnv: "LICENSE_MASTER_KEY_NANO_FACESWAP",
   },
+  {
+    id: "nnanoimageenh",
+    name: "Nano ImageEnh",
+    description:
+      "AI Image Enhancement — Upscale, denoise, and restore images with Nano ImageEnh, running 100% locally on your GPU.",
+    priceInCents: 4990,
+    trialDays: 14,
+    features: [
+      "AI-powered image upscaling & denoising",
+      "Photo restoration and enhancement",
+      "Runs 100% locally on your GPU",
+      "14-day free trial included",
+      "All future updates included",
+    ],
+    maxActivations: 1,
+    masterKeyEnv: "LICENSE_MASTER_KEY_NANO_IMAGEENH",
+  },
 ]
