@@ -57,10 +57,10 @@ const apps: AppInfo[] = [
   {
     id: "lumina-ai",
     productId: "lumina-ai",
-    name: "Lumina AI",
-    tagline: "AI Creative Studio",
+    name: "NanoPocket AI",
+    tagline: "Generative AI Creative Studio",
     description:
-      "Transform your ideas into stunning visuals with AI-powered creative tools. Generate breathtaking images and videos with one tap.",
+      "Transform your ideas into stunning visuals with local generative AI tools. Generate breathtaking images and videos with one tap.",
     icon: Sparkles,
     version: "3.2.1",
     gradient: "from-primary to-blue-400",

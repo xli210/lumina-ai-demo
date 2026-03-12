@@ -38,11 +38,11 @@ const demos = [
     label: "Creative Studio",
     headline: "Your Complete AI Toolkit",
     description:
-      "Lumina AI combines image generation, video creation, and 100+ style presets in a single desktop app. One-click launch, no setup — just double-click and start creating.",
+      "NanoPocket combines image generation, video creation, and 100+ style presets in a single desktop app. One-click launch, no setup — just double-click and start creating.",
     image: "/images/showcase/gallery-6-sq.jpg",
-    imageAlt: "Lumina AI creative studio with multiple AI tools",
+    imageAlt: "NanoPocket creative studio with multiple AI tools",
     prompt: '"Iridescent paint explosion in slow motion, macro, 4k"',
-    model: "Lumina AI · v3.2",
+    model: "NanoPocket AI · v3.2",
     badge: "All-in-One",
   },
 ];

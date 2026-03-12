@@ -33,7 +33,7 @@ const demoSlides = [
     src: "/images/showcase/hero-3.jpg",
     alt: "AI-generated aurora borealis scene",
     prompt: "Aurora borealis dancing over volcanic landscape, long exposure, cinematic",
-    model: "Lumina AI",
+    model: "NanoPocket AI",
     tag: "Landscape",
   },
   {

@@ -1,18 +1,13 @@
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
+import { Wordmark } from "./wordmark";
 
 export function Footer() {
   return (
     <footer className="border-t border-border px-6 py-12">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 md:flex-row md:justify-between">
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-            <Sparkles className="h-4 w-4 text-primary-foreground" />
-          </div>
-          <span className="text-sm font-semibold text-foreground">
-            Lumina AI
-          </span>
-        </div>
+        <Link href="/" className="flex items-center">
+          <Wordmark className="h-4 w-auto text-foreground sm:h-5" />
+        </Link>
 
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
           <Link
@@ -66,7 +61,7 @@ export function Footer() {
         </div>
 
         <p className="text-xs text-muted-foreground">
-          &copy; {new Date().getFullYear()} Lumina AI. All rights reserved.
+          &copy; {new Date().getFullYear()} NanoPocket. All rights reserved.
         </p>
       </div>
     </footer>

@@ -16,10 +16,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Lumina AI - Create Beyond Imagination",
+  title: "NanoPocket - Local Generative AI Creative Suite",
   description:
-    "Transform your ideas into stunning visuals with AI-powered creative tools. Generate breathtaking images and videos with one tap.",
-  keywords: ["AI", "creative", "image generation", "video", "art", "design"],
+    "Generate stunning images, videos, and more with NanoPocket's local AI tools. 100% offline, GPU-accelerated generative AI — your data never leaves your machine.",
+  keywords: ["generative AI", "local AI", "image generation", "video generation", "AI creative tools", "offline AI", "NanoPocket"],
 };
 
 export const viewport: Viewport = {

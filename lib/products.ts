@@ -15,9 +15,9 @@ export interface Product {
 export const PRODUCTS: Product[] = [
   {
     id: "lumina-ai",
-    name: "Lumina AI",
+    name: "NanoPocket AI",
     description:
-      "AI Creative Studio — Transform your ideas into stunning visuals with AI-powered creative tools.",
+      "Generative AI Creative Studio — Transform your ideas into stunning visuals with local AI-powered creative tools.",
     priceInCents: 0,
     features: [
       "AI image generation",

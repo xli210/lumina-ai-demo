@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Sparkles, Mail, ArrowLeft, Loader2 } from "lucide-react";
+import { Mail, ArrowLeft, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { forgotPassword } from "../actions";
+import { Wordmark } from "@/app/components/wordmark";
 
 function ForgotPasswordForm() {
   const searchParams = useSearchParams();
@@ -71,13 +72,8 @@ function ForgotPasswordForm() {
       <div className="relative w-full max-w-md">
         {/* Logo */}
         <div className="mb-8 flex flex-col items-center">
-          <Link href="/" className="mb-6 flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
-              <Sparkles className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-semibold text-foreground">
-              Lumina AI
-            </span>
+          <Link href="/" className="mb-6 flex items-center">
+            <Wordmark className="h-6 w-auto text-foreground" />
           </Link>
           <h1 className="text-2xl font-bold text-foreground">
             Reset your password

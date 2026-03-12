@@ -2,7 +2,7 @@ import { Monitor, Cpu, HardDrive, MemoryStick, Sparkles, ScanText } from "lucide
 
 const appRequirements = [
   {
-    app: "Lumina AI",
+    app: "NanoPocket AI",
     icon: Sparkles,
     gradient: "from-primary to-blue-400",
     requirements: [

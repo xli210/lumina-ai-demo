@@ -40,7 +40,7 @@ const testimonials: Testimonial[] = [
     name: "Priya M.",
     role: "Privacy Researcher",
     quote:
-      "Finally, AI tools that respect data sovereignty. I recommend Lumina AI to every colleague who handles sensitive documents. Zero data leaves the machine — exactly how it should be.",
+      "Finally, AI tools that respect data sovereignty. I recommend NanoPocket to every colleague who handles sensitive documents. Zero data leaves the machine — exactly how it should be.",
     rating: 5,
     gradient: "from-sky-500 to-blue-400",
   },

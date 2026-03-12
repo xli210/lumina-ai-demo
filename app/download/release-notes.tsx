@@ -21,7 +21,7 @@ interface AppRelease {
 
 const appReleases: AppRelease[] = [
   {
-    app: "Lumina AI",
+    app: "NanoPocket AI",
     icon: Sparkles,
     gradient: "from-primary to-blue-400",
     releases: [

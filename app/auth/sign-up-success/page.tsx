@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Sparkles, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Wordmark } from "@/app/components/wordmark";
 
 export default function SignUpSuccessPage() {
   return (
@@ -10,16 +11,8 @@ export default function SignUpSuccessPage() {
       </div>
 
       <div className="relative w-full max-w-md text-center">
-        <Link
-          href="/"
-          className="mb-8 inline-flex items-center gap-2"
-        >
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
-            <Sparkles className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span className="text-xl font-semibold text-foreground">
-            Lumina AI
-          </span>
+        <Link href="/" className="mb-8 inline-flex items-center">
+          <Wordmark className="h-6 w-auto text-foreground" />
         </Link>
 
         <div className="glass-strong rounded-2xl p-8">

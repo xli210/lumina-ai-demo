@@ -160,7 +160,7 @@ export function AccountProfile({
                 Creator Pro - Active
               </p>
               <p className="text-sm text-muted-foreground">
-                You have lifetime access to all Lumina AI features.
+                You have lifetime access to all NanoPocket AI features.
               </p>
             </div>
           </div>
@@ -168,7 +168,7 @@ export function AccountProfile({
           <div className="flex flex-col gap-4">
             <p className="text-sm text-muted-foreground">
               {
-                "You haven't purchased Lumina AI yet. Unlock all features with a one-time purchase."
+                "You haven't purchased a license yet. Unlock all features with a one-time purchase."
               }
             </p>
             <a href="/checkout">
@@ -187,7 +187,7 @@ export function AccountProfile({
           Download the App
         </h3>
         <p className="mb-4 text-sm text-muted-foreground">
-          Get Lumina AI on your device. Sign in with the same account to sync
+          Get NanoPocket on your device. Sign in with the same account to sync
           your license.
         </p>
         <div className="flex flex-wrap gap-3">

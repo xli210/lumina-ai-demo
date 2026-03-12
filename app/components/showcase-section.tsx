@@ -175,7 +175,7 @@ export function ShowcaseSection() {
         <div className="mt-8 flex items-center justify-center gap-2 text-sm text-muted-foreground">
           <Sparkles className="h-4 w-4 text-primary/50" />
           <span>
-            All outputs generated locally with Nano ImageEdit &amp; Lumina AI
+            All outputs generated locally with NanoPocket generative AI tools
           </span>
         </div>
       </div>
