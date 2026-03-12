@@ -60,7 +60,7 @@ export function BeforeAfterSlider({
     return () => window.removeEventListener("pointerup", up);
   }, [isDragging]);
 
-  const imageScale = isHovered || isDragging ? "scale(1.03)" : "scale(1)";
+  const imageScale = isHovered || isDragging ? "scale(1.06)" : "scale(1)";
 
   return (
     <div
