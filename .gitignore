@@ -56,3 +56,4 @@ LTX2_app/
 .machine_lock
 .download_status
 .hf_download_cache/
+image/
