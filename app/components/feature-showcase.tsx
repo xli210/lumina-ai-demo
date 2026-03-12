@@ -185,21 +185,18 @@ export function FeatureShowcase() {
 
             {/* Slider side */}
             <div
-              className={`flex w-full max-w-xl items-center justify-center lg:w-3/5 ${
+              className={`w-full max-w-xl lg:w-3/5 ${
                 i % 2 === 0 ? "lg:order-2" : "lg:order-1"
               }`}
             >
-              <div className="relative">
-                <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-white/10 to-white/5 blur-sm" />
-                <div className="relative max-h-[70vh] rounded-2xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden">
-                  <BeforeAfterSlider
-                    before={feature.before}
-                    after={feature.after}
-                    alt={feature.title}
-                    width={feature.width}
-                    height={feature.height}
-                  />
-                </div>
+              <div className="rounded-2xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden">
+                <BeforeAfterSlider
+                  before={feature.before}
+                  after={feature.after}
+                  alt={feature.title}
+                  width={feature.width}
+                  height={feature.height}
+                />
               </div>
             </div>
           </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState, useCallback, useEffect } from "react";
-import Image from "next/image";
 
 interface BeforeAfterSliderProps {
   before: string;
@@ -60,39 +59,35 @@ export function BeforeAfterSlider({
     return () => window.removeEventListener("pointerup", up);
   }, [isDragging]);
 
-  const aspect = `${width} / ${height}`;
-
   return (
     <div
       ref={containerRef}
       className="relative w-full cursor-col-resize select-none overflow-hidden"
-      style={{ aspectRatio: aspect }}
+      style={{ aspectRatio: `${width} / ${height}`, maxHeight: "70vh" }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
     >
-      {/* After image — full layer */}
-      <Image
+      {/* After image — full background */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
         src={after}
         alt={`${alt} — after`}
-        fill
-        className="object-cover"
-        sizes="(max-width: 768px) 100vw, 50vw"
-        priority
+        className="absolute inset-0 h-full w-full object-cover"
+        draggable={false}
       />
 
-      {/* Before image — clip-path reveals left portion */}
+      {/* Before image — clipped to left portion */}
       <div
         className="absolute inset-0"
         style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
       >
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={before}
           alt={`${alt} — before`}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 50vw"
-          priority
+          className="absolute inset-0 h-full w-full object-cover"
+          draggable={false}
         />
       </div>
 
