@@ -14,7 +14,7 @@ export function StyleTransferDemo() {
       {/* Top row: Source + Style */}
       <div className="flex items-center gap-4 sm:gap-6">
         <div className="flex flex-col items-center gap-1.5">
-          <div className="relative h-36 w-36 overflow-hidden rounded-xl border border-white/10 shadow-lg sm:h-44 sm:w-44">
+          <div className="relative overflow-hidden rounded-xl border border-white/10 shadow-lg" style={{ width: 180, height: 180 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={SOURCE} alt="Source photo" className="h-full w-full object-cover" draggable={false} />
             <div className="absolute bottom-1.5 left-1.5 rounded-full bg-black/50 backdrop-blur-sm px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white/80">
@@ -28,7 +28,7 @@ export function StyleTransferDemo() {
         </div>
 
         <div className="flex flex-col items-center gap-1.5">
-          <div className="relative h-36 w-36 overflow-hidden rounded-xl border border-white/10 shadow-lg sm:h-44 sm:w-44">
+          <div className="relative overflow-hidden rounded-xl border border-white/10 shadow-lg" style={{ width: 180, height: 180 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={STYLE_REF} alt="Style reference" className="h-full w-full object-cover" draggable={false} />
             <div className="absolute bottom-1.5 left-1.5 rounded-full bg-black/50 backdrop-blur-sm px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white/80">
@@ -52,7 +52,10 @@ export function StyleTransferDemo() {
         onMouseEnter={() => setShowResult(true)}
         onMouseLeave={() => setShowResult(false)}
       >
-        <div className="relative h-64 w-64 overflow-hidden rounded-2xl border border-white/10 shadow-2xl transition-all duration-500 hover:border-white/25 hover:shadow-[0_0_40px_rgba(255,255,255,0.06)] sm:h-72 sm:w-72">
+        <div
+          className="relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl transition-all duration-500 hover:border-white/25 hover:shadow-[0_0_40px_rgba(255,255,255,0.06)]"
+          style={{ width: 320, height: 320 }}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={SOURCE}

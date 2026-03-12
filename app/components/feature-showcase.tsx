@@ -25,7 +25,7 @@ const features: Feature[] = [
     title: "Face Swap",
     subtitle: "Realistic AI face replacement in photos & videos",
     type: "equation",
-    hint: "Hover to see original",
+    hint: "Hover to see swap result",
   },
   {
     id: "facialedit",
@@ -81,7 +81,7 @@ function renderDemo(feature: Feature) {
       return <UpscaleDemo />;
     case "slider":
       return (
-        <div className="group/slider rounded-2xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_40px_rgba(255,255,255,0.06)]">
+        <div className="w-full rounded-2xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_40px_rgba(255,255,255,0.06)]">
           <BeforeAfterSlider
             before="/images/demos/colorize-before.jpg"
             after="/images/demos/colorize-after.jpg"

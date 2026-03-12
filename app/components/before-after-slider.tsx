@@ -66,7 +66,7 @@ export function BeforeAfterSlider({
     <div
       ref={containerRef}
       className="relative w-full cursor-col-resize select-none overflow-hidden"
-      style={{ aspectRatio: `${width} / ${height}`, maxHeight: "70vh" }}
+      style={{ aspectRatio: `${width} / ${height}`, maxHeight: "70vh", minHeight: "200px" }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
