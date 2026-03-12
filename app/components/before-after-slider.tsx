@@ -20,6 +20,7 @@ export function BeforeAfterSlider({
   const containerRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const updatePosition = useCallback((clientX: number) => {
     const container = containerRef.current;
@@ -59,6 +60,8 @@ export function BeforeAfterSlider({
     return () => window.removeEventListener("pointerup", up);
   }, [isDragging]);
 
+  const imageScale = isHovered || isDragging ? "scale(1.03)" : "scale(1)";
+
   return (
     <div
       ref={containerRef}
@@ -67,13 +70,16 @@ export function BeforeAfterSlider({
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {/* After image — full background */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={after}
         alt={`${alt} — after`}
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out"
+        style={{ transform: imageScale }}
         draggable={false}
       />
 
@@ -86,7 +92,8 @@ export function BeforeAfterSlider({
         <img
           src={before}
           alt={`${alt} — before`}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out"
+          style={{ transform: imageScale }}
           draggable={false}
         />
       </div>
