@@ -2,15 +2,21 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { BeforeAfterSlider } from "./before-after-slider";
+import { FaceSwapDemo } from "./demos/face-swap-demo";
+import { FacialEditDemo } from "./demos/facial-edit-demo";
+import { UpscaleDemo } from "./demos/upscale-demo";
+import { EditDemo } from "./demos/edit-demo";
+import { StyleTransferDemo } from "./demos/style-transfer-demo";
+import { TryonDemo } from "./demos/tryon-demo";
+
+type FeatureType = "equation" | "carousel" | "magnifier" | "slider" | "grid" | "triplet" | "tryon";
 
 interface Feature {
   id: string;
   title: string;
   subtitle: string;
-  before: string;
-  after: string;
-  width: number;
-  height: number;
+  type: FeatureType;
+  hint: string;
 }
 
 const features: Feature[] = [
@@ -18,66 +24,104 @@ const features: Feature[] = [
     id: "faceswap",
     title: "Face Swap",
     subtitle: "Realistic AI face replacement in photos & videos",
-    before: "/images/demos/faceswap-before.jpg",
-    after: "/images/demos/faceswap-after.jpg",
-    width: 900,
-    height: 1200,
+    type: "equation",
+    hint: "Hover to reveal the swap",
   },
   {
     id: "facialedit",
     title: "Facial Edit",
     subtitle: "AI-powered retouching & expression editing",
-    before: "/images/demos/facialedit-before.jpg",
-    after: "/images/demos/facialedit-after.jpg",
-    width: 700,
-    height: 1040,
+    type: "carousel",
+    hint: "Hover each variation",
   },
   {
     id: "upscale",
     title: "Image Upscale",
     subtitle: "Enhance resolution & restore old photos with AI",
-    before: "/images/demos/upscale-before.jpg",
-    after: "/images/demos/upscale-after.jpg",
-    width: 900,
-    height: 1200,
+    type: "magnifier",
+    hint: "Move cursor to inspect details",
   },
   {
     id: "colorize",
     title: "Colorize",
     subtitle: "Bring black & white photos to life with AI color",
-    before: "/images/demos/colorize-before.jpg",
-    after: "/images/demos/colorize-after.jpg",
-    width: 1200,
-    height: 1000,
+    type: "slider",
+    hint: "Drag the slider to compare",
   },
   {
     id: "edit",
     title: "Image Edit",
     subtitle: "Generate & re-imagine images from text prompts",
-    before: "/images/demos/edit-before.jpg",
-    after: "/images/demos/edit-after.jpg",
-    width: 1000,
-    height: 1000,
+    type: "grid",
+    hint: "Hover to see prompt variations",
   },
   {
     id: "style",
     title: "Style Transfer",
     subtitle: "Apply artistic styles to any photo instantly",
-    before: "/images/demos/style-before.jpg",
-    after: "/images/demos/style-after.jpg",
-    width: 1000,
-    height: 1000,
+    type: "triplet",
+    hint: "Hover to apply the style",
   },
   {
     id: "tryon",
     title: "Virtual Try-On",
     subtitle: "See how clothes look on you before you buy",
-    before: "/images/demos/tryon-before.jpg",
-    after: "/images/demos/tryon-after.jpg",
-    width: 600,
-    height: 920,
+    type: "tryon",
+    hint: "Hover the clothing to try it on",
   },
 ];
+
+function renderDemo(feature: Feature) {
+  switch (feature.type) {
+    case "equation":
+      return <FaceSwapDemo />;
+    case "carousel":
+      return <FacialEditDemo />;
+    case "magnifier":
+      return <UpscaleDemo />;
+    case "slider":
+      return (
+        <div className="group/slider rounded-2xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_40px_rgba(255,255,255,0.06)]">
+          <BeforeAfterSlider
+            before="/images/demos/colorize-before.jpg"
+            after="/images/demos/colorize-after.jpg"
+            alt="Colorize"
+            width={1200}
+            height={1000}
+          />
+        </div>
+      );
+    case "grid":
+      return <EditDemo />;
+    case "triplet":
+      return <StyleTransferDemo />;
+    case "tryon":
+      return <TryonDemo />;
+  }
+}
+
+function hintIcon(type: FeatureType) {
+  if (type === "slider") {
+    return (
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-white/30">
+        <path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+  if (type === "magnifier") {
+    return (
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-white/30">
+        <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M9.5 9.5L13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    );
+  }
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-white/30">
+      <path d="M7 1v12M1 7h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 export function FeatureShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -87,29 +131,22 @@ export function FeatureShowcase() {
   );
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Active index tracking (threshold 0.5 for nav dots)
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
-
     sectionRefs.current.forEach((el, i) => {
       if (!el) return;
       const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveIndex(i);
-        },
+        ([entry]) => { if (entry.isIntersecting) setActiveIndex(i); },
         { threshold: 0.5 },
       );
       observer.observe(el);
       observers.push(observer);
     });
-
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  // Visibility tracking for enter animations (threshold 0.3)
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
-
     sectionRefs.current.forEach((el, i) => {
       if (!el) return;
       const observer = new IntersectionObserver(
@@ -128,11 +165,9 @@ export function FeatureShowcase() {
       observer.observe(el);
       observers.push(observer);
     });
-
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  // Parallax scroll offset for background blobs
   const handleScroll = useCallback(() => {
     const offsets = sectionRefs.current.map((el) => {
       if (!el) return 0;
@@ -158,9 +193,7 @@ export function FeatureShowcase() {
           <button
             key={f.id}
             type="button"
-            onClick={() =>
-              sectionRefs.current[i]?.scrollIntoView({ behavior: "smooth" })
-            }
+            onClick={() => sectionRefs.current[i]?.scrollIntoView({ behavior: "smooth" })}
             className="group relative flex items-center"
             aria-label={`Go to ${f.title}`}
           >
@@ -195,12 +228,10 @@ export function FeatureShowcase() {
             ref={(el) => { sectionRefs.current[i] = el; }}
             className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black px-4 py-16 sm:px-6 md:py-24"
           >
-            {/* Top fade (all except first) */}
             {i > 0 && (
               <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black to-transparent z-[1]" />
             )}
 
-            {/* Parallax background blob */}
             <div className="pointer-events-none absolute inset-0">
               <div
                 className="absolute inset-0 opacity-20 transition-transform duration-100 ease-out will-change-transform"
@@ -214,13 +245,12 @@ export function FeatureShowcase() {
             </div>
 
             <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-8 lg:flex-row lg:gap-16">
-              {/* Text side — staggered fade-in */}
+              {/* Text side */}
               <div
                 className={`flex flex-col items-center text-center lg:w-2/5 lg:items-start lg:text-left ${
                   fromRight ? "lg:order-1" : "lg:order-2"
                 }`}
               >
-                {/* Counter badge */}
                 <span
                   className="mb-3 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-white/50 transition-all duration-700 ease-out"
                   style={{
@@ -232,7 +262,6 @@ export function FeatureShowcase() {
                   {String(i + 1).padStart(2, "0")} / {String(features.length).padStart(2, "0")}
                 </span>
 
-                {/* Title */}
                 <h2
                   className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl transition-all duration-700 ease-out"
                   style={{
@@ -244,7 +273,6 @@ export function FeatureShowcase() {
                   {feature.title}
                 </h2>
 
-                {/* Subtitle */}
                 <p
                   className="max-w-sm text-base text-white/60 sm:text-lg transition-all duration-700 ease-out"
                   style={{
@@ -256,7 +284,6 @@ export function FeatureShowcase() {
                   {feature.subtitle}
                 </p>
 
-                {/* Hint */}
                 <div
                   className="mt-6 flex items-center gap-2 text-xs text-white/30 transition-all duration-700 ease-out"
                   style={{
@@ -265,16 +292,14 @@ export function FeatureShowcase() {
                     transitionDelay: "0.3s",
                   }}
                 >
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-white/30">
-                    <path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  Drag the slider to compare
+                  {hintIcon(feature.type)}
+                  {feature.hint}
                 </div>
               </div>
 
-              {/* Slider side — slide in + scale up */}
+              {/* Demo side */}
               <div
-                className={`w-full max-w-xl lg:w-3/5 transition-all duration-800 ease-out ${
+                className={`flex w-full items-center justify-center lg:w-3/5 transition-all duration-800 ease-out ${
                   fromRight ? "lg:order-2" : "lg:order-1"
                 }`}
                 style={{
@@ -285,19 +310,10 @@ export function FeatureShowcase() {
                   transitionDelay: "0.15s",
                 }}
               >
-                <div className="group/slider rounded-2xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_40px_rgba(255,255,255,0.06)]">
-                  <BeforeAfterSlider
-                    before={feature.before}
-                    after={feature.after}
-                    alt={feature.title}
-                    width={feature.width}
-                    height={feature.height}
-                  />
-                </div>
+                {renderDemo(feature)}
               </div>
             </div>
 
-            {/* Bottom fade (all except last) */}
             {i < features.length - 1 && (
               <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent z-[1]" />
             )}
