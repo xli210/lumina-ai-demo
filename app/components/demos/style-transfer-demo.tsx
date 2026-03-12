@@ -10,12 +10,11 @@ export function StyleTransferDemo() {
   const [showResult, setShowResult] = useState(false);
 
   return (
-    <div className="flex w-full flex-col items-center gap-4 sm:gap-5">
+    <div className="flex w-full flex-col items-center gap-5">
       {/* Top row: Source + Style */}
-      <div className="flex items-center gap-3 sm:gap-5">
-        {/* Source photo */}
+      <div className="flex items-center gap-4 sm:gap-6">
         <div className="flex flex-col items-center gap-1.5">
-          <div className="relative h-28 w-28 overflow-hidden rounded-xl border border-white/10 shadow-lg sm:h-36 sm:w-36">
+          <div className="relative h-36 w-36 overflow-hidden rounded-xl border border-white/10 shadow-lg sm:h-44 sm:w-44">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={SOURCE} alt="Source photo" className="h-full w-full object-cover" draggable={false} />
             <div className="absolute bottom-1.5 left-1.5 rounded-full bg-black/50 backdrop-blur-sm px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white/80">
@@ -24,14 +23,12 @@ export function StyleTransferDemo() {
           </div>
         </div>
 
-        {/* Plus */}
         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/40 text-sm font-light">
           +
         </div>
 
-        {/* Style reference */}
         <div className="flex flex-col items-center gap-1.5">
-          <div className="relative h-28 w-28 overflow-hidden rounded-xl border border-white/10 shadow-lg sm:h-36 sm:w-36">
+          <div className="relative h-36 w-36 overflow-hidden rounded-xl border border-white/10 shadow-lg sm:h-44 sm:w-44">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={STYLE_REF} alt="Style reference" className="h-full w-full object-cover" draggable={false} />
             <div className="absolute bottom-1.5 left-1.5 rounded-full bg-black/50 backdrop-blur-sm px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white/80">
@@ -55,7 +52,7 @@ export function StyleTransferDemo() {
         onMouseEnter={() => setShowResult(true)}
         onMouseLeave={() => setShowResult(false)}
       >
-        <div className="relative h-48 w-48 overflow-hidden rounded-2xl border border-white/10 shadow-2xl transition-all duration-500 hover:border-white/25 hover:shadow-[0_0_40px_rgba(255,255,255,0.06)] sm:h-56 sm:w-56">
+        <div className="relative h-64 w-64 overflow-hidden rounded-2xl border border-white/10 shadow-2xl transition-all duration-500 hover:border-white/25 hover:shadow-[0_0_40px_rgba(255,255,255,0.06)] sm:h-72 sm:w-72">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={SOURCE}

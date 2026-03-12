@@ -13,7 +13,7 @@ export function EditDemo() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <div className="grid w-full max-w-lg grid-cols-2 gap-3 sm:gap-4">
+    <div className="grid w-full max-w-2xl grid-cols-2 gap-3 sm:gap-4">
       {variants.map((v, i) => {
         const isActive = hovered === i;
         const isOriginal = i === 0;
@@ -45,7 +45,6 @@ export function EditDemo() {
                 draggable={false}
               />
 
-              {/* Prompt overlay */}
               <div
                 className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 transition-opacity duration-300"
                 style={{ opacity: isActive ? 1 : 0.5 }}

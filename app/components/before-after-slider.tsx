@@ -36,7 +36,7 @@ export function BeforeAfterSlider({
       e.preventDefault();
       setIsDragging(true);
       updatePosition(e.clientX);
-      (e.target as HTMLElement).setPointerCapture(e.pointerId);
+      containerRef.current?.setPointerCapture(e.pointerId);
     },
     [updatePosition],
   );

@@ -14,7 +14,7 @@ export function FacialEditDemo() {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
 
   return (
-    <div className="flex w-full items-end justify-center gap-2 sm:gap-3">
+    <div className="flex w-full items-end justify-center gap-3 sm:gap-4">
       {images.map((img, i) => {
         const isOriginal = i === 0;
         const isActive = activeIdx === i;
@@ -29,8 +29,8 @@ export function FacialEditDemo() {
             <div
               className="relative overflow-hidden rounded-xl border shadow-lg transition-all duration-500 cursor-pointer"
               style={{
-                width: isOriginal ? 120 : 100,
-                height: isOriginal ? 180 : 150,
+                width: isOriginal ? 140 : 120,
+                height: isOriginal ? 210 : 180,
                 borderColor: isActive
                   ? "rgba(255,255,255,0.3)"
                   : isOriginal

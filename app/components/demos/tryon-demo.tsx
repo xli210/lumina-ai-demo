@@ -10,12 +10,12 @@ export function TryonDemo() {
   const [applied, setApplied] = useState(false);
 
   return (
-    <div className="flex w-full items-center justify-center gap-3 sm:gap-6">
+    <div className="flex w-full items-center justify-center gap-4 sm:gap-8">
       {/* Model */}
       <div className="flex flex-col items-center gap-2">
         <div
           className="relative overflow-hidden rounded-2xl border border-white/10 shadow-xl transition-all duration-500"
-          style={{ width: 160, height: 240 }}
+          style={{ width: 200, height: 300 }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -41,8 +41,8 @@ export function TryonDemo() {
         <div
           className="relative overflow-hidden rounded-xl transition-all duration-700"
           style={{
-            width: 100,
-            height: 120,
+            width: 120,
+            height: 150,
             transform: applied
               ? "translateX(0px) rotate(0deg) scale(0.9)"
               : "translateX(0px) rotate(-3deg) scale(1)",
@@ -68,8 +68,8 @@ export function TryonDemo() {
         <div
           className="relative overflow-hidden rounded-2xl border shadow-xl transition-all duration-700"
           style={{
-            width: 160,
-            height: 240,
+            width: 200,
+            height: 300,
             borderColor: applied ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.05)",
             opacity: applied ? 1 : 0.4,
             filter: applied ? "none" : "blur(6px) grayscale(0.5)",

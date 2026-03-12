@@ -25,7 +25,7 @@ const features: Feature[] = [
     title: "Face Swap",
     subtitle: "Realistic AI face replacement in photos & videos",
     type: "equation",
-    hint: "Hover to reveal the swap",
+    hint: "Hover to see original",
   },
   {
     id: "facialedit",
@@ -244,15 +244,15 @@ export function FeatureShowcase() {
               />
             </div>
 
-            <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-8 lg:flex-row lg:gap-16">
-              {/* Text side */}
+            <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-6 lg:flex-row lg:gap-12">
+              {/* Text side — compact */}
               <div
-                className={`flex flex-col items-center text-center lg:w-2/5 lg:items-start lg:text-left ${
+                className={`flex flex-col items-center text-center lg:w-[28%] lg:items-start lg:text-left ${
                   fromRight ? "lg:order-1" : "lg:order-2"
                 }`}
               >
                 <span
-                  className="mb-3 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-white/50 transition-all duration-700 ease-out"
+                  className="mb-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-white/50 transition-all duration-700 ease-out"
                   style={{
                     opacity: isVisible ? 1 : 0,
                     transform: isVisible ? "translateY(0)" : "translateY(12px)",
@@ -263,7 +263,7 @@ export function FeatureShowcase() {
                 </span>
 
                 <h2
-                  className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl transition-all duration-700 ease-out"
+                  className="mb-3 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl transition-all duration-700 ease-out"
                   style={{
                     opacity: isVisible ? 1 : 0,
                     transform: isVisible ? "translateY(0)" : "translateY(30px)",
@@ -274,7 +274,7 @@ export function FeatureShowcase() {
                 </h2>
 
                 <p
-                  className="max-w-sm text-base text-white/60 sm:text-lg transition-all duration-700 ease-out"
+                  className="max-w-xs text-sm text-white/60 transition-all duration-700 ease-out"
                   style={{
                     opacity: isVisible ? 1 : 0,
                     transform: isVisible ? "translateY(0)" : "translateY(20px)",
@@ -285,7 +285,7 @@ export function FeatureShowcase() {
                 </p>
 
                 <div
-                  className="mt-6 flex items-center gap-2 text-xs text-white/30 transition-all duration-700 ease-out"
+                  className="mt-4 flex items-center gap-2 text-[11px] text-white/30 transition-all duration-700 ease-out"
                   style={{
                     opacity: isVisible ? 1 : 0,
                     transform: isVisible ? "translateY(0)" : "translateY(12px)",
@@ -297,9 +297,9 @@ export function FeatureShowcase() {
                 </div>
               </div>
 
-              {/* Demo side */}
+              {/* Demo side — dominant */}
               <div
-                className={`flex w-full items-center justify-center lg:w-3/5 transition-all duration-800 ease-out ${
+                className={`flex w-full items-center justify-center lg:w-[72%] transition-all duration-800 ease-out ${
                   fromRight ? "lg:order-2" : "lg:order-1"
                 }`}
                 style={{
