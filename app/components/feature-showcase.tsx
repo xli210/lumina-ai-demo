@@ -75,7 +75,7 @@ const features: Feature[] = [
     before: "/images/demos/tryon-before.jpg",
     after: "/images/demos/tryon-after.jpg",
     width: 600,
-    height: 900,
+    height: 920,
   },
 ];
 
