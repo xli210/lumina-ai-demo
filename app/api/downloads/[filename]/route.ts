@@ -7,14 +7,14 @@ import { existsSync } from "fs";
 
 // Map allowed filenames to their product_id for license verification
 const FILE_PRODUCT_MAP: Record<string, string> = {
-  "LuminaAI-3.2.1.zip": "lumina-ai",
-  "OCR_Demo0.0.02.zip": "ocr-demo",
-  "NanoImageEdit-1.0.2.zip": "nano-imageedit",
-  "NanoVideoGen-1.0.3.zip": "nano-videogen",
-  "NanoFacialEdit-1.0.1.zip": "nano-facialedit",
-  "NanoFaceSwap-1.0.1.zip": "nano-faceswap",
-  "NanoImageEnh_1.0.0.zip": "nnanoimageenh",
-  "NanoImageTryon-1.0.0.zip": "nano-image-tryon",
+  "LuminaAI-3.2.1-release.zip": "lumina-ai",
+  "OCR_Demo-0.0.02-release.zip": "ocr-demo",
+  "NanoImageEdit-1.0.4-release.zip": "nano-imageedit",
+  "NanoVideoGen-1.0.3-release.zip": "nano-videogen",
+  "NanoFacialEdit-1.0.2-release.zip": "nano-facialedit",
+  "NanoFaceSwap-1.0.3-release.zip": "nano-faceswap",
+  "NanoImageEnh-1.0.1-release.zip": "nnanoimageenh",
+  "NanoImageTryon-1.0.0-release.zip": "nano-image-tryon",
 };
 
 const ALLOWED_FILES = Object.keys(FILE_PRODUCT_MAP);

@@ -84,9 +84,17 @@ const appReleases: AppRelease[] = [
     gradient: "from-violet-500 to-fuchsia-400",
     releases: [
       {
+        version: "1.0.4",
+        date: "March 16, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "General stability and performance improvements" },
+          { type: "fix", text: "Bug fixes and optimizations" },
+        ],
+      },
+      {
         version: "1.0.2",
         date: "March 4, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "Updated installer with latest fixes and improvements" },
           { type: "improvement", text: "Enhanced transport-key encryption for security" },
@@ -142,9 +150,17 @@ const appReleases: AppRelease[] = [
     gradient: "from-pink-500 to-rose-400",
     releases: [
       {
+        version: "1.0.2",
+        date: "March 16, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "General stability and performance improvements" },
+          { type: "fix", text: "Bug fixes and optimizations" },
+        ],
+      },
+      {
         version: "1.0.1",
         date: "March 5, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "Updated installer with latest fixes and improvements" },
           { type: "improvement", text: "General stability and performance improvements" },
@@ -170,9 +186,17 @@ const appReleases: AppRelease[] = [
     gradient: "from-cyan-500 to-blue-400",
     releases: [
       {
+        version: "1.0.3",
+        date: "March 16, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "General stability and performance improvements" },
+          { type: "fix", text: "Bug fixes and optimizations" },
+        ],
+      },
+      {
         version: "1.0.1",
         date: "March 5, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "Updated installer with latest fixes and improvements" },
           { type: "improvement", text: "General stability and performance improvements" },
@@ -197,9 +221,17 @@ const appReleases: AppRelease[] = [
     gradient: "from-teal-500 to-cyan-400",
     releases: [
       {
+        version: "1.0.1",
+        date: "March 16, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "General stability and performance improvements" },
+          { type: "fix", text: "Bug fixes and optimizations" },
+        ],
+      },
+      {
         version: "1.0.0",
         date: "March 5, 2026",
-        tag: "Initial Release",
         changes: [
           { type: "feature", text: "AI-powered image upscaling and denoising" },
           { type: "feature", text: "Photo restoration and detail enhancement" },
