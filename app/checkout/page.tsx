@@ -3,7 +3,9 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ArrowLeft, Check, Lock, ImagePlus, Video, Sparkles } from "lucide-react";
+import { ArrowLeft, Check, Lock, ImagePlus, Video, Sparkles, Wand2 } from "lucide-react";
+import { Navbar } from "../components/navbar";
+import { Footer } from "../components/footer";
 import Checkout from "../components/checkout";
 import { PRODUCTS } from "@/lib/products";
 
@@ -12,22 +14,39 @@ function CheckoutContent() {
   const productId = searchParams.get("product") || PRODUCTS[0].id;
   const product = PRODUCTS.find((p) => p.id === productId) || PRODUCTS[0];
 
-  // Pick an icon based on the product id
   const iconMap: Record<string, typeof Sparkles> = {
     "nano-imageedit": ImagePlus,
     "nano-videogen": Video,
+    "nnanoimageenh": Wand2,
   };
   const ProductIcon = iconMap[product.id] || Sparkles;
 
+  if (product.priceInCents === 0) {
+    return (
+      <div className="min-h-screen px-6 py-24">
+        <div className="relative mx-auto max-w-md text-center">
+          <h1 className="mb-4 text-2xl font-bold text-foreground">This product is free!</h1>
+          <p className="mb-8 text-muted-foreground">
+            {product.name} doesn&apos;t require payment. Head to the download page to claim your free license.
+          </p>
+          <Link
+            href={`/download#${product.id}`}
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90"
+          >
+            Go to Download
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen px-6 py-12">
-      {/* Background */}
+    <div className="min-h-screen px-6 pt-24 pb-12">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -top-1/4 left-1/3 h-[600px] w-[600px] rounded-full bg-primary/5 blur-[120px]" />
       </div>
 
       <div className="relative mx-auto max-w-5xl">
-        {/* Header */}
         <div className="mb-8 flex items-center justify-between">
           <Link
             href="/download"
@@ -45,7 +64,6 @@ function CheckoutContent() {
         </div>
 
         <div className="grid gap-8 lg:grid-cols-5">
-          {/* Order Summary */}
           <div className="lg:col-span-2">
             <div className="glass-strong rounded-2xl p-8">
               <div className="mb-6 flex items-center gap-2">
@@ -93,7 +111,6 @@ function CheckoutContent() {
             </div>
           </div>
 
-          {/* Stripe Checkout */}
           <div className="lg:col-span-3">
             <div className="glass-strong overflow-hidden rounded-2xl p-1">
               <Checkout productId={product.id} />
@@ -107,14 +124,18 @@ function CheckoutContent() {
 
 export default function CheckoutPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-        </div>
-      }
-    >
-      <CheckoutContent />
-    </Suspense>
+    <main className="relative min-h-screen">
+      <Navbar />
+      <Suspense
+        fallback={
+          <div className="min-h-screen flex items-center justify-center">
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+          </div>
+        }
+      >
+        <CheckoutContent />
+      </Suspense>
+      <Footer />
+    </main>
   );
 }

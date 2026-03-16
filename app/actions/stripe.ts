@@ -3,6 +3,7 @@
 import { stripe } from '../../lib/stripe'
 import { PRODUCTS } from '../../lib/products'
 import { createClient } from '@/lib/supabase/server'
+import { headers } from 'next/headers'
 
 export async function startCheckoutSession(productId: string) {
   const product = PRODUCTS.find((p) => p.id === productId)
@@ -10,15 +11,17 @@ export async function startCheckoutSession(productId: string) {
     throw new Error(`Product with id "${productId}" not found`)
   }
 
-  // Get the current user's Supabase ID so the webhook can link the license
   const supabase = await createClient()
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
+  const headersList = await headers()
+  const origin = headersList.get('origin') || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
   const session = await stripe.checkout.sessions.create({
     ui_mode: 'embedded',
-    redirect_on_completion: 'never',
+    return_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     line_items: [
       {
         price_data: {
