@@ -4,36 +4,51 @@ import { useRef, useState, useCallback } from "react";
 
 const LOW = "/images/demos/upscale-low.jpg";
 const HIGH = "/images/demos/upscale-high.jpg";
-const LENS_SIZE = 280;
-const HI_RES_SCALE = 2000 / 800;
+
+const IMG_W = 800;
+const IMG_H = 533;
+
+const LENS_SIZE = 300;
+const ZOOM = 2.8;
 
 export function UpscaleDemo() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [cursor, setCursor] = useState({ x: 0.5, y: 0.5 });
+  const [cursorPx, setCursorPx] = useState({ x: 0, y: 0 });
+  const [cursorRatio, setCursorRatio] = useState({ x: 0.5, y: 0.5 });
   const [active, setActive] = useState(false);
 
   const handleMove = useCallback((e: React.PointerEvent) => {
     const el = containerRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    setCursor({
-      x: Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)),
-      y: Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height)),
+    const px = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    setCursorPx(px);
+    setCursorRatio({
+      x: Math.max(0, Math.min(1, px.x / rect.width)),
+      y: Math.max(0, Math.min(1, px.y / rect.height)),
     });
   }, []);
 
   const half = LENS_SIZE / 2;
 
+  const lensStyle = active
+    ? {
+        backgroundImage: `url(${HIGH})`,
+        backgroundSize: `${(containerRef.current?.offsetWidth ?? IMG_W) * ZOOM}px ${(containerRef.current?.offsetHeight ?? IMG_H) * ZOOM}px`,
+        backgroundPosition: `${-cursorPx.x * ZOOM + half}px ${-cursorPx.y * ZOOM + half}px`,
+        backgroundRepeat: "no-repeat",
+      }
+    : undefined;
+
   return (
     <div
       ref={containerRef}
       className="relative w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl cursor-none select-none transition-all duration-500 hover:border-white/20"
-      style={{ aspectRatio: "4 / 3" }}
+      style={{ aspectRatio: `${IMG_W} / ${IMG_H}` }}
       onPointerEnter={() => setActive(true)}
       onPointerLeave={() => setActive(false)}
       onPointerMove={handleMove}
     >
-      {/* Low-res base image — fills the entire container */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={LOW}
@@ -42,7 +57,6 @@ export function UpscaleDemo() {
         draggable={false}
       />
 
-      {/* Hover hint */}
       {!active && (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="flex flex-col items-center gap-2 rounded-2xl bg-black/40 backdrop-blur-sm px-6 py-4">
@@ -58,37 +72,21 @@ export function UpscaleDemo() {
         </div>
       )}
 
-      {/* Large magnifying lens showing the HQ version */}
       {active && (
         <div
-          className="pointer-events-none absolute z-20 rounded-full overflow-hidden"
+          className="pointer-events-none absolute z-20 rounded-full"
           style={{
             width: LENS_SIZE,
             height: LENS_SIZE,
-            left: `calc(${cursor.x * 100}% - ${half}px)`,
-            top: `calc(${cursor.y * 100}% - ${half}px)`,
+            left: cursorPx.x - half,
+            top: cursorPx.y - half,
             border: "3px solid rgba(255,255,255,0.85)",
             boxShadow: "0 0 0 1px rgba(255,255,255,0.15), 0 0 40px rgba(0,0,0,0.6), 0 8px 32px rgba(0,0,0,0.4)",
+            ...lensStyle,
           }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={HIGH}
-            alt="AI enhanced detail"
-            className="absolute"
-            style={{
-              width: `${HI_RES_SCALE * 100}%`,
-              height: `${HI_RES_SCALE * 100}%`,
-              left: `${-cursor.x * (HI_RES_SCALE - 1) * 100}%`,
-              top: `${-cursor.y * (HI_RES_SCALE - 1) * 100}%`,
-              maxWidth: "none",
-            }}
-            draggable={false}
-          />
-        </div>
+        />
       )}
 
-      {/* Labels */}
       <div className="absolute top-3 left-3 z-10 rounded-full bg-black/50 backdrop-blur-sm px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white/90">
         Low-Res Original
       </div>
@@ -96,8 +94,8 @@ export function UpscaleDemo() {
         <div
           className="pointer-events-none absolute z-30 rounded-full bg-white/20 backdrop-blur-sm px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white/90"
           style={{
-            left: `calc(${cursor.x * 100}% - 45px)`,
-            top: `calc(${cursor.y * 100}% + ${half + 10}px)`,
+            left: `calc(${cursorRatio.x * 100}% - 45px)`,
+            top: `calc(${cursorRatio.y * 100}% + ${half + 10}px)`,
           }}
         >
           AI Enhanced

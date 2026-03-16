@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import Link from "next/link";
 import { BeforeAfterSlider } from "./before-after-slider";
 import { FaceSwapDemo } from "./demos/face-swap-demo";
 import { FacialEditDemo } from "./demos/facial-edit-demo";
@@ -17,6 +18,8 @@ interface Feature {
   subtitle: string;
   type: FeatureType;
   hint: string;
+  downloadId: string;
+  ctaLabel: string;
 }
 
 const features: Feature[] = [
@@ -26,6 +29,8 @@ const features: Feature[] = [
     subtitle: "Realistic AI face replacement in photos & videos",
     type: "equation",
     hint: "Hover to see swap result",
+    downloadId: "nano-faceswap",
+    ctaLabel: "Get Nano FaceSwap",
   },
   {
     id: "facialedit",
@@ -33,6 +38,8 @@ const features: Feature[] = [
     subtitle: "AI-powered retouching & expression editing",
     type: "carousel",
     hint: "Hover each variation",
+    downloadId: "nano-facialedit",
+    ctaLabel: "Get Nano FacialEdit",
   },
   {
     id: "upscale",
@@ -40,6 +47,8 @@ const features: Feature[] = [
     subtitle: "Enhance resolution & restore old photos with AI",
     type: "magnifier",
     hint: "Move cursor to inspect details",
+    downloadId: "nnanoimageenh",
+    ctaLabel: "Get Nano ImageEnh",
   },
   {
     id: "colorize",
@@ -47,6 +56,8 @@ const features: Feature[] = [
     subtitle: "Bring black & white photos to life with AI color",
     type: "slider",
     hint: "Drag the slider to compare",
+    downloadId: "nnanoimageenh",
+    ctaLabel: "Get Nano ImageEnh",
   },
   {
     id: "edit",
@@ -54,6 +65,8 @@ const features: Feature[] = [
     subtitle: "Generate & re-imagine images from text prompts",
     type: "grid",
     hint: "Hover to see prompt variations",
+    downloadId: "nano-imageedit",
+    ctaLabel: "Get Nano ImageEdit",
   },
   {
     id: "style",
@@ -61,6 +74,8 @@ const features: Feature[] = [
     subtitle: "Apply artistic styles to any photo instantly",
     type: "triplet",
     hint: "Hover to apply the style",
+    downloadId: "lumina-ai",
+    ctaLabel: "Get NanoPocket AI",
   },
   {
     id: "tryon",
@@ -68,6 +83,8 @@ const features: Feature[] = [
     subtitle: "See how clothes look on you before you buy",
     type: "tryon",
     hint: "Hover the clothing to try it on",
+    downloadId: "nano-facialedit",
+    ctaLabel: "Get Nano FacialEdit",
   },
 ];
 
@@ -295,6 +312,21 @@ export function FeatureShowcase() {
                   {hintIcon(feature.type)}
                   {feature.hint}
                 </div>
+
+                <Link
+                  href={`/download#${feature.downloadId}`}
+                  className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs font-medium text-white/80 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/25 hover:text-white"
+                  style={{
+                    opacity: isVisible ? 1 : 0,
+                    transform: isVisible ? "translateY(0)" : "translateY(12px)",
+                    transitionDelay: "0.4s",
+                  }}
+                >
+                  {feature.ctaLabel}
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M3 7h8M8 3l3 4-3 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
               </div>
 
               {/* Demo side — dominant */}

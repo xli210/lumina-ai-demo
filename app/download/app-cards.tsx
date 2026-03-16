@@ -359,8 +359,9 @@ export function AppCards() {
 
             return (
               <div
+                id={app.id}
                 key={app.id}
-                className="glass-strong rounded-3xl p-8 md:p-10 border border-border/50 transition-all duration-300 hover:border-primary/20"
+                className="glass-strong rounded-3xl p-8 md:p-10 border border-border/50 transition-all duration-300 hover:border-primary/20 scroll-mt-24"
               >
                 {/* App Header */}
                 <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between mb-6">
