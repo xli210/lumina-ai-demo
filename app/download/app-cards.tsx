@@ -21,6 +21,7 @@ import {
   Clock,
   AlertTriangle,
   Wand2,
+  Shirt,
   type LucideIcon,
 } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
@@ -219,6 +220,28 @@ const apps: AppInfo[] = [
         fileName: "NanoImageEnh_1.0.0.zip",
         downloadUrl: "/api/downloads/NanoImageEnh_1.0.0.zip",
         size: "2.1 MB",
+      },
+    ],
+  },
+  {
+    id: "nano-image-tryon",
+    productId: "nano-image-tryon",
+    name: "Nano ImageTryon",
+    tagline: "AI Virtual Try-On",
+    description:
+      "See how clothes look on you before you buy. AI-powered virtual try-on with photo-realistic results — running 100% locally on your GPU.",
+    icon: Shirt,
+    version: "1.0.0",
+    gradient: "from-indigo-500 to-purple-400",
+    shadowColor: "shadow-indigo-500/25",
+    badge: "New",
+    platforms: [
+      {
+        platform: "Windows",
+        icon: Monitor,
+        fileName: "NanoImageTryon-1.0.0.zip",
+        downloadUrl: "/api/downloads/NanoImageTryon-1.0.0.zip",
+        size: "—",
       },
     ],
   },

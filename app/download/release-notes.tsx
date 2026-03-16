@@ -1,4 +1,4 @@
-import { Tag, Sparkles, Bug, Zap, ScanText, ImagePlus, Video, ScanFace, ArrowLeftRight, Wand2 } from "lucide-react";
+import { Tag, Sparkles, Bug, Zap, ScanText, ImagePlus, Video, ScanFace, ArrowLeftRight, Wand2, Shirt } from "lucide-react";
 
 interface ReleaseChange {
   type: "feature" | "improvement" | "fix";
@@ -205,6 +205,23 @@ const appReleases: AppRelease[] = [
           { type: "feature", text: "Photo restoration and detail enhancement" },
           { type: "feature", text: "Product-bound license activation for secure model protection" },
           { type: "feature", text: "14-day free trial included" },
+          { type: "feature", text: "Runs 100% locally on your GPU — no cloud dependency" },
+        ],
+      },
+    ],
+  },
+  {
+    app: "Nano ImageTryon",
+    icon: Shirt,
+    gradient: "from-indigo-500 to-purple-400",
+    releases: [
+      {
+        version: "1.0.0",
+        date: "March 16, 2026",
+        tag: "Initial Release",
+        changes: [
+          { type: "feature", text: "AI-powered virtual try-on with photo-realistic results" },
+          { type: "feature", text: "Clothing swap from any photo" },
           { type: "feature", text: "Runs 100% locally on your GPU — no cloud dependency" },
         ],
       },

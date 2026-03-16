@@ -83,8 +83,8 @@ const features: Feature[] = [
     subtitle: "See how clothes look on you before you buy",
     type: "tryon",
     hint: "Hover the clothing to try it on",
-    downloadId: "nano-facialedit",
-    ctaLabel: "Get Nano FacialEdit",
+    downloadId: "nano-image-tryon",
+    ctaLabel: "Get Nano ImageTryon",
   },
 ];
 

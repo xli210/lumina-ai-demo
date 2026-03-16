@@ -124,4 +124,19 @@ export const PRODUCTS: Product[] = [
     maxActivations: 1,
     masterKeyEnv: "LICENSE_MASTER_KEY_NANO_IMAGEENH",
   },
+  {
+    id: "nano-image-tryon",
+    name: "Nano ImageTryon",
+    description:
+      "AI Virtual Try-On — See how clothes look on you before you buy, powered by AI running 100% locally on your GPU.",
+    priceInCents: 0,
+    features: [
+      "AI-powered virtual try-on",
+      "Photo-realistic clothing swap",
+      "Runs 100% locally on your GPU",
+      "All future updates included",
+    ],
+    maxActivations: 1,
+    masterKeyEnv: "LICENSE_MASTER_KEY_NANO_IMAGE_TRYON",
+  },
 ]
