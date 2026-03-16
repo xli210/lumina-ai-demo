@@ -315,6 +315,7 @@ export function FeatureShowcase() {
 
                 <Link
                   href={`/download#${feature.downloadId}`}
+                  scroll={false}
                   className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs font-medium text-white/80 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/25 hover:text-white"
                   style={{
                     opacity: isVisible ? 1 : 0,

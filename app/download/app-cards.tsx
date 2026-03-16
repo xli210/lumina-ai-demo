@@ -263,13 +263,14 @@ export function AppCards() {
   }, [loadExistingLicenses]);
 
   useEffect(() => {
+    if (loadingLicenses) return;
     const hash = window.location.hash.slice(1);
     if (!hash) return;
     const timeout = setTimeout(() => {
       document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+    }, 50);
     return () => clearTimeout(timeout);
-  }, []);
+  }, [loadingLicenses]);
 
   async function handleGetLicense(appId: string) {
     setClaimingApp(appId);

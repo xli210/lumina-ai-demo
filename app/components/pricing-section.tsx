@@ -106,7 +106,7 @@ export function PricingSection() {
                   ))}
                 </div>
 
-                <Link href={`/download#${product.id}`} className="w-full mt-auto">
+                <Link href={`/download#${product.id}`} scroll={false} className="w-full mt-auto">
                   <Button
                     size="lg"
                     className={`w-full gap-2 rounded-full shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all text-sm ${

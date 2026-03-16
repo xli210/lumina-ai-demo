@@ -7,7 +7,6 @@ const images = [
   { src: "/images/demos/facialedit-v1.jpg", label: "Smooth" },
   { src: "/images/demos/facialedit-v2.jpg", label: "Brighten" },
   { src: "/images/demos/facialedit-v3.jpg", label: "Contour" },
-  { src: "/images/demos/facialedit-v4.jpg", label: "Soften" },
 ];
 
 export function FacialEditDemo() {
@@ -29,8 +28,8 @@ export function FacialEditDemo() {
             <div
               className="relative overflow-hidden rounded-xl border shadow-lg transition-all duration-500 cursor-pointer"
               style={{
-                width: isOriginal ? 160 : 130,
-                height: isOriginal ? 260 : 220,
+                width: isOriginal ? 210 : 170,
+                height: isOriginal ? 340 : 290,
                 borderColor: isActive
                   ? "rgba(255,255,255,0.3)"
                   : isOriginal
