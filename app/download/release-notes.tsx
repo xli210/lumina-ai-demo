@@ -1,4 +1,4 @@
-import { Tag, Sparkles, Bug, Zap, ScanText, ImagePlus, Video, ScanFace, ArrowLeftRight, Wand2, Shirt } from "lucide-react";
+import { Tag, Sparkles, Bug, Zap, ImagePlus, Video, ScanFace, ArrowLeftRight, Wand2, Shirt } from "lucide-react";
 
 interface ReleaseChange {
   type: "feature" | "improvement" | "fix";
@@ -20,64 +20,6 @@ interface AppRelease {
 }
 
 const appReleases: AppRelease[] = [
-  {
-    app: "NanoPocket AI",
-    icon: Sparkles,
-    gradient: "from-primary to-blue-400",
-    releases: [
-      {
-        version: "3.2.1",
-        date: "February 8, 2026",
-        tag: "Latest",
-        changes: [
-          { type: "feature", text: "New cinematic video generation mode with 4K output" },
-          { type: "feature", text: "Added 25 new creative style presets (Manga, Baroque, etc.)" },
-          { type: "improvement", text: "2x faster rendering on Apple Silicon devices" },
-          { type: "improvement", text: "Improved prompt understanding for complex scenes" },
-          { type: "fix", text: "Fixed image export quality on high-DPI displays" },
-        ],
-      },
-      {
-        version: "3.1.0",
-        date: "January 15, 2026",
-        changes: [
-          { type: "feature", text: "Batch generation: create up to 10 variations at once" },
-          { type: "improvement", text: "Reduced app startup time by 40%" },
-          { type: "fix", text: "Fixed crash when switching between light and dark mode" },
-        ],
-      },
-    ],
-  },
-  {
-    app: "OCR Demo",
-    icon: ScanText,
-    gradient: "from-emerald-500 to-teal-400",
-    releases: [
-      {
-        version: "0.0.02",
-        date: "February 24, 2026",
-        tag: "Latest",
-        changes: [
-          { type: "feature", text: "Product-bound license activation — licenses are now tied to each product" },
-          { type: "improvement", text: "Enhanced license security with per-product master keys" },
-          { type: "improvement", text: "Improved error messages during activation and model download" },
-          { type: "fix", text: "Fixed cross-product license activation vulnerability" },
-        ],
-      },
-      {
-        version: "0.0.01",
-        date: "February 12, 2026",
-        tag: "Initial Release",
-        changes: [
-          { type: "feature", text: "Extract text from images (PNG, JPG, BMP, TIFF)" },
-          { type: "feature", text: "PDF document text extraction with page selection" },
-          { type: "feature", text: "Multi-language support (English, Chinese, Japanese, Korean, and more)" },
-          { type: "feature", text: "Runs entirely offline — no data leaves your machine" },
-          { type: "improvement", text: "Optimized for low-resource devices" },
-        ],
-      },
-    ],
-  },
   {
     app: "Nano ImageEdit",
     icon: ImagePlus,

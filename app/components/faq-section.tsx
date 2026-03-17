@@ -16,7 +16,7 @@ const faqs = [
   {
     question: "Is my data really private?",
     answer:
-      "Yes — 100%. All AI processing happens locally on your machine. No images, videos, or text ever leave your computer. There are no cloud APIs, no telemetry, and no data collection. Your creations are entirely yours.",
+      "Yes — 100%. All AI processing happens locally on your machine. No images or videos ever leave your computer. There are no cloud APIs, no telemetry, and no data collection. Your creations are entirely yours.",
   },
   {
     question: "Do I need an internet connection?",

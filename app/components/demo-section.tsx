@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ImagePlus, FileText, Wand2, Play } from "lucide-react";
+import { ImagePlus, Video, Sparkles, Play } from "lucide-react";
 
-/* ── Each tab represents a product capability ── */
 const demos = [
   {
     id: "image-gen",
@@ -13,37 +12,37 @@ const demos = [
     headline: "From Text to Stunning Visuals",
     description:
       "Type a prompt, and Nano ImageEdit generates a high-resolution image in seconds — entirely on your local GPU. No internet, no cloud, no waiting in queues.",
-    image: "/images/showcase/gallery-1-lg.jpg",
-    imageAlt: "Nano ImageEdit generating cosmic nebula from text prompt",
-    prompt: '"Cosmic nebula with vivid purple and blue, stellar dust, 8k"',
+    image: "/images/showcase/demo-imagegen.jpg",
+    imageAlt: "Nano ImageEdit generating a detailed image from a text prompt",
+    prompt: '"Vibrant digital artwork with detailed textures, 8k"',
     model: "Nano ImageEdit",
     badge: "Text → Image",
   },
   {
-    id: "ocr",
-    icon: FileText,
-    label: "Text Recognition",
-    headline: "Extract Text from Anything",
+    id: "video-gen",
+    icon: Video,
+    label: "Video Generation",
+    headline: "Create Videos from Prompts",
     description:
-      "Point OCR Demo at any image, scanned document, or screenshot — it reads the text instantly. Supports multiple languages, tables, and handwriting. All processing happens locally.",
-    image: "/images/showcase/gallery-5-sq.jpg",
-    imageAlt: "OCR Demo extracting text from a document image",
-    prompt: "Scanning document → extracting structured text data",
-    model: "OCR Demo · PaddleOCR",
-    badge: "Image → Text",
+      "Describe a scene and Nano VideoGen brings it to life — smooth motion, cinematic quality, fully generated on your GPU. From storyboards to social content, create without limits.",
+    image: "/images/showcase/gallery-1-lg.jpg",
+    imageAlt: "Nano VideoGen creating a cinematic video clip locally",
+    prompt: '"Slow-motion color streams blending in water, macro, 4k"',
+    model: "Nano VideoGen",
+    badge: "Text → Video",
   },
   {
-    id: "creative",
-    icon: Wand2,
-    label: "Creative Studio",
-    headline: "Your Complete AI Toolkit",
+    id: "face-image-ai",
+    icon: Sparkles,
+    label: "Face & Image AI",
+    headline: "Swap, Enhance, and Transform",
     description:
-      "NanoPocket combines image generation, video creation, and 100+ style presets in a single desktop app. One-click launch, no setup — just double-click and start creating.",
-    image: "/images/showcase/gallery-6-sq.jpg",
-    imageAlt: "NanoPocket creative studio with multiple AI tools",
-    prompt: '"Iridescent paint explosion in slow motion, macro, 4k"',
-    model: "NanoPocket AI · v3.2",
-    badge: "All-in-One",
+      "Face swap in photos and videos, upscale low-res images to 4K, retouch portraits, and try on outfits — all powered by AI running 100% on your machine.",
+    image: "/images/showcase/demo-faceai.jpg",
+    imageAlt: "AI face swap and image enhancement tools running locally",
+    prompt: "Face swap → Enhancement → Try-on pipeline",
+    model: "Nano FaceSwap · ImageEnh",
+    badge: "Face & Image",
   },
 ];
 

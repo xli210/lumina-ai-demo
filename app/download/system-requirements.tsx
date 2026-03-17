@@ -1,26 +1,26 @@
-import { Monitor, Cpu, HardDrive, MemoryStick, Sparkles, ScanText } from "lucide-react";
+import { Monitor, Cpu, HardDrive, MemoryStick, ImagePlus, Video } from "lucide-react";
 
 const appRequirements = [
   {
-    app: "NanoPocket AI",
-    icon: Sparkles,
-    gradient: "from-primary to-blue-400",
+    app: "Nano ImageEdit / VideoGen",
+    icon: ImagePlus,
+    gradient: "from-violet-500 to-fuchsia-400",
     requirements: [
-      { icon: Monitor, label: "OS", value: "Windows 10+ / macOS 13+ / Linux (Ubuntu 22.04+)" },
-      { icon: Cpu, label: "Processor", value: "Intel i5 / Apple M1 or equivalent" },
+      { icon: Monitor, label: "OS", value: "Windows 10 / 11 (64-bit)" },
+      { icon: Cpu, label: "GPU", value: "NVIDIA GTX 1660+ (6 GB+ VRAM)" },
       { icon: MemoryStick, label: "RAM", value: "8 GB minimum (16 GB recommended)" },
-      { icon: HardDrive, label: "Storage", value: "500 MB available space" },
+      { icon: HardDrive, label: "Storage", value: "2 GB available space" },
     ],
   },
   {
-    app: "OCR Demo",
-    icon: ScanText,
-    gradient: "from-emerald-500 to-teal-400",
+    app: "Face & Enhancement Tools",
+    icon: Video,
+    gradient: "from-blue-500 to-sky-400",
     requirements: [
       { icon: Monitor, label: "OS", value: "Windows 10 / 11 (64-bit)" },
-      { icon: Cpu, label: "Processor", value: "Intel i3 / AMD Ryzen 3 or equivalent" },
-      { icon: MemoryStick, label: "RAM", value: "4 GB minimum (8 GB recommended)" },
-      { icon: HardDrive, label: "Storage", value: "200 MB available space" },
+      { icon: Cpu, label: "GPU", value: "NVIDIA GTX 1060+ (4 GB+ VRAM)" },
+      { icon: MemoryStick, label: "RAM", value: "8 GB minimum" },
+      { icon: HardDrive, label: "Storage", value: "1 GB available space" },
     ],
   },
 ];

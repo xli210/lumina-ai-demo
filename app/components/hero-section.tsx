@@ -13,35 +13,47 @@ import {
   Play,
 } from "lucide-react";
 
-/* ── Hero demo slides — each one simulates a "live generation" ── */
-const demoSlides = [
+interface HeroSlide {
+  src: string;
+  type: "image" | "video";
+  alt: string;
+  prompt: string;
+  model: string;
+  tag: string;
+}
+
+const demoSlides: HeroSlide[] = [
+  {
+    src: "/videos/hero-1.mp4",
+    type: "video",
+    alt: "Abstract geometric motion — AI video generation",
+    prompt: "Geometric abstract shapes morphing in 3D space, cinematic lighting, 4k",
+    model: "Nano VideoGen",
+    tag: "AI Video",
+  },
   {
     src: "/images/showcase/hero-1.jpg",
-    alt: "AI-generated deep space galaxy",
-    prompt: "Deep space nebula with stellar nursery, ultra-realistic, 8k",
+    type: "image",
+    alt: "AI-generated artwork",
+    prompt: "Vibrant digital artwork, detailed textures, photorealistic render, 8k",
     model: "Nano ImageEdit",
     tag: "Text → Image",
   },
   {
-    src: "/images/showcase/hero-2.jpg",
-    alt: "AI-generated double-exposure portrait",
-    prompt: "Double exposure portrait, city skyline silhouette overlay, golden hour",
-    model: "Nano ImageEdit",
-    tag: "Portrait",
+    src: "/videos/hero-2.mp4",
+    type: "video",
+    alt: "Colorful paint flowing in water — AI creative tools",
+    prompt: "Vivid color streams blending in slow motion, macro, cinematic",
+    model: "Nano VideoGen",
+    tag: "AI Video",
   },
   {
     src: "/images/showcase/hero-3.jpg",
-    alt: "AI-generated aurora borealis scene",
-    prompt: "Aurora borealis dancing over volcanic landscape, long exposure, cinematic",
-    model: "NanoPocket AI",
-    tag: "Landscape",
-  },
-  {
-    src: "/images/showcase/hero-4.jpg",
-    alt: "AI-generated geometric light art",
-    prompt: "Prisms refracting white light into spectrum, minimalist, dark bg",
+    type: "image",
+    alt: "AI-generated creative art",
+    prompt: "Fantasy landscape with ethereal lighting, concept art style, 4k",
     model: "Nano ImageEdit",
-    tag: "Abstract",
+    tag: "Text → Image",
   },
 ];
 
@@ -123,8 +135,8 @@ export function HeroSection() {
           className="mx-auto mb-7 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground opacity-0 animate-fade-in sm:text-lg"
           style={{ animationDelay: "0.2s" }}
         >
-          Generate stunning images, extract text from documents, and unleash AI
-          creativity — all running{" "}
+          Generate videos, edit images, swap faces, and enhance photos with
+          AI — all running{" "}
           <span className="font-medium text-foreground">100% locally</span> on
           your machine. No cloud. No data ever leaves your computer.
         </p>
@@ -173,14 +185,25 @@ export function HeroSection() {
                   activeSlide === i ? "scale(1)" : "scale(1.03)",
               }}
             >
-              <Image
-                src={slide.src}
-                alt={slide.alt}
-                fill
-                className="object-cover"
-                priority={i === 0}
-                sizes="(max-width: 768px) 100vw, 1152px"
-              />
+              {slide.type === "video" ? (
+                <video
+                  src={slide.src}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <Image
+                  src={slide.src}
+                  alt={slide.alt}
+                  fill
+                  className="object-cover"
+                  priority={i === 0}
+                  sizes="(max-width: 768px) 100vw, 1152px"
+                />
+              )}
             </div>
           ))}
 

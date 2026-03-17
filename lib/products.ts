@@ -14,36 +14,6 @@ export interface Product {
 
 export const PRODUCTS: Product[] = [
   {
-    id: "lumina-ai",
-    name: "NanoPocket AI",
-    description:
-      "Generative AI Creative Studio — Transform your ideas into stunning visuals with local AI-powered creative tools.",
-    priceInCents: 0,
-    features: [
-      "AI image generation",
-      "HD video creation & export",
-      "100+ creative style presets",
-      "All future updates included",
-    ],
-    maxActivations: 1,
-    masterKeyEnv: "LICENSE_MASTER_KEY_LUMINA_AI",
-  },
-  {
-    id: "ocr-demo",
-    name: "OCR Demo",
-    description:
-      "Intelligent Text Recognition — Extract text from images, PDFs, and scanned documents with local AI.",
-    priceInCents: 0,
-    features: [
-      "State-of-the-art OCR",
-      "PDF & image support",
-      "100% offline & private",
-      "All future updates included",
-    ],
-    maxActivations: 1,
-    masterKeyEnv: "LICENSE_MASTER_KEY_OCR_DEMO",
-  },
-  {
     id: "nano-imageedit",
     name: "Nano ImageEdit",
     description:

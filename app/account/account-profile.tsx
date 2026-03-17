@@ -160,7 +160,7 @@ export function AccountProfile({
                 Creator Pro - Active
               </p>
               <p className="text-sm text-muted-foreground">
-                You have lifetime access to all NanoPocket AI features.
+                You have lifetime access to all NanoPocket features.
               </p>
             </div>
           </div>

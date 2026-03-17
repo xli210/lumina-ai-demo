@@ -7,69 +7,69 @@ import { Play, Maximize2, Sparkles } from "lucide-react";
 const gallery = [
   {
     src: "/images/showcase/gallery-1-lg.jpg",
-    width: 1000,
-    height: 1250,
-    alt: "AI-generated cosmic nebula with vibrant purple and blue hues",
-    label: "Cosmic Dreamscape",
+    width: 1200,
+    height: 1200,
+    alt: "AI-generated detailed digital artwork by Nano ImageEdit",
+    label: "AI Art Generation",
     type: "image" as const,
     span: "col-span-2 row-span-2",
-    style: "Cosmic",
-    prompt: "Deep space nebula, star formation, vibrant colors",
+    style: "Nano ImageEdit",
+    prompt: "Vibrant digital artwork with intricate details, 8k",
   },
   {
     src: "/images/showcase/gallery-2-sq.jpg",
     width: 800,
     height: 800,
-    alt: "AI-generated futuristic neon tunnel with perspective",
-    label: "Neon Corridor",
-    type: "video" as const,
+    alt: "AI-generated creative composition",
+    label: "Creative Render",
+    type: "image" as const,
     span: "col-span-1 row-span-1",
-    style: "Sci-Fi",
-    prompt: "Futuristic neon tunnel with depth, cinematic",
+    style: "Nano ImageEdit",
+    prompt: "Photorealistic creative composition, detailed textures",
   },
   {
     src: "/images/showcase/gallery-3-sq.jpg",
     width: 800,
     height: 800,
-    alt: "AI-generated liquid glass morphism in gradient colors",
-    label: "Liquid Glass",
+    alt: "AI-generated artistic scene",
+    label: "Style Transfer",
     type: "image" as const,
     span: "col-span-1 row-span-1",
-    style: "Abstract",
-    prompt: "Liquid glass with iridescent gradient, 4k",
+    style: "Style Transfer",
+    prompt: "Artistic style applied to a scenic photograph",
   },
   {
     src: "/images/showcase/gallery-4-tall.jpg",
-    width: 800,
+    width: 778,
     height: 1000,
-    alt: "AI-generated vibrant neon cityscape at night",
-    label: "Neon Metropolis",
+    alt: "AI product swap — object replacement in photos",
+    label: "Product Swap",
     type: "image" as const,
     span: "col-span-1 row-span-2",
-    style: "Cyberpunk",
-    prompt: "Cyberpunk city, neon rain, night atmosphere",
+    style: "Nano FaceSwap",
+    prompt: "AI-driven object replacement in product photos",
   },
   {
     src: "/images/showcase/gallery-5-sq.jpg",
     width: 800,
     height: 800,
-    alt: "AI-generated digital matrix code visualization",
-    label: "Digital Matrix",
+    alt: "AI face swap result — seamless face replacement",
+    label: "Face Swap",
     type: "image" as const,
     span: "col-span-1 row-span-1",
-    style: "Data Art",
-    prompt: "Matrix data streams, green on black, cinematic",
+    style: "Nano FaceSwap",
+    prompt: "Realistic face replacement in a single click",
   },
   {
     src: "/images/showcase/gallery-6-sq.jpg",
     width: 800,
     height: 800,
-    alt: "AI-generated vibrant color explosion and paint splash",
-    label: "Chromatic Burst",
-    type: "video" as const,
+    alt: "AI face swap demo — natural blending",
+    label: "AI Enhancement",
+    type: "image" as const,
     span: "col-span-1 row-span-1",
-    style: "Abstract",
-    prompt: "Explosion of iridescent pigment in slow motion",
+    style: "Nano ImageEnh",
+    prompt: "4K upscale and enhancement of original photo",
   },
 ];
 
@@ -98,9 +98,8 @@ export function ShowcaseSection() {
             </span>
           </h2>
           <p className="mx-auto max-w-3xl text-pretty text-base text-muted-foreground sm:text-lg">
-            Every image below was generated locally — no cloud, no API calls.
-            From photorealistic landscapes to creative abstracts, explore what
-            your GPU can create.
+            Image generation, face swap, style transfer, and AI enhancement —
+            every result below was created locally using NanoPocket tools.
           </p>
         </div>
 

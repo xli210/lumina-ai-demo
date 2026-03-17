@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
 
     // Determine product_id from session metadata or default
     const productId =
-      (session.metadata as Record<string, string>)?.product_id || "lumina-ai";
+      (session.metadata as Record<string, string>)?.product_id || "nano-imageedit";
 
     // Look up product to get max_activations (default 1)
     const product = PRODUCTS.find((p) => p.id === productId);

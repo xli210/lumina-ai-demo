@@ -74,8 +74,8 @@ const features: Feature[] = [
     subtitle: "Apply artistic styles to any photo instantly",
     type: "triplet",
     hint: "Hover to apply the style",
-    downloadId: "lumina-ai",
-    ctaLabel: "Get NanoPocket AI",
+    downloadId: "nano-imageedit",
+    ctaLabel: "Get Nano ImageEdit",
   },
   {
     id: "tryon",

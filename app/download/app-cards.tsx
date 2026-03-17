@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Download,
   CheckCircle2,
-  Sparkles,
-  ScanText,
   ImagePlus,
   Video,
   ScanFace,
@@ -55,64 +53,6 @@ interface LicenseInfo {
 }
 
 const apps: AppInfo[] = [
-  {
-    id: "lumina-ai",
-    productId: "lumina-ai",
-    name: "NanoPocket AI",
-    tagline: "Generative AI Creative Studio",
-    description:
-      "Transform your ideas into stunning visuals with local generative AI tools. Generate breathtaking images and videos with one tap.",
-    icon: Sparkles,
-    version: "3.2.1",
-    gradient: "from-primary to-blue-400",
-    shadowColor: "shadow-primary/25",
-    badge: "Flagship",
-    platforms: [
-      {
-        platform: "Windows",
-        icon: Monitor,
-        fileName: "LuminaAI-3.2.1.zip",
-        downloadUrl: "/api/downloads/LuminaAI-3.2.1.zip",
-        size: "1.4 MB",
-      },
-      {
-        platform: "macOS",
-        icon: Apple,
-        fileName: "LuminaAI-3.2.1.zip",
-        downloadUrl: "/api/downloads/LuminaAI-3.2.1.zip",
-        size: "1.4 MB",
-      },
-      {
-        platform: "Linux",
-        icon: Monitor,
-        fileName: "LuminaAI-3.2.1.zip",
-        downloadUrl: "/api/downloads/LuminaAI-3.2.1.zip",
-        size: "1.4 MB",
-      },
-    ],
-  },
-  {
-    id: "ocr-demo",
-    productId: "ocr-demo",
-    name: "OCR Demo",
-    tagline: "Intelligent Text Recognition",
-    description:
-      "Extract text from images, PDFs, and scanned documents with state-of-the-art OCR powered by local AI models. Fast, private, and accurate.",
-    icon: ScanText,
-    version: "0.0.02",
-    gradient: "from-emerald-500 to-teal-400",
-    shadowColor: "shadow-emerald-500/25",
-    badge: "New",
-    platforms: [
-      {
-        platform: "Windows",
-        icon: Monitor,
-        fileName: "OCR_Demo0.0.02.zip",
-        downloadUrl: "/api/downloads/OCR_Demo0.0.02.zip",
-        size: "128 KB",
-      },
-    ],
-  },
   {
     id: "nano-imageedit",
     productId: "nano-imageedit",

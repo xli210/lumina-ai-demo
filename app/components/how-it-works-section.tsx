@@ -11,7 +11,7 @@ const steps = [
     icon: Download,
     title: "Download the App",
     description:
-      "Pick the AI tool you need — image generation, OCR, or video. Download the installer and extract it to any folder.",
+      "Pick the AI tool you need — image generation, video creation, face swap, or enhancement. Download and extract to any folder.",
     detail: "Works on Windows 10/11. No admin rights needed.",
     gradient: "from-blue-500 to-blue-400",
   },
