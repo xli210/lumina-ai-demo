@@ -1,193 +1,110 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import { ImagePlus, Video, Sparkles } from "lucide-react";
+import { Crown, ShieldCheck, CreditCard, Wrench } from "lucide-react";
 
-const demos = [
+const advantages = [
   {
-    id: "image-gen",
-    icon: ImagePlus,
-    label: "Image Generation",
-    headline: "From Text to Stunning Visuals",
+    icon: Crown,
+    title: "Best-in-Class Local AI",
     description:
-      "Type a prompt, and Nano ImageEdit generates a high-resolution image in seconds — entirely on your local GPU. No internet, no cloud, no waiting in queues.",
-    image: "/images/showcase/demo-imagegen.jpg",
-    imageAlt: "Nano ImageEdit generating a detailed image from a text prompt",
-    prompt: '"Vibrant digital artwork with detailed textures, 8k"',
-    model: "Nano ImageEdit",
-    badge: "Text → Image",
+      "Run the same cutting-edge models used by cloud services — directly on your GPU. No quality compromise, no latency, no rate limits.",
+    highlight: "Studio-grade output",
+    gradient: "from-amber-500 to-orange-400",
   },
   {
-    id: "video-gen",
-    icon: Video,
-    label: "Video Generation",
-    headline: "Create Videos from Prompts",
+    icon: ShieldCheck,
+    title: "No SaaS. No Privacy Risk.",
     description:
-      "Describe a scene and Nano VideoGen brings it to life — smooth motion, cinematic quality, fully generated on your GPU. From storyboards to social content, create without limits.",
-    image: "/images/showcase/gallery-1-lg.jpg",
-    imageAlt: "Nano VideoGen creating a cinematic video clip locally",
-    prompt: '"Slow-motion color streams blending in water, macro, 4k"',
-    model: "Nano VideoGen",
-    badge: "Text → Video",
+      "Your data never leaves your machine. No cloud uploads, no API keys, no third-party access. Complete creative control with zero exposure.",
+    highlight: "100% offline processing",
+    gradient: "from-emerald-500 to-teal-400",
   },
   {
-    id: "face-image-ai",
-    icon: Sparkles,
-    label: "Face & Image AI",
-    headline: "Swap, Enhance, and Transform",
+    icon: CreditCard,
+    title: "One-Time Purchase. Own Forever.",
     description:
-      "Face swap in photos and videos, upscale low-res images to 4K, retouch portraits, and try on outfits — all powered by AI running 100% on your machine.",
-    image: "/images/showcase/demo-faceai.jpg",
-    imageAlt: "AI face swap and image enhancement tools running locally",
-    prompt: "Face swap → Enhancement → Try-on pipeline",
-    model: "Nano FaceSwap · ImageEnh",
-    badge: "Face & Image",
+      "No subscriptions, no credits, no usage caps. Pay once and get lifetime access with all future updates included. Your tools, your terms.",
+    highlight: "Zero recurring cost",
+    gradient: "from-blue-500 to-indigo-400",
+  },
+  {
+    icon: Wrench,
+    title: "Build Your Own AI Toolkit",
+    description:
+      "Pick exactly the AI tools you need — image generation, video creation, face swap, enhancement, virtual try-on. Mix and match for your workflow.",
+    highlight: "Modular by design",
+    gradient: "from-violet-500 to-purple-400",
   },
 ];
 
 export function DemoSection() {
-  const [activeTab, setActiveTab] = useState(0);
-  const current = demos[activeTab];
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <section id="demo" className="relative px-6 py-24">
-      {/* Background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
         <div className="absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-[150px]" />
       </div>
 
       <div className="relative mx-auto max-w-6xl">
-        {/* Section header */}
-        <div className="mb-12 text-center">
+        <div className="mb-14 text-center">
           <p className="mb-3 text-sm font-medium uppercase tracking-widest text-primary">
-            See It In Action
+            Why NanoPocket
           </p>
           <h2 className="mb-5 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            Powerful AI Tools.{" "}
+            Professional AI.{" "}
             <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
-              Running Locally.
+              No Compromises.
             </span>
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
-            Each tool runs entirely on your machine — no cloud dependency, no
-            rate limits. See how they work.
+            Everything cloud AI offers — without the cloud. Full power, full
+            privacy, full ownership.
           </p>
         </div>
 
-        {/* Tab buttons */}
-        <div className="mb-10 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-          {demos.map((demo, i) => (
-            <button
-              key={demo.id}
-              type="button"
-              onClick={() => setActiveTab(i)}
-              className={`group flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all sm:px-6 sm:py-3 ${
-                activeTab === i
-                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
-                  : "glass-subtle text-muted-foreground hover:text-foreground hover:bg-accent/50"
+        <div className="grid gap-5 sm:grid-cols-2 lg:gap-6">
+          {advantages.map((item, index) => (
+            <div
+              key={item.title}
+              className={`group relative overflow-hidden rounded-2xl glass p-8 transition-all duration-500 sm:p-10 ${
+                hoveredIndex === index
+                  ? "scale-[1.02] shadow-xl shadow-primary/10"
+                  : ""
               }`}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
-              <demo.icon className="h-4 w-4" />
-              {demo.label}
-            </button>
-          ))}
-        </div>
+              <div
+                className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full opacity-10 blur-2xl transition-opacity duration-500 group-hover:opacity-20"
+                style={{
+                  background: `linear-gradient(135deg, var(--tw-gradient-stops))`,
+                }}
+              />
 
-        {/* Demo content area — large 16:9 with side panel */}
-        <div className="grid gap-6 lg:grid-cols-5 lg:gap-8">
-          {/* Demo image / video area — 3 cols */}
-          <div className="relative lg:col-span-3">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 shadow-xl sm:rounded-3xl">
-              {demos.map((demo, i) => (
-                <div
-                  key={demo.id}
-                  className="absolute inset-0 transition-all duration-700"
-                  style={{
-                    opacity: activeTab === i ? 1 : 0,
-                    transform:
-                      activeTab === i ? "scale(1)" : "scale(1.03)",
-                  }}
-                >
-                  <Image
-                    src={demo.image}
-                    alt={demo.imageAlt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 60vw"
-                  />
-                </div>
-              ))}
-
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
-
-              {/* Badge */}
-              <div className="absolute top-4 left-4 sm:top-5 sm:left-5">
-                <span className="rounded-full bg-primary/80 backdrop-blur-md px-3 py-1 text-[10px] font-semibold text-white sm:text-xs">
-                  {current.badge}
-                </span>
-              </div>
-
-              {/* Bottom prompt bar */}
-              <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5">
-                <div className="rounded-xl bg-black/50 backdrop-blur-xl border border-white/10 px-3 py-2.5 sm:px-4 sm:py-3">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
-                    <span className="text-[9px] text-white/40 font-mono uppercase tracking-wider sm:text-[10px]">
-                      {current.model}
-                    </span>
+              <div className="relative">
+                <div className="mb-5 flex items-center gap-4">
+                  <div
+                    className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} text-white shadow-lg transition-transform duration-500 group-hover:scale-110`}
+                  >
+                    <item.icon className="h-6 w-6" />
                   </div>
-                  <p className="text-[10px] text-white/80 font-mono sm:text-xs">
-                    {current.prompt}
-                  </p>
+                  <span className="rounded-full bg-primary/8 px-3 py-1 text-xs font-medium text-primary">
+                    {item.highlight}
+                  </span>
                 </div>
+
+                <h3 className="mb-3 text-xl font-bold text-foreground sm:text-2xl">
+                  {item.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  {item.description}
+                </p>
               </div>
             </div>
-          </div>
-
-          {/* Description panel — 2 cols */}
-          <div className="flex flex-col justify-center lg:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-400 text-white shadow-lg">
-                <current.icon className="h-6 w-6" />
-              </div>
-              <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                {current.badge}
-              </span>
-            </div>
-
-            <h3 className="mb-3 text-2xl font-bold text-foreground sm:text-3xl">
-              {current.headline}
-            </h3>
-
-            <p className="mb-6 text-sm leading-relaxed text-muted-foreground sm:text-base">
-              {current.description}
-            </p>
-
-            {/* Feature bullets */}
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center gap-3">
-                <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                <span className="text-sm text-muted-foreground">
-                  Runs on your local GPU
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="h-1.5 w-1.5 rounded-full bg-primary/60" />
-                <span className="text-sm text-muted-foreground">
-                  No internet required after setup
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="h-1.5 w-1.5 rounded-full bg-primary/40" />
-                <span className="text-sm text-muted-foreground">
-                  Free license included
-                </span>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
