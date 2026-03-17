@@ -26,8 +26,8 @@ const demoSlides: HeroSlide[] = [
   {
     src: "/videos/hero-1.mp4",
     type: "video",
-    alt: "AI-generated cinematic scene — movie-quality visual",
-    prompt: "Cinematic scene with dramatic lighting and camera movement, 4k ultra-realistic",
+    alt: "AI-generated cinematic landscape — sweeping vista",
+    prompt: "Cinematic landscape with sweeping camera movement, dramatic lighting, 4k",
     model: "Nano VideoGen",
     tag: "AI Video",
   },
@@ -42,8 +42,8 @@ const demoSlides: HeroSlide[] = [
   {
     src: "/videos/hero-2.mp4",
     type: "video",
-    alt: "AI-generated cinematic landscape — surreal atmosphere",
-    prompt: "Surreal cinematic landscape with ethereal atmosphere, smooth camera pan, 4k",
+    alt: "AI-generated cinematic scene — dramatic atmosphere",
+    prompt: "Dramatic cinematic scene with volumetric lighting, smooth dolly shot, 4k",
     model: "Nano VideoGen",
     tag: "AI Video",
   },
