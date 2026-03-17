@@ -104,7 +104,7 @@ export async function signup(formData: FormData) {
 
   const siteUrl = await getSiteUrl();
 
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -117,6 +117,15 @@ export async function signup(formData: FormData) {
 
   if (error) {
     redirect(`/auth/sign-up?error=${encodeURIComponent(friendlyError(error.message))}`);
+  }
+
+  if (data.user && data.user.identities?.length === 0) {
+    redirect(
+      "/auth/sign-up?error=" +
+        encodeURIComponent(
+          "An account with this email already exists. Please sign in instead."
+        )
+    );
   }
 
   redirect("/auth/sign-up-success");
