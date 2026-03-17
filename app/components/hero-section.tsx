@@ -26,34 +26,34 @@ const demoSlides: HeroSlide[] = [
   {
     src: "/videos/hero-1.mp4",
     type: "video",
-    alt: "Abstract geometric motion — AI video generation",
-    prompt: "Geometric abstract shapes morphing in 3D space, cinematic lighting, 4k",
+    alt: "AI-generated technology visualization in motion",
+    prompt: "Futuristic AI neural network visualization, glowing particles, 4k cinematic",
     model: "Nano VideoGen",
     tag: "AI Video",
   },
   {
-    src: "/images/showcase/hero-1.jpg",
+    src: "/images/showcase/hero-2.jpg",
     type: "image",
-    alt: "AI-generated artwork",
-    prompt: "Vibrant digital artwork, detailed textures, photorealistic render, 8k",
-    model: "Nano ImageEdit",
-    tag: "Text → Image",
+    alt: "Dramatic mountain landscape — AI enhanced",
+    prompt: "Majestic mountain peak with golden hour lighting, ultra-detailed, 8k",
+    model: "Nano ImageEnh",
+    tag: "Enhancement",
   },
   {
     src: "/videos/hero-2.mp4",
     type: "video",
-    alt: "Colorful paint flowing in water — AI creative tools",
-    prompt: "Vivid color streams blending in slow motion, macro, cinematic",
+    alt: "AI technology data flow visualization",
+    prompt: "Abstract data streams flowing through digital space, blue tones, cinematic",
     model: "Nano VideoGen",
     tag: "AI Video",
   },
   {
-    src: "/images/showcase/hero-3.jpg",
+    src: "/images/showcase/hero-4.jpg",
     type: "image",
-    alt: "AI-generated creative art",
-    prompt: "Fantasy landscape with ethereal lighting, concept art style, 4k",
-    model: "Nano ImageEdit",
-    tag: "Text → Image",
+    alt: "Milky Way night sky — AI denoised and enhanced",
+    prompt: "Milky Way galaxy with enhanced star clarity, ultra-wide, 4k",
+    model: "Nano ImageEnh",
+    tag: "Enhancement",
   },
 ];
 
@@ -210,12 +210,6 @@ export function HeroSection() {
           {/* Dark gradient overlay for text readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30" />
 
-          {/* Play button center (for future video) */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 backdrop-blur-xl border border-white/20 transition-all hover:scale-110 hover:bg-white/20 cursor-pointer sm:h-20 sm:w-20">
-              <Play className="h-7 w-7 text-white ml-1 sm:h-8 sm:w-8" />
-            </div>
-          </div>
 
           {/* Top-left: model & tag badge */}
           <div className="absolute top-4 left-4 flex items-center gap-2 sm:top-6 sm:left-6">

@@ -2,74 +2,88 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Play, Maximize2, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 const gallery = [
   {
     src: "/images/showcase/gallery-1-lg.jpg",
-    width: 1200,
-    height: 1200,
-    alt: "AI-generated detailed digital artwork by Nano ImageEdit",
+    alt: "AI-generated digital artwork — Nano ImageEdit",
     label: "AI Art Generation",
-    type: "image" as const,
-    span: "col-span-2 row-span-2",
+    span: "md:col-span-2 md:row-span-2",
     style: "Nano ImageEdit",
     prompt: "Vibrant digital artwork with intricate details, 8k",
   },
   {
     src: "/images/showcase/gallery-2-sq.jpg",
-    width: 800,
-    height: 800,
-    alt: "AI-generated creative composition",
-    label: "Creative Render",
-    type: "image" as const,
-    span: "col-span-1 row-span-1",
-    style: "Nano ImageEdit",
-    prompt: "Photorealistic creative composition, detailed textures",
+    alt: "AI-enhanced portrait — sharp detail restoration",
+    label: "Portrait Enhancement",
+    span: "",
+    style: "Nano ImageEnh",
+    prompt: "AI upscale and detail recovery, natural skin tones",
   },
   {
     src: "/images/showcase/gallery-3-sq.jpg",
-    width: 800,
-    height: 800,
-    alt: "AI-generated artistic scene",
+    alt: "Architecture with AI style transfer applied",
     label: "Style Transfer",
-    type: "image" as const,
-    span: "col-span-1 row-span-1",
+    span: "",
     style: "Style Transfer",
-    prompt: "Artistic style applied to a scenic photograph",
+    prompt: "Architectural photography with artistic style overlay",
   },
   {
     src: "/images/showcase/gallery-4-tall.jpg",
-    width: 778,
-    height: 1000,
-    alt: "AI product swap — object replacement in photos",
-    label: "Product Swap",
-    type: "image" as const,
-    span: "col-span-1 row-span-2",
-    style: "Nano FaceSwap",
-    prompt: "AI-driven object replacement in product photos",
+    alt: "Dramatic ocean scene — AI color grading and enhancement",
+    label: "Color Enhancement",
+    span: "row-span-2",
+    style: "Nano ImageEnh",
+    prompt: "Cinematic color grading applied to ocean photography",
   },
   {
     src: "/images/showcase/gallery-5-sq.jpg",
-    width: 800,
-    height: 800,
-    alt: "AI face swap result — seamless face replacement",
-    label: "Face Swap",
-    type: "image" as const,
-    span: "col-span-1 row-span-1",
-    style: "Nano FaceSwap",
-    prompt: "Realistic face replacement in a single click",
+    alt: "Urban cityscape — AI-generated from text prompt",
+    label: "City Generation",
+    span: "",
+    style: "Nano ImageEdit",
+    prompt: "Urban cityscape with dramatic lighting, photorealistic",
+  },
+  {
+    src: "/images/showcase/gallery-8-wide.jpg",
+    alt: "Mountain landscape — AI upscaled to 4K detail",
+    label: "Landscape Upscale",
+    span: "md:col-span-2",
+    style: "Nano ImageEnh",
+    prompt: "4K mountain panorama, AI detail enhancement",
   },
   {
     src: "/images/showcase/gallery-6-sq.jpg",
-    width: 800,
-    height: 800,
-    alt: "AI face swap demo — natural blending",
-    label: "AI Enhancement",
-    type: "image" as const,
-    span: "col-span-1 row-span-1",
+    alt: "Neon abstract scene — AI creative generation",
+    label: "Neon Dreamscape",
+    span: "",
+    style: "Nano ImageEdit",
+    prompt: "Neon-lit abstract scene, cinematic mood, 4k",
+  },
+  {
+    src: "/images/showcase/gallery-7-sq.jpg",
+    alt: "Botanical close-up — AI detail enhancement",
+    label: "Macro Detail",
+    span: "",
     style: "Nano ImageEnh",
-    prompt: "4K upscale and enhancement of original photo",
+    prompt: "Botanical macro with AI sharpening and color boost",
+  },
+  {
+    src: "/images/showcase/gallery-9-sq.jpg",
+    alt: "Abstract art — AI color and texture generation",
+    label: "Abstract Creation",
+    span: "",
+    style: "Nano ImageEdit",
+    prompt: "Abstract fluid art with vivid gradients, high detail",
+  },
+  {
+    src: "/images/showcase/gallery-10-wide.jpg",
+    alt: "Night sky — AI noise reduction and star enhancement",
+    label: "Astrophotography",
+    span: "md:col-span-2",
+    style: "Nano ImageEnh",
+    prompt: "Milky Way with AI denoising, enhanced star clarity",
   },
 ];
 
@@ -78,15 +92,12 @@ export function ShowcaseSection() {
 
   return (
     <section id="showcase" className="relative px-6 py-24">
-      {/* Background accent */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
         <div className="absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-[150px]" />
       </div>
 
-      {/* ── Constrained container so text & grid feel balanced ── */}
-      <div className="relative mx-auto max-w-6xl">
-        {/* Header — wider text area */}
+      <div className="relative mx-auto max-w-7xl">
         <div className="mb-14 text-center">
           <p className="mb-3 text-sm font-medium uppercase tracking-widest text-primary">
             Gallery
@@ -98,17 +109,16 @@ export function ShowcaseSection() {
             </span>
           </h2>
           <p className="mx-auto max-w-3xl text-pretty text-base text-muted-foreground sm:text-lg">
-            Image generation, face swap, style transfer, and AI enhancement —
+            From AI-generated art to photo enhancement and style transfer —
             every result below was created locally using NanoPocket tools.
           </p>
         </div>
 
-        {/* Bento Grid — narrower (max-w-6xl) so it matches the text width */}
-        <div className="grid auto-rows-[200px] grid-cols-2 gap-3 sm:auto-rows-[220px] sm:gap-4 md:grid-cols-3 lg:auto-rows-[240px] lg:grid-cols-4">
+        <div className="grid auto-rows-[180px] grid-cols-2 gap-3 sm:auto-rows-[200px] sm:gap-4 md:grid-cols-4 lg:auto-rows-[220px]">
           {gallery.map((item, index) => (
             <div
               key={item.src}
-              className={`group relative overflow-hidden rounded-2xl ${item.span} cursor-pointer`}
+              className={`group relative overflow-hidden rounded-2xl cursor-pointer ${item.span}`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
@@ -124,57 +134,34 @@ export function ShowcaseSection() {
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
               />
 
-              {/* Permanent subtle gradient overlay for readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
-              {/* Hover gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-              {/* Video play icon */}
-              {item.type === "video" && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 transition-all group-hover:scale-110 group-hover:bg-white/20 sm:h-14 sm:w-14">
-                    <Play className="h-5 w-5 text-white ml-0.5 sm:h-6 sm:w-6" />
-                  </div>
-                </div>
-              )}
-
-              {/* Style tag */}
               <div className="absolute top-3 left-3">
                 <span className="rounded-full bg-black/30 backdrop-blur-md px-3 py-1 text-[10px] font-medium text-white/90 border border-white/10 sm:text-xs">
                   {item.style}
                 </span>
               </div>
 
-              {/* Info overlay on hover */}
               <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full transition-transform duration-300 group-hover:translate-y-0 sm:p-4">
-                <div className="flex items-end justify-between gap-2">
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-semibold text-white truncate">
-                      {item.label}
-                    </p>
-                    <p className="text-[10px] text-white/50 font-mono truncate sm:text-xs">
-                      &quot;{item.prompt}&quot;
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-colors sm:h-8 sm:w-8"
-                    aria-label={`Expand ${item.label}`}
-                  >
-                    <Maximize2 className="h-3 w-3 text-white sm:h-3.5 sm:w-3.5" />
-                  </button>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-white truncate">
+                    {item.label}
+                  </p>
+                  <p className="text-[10px] text-white/50 font-mono truncate sm:text-xs">
+                    &quot;{item.prompt}&quot;
+                  </p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom note */}
         <div className="mt-8 flex items-center justify-center gap-2 text-sm text-muted-foreground">
           <Sparkles className="h-4 w-4 text-primary/50" />
           <span>
-            All outputs generated locally with NanoPocket generative AI tools
+            All outputs created locally with NanoPocket generative AI tools
           </span>
         </div>
       </div>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ImagePlus, Video, Sparkles, Play } from "lucide-react";
+import { ImagePlus, Video, Sparkles } from "lucide-react";
 
 const demos = [
   {
@@ -122,13 +122,6 @@ export function DemoSection() {
 
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
-
-              {/* Play button */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 backdrop-blur-xl border border-white/20 transition-all hover:scale-110 hover:bg-white/20 cursor-pointer sm:h-16 sm:w-16">
-                  <Play className="h-6 w-6 text-white ml-0.5 sm:h-7 sm:w-7" />
-                </div>
-              </div>
 
               {/* Badge */}
               <div className="absolute top-4 left-4 sm:top-5 sm:left-5">
