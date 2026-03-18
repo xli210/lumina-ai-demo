@@ -50,7 +50,7 @@ export function PricingSection() {
                   }`}
                 >
                   {isPaidWithTrial
-                    ? "Pro · 14-Day Free Trial"
+                    ? `Pro · ${product.trialDays}-Day Free Trial`
                     : product.priceInCents === 0
                       ? "Free License"
                       : "Lifetime Access"}
