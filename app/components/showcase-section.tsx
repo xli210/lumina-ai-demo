@@ -7,11 +7,11 @@ import { Sparkles } from "lucide-react";
 const gallery = [
   {
     src: "/images/showcase/gallery-1-lg.jpg",
-    alt: "AI-generated digital artwork — Nano ImageEdit",
-    label: "AI Art Generation",
+    alt: "AI-upscaled anime artwork — enhanced to 4K detail",
+    label: "AI Upscale",
     span: "md:col-span-2 md:row-span-2",
-    style: "Nano ImageEdit",
-    prompt: "Vibrant digital artwork with intricate details, 8k",
+    style: "Nano ImageEnh",
+    prompt: "Anime artwork upscaled with AI detail enhancement, 4k",
   },
   {
     src: "/images/showcase/gallery-2-sq.jpg",
@@ -55,11 +55,11 @@ const gallery = [
   },
   {
     src: "/images/showcase/gallery-6-sq.jpg",
-    alt: "Neon abstract scene — AI creative generation",
-    label: "Neon Dreamscape",
+    alt: "AI-upscaled portrait — enhanced facial detail and clarity",
+    label: "Portrait Upscale",
     span: "",
-    style: "Nano ImageEdit",
-    prompt: "Neon-lit abstract scene, cinematic mood, 4k",
+    style: "Nano ImageEnh",
+    prompt: "Portrait upscaled with AI sharpening and detail recovery",
   },
   {
     src: "/images/showcase/gallery-7-sq.jpg",

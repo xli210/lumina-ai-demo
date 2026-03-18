@@ -56,8 +56,8 @@ const features: Feature[] = [
     subtitle: "Bring black & white photos to life with AI color",
     type: "slider",
     hint: "Drag the slider to compare",
-    downloadId: "nnanoimageenh",
-    ctaLabel: "Get Nano ImageEnh",
+    downloadId: "nano-imageedit",
+    ctaLabel: "Get Nano ImageEdit",
   },
   {
     id: "edit",
