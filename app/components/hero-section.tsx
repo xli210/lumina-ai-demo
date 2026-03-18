@@ -9,7 +9,6 @@ import {
   Download,
   Play,
 } from "lucide-react";
-import { Wordmark } from "./wordmark";
 
 interface HeroSlide {
   src: string;
@@ -84,57 +83,51 @@ export function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative flex flex-col items-center overflow-hidden"
+      className="relative flex flex-col items-center overflow-hidden px-6 pt-28 pb-8 sm:pt-32 sm:pb-12"
     >
-      {/* ── White headline area ── */}
-      <div className="w-full bg-white px-6 pt-28 pb-16 sm:pt-32 sm:pb-20">
-        <div className="relative z-10 mx-auto max-w-4xl text-center">
-          <div className="mb-8 flex justify-center opacity-0 animate-fade-in">
-            <Wordmark className="h-8 w-auto text-black sm:h-10" />
-          </div>
+      {/* ── Centered headline ── */}
+      <div className="relative z-10 mx-auto max-w-4xl text-center">
+        <h1
+          className="mb-5 text-balance text-4xl font-bold leading-[1.1] tracking-tight text-foreground opacity-0 animate-fade-in sm:text-5xl md:text-6xl lg:text-7xl"
+          style={{ animationDelay: "0.1s" }}
+        >
+          Create Beyond Imagination
+        </h1>
 
-          <h1
-            className="mb-5 text-balance text-4xl font-bold leading-[1.1] tracking-tight text-black opacity-0 animate-fade-in sm:text-5xl md:text-6xl lg:text-7xl"
-            style={{ animationDelay: "0.1s" }}
-          >
-            Create Beyond Imagination
-          </h1>
+        <p
+          className="mx-auto mb-7 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground opacity-0 animate-fade-in sm:text-lg"
+          style={{ animationDelay: "0.2s" }}
+        >
+          Generate videos, edit images, swap faces, and enhance photos with
+          AI — all running{" "}
+          <span className="font-medium text-foreground">100% locally</span> on
+          your machine. No cloud. No data ever leaves your computer.
+        </p>
 
-          <p
-            className="mx-auto mb-7 max-w-2xl text-pretty text-base leading-relaxed text-neutral-500 opacity-0 animate-fade-in sm:text-lg"
-            style={{ animationDelay: "0.2s" }}
-          >
-            Generate videos, edit images, swap faces, and enhance photos with
-            AI — all running{" "}
-            <span className="font-medium text-black">100% locally</span> on
-            your machine. No cloud. No data ever leaves your computer.
-          </p>
-
-          <div
-            className="flex flex-wrap items-center justify-center gap-3 opacity-0 animate-fade-in sm:gap-4"
-            style={{ animationDelay: "0.3s" }}
-          >
-            <Link href="/download">
-              <Button
-                size="lg"
-                className="group gap-2 rounded-full bg-black px-8 text-white shadow-lg shadow-black/15 hover:bg-neutral-800 hover:shadow-xl transition-all"
-              >
-                <Download className="h-4 w-4" />
-                Download Free
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-            <Link href="/#demo">
-              <Button
-                variant="outline"
-                size="lg"
-                className="group gap-2 rounded-full px-8 border-neutral-300 text-black hover:bg-neutral-100 transition-all"
-              >
-                <Play className="h-4 w-4" />
-                Watch Demo
-              </Button>
-            </Link>
-          </div>
+        <div
+          className="flex flex-wrap items-center justify-center gap-3 opacity-0 animate-fade-in sm:gap-4"
+          style={{ animationDelay: "0.3s" }}
+        >
+          <Link href="/download">
+            <Button
+              size="lg"
+              className="group gap-2 rounded-full px-8 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all"
+            >
+              <Download className="h-4 w-4" />
+              Download Free
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
+          <Link href="/#demo">
+            <Button
+              variant="outline"
+              size="lg"
+              className="group gap-2 rounded-full px-8 bg-transparent backdrop-blur-sm hover:bg-accent/50 transition-all"
+            >
+              <Play className="h-4 w-4" />
+              Watch Demo
+            </Button>
+          </Link>
         </div>
       </div>
 
