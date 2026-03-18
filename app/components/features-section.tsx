@@ -78,10 +78,7 @@ export function FeaturesSection() {
             Why Local AI
           </p>
           <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            Your Machine.{" "}
-            <span className="text-primary">
-              Your AI.
-            </span>
+            Your Machine. Your AI.
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
             No cloud fees, no rate limits, no data sharing. Professional-grade

@@ -64,10 +64,7 @@ export function FAQSection() {
             FAQ
           </p>
           <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            Frequently Asked{" "}
-            <span className="text-primary">
-              Questions
-            </span>
+            Frequently Asked Questions
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
             Everything you need to know about our local AI apps.

@@ -65,7 +65,7 @@ export function DemoSection() {
             Why NanoPocket
           </p>
           <h2 className="mb-4 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Professional AI. <span className="text-primary">No Compromises.</span>
+            Professional AI. No Compromises.
           </h2>
           <p className="mx-auto max-w-xl text-pretty text-sm text-muted-foreground sm:text-base">
             Everything cloud AI offers — without the cloud. Full power, full

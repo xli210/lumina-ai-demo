@@ -52,10 +52,7 @@ export function HowItWorksSection() {
             How It Works
           </p>
           <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            Up and Running in{" "}
-            <span className="text-primary">
-              3 Easy Steps
-            </span>
+            Up and Running in 3 Easy Steps
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
             No complex setup. No cloud accounts. Just download, activate, and

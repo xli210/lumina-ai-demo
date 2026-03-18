@@ -123,7 +123,7 @@ export function HeroSection() {
           style={{ animationDelay: "0.1s" }}
         >
           Create Beyond{" "}
-          <span className="text-primary">Imagination</span>
+          <span className="text-foreground">Imagination</span>
         </h1>
 
         <p

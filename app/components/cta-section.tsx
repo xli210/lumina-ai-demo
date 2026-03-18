@@ -20,10 +20,7 @@ export function CTASection() {
           </div>
 
           <h2 className="mb-4 text-balance text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            Ready to Create{" "}
-            <span className="text-primary">
-              Without Limits?
-            </span>
+            Ready to Create Without Limits?
           </h2>
 
           <p className="mx-auto mb-8 max-w-xl text-pretty text-lg text-muted-foreground">

@@ -103,10 +103,7 @@ export function ShowcaseSection() {
             Gallery
           </p>
           <h2 className="mb-5 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            See What&apos;s{" "}
-            <span className="text-primary">
-              Possible
-            </span>
+            See What&apos;s Possible
           </h2>
           <p className="mx-auto max-w-3xl text-pretty text-base text-muted-foreground sm:text-lg">
             From AI-generated art to photo enhancement and style transfer —

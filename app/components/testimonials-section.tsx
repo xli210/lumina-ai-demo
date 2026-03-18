@@ -79,10 +79,7 @@ export function TestimonialsSection() {
             Testimonials
           </p>
           <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            Loved by{" "}
-            <span className="text-primary">
-              Creators
-            </span>
+            Loved by Creators
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
             Hear from professionals and hobbyists who made the switch to local
