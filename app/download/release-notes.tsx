@@ -62,9 +62,17 @@ const appReleases: AppRelease[] = [
     gradient: "from-primary to-blue-400",
     releases: [
       {
-        version: "1.1.0",
+        version: "1.1.1",
         date: "March 18, 2026",
         tag: "Latest",
+        changes: [
+          { type: "improvement", text: "Bug fixes and stability improvements" },
+          { type: "improvement", text: "General performance optimizations" },
+        ],
+      },
+      {
+        version: "1.1.0",
+        date: "March 18, 2026",
         changes: [
           { type: "feature", text: "Improved video quality and motion consistency" },
           { type: "improvement", text: "Faster generation with optimized inference pipeline" },
@@ -100,6 +108,15 @@ const appReleases: AppRelease[] = [
     icon: Wand2,
     gradient: "from-primary to-blue-400",
     releases: [
+      {
+        version: "1.0.1",
+        date: "March 18, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "Bug fixes and stability improvements" },
+          { type: "improvement", text: "General performance optimizations" },
+        ],
+      },
       {
         version: "1.0.0",
         date: "March 18, 2026",
