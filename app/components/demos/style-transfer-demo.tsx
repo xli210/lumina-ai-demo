@@ -14,7 +14,7 @@ export function StyleTransferDemo() {
       {/* Top row: Source + Style */}
       <div className="flex items-center gap-4 sm:gap-6">
         <div className="flex flex-col items-center gap-1.5">
-          <div className="relative overflow-hidden rounded-xl border border-white/10 shadow-lg" style={{ width: 180, height: 180 }}>
+          <div className="relative overflow-hidden rounded-xl border border-white/10 shadow-lg" style={{ width: 240, height: 240 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={SOURCE} alt="Source photo" className="h-full w-full object-cover" draggable={false} />
             <div className="absolute bottom-1.5 left-1.5 rounded-full bg-black/50 backdrop-blur-sm px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white/80">
@@ -28,7 +28,7 @@ export function StyleTransferDemo() {
         </div>
 
         <div className="flex flex-col items-center gap-1.5">
-          <div className="relative overflow-hidden rounded-xl border border-white/10 shadow-lg" style={{ width: 180, height: 180 }}>
+          <div className="relative overflow-hidden rounded-xl border border-white/10 shadow-lg" style={{ width: 240, height: 240 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={STYLE_REF} alt="Style reference" className="h-full w-full object-cover" draggable={false} />
             <div className="absolute bottom-1.5 left-1.5 rounded-full bg-black/50 backdrop-blur-sm px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white/80">
@@ -54,7 +54,7 @@ export function StyleTransferDemo() {
       >
         <div
           className="relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl transition-all duration-500 hover:border-white/25 hover:shadow-[0_0_40px_rgba(255,255,255,0.06)]"
-          style={{ width: 320, height: 320 }}
+          style={{ width: 400, height: 400 }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

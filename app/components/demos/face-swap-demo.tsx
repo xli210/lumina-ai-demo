@@ -13,7 +13,7 @@ export function FaceSwapDemo() {
     <div className="flex w-full items-center justify-center gap-4 sm:gap-6">
       {/* Input column: face + body stacked */}
       <div className="flex shrink-0 flex-col items-center gap-3">
-        <div className="relative overflow-hidden rounded-lg border border-white/10 shadow-lg" style={{ width: 100, height: 130 }}>
+        <div className="relative overflow-hidden rounded-lg border border-white/10 shadow-lg" style={{ width: 140, height: 180 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={FACE} alt="Source face" className="h-full w-full object-cover" draggable={false} />
           <div className="absolute bottom-1 left-1 rounded bg-black/50 backdrop-blur-sm px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white/80">
@@ -25,7 +25,7 @@ export function FaceSwapDemo() {
           +
         </div>
 
-        <div className="relative overflow-hidden rounded-lg border border-white/10 shadow-lg" style={{ width: 100, height: 150 }}>
+        <div className="relative overflow-hidden rounded-lg border border-white/10 shadow-lg" style={{ width: 140, height: 200 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={BODY} alt="Target body" className="h-full w-full object-cover" draggable={false} />
           <div className="absolute bottom-1 left-1 rounded bg-black/50 backdrop-blur-sm px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white/80">
@@ -49,7 +49,7 @@ export function FaceSwapDemo() {
       >
         <div
           className="relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_40px_rgba(255,255,255,0.08)]"
-          style={{ width: 380, height: 500 }}
+          style={{ width: 460, height: 580 }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

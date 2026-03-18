@@ -255,11 +255,8 @@ export function FeatureShowcase() {
           <div
             key={feature.id}
             ref={(el) => { sectionRefs.current[i] = el; }}
-            className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black px-4 py-16 sm:px-6 md:py-20"
+            className="relative flex items-center justify-center overflow-hidden bg-black px-4 py-14 sm:px-6 md:py-20"
           >
-            {i > 0 && (
-              <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black to-transparent z-[1]" />
-            )}
 
             <div className="pointer-events-none absolute inset-0">
               <div
@@ -359,9 +356,6 @@ export function FeatureShowcase() {
               </div>
             </div>
 
-            {i < features.length - 1 && (
-              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent z-[1]" />
-            )}
           </div>
         );
       })}
