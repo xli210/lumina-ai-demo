@@ -47,10 +47,10 @@ const demoSlides: HeroSlide[] = [
   {
     src: "/images/showcase/hero-4.jpg",
     type: "image",
-    alt: "Milky Way night sky — AI denoised and star-enhanced",
-    prompt: "Milky Way galaxy with AI noise reduction and star clarity boost, 4k",
-    model: "Nano ImageEnh",
-    tag: "AI Enhancement",
+    alt: "AI-generated creative artwork",
+    prompt: "Creative digital artwork with rich detail and vibrant composition, 4k",
+    model: "Nano ImageEdit",
+    tag: "AI Generation",
   },
 ];
 
