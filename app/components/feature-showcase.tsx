@@ -10,7 +10,7 @@ import { EditDemo } from "./demos/edit-demo";
 import { StyleTransferDemo } from "./demos/style-transfer-demo";
 import { TryonDemo } from "./demos/tryon-demo";
 
-type FeatureType = "equation" | "carousel" | "magnifier" | "slider" | "grid" | "triplet" | "tryon";
+type FeatureType = "video" | "equation" | "carousel" | "magnifier" | "slider" | "grid" | "triplet" | "tryon";
 
 interface Feature {
   id: string;
@@ -23,6 +23,15 @@ interface Feature {
 }
 
 const features: Feature[] = [
+  {
+    id: "videogen",
+    title: "Video Generation",
+    subtitle: "Create cinematic videos from text prompts or images",
+    type: "video",
+    hint: "AI-generated video playing",
+    downloadId: "nano-videogen",
+    ctaLabel: "Get Nano VideoGen",
+  },
   {
     id: "faceswap",
     title: "Face Swap",
@@ -90,6 +99,19 @@ const features: Feature[] = [
 
 function renderDemo(feature: Feature) {
   switch (feature.type) {
+    case "video":
+      return (
+        <div className="w-full rounded-2xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden transition-all duration-500 hover:border-white/20">
+          <video
+            src="/videos/hero-1.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full"
+          />
+        </div>
+      );
     case "equation":
       return <FaceSwapDemo />;
     case "carousel":

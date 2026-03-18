@@ -31,8 +31,8 @@ const demoSlides: HeroSlide[] = [
   {
     src: "/images/showcase/hero-2.jpg",
     type: "image",
-    alt: "Dramatic mountain landscape — AI enhanced to 4K",
-    prompt: "Majestic mountain peak with golden hour lighting, ultra-detailed, 8k",
+    alt: "AI-enhanced portrait with vivid detail and clarity",
+    prompt: "High-fidelity portrait with AI sharpening and color enhancement, 4k",
     model: "Nano ImageEnh",
     tag: "AI Enhancement",
   },
