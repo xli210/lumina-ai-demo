@@ -10,8 +10,9 @@ import { EditDemo } from "./demos/edit-demo";
 import { StyleTransferDemo } from "./demos/style-transfer-demo";
 import { TryonDemo } from "./demos/tryon-demo";
 import { VideoGenDemo } from "./demos/videogen-demo";
+import { VideoEnhanceDemo } from "./demos/video-enhance-demo";
 
-type FeatureType = "video" | "equation" | "carousel" | "magnifier" | "slider" | "grid" | "triplet" | "tryon";
+type FeatureType = "video" | "videoenhance" | "equation" | "carousel" | "magnifier" | "slider" | "grid" | "triplet" | "tryon";
 
 interface Feature {
   id: string;
@@ -32,6 +33,15 @@ const features: Feature[] = [
     hint: "AI-generated video playing",
     downloadId: "nano-videogen",
     ctaLabel: "Get Nano VideoGen",
+  },
+  {
+    id: "videoenhance",
+    title: "Video Enhance",
+    subtitle: "Upscale and enhance video quality with AI",
+    type: "videoenhance",
+    hint: "Click to play before & after",
+    downloadId: "nano-videoenhance",
+    ctaLabel: "Get Nano VideoEnhance",
   },
   {
     id: "faceswap",
@@ -102,6 +112,8 @@ function renderDemo(feature: Feature) {
   switch (feature.type) {
     case "video":
       return <VideoGenDemo />;
+    case "videoenhance":
+      return <VideoEnhanceDemo />;
     case "equation":
       return <FaceSwapDemo />;
     case "carousel":
