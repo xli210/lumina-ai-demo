@@ -21,7 +21,7 @@ export function PricingSection() {
             Powerful AI Tools. Free to Start.
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
-            Free apps come with a free license. Pro apps include a 14-day free
+            Free apps come with a free license. Pro apps include a 7-day free
             trial — no payment required upfront.
           </p>
         </div>

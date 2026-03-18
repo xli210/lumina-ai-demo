@@ -54,6 +54,72 @@ interface LicenseInfo {
 
 const apps: AppInfo[] = [
   {
+    id: "nano-facialedit",
+    productId: "nano-facialedit",
+    name: "Nano FacialEdit",
+    tagline: "AI Facial Editing & Enhancement",
+    description:
+      "Retouch, enhance, and transform facial features with AI. Supports face swap, expression editing, and portrait retouching — all running 100% locally on your GPU.",
+    icon: ScanFace,
+    version: "1.0.1",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
+    badge: "Free",
+    platforms: [
+      {
+        platform: "Windows",
+        icon: Monitor,
+        fileName: "NanoFacialEdit-1.0.1.zip",
+        downloadUrl: "/api/downloads/NanoFacialEdit-1.0.1.zip",
+        size: "2.2 MB",
+      },
+    ],
+  },
+  {
+    id: "nano-faceswap",
+    productId: "nano-faceswap",
+    name: "Nano FaceSwap",
+    tagline: "AI Face Swap",
+    description:
+      "Swap faces in photos and videos with realistic AI-powered results. Fast, private, and running 100% locally on your GPU.",
+    icon: ArrowLeftRight,
+    version: "1.0.1",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
+    badge: "Free",
+    platforms: [
+      {
+        platform: "Windows",
+        icon: Monitor,
+        fileName: "NanoFaceSwap-1.0.1.zip",
+        downloadUrl: "/api/downloads/NanoFaceSwap-1.0.1.zip",
+        size: "8.3 MB",
+      },
+    ],
+  },
+  {
+    id: "nano-image-tryon",
+    productId: "nano-image-tryon",
+    name: "Nano ImageTryon",
+    tagline: "AI Virtual Try-On",
+    description:
+      "See how clothes look on you before you buy. AI-powered virtual try-on with photo-realistic results — running 100% locally on your GPU.",
+    icon: Shirt,
+    version: "1.0.0",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
+    badge: "Free",
+    platforms: [
+      {
+        platform: "Windows",
+        icon: Monitor,
+        fileName: "NanoImageTryon-1.0.0.zip",
+        downloadUrl: "/api/downloads/NanoImageTryon-1.0.0.zip",
+        size: "—",
+      },
+    ],
+  },
+  {
     id: "nano-imageedit",
     productId: "nano-imageedit",
     name: "Nano ImageEdit",
@@ -76,28 +142,6 @@ const apps: AppInfo[] = [
     ],
   },
   {
-    id: "nano-videogen",
-    productId: "nano-videogen",
-    name: "Nano VideoGen",
-    tagline: "AI Video Generation",
-    description:
-      "Create stunning videos from text prompts or images with Nano VideoGen. Supports text-to-video, image-to-video, keyframe interpolation, and camera control LoRAs — all running 100% locally on your GPU.",
-    icon: Video,
-    version: "1.1.0",
-    gradient: "from-primary to-blue-400",
-    shadowColor: "shadow-primary/25",
-    badge: "Pro",
-    platforms: [
-      {
-        platform: "Windows",
-        icon: Monitor,
-        fileName: "NanoVideoGen-1.1.0.zip",
-        downloadUrl: "/api/downloads/NanoVideoGen-1.1.0.zip",
-        size: "2.2 MB",
-      },
-    ],
-  },
-  {
     id: "nano-videoenhance",
     productId: "nano-videoenhance",
     name: "Nano VideoEnhance",
@@ -108,7 +152,7 @@ const apps: AppInfo[] = [
     version: "1.0.0",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
-    badge: "New",
+    badge: "Pro",
     platforms: [
       {
         platform: "Windows",
@@ -116,50 +160,6 @@ const apps: AppInfo[] = [
         fileName: "NanoVideoEnhance-1.0.0.zip",
         downloadUrl: "/api/downloads/NanoVideoEnhance-1.0.0.zip",
         size: "9.1 MB",
-      },
-    ],
-  },
-  {
-    id: "nano-facialedit",
-    productId: "nano-facialedit",
-    name: "Nano FacialEdit",
-    tagline: "AI Facial Editing & Enhancement",
-    description:
-      "Retouch, enhance, and transform facial features with AI. Supports face swap, expression editing, and portrait retouching — all running 100% locally on your GPU.",
-    icon: ScanFace,
-    version: "1.0.1",
-    gradient: "from-primary to-blue-400",
-    shadowColor: "shadow-primary/25",
-    badge: "New",
-    platforms: [
-      {
-        platform: "Windows",
-        icon: Monitor,
-        fileName: "NanoFacialEdit-1.0.1.zip",
-        downloadUrl: "/api/downloads/NanoFacialEdit-1.0.1.zip",
-        size: "2.2 MB",
-      },
-    ],
-  },
-  {
-    id: "nano-faceswap",
-    productId: "nano-faceswap",
-    name: "Nano FaceSwap",
-    tagline: "AI Face Swap",
-    description:
-      "Swap faces in photos and videos with realistic AI-powered results. Fast, private, and running 100% locally on your GPU.",
-    icon: ArrowLeftRight,
-    version: "1.0.1",
-    gradient: "from-primary to-blue-400",
-    shadowColor: "shadow-primary/25",
-    badge: "New",
-    platforms: [
-      {
-        platform: "Windows",
-        icon: Monitor,
-        fileName: "NanoFaceSwap-1.0.1.zip",
-        downloadUrl: "/api/downloads/NanoFaceSwap-1.0.1.zip",
-        size: "8.3 MB",
       },
     ],
   },
@@ -186,24 +186,24 @@ const apps: AppInfo[] = [
     ],
   },
   {
-    id: "nano-image-tryon",
-    productId: "nano-image-tryon",
-    name: "Nano ImageTryon",
-    tagline: "AI Virtual Try-On",
+    id: "nano-videogen",
+    productId: "nano-videogen",
+    name: "Nano VideoGen",
+    tagline: "AI Video Generation",
     description:
-      "See how clothes look on you before you buy. AI-powered virtual try-on with photo-realistic results — running 100% locally on your GPU.",
-    icon: Shirt,
-    version: "1.0.0",
+      "Create stunning videos from text prompts or images with Nano VideoGen. Supports text-to-video, image-to-video, keyframe interpolation, and camera control LoRAs — all running 100% locally on your GPU.",
+    icon: Video,
+    version: "1.1.0",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
-    badge: "New",
+    badge: "Pro",
     platforms: [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoImageTryon-1.0.0.zip",
-        downloadUrl: "/api/downloads/NanoImageTryon-1.0.0.zip",
-        size: "—",
+        fileName: "NanoVideoGen-1.1.0.zip",
+        downloadUrl: "/api/downloads/NanoVideoGen-1.1.0.zip",
+        size: "2.2 MB",
       },
     ],
   },

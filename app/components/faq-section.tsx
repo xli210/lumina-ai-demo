@@ -26,7 +26,7 @@ const faqs = [
   {
     question: "How does the licensing work?",
     answer:
-      "Each license key activates on one machine. Free products give you a permanent license at no cost. Paid products like Nano ImageEdit and Nano VideoGen offer a 14-day free trial, after which you can purchase a one-time lifetime license — no subscriptions ever.",
+      "Each license key activates on one machine. Free products give you a permanent license at no cost. Paid products offer a 7-day free trial, after which you can purchase a one-time lifetime license — no subscriptions ever.",
   },
   {
     question: "Can I switch my license to a new computer?",
@@ -51,7 +51,7 @@ const faqs = [
   {
     question: "What is your refund policy?",
     answer:
-      "Many of our applications are free to download and use at no cost. For paid applications, we offer a 14-day free trial so you can fully explore the app before committing to a purchase. Because of this, we do not offer refunds after a purchase is made. Once purchased, you own the application permanently with no recurring fees. We encourage you to take full advantage of the free trial period to ensure the app meets your needs before buying.",
+      "Many of our applications are free to download and use at no cost. For paid applications, we offer a 7-day free trial so you can fully explore the app before committing to a purchase. Because of this, we do not offer refunds after a purchase is made. Once purchased, you own the application permanently with no recurring fees. We encourage you to take full advantage of the free trial period to ensure the app meets your needs before buying.",
   },
 ];
 

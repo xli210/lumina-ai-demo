@@ -173,7 +173,7 @@ const appReleases: AppRelease[] = [
           { type: "feature", text: "AI-powered image upscaling and denoising" },
           { type: "feature", text: "Photo restoration and detail enhancement" },
           { type: "feature", text: "Product-bound license activation for secure model protection" },
-          { type: "feature", text: "14-day free trial included" },
+          { type: "feature", text: "7-day free trial included" },
           { type: "feature", text: "Runs 100% locally on your GPU — no cloud dependency" },
         ],
       },
