@@ -20,11 +20,11 @@ export function VideoEnhanceDemo() {
 
   return (
     <div className="flex w-full flex-col items-center gap-4">
-      <div className="flex w-full items-end justify-center gap-4 sm:gap-6">
+      <div className="flex w-full items-center justify-center gap-4 sm:gap-6">
         <div className="flex flex-col items-center gap-2">
           <div
             className="relative overflow-hidden rounded-xl border border-white/10 shadow-lg cursor-pointer"
-            style={{ width: 160, height: 280 }}
+            style={{ width: 240, height: 420 }}
             onClick={handleToggle}
           >
             <video
@@ -34,15 +34,14 @@ export function VideoEnhanceDemo() {
               loop
               playsInline
               className="h-full w-full object-cover"
-              style={{ imageRendering: "pixelated" }}
             />
             <div className="absolute bottom-0 inset-x-0 bg-black/60 backdrop-blur-sm px-2 py-1">
-              <span className="text-[10px] font-medium text-white/70">Before · 384p</span>
+              <span className="text-[10px] font-medium text-white/70">Before · Low Quality</span>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col items-center gap-1 text-white/30 pb-6">
+        <div className="flex flex-col items-center gap-1 text-white/30">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -52,7 +51,7 @@ export function VideoEnhanceDemo() {
         <div className="flex flex-col items-center gap-2">
           <div
             className="relative overflow-hidden rounded-xl border border-white/15 shadow-2xl cursor-pointer"
-            style={{ width: 280, height: 490 }}
+            style={{ width: 240, height: 420 }}
             onClick={handleToggle}
           >
             <video
@@ -73,7 +72,7 @@ export function VideoEnhanceDemo() {
               </div>
             )}
             <div className="absolute bottom-0 inset-x-0 bg-black/60 backdrop-blur-sm px-2 py-1">
-              <span className="text-[10px] font-medium text-white/70">After · 1536p AI Enhanced</span>
+              <span className="text-[10px] font-medium text-white/70">After · AI Enhanced</span>
             </div>
           </div>
         </div>
