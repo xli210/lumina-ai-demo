@@ -7,11 +7,9 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
   Download,
-  Sparkles,
-  Shield,
-  Cpu,
   Play,
 } from "lucide-react";
+import { Wordmark } from "./wordmark";
 
 interface HeroSlide {
   src: string;
@@ -86,80 +84,57 @@ export function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative flex flex-col items-center overflow-hidden px-6 pt-28 pb-8 sm:pt-32 sm:pb-12"
+      className="relative flex flex-col items-center overflow-hidden"
     >
-      {/* Animated background */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="absolute -top-1/3 left-1/4 h-[700px] w-[700px] rounded-full opacity-15 blur-[140px] animate-pulse-slow"
-          style={{
-            background:
-              "radial-gradient(circle, hsl(220, 70%, 55%) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          className="absolute top-1/4 -right-1/4 h-[500px] w-[500px] rounded-full opacity-8 blur-[120px] animate-pulse-slow"
-          style={{
-            background:
-              "radial-gradient(circle, hsl(220, 50%, 45%) 0%, transparent 70%)",
-            animationDelay: "2s",
-          }}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
-      </div>
+      {/* ── White headline area ── */}
+      <div className="w-full bg-white px-6 pt-28 pb-16 sm:pt-32 sm:pb-20">
+        <div className="relative z-10 mx-auto max-w-4xl text-center">
+          <div className="mb-8 flex justify-center opacity-0 animate-fade-in">
+            <Wordmark className="h-8 w-auto text-black sm:h-10" />
+          </div>
 
-      {/* ── Centered headline (Runway-style) ── */}
-      <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <div className="mb-5 inline-flex items-center gap-2 rounded-full glass-subtle px-4 py-2 text-sm text-muted-foreground animate-fade-in">
-          <Sparkles className="h-4 w-4 text-primary animate-spin-slow" />
-          <span>Local AI Creative Suite</span>
-          <span className="flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-            <Shield className="h-3 w-3" /> 100% Private
-          </span>
-        </div>
+          <h1
+            className="mb-5 text-balance text-4xl font-bold leading-[1.1] tracking-tight text-black opacity-0 animate-fade-in sm:text-5xl md:text-6xl lg:text-7xl"
+            style={{ animationDelay: "0.1s" }}
+          >
+            Create Beyond Imagination
+          </h1>
 
-        <h1
-          className="mb-5 text-balance text-4xl font-bold leading-[1.1] tracking-tight text-foreground opacity-0 animate-fade-in sm:text-5xl md:text-6xl lg:text-7xl"
-          style={{ animationDelay: "0.1s" }}
-        >
-          Create Beyond{" "}
-          <span className="text-foreground">Imagination</span>
-        </h1>
+          <p
+            className="mx-auto mb-7 max-w-2xl text-pretty text-base leading-relaxed text-neutral-500 opacity-0 animate-fade-in sm:text-lg"
+            style={{ animationDelay: "0.2s" }}
+          >
+            Generate videos, edit images, swap faces, and enhance photos with
+            AI — all running{" "}
+            <span className="font-medium text-black">100% locally</span> on
+            your machine. No cloud. No data ever leaves your computer.
+          </p>
 
-        <p
-          className="mx-auto mb-7 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground opacity-0 animate-fade-in sm:text-lg"
-          style={{ animationDelay: "0.2s" }}
-        >
-          Generate videos, edit images, swap faces, and enhance photos with
-          AI — all running{" "}
-          <span className="font-medium text-foreground">100% locally</span> on
-          your machine. No cloud. No data ever leaves your computer.
-        </p>
-
-        <div
-          className="flex flex-wrap items-center justify-center gap-3 opacity-0 animate-fade-in sm:gap-4"
-          style={{ animationDelay: "0.3s" }}
-        >
-          <Link href="/download">
-            <Button
-              size="lg"
-              className="group gap-2 rounded-full px-8 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all"
-            >
-              <Download className="h-4 w-4" />
-              Download Free
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </Link>
-          <Link href="/#demo">
-            <Button
-              variant="outline"
-              size="lg"
-              className="group gap-2 rounded-full px-8 bg-transparent backdrop-blur-sm hover:bg-accent/50 transition-all"
-            >
-              <Play className="h-4 w-4" />
-              Watch Demo
-            </Button>
-          </Link>
+          <div
+            className="flex flex-wrap items-center justify-center gap-3 opacity-0 animate-fade-in sm:gap-4"
+            style={{ animationDelay: "0.3s" }}
+          >
+            <Link href="/download">
+              <Button
+                size="lg"
+                className="group gap-2 rounded-full bg-black px-8 text-white shadow-lg shadow-black/15 hover:bg-neutral-800 hover:shadow-xl transition-all"
+              >
+                <Download className="h-4 w-4" />
+                Download Free
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+            <Link href="/#demo">
+              <Button
+                variant="outline"
+                size="lg"
+                className="group gap-2 rounded-full px-8 border-neutral-300 text-black hover:bg-neutral-100 transition-all"
+              >
+                <Play className="h-4 w-4" />
+                Watch Demo
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -254,53 +229,6 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* ── Trust badges row ── */}
-      <div
-        className="relative z-10 mx-auto mt-10 flex flex-wrap items-center justify-center gap-6 opacity-0 animate-fade-in sm:mt-12 sm:gap-10"
-        style={{ animationDelay: "0.5s" }}
-      >
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-            <Shield className="h-4 w-4 text-primary" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold text-foreground">
-              100% Offline
-            </span>
-            <span className="text-xs text-muted-foreground">
-              Your data stays local
-            </span>
-          </div>
-        </div>
-        <div className="h-8 w-px bg-border hidden sm:block" />
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-            <Cpu className="h-4 w-4 text-primary" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold text-foreground">
-              GPU Accelerated
-            </span>
-            <span className="text-xs text-muted-foreground">
-              Fast local inference
-            </span>
-          </div>
-        </div>
-        <div className="h-8 w-px bg-border hidden sm:block" />
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-            <Download className="h-4 w-4 text-primary" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold text-foreground">
-              Free to Start
-            </span>
-            <span className="text-xs text-muted-foreground">
-              No subscription needed
-            </span>
-          </div>
-        </div>
-      </div>
     </section>
   );
 }
