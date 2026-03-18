@@ -126,19 +126,25 @@ export function HeroSection() {
                   className="h-full w-full object-cover"
                 />
               ) : (
-                <div
-                  className="h-full w-full overflow-hidden"
-                >
-                  <Image
-                    src={slide.src}
-                    alt={slide.alt}
-                    fill
-                    className={`object-cover transition-transform duration-[5000ms] ease-out ${
-                      activeSlide === i ? "scale-110" : "scale-100"
-                    }`}
-                    priority={i === 0}
-                    sizes="100vw"
-                  />
+                <div className="h-full w-full overflow-hidden">
+                  <div
+                    className="relative h-full w-full"
+                    style={{
+                      transform: activeSlide === i ? "scale(1.12)" : "scale(1)",
+                      transition: activeSlide === i
+                        ? "transform 6s cubic-bezier(0.25, 0, 0.25, 1)"
+                        : "none",
+                    }}
+                  >
+                    <Image
+                      src={slide.src}
+                      alt={slide.alt}
+                      fill
+                      className="object-cover"
+                      priority={i === 0}
+                      sizes="100vw"
+                    />
+                  </div>
                 </div>
               )}
             </div>
