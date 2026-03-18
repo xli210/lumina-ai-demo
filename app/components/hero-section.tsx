@@ -88,25 +88,15 @@ export function HeroSection() {
       {/* ── Centered headline ── */}
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <h1
-          className="mb-5 text-balance text-4xl font-bold leading-[1.1] tracking-tight text-foreground opacity-0 animate-fade-in sm:text-5xl md:text-6xl lg:text-7xl"
+          className="mb-8 text-balance text-3xl font-bold leading-[1.15] tracking-tight text-foreground opacity-0 animate-fade-in sm:text-4xl md:text-5xl"
           style={{ animationDelay: "0.1s" }}
         >
-          Create Beyond Imagination
+          A whole AI studio, right in your pocket
         </h1>
-
-        <p
-          className="mx-auto mb-7 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground opacity-0 animate-fade-in sm:text-lg"
-          style={{ animationDelay: "0.2s" }}
-        >
-          Generate videos, edit images, swap faces, and enhance photos with
-          AI — all running{" "}
-          <span className="font-medium text-foreground">100% locally</span> on
-          your machine. No cloud. No data ever leaves your computer.
-        </p>
 
         <div
           className="flex flex-wrap items-center justify-center gap-3 opacity-0 animate-fade-in sm:gap-4"
-          style={{ animationDelay: "0.3s" }}
+          style={{ animationDelay: "0.2s" }}
         >
           <Link href="/download">
             <Button
