@@ -11,12 +11,12 @@ const faqs = [
   {
     question: "What GPU do I need to run these apps?",
     answer:
-      "Most of our apps require an NVIDIA GPU with at least 6 GB of VRAM (e.g., GTX 1660 or newer). For best results with image and video generation, we recommend 8 GB+ VRAM (RTX 3060 or higher). Streaming DiT mode in Nano ImageEdit allows GPUs with less than 12 GB VRAM to run advanced models.",
+      "An NVIDIA GPU with a minimum of 8 GB VRAM is required to run most applications. Only CUDA-enabled GPUs are currently supported. For optimal performance: Video Generation requires 16 GB+ VRAM; Image Generation, Image Editing & Video Enhancement require 10 GB+ VRAM. macOS and AMD GPU support are coming soon — stay tuned for updates.",
   },
   {
     question: "Is my data really private?",
     answer:
-      "Yes — 100%. All AI processing happens locally on your machine. No images, videos, or text ever leave your computer. There are no cloud APIs, no telemetry, and no data collection. Your creations are entirely yours.",
+      "Yes — 100%. All AI processing happens locally on your machine. No images or videos ever leave your computer. There are no cloud APIs, no telemetry, and no data collection. Your creations are entirely yours.",
   },
   {
     question: "Do I need an internet connection?",
@@ -26,7 +26,7 @@ const faqs = [
   {
     question: "How does the licensing work?",
     answer:
-      "Each license key activates on one machine. Free products give you a permanent license at no cost. Paid products like Nano ImageEdit and Nano VideoGen offer a 14-day free trial, after which you can purchase a one-time lifetime license — no subscriptions ever.",
+      "Each license key activates on one machine. Free products give you a permanent license at no cost. Paid products offer a 7-day free trial, after which you can purchase a one-time lifetime license — no subscriptions ever.",
   },
   {
     question: "Can I switch my license to a new computer?",
@@ -48,6 +48,11 @@ const faqs = [
     answer:
       "You can reach us through the contact form on our website or via email. We typically respond within 24 hours. Our community also shares tips and solutions in our online forums.",
   },
+  {
+    question: "What is your refund policy?",
+    answer:
+      "Many of our applications are free to download and use at no cost. For paid applications, we offer a 7-day free trial so you can fully explore the app before committing to a purchase. Because of this, we do not offer refunds after a purchase is made. Once purchased, you own the application permanently with no recurring fees. We encourage you to take full advantage of the free trial period to ensure the app meets your needs before buying.",
+  },
 ];
 
 export function FAQSection() {
@@ -64,10 +69,7 @@ export function FAQSection() {
             FAQ
           </p>
           <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            Frequently Asked{" "}
-            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
-              Questions
-            </span>
+            Frequently Asked Questions
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
             Everything you need to know about our local AI apps.

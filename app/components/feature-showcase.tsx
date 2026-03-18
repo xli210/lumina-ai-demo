@@ -9,8 +9,10 @@ import { UpscaleDemo } from "./demos/upscale-demo";
 import { EditDemo } from "./demos/edit-demo";
 import { StyleTransferDemo } from "./demos/style-transfer-demo";
 import { TryonDemo } from "./demos/tryon-demo";
+import { VideoGenDemo } from "./demos/videogen-demo";
+import { VideoEnhanceDemo } from "./demos/video-enhance-demo";
 
-type FeatureType = "equation" | "carousel" | "magnifier" | "slider" | "grid" | "triplet" | "tryon";
+type FeatureType = "video" | "videoenhance" | "equation" | "carousel" | "magnifier" | "slider" | "grid" | "triplet" | "tryon";
 
 interface Feature {
   id: string;
@@ -23,6 +25,24 @@ interface Feature {
 }
 
 const features: Feature[] = [
+  {
+    id: "videogen",
+    title: "Video Generation",
+    subtitle: "Create cinematic videos from text prompts or images",
+    type: "video",
+    hint: "AI-generated video playing",
+    downloadId: "nano-videogen",
+    ctaLabel: "Get Nano VideoGen",
+  },
+  {
+    id: "videoenhance",
+    title: "Video Enhance",
+    subtitle: "Upscale and enhance video quality with AI",
+    type: "videoenhance",
+    hint: "Click to play before & after",
+    downloadId: "nano-videoenhance",
+    ctaLabel: "Get Nano VideoEnhance",
+  },
   {
     id: "faceswap",
     title: "Face Swap",
@@ -56,8 +76,8 @@ const features: Feature[] = [
     subtitle: "Bring black & white photos to life with AI color",
     type: "slider",
     hint: "Drag the slider to compare",
-    downloadId: "nnanoimageenh",
-    ctaLabel: "Get Nano ImageEnh",
+    downloadId: "nano-imageedit",
+    ctaLabel: "Get Nano ImageEdit",
   },
   {
     id: "edit",
@@ -74,8 +94,8 @@ const features: Feature[] = [
     subtitle: "Apply artistic styles to any photo instantly",
     type: "triplet",
     hint: "Hover to apply the style",
-    downloadId: "lumina-ai",
-    ctaLabel: "Get NanoPocket AI",
+    downloadId: "nano-imageedit",
+    ctaLabel: "Get Nano ImageEdit",
   },
   {
     id: "tryon",
@@ -90,6 +110,10 @@ const features: Feature[] = [
 
 function renderDemo(feature: Feature) {
   switch (feature.type) {
+    case "video":
+      return <VideoGenDemo />;
+    case "videoenhance":
+      return <VideoEnhanceDemo />;
     case "equation":
       return <FaceSwapDemo />;
     case "carousel":
@@ -243,11 +267,8 @@ export function FeatureShowcase() {
           <div
             key={feature.id}
             ref={(el) => { sectionRefs.current[i] = el; }}
-            className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black px-4 py-16 sm:px-6 md:py-24"
+            className="relative flex items-center justify-center overflow-hidden bg-black px-4 py-14 sm:px-6 md:py-20"
           >
-            {i > 0 && (
-              <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black to-transparent z-[1]" />
-            )}
 
             <div className="pointer-events-none absolute inset-0">
               <div
@@ -347,9 +368,6 @@ export function FeatureShowcase() {
               </div>
             </div>
 
-            {i < features.length - 1 && (
-              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent z-[1]" />
-            )}
           </div>
         );
       })}

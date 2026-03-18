@@ -22,12 +22,7 @@ export function DownloadHero() {
         <h1 className="mb-4 text-balance text-5xl font-bold tracking-tight text-foreground opacity-0 animate-fade-in md:text-6xl"
           style={{ animationDelay: "0.1s" }}
         >
-          Download{" "}
-          <span className="relative inline-block">
-            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
-              Our Apps
-            </span>
-          </span>
+          Download Our Apps
         </h1>
 
         <p className="mb-8 text-pretty text-lg text-muted-foreground opacity-0 animate-fade-in"

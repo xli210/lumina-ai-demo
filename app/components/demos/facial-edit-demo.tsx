@@ -28,8 +28,8 @@ export function FacialEditDemo() {
             <div
               className="relative overflow-hidden rounded-xl border shadow-lg transition-all duration-500 cursor-pointer"
               style={{
-                width: isOriginal ? 210 : 170,
-                height: isOriginal ? 340 : 290,
+                width: isOriginal ? 260 : 220,
+                height: isOriginal ? 400 : 350,
                 borderColor: isActive
                   ? "rgba(255,255,255,0.3)"
                   : isOriginal

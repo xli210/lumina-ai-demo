@@ -15,7 +15,7 @@ export function TryonDemo() {
       <div className="flex flex-col items-center gap-2">
         <div
           className="relative overflow-hidden rounded-2xl border border-white/10 shadow-xl transition-all duration-500"
-          style={{ width: 240, height: 370 }}
+          style={{ width: 300, height: 440 }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -41,8 +41,8 @@ export function TryonDemo() {
         <div
           className="relative overflow-hidden rounded-xl transition-all duration-700"
           style={{
-            width: 130,
-            height: 160,
+            width: 170,
+            height: 200,
             transform: applied
               ? "translateX(0px) rotate(0deg) scale(0.9)"
               : "translateX(0px) rotate(-3deg) scale(1)",
@@ -68,8 +68,8 @@ export function TryonDemo() {
         <div
           className="relative overflow-hidden rounded-2xl border shadow-xl transition-all duration-700"
           style={{
-            width: 240,
-            height: 370,
+            width: 300,
+            height: 440,
             borderColor: applied ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.05)",
             opacity: applied ? 1 : 0.4,
             filter: applied ? "none" : "blur(6px) grayscale(0.5)",

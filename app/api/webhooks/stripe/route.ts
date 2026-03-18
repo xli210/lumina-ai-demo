@@ -19,30 +19,40 @@ function generateLicenseKey(): string {
 }
 
 export async function POST(req: NextRequest) {
+  console.log("[Webhook] Stripe webhook received");
+
   const body = await req.text();
   const sig = req.headers.get("stripe-signature");
 
+  console.log("[Webhook] Signature present:", !!sig);
+  console.log("[Webhook] Body length:", body.length);
+
   if (!sig) {
+    console.error("[Webhook] Missing stripe-signature header");
     return NextResponse.json({ error: "Missing signature" }, { status: 400 });
   }
 
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
   if (!webhookSecret) {
-    console.error("STRIPE_WEBHOOK_SECRET not configured");
+    console.error("[Webhook] STRIPE_WEBHOOK_SECRET not configured");
     return NextResponse.json(
       { error: "Webhook not configured" },
       { status: 500 }
     );
   }
 
+  console.log("[Webhook] Webhook secret prefix:", webhookSecret.substring(0, 10) + "...");
+
   let event;
   try {
     event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";
-    console.error("Webhook signature verification failed:", message);
+    console.error("[Webhook] Signature verification failed:", message);
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
+
+  console.log("[Webhook] Event type:", event.type, "Event ID:", event.id);
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
@@ -71,7 +81,7 @@ export async function POST(req: NextRequest) {
 
     // Determine product_id from session metadata or default
     const productId =
-      (session.metadata as Record<string, string>)?.product_id || "lumina-ai";
+      (session.metadata as Record<string, string>)?.product_id || "nano-imageedit";
 
     // Look up product to get max_activations (default 1)
     const product = PRODUCTS.find((p) => p.id === productId);

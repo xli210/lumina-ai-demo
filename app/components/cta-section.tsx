@@ -20,10 +20,7 @@ export function CTASection() {
           </div>
 
           <h2 className="mb-4 text-balance text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            Ready to Create{" "}
-            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
-              Without Limits?
-            </span>
+            Ready to Create Without Limits?
           </h2>
 
           <p className="mx-auto mb-8 max-w-xl text-pretty text-lg text-muted-foreground">
@@ -49,7 +46,7 @@ export function CTASection() {
               size="lg"
               className="gap-2 rounded-full px-8"
             >
-              <Link href="#pricing">View Pricing</Link>
+              <Link href="/contact">Contact Us</Link>
             </Button>
           </div>
 

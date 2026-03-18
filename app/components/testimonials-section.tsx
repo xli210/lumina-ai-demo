@@ -26,7 +26,7 @@ const testimonials: Testimonial[] = [
     quote:
       "The face swap tool is incredibly fast running on my RTX 4070. What used to take minutes on cloud services happens in seconds, and I never have to worry about uploading sensitive client photos.",
     rating: 5,
-    gradient: "from-slate-600 to-slate-500",
+    gradient: "from-primary to-blue-400",
   },
   {
     name: "Marcus T.",
@@ -34,15 +34,15 @@ const testimonials: Testimonial[] = [
     quote:
       "Nano VideoGen changed my pre-visualization process. I can iterate on shots without burning through cloud credits. The camera control LoRAs are a game-changer for storyboarding.",
     rating: 5,
-    gradient: "from-blue-600 to-blue-500",
+    gradient: "from-primary to-blue-400",
   },
   {
     name: "Priya M.",
     role: "Privacy Researcher",
     quote:
-      "Finally, AI tools that respect data sovereignty. I recommend NanoPocket to every colleague who handles sensitive documents. Zero data leaves the machine — exactly how it should be.",
+      "Finally, AI tools that respect data sovereignty. I recommend NanoPocket to every colleague who needs private AI processing. Zero data leaves the machine — exactly how it should be.",
     rating: 5,
-    gradient: "from-sky-500 to-blue-400",
+    gradient: "from-primary to-blue-400",
   },
   {
     name: "James L.",
@@ -50,7 +50,7 @@ const testimonials: Testimonial[] = [
     quote:
       "The facial editing tools produce natural results that don't look AI-generated. My retouching workflow went from 30 minutes per photo to under 5. Absolute time saver.",
     rating: 5,
-    gradient: "from-slate-500 to-slate-400",
+    gradient: "from-primary to-blue-400",
   },
   {
     name: "Nina W.",
@@ -58,7 +58,7 @@ const testimonials: Testimonial[] = [
     quote:
       "The one-time pricing is refreshing in a world of subscriptions. I paid once for Nano ImageEdit and I've been using it daily for months. Free updates keep coming.",
     rating: 5,
-    gradient: "from-blue-500 to-sky-400",
+    gradient: "from-primary to-blue-400",
   },
 ];
 
@@ -79,10 +79,7 @@ export function TestimonialsSection() {
             Testimonials
           </p>
           <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            Loved by{" "}
-            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
-              Creators
-            </span>
+            Loved by Creators
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
             Hear from professionals and hobbyists who made the switch to local

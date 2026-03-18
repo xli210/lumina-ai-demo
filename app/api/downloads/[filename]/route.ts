@@ -7,10 +7,10 @@ import { existsSync } from "fs";
 
 // Map allowed filenames to their product_id for license verification
 const FILE_PRODUCT_MAP: Record<string, string> = {
-  "LuminaAI-3.2.1-release.zip": "lumina-ai",
-  "OCR_Demo-0.0.02-release.zip": "ocr-demo",
   "NanoImageEdit-1.0.4-release.zip": "nano-imageedit",
   "NanoVideoGen-1.0.3-release.zip": "nano-videogen",
+  "NanoVideoGen-1.1.0-release.zip": "nano-videogen",
+  "NanoVideoEnhance-1.0.0-release.zip": "nano-videoenhance",
   "NanoFacialEdit-1.0.2-release.zip": "nano-facialedit",
   "NanoFaceSwap-1.0.3-release.zip": "nano-faceswap",
   "NanoImageEnh-1.0.1-release.zip": "nnanoimageenh",

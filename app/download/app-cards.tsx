@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Download,
   CheckCircle2,
-  Sparkles,
-  ScanText,
   ImagePlus,
   Video,
   ScanFace,
@@ -56,108 +54,6 @@ interface LicenseInfo {
 
 const apps: AppInfo[] = [
   {
-    id: "lumina-ai",
-    productId: "lumina-ai",
-    name: "NanoPocket AI",
-    tagline: "Generative AI Creative Studio",
-    description:
-      "Transform your ideas into stunning visuals with local generative AI tools. Generate breathtaking images and videos with one tap.",
-    icon: Sparkles,
-    version: "3.2.1",
-    gradient: "from-primary to-blue-400",
-    shadowColor: "shadow-primary/25",
-    badge: "Flagship",
-    platforms: [
-      {
-        platform: "Windows",
-        icon: Monitor,
-        fileName: "LuminaAI-3.2.1-release.zip",
-        downloadUrl: "/api/downloads/LuminaAI-3.2.1-release.zip",
-        size: "1.4 MB",
-      },
-      {
-        platform: "macOS",
-        icon: Apple,
-        fileName: "LuminaAI-3.2.1-release.zip",
-        downloadUrl: "/api/downloads/LuminaAI-3.2.1-release.zip",
-        size: "1.4 MB",
-      },
-      {
-        platform: "Linux",
-        icon: Monitor,
-        fileName: "LuminaAI-3.2.1-release.zip",
-        downloadUrl: "/api/downloads/LuminaAI-3.2.1-release.zip",
-        size: "1.4 MB",
-      },
-    ],
-  },
-  {
-    id: "ocr-demo",
-    productId: "ocr-demo",
-    name: "OCR Demo",
-    tagline: "Intelligent Text Recognition",
-    description:
-      "Extract text from images, PDFs, and scanned documents with state-of-the-art OCR powered by local AI models. Fast, private, and accurate.",
-    icon: ScanText,
-    version: "0.0.02",
-    gradient: "from-emerald-500 to-teal-400",
-    shadowColor: "shadow-emerald-500/25",
-    badge: "New",
-    platforms: [
-      {
-        platform: "Windows",
-        icon: Monitor,
-        fileName: "OCR_Demo-0.0.02-release.zip",
-        downloadUrl: "/api/downloads/OCR_Demo-0.0.02-release.zip",
-        size: "128 KB",
-      },
-    ],
-  },
-  {
-    id: "nano-imageedit",
-    productId: "nano-imageedit",
-    name: "Nano ImageEdit",
-    tagline: "AI Image Generation & Editing",
-    description:
-      "Generate and edit stunning images from text prompts with Nano ImageEdit. Supports text-to-image and image-to-image, running 100% locally on your GPU.",
-    icon: ImagePlus,
-    version: "1.0.4",
-    gradient: "from-violet-500 to-fuchsia-400",
-    shadowColor: "shadow-violet-500/25",
-    badge: "Pro",
-    platforms: [
-      {
-        platform: "Windows",
-        icon: Monitor,
-        fileName: "NanoImageEdit-1.0.4-release.zip",
-        downloadUrl: "/api/downloads/NanoImageEdit-1.0.4-release.zip",
-        size: "2.5 MB",
-      },
-    ],
-  },
-  {
-    id: "nano-videogen",
-    productId: "nano-videogen",
-    name: "Nano VideoGen",
-    tagline: "AI Video Generation",
-    description:
-      "Create stunning videos from text prompts or images with Nano VideoGen. Supports text-to-video, image-to-video, keyframe interpolation, and camera control LoRAs — all running 100% locally on your GPU.",
-    icon: Video,
-    version: "1.0.3",
-    gradient: "from-orange-500 to-amber-400",
-    shadowColor: "shadow-orange-500/25",
-    badge: "Pro",
-    platforms: [
-      {
-        platform: "Windows",
-        icon: Monitor,
-        fileName: "NanoVideoGen-1.0.3-release.zip",
-        downloadUrl: "/api/downloads/NanoVideoGen-1.0.3-release.zip",
-        size: "2.9 MB",
-      },
-    ],
-  },
-  {
     id: "nano-facialedit",
     productId: "nano-facialedit",
     name: "Nano FacialEdit",
@@ -165,10 +61,10 @@ const apps: AppInfo[] = [
     description:
       "Retouch, enhance, and transform facial features with AI. Supports face swap, expression editing, and portrait retouching — all running 100% locally on your GPU.",
     icon: ScanFace,
-    version: "1.0.2",
-    gradient: "from-pink-500 to-rose-400",
-    shadowColor: "shadow-pink-500/25",
-    badge: "New",
+    version: "1.0.1",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
+    badge: "Free",
     platforms: [
       {
         platform: "Windows",
@@ -187,10 +83,10 @@ const apps: AppInfo[] = [
     description:
       "Swap faces in photos and videos with realistic AI-powered results. Fast, private, and running 100% locally on your GPU.",
     icon: ArrowLeftRight,
-    version: "1.0.3",
-    gradient: "from-cyan-500 to-blue-400",
-    shadowColor: "shadow-cyan-500/25",
-    badge: "New",
+    version: "1.0.1",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
+    badge: "Free",
     platforms: [
       {
         platform: "Windows",
@@ -198,28 +94,6 @@ const apps: AppInfo[] = [
         fileName: "NanoFaceSwap-1.0.3-release.zip",
         downloadUrl: "/api/downloads/NanoFaceSwap-1.0.3-release.zip",
         size: "8.3 MB",
-      },
-    ],
-  },
-  {
-    id: "nnanoimageenh",
-    productId: "nnanoimageenh",
-    name: "Nano ImageEnh",
-    tagline: "AI Image Enhancement",
-    description:
-      "Upscale, denoise, and restore images with AI. Supports photo enhancement and restoration — all running 100% locally on your GPU.",
-    icon: Wand2,
-    version: "1.0.1",
-    gradient: "from-teal-500 to-cyan-400",
-    shadowColor: "shadow-teal-500/25",
-    badge: "Pro",
-    platforms: [
-      {
-        platform: "Windows",
-        icon: Monitor,
-        fileName: "NanoImageEnh-1.0.1-release.zip",
-        downloadUrl: "/api/downloads/NanoImageEnh-1.0.1-release.zip",
-        size: "4.5 MB",
       },
     ],
   },
@@ -232,16 +106,104 @@ const apps: AppInfo[] = [
       "See how clothes look on you before you buy. AI-powered virtual try-on with photo-realistic results — running 100% locally on your GPU.",
     icon: Shirt,
     version: "1.0.0",
-    gradient: "from-indigo-500 to-purple-400",
-    shadowColor: "shadow-indigo-500/25",
-    badge: "New",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
+    badge: "Free",
     platforms: [
       {
         platform: "Windows",
         icon: Monitor,
         fileName: "NanoImageTryon-1.0.0-release.zip",
         downloadUrl: "/api/downloads/NanoImageTryon-1.0.0-release.zip",
-        size: "2.5 MB",
+        size: "—",
+      },
+    ],
+  },
+  {
+    id: "nano-imageedit",
+    productId: "nano-imageedit",
+    name: "Nano ImageEdit",
+    tagline: "AI Image Generation & Editing",
+    description:
+      "Generate and edit stunning images from text prompts with Nano ImageEdit. Supports text-to-image and image-to-image, running 100% locally on your GPU.",
+    icon: ImagePlus,
+    version: "1.0.2",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
+    badge: "Pro",
+    platforms: [
+      {
+        platform: "Windows",
+        icon: Monitor,
+        fileName: "NanoImageEdit-1.0.4-release.zip",
+        downloadUrl: "/api/downloads/NanoImageEdit-1.0.4-release.zip",
+        size: "2.4 MB",
+      },
+    ],
+  },
+  {
+    id: "nano-videoenhance",
+    productId: "nano-videoenhance",
+    name: "Nano VideoEnhance",
+    tagline: "AI Video Enhancement",
+    description:
+      "Upscale, stabilize, and enhance video quality with AI. Improve resolution, reduce noise, and sharpen details — all running 100% locally on your GPU.",
+    icon: Wand2,
+    version: "1.0.0",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
+    badge: "Pro",
+    platforms: [
+      {
+        platform: "Windows",
+        icon: Monitor,
+        fileName: "NanoVideoEnhance-1.0.0-release.zip",
+        downloadUrl: "/api/downloads/NanoVideoEnhance-1.0.0-release.zip",
+        size: "9.1 MB",
+      },
+    ],
+  },
+  {
+    id: "nnanoimageenh",
+    productId: "nnanoimageenh",
+    name: "Nano ImageEnh",
+    tagline: "AI Image Enhancement",
+    description:
+      "Upscale, denoise, and restore images with AI. Supports photo enhancement and restoration — all running 100% locally on your GPU.",
+    icon: Wand2,
+    version: "1.0.0",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
+    badge: "Pro",
+    platforms: [
+      {
+        platform: "Windows",
+        icon: Monitor,
+        fileName: "NanoImageEnh-1.0.1-release.zip",
+        downloadUrl: "/api/downloads/NanoImageEnh-1.0.1-release.zip",
+        size: "2.1 MB",
+      },
+    ],
+  },
+  {
+    id: "nano-videogen",
+    productId: "nano-videogen",
+    name: "Nano VideoGen",
+    tagline: "AI Video Generation",
+    description:
+      "Create stunning videos from text prompts or images with Nano VideoGen. Supports text-to-video, image-to-video, keyframe interpolation, and camera control LoRAs — all running 100% locally on your GPU.",
+    icon: Video,
+    version: "1.1.0",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
+    badge: "Pro",
+    platforms: [
+      {
+        platform: "Windows",
+        icon: Monitor,
+        fileName: "NanoVideoGen-1.1.0-release.zip",
+        downloadUrl: "/api/downloads/NanoVideoGen-1.1.0-release.zip",
+        size: "2.2 MB",
       },
     ],
   },
@@ -578,7 +540,7 @@ export function AppCards() {
                         </div>
                         <Button
                           size="sm"
-                          className="gap-1.5 rounded-full px-5 bg-gradient-to-r from-primary to-purple-500 text-white border-0 hover:opacity-90"
+                          className="gap-1.5 rounded-full px-5 bg-gradient-to-r from-primary to-blue-400 text-white border-0 hover:opacity-90"
                           onClick={() =>
                             (window.location.href = `/checkout?product=${app.productId}`)
                           }
@@ -636,7 +598,7 @@ export function AppCards() {
                         </div>
                         <Button
                           size="sm"
-                          className="gap-1.5 rounded-full px-6 bg-gradient-to-r from-primary to-purple-500 text-white border-0 hover:opacity-90 shadow-md"
+                          className="gap-1.5 rounded-full px-6 bg-gradient-to-r from-primary to-blue-400 text-white border-0 hover:opacity-90 shadow-md"
                           onClick={() =>
                             (window.location.href = `/checkout?product=${app.productId}`)
                           }

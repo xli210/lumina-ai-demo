@@ -18,13 +18,10 @@ export function PricingSection() {
             Our Apps
           </p>
           <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            Powerful AI Tools.{" "}
-            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
-              Free to Start.
-            </span>
+            Powerful AI Tools. Free to Start.
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
-            Free apps come with a free license. Pro apps include a 14-day free
+            Free apps come with a free license. Pro apps include a 7-day free
             trial — no payment required upfront.
           </p>
         </div>
@@ -53,7 +50,7 @@ export function PricingSection() {
                   }`}
                 >
                   {isPaidWithTrial
-                    ? "Pro · 14-Day Free Trial"
+                    ? `Pro · ${product.trialDays}-Day Free Trial`
                     : product.priceInCents === 0
                       ? "Free License"
                       : "Lifetime Access"}
