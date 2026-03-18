@@ -30,28 +30,28 @@
   }
 
   .dark {
-    --background: 228 22% 5%;
+    --background: 0 0% 0%;
     --foreground: 220 14% 92%;
-    --card: 228 18% 8%;
+    --card: 0 0% 4%;
     --card-foreground: 220 14% 92%;
-    --popover: 228 18% 8%;
+    --popover: 0 0% 4%;
     --popover-foreground: 220 14% 92%;
     --primary: 220 70% 58%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 228 14% 12%;
+    --secondary: 0 0% 7%;
     --secondary-foreground: 220 14% 92%;
-    --muted: 228 14% 12%;
+    --muted: 0 0% 7%;
     --muted-foreground: 220 8% 50%;
-    --accent: 228 14% 12%;
+    --accent: 0 0% 7%;
     --accent-foreground: 220 14% 92%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 100%;
-    --border: 228 12% 14%;
-    --input: 228 12% 14%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
     --ring: 220 70% 58%;
     --radius: 0.75rem;
-    --glass-bg: 228 18% 8% / 0.6;
-    --glass-border: 220 14% 92% / 0.06;
+    --glass-bg: 0 0% 4% / 0.6;
+    --glass-border: 0 0% 100% / 0.06;
     --glass-shadow: 220 70% 58% / 0.04;
   }
 }
@@ -148,12 +148,12 @@ body {
   width: 8px;
 }
 .dark ::-webkit-scrollbar-track {
-  background: hsl(225, 25%, 6%);
+  background: hsl(0, 0%, 2%);
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: hsl(225, 15%, 25%);
+  background: hsl(0, 0%, 20%);
   border-radius: 4px;
 }
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: hsl(225, 15%, 35%);
+  background: hsl(0, 0%, 30%);
 }
