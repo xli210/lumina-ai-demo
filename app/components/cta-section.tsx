@@ -46,7 +46,7 @@ export function CTASection() {
               size="lg"
               className="gap-2 rounded-full px-8"
             >
-              <Link href="#pricing">View Pricing</Link>
+              <Link href="/contact">Contact Us</Link>
             </Button>
           </div>
 

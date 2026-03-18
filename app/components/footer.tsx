@@ -53,6 +53,12 @@ export function Footer() {
             Download
           </Link>
           <Link
+            href="/contact"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            Contact
+          </Link>
+          <Link
             href="/auth/login"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
