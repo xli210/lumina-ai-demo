@@ -9,6 +9,7 @@ import { UpscaleDemo } from "./demos/upscale-demo";
 import { EditDemo } from "./demos/edit-demo";
 import { StyleTransferDemo } from "./demos/style-transfer-demo";
 import { TryonDemo } from "./demos/tryon-demo";
+import { VideoGenDemo } from "./demos/videogen-demo";
 
 type FeatureType = "video" | "equation" | "carousel" | "magnifier" | "slider" | "grid" | "triplet" | "tryon";
 
@@ -100,18 +101,7 @@ const features: Feature[] = [
 function renderDemo(feature: Feature) {
   switch (feature.type) {
     case "video":
-      return (
-        <div className="w-full rounded-2xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden transition-all duration-500 hover:border-white/20">
-          <video
-            src="/videos/hero-1.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full"
-          />
-        </div>
-      );
+      return <VideoGenDemo />;
     case "equation":
       return <FaceSwapDemo />;
     case "carousel":
