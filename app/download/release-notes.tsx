@@ -54,9 +54,18 @@ const appReleases: AppRelease[] = [
     gradient: "from-primary to-blue-400",
     releases: [
       {
+        version: "1.1.0",
+        date: "March 18, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "feature", text: "Improved video quality and motion consistency" },
+          { type: "improvement", text: "Faster generation with optimized inference pipeline" },
+          { type: "improvement", text: "General stability and performance improvements" },
+        ],
+      },
+      {
         version: "1.0.3",
         date: "March 4, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "Updated installer with latest fixes and improvements" },
           { type: "improvement", text: "General stability and performance improvements" },
@@ -73,6 +82,24 @@ const appReleases: AppRelease[] = [
           { type: "feature", text: "Camera control LoRAs (dolly in/out/left/right, jib up/down, static)" },
           { type: "feature", text: "Spatial upscaler for 2× resolution boost" },
           { type: "feature", text: "Smart VRAM management for GPUs with limited memory" },
+          { type: "feature", text: "Product-bound license activation" },
+        ],
+      },
+    ],
+  },
+  {
+    app: "Nano VideoEnhance",
+    icon: Wand2,
+    gradient: "from-primary to-blue-400",
+    releases: [
+      {
+        version: "1.0.0",
+        date: "March 18, 2026",
+        tag: "Initial Release",
+        changes: [
+          { type: "feature", text: "AI-powered video upscaling and enhancement" },
+          { type: "feature", text: "Video stabilization and denoising" },
+          { type: "feature", text: "Runs 100% locally on your GPU — no cloud dependency" },
           { type: "feature", text: "Product-bound license activation" },
         ],
       },

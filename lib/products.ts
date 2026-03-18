@@ -95,6 +95,23 @@ export const PRODUCTS: Product[] = [
     masterKeyEnv: "LICENSE_MASTER_KEY_NANO_IMAGEENH",
   },
   {
+    id: "nano-videoenhance",
+    name: "Nano VideoEnhance",
+    description:
+      "AI Video Enhancement — Upscale, stabilize, and enhance video quality with Nano VideoEnhance, running 100% locally on your GPU.",
+    priceInCents: 4990,
+    trialDays: 14,
+    features: [
+      "AI-powered video upscaling & enhancement",
+      "Video stabilization and denoising",
+      "Runs 100% locally on your GPU",
+      "14-day free trial included",
+      "All future updates included",
+    ],
+    maxActivations: 1,
+    masterKeyEnv: "LICENSE_MASTER_KEY_NANO_VIDEOENHANCE",
+  },
+  {
     id: "nano-image-tryon",
     name: "Nano ImageTryon",
     description:

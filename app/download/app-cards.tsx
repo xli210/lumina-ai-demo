@@ -83,7 +83,7 @@ const apps: AppInfo[] = [
     description:
       "Create stunning videos from text prompts or images with Nano VideoGen. Supports text-to-video, image-to-video, keyframe interpolation, and camera control LoRAs — all running 100% locally on your GPU.",
     icon: Video,
-    version: "1.0.3",
+    version: "1.1.0",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "Pro",
@@ -91,9 +91,31 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoVideoGen-1.0.3.zip",
-        downloadUrl: "/api/downloads/NanoVideoGen-1.0.3.zip",
-        size: "2.9 MB",
+        fileName: "NanoVideoGen-1.1.0.zip",
+        downloadUrl: "/api/downloads/NanoVideoGen-1.1.0.zip",
+        size: "2.2 MB",
+      },
+    ],
+  },
+  {
+    id: "nano-videoenhance",
+    productId: "nano-videoenhance",
+    name: "Nano VideoEnhance",
+    tagline: "AI Video Enhancement",
+    description:
+      "Upscale, stabilize, and enhance video quality with AI. Improve resolution, reduce noise, and sharpen details — all running 100% locally on your GPU.",
+    icon: Wand2,
+    version: "1.0.0",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
+    badge: "New",
+    platforms: [
+      {
+        platform: "Windows",
+        icon: Monitor,
+        fileName: "NanoVideoEnhance-1.0.0.zip",
+        downloadUrl: "/api/downloads/NanoVideoEnhance-1.0.0.zip",
+        size: "9.1 MB",
       },
     ],
   },

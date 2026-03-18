@@ -9,6 +9,8 @@ import { existsSync } from "fs";
 const FILE_PRODUCT_MAP: Record<string, string> = {
   "NanoImageEdit-1.0.2.zip": "nano-imageedit",
   "NanoVideoGen-1.0.3.zip": "nano-videogen",
+  "NanoVideoGen-1.1.0.zip": "nano-videogen",
+  "NanoVideoEnhance-1.0.0.zip": "nano-videoenhance",
   "NanoFacialEdit-1.0.1.zip": "nano-facialedit",
   "NanoFaceSwap-1.0.1.zip": "nano-faceswap",
   "NanoImageEnh_1.0.0.zip": "nnanoimageenh",
