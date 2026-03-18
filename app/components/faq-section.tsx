@@ -11,7 +11,7 @@ const faqs = [
   {
     question: "What GPU do I need to run these apps?",
     answer:
-      "Most of our apps require an NVIDIA GPU with at least 6 GB of VRAM (e.g., GTX 1660 or newer). For best results with image and video generation, we recommend 8 GB+ VRAM (RTX 3060 or higher). Streaming DiT mode in Nano ImageEdit allows GPUs with less than 12 GB VRAM to run advanced models.",
+      "An NVIDIA GPU with a minimum of 8 GB VRAM is required to run most applications. Only CUDA-enabled GPUs are currently supported. For optimal performance: Video Generation requires 16 GB+ VRAM; Image Generation, Image Editing & Video Enhancement require 10 GB+ VRAM. macOS and AMD GPU support are coming soon — stay tuned for updates.",
   },
   {
     question: "Is my data really private?",
@@ -47,6 +47,11 @@ const faqs = [
     question: "What if I need help or have a problem?",
     answer:
       "You can reach us through the contact form on our website or via email. We typically respond within 24 hours. Our community also shares tips and solutions in our online forums.",
+  },
+  {
+    question: "What is your refund policy?",
+    answer:
+      "Many of our applications are free to download and use at no cost. For paid applications, we offer a 14-day free trial so you can fully explore the app before committing to a purchase. Because of this, we do not offer refunds after a purchase is made. Once purchased, you own the application permanently with no recurring fees. We encourage you to take full advantage of the free trial period to ensure the app meets your needs before buying.",
   },
 ];
 
