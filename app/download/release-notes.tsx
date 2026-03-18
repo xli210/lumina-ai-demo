@@ -23,7 +23,7 @@ const appReleases: AppRelease[] = [
   {
     app: "Nano ImageEdit",
     icon: ImagePlus,
-    gradient: "from-violet-500 to-fuchsia-400",
+    gradient: "from-primary to-blue-400",
     releases: [
       {
         version: "1.0.2",
@@ -51,7 +51,7 @@ const appReleases: AppRelease[] = [
   {
     app: "Nano VideoGen",
     icon: Video,
-    gradient: "from-orange-500 to-amber-400",
+    gradient: "from-primary to-blue-400",
     releases: [
       {
         version: "1.0.3",
@@ -81,7 +81,7 @@ const appReleases: AppRelease[] = [
   {
     app: "Nano FacialEdit",
     icon: ScanFace,
-    gradient: "from-pink-500 to-rose-400",
+    gradient: "from-primary to-blue-400",
     releases: [
       {
         version: "1.0.1",
@@ -109,7 +109,7 @@ const appReleases: AppRelease[] = [
   {
     app: "Nano FaceSwap",
     icon: ArrowLeftRight,
-    gradient: "from-cyan-500 to-blue-400",
+    gradient: "from-primary to-blue-400",
     releases: [
       {
         version: "1.0.1",
@@ -136,7 +136,7 @@ const appReleases: AppRelease[] = [
   {
     app: "Nano ImageEnh",
     icon: Wand2,
-    gradient: "from-teal-500 to-cyan-400",
+    gradient: "from-primary to-blue-400",
     releases: [
       {
         version: "1.0.0",
@@ -155,7 +155,7 @@ const appReleases: AppRelease[] = [
   {
     app: "Nano ImageTryon",
     icon: Shirt,
-    gradient: "from-indigo-500 to-purple-400",
+    gradient: "from-primary to-blue-400",
     releases: [
       {
         version: "1.0.0",

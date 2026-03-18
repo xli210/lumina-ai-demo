@@ -21,7 +21,7 @@ export function CTASection() {
 
           <h2 className="mb-4 text-balance text-3xl font-bold tracking-tight text-foreground md:text-5xl">
             Ready to Create{" "}
-            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
+            <span className="text-primary">
               Without Limits?
             </span>
           </h2>

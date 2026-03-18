@@ -4,7 +4,7 @@ const appRequirements = [
   {
     app: "Nano ImageEdit / VideoGen",
     icon: ImagePlus,
-    gradient: "from-violet-500 to-fuchsia-400",
+    gradient: "from-primary to-blue-400",
     requirements: [
       { icon: Monitor, label: "OS", value: "Windows 10 / 11 (64-bit)" },
       { icon: Cpu, label: "GPU", value: "NVIDIA GTX 1660+ (6 GB+ VRAM)" },
@@ -15,7 +15,7 @@ const appRequirements = [
   {
     app: "Face & Enhancement Tools",
     icon: Video,
-    gradient: "from-blue-500 to-sky-400",
+    gradient: "from-primary to-blue-400",
     requirements: [
       { icon: Monitor, label: "OS", value: "Windows 10 / 11 (64-bit)" },
       { icon: Cpu, label: "GPU", value: "NVIDIA GTX 1060+ (4 GB+ VRAM)" },

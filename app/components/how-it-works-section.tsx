@@ -22,7 +22,7 @@ const steps = [
     description:
       "Create a free account, claim your license key, and enter it in the app. One click — your machine is activated.",
     detail: "Free license. One key per machine.",
-    gradient: "from-slate-600 to-slate-500",
+    gradient: "from-primary to-blue-400",
   },
   {
     number: "03",
@@ -31,7 +31,7 @@ const steps = [
     description:
       "The AI model downloads automatically on first launch. After that, everything runs 100% offline on your GPU.",
     detail: "No internet needed after setup.",
-    gradient: "from-sky-500 to-blue-400",
+    gradient: "from-primary to-blue-400",
   },
 ];
 
@@ -53,7 +53,7 @@ export function HowItWorksSection() {
           </p>
           <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
             Up and Running in{" "}
-            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
+            <span className="text-primary">
               3 Easy Steps
             </span>
           </h2>

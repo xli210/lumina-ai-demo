@@ -24,7 +24,7 @@ const features = [
     title: "Complete Privacy",
     description:
       "Your data never leaves your machine. No cloud uploads, no API calls, no tracking. What you create stays yours.",
-    gradient: "from-slate-600 to-slate-500",
+    gradient: "from-primary to-blue-400",
     shadowColor: "shadow-slate-500/15",
   },
   {
@@ -32,7 +32,7 @@ const features = [
     title: "GPU Accelerated",
     description:
       "Leverages your NVIDIA GPU for fast inference. Supports CUDA with automatic VRAM management and streaming for lower-end cards.",
-    gradient: "from-blue-600 to-blue-500",
+    gradient: "from-primary to-blue-400",
     shadowColor: "shadow-blue-600/15",
   },
   {
@@ -40,7 +40,7 @@ const features = [
     title: "One-Click Launch",
     description:
       "No terminal commands, no Python setup. Double-click to launch. The app handles model downloads, activation, and updates automatically.",
-    gradient: "from-sky-500 to-sky-400",
+    gradient: "from-primary to-blue-400",
     shadowColor: "shadow-sky-500/15",
   },
   {
@@ -48,7 +48,7 @@ const features = [
     title: "Works Offline",
     description:
       "After the initial model download, everything runs without internet. Perfect for air-gapped environments and field work.",
-    gradient: "from-slate-500 to-slate-400",
+    gradient: "from-primary to-blue-400",
     shadowColor: "shadow-slate-500/15",
   },
   {
@@ -56,7 +56,7 @@ const features = [
     title: "Free Updates Forever",
     description:
       "Every license includes lifetime updates. As we add new models and features, you get them — no extra cost, no subscription.",
-    gradient: "from-blue-500 to-sky-400",
+    gradient: "from-primary to-blue-400",
     shadowColor: "shadow-blue-500/15",
   },
 ];
@@ -79,7 +79,7 @@ export function FeaturesSection() {
           </p>
           <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
             Your Machine.{" "}
-            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
+            <span className="text-primary">
               Your AI.
             </span>
           </h2>

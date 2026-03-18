@@ -123,12 +123,7 @@ export function HeroSection() {
           style={{ animationDelay: "0.1s" }}
         >
           Create Beyond{" "}
-          <span className="relative inline-block">
-            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
-              Imagination
-            </span>
-            <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-primary to-blue-300 opacity-40 blur-sm" />
-          </span>
+          <span className="text-primary">Imagination</span>
         </h1>
 
         <p

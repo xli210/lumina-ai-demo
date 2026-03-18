@@ -10,7 +10,7 @@ const advantages = [
     description:
       "Run the same cutting-edge models used by cloud services — directly on your GPU. No quality compromise, no latency, no rate limits.",
     highlight: "Studio-grade output",
-    gradient: "from-amber-500 to-orange-400",
+    gradient: "from-primary to-blue-400",
   },
   {
     icon: ShieldCheck,
@@ -18,7 +18,7 @@ const advantages = [
     description:
       "Your data never leaves your machine. No cloud uploads, no API keys, no third-party access. Complete creative control with zero exposure.",
     highlight: "100% offline processing",
-    gradient: "from-emerald-500 to-teal-400",
+    gradient: "from-primary to-blue-400",
   },
   {
     icon: CreditCard,
@@ -26,7 +26,7 @@ const advantages = [
     description:
       "No subscriptions, no credits, no usage caps. Pay once and get lifetime access with all future updates included. Your tools, your terms.",
     highlight: "Zero recurring cost",
-    gradient: "from-blue-500 to-indigo-400",
+    gradient: "from-primary to-blue-400",
   },
   {
     icon: Wrench,
@@ -34,7 +34,7 @@ const advantages = [
     description:
       "Pick exactly the AI tools you need — image generation, video creation, face swap, enhancement, virtual try-on. Mix and match for your workflow.",
     highlight: "Modular by design",
-    gradient: "from-violet-500 to-purple-400",
+    gradient: "from-primary to-blue-400",
   },
 ];
 
@@ -55,7 +55,7 @@ export function DemoSection() {
           </p>
           <h2 className="mb-5 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
             Professional AI.{" "}
-            <span className="bg-gradient-to-r from-primary to-blue-300 bg-clip-text text-transparent">
+            <span className="text-primary">
               No Compromises.
             </span>
           </h2>

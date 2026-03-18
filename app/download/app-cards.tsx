@@ -62,8 +62,8 @@ const apps: AppInfo[] = [
       "Generate and edit stunning images from text prompts with Nano ImageEdit. Supports text-to-image and image-to-image, running 100% locally on your GPU.",
     icon: ImagePlus,
     version: "1.0.2",
-    gradient: "from-violet-500 to-fuchsia-400",
-    shadowColor: "shadow-violet-500/25",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
     badge: "Pro",
     platforms: [
       {
@@ -84,8 +84,8 @@ const apps: AppInfo[] = [
       "Create stunning videos from text prompts or images with Nano VideoGen. Supports text-to-video, image-to-video, keyframe interpolation, and camera control LoRAs — all running 100% locally on your GPU.",
     icon: Video,
     version: "1.0.3",
-    gradient: "from-orange-500 to-amber-400",
-    shadowColor: "shadow-orange-500/25",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
     badge: "Pro",
     platforms: [
       {
@@ -106,8 +106,8 @@ const apps: AppInfo[] = [
       "Retouch, enhance, and transform facial features with AI. Supports face swap, expression editing, and portrait retouching — all running 100% locally on your GPU.",
     icon: ScanFace,
     version: "1.0.1",
-    gradient: "from-pink-500 to-rose-400",
-    shadowColor: "shadow-pink-500/25",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
     badge: "New",
     platforms: [
       {
@@ -128,8 +128,8 @@ const apps: AppInfo[] = [
       "Swap faces in photos and videos with realistic AI-powered results. Fast, private, and running 100% locally on your GPU.",
     icon: ArrowLeftRight,
     version: "1.0.1",
-    gradient: "from-cyan-500 to-blue-400",
-    shadowColor: "shadow-cyan-500/25",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
     badge: "New",
     platforms: [
       {
@@ -150,8 +150,8 @@ const apps: AppInfo[] = [
       "Upscale, denoise, and restore images with AI. Supports photo enhancement and restoration — all running 100% locally on your GPU.",
     icon: Wand2,
     version: "1.0.0",
-    gradient: "from-teal-500 to-cyan-400",
-    shadowColor: "shadow-teal-500/25",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
     badge: "Pro",
     platforms: [
       {
@@ -172,8 +172,8 @@ const apps: AppInfo[] = [
       "See how clothes look on you before you buy. AI-powered virtual try-on with photo-realistic results — running 100% locally on your GPU.",
     icon: Shirt,
     version: "1.0.0",
-    gradient: "from-indigo-500 to-purple-400",
-    shadowColor: "shadow-indigo-500/25",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
     badge: "New",
     platforms: [
       {
@@ -518,7 +518,7 @@ export function AppCards() {
                         </div>
                         <Button
                           size="sm"
-                          className="gap-1.5 rounded-full px-5 bg-gradient-to-r from-primary to-purple-500 text-white border-0 hover:opacity-90"
+                          className="gap-1.5 rounded-full px-5 bg-gradient-to-r from-primary to-blue-400 text-white border-0 hover:opacity-90"
                           onClick={() =>
                             (window.location.href = `/checkout?product=${app.productId}`)
                           }
@@ -576,7 +576,7 @@ export function AppCards() {
                         </div>
                         <Button
                           size="sm"
-                          className="gap-1.5 rounded-full px-6 bg-gradient-to-r from-primary to-purple-500 text-white border-0 hover:opacity-90 shadow-md"
+                          className="gap-1.5 rounded-full px-6 bg-gradient-to-r from-primary to-blue-400 text-white border-0 hover:opacity-90 shadow-md"
                           onClick={() =>
                             (window.location.href = `/checkout?product=${app.productId}`)
                           }
