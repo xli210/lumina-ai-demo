@@ -61,11 +61,8 @@ export function DemoSection() {
 
       <div className="relative mx-auto max-w-5xl">
         <div className="mb-12 text-center">
-          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-primary">
-            Why NanoPocket
-          </p>
           <h2 className="mb-4 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Professional AI. No Compromises.
+            Why NanoPocket
           </h2>
           <p className="mx-auto max-w-xl text-pretty text-sm text-muted-foreground sm:text-base">
             Everything cloud AI offers — without the cloud. Full power, full

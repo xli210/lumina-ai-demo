@@ -83,51 +83,14 @@ export function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative flex flex-col items-center overflow-hidden px-6 pt-28 pb-8 sm:pt-32 sm:pb-12"
+      className="relative flex flex-col items-center overflow-hidden pt-16 sm:pt-20"
     >
-      {/* ── Centered headline ── */}
-      <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <h1
-          className="mb-8 text-balance text-3xl font-bold leading-[1.15] tracking-tight text-foreground opacity-0 animate-fade-in sm:text-4xl md:text-5xl"
-          style={{ animationDelay: "0.1s" }}
-        >
-          A whole AI studio, right in your pocket
-        </h1>
-
-        <div
-          className="flex flex-wrap items-center justify-center gap-3 opacity-0 animate-fade-in sm:gap-4"
-          style={{ animationDelay: "0.2s" }}
-        >
-          <Link href="/download">
-            <Button
-              size="lg"
-              className="group gap-2 rounded-full px-8 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all"
-            >
-              <Download className="h-4 w-4" />
-              Download Free
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </Link>
-          <Link href="/#demo">
-            <Button
-              variant="outline"
-              size="lg"
-              className="group gap-2 rounded-full px-8 bg-transparent backdrop-blur-sm hover:bg-accent/50 transition-all"
-            >
-              <Play className="h-4 w-4" />
-              Watch Demo
-            </Button>
-          </Link>
-        </div>
-      </div>
-
-      {/* ── Large cinematic demo area (Runway-style video hero) ── */}
+      {/* ── Full-width cinematic demo with slogan overlay ── */}
       <div
-        className="relative z-10 mx-auto mt-12 w-full max-w-6xl opacity-0 animate-fade-in sm:mt-16"
-        style={{ animationDelay: "0.4s" }}
+        className="relative z-10 w-full opacity-0 animate-fade-in"
+        style={{ animationDelay: "0.1s" }}
       >
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-primary/10 sm:rounded-3xl">
-          {/* Slides */}
+        <div className="relative aspect-[16/9] w-full overflow-hidden">
           {demoSlides.map((slide, i) => (
             <div
               key={slide.src}
@@ -154,64 +117,67 @@ export function HeroSection() {
                   fill
                   className="object-cover"
                   priority={i === 0}
-                  sizes="(max-width: 768px) 100vw, 1152px"
+                  sizes="100vw"
                 />
               )}
             </div>
           ))}
 
-          {/* Dark gradient overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30" />
+          <div className="absolute inset-0 bg-black/40" />
 
-
-          {/* Top-left: model & tag badge */}
-          <div className="absolute top-4 left-4 flex items-center gap-2 sm:top-6 sm:left-6">
-            <span className="rounded-full bg-primary/80 backdrop-blur-md px-3 py-1 text-[10px] font-semibold text-white sm:text-xs">
-              {demoSlides[activeSlide].model}
-            </span>
-            <span className="rounded-full bg-black/40 backdrop-blur-md px-3 py-1 text-[10px] font-medium text-white/80 border border-white/10 sm:text-xs">
-              {demoSlides[activeSlide].tag}
-            </span>
+          {/* Slogan centered on the video/image */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
+            <h1 className="mb-6 text-balance text-center text-3xl font-bold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+              A whole AI studio, right in your pocket
+            </h1>
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              <Link href="/download">
+                <Button
+                  size="lg"
+                  className="group gap-2 rounded-full bg-white px-8 text-black shadow-lg hover:bg-neutral-100 hover:shadow-xl transition-all"
+                >
+                  <Download className="h-4 w-4" />
+                  Download Free
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+              <Link href="/#demo">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="group gap-2 rounded-full px-8 border-white/30 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all"
+                >
+                  <Play className="h-4 w-4" />
+                  Watch Demo
+                </Button>
+              </Link>
+            </div>
           </div>
 
-          {/* Bottom prompt bar — mimics a "generation in progress" terminal */}
+          {/* Bottom progress bar */}
           <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6">
-            <div className="rounded-xl bg-black/50 backdrop-blur-xl border border-white/10 p-3 sm:p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-[10px] text-white/50 font-mono uppercase tracking-wider sm:text-xs">
-                  Prompt
-                </span>
-              </div>
-              <p className="text-xs text-white/90 font-mono leading-relaxed sm:text-sm">
-                {demoSlides[activeSlide].prompt}
-              </p>
+            <div className="flex items-center justify-center gap-2">
+              {demoSlides.map((slide, i) => (
+                <button
+                  key={`dot-${slide.src}`}
+                  type="button"
+                  onClick={() => goToSlide(i)}
+                  className="group relative h-1 overflow-hidden rounded-full bg-white/20 transition-all"
+                  style={{ width: activeSlide === i ? 48 : 12 }}
+                  aria-label={`Go to slide ${i + 1}`}
+                >
+                  {activeSlide === i && (
+                    <div
+                      className="absolute inset-y-0 left-0 rounded-full bg-white transition-none"
+                      style={{ width: `${progress}%` }}
+                    />
+                  )}
+                </button>
+              ))}
             </div>
           </div>
-        </div>
-
-        {/* Progress dots / slide selector */}
-        <div className="mt-4 flex items-center justify-center gap-2">
-          {demoSlides.map((slide, i) => (
-            <button
-              key={`dot-${slide.src}`}
-              type="button"
-              onClick={() => goToSlide(i)}
-              className="group relative h-1 overflow-hidden rounded-full bg-white/10 transition-all"
-              style={{ width: activeSlide === i ? 48 : 12 }}
-              aria-label={`Go to slide ${i + 1}`}
-            >
-              {activeSlide === i && (
-                <div
-                  className="absolute inset-y-0 left-0 rounded-full bg-primary transition-none"
-                  style={{ width: `${progress}%` }}
-                />
-              )}
-            </button>
-          ))}
         </div>
       </div>
-
     </section>
   );
 }
