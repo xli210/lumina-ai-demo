@@ -26,9 +26,17 @@ const appReleases: AppRelease[] = [
     gradient: "from-primary to-blue-400",
     releases: [
       {
+        version: "1.0.5",
+        date: "March 19, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "Bug fixes and stability improvements" },
+          { type: "improvement", text: "General performance optimizations" },
+        ],
+      },
+      {
         version: "1.0.4",
         date: "March 16, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "General stability and performance improvements" },
           { type: "fix", text: "Bug fixes and optimizations" },
@@ -207,9 +215,17 @@ const appReleases: AppRelease[] = [
     gradient: "from-primary to-blue-400",
     releases: [
       {
+        version: "1.0.3",
+        date: "March 19, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "Bug fixes and stability improvements" },
+          { type: "improvement", text: "General performance optimizations" },
+        ],
+      },
+      {
         version: "1.0.1",
         date: "March 16, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "General stability and performance improvements" },
           { type: "fix", text: "Bug fixes and optimizations" },
