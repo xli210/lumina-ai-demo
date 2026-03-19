@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Contact Us — Technical Support & Enterprise AI Solutions",
+  description: "Get technical support or explore custom AI solutions for your business. Contact the NanoPocket team for help with installation, activation, or enterprise partnerships.",
+  alternates: { canonical: "/contact" },
+};
 import { Mail, Headset, Building2, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "../components/navbar";

@@ -53,6 +53,12 @@ export function Footer() {
             Download
           </Link>
           <Link
+            href="/blog"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            Blog
+          </Link>
+          <Link
             href="/contact"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >

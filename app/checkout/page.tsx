@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Checkout",
+  description: "Complete your purchase of NanoPocket AI tools. One-time payment, lifetime access.",
+  robots: { index: false },
+};
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { CheckoutContent } from "./checkout-content";
