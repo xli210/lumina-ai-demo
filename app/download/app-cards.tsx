@@ -193,7 +193,7 @@ const apps: AppInfo[] = [
     description:
       "Create stunning videos from text prompts or images with Nano VideoGen. Supports text-to-video, image-to-video, keyframe interpolation, and camera control LoRAs — all running 100% locally on your GPU.",
     icon: Video,
-    version: "1.1.1",
+    version: "1.1.2",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "Pro",
@@ -201,8 +201,8 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoVideoGen-1.1.1-release.zip",
-        downloadUrl: "/api/downloads/NanoVideoGen-1.1.1-release.zip",
+        fileName: "NanoVideoGen-1.1.2-release.zip",
+        downloadUrl: "/api/downloads/NanoVideoGen-1.1.2-release.zip",
         size: "2.2 MB",
       },
     ],
