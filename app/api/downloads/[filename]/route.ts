@@ -10,7 +10,7 @@ const FILE_PRODUCT_MAP: Record<string, string> = {
   "NanoImageEdit-1.0.5-release.zip": "nano-imageedit",
   "NanoVideoGen-1.0.3-release.zip": "nano-videogen",
   "NanoVideoGen-1.1.2-release.zip": "nano-videogen",
-  "NanoVideoEnhance-1.0.4-release.zip": "nano-videoenhance",
+  "NanoVideoEnhance-1.0.5-release.zip": "nano-videoenhance",
   "NanoFacialEdit-1.0.2-release.zip": "nano-facialedit",
   "NanoFaceSwap-1.0.3-release.zip": "nano-faceswap",
   "NanoImageEnh-1.0.3-release.zip": "nnanoimageenh",
