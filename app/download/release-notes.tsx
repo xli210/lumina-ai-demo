@@ -117,9 +117,18 @@ const appReleases: AppRelease[] = [
     gradient: "from-primary to-blue-400",
     releases: [
       {
+        version: "1.0.4",
+        date: "March 21, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "Optimized processing speed for NVIDIA GPU users" },
+          { type: "fix", text: "Fixed color bleeding artifacts during enhancement" },
+          { type: "feature", text: "Added friendly video comparison view (before/after)" },
+        ],
+      },
+      {
         version: "1.0.1",
         date: "March 18, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "Bug fixes and stability improvements" },
           { type: "improvement", text: "General performance optimizations" },

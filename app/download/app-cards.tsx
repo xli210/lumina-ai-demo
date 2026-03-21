@@ -149,7 +149,7 @@ const apps: AppInfo[] = [
     description:
       "Upscale, stabilize, and enhance video quality with AI. Improve resolution, reduce noise, and sharpen details — all running 100% locally on your GPU.",
     icon: Wand2,
-    version: "1.0.1",
+    version: "1.0.4",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "Pro",
@@ -157,9 +157,9 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoVideoEnhance-1.0.1-release.zip",
-        downloadUrl: "/api/downloads/NanoVideoEnhance-1.0.1-release.zip",
-        size: "9.1 MB",
+        fileName: "NanoVideoEnhance-1.0.4-release.zip",
+        downloadUrl: "/api/downloads/NanoVideoEnhance-1.0.4-release.zip",
+        size: "244 MB",
       },
     ],
   },
