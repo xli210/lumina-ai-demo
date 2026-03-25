@@ -83,7 +83,7 @@ const apps: AppInfo[] = [
     description:
       "Swap faces in photos and videos with realistic AI-powered results. Fast, private, and running 100% locally on your GPU.",
     icon: ArrowLeftRight,
-    version: "1.0.1",
+    version: "1.0.4",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "Free",
@@ -91,9 +91,9 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoFaceSwap-1.0.3-release.zip",
-        downloadUrl: "/api/downloads/NanoFaceSwap-1.0.3-release.zip",
-        size: "8.3 MB",
+        fileName: "NanoFaceSwap-1.0.4-release.zip",
+        downloadUrl: "/api/downloads/NanoFaceSwap-1.0.4-release.zip",
+        size: "8.4 MB",
       },
     ],
   },
@@ -171,7 +171,7 @@ const apps: AppInfo[] = [
     description:
       "Upscale, denoise, and restore images with AI. Supports photo enhancement and restoration — all running 100% locally on your GPU.",
     icon: Wand2,
-    version: "1.0.3",
+    version: "1.0.4",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "Pro",
@@ -179,9 +179,9 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoImageEnh-1.0.3-release.zip",
-        downloadUrl: "/api/downloads/NanoImageEnh-1.0.3-release.zip",
-        size: "2.1 MB",
+        fileName: "NanoImageEnh-1.0.4-release.zip",
+        downloadUrl: "/api/downloads/NanoImageEnh-1.0.4-release.zip",
+        size: "4.6 MB",
       },
     ],
   },
