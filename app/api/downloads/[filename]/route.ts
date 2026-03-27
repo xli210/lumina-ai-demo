@@ -13,7 +13,7 @@ const FILE_PRODUCT_MAP: Record<string, string> = {
   "NanoVideoEnhance-1.0.5-release.zip": "nano-videoenhance",
   "NanoFacialEdit-1.0.2-release.zip": "nano-facialedit",
   "NanoFaceSwap-1.0.4-release.zip": "nano-faceswap",
-  "NanoImageEnh-1.0.4-release.zip": "nnanoimageenh",
+  "NanoImageEnh-1.0.5-release.zip": "nnanoimageenh",
   "NanoImageTryon-1.0.0-release.zip": "nano-image-tryon",
 };
 

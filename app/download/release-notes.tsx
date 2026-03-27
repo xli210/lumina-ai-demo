@@ -240,9 +240,17 @@ const appReleases: AppRelease[] = [
     gradient: "from-primary to-blue-400",
     releases: [
       {
+        version: "1.0.5",
+        date: "March 27, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "feature", text: "Interface color themes — dark, white, and black modes on the launch page" },
+          { type: "feature", text: "Batch processing — select a single image or an entire folder to process" },
+        ],
+      },
+      {
         version: "1.0.4",
         date: "March 25, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "Bug fixes and stability improvements" },
           { type: "improvement", text: "General performance optimizations" },

@@ -171,7 +171,7 @@ const apps: AppInfo[] = [
     description:
       "Upscale, denoise, and restore images with AI. Supports photo enhancement and restoration — all running 100% locally on your GPU.",
     icon: Wand2,
-    version: "1.0.4",
+    version: "1.0.5",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "Pro",
@@ -179,8 +179,8 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoImageEnh-1.0.4-release.zip",
-        downloadUrl: "/api/downloads/NanoImageEnh-1.0.4-release.zip",
+        fileName: "NanoImageEnh-1.0.5-release.zip",
+        downloadUrl: "/api/downloads/NanoImageEnh-1.0.5-release.zip",
         size: "4.6 MB",
       },
     ],
