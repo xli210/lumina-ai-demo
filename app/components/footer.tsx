@@ -64,6 +64,14 @@ export function Footer() {
           >
             Contact
           </Link>
+          <a
+            href="https://discord.gg/bNfPjfUDAn"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            Discord
+          </a>
           <Link
             href="/auth/login"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
