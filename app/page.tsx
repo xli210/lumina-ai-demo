@@ -1,5 +1,6 @@
 import { Navbar } from "./components/navbar";
 import { HeroSection } from "./components/hero-section";
+import { AnnouncementSection } from "./components/announcement-section";
 import { DemoSection } from "./components/demo-section";
 import { FeatureShowcase } from "./components/feature-showcase";
 import { ShowcaseSection } from "./components/showcase-section";
@@ -66,6 +67,7 @@ export default function Page() {
       />
       <Navbar />
       <HeroSection />
+      <AnnouncementSection />
       <DemoSection />
       <FeatureShowcase />
       <ShowcaseSection />
