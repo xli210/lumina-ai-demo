@@ -6,7 +6,7 @@ import { Sparkles, ExternalLink, Eye, EyeOff, Copy, Check, LogIn } from "lucide-
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 
-const DEMO_URL = "https://changeably-overintellectual-raylene.ngrok-free.dev/login";
+const DEMO_URL = "https://migration-beach-availability-lawyers.trycloudflare.com/static/index.html";
 const ACCESS_PASSWORD = "nanopocket";
 
 export function AnnouncementSection() {
