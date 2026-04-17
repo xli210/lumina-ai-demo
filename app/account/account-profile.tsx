@@ -51,7 +51,6 @@ export function AccountProfile({
   async function handleSave() {
     setSaving(true);
     try {
-      // Update profile table
       const { error: profileError } = await supabase
         .from("profiles")
         .update({
@@ -62,7 +61,6 @@ export function AccountProfile({
 
       if (profileError) throw profileError;
 
-      // Update auth metadata
       const { error: authError } = await supabase.auth.updateUser({
         data: { display_name: displayName },
       });
@@ -70,8 +68,10 @@ export function AccountProfile({
       if (authError) throw authError;
 
       toast.success("Profile updated successfully");
-    } catch {
-      toast.error("Failed to update profile. Please try again.");
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Please try again.";
+      toast.error(`Failed to update profile: ${message}`);
     } finally {
       setSaving(false);
     }
