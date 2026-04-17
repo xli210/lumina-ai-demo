@@ -68,9 +68,11 @@ export function AccountProfile({
       if (authError) throw authError;
 
       toast.success("Profile updated successfully");
-    } catch (err) {
-      const message =
-        err instanceof Error ? err.message : "Please try again.";
+    } catch (err: unknown) {
+      const e = err as { message?: string; details?: string; hint?: string; code?: string };
+      const parts = [e?.message, e?.details, e?.hint, e?.code ? `(${e.code})` : null].filter(Boolean);
+      const message = parts.length > 0 ? parts.join(" — ") : JSON.stringify(err);
+      console.error("Profile update failed:", err);
       toast.error(`Failed to update profile: ${message}`);
     } finally {
       setSaving(false);
