@@ -243,13 +243,26 @@ export const appReleases: AppRelease[] = [
   {
     app: "Nano ImageEnh",
     slug: "nano-imageenh",
-    icon: Wand2,
+    icon: Sparkles,
     gradient: "from-primary to-blue-400",
     releases: [
       {
+        version: "3.0.0",
+        date: "April 22, 2026",
+        tag: "Grand Release",
+        changes: [
+          { type: "feature", text: "Brand-new Electron desktop app — silky-smooth UI with instant responsiveness" },
+          { type: "feature", text: "Native macOS support for Apple Silicon (M2, M3, M4, M5)" },
+          { type: "feature", text: "Batch processing — drop in an entire folder and let it run" },
+          { type: "feature", text: "Crop tool with high-precision selection" },
+          { type: "feature", text: "AI background matting — clean cutouts, transparent PNG export" },
+          { type: "improvement", text: "Faster, more memory-efficient inference pipeline" },
+          { type: "improvement", text: "Refreshed launch page with light, dark, and black themes" },
+        ],
+      },
+      {
         version: "1.0.5",
         date: "March 27, 2026",
-        tag: "Latest",
         changes: [
           { type: "feature", text: "Interface color themes — dark, white, and black modes on the launch page" },
           { type: "feature", text: "Batch processing — select a single image or an entire folder to process" },

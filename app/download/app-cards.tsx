@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Download,
@@ -20,6 +21,8 @@ import {
   AlertTriangle,
   Wand2,
   Shirt,
+  Sparkles,
+  ArrowRight,
   type LucideIcon,
 } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
@@ -43,6 +46,10 @@ interface AppInfo {
   gradient: string;
   shadowColor: string;
   badge?: string;
+  /** Optional link to a dedicated marketing/Pro page for this app */
+  proPageHref?: string;
+  /** Short call-to-action label for the Pro page link, e.g. "What's new in 3.0" */
+  proPageLabel?: string;
   platforms: PlatformDownload[];
 }
 
@@ -166,22 +173,31 @@ const apps: AppInfo[] = [
   {
     id: "nnanoimageenh",
     productId: "nnanoimageenh",
-    name: "Nano ImageEnh",
-    tagline: "AI Image Enhancement",
+    name: "Nano ImageEnh Pro",
+    tagline: "AI Image Enhancement — Pro",
     description:
-      "Upscale, denoise, and restore images with AI. Supports photo enhancement and restoration — all running 100% locally on your GPU.",
-    icon: Wand2,
-    version: "1.0.5",
+      "Upscale, denoise, and restore images with AI. Now featuring a smooth Electron desktop app, native Apple Silicon support (M2–M5), batch processing, and crop + background matting — all running 100% locally on your GPU.",
+    icon: Sparkles,
+    version: "3.0.0",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "Pro",
+    proPageHref: "/apps/nano-imageenh-pro",
+    proPageLabel: "What's new in 3.0",
     platforms: [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoImageEnh-1.0.5-release.zip",
-        downloadUrl: "/api/downloads/NanoImageEnh-1.0.5-release.zip",
-        size: "4.6 MB",
+        fileName: "NanoImageEnh-3.0.0-windows.zip",
+        downloadUrl: "/api/downloads/NanoImageEnh-3.0.0-windows.zip",
+        size: "89.2 MB",
+      },
+      {
+        platform: "macOS (Apple Silicon)",
+        icon: Apple,
+        fileName: "NanoImageEnh-3.0.0-macos.zip",
+        downloadUrl: "/api/downloads/NanoImageEnh-3.0.0-macos.zip",
+        size: "113.8 MB",
       },
     ],
   },
@@ -392,6 +408,15 @@ export function AppCards() {
                       <p className="text-muted-foreground max-w-xl">
                         {app.description}
                       </p>
+                      {app.proPageHref && (
+                        <Link
+                          href={app.proPageHref}
+                          className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:gap-2 transition-all"
+                        >
+                          {app.proPageLabel ?? "Learn more"}
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </Link>
+                      )}
                     </div>
                   </div>
                   {/* Price Badge */}
