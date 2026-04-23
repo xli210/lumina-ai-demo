@@ -67,8 +67,8 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
       />
       <Navbar />
-      <HeroSection />
       <WhatsNewBar />
+      <HeroSection />
       <AnnouncementSection />
       <DemoSection />
       <FeatureShowcase />

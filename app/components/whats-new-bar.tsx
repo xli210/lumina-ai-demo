@@ -21,9 +21,9 @@ const ITEMS: WhatsNewItem[] = [
   {
     id: "video-faceswap-demo",
     label: "ONLINE",
-    labelClassName: "bg-purple-500/15 text-purple-400 ring-purple-500/30",
+    labelClassName: "bg-purple-100 text-purple-700 ring-purple-200",
     icon: Video,
-    iconClassName: "text-purple-400",
+    iconClassName: "text-purple-600",
     text: "Try Video FaceSwap Pro online — free demo",
     href: "#announcement",
     isHash: true,
@@ -31,9 +31,9 @@ const ITEMS: WhatsNewItem[] = [
   {
     id: "nano-imageenh-pro-3",
     label: "NEW",
-    labelClassName: "bg-amber-500/15 text-amber-400 ring-amber-500/30",
+    labelClassName: "bg-amber-100 text-amber-700 ring-amber-200",
     icon: Sparkles,
-    iconClassName: "text-amber-400",
+    iconClassName: "text-amber-600",
     text: "Nano ImageEnh Pro 3.0 — now on Mac (M2–M5)",
     href: "/apps/nano-imageenh-pro",
   },
@@ -70,10 +70,10 @@ export function WhatsNewBar() {
   if (!visible) return null;
 
   return (
-    <div className="relative z-30 border-b border-border/60 bg-gradient-to-r from-purple-500/[0.04] via-primary/[0.04] to-amber-500/[0.04] backdrop-blur-sm">
-      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-2 sm:px-6">
-        <div className="hidden shrink-0 items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground sm:flex">
-          <Sparkles className="h-3 w-3 text-amber-400" />
+    <div className="fixed left-0 right-0 top-14 z-40 border-b border-neutral-200 bg-white sm:top-16">
+      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-1.5 sm:px-6 sm:py-2">
+        <div className="hidden shrink-0 items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-neutral-500 sm:flex">
+          <Sparkles className="h-3 w-3 text-amber-500" />
           What&apos;s new
         </div>
 
@@ -83,17 +83,17 @@ export function WhatsNewBar() {
           {ITEMS.map((item) => {
             const Icon = item.icon;
             const linkContent = (
-              <span className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-border/60 bg-card/60 px-3 py-1 text-xs transition-all hover:border-primary/40 hover:bg-card hover:shadow-sm">
+              <span className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-xs transition-all hover:border-neutral-300 hover:bg-white hover:shadow-sm">
                 <span
                   className={`inline-flex items-center rounded-full px-1.5 py-0.5 text-[9px] font-bold tracking-wider ring-1 ${item.labelClassName}`}
                 >
                   {item.label}
                 </span>
                 <Icon className={`h-3.5 w-3.5 ${item.iconClassName}`} />
-                <span className="text-foreground/90 group-hover:text-foreground">
+                <span className="text-neutral-700 group-hover:text-black">
                   {item.text}
                 </span>
-                <ArrowRight className="h-3 w-3 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" />
+                <ArrowRight className="h-3 w-3 text-neutral-400 transition-transform group-hover:translate-x-0.5 group-hover:text-black" />
               </span>
             );
 
@@ -117,7 +117,7 @@ export function WhatsNewBar() {
         <button
           type="button"
           onClick={handleDismiss}
-          className="shrink-0 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          className="shrink-0 rounded-full p-1 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black"
           aria-label="Dismiss what's new bar"
         >
           <X className="h-3.5 w-3.5" />
