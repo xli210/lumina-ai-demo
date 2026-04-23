@@ -215,7 +215,7 @@ export function AnnouncementSection() {
   }, []);
 
   return (
-    <section className="relative px-6 py-12">
+    <section id="announcement" className="relative scroll-mt-24 px-6 py-12">
       <div className="relative mx-auto max-w-6xl">
         <div className="overflow-hidden rounded-3xl border border-indigo-500/20 bg-gradient-to-br from-indigo-950/80 via-slate-900/90 to-purple-950/80 p-6 sm:p-8 md:p-10 shadow-2xl shadow-indigo-500/10">
           <div className="pointer-events-none absolute inset-0 overflow-hidden">

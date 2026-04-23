@@ -1,4 +1,5 @@
 import { Navbar } from "./components/navbar";
+import { WhatsNewBar } from "./components/whats-new-bar";
 import { HeroSection } from "./components/hero-section";
 import { AnnouncementSection } from "./components/announcement-section";
 import { DemoSection } from "./components/demo-section";
@@ -67,6 +68,7 @@ export default function Page() {
       />
       <Navbar />
       <HeroSection />
+      <WhatsNewBar />
       <AnnouncementSection />
       <DemoSection />
       <FeatureShowcase />
