@@ -19,14 +19,13 @@ interface WhatsNewItem {
 
 const ITEMS: WhatsNewItem[] = [
   {
-    id: "video-faceswap-demo",
-    label: "ONLINE",
+    id: "faceswap-pro-free",
+    label: "FREE",
     labelClassName: "bg-purple-100 text-purple-700 ring-purple-200",
     icon: Video,
     iconClassName: "text-purple-600",
-    text: "Try Video FaceSwap Pro online — free demo",
-    href: "#announcement",
-    isHash: true,
+    text: "Nano FaceSwap Pro — free diffusion face swap (Roop / FaceFusion alternative)",
+    href: "/apps/nano-faceswap-pro",
   },
   {
     id: "nano-imageenh-pro-3",

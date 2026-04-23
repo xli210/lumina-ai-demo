@@ -36,6 +36,20 @@ export const metadata: Metadata = {
     "best local AI app", "AI tools no subscription", "one-time purchase AI software",
     "private AI image generator", "no cloud AI video maker",
     "image generation", "video generation", "face swap", "image enhancement", "video enhancement",
+
+    // Face swap — diffusion tech & local positioning
+    "Nano FaceSwap Pro", "free face swap", "free online face swap", "face swap free trial",
+    "diffusion face swap", "stable diffusion face swap", "diffusion model face swap",
+    "local face swap", "offline face swap", "private face swap", "GPU face swap",
+    "video face swap AI", "image face swap AI", "best face swap AI",
+    "InstantID face swap", "PuLID face swap", "IP-Adapter FaceID", "PhotoMaker face swap",
+    "InsightFace swapper", "inswapper alternative",
+    // Face swap — named competitors ("best players")
+    "Roop alternative", "Roop Unleashed alternative",
+    "FaceFusion alternative", "Rope alternative", "Rope Live alternative",
+    "Reactor face swap alternative", "Deep-Live-Cam alternative", "deepfacelive alternative",
+    "DeepSwap alternative", "DeepFaceLab alternative", "SimSwap alternative",
+    "Akool alternative", "HeyGen face swap alternative", "Reface alternative", "DeepBrain alternative",
   ],
   openGraph: {
     title: "NanoPocket — Local AI Creative Suite",

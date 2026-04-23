@@ -26,6 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogEntries,
     ...releaseNoteEntries,
     { url: `${BASE}/apps/nano-imageenh-pro`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE}/apps/nano-faceswap-pro`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE}/checkout`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE}/auth/login`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },

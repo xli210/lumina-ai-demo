@@ -386,9 +386,18 @@ export function AnnouncementSection() {
               Try Nano FaceSwap Pro — Free
             </h2>
             <p className="mx-auto max-w-2xl text-sm text-slate-300 sm:text-base">
-              Two professional-grade face swap demos for images and videos. Try
-              them online before our local desktop release.
+              Two professional-grade diffusion face swap demos for images and
+              videos. A local, private alternative to Roop, FaceFusion, Rope,
+              and DeepSwap — built on InstantID / PuLID / IP-Adapter FaceID
+              research.
             </p>
+            <Link
+              href="/apps/nano-faceswap-pro"
+              className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-indigo-300 hover:text-indigo-200 transition-colors"
+            >
+              Learn about our diffusion face-swap pipeline
+              <span aria-hidden>→</span>
+            </Link>
           </div>
 
           <div className="relative grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
