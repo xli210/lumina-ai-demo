@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import {
   Sparkles,
@@ -12,11 +12,17 @@ import {
   LogIn,
   Image as ImageIcon,
   Video,
+  ThumbsUp,
+  ThumbsDown,
 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 
+type Vote = "like" | "dislike";
+
 interface DemoConfig {
+  id: string;
   title: string;
   description: string;
   url: string;
@@ -27,6 +33,7 @@ interface DemoConfig {
 
 const DEMOS: DemoConfig[] = [
   {
+    id: "image-faceswap-pro",
     title: "Image FaceSwap Pro",
     description:
       "Higher fidelity, better lighting adaptation, and more natural face swap on photos.",
@@ -36,6 +43,7 @@ const DEMOS: DemoConfig[] = [
     accent: "indigo",
   },
   {
+    id: "video-faceswap-pro",
     title: "Video FaceSwap Pro",
     description:
       "Professional-grade face swap on videos with temporal consistency and smooth motion.",
@@ -46,14 +54,104 @@ const DEMOS: DemoConfig[] = [
   },
 ];
 
+function FeedbackBlock({
+  demoId,
+  isLoggedIn,
+  existingVote,
+  onSubmit,
+}: {
+  demoId: string;
+  isLoggedIn: boolean;
+  existingVote: Vote | null;
+  onSubmit: (vote: Vote) => Promise<void>;
+}) {
+  const [submitting, setSubmitting] = useState<Vote | null>(null);
+
+  async function handle(vote: Vote) {
+    if (existingVote || submitting) return;
+    setSubmitting(vote);
+    try {
+      await onSubmit(vote);
+    } finally {
+      setSubmitting(null);
+    }
+  }
+
+  if (!isLoggedIn) {
+    return null;
+  }
+
+  if (existingVote) {
+    return (
+      <div className="flex items-center justify-between gap-3 rounded-xl bg-white/5 px-3 py-2.5 ring-1 ring-white/10">
+        <p className="text-xs text-slate-300">
+          {existingVote === "like" ? (
+            <>
+              <span className="text-emerald-400">Thanks for the thumbs up!</span>{" "}
+              We&apos;ll keep building.
+            </>
+          ) : (
+            <>
+              <span className="text-rose-400">Got it — thanks for the honest feedback.</span>{" "}
+              We&apos;re working on it.
+            </>
+          )}
+        </p>
+        {existingVote === "like" ? (
+          <ThumbsUp className="h-4 w-4 shrink-0 text-emerald-400" />
+        ) : (
+          <ThumbsDown className="h-4 w-4 shrink-0 text-rose-400" />
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-xl bg-white/5 p-3 ring-1 ring-white/10">
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <p className="text-xs font-medium text-slate-200">
+          Tried it? How was it?
+        </p>
+        <p className="text-[10px] text-slate-500">One vote per account</p>
+      </div>
+      <div className="flex gap-2">
+        <button
+          type="button"
+          onClick={() => handle("like")}
+          disabled={!!submitting}
+          aria-label="Like this demo"
+          className="group flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-300 ring-1 ring-emerald-500/20 transition-all hover:bg-emerald-500/20 hover:text-emerald-200 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <ThumbsUp className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5" />
+          {submitting === "like" ? "Saving..." : "Like it"}
+        </button>
+        <button
+          type="button"
+          onClick={() => handle("dislike")}
+          disabled={!!submitting}
+          aria-label="Dislike this demo"
+          className="group flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-rose-500/10 px-3 py-2 text-xs font-semibold text-rose-300 ring-1 ring-rose-500/20 transition-all hover:bg-rose-500/20 hover:text-rose-200 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <ThumbsDown className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
+          {submitting === "dislike" ? "Saving..." : "Dislike it"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function DemoCard({
   demo,
   isLoggedIn,
   loading,
+  existingVote,
+  onSubmitVote,
 }: {
   demo: DemoConfig;
   isLoggedIn: boolean;
   loading: boolean;
+  existingVote: Vote | null;
+  onSubmitVote: (demoId: string, vote: Vote) => Promise<void>;
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -178,6 +276,13 @@ function DemoCard({
               <ExternalLink className="h-4 w-4" />
             </a>
           </Button>
+
+          <FeedbackBlock
+            demoId={demo.id}
+            isLoggedIn={isLoggedIn}
+            existingVote={existingVote}
+            onSubmit={(vote) => onSubmitVote(demo.id, vote)}
+          />
         </div>
       ) : (
         !loading && (
@@ -205,14 +310,67 @@ function DemoCard({
 export function AnnouncementSection() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [votes, setVotes] = useState<Record<string, Vote>>({});
+
+  const refreshVotes = useCallback(async () => {
+    try {
+      const res = await fetch("/api/feedback", { cache: "no-store" });
+      if (!res.ok) return;
+      const data = (await res.json()) as { votes?: Record<string, Vote> };
+      setVotes(data.votes ?? {});
+    } catch {
+      // best-effort: ignore network errors
+    }
+  }, []);
 
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.getUser().then(({ data: { user } }) => {
       setIsLoggedIn(!!user);
       setLoading(false);
+      if (user) {
+        void refreshVotes();
+      }
     });
-  }, []);
+  }, [refreshVotes]);
+
+  const submitVote = useCallback(
+    async (demoId: string, vote: Vote) => {
+      try {
+        const res = await fetch("/api/feedback", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ demo_id: demoId, vote }),
+        });
+        const data = (await res.json().catch(() => ({}))) as {
+          error?: string;
+          status?: string;
+        };
+
+        if (res.ok) {
+          setVotes((prev) => ({ ...prev, [demoId]: vote }));
+          toast.success(
+            vote === "like" ? "Thanks for the thumbs up!" : "Thanks for the feedback."
+          );
+          return;
+        }
+
+        if (res.status === 409) {
+          toast.error(data.error ?? "You've already voted for this demo.");
+          await refreshVotes();
+          return;
+        }
+        if (res.status === 401) {
+          toast.error("Please sign in to submit feedback.");
+          return;
+        }
+        toast.error(data.error ?? "Could not save feedback. Please try again.");
+      } catch {
+        toast.error("Network error. Please try again.");
+      }
+    },
+    [refreshVotes]
+  );
 
   return (
     <section id="announcement" className="relative scroll-mt-24 px-6 py-12">
@@ -236,10 +394,12 @@ export function AnnouncementSection() {
           <div className="relative grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
             {DEMOS.map((demo) => (
               <DemoCard
-                key={demo.title}
+                key={demo.id}
                 demo={demo}
                 isLoggedIn={isLoggedIn}
                 loading={loading}
+                existingVote={votes[demo.id] ?? null}
+                onSubmitVote={submitVote}
               />
             ))}
           </div>
