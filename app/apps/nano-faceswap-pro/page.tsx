@@ -362,9 +362,19 @@ export default function NanoFaceSwapProPage() {
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <Link href="/download">
+            <Link href="/apps/nano-faceswap-pro/features">
               <Button
                 variant="outline"
+                size="lg"
+                className="gap-2 rounded-full px-8"
+              >
+                See all features
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
+            <Link href="/download">
+              <Button
+                variant="ghost"
                 size="lg"
                 className="gap-2 rounded-full px-8"
               >
