@@ -4,6 +4,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+/**
+ * Public Image FaceSwap Pro 2.0 demo URL. Re-exported so server pages can
+ * point CTA buttons at the same target without duplicating the literal.
+ */
+export const FACESWAP_PRO_DEMO_URL =
+  "https://calculate-moore-sorted-ministry.trycloudflare.com/";
+
 interface ImagePart {
   src: string;
   alt: string;
@@ -809,20 +816,39 @@ export function FaceSwapFeatureRows() {
                   {feature.hint}
                 </div>
 
-                <Link
-                  href={isComingSoon ? "/contact" : "/#announcement"}
-                  className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs font-medium text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white/25 hover:bg-white/10 hover:text-white"
-                  style={{
-                    opacity: isVisible ? 1 : 0,
-                    transform: isVisible
-                      ? "translateY(0)"
-                      : "translateY(12px)",
-                    transitionDelay: "0.5s",
-                  }}
-                >
-                  {isComingSoon ? "Be first to try it" : "Try it free online"}
-                  {ARROW_ICON}
-                </Link>
+                {isComingSoon ? (
+                  <Link
+                    href="/contact"
+                    className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs font-medium text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white/25 hover:bg-white/10 hover:text-white"
+                    style={{
+                      opacity: isVisible ? 1 : 0,
+                      transform: isVisible
+                        ? "translateY(0)"
+                        : "translateY(12px)",
+                      transitionDelay: "0.5s",
+                    }}
+                  >
+                    Be first to try it
+                    {ARROW_ICON}
+                  </Link>
+                ) : (
+                  <a
+                    href={FACESWAP_PRO_DEMO_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs font-medium text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white/25 hover:bg-white/10 hover:text-white"
+                    style={{
+                      opacity: isVisible ? 1 : 0,
+                      transform: isVisible
+                        ? "translateY(0)"
+                        : "translateY(12px)",
+                      transitionDelay: "0.5s",
+                    }}
+                  >
+                    Try it free online
+                    {ARROW_ICON}
+                  </a>
+                )}
               </div>
 
               {/* Visual side — dominant (68%) */}

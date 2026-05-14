@@ -29,18 +29,21 @@ interface DemoConfig {
   password: string;
   icon: typeof ImageIcon;
   accent: string;
+  /** Optional internal link to a product introduction page (rendered as a small ghost CTA above the demo button). */
+  introHref?: string;
 }
 
 const DEMOS: DemoConfig[] = [
   {
     id: "image-faceswap-pro",
-    title: "Image FaceSwap Pro",
+    title: "Image FaceSwap Pro 2.0",
     description:
       "Higher fidelity, better lighting adaptation, and more natural face swap on photos.",
-    url: "https://migration-beach-availability-lawyers.trycloudflare.com/static/index.html",
-    password: "nanopocket",
+    url: "https://calculate-moore-sorted-ministry.trycloudflare.com/",
+    password: "nanofaceswap-pro",
     icon: ImageIcon,
     accent: "indigo",
+    introHref: "/apps/nano-faceswap-pro/features",
   },
   {
     id: "video-faceswap-pro",
@@ -266,6 +269,20 @@ function DemoCard({
               )}
             </button>
           </div>
+
+          {demo.introHref && (
+            <Button
+              asChild
+              variant="outline"
+              className="w-full gap-2 rounded-full border-white/15 bg-white/5 text-white hover:bg-white/10 hover:text-white"
+            >
+              <Link href={demo.introHref}>
+                <Sparkles className="h-4 w-4 text-indigo-300" />
+                Introducing Nano FaceSwap Pro 2.0
+                <span aria-hidden className="ml-0.5">→</span>
+              </Link>
+            </Button>
+          )}
 
           <Button
             asChild

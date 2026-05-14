@@ -58,3 +58,6 @@ LTX2_app/
 .hf_download_cache/
 image/
 video/
+
+# Source content drafts (kept local only)
+New features.docx

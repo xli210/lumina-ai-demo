@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
-import { FaceSwapFeatureRows } from "./feature-rows";
+import { FaceSwapFeatureRows, FACESWAP_PRO_DEMO_URL } from "./feature-rows";
+
+const DEMO_URL = FACESWAP_PRO_DEMO_URL;
 
 export const metadata: Metadata = {
   title:
@@ -122,8 +124,10 @@ export default function NanoFaceSwapProFeaturesPage() {
           </p>
 
           <div className="flex flex-wrap items-center gap-3">
-            <Link
-              href="/#announcement"
+            <a
+              href={DEMO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white px-6 py-2.5 text-sm font-medium text-black transition-all duration-300 hover:bg-white/90"
             >
               Try free online
@@ -143,7 +147,7 @@ export default function NanoFaceSwapProFeaturesPage() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </Link>
+            </a>
             <span
               aria-disabled="true"
               className="inline-flex cursor-not-allowed select-none items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-2.5 text-sm font-medium text-white/40"
@@ -155,6 +159,10 @@ export default function NanoFaceSwapProFeaturesPage() {
               Desktop app coming soon
             </span>
           </div>
+
+          <p className="mt-3 text-[11px] text-white/40">
+            Sign in on the landing page to grab the free access password.
+          </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px] uppercase tracking-[0.2em] text-white/30">
             <span>Free online demo</span>
@@ -194,8 +202,10 @@ export default function NanoFaceSwapProFeaturesPage() {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/#announcement"
+            <a
+              href={DEMO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-medium text-black transition-all duration-300 hover:bg-white/90"
             >
               Try free online
@@ -215,7 +225,7 @@ export default function NanoFaceSwapProFeaturesPage() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </Link>
+            </a>
             <span
               aria-disabled="true"
               className="inline-flex cursor-not-allowed select-none items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-7 py-3 text-sm font-medium text-white/40"
