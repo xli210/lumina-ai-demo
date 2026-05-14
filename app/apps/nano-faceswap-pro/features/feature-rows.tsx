@@ -12,12 +12,19 @@ interface ImagePart {
   caption?: string;
 }
 
-interface VisualConfig {
-  /** "single" = one tall image, "stack" = two stacked, "split" = two columns */
-  layout: "single" | "stack" | "split";
-  primary: ImagePart;
-  secondary?: ImagePart;
+interface StoryStep extends ImagePart {
+  /** Short label shown in the step badge, e.g. "Default swap" */
+  stepLabel: string;
+  /** Render this image at a constrained max-width (used for tall portrait UI screenshots) */
+  tall?: boolean;
 }
+
+type VisualConfig =
+  | { layout: "single"; primary: ImagePart }
+  | { layout: "stack"; primary: ImagePart; secondary: ImagePart }
+  | { layout: "split"; primary: ImagePart; secondary: ImagePart }
+  | { layout: "story"; steps: StoryStep[]; bonusThumbs?: ImagePart[]; bonusLabel?: string }
+  | { layout: "css"; variant: "benchmark" | "expression" };
 
 interface FeatureRow {
   index: number;
@@ -26,8 +33,10 @@ interface FeatureRow {
   subtitle: string;
   bullets: string[];
   hint: string;
+  /** When true, render with "Coming with Pro Local" framing */
+  comingSoon?: boolean;
   proOnly?: boolean;
-  visual: VisualConfig | { layout: "css"; variant: "benchmark" | "expression" };
+  visual: VisualConfig;
 }
 
 const FEATURES: FeatureRow[] = [
@@ -36,7 +45,7 @@ const FEATURES: FeatureRow[] = [
     eyebrow: "Multiple Faces",
     title: "Swap one. Swap all.",
     subtitle:
-      "A detection-aware multi-subject pipeline. Every face in the frame is treated as an independent identity-transfer target — no quality loss when the count climbs.",
+      "Every face in the frame becomes its own swap target. Pick the ones you want to change, leave the rest alone, or swap the whole group in one click.",
     bullets: [
       "Per-face targeting with a numbered face picker",
       "One-click swap-all for group portraits",
@@ -66,13 +75,13 @@ const FEATURES: FeatureRow[] = [
     eyebrow: "Original Resolution",
     title: "4K stays 4K.",
     subtitle:
-      "Engineered around a high-resolution diffusion pipeline paired with a state-of-the-art detail-preserving upscaler. Output returns at the exact same resolution as the input — sharp skin, clean edges, intact pores.",
+      "What you upload is what you get back — same size, same detail. No softening, no downsampling, even on close-up shots with large faces.",
     bullets: [
-      "1:1 resolution preservation — input pixels equal output pixels",
-      "Optimized for large-face crops and high-density images",
-      "No softening, banding, or upscaling artifacts",
+      "Same resolution as your input — every time",
+      "Stays sharp on close-ups and big faces",
+      "No blur, no banding, no “AI sheen”",
     ],
-    hint: "Detail-preserving · no downsample",
+    hint: "Same size in · same size out",
     visual: {
       layout: "single",
       primary: {
@@ -80,7 +89,7 @@ const FEATURES: FeatureRow[] = [
         alt: "Three-panel comparison preserving fine skin detail across original, intermediate, and final swapped portrait at 2K",
         width: 1899,
         height: 828,
-        caption: "Original · reference · result · all at full resolution",
+        caption: "Detail preserved end-to-end at full resolution",
       },
     },
   },
@@ -107,45 +116,122 @@ const FEATURES: FeatureRow[] = [
       },
       secondary: {
         src: "/images/faceswap-pro/image13.png",
-        alt: "Three-panel demonstration: subject portrait, reference portrait, and the resulting face-only swap that keeps the original hairstyle",
+        alt: "Three-panel demonstration: target portrait, reference face used for face-only swap, and reference head used for full-head swap",
         width: 1919,
         height: 952,
-        caption: "Subject · reference · result with original hair preserved",
+        caption:
+          "Left: target · Middle: reference face · Right: reference head",
       },
     },
   },
   {
     index: 4,
-    eyebrow: "Pixel-Level Control",
-    title: "Keep what you want. Restore what you need.",
+    eyebrow: "Mask Toggle",
+    title: "Keep what matters.",
     subtitle:
-      "Production work demands fine control. Two interactive tools put pixel-level decisions back in the user's hands — a protected-region mask for accessories and apparel, and a precision repair brush for occlusion artifacts.",
+      "Swap the face — and keep the nose ring, hat, glasses, and earrings exactly where they were. A single panel of toggles tells the swap which parts of the photo to leave alone.",
     bullets: [
-      "Toggle the protected-region mask to keep hair, hats, jewelry, and accessories intact",
-      "Use the precision brush to mark occlusions — makeup brushes, microphones, hair strands",
-      "Press “Restore masked region” once or several times to bring the original content back",
+      "Hair · clothing · apparel · accessories — toggle each independently",
+      "Works on a single accessory or all of them at once",
+      "Set it once, applied to every face in the image",
     ],
-    hint: "Protected mask · precision brush",
+    hint: "One toggle · accessories survive",
     visual: {
-      layout: "split",
-      primary: {
-        src: "/images/faceswap-pro/image1.png",
-        alt: "Keep occluders panel with toggles for Background, Hair, Upper Clothing, Apparel, Face Neck, and Lower Lip",
-        width: 434,
-        height: 922,
-        caption: "Toggle exactly which regions stay untouched",
-      },
-      secondary: {
-        src: "/images/faceswap-pro/image3.png",
-        alt: "Before and after close-up showing the subject's nose ring fully preserved through the swap",
-        width: 2048,
-        height: 723,
-        caption: "Result — the nose ring survives the swap",
-      },
+      layout: "story",
+      steps: [
+        {
+          src: "/images/faceswap-pro/image15.png",
+          alt: "Default face swap result where the subject's nose ring has disappeared",
+          width: 2048,
+          height: 719,
+          stepLabel: "Default swap",
+          caption: "The nose ring disappears in a regular swap",
+        },
+        {
+          src: "/images/faceswap-pro/image1.png",
+          alt: "Keep occluders panel with toggles for Background, Hair, Upper Clothing, Apparel, Face Neck, and Lower Lip",
+          width: 434,
+          height: 922,
+          stepLabel: "Enable mask toggles",
+          caption: "Turn on the regions you want to preserve",
+          tall: true,
+        },
+        {
+          src: "/images/faceswap-pro/image3.png",
+          alt: "Result showing the same swap performed with masks enabled — the nose ring is fully preserved",
+          width: 2048,
+          height: 723,
+          stepLabel: "Run the swap again",
+          caption: "Nose ring survives — every accessory preserved",
+        },
+      ],
     },
   },
   {
     index: 5,
+    eyebrow: "Magic Pen",
+    title: "Brush back what got lost.",
+    subtitle:
+      "Sometimes a stray makeup brush, microphone, or hair strand passes across the face and the swap eats part of it. Paint over the area and bring the original content back, layer by layer.",
+    bullets: [
+      "Brush over any region — fine pen, custom size, undo support",
+      "Press “Bring back masked region” once, twice, or until it's perfect",
+      "Works on accessories, makeup, hair, and any occluder",
+    ],
+    hint: "Pen · brush · iterative restore",
+    visual: {
+      layout: "story",
+      steps: [
+        {
+          src: "/images/faceswap-pro/image4.png",
+          alt: "Default swap where the makeup brush head crossing the lips has disappeared",
+          width: 2048,
+          height: 729,
+          stepLabel: "Lost detail",
+          caption: "The makeup brush head is gone in the result",
+        },
+        {
+          src: "/images/faceswap-pro/image8.png",
+          alt: "Magic pen UI with a brush cursor positioned over the missing region and a Bring back masked region button",
+          width: 2048,
+          height: 858,
+          stepLabel: "Brush the region",
+          caption: "Use the magic pen to select the missing area",
+        },
+        {
+          src: "/images/faceswap-pro/image6.png",
+          alt: "Final result where the makeup brush head has been restored after pressing Bring back masked region",
+          width: 2048,
+          height: 854,
+          stepLabel: "Restore",
+          caption: "Press once or several times — content comes back",
+        },
+      ],
+      bonusLabel: "Works on any region — eyeshadow, jewelry, hair strands…",
+      bonusThumbs: [
+        {
+          src: "/images/faceswap-pro/image7.png",
+          alt: "Eyeshadow before — partially altered after a swap",
+          width: 2048,
+          height: 854,
+        },
+        {
+          src: "/images/faceswap-pro/image2.png",
+          alt: "Brush mask painted across the eyeshadow region",
+          width: 2048,
+          height: 849,
+        },
+        {
+          src: "/images/faceswap-pro/image5.png",
+          alt: "Eyeshadow restored to its original state",
+          width: 2048,
+          height: 846,
+        },
+      ],
+    },
+  },
+  {
+    index: 6,
     eyebrow: "Virtual Identity Library",
     title: "License-free reference faces, built in.",
     subtitle:
@@ -169,26 +255,26 @@ const FEATURES: FeatureRow[] = [
     },
   },
   {
-    index: 6,
-    eyebrow: "Head-to-Head",
-    title: "Benchmarked against the field.",
+    index: 7,
+    eyebrow: "Coming with Pro Local",
+    title: "A side-by-side benchmark gallery.",
     subtitle:
-      "Evaluated against the most widely used face-swap tools on the market. Across identity preservation, lighting consistency, skin texture, edge fidelity, and resolution retention — the diffusion-based pipeline produces sharper, more identity-faithful, and more naturally lit results.",
+      "Same input, multiple apps, one clear winner. The desktop Pro Local app will ship with an in-built benchmark gallery so you can see — on your own photos — how Nano FaceSwap Pro stacks up against the leading tools in the world.",
     bullets: [
-      "Stronger identity lock-in on small and large faces",
-      "Better lighting and color match — no flat “pasted-on” look",
-      "Higher edge fidelity around hair, jawline, and accessories",
-      "Reproducible benchmark gallery available in-app",
+      "Run the same input through every leading face-swap engine",
+      "See the difference in identity, lighting, texture, and edges",
+      "Reproducible on your own machine — no cherry-picking",
     ],
     hint: "Same input · multiple apps · clearest result",
+    comingSoon: true,
     visual: { layout: "css", variant: "benchmark" },
   },
   {
-    index: 7,
-    eyebrow: "Pro Local Exclusive",
+    index: 8,
+    eyebrow: "Coming with Pro Local",
     title: "Re-direct emotion in post.",
     subtitle:
-      "Available exclusively in the desktop Pro release. Adjust a portrait's emotional read in seconds — open closed eyes, soften a frown, lift a smile — without re-shooting and without compromising identity.",
+      "Adjust a portrait's emotional read in seconds — open closed eyes, soften a frown, lift a smile — without re-shooting and without compromising identity. Shipping exclusively with the desktop Pro Local release.",
     bullets: [
       "Open and close eyes with continuous control",
       "Adjust smile intensity from neutral to broad",
@@ -196,6 +282,7 @@ const FEATURES: FeatureRow[] = [
       "Identity-preserving — the subject's likeness is never altered",
     ],
     hint: "Slider-driven · identity-preserving",
+    comingSoon: true,
     proOnly: true,
     visual: { layout: "css", variant: "expression" },
   },
@@ -237,8 +324,42 @@ const HINT_ICON = (
   </svg>
 );
 
-function VisualBlock({ v }: { v: FeatureRow["visual"] }) {
-  if ("variant" in v) {
+function FrameCaption({ caption }: { caption?: string }) {
+  if (!caption) return null;
+  return (
+    <p className="mt-3 text-center text-[11px] font-mono uppercase tracking-[0.2em] text-white/40">
+      {caption}
+    </p>
+  );
+}
+
+function FrameImage({
+  part,
+  sizes = "(min-width: 1024px) 60vw, 100vw",
+  tall = false,
+}: {
+  part: ImagePart;
+  sizes?: string;
+  tall?: boolean;
+}) {
+  return (
+    <div
+      className={`relative w-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] shadow-2xl shadow-black/50 ${tall ? "mx-auto max-w-[260px] sm:max-w-[280px]" : ""}`}
+    >
+      <Image
+        src={part.src}
+        alt={part.alt}
+        width={part.width}
+        height={part.height}
+        className="h-auto w-full"
+        sizes={sizes}
+      />
+    </div>
+  );
+}
+
+function VisualBlock({ v }: { v: VisualConfig }) {
+  if (v.layout === "css") {
     if (v.variant === "benchmark") {
       const cols = [
         { label: "Tool A", height: 42 },
@@ -248,7 +369,7 @@ function VisualBlock({ v }: { v: FeatureRow["visual"] }) {
       return (
         <div className="w-full rounded-2xl border border-white/10 bg-white/[0.02] shadow-2xl shadow-black/50 overflow-hidden">
           <div className="flex items-center justify-between border-b border-white/5 px-5 py-3 text-[10px] font-mono uppercase tracking-[0.2em] text-white/40">
-            <span>Benchmark</span>
+            <span>Benchmark · preview</span>
             <span>Same input · five metrics</span>
           </div>
           <div className="flex h-[260px] items-end justify-center gap-12 px-12 pb-10 pt-6 sm:h-[320px] sm:gap-16">
@@ -288,12 +409,12 @@ function VisualBlock({ v }: { v: FeatureRow["visual"] }) {
       );
     }
 
-    // expression
+    // expression preview
     const slots = ["Frown", "Neutral", "Smile", "Bright"];
     return (
       <div className="w-full rounded-2xl border border-white/10 bg-white/[0.02] shadow-2xl shadow-black/50 overflow-hidden">
         <div className="flex items-center justify-between border-b border-white/5 px-5 py-3 text-[10px] font-mono uppercase tracking-[0.2em] text-white/40">
-          <span>Expression</span>
+          <span>Expression · preview</span>
           <span>Pro Local exclusive</span>
         </div>
         <div className="flex flex-col items-stretch gap-5 px-8 py-10 sm:px-12">
@@ -326,10 +447,10 @@ function VisualBlock({ v }: { v: FeatureRow["visual"] }) {
                         i === 0
                           ? "M14 30c2.5-2 5.5-3 8-3s5.5 1 8 3"
                           : i === 1
-                          ? "M14 28h16"
-                          : i === 2
-                          ? "M14 27c2.5 2 5.5 3 8 3s5.5-1 8-3"
-                          : "M13 26c3 4 6 5 9 5s6-1 9-5"
+                            ? "M14 28h16"
+                            : i === 2
+                              ? "M14 27c2.5 2 5.5 3 8 3s5.5-1 8-3"
+                              : "M13 26c3 4 6 5 9 5s6-1 9-5"
                       }
                       stroke="currentColor"
                       strokeWidth="1.5"
@@ -360,106 +481,86 @@ function VisualBlock({ v }: { v: FeatureRow["visual"] }) {
   if (v.layout === "single") {
     return (
       <figure className="w-full">
-        <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] shadow-2xl shadow-black/50">
-          <Image
-            src={v.primary.src}
-            alt={v.primary.alt}
-            width={v.primary.width}
-            height={v.primary.height}
-            className="h-auto w-full"
-            sizes="(min-width: 1024px) 60vw, 100vw"
-          />
-        </div>
-        {v.primary.caption && (
-          <figcaption className="mt-3 text-center text-[11px] font-mono uppercase tracking-[0.2em] text-white/40">
-            {v.primary.caption}
-          </figcaption>
-        )}
+        <FrameImage part={v.primary} />
+        <FrameCaption caption={v.primary.caption} />
       </figure>
     );
   }
 
   if (v.layout === "stack") {
     return (
-      <div className="flex w-full flex-col gap-4">
+      <div className="flex w-full flex-col gap-5">
         <figure>
-          <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] shadow-2xl shadow-black/50">
-            <Image
-              src={v.primary.src}
-              alt={v.primary.alt}
-              width={v.primary.width}
-              height={v.primary.height}
-              className="h-auto w-full"
-              sizes="(min-width: 1024px) 60vw, 100vw"
-            />
-          </div>
-          {v.primary.caption && (
-            <figcaption className="mt-2 text-center text-[11px] font-mono uppercase tracking-[0.2em] text-white/40">
-              {v.primary.caption}
-            </figcaption>
-          )}
+          <FrameImage part={v.primary} />
+          <FrameCaption caption={v.primary.caption} />
         </figure>
-        {v.secondary && (
-          <figure>
-            <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] shadow-2xl shadow-black/50">
-              <Image
-                src={v.secondary.src}
-                alt={v.secondary.alt}
-                width={v.secondary.width}
-                height={v.secondary.height}
-                className="h-auto w-full"
-                sizes="(min-width: 1024px) 60vw, 100vw"
-              />
-            </div>
-            {v.secondary.caption && (
-              <figcaption className="mt-2 text-center text-[11px] font-mono uppercase tracking-[0.2em] text-white/40">
-                {v.secondary.caption}
-              </figcaption>
-            )}
-          </figure>
-        )}
+        <figure>
+          <FrameImage part={v.secondary} />
+          <FrameCaption caption={v.secondary.caption} />
+        </figure>
       </div>
     );
   }
 
-  // split — left/right (works well when primary is portrait-tall)
-  return (
-    <div className="grid w-full grid-cols-12 items-stretch gap-3 sm:gap-4">
-      <figure className="col-span-12 sm:col-span-5">
-        <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] shadow-2xl shadow-black/50">
-          <Image
-            src={v.primary.src}
-            alt={v.primary.alt}
-            width={v.primary.width}
-            height={v.primary.height}
-            className="h-auto w-full"
-            sizes="(min-width: 1024px) 28vw, 100vw"
-          />
-        </div>
-        {v.primary.caption && (
-          <figcaption className="mt-2 text-center text-[11px] font-mono uppercase tracking-[0.2em] text-white/40">
-            {v.primary.caption}
-          </figcaption>
-        )}
-      </figure>
-      {v.secondary && (
-        <figure className="col-span-12 sm:col-span-7">
-          <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] shadow-2xl shadow-black/50">
-            <Image
-              src={v.secondary.src}
-              alt={v.secondary.alt}
-              width={v.secondary.width}
-              height={v.secondary.height}
-              className="h-auto w-full"
-              sizes="(min-width: 1024px) 32vw, 100vw"
-            />
-          </div>
-          {v.secondary.caption && (
-            <figcaption className="mt-2 text-center text-[11px] font-mono uppercase tracking-[0.2em] text-white/40">
-              {v.secondary.caption}
-            </figcaption>
-          )}
+  if (v.layout === "split") {
+    return (
+      <div className="grid w-full grid-cols-12 items-stretch gap-3 sm:gap-4">
+        <figure className="col-span-12 sm:col-span-5">
+          <FrameImage part={v.primary} sizes="(min-width: 1024px) 28vw, 100vw" />
+          <FrameCaption caption={v.primary.caption} />
         </figure>
+        <figure className="col-span-12 sm:col-span-7">
+          <FrameImage
+            part={v.secondary}
+            sizes="(min-width: 1024px) 32vw, 100vw"
+          />
+          <FrameCaption caption={v.secondary.caption} />
+        </figure>
+      </div>
+    );
+  }
+
+  // story — vertical 3-step narrative with numbered badges
+  return (
+    <div className="flex w-full flex-col gap-7">
+      {v.steps.map((step, i) => (
+        <figure key={step.src} className="flex flex-col gap-3">
+          <div className="flex items-center gap-3">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/5 text-[11px] font-mono font-bold text-white">
+              {i + 1}
+            </span>
+            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/60">
+              {step.stepLabel}
+            </span>
+          </div>
+          <FrameImage part={step} tall={step.tall} />
+          <FrameCaption caption={step.caption} />
+        </figure>
+      ))}
+      {v.bonusThumbs && v.bonusThumbs.length > 0 && (
+        <div className="mt-2 rounded-2xl border border-white/10 bg-white/[0.02] p-4">
+          {v.bonusLabel && (
+            <p className="mb-3 text-[10px] font-mono uppercase tracking-[0.2em] text-white/40">
+              {v.bonusLabel}
+            </p>
+          )}
+          <div className="grid grid-cols-3 gap-2">
+            {v.bonusThumbs.map((thumb) => (
+              <div
+                key={thumb.src}
+                className="relative aspect-[2/1] w-full overflow-hidden rounded-lg border border-white/10 bg-black"
+              >
+                <Image
+                  src={thumb.src}
+                  alt={thumb.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 18vw, 30vw"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );
@@ -566,6 +667,7 @@ export function FaceSwapFeatureRows() {
       {FEATURES.map((feature, i) => {
         const isVisible = visibleSet.has(i);
         const fromRight = i % 2 === 0;
+        const isComingSoon = !!feature.comingSoon;
 
         return (
           <div
@@ -583,14 +685,14 @@ export function FaceSwapFeatureRows() {
                 style={{
                   background: `radial-gradient(ellipse at ${
                     i % 2 === 0 ? "30% 50%" : "70% 50%"
-                  }, hsl(${220 + i * 10}, 55%, 25%) 0%, transparent 70%)`,
+                  }, hsl(${220 + i * 8}, 55%, 25%) 0%, transparent 70%)`,
                   transform: `translateY(${parallaxOffsets[i] ?? 0}px)`,
                 }}
               />
             </div>
 
             <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-8 lg:flex-row lg:gap-12">
-              {/* Text side — compact (28%) */}
+              {/* Text side — compact (32%) */}
               <div
                 className={`flex flex-col items-center text-center lg:w-[32%] lg:items-start lg:text-left ${
                   fromRight ? "lg:order-1" : "lg:order-2"
@@ -611,7 +713,16 @@ export function FaceSwapFeatureRows() {
                     {String(FEATURES.length).padStart(2, "0")}
                   </span>
                   <span className="text-white/60">{feature.eyebrow}</span>
-                  {feature.proOnly && (
+                  {isComingSoon && (
+                    <span className="ml-1 inline-flex items-center gap-1 rounded-full border border-white/30 bg-white/10 px-1.5 py-0 text-[8px] font-bold text-white">
+                      <span className="relative inline-flex h-1.5 w-1.5">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-60" />
+                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
+                      </span>
+                      SOON
+                    </span>
+                  )}
+                  {feature.proOnly && !isComingSoon && (
                     <span className="rounded-full border border-white/30 px-1.5 py-0 text-[8px] font-bold text-white/80">
                       PRO
                     </span>
@@ -680,7 +791,7 @@ export function FaceSwapFeatureRows() {
                 </div>
 
                 <Link
-                  href="/#announcement"
+                  href={isComingSoon ? "/contact" : "/#announcement"}
                   className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs font-medium text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white/25 hover:bg-white/10 hover:text-white"
                   style={{
                     opacity: isVisible ? 1 : 0,
@@ -690,7 +801,7 @@ export function FaceSwapFeatureRows() {
                     transitionDelay: "0.5s",
                   }}
                 >
-                  Try it free online
+                  {isComingSoon ? "Be first to try it" : "Try it free online"}
                   {ARROW_ICON}
                 </Link>
               </div>
