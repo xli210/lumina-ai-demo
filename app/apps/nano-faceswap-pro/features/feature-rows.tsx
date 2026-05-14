@@ -17,6 +17,8 @@ interface StoryStep extends ImagePart {
   stepLabel: string;
   /** Render this image at a constrained max-width (used for tall portrait UI screenshots) */
   tall?: boolean;
+  /** Optional second image rendered side-by-side at the same step */
+  companion?: ImagePart;
 }
 
 type VisualConfig =
@@ -114,13 +116,12 @@ const FEATURES: FeatureRow[] = [
         height: 318,
         caption: "Choose swap mode at the start of every job",
       },
-      secondary: {
+        secondary: {
         src: "/images/faceswap-pro/image13.png",
-        alt: "Three-panel demonstration: target portrait, reference face used for face-only swap, and reference head used for full-head swap",
+        alt: "Three-panel demonstration: target portrait, face-swap result, and head-swap result",
         width: 1919,
         height: 952,
-        caption:
-          "Left: target · Middle: reference face · Right: reference head",
+        caption: "Left: target · Middle: face swap · Right: head swap",
       },
     },
   },
@@ -149,12 +150,17 @@ const FEATURES: FeatureRow[] = [
         },
         {
           src: "/images/faceswap-pro/image1.png",
-          alt: "Keep occluders panel with toggles for Background, Hair, Upper Clothing, Apparel, Face Neck, and Lower Lip",
+          alt: "Keep occluders panel — Hair and Upper Clothing toggles enabled, hat shown in green",
           width: 434,
           height: 922,
           stepLabel: "Enable mask toggles",
-          caption: "Turn on the regions you want to preserve",
-          tall: true,
+          caption: "Toggle which regions to preserve — accessories and apparel both survive",
+          companion: {
+            src: "/images/faceswap-pro/image14.png",
+            alt: "Keep occluders panel — Hair, Upper Clothing, and Apparel toggles all enabled, hat now shown in yellow",
+            width: 428,
+            height: 916,
+          },
         },
         {
           src: "/images/faceswap-pro/image3.png",
@@ -259,7 +265,7 @@ const FEATURES: FeatureRow[] = [
     eyebrow: "Coming with Pro Local",
     title: "A side-by-side benchmark gallery.",
     subtitle:
-      "Same input, multiple apps, one clear winner. The desktop Pro Local app will ship with an in-built benchmark gallery so you can see — on your own photos — how Nano FaceSwap Pro stacks up against the leading tools in the world.",
+      "Same input, multiple apps, one clear winner. Nano FaceSwap Pro 2.0 will ship with an in-built benchmark gallery so you can see — on your own photos — how it stacks up against the leading tools in the world.",
     bullets: [
       "Run the same input through every leading face-swap engine",
       "See the difference in identity, lighting, texture, and edges",
@@ -363,7 +369,7 @@ function VisualBlock({ v }: { v: VisualConfig }) {
     if (v.variant === "benchmark") {
       const cols = [
         { label: "Tool A", height: 42 },
-        { label: "Nano FaceSwap Pro", height: 96, winner: true },
+        { label: "Nano FaceSwap Pro 2.0", height: 96, winner: true },
         { label: "Tool B", height: 56 },
       ];
       return (
@@ -533,7 +539,20 @@ function VisualBlock({ v }: { v: VisualConfig }) {
               {step.stepLabel}
             </span>
           </div>
-          <FrameImage part={step} tall={step.tall} />
+          {step.companion ? (
+            <div className="mx-auto grid w-full max-w-[560px] grid-cols-2 gap-3 sm:gap-4">
+              <FrameImage
+                part={step}
+                sizes="(min-width: 1024px) 18vw, 50vw"
+              />
+              <FrameImage
+                part={step.companion}
+                sizes="(min-width: 1024px) 18vw, 50vw"
+              />
+            </div>
+          ) : (
+            <FrameImage part={step} tall={step.tall} />
+          )}
           <FrameCaption caption={step.caption} />
         </figure>
       ))}

@@ -6,10 +6,11 @@ import { FaceSwapFeatureRows } from "./feature-rows";
 
 export const metadata: Metadata = {
   title:
-    "Inside Nano FaceSwap Pro — Multi-Face Swap, 4K Detail, Mask Control & Expression Edit",
+    "Inside Nano FaceSwap Pro 2.0 — Multi-Face Swap, 4K Detail, Mask Control & Expression Edit",
   description:
-    "A complete tour of Nano FaceSwap Pro: multi-face precision, full-resolution output (4K stays 4K), face-vs-head swap modes, pixel-level mask control, a built-in license-free virtual face library, head-to-head benchmarks against leading apps, and Pro-exclusive facial expression editing.",
+    "A complete tour of Nano FaceSwap Pro 2.0: multi-face precision, full-resolution output (4K stays 4K), face-vs-head swap modes, pixel-level mask control, a built-in license-free virtual face library, head-to-head benchmarks against leading apps, and Pro-exclusive facial expression editing.",
   keywords: [
+    "Nano FaceSwap Pro 2.0",
     "Nano FaceSwap Pro features",
     "multi-face swap",
     "4K face swap",
@@ -28,15 +29,15 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/apps/nano-faceswap-pro/features" },
   openGraph: {
-    title: "Inside Nano FaceSwap Pro — Feature Tour",
+    title: "Inside Nano FaceSwap Pro 2.0 — Feature Tour",
     description:
-      "Multi-face precision, full-resolution output, mask-level control, virtual face library, and Pro-exclusive expression editing — the complete product tour.",
+      "Nano FaceSwap Pro 2.0: multi-face precision, full-resolution output, mask-level control, virtual face library, and Pro-exclusive expression editing — the complete product tour.",
     type: "website",
     url: "https://nanopocket.ai/apps/nano-faceswap-pro/features",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Inside Nano FaceSwap Pro — Feature Tour",
+    title: "Inside Nano FaceSwap Pro 2.0 — Feature Tour",
     description:
       "Multi-face. 4K-preserving. Mask control. Virtual face library. Expression editing. The complete product tour.",
   },
@@ -45,9 +46,9 @@ export const metadata: Metadata = {
 const articleJsonLd = {
   "@context": "https://schema.org",
   "@type": "Article",
-  headline: "Inside Nano FaceSwap Pro — A Complete Product Tour",
+  headline: "Inside Nano FaceSwap Pro 2.0 — A Complete Product Tour",
   description:
-    "A walkthrough of the seven core capabilities that make Nano FaceSwap Pro the most professional local face-swap app on the market: multi-face precision, full-resolution output, face-vs-head modes, mask-level control, a license-free virtual face library, head-to-head benchmarks, and Pro-exclusive expression editing.",
+    "A walkthrough of the seven core capabilities that make Nano FaceSwap Pro 2.0 the most professional local face-swap app on the market: multi-face precision, full-resolution output, face-vs-head modes, mask-level control, a license-free virtual face library, head-to-head benchmarks, and Pro-exclusive expression editing.",
   author: { "@type": "Organization", name: "NanoPocket" },
   publisher: {
     "@type": "Organization",
@@ -105,11 +106,13 @@ export default function NanoFaceSwapProFeaturesPage() {
           </Link>
 
           <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-white/50">
-            Product Tour · Seven Core Capabilities
+            <span className="font-mono text-white/40">v2.0</span>
+            <span className="h-3 w-px bg-white/15" />
+            <span>Product Tour · Eight Core Capabilities</span>
           </span>
 
           <h1 className="mb-6 text-balance text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-            Inside Nano FaceSwap Pro.
+            Inside Nano FaceSwap Pro 2.0.
           </h1>
 
           <p className="mb-10 max-w-3xl text-balance text-base leading-relaxed text-white/60 sm:text-lg md:text-xl">
@@ -141,12 +144,16 @@ export default function NanoFaceSwapProFeaturesPage() {
                 />
               </svg>
             </Link>
-            <Link
-              href="/download"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-2.5 text-sm font-medium text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white/25 hover:bg-white/10 hover:text-white"
+            <span
+              aria-disabled="true"
+              className="inline-flex cursor-not-allowed select-none items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-2.5 text-sm font-medium text-white/40"
             >
-              Download desktop app
-            </Link>
+              <span className="relative inline-flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/60 opacity-60" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white/70" />
+              </span>
+              Desktop app coming soon
+            </span>
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px] uppercase tracking-[0.2em] text-white/30">
@@ -178,12 +185,12 @@ export default function NanoFaceSwapProFeaturesPage() {
 
         <div className="relative mx-auto max-w-3xl text-center">
           <h2 className="mb-5 text-balance text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Ready for production-grade face swap?
+            Get a head start on Nano FaceSwap Pro 2.0.
           </h2>
           <p className="mx-auto mb-10 max-w-2xl text-base leading-relaxed text-white/60 sm:text-lg">
-            Try the online demos in your browser, or download the desktop Pro
-            app for the complete workflow — including the virtual face library
-            and expression editor.
+            Try the online demos in your browser today. The full Nano FaceSwap
+            Pro 2.0 desktop app — virtual face library, expression editor, and
+            benchmark gallery — is coming soon.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -209,12 +216,16 @@ export default function NanoFaceSwapProFeaturesPage() {
                 />
               </svg>
             </Link>
-            <Link
-              href="/download"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-7 py-3 text-sm font-medium text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white/25 hover:bg-white/10 hover:text-white"
+            <span
+              aria-disabled="true"
+              className="inline-flex cursor-not-allowed select-none items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-7 py-3 text-sm font-medium text-white/40"
             >
-              Download desktop Pro
-            </Link>
+              <span className="relative inline-flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/60 opacity-60" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white/70" />
+              </span>
+              Desktop app coming soon
+            </span>
           </div>
         </div>
       </section>

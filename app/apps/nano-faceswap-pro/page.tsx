@@ -25,11 +25,12 @@ import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title:
-    "Nano FaceSwap Pro — Free Online Diffusion Face Swap, Runs 100% Local",
+    "Nano FaceSwap Pro 2.0 — Free Online Diffusion Face Swap, Runs 100% Local",
   description:
-    "Try Nano FaceSwap Pro free — the best diffusion-based local face swap for photos and videos. Built on InstantID, PuLID, IP-Adapter FaceID and InsightFace research. A private, GPU-accelerated alternative to Roop, FaceFusion, Rope, Deep-Live-Cam, Reactor, DeepSwap, Akool, and HeyGen — no cloud uploads, no subscription.",
+    "Try Nano FaceSwap Pro 2.0 free — the best diffusion-based local face swap for photos and videos. Built on InstantID, PuLID, IP-Adapter FaceID and InsightFace research. A private, GPU-accelerated alternative to Roop, FaceFusion, Rope, Deep-Live-Cam, Reactor, DeepSwap, Akool, and HeyGen — no cloud uploads, no subscription.",
   keywords: [
     // Core product terms
+    "Nano FaceSwap Pro 2.0",
     "Nano FaceSwap Pro",
     "NanoPocket face swap",
     "free face swap",
@@ -84,28 +85,29 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/apps/nano-faceswap-pro" },
   openGraph: {
-    title: "Nano FaceSwap Pro — Free Online Diffusion Face Swap",
+    title: "Nano FaceSwap Pro 2.0 — Free Online Diffusion Face Swap",
     description:
-      "Best-in-class diffusion face swap for images and videos. 100% local. Free trial — no sign-up fees, no cloud uploads. A private alternative to Roop, FaceFusion, Rope, Reactor, and DeepSwap.",
+      "Nano FaceSwap Pro 2.0: best-in-class diffusion face swap for images and videos. 100% local. Free trial — no sign-up fees, no cloud uploads. A private alternative to Roop, FaceFusion, Rope, Reactor, and DeepSwap.",
     type: "website",
     url: "https://nanopocket.ai/apps/nano-faceswap-pro",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nano FaceSwap Pro — Free Online Diffusion Face Swap",
+    title: "Nano FaceSwap Pro 2.0 — Free Online Diffusion Face Swap",
     description:
-      "Diffusion-based face swap that runs 100% on your GPU. Free online trial. Alternative to Roop, FaceFusion, Rope, Deep-Live-Cam, DeepSwap, and Akool.",
+      "Nano FaceSwap Pro 2.0 — diffusion-based face swap that runs 100% on your GPU. Free online trial. Alternative to Roop, FaceFusion, Rope, Deep-Live-Cam, DeepSwap, and Akool.",
   },
 };
 
 const softwareJsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "Nano FaceSwap Pro",
+  name: "Nano FaceSwap Pro 2.0",
+  softwareVersion: "2.0",
   operatingSystem: "Web (online demo) · Windows 10/11 · macOS (Apple Silicon)",
   applicationCategory: "MultimediaApplication",
   description:
-    "Diffusion-based AI face swap for images and videos. 100% local, GPU-accelerated, private. A free-trial alternative to Roop, FaceFusion, Rope, Deep-Live-Cam, Reactor, DeepSwap, Akool, and HeyGen.",
+    "Nano FaceSwap Pro 2.0 — diffusion-based AI face swap for images and videos. 100% local, GPU-accelerated, private. A free-trial alternative to Roop, FaceFusion, Rope, Deep-Live-Cam, Reactor, DeepSwap, Akool, and HeyGen.",
   offers: { "@type": "Offer", price: "0.00", priceCurrency: "USD" },
   aggregateRating: {
     "@type": "AggregateRating",
@@ -120,15 +122,15 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "Is Nano FaceSwap Pro really free to try?",
+      name: "Is Nano FaceSwap Pro 2.0 really free to try?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. The online Image FaceSwap Pro and Video FaceSwap Pro demos are free for every signed-in NanoPocket account — no credit card, no watermarks on test outputs. The Pro desktop app also includes a free trial.",
+        text: "Yes. The online Image FaceSwap Pro and Video FaceSwap Pro demos are free for every signed-in NanoPocket account — no credit card, no watermarks on test outputs. The Nano FaceSwap Pro 2.0 desktop app launches soon and will include a free trial at release.",
       },
     },
     {
       "@type": "Question",
-      name: "What makes Nano FaceSwap Pro a 'diffusion' face swap?",
+      name: "What makes Nano FaceSwap Pro 2.0 a 'diffusion' face swap?",
       acceptedAnswer: {
         "@type": "Answer",
         text: "Most open-source tools (Roop, FaceFusion, Rope, Reactor, Deep-Live-Cam) are built on the InsightFace inswapper_128 model — a GAN with fixed 128×128 identity output. Nano FaceSwap Pro uses a diffusion-based identity pipeline inspired by InstantID, PuLID, IP-Adapter FaceID, and PhotoMaker research, combined with our own identity encoder. The result is higher resolution, better lighting adaptation, and far more natural skin texture.",
@@ -325,18 +327,20 @@ export default function NanoFaceSwapProPage() {
 
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold text-indigo-500">
             <Sparkles className="h-3.5 w-3.5" />
-            Free online demo · Diffusion face swap
+            <span>Free online demo · Diffusion face swap</span>
+            <span className="h-3 w-px bg-indigo-500/40" />
+            <span className="font-mono">v2.0</span>
           </div>
 
           <h1 className="mb-5 text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
             Nano FaceSwap{" "}
             <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-fuchsia-500 bg-clip-text text-transparent">
-              Pro
+              Pro 2.0
             </span>
           </h1>
 
           <p className="mb-4 max-w-3xl text-balance text-lg text-muted-foreground sm:text-xl">
-            The best diffusion-based face swap for photos and videos — running 100% locally on your GPU. Try it free online, no sign-up fees.
+            The best diffusion-based face swap for photos and videos — running 100% locally on your GPU. Try Nano FaceSwap Pro 2.0 free online, no sign-up fees.
           </p>
 
           <p className="mb-8 max-w-3xl text-sm text-muted-foreground/80 sm:text-base">
@@ -372,15 +376,19 @@ export default function NanoFaceSwapProPage() {
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
-            <Link href="/download">
-              <Button
-                variant="ghost"
-                size="lg"
-                className="gap-2 rounded-full px-8"
-              >
-                Download desktop app
-              </Button>
-            </Link>
+            <Button
+              variant="ghost"
+              size="lg"
+              disabled
+              aria-disabled="true"
+              className="gap-2 rounded-full px-8 cursor-not-allowed text-muted-foreground/60 hover:bg-transparent hover:text-muted-foreground/60"
+            >
+              <span className="relative inline-flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-foreground/40 opacity-60" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-foreground/50" />
+              </span>
+              Desktop app coming soon
+            </Button>
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
