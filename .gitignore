@@ -56,8 +56,10 @@ LTX2_app/
 .machine_lock
 .download_status
 .hf_download_cache/
-image/
-video/
+# Anchor /image/ and /video/ to the repo root so we don't accidentally
+# ignore product page subdirectories like /apps/nano-faceswap-pro/video.
+/image/
+/video/
 
 # Source content drafts (kept local only)
 New features.docx

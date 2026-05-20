@@ -8,9 +8,9 @@ const DEMO_URL = FACESWAP_PRO_DEMO_URL;
 
 export const metadata: Metadata = {
   title:
-    "Inside Nano FaceSwap Pro 2.0 — Multi-Face Swap, 4K Detail, Mask Control & Expression Edit",
+    "Nano FaceSwap Pro 2.0 — Feature Tour: Multi-Face, 4K, Mask Control, Expression Edit",
   description:
-    "A complete tour of Nano FaceSwap Pro 2.0: multi-face precision, full-resolution output (4K stays 4K), face-vs-head swap modes, pixel-level mask control, a built-in license-free virtual face library, head-to-head benchmarks against leading apps, and Pro-exclusive facial expression editing.",
+    "Eight-section feature tour for Nano FaceSwap Pro 2.0: multi-face targeting, input-resolution-preserving output up to 4K, face-versus-head modes, region-level mask control, a magic pen brush, a virtual identity library, an in-app benchmark gallery, and identity-preserving expression editing.",
   keywords: [
     "Nano FaceSwap Pro 2.0",
     "Nano FaceSwap Pro features",
@@ -48,9 +48,9 @@ export const metadata: Metadata = {
 const articleJsonLd = {
   "@context": "https://schema.org",
   "@type": "Article",
-  headline: "Inside Nano FaceSwap Pro 2.0 — A Complete Product Tour",
+  headline: "Nano FaceSwap Pro 2.0 — Eight-Section Feature Tour",
   description:
-    "A walkthrough of the seven core capabilities that make Nano FaceSwap Pro 2.0 the most professional local face-swap app on the market: multi-face precision, full-resolution output, face-vs-head modes, mask-level control, a license-free virtual face library, head-to-head benchmarks, and Pro-exclusive expression editing.",
+    "Walkthrough of the eight capabilities in Nano FaceSwap Pro 2.0: multi-face targeting, input-resolution-preserving output, face-versus-head modes, region-level mask control, the magic pen, a license-free virtual identity library, an in-app benchmark gallery, and identity-preserving expression editing.",
   author: { "@type": "Organization", name: "NanoPocket" },
   publisher: {
     "@type": "Organization",
@@ -63,12 +63,49 @@ const articleJsonLd = {
   mainEntityOfPage: "https://nanopocket.ai/apps/nano-faceswap-pro/features",
 };
 
+const featuresFaqs = [
+  {
+    q: "How many capabilities are covered in this tour?",
+    a: "Eight: multi-face targeting, input-resolution-preserving output, face-versus-head modes, region-level mask control, the magic pen brush, a license-free virtual identity library, an in-app benchmark gallery, and identity-preserving expression editing. The last two ship with the Pro Local desktop release.",
+  },
+  {
+    q: "What is the maximum output resolution?",
+    a: "Output matches the input resolution up to 4K. Identity is rendered natively at the input size, with no 128×128 upsample step that the inswapper_128 GAN used by Roop, FaceFusion, Rope, and Reactor relies on.",
+  },
+  {
+    q: "Can multiple faces be swapped at once?",
+    a: "Yes. Every detected face is targetable individually with a numbered face picker, and the tool supports a single-click swap-all path for group portraits. The same fidelity is applied to a single face or to six.",
+  },
+  {
+    q: "Does mask control work on accessories like glasses and jewelry?",
+    a: "Yes. The mask panel exposes per-region toggles for hair, clothing, apparel, the lower lip, and accessories such as nose rings and earrings. Toggling a region tells the diffusion swap to preserve those pixels in the output.",
+  },
+  {
+    q: "Do I have to upload my own photos to use the tool?",
+    a: "No. The desktop app ships with an in-app virtual identity library — hundreds of synthetic, royalty-free reference faces curated for gender and ethnicity balance — so the workflow can be tested without uploading any external photo.",
+  },
+];
+
+const featuresFaqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: featuresFaqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 export default function NanoFaceSwapProFeaturesPage() {
   return (
     <main className="relative min-h-screen bg-black">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(featuresFaqJsonLd) }}
       />
       <Navbar />
 
@@ -114,14 +151,43 @@ export default function NanoFaceSwapProFeaturesPage() {
           </span>
 
           <h1 className="mb-6 text-balance text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-            Inside Nano FaceSwap Pro 2.0.
+            Nano FaceSwap Pro 2.0 — feature tour.
           </h1>
 
-          <p className="mb-10 max-w-3xl text-balance text-base leading-relaxed text-white/60 sm:text-lg md:text-xl">
-            A complete, professional face-swap workflow — engineered for
-            creators who need pixel-perfect control, full-resolution output,
-            and a license-free path to production.
+          <p className="mb-8 max-w-3xl text-balance text-base leading-relaxed text-white/60 sm:text-lg md:text-xl">
+            Nano FaceSwap Pro 2.0 is an eight-capability diffusion face-swap
+            pipeline that targets multiple faces in one frame, preserves input
+            resolution up to 4K, and provides region-level mask control over
+            hair, clothing, and accessories.
           </p>
+
+          {/* 3 verifiable parameters — the "params chip strip" called out in the LLM-citation profile */}
+          <div className="mb-10 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
+              <div className="font-mono text-base font-semibold text-white sm:text-lg">
+                8 capabilities
+              </div>
+              <div className="mt-0.5 text-[11px] uppercase tracking-[0.14em] text-white/40">
+                Multi-face → expression edit
+              </div>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
+              <div className="font-mono text-base font-semibold text-white sm:text-lg">
+                Up to 4K
+              </div>
+              <div className="mt-0.5 text-[11px] uppercase tracking-[0.14em] text-white/40">
+                Output keeps input resolution
+              </div>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
+              <div className="font-mono text-base font-semibold text-white sm:text-lg">
+                InstantID + PuLID
+              </div>
+              <div className="mt-0.5 text-[11px] uppercase tracking-[0.14em] text-white/40">
+                Diffusion identity stack
+              </div>
+            </div>
+          </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <a
@@ -176,8 +242,39 @@ export default function NanoFaceSwapProFeaturesPage() {
         </div>
       </section>
 
-      {/* Seven feature rows — alternating, monochrome, with real product images */}
+      {/* Eight feature rows — alternating, monochrome, with real product images */}
       <FaceSwapFeatureRows />
+
+      {/* FAQ — five questions, also emitted as FAQPage JSON-LD above */}
+      <section className="relative overflow-hidden bg-black px-6 py-20 sm:py-24">
+        <div className="relative mx-auto max-w-3xl">
+          <h2 className="mb-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Frequently asked questions
+          </h2>
+          <p className="mb-10 text-sm uppercase tracking-[0.18em] text-white/40">
+            Five common questions about the feature tour
+          </p>
+
+          <div className="grid grid-cols-1 gap-4">
+            {featuresFaqs.map((f) => (
+              <details
+                key={f.q}
+                className="group rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition-colors open:border-white/20"
+              >
+                <summary className="flex cursor-pointer items-start justify-between gap-4 text-base font-semibold text-white">
+                  <span>{f.q}</span>
+                  <span className="mt-1 shrink-0 text-white/50 transition-transform group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-white/60">
+                  {f.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Closing CTA — same monochrome treatment as landing-page CTASection */}
       <section className="relative overflow-hidden bg-black px-6 py-20 sm:py-28">

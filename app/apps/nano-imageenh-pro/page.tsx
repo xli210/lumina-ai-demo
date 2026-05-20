@@ -1,351 +1,204 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import {
-  ArrowLeft,
-  ArrowRight,
-  Download,
-  Sparkles,
-  Apple,
-  Monitor,
-  Layers,
-  Crop,
-  Scissors,
-  Zap,
-  ShieldCheck,
-  Cpu,
-  Palette,
-  CheckCircle2,
-} from "lucide-react";
-import { Navbar } from "@/app/components/navbar";
-import { Footer } from "@/app/components/footer";
-import { Button } from "@/components/ui/button";
+  ProductLandingShell,
+  type ProductLandingData,
+} from "@/app/components/product-landing-shell";
 
 export const metadata: Metadata = {
-  title: "Nano ImageEnh Pro 3.0 — AI Image Enhancement for Windows & Apple Silicon",
+  title:
+    "Nano ImageEnh Pro 3.0 — Local AI Image Upscaler for Windows & Apple Silicon",
   description:
-    "Nano ImageEnh Pro 3.0 — a brand-new Electron desktop app for AI image upscaling, denoising, and restoration. Native Apple Silicon (M2–M5) support, batch processing, crop, and AI background matting. 100% local, no cloud.",
+    "Nano ImageEnh Pro 3.0 is a local desktop AI image upscaler and enhancer for Windows (NVIDIA CUDA) and Apple Silicon (M2–M5). It batch-processes folders, supports crop and AI background matting, and runs every operation on the user's GPU with no cloud upload.",
   keywords: [
-    "Nano ImageEnh Pro",
-    "AI image enhancement",
-    "AI upscaler Mac",
+    "Nano ImageEnh Pro 3.0",
+    "local AI image upscaler",
+    "AI image enhancer Mac",
     "Apple Silicon image AI",
-    "M2 M3 M4 image upscaler",
-    "batch image enhancement",
+    "M2 M3 M4 M5 image upscaler",
+    "batch image upscaler",
     "AI background matting",
-    "local AI image upscaling",
-    "Electron AI app",
+    "AI photo enhancer Windows",
     "Topaz Photo AI alternative",
+    "Magnific AI alternative",
+    "Gigapixel AI alternative",
+    "image enhancer no cloud",
   ],
   alternates: { canonical: "/apps/nano-imageenh-pro" },
   openGraph: {
-    title: "Nano ImageEnh Pro 3.0 — Grand Release",
+    title: "Nano ImageEnh Pro 3.0 — Local AI Image Upscaler",
     description:
-      "Brand-new Electron desktop app. Native Apple Silicon support. Batch processing, crop, and AI background matting — all running 100% locally on your GPU.",
+      "Local AI image upscaling and enhancement for Windows and Apple Silicon. Batch folders, crop, AI background matting — all on the user's GPU.",
     type: "website",
     url: "https://nanopocket.ai/apps/nano-imageenh-pro",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nano ImageEnh Pro 3.0 — Grand Release",
+    title: "Nano ImageEnh Pro 3.0 — Local AI Image Upscaler",
     description:
-      "Smooth Electron app with native macOS (M2–M5), batch processing, crop, and AI background matting.",
+      "Local AI image upscaler and enhancer. Native Apple Silicon (M2–M5) and NVIDIA CUDA. Batch folders, crop, background matting.",
   },
 };
 
-const softwareData = {
+const softwareJsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "Nano ImageEnh Pro",
-  operatingSystem: "Windows 10/11, macOS (Apple Silicon M2/M3/M4/M5)",
+  name: "Nano ImageEnh Pro 3.0",
+  softwareVersion: "3.0",
+  operatingSystem: "Windows 10/11, macOS Apple Silicon (M2/M3/M4/M5)",
   applicationCategory: "MultimediaApplication",
-  softwareVersion: "3.0.0",
-  offers: { "@type": "Offer", price: "29.90", priceCurrency: "USD" },
   description:
-    "AI image enhancement Pro version — Electron desktop app with batch processing, crop, AI background matting, and native Apple Silicon support.",
+    "Local AI image upscaler and enhancer with batch processing, crop, and AI background matting. Runs on NVIDIA CUDA on Windows and Apple Silicon Metal on macOS.",
+  offers: { "@type": "Offer", price: "0.00", priceCurrency: "USD" },
 };
 
-const features = [
-  {
-    icon: Zap,
-    title: "Smooth Electron desktop app",
-    description:
-      "Rebuilt from the ground up as a native-feeling Electron app. Instant startup, fluid animations, drag-and-drop everywhere — no more clunky console windows.",
-    gradient: "from-amber-400 to-orange-500",
+const data: ProductLandingData = {
+  slug: "nano-imageenh-pro",
+  hero: {
+    eyebrow: "AI Image Enhancement",
+    versionChip: "v3.0",
+    title: "Nano ImageEnh",
+    titleAccent: "Pro 3.0",
+    lead: "Nano ImageEnh Pro 3.0 is a local AI image upscaler and enhancer that runs on NVIDIA CUDA on Windows and Apple Silicon Metal on macOS, batch-processes entire folders, and produces upscaled output, transparent-background cutouts, and cropped exports without uploading any photo to the cloud.",
+    parameters: [
+      { value: "Native M2–M5", label: "Apple Silicon Metal acceleration" },
+      { value: "Batch folders", label: "Drop a directory and run" },
+      { value: "Local-only", label: "No upload · no cloud retention" },
+    ],
+    primaryCta: { label: "Download for Windows & macOS", href: "/download" },
+    secondaryCta: {
+      label: "Read the v3.0 release notes",
+      href: "/release-notes/nano-imageenh",
+      variant: "secondary",
+    },
   },
-  {
-    icon: Apple,
-    title: "Native Apple Silicon (M2–M5)",
-    description:
-      "First-class macOS support optimized for Apple Silicon — M2, M3, M4, and M5. Runs entirely on your Mac's GPU/Neural Engine, no Rosetta required.",
-    gradient: "from-slate-400 to-slate-600",
+  trust: [
+    { label: "Apple Silicon (M2, M3, M4, M5)" },
+    { label: "Windows 10/11 NVIDIA CUDA" },
+    { label: "100% local, no cloud upload" },
+    { label: "Electron desktop UI" },
+  ],
+  sections: [
+    {
+      index: "01",
+      eyebrow: "Native Apple Silicon",
+      title: "M2 to M5, on Metal.",
+      lead: "Nano ImageEnh Pro 3.0 runs natively on Apple Silicon — M2, M3, M4, and M5 — using Metal acceleration on the unified memory architecture, with no Rosetta translation step and no required NVIDIA hardware.",
+      bullets: [
+        "Native arm64 build for M2, M3, M4, and M5 Macs",
+        "Metal acceleration on unified memory",
+        "No Rosetta, no x86 emulation",
+        "Same model weights as the Windows build",
+      ],
+      hint: "Native macOS · M2–M5",
+    },
+    {
+      index: "02",
+      eyebrow: "Batch processing",
+      title: "Drop a folder, walk away.",
+      lead: "The batch pipeline accepts a single image or a complete directory of source images, processes every file with the selected upscale model, and writes results to a chosen output folder — no per-file interaction, no GUI loop, no manual reshoots.",
+      bullets: [
+        "Single-image and folder-level batch input",
+        "One upscale model selection applied to the whole batch",
+        "Output written to a separate user-chosen folder",
+        "Progress visible per file with cancel control",
+      ],
+      hint: "One folder in · one folder out",
+    },
+    {
+      index: "03",
+      eyebrow: "AI background matting",
+      title: "Transparent PNG cutouts, in one click.",
+      lead: "An AI background matting model produces transparent PNG cutouts for product photography, marketplace listings, and design composites — running on the same local GPU as the upscaler with no manual masking, no green screen, and no cloud upload.",
+      bullets: [
+        "Single-click foreground extraction",
+        "Transparent PNG export with clean alpha edges",
+        "Works on portraits, products, and arbitrary subjects",
+        "No green screen and no manual masking required",
+      ],
+      hint: "Transparent PNG · alpha-clean",
+    },
+    {
+      index: "04",
+      eyebrow: "Crop tool",
+      title: "Precision crop with the upscale.",
+      lead: "A high-precision crop tool sits inside the same desktop app, so a source image can be tightened to a region of interest before the upscale model runs, with no Photoshop round-trip required.",
+      bullets: [
+        "High-precision selection grid",
+        "Pre-upscale crop pipeline",
+        "Aspect-ratio presets for prints, posters, and social",
+        "No external editor required",
+      ],
+      hint: "Crop in · upscale out",
+    },
+    {
+      index: "05",
+      eyebrow: "Local inference",
+      title: "Photos never leave the machine.",
+      lead: "Every model — upscale, denoise, restoration, matting — runs on the user's GPU. Source photos are not uploaded, not retained server-side, and not used to train any model; the network is only contacted for license activation.",
+      bullets: [
+        "All inference local on the user's GPU",
+        "Source photos never uploaded",
+        "No server-side retention, ever",
+        "Network used only for license activation",
+      ],
+      hint: "Local-only · GDPR-friendly",
+    },
+    {
+      index: "06",
+      eyebrow: "How it compares",
+      title: "Topaz Photo AI workflow, locally.",
+      lead: "Topaz Photo AI and Gigapixel AI run locally and are paid per app; cloud platforms like Magnific and Let's Enhance run server-side and charge per credit. Nano ImageEnh Pro 3.0 runs locally on Windows and macOS with a single license, native Apple Silicon support, and no per-image charge.",
+      bullets: [
+        "Local processing on a single license",
+        "Native Apple Silicon, not just Intel-Mac translation",
+        "No per-credit or per-image charges",
+        "Bundled batch + crop + matting in one app",
+      ],
+      hint: "vs Topaz Photo AI · vs Magnific",
+    },
+  ],
+  faqs: [
+    {
+      q: "What hardware does Nano ImageEnh Pro 3.0 require?",
+      a: "Windows 10 or 11 with an NVIDIA GPU (8 GB+ VRAM recommended), or macOS on Apple Silicon (M2, M3, M4, or M5) with 16 GB+ unified memory recommended. Intel Macs are not supported in the v3.0 native build.",
+    },
+    {
+      q: "Does it run locally or in the cloud?",
+      a: "Locally. Every operation — upscale, denoise, matting, crop — runs on the user's GPU. Source photos are not uploaded or retained on any server. The only network traffic is a one-time license-activation handshake.",
+    },
+    {
+      q: "How is this different from Topaz Photo AI or Magnific?",
+      a: "Topaz Photo AI runs locally and charges per app or per cloud credit; Magnific and Let's Enhance are cloud-only and charge per generation. Nano ImageEnh Pro 3.0 runs locally on Windows and macOS with a single license, ships native Apple Silicon support, and bundles batch processing, crop, and AI background matting in one Electron app with no per-image charge.",
+    },
+    {
+      q: "Can I batch-process an entire folder?",
+      a: "Yes. The batch pipeline accepts a single image or a complete directory of source images. The selected upscale model is applied to the whole batch, output is written to a separate user-chosen folder, and a per-file progress view supports cancellation mid-run.",
+    },
+    {
+      q: "Is there a free trial?",
+      a: "The original Nano ImageEnh ships with a 7-day free trial that carries forward into Pro 3.0 for new accounts. Existing licensees receive the v3.0 upgrade as part of the same product license.",
+    },
+  ],
+  closing: {
+    title: "Install Nano ImageEnh Pro 3.0.",
+    body: "Native Apple Silicon, batch folders, AI background matting, and a single license that covers Windows and macOS. Photos never leave your machine.",
+    primaryCta: { label: "Download for Windows & macOS", href: "/download" },
+    secondaryCta: {
+      label: "Read the v3.0 release notes",
+      href: "/release-notes/nano-imageenh",
+      variant: "secondary",
+    },
   },
-  {
-    icon: Layers,
-    title: "Batch processing",
-    description:
-      "Drop in a single image or an entire folder. Nano ImageEnh Pro processes them sequentially with smart memory management — perfect for large photo libraries.",
-    gradient: "from-primary to-blue-400",
-  },
-  {
-    icon: Crop,
-    title: "Precision crop tool",
-    description:
-      "Crop with pixel-perfect control before enhancement. Save time and VRAM by enhancing only the region you care about.",
-    gradient: "from-emerald-400 to-teal-500",
-  },
-  {
-    icon: Scissors,
-    title: "AI background matting",
-    description:
-      "One-click subject extraction with clean, hair-accurate edges. Export transparent PNGs for design, e-commerce, or further compositing.",
-    gradient: "from-pink-400 to-rose-500",
-  },
-  {
-    icon: Cpu,
-    title: "Faster, smarter inference",
-    description:
-      "Memory-efficient pipeline with smart tiling. Enhance massive images on consumer hardware without out-of-memory crashes.",
-    gradient: "from-violet-400 to-purple-500",
-  },
-];
-
-const platforms = [
-  {
-    icon: Monitor,
-    label: "Windows 10/11",
-    detail: "NVIDIA GPU recommended (8 GB+ VRAM)",
-    file: "NanoImageEnh-3.0.0-windows.zip",
-    size: "89.2 MB",
-  },
-  {
-    icon: Apple,
-    label: "macOS (Apple Silicon)",
-    detail: "M2, M3, M4, or M5 — 16 GB+ unified memory",
-    file: "NanoImageEnh-3.0.0-macos.zip",
-    size: "113.8 MB",
-  },
-];
-
-const proHighlights = [
-  "Run entirely on your own GPU — no cloud, no telemetry, no uploads",
-  "One-time license — no subscriptions, ever",
-  "7-day free trial included",
-  "All 3.x updates included with your purchase",
-];
+};
 
 export default function NanoImageEnhProPage() {
   return (
-    <main className="relative min-h-screen">
+    <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
       />
-      <Navbar />
-
-      {/* Hero */}
-      <section className="relative overflow-hidden px-6 pt-28 pb-16 sm:pt-32 sm:pb-20">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute -top-32 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-primary/10 blur-[120px]" />
-          <div className="absolute top-1/3 right-0 h-[300px] w-[300px] rounded-full bg-blue-500/10 blur-[100px]" />
-        </div>
-
-        <div className="relative mx-auto max-w-4xl">
-          <Link
-            href="/download#nnanoimageenh"
-            className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Downloads
-          </Link>
-
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-xs font-semibold text-amber-500">
-            <Sparkles className="h-3.5 w-3.5" />
-            Grand Release · Version 3.0.0
-          </div>
-
-          <h1 className="mb-5 text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
-            Nano ImageEnh{" "}
-            <span className="bg-gradient-to-r from-primary via-blue-400 to-purple-500 bg-clip-text text-transparent">
-              Pro
-            </span>
-          </h1>
-
-          <p className="mb-8 max-w-2xl text-balance text-lg text-muted-foreground sm:text-xl">
-            A complete reimagining of our flagship image enhancement app — smooth Electron desktop UI, native Apple Silicon power, batch processing, crop, and AI background matting. All running 100% on your machine.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <Link href="/download#nnanoimageenh">
-              <Button
-                size="lg"
-                className="group gap-2 rounded-full bg-gradient-to-r from-primary to-blue-400 px-8 text-white border-0 shadow-lg shadow-primary/25 hover:opacity-90"
-              >
-                <Download className="h-4 w-4" />
-                Download Pro 3.0
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-            <Link href="/release-notes/nano-imageenh">
-              <Button variant="outline" size="lg" className="gap-2 rounded-full px-8">
-                Full release notes
-              </Button>
-            </Link>
-          </div>
-
-          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
-            {proHighlights.map((h) => (
-              <span key={h} className="inline-flex items-center gap-1.5">
-                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                {h}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features grid */}
-      <section className="relative px-6 py-12 sm:py-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-10 text-center">
-            <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
-              What&apos;s new in 3.0
-            </h2>
-            <p className="mx-auto max-w-2xl text-sm text-muted-foreground sm:text-base">
-              The biggest update to Nano ImageEnh ever — built for the way professional creators actually work.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((f) => {
-              const Icon = f.icon;
-              return (
-                <div
-                  key={f.title}
-                  className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/40 p-6 backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg"
-                >
-                  <div
-                    className={`mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${f.gradient} text-white shadow-md`}
-                  >
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="mb-2 text-base font-semibold text-foreground">
-                    {f.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {f.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Platforms */}
-      <section className="relative px-6 py-12 sm:py-16">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-8 text-center">
-            <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-              Now on Mac.
-            </h2>
-            <p className="mx-auto max-w-xl text-sm text-muted-foreground sm:text-base">
-              For the first time, Nano ImageEnh runs natively on Apple Silicon — alongside our trusted Windows build.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {platforms.map((p) => {
-              const Icon = p.icon;
-              return (
-                <div
-                  key={p.label}
-                  className="rounded-2xl border border-border/50 bg-card/40 p-6 backdrop-blur-sm"
-                >
-                  <div className="mb-4 flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted text-foreground">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <p className="text-base font-semibold text-foreground">
-                        {p.label}
-                      </p>
-                      <p className="text-xs text-muted-foreground">{p.detail}</p>
-                    </div>
-                  </div>
-                  <div className="rounded-xl bg-muted/50 px-4 py-3 text-xs text-muted-foreground">
-                    <code className="font-mono">{p.file}</code>
-                    <span className="ml-2 opacity-70">· {p.size}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-6 flex justify-center">
-            <Link href="/download#nnanoimageenh">
-              <Button
-                size="lg"
-                className="group gap-2 rounded-full bg-gradient-to-r from-primary to-blue-400 px-8 text-white border-0 shadow-lg shadow-primary/25 hover:opacity-90"
-              >
-                <Download className="h-4 w-4" />
-                Get Pro 3.0
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Privacy/local promise */}
-      <section className="relative px-6 py-12 sm:py-16">
-        <div className="mx-auto max-w-4xl">
-          <div className="rounded-3xl border border-border/50 bg-gradient-to-br from-card/60 to-card/20 p-8 backdrop-blur-sm sm:p-10">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500">
-                  <ShieldCheck className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="mb-1 text-sm font-semibold text-foreground">
-                    100% local
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Your photos never leave your machine.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <Cpu className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="mb-1 text-sm font-semibold text-foreground">
-                    GPU-accelerated
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    NVIDIA CUDA on Windows · Metal on Apple Silicon.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-500">
-                  <Palette className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="mb-1 text-sm font-semibold text-foreground">
-                    Made by AI experts
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Built by a team of Generative AI and image quality PhDs.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-    </main>
+      <ProductLandingShell data={data} />
+    </>
   );
 }

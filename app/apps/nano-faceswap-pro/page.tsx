@@ -1,93 +1,37 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import {
-  ArrowLeft,
-  ArrowRight,
-  Sparkles,
-  Image as ImageIcon,
-  Video,
-  ShieldCheck,
-  Cpu,
-  Zap,
-  Layers,
-  Eye,
-  Lock,
-  Gauge,
-  CheckCircle2,
-  Users,
-  Atom,
-  FlaskConical,
-  Award,
-} from "lucide-react";
-import { Navbar } from "@/app/components/navbar";
-import { Footer } from "@/app/components/footer";
-import { Button } from "@/components/ui/button";
+  ProductLandingShell,
+  type ProductLandingData,
+} from "@/app/components/product-landing-shell";
+import { FACESWAP_PRO_DEMO_URL } from "./features/feature-rows";
 
 export const metadata: Metadata = {
   title:
-    "Nano FaceSwap Pro 2.0 — Free Online Diffusion Face Swap, Runs 100% Local",
+    "Nano FaceSwap Pro 2.0 — Free Online Diffusion Face Swap, 100% Local Desktop",
   description:
-    "Try Nano FaceSwap Pro 2.0 free — the best diffusion-based local face swap for photos and videos. Built on InstantID, PuLID, IP-Adapter FaceID and InsightFace research. A private, GPU-accelerated alternative to Roop, FaceFusion, Rope, Deep-Live-Cam, Reactor, DeepSwap, Akool, and HeyGen — no cloud uploads, no subscription.",
+    "Nano FaceSwap Pro 2.0 is a diffusion-based face swap with a free online demo and a 100% local desktop pipeline. Built on InstantID, PuLID, and IP-Adapter FaceID research; preserves accessories, runs at full input resolution, and ships with a virtual identity library.",
   keywords: [
-    // Core product terms
     "Nano FaceSwap Pro 2.0",
-    "Nano FaceSwap Pro",
-    "NanoPocket face swap",
-    "free face swap",
     "free online face swap",
-    "best face swap AI",
-    "face swap free trial",
-    "face swap demo",
-
-    // Local / privacy angle
-    "local face swap",
-    "offline face swap",
-    "private face swap",
-    "face swap no cloud",
-    "face swap desktop app",
-    "GPU face swap",
-
-    // Diffusion tech angle
     "diffusion face swap",
-    "diffusion model face swap",
-    "stable diffusion face swap",
+    "local face swap",
     "InstantID face swap",
     "PuLID face swap",
     "IP-Adapter FaceID",
-    "PhotoMaker face swap",
-    "ACE face swap",
-    "InsightFace swapper",
-    "inswapper alternative",
-
-    // Competitor / alternative terms
     "Roop alternative",
-    "Roop Unleashed alternative",
     "FaceFusion alternative",
     "Rope alternative",
-    "Rope Live alternative",
-    "Reactor face swap alternative",
-    "Deep-Live-Cam alternative",
-    "deepfacelive alternative",
     "DeepSwap alternative",
-    "DeepFaceLab alternative",
-    "SimSwap alternative",
     "Akool alternative",
     "HeyGen face swap alternative",
-    "Reface alternative",
-    "DeepBrain alternative",
-
-    // Video / image face swap
-    "video face swap AI",
-    "image face swap AI",
-    "face swap video free",
-    "AI face swap photo",
-    "temporal consistent face swap",
+    "private face swap",
+    "GPU face swap",
   ],
   alternates: { canonical: "/apps/nano-faceswap-pro" },
   openGraph: {
     title: "Nano FaceSwap Pro 2.0 — Free Online Diffusion Face Swap",
     description:
-      "Nano FaceSwap Pro 2.0: best-in-class diffusion face swap for images and videos. 100% local. Free trial — no sign-up fees, no cloud uploads. A private alternative to Roop, FaceFusion, Rope, Reactor, and DeepSwap.",
+      "Diffusion face swap with free online demo and 100% local desktop pipeline. Built on InstantID, PuLID, and IP-Adapter FaceID research. A private alternative to Roop, FaceFusion, Rope, DeepSwap, and Akool.",
     type: "website",
     url: "https://nanopocket.ai/apps/nano-faceswap-pro",
   },
@@ -95,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Nano FaceSwap Pro 2.0 — Free Online Diffusion Face Swap",
     description:
-      "Nano FaceSwap Pro 2.0 — diffusion-based face swap that runs 100% on your GPU. Free online trial. Alternative to Roop, FaceFusion, Rope, Deep-Live-Cam, DeepSwap, and Akool.",
+      "Diffusion-based face swap that runs in your browser for testing and on your GPU for production.",
   },
 };
 
@@ -104,546 +48,174 @@ const softwareJsonLd = {
   "@type": "SoftwareApplication",
   name: "Nano FaceSwap Pro 2.0",
   softwareVersion: "2.0",
-  operatingSystem: "Web (online demo) · Windows 10/11 · macOS (Apple Silicon)",
+  operatingSystem: "Web (online demo) · Windows 10/11 · macOS Apple Silicon",
   applicationCategory: "MultimediaApplication",
   description:
-    "Nano FaceSwap Pro 2.0 — diffusion-based AI face swap for images and videos. 100% local, GPU-accelerated, private. A free-trial alternative to Roop, FaceFusion, Rope, Deep-Live-Cam, Reactor, DeepSwap, Akool, and HeyGen.",
+    "Diffusion-based face swap for images and video, built on InstantID, PuLID, and IP-Adapter FaceID research. Free online demo plus a 100% local desktop pipeline.",
   offers: { "@type": "Offer", price: "0.00", priceCurrency: "USD" },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.8",
-    reviewCount: "127",
-  },
 };
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "Is Nano FaceSwap Pro 2.0 really free to try?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. The online Image FaceSwap Pro and Video FaceSwap Pro demos are free for every signed-in NanoPocket account — no credit card, no watermarks on test outputs. The Nano FaceSwap Pro 2.0 desktop app launches soon and will include a free trial at release.",
+const data: ProductLandingData = {
+  slug: "nano-faceswap-pro",
+  hero: {
+    eyebrow: "Free online · Diffusion face swap",
+    versionChip: "v2.0",
+    title: "Nano FaceSwap",
+    titleAccent: "Pro 2.0",
+    lead: "Nano FaceSwap Pro 2.0 is a diffusion-based face swap that runs in your browser for free testing and on a local NVIDIA or Apple Silicon GPU for production, preserving the input resolution and every accessory in the frame.",
+    parameters: [
+      { value: "Up to 4K", label: "Output keeps the input resolution" },
+      {
+        value: "InstantID + PuLID",
+        label: "Diffusion identity stack (with IP-Adapter FaceID)",
       },
+      {
+        value: "Free online + local",
+        label: "Browser demo · NVIDIA CUDA · Apple Silicon Metal",
+      },
+    ],
+    primaryCta: {
+      label: "Try free online",
+      href: FACESWAP_PRO_DEMO_URL,
+      external: true,
+    },
+    secondaryCta: {
+      label: "See all features",
+      href: "/apps/nano-faceswap-pro/features",
+      variant: "secondary",
+    },
+  },
+  trust: [
+    { label: "Free online demo" },
+    { label: "100% local on the desktop" },
+    { label: "InstantID / PuLID / IP-Adapter FaceID research" },
+    { label: "No cloud upload required" },
+  ],
+  sections: [
+    {
+      index: "01",
+      eyebrow: "Diffusion identity stack",
+      title: "A diffusion pipeline, not an inswapper_128 GAN.",
+      lead: "The identity head is a diffusion model trained on top of InstantID, PuLID, IP-Adapter FaceID, and PhotoMaker research, which produces native high-resolution output and preserves skin texture without the 128-pixel bottleneck used by Roop, FaceFusion, Rope, and Reactor.",
+      bullets: [
+        "Native high-resolution diffusion output — no 128×128 upsample step",
+        "Identity preservation across lighting and exposure changes",
+        "Skin texture, pores, and specular highlights kept intact",
+        "Built on published research (InstantID, PuLID, IP-Adapter FaceID, PhotoMaker)",
+      ],
+      hint: "Diffusion identity head · 1024+ pixel native",
     },
     {
-      "@type": "Question",
-      name: "What makes Nano FaceSwap Pro 2.0 a 'diffusion' face swap?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Most open-source tools (Roop, FaceFusion, Rope, Reactor, Deep-Live-Cam) are built on the InsightFace inswapper_128 model — a GAN with fixed 128×128 identity output. Nano FaceSwap Pro uses a diffusion-based identity pipeline inspired by InstantID, PuLID, IP-Adapter FaceID, and PhotoMaker research, combined with our own identity encoder. The result is higher resolution, better lighting adaptation, and far more natural skin texture.",
-      },
+      index: "02",
+      eyebrow: "Free online demo",
+      title: "Try every signed-in account, free.",
+      lead: "The Image FaceSwap Pro and Video FaceSwap Pro online demos are open to every signed-in NanoPocket account at no cost; no credit card, no per-minute charge, no watermark on test outputs.",
+      bullets: [
+        "Image and video face swap demos available in the browser",
+        "No credit card and no per-minute fees",
+        "Test outputs are watermark-free",
+        "Demo runs on NanoPocket-hosted GPUs, not the user's machine",
+      ],
+      hint: "Free for signed-in users",
     },
     {
-      "@type": "Question",
-      name: "Does Nano FaceSwap Pro run locally?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. The desktop app runs 100% on your own GPU — NVIDIA CUDA on Windows and Apple Silicon (M2–M5) Metal on macOS. Your photos and videos never leave your machine. The free online demo is hosted by us for quick testing.",
-      },
+      index: "03",
+      eyebrow: "Local desktop (Pro)",
+      title: "Same model, on your hardware.",
+      lead: "The desktop release runs the full diffusion pipeline locally on a single GPU — NVIDIA CUDA on Windows or Apple Silicon Metal on macOS — so source photos and videos never leave the user's machine.",
+      bullets: [
+        "Single-GPU local inference on Windows 10/11 (NVIDIA CUDA)",
+        "Apple Silicon (M2, M3, M4, M5) Metal acceleration on macOS",
+        "Source media stays on the local disk",
+        "One-time license, no per-minute or per-frame fees",
+      ],
+      hint: "100% local · GDPR-friendly",
     },
     {
-      "@type": "Question",
-      name: "How is Nano FaceSwap Pro different from Roop, FaceFusion, or Rope?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Roop, Roop-Unleashed, FaceFusion, Rope, Rope-Live, and Deep-Live-Cam all share the same underlying inswapper_128 GAN, which caps output quality at 128×128 before upscaling. Nano FaceSwap Pro uses a native high-resolution diffusion pipeline, giving sharper skin detail, better lighting match, and stronger identity preservation — with a polished desktop UI instead of a Gradio script.",
-      },
+      index: "04",
+      eyebrow: "Two modes",
+      title: "Face only or full head, one toggle.",
+      lead: "A single mode toggle decides whether identity transfer is restricted to the face region or extended to the whole head — including hair, hairline, and jawline — without re-uploading or reconfiguring the job.",
+      bullets: [
+        "Face-only mode: original hair, ears, and head shape preserved",
+        "Full-head mode: hair and jawline transferred from reference",
+        "Mode switch is per image, no re-upload required",
+      ],
+      hint: "Single toggle · per-image control",
     },
     {
-      "@type": "Question",
-      name: "Is this a DeepSwap, Akool, or HeyGen alternative?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. DeepSwap, Akool, HeyGen, DeepBrain, and Reface are cloud-based — they upload your video to their servers and charge per minute. Nano FaceSwap Pro runs entirely on your own hardware, with a one-time license, no per-minute fees, and no uploads.",
-      },
+      index: "05",
+      eyebrow: "Mask control",
+      title: "Accessories survive the swap.",
+      lead: "A panel of region toggles (hair, clothing, apparel, lower lip, accessories) tells the diffusion swap which pixels to leave alone, so jewelry, hats, glasses, and makeup brushes that cross the face region remain in the output.",
+      bullets: [
+        "Per-region preservation (hair, clothing, apparel, accessories)",
+        "Toggle once, applied to every face in the image",
+        "Works with the magic pen for pixel-level brush correction",
+      ],
+      hint: "Region-level mask + magic pen",
     },
     {
-      "@type": "Question",
-      name: "Does it handle video face swap with temporal consistency?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. Video FaceSwap Pro uses a temporally-aware pipeline with optical-flow-guided identity propagation, similar in spirit to DeepFaceLab and Rope-Live but built on a diffusion backbone. Faces stay stable frame-to-frame, even with strong head motion.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What hardware do I need?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Any modern NVIDIA GPU with 8 GB+ VRAM on Windows, or Apple Silicon (M2 and newer) with 16 GB+ unified memory on macOS. For the online demo, any modern browser works — the compute runs on our server.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Is diffusion-based face swap legal and ethical?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Nano FaceSwap Pro is a creative tool for consented use — portrait photography, film VFX, concept art, and personal projects. Non-consensual use of anyone's likeness is prohibited by our Terms of Use. Because it runs locally, you retain full control of every output.",
-      },
+      index: "06",
+      eyebrow: "Virtual identity library",
+      title: "License-free reference faces, in-app.",
+      lead: "Every desktop release ships with an in-app gallery of synthetic identities — gender- and ethnicity-balanced, royalty-free, and usable with no third-party model release — so creative briefs can be matched without uploading an external photo.",
+      bullets: [
+        "Hundreds of curated synthetic reference identities",
+        "Gender- and ethnicity-balanced for casting",
+        "Royalty-free for personal and commercial work",
+        "Test the tool privately without uploading anyone's photo",
+      ],
+      hint: "Royalty-free · in-app gallery",
     },
   ],
+  faqs: [
+    {
+      q: "Is Nano FaceSwap Pro 2.0 really free?",
+      a: "Yes. The Image FaceSwap Pro and Video FaceSwap Pro online demos are free for every signed-in NanoPocket account, with no credit card and no watermark on test outputs. The Nano FaceSwap Pro 2.0 desktop app launches with a free trial at release.",
+    },
+    {
+      q: "How does Nano FaceSwap Pro 2.0 differ from Roop, FaceFusion, and Rope?",
+      a: "Roop, Roop-Unleashed, FaceFusion, Rope, Rope-Live, Reactor, and Deep-Live-Cam share the InsightFace inswapper_128 GAN, which produces 128×128 identity output and then upscales. Nano FaceSwap Pro 2.0 uses a native high-resolution diffusion pipeline derived from InstantID, PuLID, and IP-Adapter FaceID research, so identity output stays at the input resolution and skin detail is preserved without an upscaling step.",
+    },
+    {
+      q: "Does Nano FaceSwap Pro 2.0 run locally?",
+      a: "Yes. The desktop release runs the full diffusion pipeline on a single local GPU — NVIDIA CUDA on Windows 10/11 or Apple Silicon Metal on macOS (M2, M3, M4, M5). Source photos and videos remain on the user's machine. The free online demo is hosted by NanoPocket for in-browser testing.",
+    },
+    {
+      q: "Is this a DeepSwap, Akool, or HeyGen alternative?",
+      a: "DeepSwap, Akool, HeyGen, DeepBrain, and Reface are cloud services that upload media to their servers and charge per minute. Nano FaceSwap Pro 2.0 runs in the user's browser for free testing or on the user's local GPU for production, with a one-time license and no per-minute fees.",
+    },
+    {
+      q: "Does video face swap maintain temporal consistency?",
+      a: "Yes. The Video FaceSwap Pro pipeline uses optical-flow-guided identity propagation on a diffusion backbone, so faces stay stable across frames even on long clips with strong head motion. Frame-rate handling is automatic and supports up to 1080p input in the online demo.",
+    },
+  ],
+  closing: {
+    title: "Try Nano FaceSwap Pro 2.0 in your browser.",
+    body: "Free online demos for both Image FaceSwap Pro and Video FaceSwap Pro are open to every signed-in NanoPocket account. The full Nano FaceSwap Pro 2.0 desktop app — virtual identity library, expression editor, and benchmark gallery — launches soon.",
+    primaryCta: {
+      label: "Try free online",
+      href: FACESWAP_PRO_DEMO_URL,
+      external: true,
+    },
+    secondaryCta: {
+      label: "Desktop app coming soon",
+      href: "#",
+      disabled: true,
+      variant: "secondary",
+    },
+  },
 };
-
-const features = [
-  {
-    icon: Atom,
-    title: "Diffusion-based identity pipeline",
-    description:
-      "Not another inswapper_128 GAN. Our pipeline draws on InstantID, PuLID, IP-Adapter FaceID, and PhotoMaker research — delivering native high-resolution output, stronger identity lock-in, and natural skin texture.",
-    gradient: "from-indigo-500 to-purple-500",
-  },
-  {
-    icon: Lock,
-    title: "100% local, 100% private",
-    description:
-      "The desktop app runs entirely on your GPU. No cloud uploads, no telemetry, no per-minute fees. Unlike DeepSwap, Akool, HeyGen, or Reface, your photos and videos never leave your machine.",
-    gradient: "from-emerald-500 to-teal-500",
-  },
-  {
-    icon: Video,
-    title: "Temporally-consistent video",
-    description:
-      "Video FaceSwap Pro uses optical-flow-guided identity propagation for frame-to-frame stability — smoother motion than Roop-Unleashed, FaceFusion, or Rope, even on long clips and fast head motion.",
-    gradient: "from-purple-500 to-fuchsia-500",
-  },
-  {
-    icon: Gauge,
-    title: "Fast on consumer hardware",
-    description:
-      "Tuned for 8 GB NVIDIA GPUs and Apple Silicon (M2–M5). Batch a folder of images, swap a full-length video, or run the online demo in your browser — no data-center required.",
-    gradient: "from-amber-400 to-orange-500",
-  },
-  {
-    icon: Eye,
-    title: "Better lighting & color match",
-    description:
-      "Most GAN-based swappers paste a face on; diffusion re-synthesizes it in context. Lighting, shadow direction, white balance, and film grain are preserved far better than Roop, Reactor, or SimSwap.",
-    gradient: "from-rose-400 to-pink-500",
-  },
-  {
-    icon: Layers,
-    title: "Image + video in one app",
-    description:
-      "Most tools pick a lane — Roop for video, FaceFusion for both, InstantID for single images. Nano FaceSwap Pro unifies image and video swap in a single polished desktop app, with a shared identity model.",
-    gradient: "from-primary to-blue-400",
-  },
-];
-
-const competitors = [
-  {
-    name: "Roop / Roop-Unleashed",
-    stack: "InsightFace inswapper_128 GAN · Gradio UI",
-    ours: "Diffusion pipeline · native HD · desktop app",
-  },
-  {
-    name: "FaceFusion",
-    stack: "inswapper_128 + face-enhancer upscale",
-    ours: "Single-pass HD diffusion, no artifact-prone upscale chain",
-  },
-  {
-    name: "Rope / Rope-Live",
-    stack: "inswapper_128, real-time webcam swap",
-    ours: "Higher fidelity video swap with temporal consistency",
-  },
-  {
-    name: "Reactor (ComfyUI)",
-    stack: "inswapper_128 as a ComfyUI node",
-    ours: "Polished standalone app, no workflow wiring required",
-  },
-  {
-    name: "Deep-Live-Cam / deepfacelive",
-    stack: "Real-time GAN-based webcam swap",
-    ours: "Higher-quality offline image + video, identity-stable",
-  },
-  {
-    name: "SimSwap / DeepFaceLab",
-    stack: "GAN, training-heavy workflow",
-    ours: "No training — one reference photo is enough",
-  },
-  {
-    name: "DeepSwap / Akool / Reface",
-    stack: "Cloud SaaS, per-minute pricing, upload required",
-    ours: "Local GPU, one-time license, no uploads",
-  },
-  {
-    name: "HeyGen / DeepBrain",
-    stack: "Cloud avatar & face-swap, subscription",
-    ours: "Private, offline, no subscription",
-  },
-];
-
-const researchCredits = [
-  {
-    name: "InstantID",
-    note: "Zero-shot diffusion identity conditioning",
-  },
-  { name: "PuLID", note: "Pure and lightning identity embedding" },
-  { name: "IP-Adapter FaceID", note: "Identity adapter for diffusion models" },
-  { name: "PhotoMaker", note: "Stacked ID embeddings for portraits" },
-  { name: "InsightFace ArcFace", note: "Face identity encoding" },
-  { name: "ControlNet / T2I-Adapter", note: "Structure-preserving conditioning" },
-];
-
-const trustHighlights = [
-  "Built by GenAI & image-quality PhDs with 10+ years of research",
-  "Free online demo — no credit card required",
-  "One-time desktop license — no subscriptions",
-  "7-day desktop free trial on Windows and macOS",
-  "100% local execution — your face data never leaves your machine",
-];
 
 export default function NanoFaceSwapProPage() {
   return (
-    <main className="relative min-h-screen">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <Navbar />
-
-      {/* Hero */}
-      <section className="relative overflow-hidden px-6 pt-28 pb-16 sm:pt-32 sm:pb-20">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute -top-32 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[120px]" />
-          <div className="absolute top-1/3 right-0 h-[320px] w-[320px] rounded-full bg-purple-500/10 blur-[100px]" />
-          <div className="absolute bottom-0 left-0 h-[260px] w-[260px] rounded-full bg-fuchsia-500/10 blur-[100px]" />
-        </div>
-
-        <div className="relative mx-auto max-w-4xl">
-          <Link
-            href="/#announcement"
-            className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to demos
-          </Link>
-
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold text-indigo-500">
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>Free online demo · Diffusion face swap</span>
-            <span className="h-3 w-px bg-indigo-500/40" />
-            <span className="font-mono">v2.0</span>
-          </div>
-
-          <h1 className="mb-5 text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
-            Nano FaceSwap{" "}
-            <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-fuchsia-500 bg-clip-text text-transparent">
-              Pro 2.0
-            </span>
-          </h1>
-
-          <p className="mb-4 max-w-3xl text-balance text-lg text-muted-foreground sm:text-xl">
-            The best diffusion-based face swap for photos and videos — running 100% locally on your GPU. Try Nano FaceSwap Pro 2.0 free online, no sign-up fees.
-          </p>
-
-          <p className="mb-8 max-w-3xl text-sm text-muted-foreground/80 sm:text-base">
-            A private, offline alternative to{" "}
-            <span className="font-medium text-foreground/80">Roop</span>,{" "}
-            <span className="font-medium text-foreground/80">FaceFusion</span>,{" "}
-            <span className="font-medium text-foreground/80">Rope</span>,{" "}
-            <span className="font-medium text-foreground/80">Reactor</span>,{" "}
-            <span className="font-medium text-foreground/80">Deep-Live-Cam</span>,{" "}
-            <span className="font-medium text-foreground/80">DeepSwap</span>,{" "}
-            <span className="font-medium text-foreground/80">Akool</span>, and{" "}
-            <span className="font-medium text-foreground/80">HeyGen</span> — built on the latest diffusion research (InstantID, PuLID, IP-Adapter FaceID, PhotoMaker, InsightFace).
-          </p>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <Link href="/#announcement">
-              <Button
-                size="lg"
-                className="group gap-2 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-fuchsia-500 px-8 text-white border-0 shadow-lg shadow-indigo-500/25 hover:opacity-90"
-              >
-                <Sparkles className="h-4 w-4" />
-                Try Free Online
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-            <Link href="/apps/nano-faceswap-pro/features">
-              <Button
-                variant="outline"
-                size="lg"
-                className="gap-2 rounded-full px-8"
-              >
-                See all features
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
-            <Button
-              variant="ghost"
-              size="lg"
-              disabled
-              aria-disabled="true"
-              className="gap-2 rounded-full px-8 cursor-not-allowed text-muted-foreground/60 hover:bg-transparent hover:text-muted-foreground/60"
-            >
-              <span className="relative inline-flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-foreground/40 opacity-60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-foreground/50" />
-              </span>
-              Desktop app coming soon
-            </Button>
-          </div>
-
-          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
-            {trustHighlights.map((h) => (
-              <span key={h} className="inline-flex items-center gap-1.5">
-                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                {h}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Feature grid */}
-      <section className="relative px-6 py-12 sm:py-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-10 text-center">
-            <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
-              Why a diffusion face swap is different
-            </h2>
-            <p className="mx-auto max-w-2xl text-sm text-muted-foreground sm:text-base">
-              Most popular open-source face swap tools — Roop, FaceFusion, Rope, Reactor, Deep-Live-Cam — share the same underlying GAN (InsightFace <code className="font-mono text-[13px]">inswapper_128</code>). Nano FaceSwap Pro is built on a modern diffusion stack.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((f) => {
-              const Icon = f.icon;
-              return (
-                <div
-                  key={f.title}
-                  className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/40 p-6 backdrop-blur-sm transition-all duration-300 hover:border-indigo-500/30 hover:shadow-lg"
-                >
-                  <div
-                    className={`mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${f.gradient} text-white shadow-md`}
-                  >
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="mb-2 text-base font-semibold text-foreground">
-                    {f.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {f.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Comparison / "best players" section */}
-      <section className="relative px-6 py-12 sm:py-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-10 text-center">
-            <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
-              How it compares to the best face-swap tools in the world
-            </h2>
-            <p className="mx-auto max-w-2xl text-sm text-muted-foreground sm:text-base">
-              We have deep respect for the open-source and commercial tools that built this field. Here&apos;s an honest, technical view of how Nano FaceSwap Pro differs.
-            </p>
-          </div>
-
-          <div className="overflow-hidden rounded-2xl border border-border/50 bg-card/40 backdrop-blur-sm">
-            <div className="grid grid-cols-12 gap-4 border-b border-border/50 bg-muted/40 px-5 py-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-              <div className="col-span-4">Tool</div>
-              <div className="col-span-4">Their stack</div>
-              <div className="col-span-4">Our difference</div>
-            </div>
-            {competitors.map((c, i) => (
-              <div
-                key={c.name}
-                className={`grid grid-cols-12 gap-4 px-5 py-4 text-sm ${
-                  i !== competitors.length - 1
-                    ? "border-b border-border/30"
-                    : ""
-                }`}
-              >
-                <div className="col-span-12 font-semibold text-foreground sm:col-span-4">
-                  {c.name}
-                </div>
-                <div className="col-span-12 text-muted-foreground sm:col-span-4">
-                  {c.stack}
-                </div>
-                <div className="col-span-12 text-foreground/90 sm:col-span-4">
-                  {c.ours}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <p className="mt-4 text-center text-xs text-muted-foreground/70">
-            All trademarks belong to their respective owners. We reference these tools purely for technical comparison.
-          </p>
-        </div>
-      </section>
-
-      {/* Research credits */}
-      <section className="relative px-6 py-12 sm:py-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-8 text-center">
-            <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-              Built on modern diffusion research
-            </h2>
-            <p className="mx-auto max-w-2xl text-sm text-muted-foreground sm:text-base">
-              We stand on the shoulders of the open research community. Nano FaceSwap Pro integrates ideas from these landmark papers and models:
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            {researchCredits.map((r) => (
-              <div
-                key={r.name}
-                className="rounded-2xl border border-border/50 bg-card/40 p-4 backdrop-blur-sm"
-              >
-                <div className="mb-2 flex items-center gap-2">
-                  <FlaskConical className="h-4 w-4 text-indigo-500" />
-                  <p className="text-sm font-semibold text-foreground">
-                    {r.name}
-                  </p>
-                </div>
-                <p className="text-xs text-muted-foreground">{r.note}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Trust / privacy */}
-      <section className="relative px-6 py-12 sm:py-16">
-        <div className="mx-auto max-w-4xl">
-          <div className="rounded-3xl border border-border/50 bg-gradient-to-br from-card/60 to-card/20 p-8 backdrop-blur-sm sm:p-10">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500">
-                  <ShieldCheck className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="mb-1 text-sm font-semibold text-foreground">
-                    100% local
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Desktop app runs on your own GPU. Your face data never touches a server.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-500">
-                  <Cpu className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="mb-1 text-sm font-semibold text-foreground">
-                    GPU-accelerated
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    NVIDIA CUDA on Windows · Metal on Apple Silicon (M2–M5).
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-500">
-                  <Award className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="mb-1 text-sm font-semibold text-foreground">
-                    Built by researchers
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Made by Generative AI and image-quality PhDs with 10+ years of industry research.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="relative px-6 py-12 sm:py-16">
-        <div className="mx-auto max-w-4xl">
-          <div className="relative overflow-hidden rounded-3xl border border-indigo-500/20 bg-gradient-to-br from-indigo-950/80 via-slate-900/90 to-purple-950/80 p-8 text-center sm:p-12">
-            <div className="pointer-events-none absolute inset-0 overflow-hidden">
-              <div className="absolute -top-20 left-1/2 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-indigo-500/20 blur-[100px]" />
-            </div>
-            <div className="relative">
-              <h2 className="mb-3 text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
-                Try Nano FaceSwap Pro — free
-              </h2>
-              <p className="mx-auto mb-6 max-w-2xl text-sm text-slate-300 sm:text-base">
-                Two online demos, one for images and one for videos. Sign in with a free NanoPocket account and swap a face in under a minute.
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <Link href="/#announcement">
-                  <Button
-                    size="lg"
-                    className="group gap-2 rounded-full bg-white text-slate-900 hover:bg-white/90 shadow-lg"
-                  >
-                    <ImageIcon className="h-4 w-4" />
-                    Try Image FaceSwap Pro
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </Link>
-                <Link href="/#announcement">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="group gap-2 rounded-full border-white/30 bg-white/5 text-white hover:bg-white/10"
-                  >
-                    <Video className="h-4 w-4" />
-                    Try Video FaceSwap Pro
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </Link>
-              </div>
-              <p className="mt-4 text-xs text-slate-400">
-                <Users className="mb-[2px] mr-1 inline h-3 w-3" />
-                Free for every signed-in account · no credit card required
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="relative px-6 py-12 sm:py-16">
-        <div className="mx-auto max-w-3xl">
-          <div className="mb-8 text-center">
-            <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-              Frequently asked questions
-            </h2>
-            <p className="mx-auto max-w-2xl text-sm text-muted-foreground">
-              Technical details on our diffusion face-swap pipeline and how it stacks up against the best tools in the world.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {faqJsonLd.mainEntity.map((item) => (
-              <details
-                key={item.name}
-                className="group rounded-2xl border border-border/50 bg-card/40 p-5 backdrop-blur-sm transition-all hover:border-indigo-500/30"
-              >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-foreground">
-                  {item.name}
-                  <Zap className="h-4 w-4 shrink-0 text-indigo-500 transition-transform group-open:rotate-90" />
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {item.acceptedAnswer.text}
-                </p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-    </main>
+      <ProductLandingShell data={data} />
+    </>
   );
 }
