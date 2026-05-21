@@ -39,20 +39,41 @@ export const metadata: Metadata = {
   },
 };
 
-const softwareJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Nano ImageEnh Pro 3.0",
-  softwareVersion: "3.0",
-  operatingSystem: "Windows 10/11, macOS Apple Silicon (M2/M3/M4/M5)",
-  applicationCategory: "MultimediaApplication",
-  description:
-    "Local AI image upscaler and enhancer with batch processing, crop, and AI background matting. Runs on NVIDIA CUDA on Windows and Apple Silicon Metal on macOS.",
-  offers: { "@type": "Offer", price: "0.00", priceCurrency: "USD" },
-};
-
 const data: ProductLandingData = {
   slug: "nano-imageenh-pro",
+  productMeta: {
+    sku: "NPK-IEN-300",
+    mpn: "NPK-IEN-300",
+    brand: "NanoPocket",
+    url: "https://nanopocket.ai/apps/nano-imageenh-pro",
+    image: "https://nanopocket.ai/og-image.jpg",
+    category: "Local AI Image Upscaler & Enhancer",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem:
+      "Windows 10/11 (NVIDIA CUDA); macOS Apple Silicon (M2/M3/M4/M5, Metal)",
+    softwareVersion: "3.0",
+    releaseDate: "2026-04-22",
+    description:
+      "Nano ImageEnh Pro 3.0 — local AI image upscaler and enhancer for Windows (NVIDIA CUDA) and Apple Silicon (M2–M5, Metal). Native arm64 build, batch folder processing, AI background matting, crop. All inference on the user's GPU. A local alternative to Topaz Photo AI, Gigapixel AI, Magnific, and Let's Enhance.",
+    offer: {
+      price: "0.00",
+      priceCurrency: "USD",
+      availability: "InStock",
+      priceValidUntil: "2027-12-31",
+    },
+    additionalProperties: [
+      { name: "Apple Silicon support", value: "Native arm64 build for M2, M3, M4, M5 (Metal, no Rosetta)" },
+      { name: "Windows GPU support", value: "NVIDIA CUDA, 8 GB VRAM minimum" },
+      { name: "Batch processing", value: "Single image or full directory" },
+      { name: "AI background matting", value: "Transparent PNG cutouts, alpha-clean edges" },
+      { name: "Crop tool", value: "Pre-upscale crop with aspect-ratio presets" },
+      { name: "UI runtime", value: "Electron desktop UI" },
+      { name: "Data handling", value: "100% local; no upload, no server-side retention" },
+      { name: "Network requirement", value: "Only for one-time license activation" },
+      { name: "Bundled models", value: "Upscale, denoise, restoration, matting" },
+      { name: "License model", value: "One-time, machine-bound; covers Windows + macOS" },
+    ],
+  },
   hero: {
     eyebrow: "AI Image Enhancement",
     versionChip: "v3.0",
@@ -159,24 +180,32 @@ const data: ProductLandingData = {
   ],
   faqs: [
     {
-      q: "What hardware does Nano ImageEnh Pro 3.0 require?",
-      a: "Windows 10 or 11 with an NVIDIA GPU (8 GB+ VRAM recommended), or macOS on Apple Silicon (M2, M3, M4, or M5) with 16 GB+ unified memory recommended. Intel Macs are not supported in the v3.0 native build.",
+      q: "Will it run on my M2 (or M3 / M4 / M5) MacBook?",
+      a: "Yes. The v3.0 release ships a native arm64 build that runs on Apple Silicon using Metal acceleration on the unified memory architecture. M2, M3, M4, and M5 are all supported. Intel Macs are not supported.",
     },
     {
-      q: "Does it run locally or in the cloud?",
-      a: "Locally. Every operation — upscale, denoise, matting, crop — runs on the user's GPU. Source photos are not uploaded or retained on any server. The only network traffic is a one-time license-activation handshake.",
+      q: "What about Windows — do I need an NVIDIA card?",
+      a: "Yes. On Windows 10/11 the upscale, denoise, and matting models run on NVIDIA CUDA. 8 GB of VRAM is the recommended minimum; RTX 30 / 40 / 50-series cards are tested.",
     },
     {
-      q: "How is this different from Topaz Photo AI or Magnific?",
-      a: "Topaz Photo AI runs locally and charges per app or per cloud credit; Magnific and Let's Enhance are cloud-only and charge per generation. Nano ImageEnh Pro 3.0 runs locally on Windows and macOS with a single license, ships native Apple Silicon support, and bundles batch processing, crop, and AI background matting in one Electron app with no per-image charge.",
+      q: "Can I batch-process a whole folder of photos?",
+      a: "Yes. Point the batch pipeline at a directory of source images, pick one upscale model, and the app writes every result to a separate user-chosen output folder. There is a per-file progress view with a cancel button mid-run.",
     },
     {
-      q: "Can I batch-process an entire folder?",
-      a: "Yes. The batch pipeline accepts a single image or a complete directory of source images. The selected upscale model is applied to the whole batch, output is written to a separate user-chosen folder, and a per-file progress view supports cancellation mid-run.",
+      q: "Do my photos get uploaded to your server?",
+      a: "No. Every operation — upscale, denoise, restoration, matting, crop — runs on the user's GPU. Source photos are never uploaded and never retained server-side. The only network traffic is a one-time license-activation handshake.",
+    },
+    {
+      q: "How is this different from Topaz Photo AI, Gigapixel, or Magnific?",
+      a: "Topaz Photo AI and Gigapixel AI run locally but split features across multiple paid apps. Magnific and Let's Enhance run server-side and charge per generation. Nano ImageEnh Pro 3.0 bundles upscale + denoise + crop + AI background matting + batch into one local app, with a single license that covers Windows and macOS, and no per-image charge.",
     },
     {
       q: "Is there a free trial?",
-      a: "The original Nano ImageEnh ships with a 7-day free trial that carries forward into Pro 3.0 for new accounts. Existing licensees receive the v3.0 upgrade as part of the same product license.",
+      a: "Yes. The original Nano ImageEnh ships with a 7-day free trial that carries forward into Pro 3.0 for new accounts. Existing licensees get the v3.0 upgrade as part of the same product license — no re-purchase.",
+    },
+    {
+      q: "Can I use the output for client / commercial work?",
+      a: "Yes. The license is one-time and machine-bound, with no per-image fees. Upscaled photos, transparent PNG cutouts, and crops can be used in commercial deliverables — e-commerce listings, prints, posters, marketing — under the standard Terms of Use.",
     },
   ],
   closing: {
@@ -192,13 +221,5 @@ const data: ProductLandingData = {
 };
 
 export default function NanoImageEnhProPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
-      />
-      <ProductLandingShell data={data} />
-    </>
-  );
+  return <ProductLandingShell data={data} />;
 }

@@ -43,20 +43,42 @@ export const metadata: Metadata = {
   },
 };
 
-const softwareJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Nano FaceSwap Pro 2.0",
-  softwareVersion: "2.0",
-  operatingSystem: "Web (online demo) · Windows 10/11 · macOS Apple Silicon",
-  applicationCategory: "MultimediaApplication",
-  description:
-    "Diffusion-based face swap for images and video, built on InstantID, PuLID, and IP-Adapter FaceID research. Free online demo plus a 100% local desktop pipeline.",
-  offers: { "@type": "Offer", price: "0.00", priceCurrency: "USD" },
-};
-
 const data: ProductLandingData = {
   slug: "nano-faceswap-pro",
+  productMeta: {
+    sku: "NPK-FSP-200",
+    mpn: "NPK-FSP-200",
+    brand: "NanoPocket",
+    url: "https://nanopocket.ai/apps/nano-faceswap-pro",
+    image: "https://nanopocket.ai/og-image.jpg",
+    category: "Local AI Face Swap (Image & Video)",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem:
+      "Web (online demo); Windows 10/11; macOS Apple Silicon (M2/M3/M4/M5)",
+    softwareVersion: "2.0",
+    releaseDate: "2026-05-14",
+    description:
+      "Nano FaceSwap Pro 2.0 — diffusion-based AI face swap with a free online demo and a 100% local desktop pipeline. Built on InstantID, PuLID, and IP-Adapter FaceID research. A private alternative to Roop, FaceFusion, Rope, DeepSwap, Akool, and HeyGen.",
+    offer: {
+      price: "0.00",
+      priceCurrency: "USD",
+      availability: "InStock",
+      priceValidUntil: "2027-12-31",
+    },
+    additionalProperties: [
+      { name: "Identity model", value: "InstantID + PuLID + IP-Adapter FaceID diffusion stack" },
+      { name: "Maximum output resolution", value: "Up to 4K (input-preserving)" },
+      { name: "Modes", value: "Face-only swap, Full-head swap" },
+      { name: "Mask control", value: "Per-region toggles (hair, clothing, apparel, accessories)" },
+      { name: "Magic pen", value: "Brush-level region restoration" },
+      { name: "Reference library", value: "Built-in royalty-free virtual identity library" },
+      { name: "Online demo", value: "Free for every signed-in NanoPocket account" },
+      { name: "Desktop GPU support", value: "NVIDIA CUDA (Windows) + Apple Silicon Metal (macOS)" },
+      { name: "Minimum desktop VRAM", value: "8 GB", unitText: "GB" },
+      { name: "License", value: "One-time, machine-bound; no per-minute or per-frame fees" },
+      { name: "Data handling", value: "100% local on desktop; no source upload; no model training on user data" },
+    ],
+  },
   hero: {
     eyebrow: "Free online · Diffusion face swap",
     versionChip: "v2.0",
@@ -171,24 +193,32 @@ const data: ProductLandingData = {
   ],
   faqs: [
     {
-      q: "Is Nano FaceSwap Pro 2.0 really free?",
-      a: "Yes. The Image FaceSwap Pro and Video FaceSwap Pro online demos are free for every signed-in NanoPocket account, with no credit card and no watermark on test outputs. The Nano FaceSwap Pro 2.0 desktop app launches with a free trial at release.",
+      q: "Is it really free to try?",
+      a: "Yes. Both the Image FaceSwap Pro and Video FaceSwap Pro online demos are free for every signed-in NanoPocket account — no credit card, no watermark on test outputs, and no per-minute charge. The desktop Pro 2.0 app launches with a free trial at release.",
     },
     {
-      q: "How does Nano FaceSwap Pro 2.0 differ from Roop, FaceFusion, and Rope?",
-      a: "Roop, Roop-Unleashed, FaceFusion, Rope, Rope-Live, Reactor, and Deep-Live-Cam share the InsightFace inswapper_128 GAN, which produces 128×128 identity output and then upscales. Nano FaceSwap Pro 2.0 uses a native high-resolution diffusion pipeline derived from InstantID, PuLID, and IP-Adapter FaceID research, so identity output stays at the input resolution and skin detail is preserved without an upscaling step.",
+      q: "How is this different from Roop, FaceFusion, or Rope?",
+      a: "Roop, Roop-Unleashed, FaceFusion, Rope, Rope-Live, Reactor, and Deep-Live-Cam all wrap the InsightFace inswapper_128 GAN, which renders identity at 128×128 and then upscales. Nano FaceSwap Pro 2.0 uses a native high-resolution diffusion identity stack (InstantID, PuLID, IP-Adapter FaceID), so identity is rendered at the input resolution and skin detail is preserved without an upscaling step.",
     },
     {
-      q: "Does Nano FaceSwap Pro 2.0 run locally?",
-      a: "Yes. The desktop release runs the full diffusion pipeline on a single local GPU — NVIDIA CUDA on Windows 10/11 or Apple Silicon Metal on macOS (M2, M3, M4, M5). Source photos and videos remain on the user's machine. The free online demo is hosted by NanoPocket for in-browser testing.",
+      q: "Will my photos get uploaded to your server?",
+      a: "On the desktop release, no — every frame is processed on the user's local GPU and source media stays on disk. On the free online demo, the source file is sent to a NanoPocket-hosted GPU only for the duration of the swap and is not used for any model training.",
     },
     {
-      q: "Is this a DeepSwap, Akool, or HeyGen alternative?",
-      a: "DeepSwap, Akool, HeyGen, DeepBrain, and Reface are cloud services that upload media to their servers and charge per minute. Nano FaceSwap Pro 2.0 runs in the user's browser for free testing or on the user's local GPU for production, with a one-time license and no per-minute fees.",
+      q: "Can I use this for commercial / client work?",
+      a: "Yes. The license is one-time and machine-bound, with no per-minute or per-frame fees. Outputs can be used in commercial work — marketing campaigns, film VFX, social ads — under the standard Terms of Use. Bundled identity references are royalty-free.",
     },
     {
-      q: "Does video face swap maintain temporal consistency?",
-      a: "Yes. The Video FaceSwap Pro pipeline uses optical-flow-guided identity propagation on a diffusion backbone, so faces stay stable across frames even on long clips with strong head motion. Frame-rate handling is automatic and supports up to 1080p input in the online demo.",
+      q: "Will it work on my Mac?",
+      a: "Yes, on Apple Silicon (M2, M3, M4, M5). The desktop release ships a native arm64 build that runs on Metal with no Rosetta translation. Intel Macs are not supported.",
+    },
+    {
+      q: "What hardware do I need on Windows?",
+      a: "An NVIDIA GPU with 8 GB or more of VRAM, on Windows 10 or 11. RTX 30 / 40 / 50-series cards are tested; cards with more VRAM produce longer video clips at higher resolution.",
+    },
+    {
+      q: "When does the desktop app come out?",
+      a: "The Nano FaceSwap Pro 2.0 desktop release ships shortly after the public feature tour goes live. The online demos at /apps/nano-faceswap-pro and /apps/nano-faceswap-pro/video are available today; current signed-in accounts get free access to both.",
     },
   ],
   closing: {
@@ -209,13 +239,5 @@ const data: ProductLandingData = {
 };
 
 export default function NanoFaceSwapProPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
-      />
-      <ProductLandingShell data={data} />
-    </>
-  );
+  return <ProductLandingShell data={data} />;
 }

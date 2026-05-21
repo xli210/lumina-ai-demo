@@ -42,20 +42,40 @@ export const metadata: Metadata = {
   },
 };
 
-const softwareJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Nano VideoGen",
-  softwareVersion: "1.1.2",
-  operatingSystem: "Windows 10/11",
-  applicationCategory: "MultimediaApplication",
-  description:
-    "Local AI video generator built on the LTX-2.3 model. Text-to-video and image-to-video on a single NVIDIA GPU with as little as 12 GB VRAM. Includes camera-control LoRAs, keyframe interpolation, and a 2× spatial upscaler.",
-  offers: { "@type": "Offer", price: "0.00", priceCurrency: "USD" },
-};
-
 const data: ProductLandingData = {
   slug: "nano-videogen",
+  productMeta: {
+    sku: "NPK-VGN-112",
+    mpn: "NPK-VGN-112",
+    brand: "NanoPocket",
+    url: "https://nanopocket.ai/apps/nano-videogen",
+    image: "https://nanopocket.ai/og-image.jpg",
+    category: "Local AI Video Generator",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Windows 10/11 (NVIDIA CUDA)",
+    softwareVersion: "1.1.2",
+    releaseDate: "2026-02-26",
+    description:
+      "Nano VideoGen — local AI video generator built on the LTX-2.3 open-weight model for Windows 10/11 with NVIDIA CUDA. Text-to-video and image-to-video on a single GPU from 12 GB VRAM. Camera-control LoRAs (dolly, jib, pan, static), two-image keyframe interpolation, and a 2× spatial upscaler. A local alternative to Sora, Runway Gen-3, Kling, Pika, and Luma Dream Machine.",
+    offer: {
+      price: "0.00",
+      priceCurrency: "USD",
+      availability: "InStock",
+      priceValidUntil: "2027-12-31",
+    },
+    additionalProperties: [
+      { name: "Backbone model", value: "LTX-2.3 (open-weight video diffusion)" },
+      { name: "Inputs", value: "Text-to-video, image-to-video, two-image keyframe" },
+      { name: "Camera LoRAs", value: "Dolly, jib, pan, static" },
+      { name: "Spatial upscaler", value: "2× post-generation" },
+      { name: "Minimum VRAM", value: "12 GB", unitText: "GB" },
+      { name: "Streaming DiT", value: "Memory-streaming Diffusion Transformer for 12 GB cards" },
+      { name: "GPU runtime", value: "Single NVIDIA GPU (CUDA), Windows 10/11" },
+      { name: "Data handling", value: "100% local; prompts and reference images never uploaded" },
+      { name: "Network requirement", value: "Only for license activation" },
+      { name: "License model", value: "One-time, machine-bound; no per-second fees" },
+    ],
+  },
   hero: {
     eyebrow: "AI Video Generation",
     versionChip: "v1.1.2",
@@ -162,24 +182,32 @@ const data: ProductLandingData = {
   ],
   faqs: [
     {
-      q: "What model does Nano VideoGen run?",
-      a: "Nano VideoGen runs the LTX-2.3 video diffusion model with open weights on the user's local GPU. The same model weights are used across consumer NVIDIA cards; the streaming DiT path is what enables 12 GB VRAM cards to run a model that otherwise targets larger memory footprints.",
+      q: "Will it run on a 12 GB VRAM GPU?",
+      a: "Yes. The streaming DiT (Diffusion Transformer) path lets a 12 GB card — RTX 3060, RTX 4060, or RTX 5060 class — generate clips that would otherwise require a much larger memory footprint. Bigger cards run the same model faster and at higher resolution.",
     },
     {
-      q: "What's the minimum hardware?",
-      a: "Windows 10 or 11 with an NVIDIA GPU and 12 GB of VRAM (e.g. RTX 3060, 4060, or 5060 class). Cards with more VRAM benefit from faster inference and longer clip lengths. Apple Silicon support is not in v1.1.2.",
+      q: "How is this different from Sora, Runway Gen-3, or Kling?",
+      a: "Sora (OpenAI), Veo (Google), Kling, Pika, and Runway Gen-3 are cloud services that upload prompts to a remote endpoint and bill per second of generated video. Nano VideoGen runs the LTX-2.3 open-weight model on the user's local GPU with a one-time license, no per-second charge, and no remote prompt logging.",
     },
     {
-      q: "How is this different from Sora, Veo, Kling, or Runway?",
-      a: "Sora (OpenAI), Veo (Google), Kling, and Runway Gen-3 are cloud services that bill per second of generated video and upload prompts to remote endpoints. Nano VideoGen runs the LTX-2.3 model on the user's local GPU with a one-time license, no per-second charge, and no remote prompt logging.",
+      q: "Can I generate video from a still image I already have?",
+      a: "Yes. Image-to-video accepts a reference image plus a text prompt and respects the image's composition, lighting, and structure across the generated frames. Two-image keyframe interpolation is also supported with a duration slider.",
     },
     {
-      q: "Can I generate from a still image?",
-      a: "Yes. Image-to-video accepts a reference image plus a prompt and respects the image's composition, lighting, and structure across the generated frames. Two-image keyframe interpolation is also supported with a duration slider.",
+      q: "Do my prompts get logged?",
+      a: "No. Prompts and reference images stay on the user's disk. There is no remote endpoint contact during generation; the network is used only for the one-time license-activation handshake.",
     },
     {
-      q: "Are the camera moves preset or prompt-based?",
-      a: "Both. The bundled camera-control LoRAs map seven named moves — dolly in, dolly out, jib up, jib down, pan left, pan right, and static — to specific camera intent without rewriting the prompt. Prompt-level camera language remains supported on top.",
+      q: "Can I control the camera move, or is it random?",
+      a: "Both. Seven bundled camera-control LoRAs map specific moves — dolly in, dolly out, jib up, jib down, pan left, pan right, and static — directly, without rewriting the prompt. Prompt-level camera language is also still respected on top.",
+    },
+    {
+      q: "Does it run on Mac?",
+      a: "Not in v1.1.2. The current build is Windows 10/11 + NVIDIA CUDA. Apple Silicon support is on the roadmap.",
+    },
+    {
+      q: "Can I use the generated videos commercially?",
+      a: "Yes. The license is one-time and machine-bound, with no per-second fees. Generated clips can be used in commercial deliverables — marketing, social, broadcast — under the standard Terms of Use and the LTX-2.3 model license. The user retains full output rights.",
     },
   ],
   closing: {
@@ -195,13 +223,5 @@ const data: ProductLandingData = {
 };
 
 export default function NanoVideoGenPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
-      />
-      <ProductLandingShell data={data} />
-    </>
-  );
+  return <ProductLandingShell data={data} />;
 }

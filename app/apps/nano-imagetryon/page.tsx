@@ -40,20 +40,38 @@ export const metadata: Metadata = {
   },
 };
 
-const softwareJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Nano ImageTryon",
-  softwareVersion: "1.0.0",
-  operatingSystem: "Windows 10/11",
-  applicationCategory: "MultimediaApplication",
-  description:
-    "Local AI virtual try-on. Transfers any garment from a reference photo onto a target subject while preserving body shape, pose, and lighting. Runs on a single NVIDIA GPU.",
-  offers: { "@type": "Offer", price: "0.00", priceCurrency: "USD" },
-};
-
 const data: ProductLandingData = {
   slug: "nano-imagetryon",
+  productMeta: {
+    sku: "NPK-ITN-100",
+    mpn: "NPK-ITN-100",
+    brand: "NanoPocket",
+    url: "https://nanopocket.ai/apps/nano-imagetryon",
+    image: "https://nanopocket.ai/og-image.jpg",
+    category: "Local AI Virtual Try-On",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Windows 10/11 (NVIDIA CUDA)",
+    softwareVersion: "1.0.0",
+    releaseDate: "2026-04-30",
+    description:
+      "Nano ImageTryon — local AI virtual try-on for Windows 10/11. Transfers any garment from a reference photo (catalog shot, flat-lay, street photo) onto a target subject while preserving body shape, pose, and scene lighting. Runs on a single NVIDIA GPU. No personal photo uploaded. A local alternative to VITON-HD, Doji, OutfitAnyone, IDM-VTON, and CatVTON cloud demos.",
+    offer: {
+      price: "0.00",
+      priceCurrency: "USD",
+      availability: "InStock",
+      priceValidUntil: "2027-12-31",
+    },
+    additionalProperties: [
+      { name: "Reference inputs", value: "Catalog shot, flat-lay, street-fashion photo, screenshot" },
+      { name: "Preserved attributes", value: "Body shape, pose, scene lighting, skin tone" },
+      { name: "Garment transfer model", value: "Diffusion-based, reference-conditioned" },
+      { name: "Output", value: "Photo-realistic; no 3D garment asset required" },
+      { name: "GPU runtime", value: "Single NVIDIA GPU (CUDA), Windows 10/11" },
+      { name: "Data handling", value: "100% local; personal photos never uploaded" },
+      { name: "Network requirement", value: "Only for license activation" },
+      { name: "License model", value: "One-time, machine-bound; no per-photo fees" },
+    ],
+  },
   hero: {
     eyebrow: "AI Virtual Try-On",
     versionChip: "v1.0.0",
@@ -166,24 +184,32 @@ const data: ProductLandingData = {
   ],
   faqs: [
     {
-      q: "What inputs does Nano ImageTryon accept?",
-      a: "Two inputs per transfer: a target subject photo and a reference garment photo. The reference can be a catalog shot, an e-commerce flat-lay, or a street-fashion image. No 3D garment asset is required and no fitting-room rig is required.",
+      q: "Can I try on clothes from any catalog photo?",
+      a: "Yes. The reference can be a catalog shot, an e-commerce flat-lay, a street-fashion image, or a screenshot. No 3D garment asset and no fitting-room rig are required — two photos is all the pipeline needs.",
     },
     {
-      q: "Does the result keep the subject's body proportions?",
-      a: "Yes. The transfer model is constrained to preserve the target subject's body proportions, pose, and height. A garment fitted on a 6-foot reference model lands on the target subject at the target subject's proportions, not the reference model's.",
+      q: "Will the garment actually fit my body shape?",
+      a: "Yes. The transfer model is constrained to preserve the target subject's body proportions, pose, and height. A garment shot on a 6-foot fit model lands on the target subject at the target subject's own proportions, not the fit model's.",
+    },
+    {
+      q: "Does the lighting look right when the photos were taken in different places?",
+      a: "Yes. The transferred garment is relighted under the target subject's scene lighting — direct sun, overcast, indoor, or studio — so a garment from a sunlit reference does not look flat against an indoor target.",
+    },
+    {
+      q: "Do my photos get uploaded?",
+      a: "No. Subject and reference photos are not uploaded. Every model runs on the local NVIDIA GPU; the only network handshake is product-bound license activation, and there is no content-level telemetry.",
     },
     {
       q: "How is this different from Doji or Outfit Anyone?",
-      a: "Doji, Outfit Anyone, Kolors Virtual Try-On, and Fashn AI run server-side and require both subject and garment photos to be uploaded. Nano ImageTryon runs locally on a single NVIDIA GPU on Windows with a one-time license; subject photos and reference garments stay on the user's machine.",
+      a: "Doji, Outfit Anyone, Kolors Virtual Try-On, IDM-VTON, and Fashn AI run server-side and require both subject and garment photos to be uploaded. Nano ImageTryon runs locally on a single NVIDIA GPU on Windows with a one-time license; subject photos and reference garments stay on the user's machine.",
     },
     {
-      q: "Does the garment look out-of-place when the lighting differs?",
-      a: "No. The transferred garment is relighted under the target subject's scene lighting — direct sun, overcast, indoor, or studio — so a garment from a sunlit reference does not look flat against a target subject shot indoors.",
+      q: "Can I use it for my online shop?",
+      a: "Yes. The license is one-time and machine-bound, with no per-photo fees. Generated try-on images can be used in commercial deliverables — e-commerce listings, lookbooks, marketing — under the standard Terms of Use. The user retains full output rights.",
     },
     {
-      q: "Are subject photos uploaded?",
-      a: "No. Subject and reference photos are not uploaded. Every model runs on the local GPU; the only network handshake is product-bound license activation, and there is no content-level telemetry.",
+      q: "What hardware do I need?",
+      a: "Windows 10 or 11 with an NVIDIA GPU. RTX 30, 40, and 50-series cards are tested; 8 GB of VRAM is the recommended minimum. More VRAM lets you process higher-resolution subject photos.",
     },
   ],
   closing: {
@@ -199,13 +225,5 @@ const data: ProductLandingData = {
 };
 
 export default function NanoImageTryonPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
-      />
-      <ProductLandingShell data={data} />
-    </>
-  );
+  return <ProductLandingShell data={data} />;
 }

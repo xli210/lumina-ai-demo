@@ -43,20 +43,39 @@ export const metadata: Metadata = {
   },
 };
 
-const softwareJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Nano FaceSwap",
-  softwareVersion: "1.0.4",
-  operatingSystem: "Windows 10/11",
-  applicationCategory: "MultimediaApplication",
-  description:
-    "Local desktop face swap for photos and videos on a single NVIDIA GPU. One-time license, no cloud upload of source media.",
-  offers: { "@type": "Offer", price: "0.00", priceCurrency: "USD" },
-};
-
 const data: ProductLandingData = {
   slug: "nano-faceswap",
+  productMeta: {
+    sku: "NPK-FSW-104",
+    mpn: "NPK-FSW-104",
+    brand: "NanoPocket",
+    url: "https://nanopocket.ai/apps/nano-faceswap",
+    image: "https://nanopocket.ai/og-image.jpg",
+    category: "Local Desktop Face Swap (Photos & Video)",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Windows 10/11 (NVIDIA CUDA)",
+    softwareVersion: "1.0.4",
+    releaseDate: "2026-01-12",
+    description:
+      "Nano FaceSwap — local Windows desktop face-swap for photos and video on a single NVIDIA GPU. Single-face and multi-face swap in one app. One-time license, no per-minute or per-frame fees, no cloud upload of source media. A local alternative to Roop, FaceFusion, Rope, DeepSwap, DeepFaceLab.",
+    offer: {
+      price: "0.00",
+      priceCurrency: "USD",
+      availability: "InStock",
+      priceValidUntil: "2027-12-31",
+    },
+    additionalProperties: [
+      { name: "Modes", value: "Single-face swap, multi-face (group) swap" },
+      { name: "Media types", value: "Photos and video, in one app" },
+      { name: "Identity preservation", value: "Stable across frames in video mode" },
+      { name: "GPU runtime", value: "Single NVIDIA GPU (CUDA), Windows 10/11" },
+      { name: "Tested GPUs", value: "RTX 30, RTX 40, RTX 50 series" },
+      { name: "Data handling", value: "100% local; no upload of source media" },
+      { name: "Network requirement", value: "Only for license activation" },
+      { name: "License model", value: "One-time, machine-bound; no per-minute or per-frame fees" },
+      { name: "Pro upgrade", value: "Nano FaceSwap Pro 2.0 — diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID)" },
+    ],
+  },
   hero: {
     eyebrow: "Desktop Face Swap",
     versionChip: "v1.0.4",
@@ -169,24 +188,32 @@ const data: ProductLandingData = {
   ],
   faqs: [
     {
-      q: "What hardware does Nano FaceSwap need?",
-      a: "Windows 10 or 11 with an NVIDIA GPU. The pipeline runs on a single GPU and does not require a multi-GPU rig or remote render farm. Apple Silicon support is not in v1.0.4.",
+      q: "Will it run on my Windows laptop?",
+      a: "If the laptop has an NVIDIA discrete GPU (GTX 1660 / RTX 30 / 40 / 50 class) and runs Windows 10 or 11, yes. The pipeline runs on a single GPU; integrated graphics (Intel UHD, AMD Radeon Graphics) are not supported. Apple Silicon is not in v1.0.4.",
     },
     {
-      q: "Can I swap multiple faces in a group portrait?",
-      a: "Yes. The face picker detects every face in the source frame and exposes per-face targeting, so a single subject can be swapped while bystanders remain untouched, or every face can be swapped in one click. The same fidelity is applied to a single face or several.",
+      q: "Can I swap faces in a video, not just photos?",
+      a: "Yes. The same desktop app handles both still photos and video clips. Identity is tracked across frames so the swapped face stays stable through motion. There is no per-minute charge and no clip-length cap beyond what the GPU can process.",
     },
     {
-      q: "How is this different from Roop and FaceFusion?",
-      a: "Roop, Roop-Unleashed, FaceFusion, Rope, Rope-Live, and Reactor ship as Gradio scripts that wrap the InsightFace inswapper_128 GAN — they require a Python environment, a pip / conda setup, and per-machine recompilation. Nano FaceSwap ships as a single Windows installer with a desktop UI and a one-time license. The Pro 2.0 release additionally upgrades the identity head from inswapper to a diffusion stack.",
+      q: "Can I swap multiple faces in a group photo?",
+      a: "Yes. The face picker detects every face in the frame and exposes per-face targeting, so a single subject can be swapped while bystanders remain untouched, or every face can be swapped in one click.",
     },
     {
-      q: "Does source media get uploaded?",
-      a: "No. Source photos and videos remain on the local disk. There is no cloud upload, no remote proxy generation, and no content-level telemetry. Network is contacted only for product-bound license activation.",
+      q: "How is this different from Roop or FaceFusion?",
+      a: "Roop, Roop-Unleashed, FaceFusion, Rope, Rope-Live, and Reactor ship as Gradio scripts that wrap the InsightFace inswapper_128 GAN — they require a Python environment, a pip/conda setup, and per-machine recompilation. Nano FaceSwap ships as a single Windows installer with a desktop UI and a one-time license. No Python required.",
     },
     {
-      q: "Should I use Nano FaceSwap or Nano FaceSwap Pro 2.0?",
-      a: "Nano FaceSwap (this app) is the inswapper-class desktop swap, available today. Nano FaceSwap Pro 2.0 is the diffusion upgrade with a virtual identity library, mask control, magic pen, expression editing, and an in-app benchmark gallery. The Pro 2.0 online demo is free for every signed-in NanoPocket account; the Pro 2.0 desktop release launches soon.",
+      q: "Should I get this or Nano FaceSwap Pro 2.0?",
+      a: "Nano FaceSwap (this app) is the inswapper-class desktop swap, available today. Nano FaceSwap Pro 2.0 is the diffusion upgrade with a virtual identity library, per-region mask control, magic-pen restoration, head-vs-face mode, and a benchmark gallery. The Pro 2.0 online demos (image + video) are free for every signed-in NanoPocket account; the Pro 2.0 desktop release ships soon.",
+    },
+    {
+      q: "Do my photos and videos stay private?",
+      a: "Yes. Source photos and videos stay on the local disk. There is no cloud upload, no remote proxy generation, and no content-level telemetry. The only network call is a one-time license-activation handshake.",
+    },
+    {
+      q: "Can I use it for marketing campaigns or client work?",
+      a: "Yes. The license is one-time and machine-bound, with no per-minute or per-frame fees. Swapped photos and videos can be used in commercial deliverables under the standard Terms of Use, with the usual subject-consent requirements.",
     },
   ],
   closing: {
@@ -202,13 +229,5 @@ const data: ProductLandingData = {
 };
 
 export default function NanoFaceSwapPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
-      />
-      <ProductLandingShell data={data} />
-    </>
-  );
+  return <ProductLandingShell data={data} />;
 }

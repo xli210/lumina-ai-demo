@@ -42,19 +42,39 @@ export const metadata: Metadata = {
   },
 };
 
-const softwareJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Nano Video FaceSwap Pro",
-  operatingSystem: "Web (browser-hosted demo)",
-  applicationCategory: "MultimediaApplication",
-  description:
-    "Free online diffusion-based video face swap with optical-flow-guided identity propagation. 1080p input, frame-stable output, free for every signed-in NanoPocket account.",
-  offers: { "@type": "Offer", price: "0.00", priceCurrency: "USD" },
-};
-
 const data: ProductLandingData = {
   slug: "nano-faceswap-pro-video",
+  productMeta: {
+    sku: "NPK-FSV-100",
+    mpn: "NPK-FSV-100",
+    brand: "NanoPocket",
+    url: "https://nanopocket.ai/apps/nano-faceswap-pro/video",
+    image: "https://nanopocket.ai/og-image.jpg",
+    category: "Free Online AI Video Face Swap",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Web (browser-hosted demo)",
+    softwareVersion: "Demo · 2026.05",
+    releaseDate: "2026-05-08",
+    description:
+      "Nano Video FaceSwap Pro — free, browser-hosted diffusion video face-swap demo with optical-flow temporal propagation. 1080p input, frame-stable output, free for every signed-in NanoPocket account. A privacy-friendly alternative to DeepFaceLab, Rope Live, DeepSwap, Akool, and HeyGen.",
+    offer: {
+      price: "0.00",
+      priceCurrency: "USD",
+      availability: "InStock",
+      priceValidUntil: "2027-12-31",
+    },
+    additionalProperties: [
+      { name: "Identity backbone", value: "Diffusion (InstantID + PuLID + IP-Adapter FaceID)" },
+      { name: "Temporal stability", value: "Optical-flow-guided identity propagation" },
+      { name: "Maximum input resolution", value: "1080p" },
+      { name: "Supported containers", value: "MP4, MOV" },
+      { name: "Frame-rate handling", value: "Automatic" },
+      { name: "Hosting", value: "NanoPocket-hosted GPUs (browser-only)" },
+      { name: "Pricing", value: "Free for signed-in NanoPocket accounts" },
+      { name: "Test outputs", value: "Watermark-free" },
+      { name: "Account requirement", value: "Free NanoPocket sign-in + demo password" },
+    ],
+  },
   parent: { label: "Back to Nano FaceSwap Pro 2.0", href: "/apps/nano-faceswap-pro" },
   hero: {
     eyebrow: "Free online · Video face swap",
@@ -159,24 +179,32 @@ const data: ProductLandingData = {
   ],
   faqs: [
     {
-      q: "How much does the Nano Video FaceSwap Pro online demo cost?",
-      a: "Zero. The demo is free for every signed-in NanoPocket account and accepts no credit card. There are no per-minute fees, no per-frame charges, and no watermarks on test outputs. Higher tier limits and 100% local processing arrive with the desktop Pro release.",
+      q: "Is the video face swap really free?",
+      a: "Yes. The demo is free for every signed-in NanoPocket account. There is no credit card requirement, no per-minute charge, no per-frame charge, and no watermark on test outputs. Account sign-up is also free.",
     },
     {
-      q: "What input resolution and clip length does the demo accept?",
-      a: "The online demo accepts MP4 and MOV containers up to 1080p input resolution. The desktop Pro release runs the same pipeline locally on the user's GPU and lifts the resolution and clip-length ceilings.",
+      q: "Where do I get the demo password?",
+      a: "Sign in to your free NanoPocket account, scroll to the Video FaceSwap Pro card on the landing page, and click the eye icon to reveal the access password. The same card holds the demo URL.",
     },
     {
-      q: "How does Nano Video FaceSwap Pro stay temporally consistent?",
-      a: "The pipeline applies a diffusion identity head per frame and then stabilizes the per-frame swap with optical-flow-guided identity propagation. Identity stays stable across long clips and through fast head motion, similar in spirit to DeepFaceLab and Rope-Live but on a diffusion backbone.",
+      q: "What resolution and clip length does the demo accept?",
+      a: "The online demo accepts MP4 and MOV containers up to 1080p input. Typical short-to-medium clips work without manual chunking. The desktop Pro release lifts the resolution and clip-length ceilings on the user's local GPU.",
     },
     {
-      q: "Is this an alternative to DeepSwap, Akool, or HeyGen?",
-      a: "Yes. DeepSwap, Akool, HeyGen, DeepBrain, and Reface upload video to their servers and charge per minute. Nano Video FaceSwap Pro is free in the browser and 100% local on the desktop release, with a one-time license and no usage fees.",
+      q: "Will the face stay stable across all frames?",
+      a: "Yes. The pipeline runs a diffusion identity head on every frame and then stabilises it with optical-flow-guided identity propagation. Identity holds through long clips, fast head motion, and partial occlusions — failure modes typical of inswapper_128-based tools (Roop, FaceFusion, Rope).",
     },
     {
-      q: "How do I get the access password?",
-      a: "Sign in to NanoPocket and open the demo card on the landing page. The access password is displayed in the demo card after sign-in, and the same card holds the link to the online demo URL.",
+      q: "How is this different from DeepFaceLab or Rope Live?",
+      a: "DeepFaceLab and Rope Live are open-source Gradio scripts that need a Python environment and a per-machine training pass. Nano Video FaceSwap Pro is hosted in the browser, runs diffusion identity instead of inswapper_128, and requires no install or training.",
+    },
+    {
+      q: "Is this safe for private or NDA footage?",
+      a: "The source clip is sent to a NanoPocket-hosted GPU only for the duration of the swap and is not used for model training. For strict-NDA work, wait for the desktop Pro release, which keeps every frame on the local disk.",
+    },
+    {
+      q: "Can I download my result?",
+      a: "Yes. The demo lets the signed-in user download the swapped video directly from the browser after processing. Outputs are watermark-free.",
     },
   ],
   closing: {
@@ -196,13 +224,5 @@ const data: ProductLandingData = {
 };
 
 export default function NanoVideoFaceSwapProPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
-      />
-      <ProductLandingShell data={data} />
-    </>
-  );
+  return <ProductLandingShell data={data} />;
 }

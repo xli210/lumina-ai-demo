@@ -65,24 +65,32 @@ const articleJsonLd = {
 
 const featuresFaqs = [
   {
-    q: "How many capabilities are covered in this tour?",
-    a: "Eight: multi-face targeting, input-resolution-preserving output, face-versus-head modes, region-level mask control, the magic pen brush, a license-free virtual identity library, an in-app benchmark gallery, and identity-preserving expression editing. The last two ship with the Pro Local desktop release.",
+    q: "How many features are in this tour?",
+    a: "Eight: multi-face targeting, input-resolution-preserving output (up to 4K), face-versus-head modes, region-level mask control, the magic-pen brush, a license-free virtual identity library, an in-app benchmark gallery, and identity-preserving expression editing. The last two ship with the Pro Local desktop release.",
   },
   {
-    q: "What is the maximum output resolution?",
-    a: "Output matches the input resolution up to 4K. Identity is rendered natively at the input size, with no 128×128 upsample step that the inswapper_128 GAN used by Roop, FaceFusion, Rope, and Reactor relies on.",
+    q: "Can I really get 4K output?",
+    a: "Yes. Output matches the input resolution up to 4K. Identity is rendered natively at the input size, with no 128×128 upsample step that the inswapper_128 GAN used by Roop, FaceFusion, Rope, and Reactor relies on.",
   },
   {
-    q: "Can multiple faces be swapped at once?",
-    a: "Yes. Every detected face is targetable individually with a numbered face picker, and the tool supports a single-click swap-all path for group portraits. The same fidelity is applied to a single face or to six.",
+    q: "Can I swap multiple faces in one photo?",
+    a: "Yes. Every detected face is targetable individually with a numbered face picker, and the tool also supports a single-click swap-all path for group portraits. The same fidelity is applied to one face or to six.",
   },
   {
-    q: "Does mask control work on accessories like glasses and jewelry?",
-    a: "Yes. The mask panel exposes per-region toggles for hair, clothing, apparel, the lower lip, and accessories such as nose rings and earrings. Toggling a region tells the diffusion swap to preserve those pixels in the output.",
+    q: "What does the mask toggle actually do?",
+    a: "The mask panel exposes per-region toggles for hair, clothing, apparel, the lower lip, and accessories such as glasses, nose rings, and earrings. Toggling a region tells the diffusion swap to leave those pixels untouched in the output.",
   },
   {
-    q: "Do I have to upload my own photos to use the tool?",
+    q: "Do I have to upload my own photos to try it?",
     a: "No. The desktop app ships with an in-app virtual identity library — hundreds of synthetic, royalty-free reference faces curated for gender and ethnicity balance — so the workflow can be tested without uploading any external photo.",
+  },
+  {
+    q: "How does the head-swap mode differ from face-swap mode?",
+    a: "Face-swap replaces the inner facial region only and keeps the target subject's hair, ears, and head outline. Head-swap replaces the full head — including hairline and head outline — so the reference identity is carried completely. Caption examples ship inside the tour.",
+  },
+  {
+    q: "When does the desktop app come out?",
+    a: "The Nano FaceSwap Pro 2.0 desktop app launches shortly after the feature tour goes public. The Image FaceSwap Pro and Video FaceSwap Pro online demos are live today and are free for every signed-in NanoPocket account; the desktop release brings the same diffusion pipeline 100% local.",
   },
 ];
 
@@ -245,7 +253,7 @@ export default function NanoFaceSwapProFeaturesPage() {
       {/* Eight feature rows — alternating, monochrome, with real product images */}
       <FaceSwapFeatureRows />
 
-      {/* FAQ — five questions, also emitted as FAQPage JSON-LD above */}
+      {/* FAQ — seven buyer-voice questions, also emitted as FAQPage JSON-LD above */}
       <section className="relative overflow-hidden bg-black px-6 py-20 sm:py-24">
         <div className="relative mx-auto max-w-3xl">
           <h2 className="mb-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">

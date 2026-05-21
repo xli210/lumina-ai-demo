@@ -42,20 +42,39 @@ export const metadata: Metadata = {
   },
 };
 
-const softwareJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Nano ImageEdit",
-  softwareVersion: "1.0.5",
-  operatingSystem: "Windows 10/11",
-  applicationCategory: "MultimediaApplication",
-  description:
-    "Local AI image generator and editor running the Flux.1 diffusion transformer on a single NVIDIA GPU. Text-to-image, image-to-image, and reference conditioning. Streaming DiT path enables GPUs with under 12 GB VRAM.",
-  offers: { "@type": "Offer", price: "0.00", priceCurrency: "USD" },
-};
-
 const data: ProductLandingData = {
   slug: "nano-imageedit",
+  productMeta: {
+    sku: "NPK-IED-105",
+    mpn: "NPK-IED-105",
+    brand: "NanoPocket",
+    url: "https://nanopocket.ai/apps/nano-imageedit",
+    image: "https://nanopocket.ai/og-image.jpg",
+    category: "Local AI Image Generator & Editor",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Windows 10/11 (NVIDIA CUDA)",
+    softwareVersion: "1.0.5",
+    releaseDate: "2026-03-04",
+    description:
+      "Nano ImageEdit — local AI image generator and editor running the Flux.1 12-billion-parameter diffusion transformer on a single NVIDIA GPU. Text-to-image, image-to-image, reference conditioning. Streaming DiT path runs on GPUs with under 12 GB VRAM. A local alternative to Midjourney, DALL-E 3, Adobe Firefly, Leonardo.Ai, and ideogram.",
+    offer: {
+      price: "0.00",
+      priceCurrency: "USD",
+      availability: "InStock",
+      priceValidUntil: "2027-12-31",
+    },
+    additionalProperties: [
+      { name: "Backbone model", value: "Flux.1 diffusion transformer (12B parameters, open weights)" },
+      { name: "Generation modes", value: "Text-to-image, image-to-image, reference-image conditioning" },
+      { name: "Streaming DiT", value: "Memory-streaming Diffusion Transformer for sub-12 GB GPUs" },
+      { name: "GPU runtime", value: "Single NVIDIA GPU (CUDA), Windows 10/11" },
+      { name: "Seed control", value: "Yes — deterministic re-roll" },
+      { name: "Generation knobs", value: "Guidance, sampler steps, seed, aspect ratio" },
+      { name: "Data handling", value: "100% local; prompts, references, outputs stay on disk" },
+      { name: "Network requirement", value: "Only for license activation" },
+      { name: "License model", value: "One-time, machine-bound; no per-image fees" },
+    ],
+  },
   hero: {
     eyebrow: "AI Image Generation",
     versionChip: "v1.0.5",
@@ -168,24 +187,32 @@ const data: ProductLandingData = {
   ],
   faqs: [
     {
-      q: "What model does Nano ImageEdit run?",
-      a: "Nano ImageEdit runs the Flux.1 diffusion transformer with 12 billion parameters on the user's local GPU. The same Flux.1 weights are used on every supported NVIDIA card; the streaming DiT path is what enables cards with under 12 GB of VRAM to run the same model.",
-    },
-    {
-      q: "What's the minimum hardware?",
-      a: "Windows 10 or 11 with an NVIDIA GPU. The streaming DiT path runs on cards with as little as 12 GB of VRAM (RTX 3060, 4060, 5060 class). Cards with more VRAM benefit from faster generation. Apple Silicon support is not in v1.0.5.",
+      q: "Will Flux.1 actually run on my GPU?",
+      a: "If the GPU has at least 12 GB of VRAM (RTX 3060 / 4060 / 5060 class or better), yes. Below that, the streaming DiT path still loads the model in chunks; smaller cards generate at lower resolution and lower throughput. Cards with more VRAM run the same model faster.",
     },
     {
       q: "How is this different from Midjourney, DALL-E, or Adobe Firefly?",
-      a: "Midjourney, DALL-E (OpenAI), Adobe Firefly, Leonardo, and Krea run server-side and charge per generation or per seat. Nano ImageEdit runs the Flux.1 model on the user's local GPU with a one-time license, no per-image charge, and no remote prompt logging. Prompts, references, and outputs remain on the user's disk.",
+      a: "Midjourney, DALL-E (OpenAI), Adobe Firefly, Leonardo.Ai, Krea, and ideogram run server-side and charge per generation or per seat. Nano ImageEdit runs the open-weight Flux.1 model on the user's local GPU with a one-time license, no per-image charge, and no remote prompt logging.",
     },
     {
       q: "Can I edit an existing photo, not just generate from text?",
-      a: "Yes. Image-to-image accepts a reference image plus a prompt and applies the edit while preserving the reference's structural layout. A per-image strength slider controls how aggressively the prompt overrides the reference.",
+      a: "Yes. Image-to-image accepts a reference image plus a prompt and applies the edit while preserving the reference's structural layout. A per-image strength slider controls how aggressively the prompt overrides the reference. Reference-image conditioning is also available for style transfer.",
     },
     {
-      q: "Does the application send my prompts anywhere?",
-      a: "No. The only network call is product-bound license activation. The Flux.1 model runs entirely on the local GPU, and prompts, references, and outputs are not transmitted off the machine.",
+      q: "Do I need an internet connection to generate?",
+      a: "No. After the one-time license-activation handshake, generation runs fully offline on the local GPU. Prompts, references, and outputs are not transmitted off the machine.",
+    },
+    {
+      q: "Will my prompts stay private?",
+      a: "Yes. There is no remote endpoint contact during generation; the only network call is product-bound license activation. Prompts, references, and outputs stay on the user's disk and are not used for any model training.",
+    },
+    {
+      q: "Does it work on a Mac?",
+      a: "Not in v1.0.5. The current build is Windows 10/11 + NVIDIA CUDA. Apple Silicon support is on the roadmap.",
+    },
+    {
+      q: "Can I use the generated images commercially?",
+      a: "Yes. The license is one-time and machine-bound, with no per-image fees. Generated images can be used in commercial deliverables under the standard NanoPocket Terms of Use and the open Flux.1 model license. The user retains full output rights.",
     },
   ],
   closing: {
@@ -201,13 +228,5 @@ const data: ProductLandingData = {
 };
 
 export default function NanoImageEditPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
-      />
-      <ProductLandingShell data={data} />
-    </>
-  );
+  return <ProductLandingShell data={data} />;
 }

@@ -48,9 +48,79 @@ export interface ProductTrustItem {
   label: string;
 }
 
+/** Single technical parameter rendered into Product.additionalProperty as a PropertyValue. */
+export interface ProductAdditionalProperty {
+  /** Short name, e.g. "Output resolution", "Identity model", "Required VRAM" */
+  name: string;
+  /** Value as a string, e.g. "Up to 4K", "Flux.1 (12B parameters)", "12 GB" */
+  value: string;
+  /** Optional unit, e.g. "GB", "px", "FPS" */
+  unitText?: string;
+}
+
+/** Pricing / availability block used to build Product.offers. */
+export interface ProductOffer {
+  /** Numeric string, e.g. "0.00" or "49.00" */
+  price: string;
+  /** ISO 4217 currency code */
+  priceCurrency: string;
+  /** Mapped to schema.org/<value>. */
+  availability:
+    | "InStock"
+    | "PreOrder"
+    | "OutOfStock"
+    | "Discontinued"
+    | "OnlineOnly";
+  /** Optional ISO date (YYYY-MM-DD) marking the price-valid-through. */
+  priceValidUntil?: string;
+  /** Optional checkout URL. Defaults to the productMeta.url. */
+  url?: string;
+}
+
+/**
+ * Commerce/SEO metadata used to emit a combined Product + SoftwareApplication JSON-LD.
+ * Every product page must provide this; the shell handles serialization.
+ */
+export interface ProductMeta {
+  /** Unique SKU, e.g. "NPK-FSP-200". */
+  sku: string;
+  /** Optional MPN — defaults to sku. */
+  mpn?: string;
+  /**
+   * Brand name. Defaults to "NanoPocket". Override only if a sub-brand is needed
+   * (e.g. partner releases).
+   */
+  brand?: string;
+  /**
+   * Canonical absolute URL of the product page.
+   * Used for Product.url, Offer.url, and mainEntityOfPage on schema fragments.
+   */
+  url: string;
+  /** Product image — used as Product.image, falls back to og-image. */
+  image?: string;
+  /** Free-text or Google taxonomy category, e.g. "Local AI Image Enhancement". */
+  category: string;
+  /** SoftwareApplication.applicationCategory — e.g. "MultimediaApplication". */
+  applicationCategory: string;
+  /** Comma-separated OS list — e.g. "Windows 10/11, macOS Apple Silicon". */
+  operatingSystem: string;
+  /** Optional software version string, e.g. "2.0", "1.0.5". */
+  softwareVersion?: string;
+  /** Optional release date (ISO YYYY-MM-DD). */
+  releaseDate?: string;
+  /** Short Product.description — typically the same as the SEO description. */
+  description: string;
+  /** Pricing and availability for the Offer block. */
+  offer: ProductOffer;
+  /** Technical parameters (brand-name model, hardware, ceilings, license). */
+  additionalProperties: ProductAdditionalProperty[];
+}
+
 export interface ProductLandingData {
   /** Slug used for breadcrumb back link, canonical URLs, and JSON-LD identifiers. */
   slug: string;
+  /** Commerce/SEO metadata. Emitted as Product + SoftwareApplication JSON-LD. */
+  productMeta: ProductMeta;
   /** Optional parent app (rendered as the breadcrumb back-link). */
   parent?: { label: string; href: string };
   hero: {
@@ -139,12 +209,64 @@ function CtaButton({ cta }: { cta: ProductCta }) {
   return <Link href={cta.href}>{inner}</Link>;
 }
 
+const DEFAULT_BRAND = "NanoPocket";
+const DEFAULT_OG_IMAGE = "https://nanopocket.ai/og-image.jpg";
+
 /**
- * Server-rendered SEO landing shell. Pages provide structured data and the
- * shell handles layout, JSON-LD, and consistent formatting.
+ * Build a combined Product + SoftwareApplication JSON-LD object.
+ *
+ * Combining the two @types in one node lets the same payload qualify for both
+ * Google's commerce rich results (Product) and software-application rich
+ * results, without emitting two scripts.
  */
-export function ProductLandingShell({ data }: { data: ProductLandingData }) {
-  const faqJsonLd = {
+function buildProductJsonLd(data: ProductLandingData) {
+  const meta = data.productMeta;
+  const fullName =
+    data.hero.titleAccent && data.hero.titleAccent.trim().length > 0
+      ? `${data.hero.title} ${data.hero.titleAccent}`
+      : data.hero.title;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": ["Product", "SoftwareApplication"],
+    name: fullName,
+    brand: { "@type": "Brand", name: meta.brand ?? DEFAULT_BRAND },
+    sku: meta.sku,
+    mpn: meta.mpn ?? meta.sku,
+    image: meta.image ?? DEFAULT_OG_IMAGE,
+    url: meta.url,
+    category: meta.category,
+    description: meta.description,
+    applicationCategory: meta.applicationCategory,
+    operatingSystem: meta.operatingSystem,
+    ...(meta.softwareVersion && { softwareVersion: meta.softwareVersion }),
+    ...(meta.releaseDate && { datePublished: meta.releaseDate }),
+    additionalProperty: meta.additionalProperties.map((p) => ({
+      "@type": "PropertyValue",
+      name: p.name,
+      value: p.value,
+      ...(p.unitText && { unitText: p.unitText }),
+    })),
+    offers: {
+      "@type": "Offer",
+      price: meta.offer.price,
+      priceCurrency: meta.offer.priceCurrency,
+      availability: `https://schema.org/${meta.offer.availability}`,
+      url: meta.offer.url ?? meta.url,
+      ...(meta.offer.priceValidUntil && {
+        priceValidUntil: meta.offer.priceValidUntil,
+      }),
+      seller: { "@type": "Organization", name: meta.brand ?? DEFAULT_BRAND },
+    },
+  };
+}
+
+/**
+ * Build the FAQPage JSON-LD from the page's FAQ array. 5–8 items is the
+ * sweet spot for Google's rich results.
+ */
+function buildFaqJsonLd(data: ProductLandingData) {
+  return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: data.faqs.map((f) => ({
@@ -153,9 +275,26 @@ export function ProductLandingShell({ data }: { data: ProductLandingData }) {
       acceptedAnswer: { "@type": "Answer", text: f.a },
     })),
   };
+}
+
+/**
+ * Server-rendered SEO landing shell. Pages provide structured data and the
+ * shell handles layout, JSON-LD, and consistent formatting.
+ *
+ * Emits two JSON-LD scripts:
+ *   1) Product + SoftwareApplication — brand, SKU, parameters, offer.
+ *   2) FAQPage — 5–8 buyer-voice Q&A.
+ */
+export function ProductLandingShell({ data }: { data: ProductLandingData }) {
+  const productJsonLd = buildProductJsonLd(data);
+  const faqJsonLd = buildFaqJsonLd(data);
 
   return (
     <main className="relative min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

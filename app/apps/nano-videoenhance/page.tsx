@@ -39,20 +39,39 @@ export const metadata: Metadata = {
   },
 };
 
-const softwareJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Nano VideoEnhance",
-  softwareVersion: "1.0.5",
-  operatingSystem: "Windows 10/11",
-  applicationCategory: "MultimediaApplication",
-  description:
-    "Local AI video upscaler and enhancer with side-by-side comparison view. Runs on a single NVIDIA GPU. Source video never uploaded.",
-  offers: { "@type": "Offer", price: "0.00", priceCurrency: "USD" },
-};
-
 const data: ProductLandingData = {
   slug: "nano-videoenhance",
+  productMeta: {
+    sku: "NPK-VEN-105",
+    mpn: "NPK-VEN-105",
+    brand: "NanoPocket",
+    url: "https://nanopocket.ai/apps/nano-videoenhance",
+    image: "https://nanopocket.ai/og-image.jpg",
+    category: "Local AI Video Upscaler & Enhancer",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Windows 10/11 (NVIDIA CUDA)",
+    softwareVersion: "1.0.5",
+    releaseDate: "2026-03-18",
+    description:
+      "Nano VideoEnhance — local AI video upscaler and enhancer for Windows 10/11 on a single NVIDIA GPU. Includes a chroma-bleeding fix, in-app side-by-side compare view, and single-pass upscale + stabilize + denoise. A local alternative to Topaz Video AI, AVCLabs, HitPaw, and DaVinci Resolve AI upscale.",
+    offer: {
+      price: "0.00",
+      priceCurrency: "USD",
+      availability: "InStock",
+      priceValidUntil: "2027-12-31",
+    },
+    additionalProperties: [
+      { name: "GPU runtime", value: "Single NVIDIA GPU (CUDA), Windows 10/11" },
+      { name: "Tested GPUs", value: "RTX 30, RTX 40, RTX 50 series" },
+      { name: "Chroma stability", value: "Color-bleeding fix on saturated regions (v1.0.4+)" },
+      { name: "Compare view", value: "In-app side-by-side with wipe slider + frame-step" },
+      { name: "Pipeline", value: "Single-pass upscale + stabilize + denoise" },
+      { name: "Data handling", value: "100% local; no upload, no remote proxy, no content telemetry" },
+      { name: "Network requirement", value: "Only for license activation" },
+      { name: "License model", value: "One-time, machine-bound; no per-minute fees" },
+      { name: "Multi-GPU requirement", value: "None — single-GPU only" },
+    ],
+  },
   hero: {
     eyebrow: "AI Video Enhancement",
     versionChip: "v1.0.5",
@@ -159,24 +178,32 @@ const data: ProductLandingData = {
   ],
   faqs: [
     {
-      q: "What hardware does Nano VideoEnhance need?",
-      a: "Windows 10 or 11 with an NVIDIA GPU. The pipeline is optimized for RTX 30, 40, and 50 series cards. The application runs on a single GPU and does not require a multi-GPU rig or remote render farm.",
+      q: "Will it run on my RTX 3060 / 4070 / 5080?",
+      a: "Yes. Nano VideoEnhance is optimised for RTX 30, 40, and 50 series cards on Windows 10/11. The pipeline runs on a single GPU and does not require a multi-GPU rig or a remote render farm. More VRAM lets you process higher-resolution clips at once.",
     },
     {
-      q: "Does it support macOS or Apple Silicon?",
+      q: "Does it work on a Mac?",
       a: "Not in v1.0.5. The current build is Windows + NVIDIA CUDA. Apple Silicon support is on the roadmap and shares the model architecture with the macOS-native Nano ImageEnh Pro 3.0 release.",
     },
     {
-      q: "How is this different from Topaz Video AI?",
-      a: "Topaz Video AI is the long-running benchmark for local video upscaling and is sold as a paid app with optional cloud credits. Nano VideoEnhance runs locally on a single NVIDIA GPU with a one-time license, ships a chroma-bleeding fix verifiable in the in-app compare view, and bundles upscale, stabilization, and denoise in a single pass with no per-minute charge.",
+      q: "Will it fix the color-bleeding I'm seeing on red signage / neon?",
+      a: "Yes. The v1.0.4 release shipped a chroma-stability fix specifically for saturated regions — red signage, neon, lit edges — that previously bled into adjacent pixels after upscale. You can verify the fix in the in-app side-by-side compare view before you export.",
     },
     {
-      q: "Does the source video leave my machine?",
-      a: "No. Source footage stays on the local disk; there is no cloud upload, no remote proxy generation, and no content-level telemetry. Network is contacted only for license activation.",
+      q: "Do I have to upload my footage to your servers?",
+      a: "No. Source video stays on the user's local disk; there is no cloud upload, no remote proxy generation, and no content-level telemetry. The only network traffic is a one-time license-activation handshake.",
     },
     {
-      q: "What changed in v1.0.4?",
-      a: "v1.0.4 brought three named changes: optimized processing speed on NVIDIA GPUs, a fix for color-bleeding artifacts in saturated regions, and the new side-by-side comparison view. v1.0.5 followed with stability and performance improvements.",
+      q: "How does it compare to Topaz Video AI?",
+      a: "Topaz Video AI is the long-running benchmark for local video upscaling and sells as a paid app with optional cloud credits. Nano VideoEnhance runs locally on a single NVIDIA GPU with a one-time license, ships the chroma fix verifiable in the compare view, and bundles upscale + stabilize + denoise in one pass with no per-minute charge.",
+    },
+    {
+      q: "Can I cancel a job mid-run?",
+      a: "Yes. The application exposes a per-clip progress view with a cancel control, so a misconfigured upscale or stabilization pass can be aborted without restarting the application.",
+    },
+    {
+      q: "Can I use the upscaled clips for commercial work?",
+      a: "Yes. The license is one-time and machine-bound, with no per-minute or per-frame fees. Enhanced clips can be used in client deliverables, broadcast, and streaming under the standard Terms of Use; the user retains full output rights.",
     },
   ],
   closing: {
@@ -192,13 +219,5 @@ const data: ProductLandingData = {
 };
 
 export default function NanoVideoEnhancePage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
-      />
-      <ProductLandingShell data={data} />
-    </>
-  );
+  return <ProductLandingShell data={data} />;
 }
