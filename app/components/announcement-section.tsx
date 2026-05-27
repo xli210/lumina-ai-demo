@@ -39,7 +39,7 @@ const DEMOS: DemoConfig[] = [
     title: "Image FaceSwap Pro 2.0",
     description:
       "Higher fidelity, better lighting adaptation, and more natural face swap on photos.",
-    url: "https://calculate-moore-sorted-ministry.trycloudflare.com/",
+    url: "https://technique-phd-yen-insight.trycloudflare.com/login",
     password: "nanofaceswap-pro",
     icon: ImageIcon,
     accent: "indigo",

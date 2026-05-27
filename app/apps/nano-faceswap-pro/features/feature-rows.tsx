@@ -9,7 +9,7 @@ import Link from "next/link";
  * point CTA buttons at the same target without duplicating the literal.
  */
 export const FACESWAP_PRO_DEMO_URL =
-  "https://calculate-moore-sorted-ministry.trycloudflare.com/";
+  "https://technique-phd-yen-insight.trycloudflare.com/login";
 
 interface ImagePart {
   src: string;
