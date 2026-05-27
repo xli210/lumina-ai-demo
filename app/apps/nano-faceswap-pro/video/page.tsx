@@ -4,7 +4,7 @@ import {
   type ProductLandingData,
 } from "@/app/components/product-landing-shell";
 
-const VIDEO_DEMO_URL = "https://yacht-surrounding-draft-charity.trycloudflare.com";
+const VIDEO_DEMO_URL = "https://painting-democrats-transport-mime.trycloudflare.com";
 
 export const metadata: Metadata = {
   title:
