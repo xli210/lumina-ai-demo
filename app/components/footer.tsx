@@ -59,6 +59,18 @@ export function Footer() {
             Blog
           </Link>
           <Link
+            href="/best-face-swap-app-2026"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            Best of 2026
+          </Link>
+          <Link
+            href="/compare"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            Compare
+          </Link>
+          <Link
             href="/trust"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >

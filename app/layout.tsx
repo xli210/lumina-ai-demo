@@ -260,6 +260,24 @@ export default function RootLayout({
                   description:
                     "Live Discord widget pulled from Discord's API, an honest list of which third-party coverage exists today, and the reviewer / journalist contact track.",
                 },
+                {
+                  "@type": "Article",
+                  "@id": "https://nanopocket.ai/best-face-swap-app-2026",
+                  name: "Best Face Swap App 2026 — Honest Ranking with Methodology",
+                  url: "https://nanopocket.ai/best-face-swap-app-2026",
+                  dateModified: "2026-05-29",
+                  description:
+                    "Methodology-first ranking of the best face swap apps in 2026 across desktop, web, mobile, open-source, and B2B API tiers, with explicit conflict-of-interest disclosure.",
+                },
+                {
+                  "@type": "WebPage",
+                  "@id": "https://nanopocket.ai/compare",
+                  name: "NanoPocket comparisons hub",
+                  url: "https://nanopocket.ai/compare",
+                  dateModified: "2026-05-29",
+                  description:
+                    "Head-to-head comparisons of NanoPocket vs Reface, DeepSwap, FaceFusion, Akool, and Magic Hour with full dimension tables.",
+                },
               ],
             }),
           }}
