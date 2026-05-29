@@ -59,6 +59,12 @@ export function Footer() {
             Blog
           </Link>
           <Link
+            href="/trust"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            Trust
+          </Link>
+          <Link
             href="/contact"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >

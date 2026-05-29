@@ -108,14 +108,132 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
+              "@id": "https://nanopocket.ai#organization",
+              name: "NanoPocket",
+              alternateName: ["NanoPocket.ai", "NanoPocket AI"],
+              url: "https://nanopocket.ai",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://nanopocket.ai/og-image.jpg",
+                width: 1200,
+                height: 630,
+              },
+              image: "https://nanopocket.ai/og-image.jpg",
+              slogan:
+                "Local AI creative suite — Flux.1, LTX-2.3, InstantID and more, on your GPU. No subscription, no cloud.",
+              description:
+                "NanoPocket builds local AI desktop apps for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal): face swap, image and video upscaling, image generation, video generation, portrait retouch, and virtual try-on. Every desktop app runs 100% on the user's GPU; pricing is one-time per product with no subscriptions.",
+              contactPoint: [
+                {
+                  "@type": "ContactPoint",
+                  email: "tech@nanopocket.ai",
+                  contactType: "technical support",
+                  availableLanguage: ["English"],
+                  areaServed: "Worldwide",
+                },
+                {
+                  "@type": "ContactPoint",
+                  email: "sales@nanopocket.ai",
+                  contactType: "sales",
+                  availableLanguage: ["English"],
+                  areaServed: "Worldwide",
+                },
+              ],
+              sameAs: [
+                "https://discord.gg/bNfPjfUDAn",
+              ],
+              knowsAbout: [
+                "Local AI inference",
+                "Diffusion models",
+                "Generative AI for creative workflows",
+                "AI face swap (diffusion identity stack)",
+                "AI video generation (LTX-2.3)",
+                "AI image generation (Flux.1)",
+                "AI image upscaling (Real-ESRGAN, BasicVSR++)",
+                "AI portrait retouch",
+                "AI virtual try-on",
+                "On-device GPU inference (NVIDIA CUDA, Apple Silicon Metal)",
+                "Privacy-preserving AI",
+              ],
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "NanoPocket app catalog",
+                itemListElement: [
+                  {
+                    "@type": "Offer",
+                    name: "Nano FaceSwap Pro 2.0",
+                    url: "https://nanopocket.ai/apps/nano-faceswap-pro",
+                  },
+                  {
+                    "@type": "Offer",
+                    name: "Nano Video FaceSwap Pro (online demo)",
+                    url: "https://nanopocket.ai/apps/nano-faceswap-pro/video",
+                  },
+                  {
+                    "@type": "Offer",
+                    name: "Nano ImageEnh Pro 3.0",
+                    url: "https://nanopocket.ai/apps/nano-imageenh-pro",
+                  },
+                  {
+                    "@type": "Offer",
+                    name: "Nano VideoEnhance",
+                    url: "https://nanopocket.ai/apps/nano-videoenhance",
+                  },
+                  {
+                    "@type": "Offer",
+                    name: "Nano VideoGen",
+                    url: "https://nanopocket.ai/apps/nano-videogen",
+                  },
+                  {
+                    "@type": "Offer",
+                    name: "Nano ImageEdit",
+                    url: "https://nanopocket.ai/apps/nano-imageedit",
+                  },
+                  {
+                    "@type": "Offer",
+                    name: "Nano FacialEdit",
+                    url: "https://nanopocket.ai/apps/nano-facialedit",
+                  },
+                  {
+                    "@type": "Offer",
+                    name: "Nano ImageTryon",
+                    url: "https://nanopocket.ai/apps/nano-imagetryon",
+                  },
+                  {
+                    "@type": "Offer",
+                    name: "Nano FaceSwap (legacy desktop)",
+                    url: "https://nanopocket.ai/apps/nano-faceswap",
+                  },
+                ],
+              },
+              subjectOf: {
+                "@type": "WebPage",
+                "@id": "https://nanopocket.ai/trust",
+                name: "Trust & Transparency",
+                url: "https://nanopocket.ai/trust",
+                description:
+                  "Pricing terms, privacy summary, system requirements, security posture, known limitations, refund policy, and external references for every NanoPocket app.",
+              },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "@id": "https://nanopocket.ai#website",
               name: "NanoPocket",
               url: "https://nanopocket.ai",
-              logo: "https://nanopocket.ai/og-image.jpg",
-              contactPoint: [
-                { "@type": "ContactPoint", email: "tech@nanopocket.ai", contactType: "technical support" },
-                { "@type": "ContactPoint", email: "sales@nanopocket.ai", contactType: "sales" },
-              ],
-              sameAs: [],
+              inLanguage: "en",
+              publisher: { "@id": "https://nanopocket.ai#organization" },
+              potentialAction: {
+                "@type": "SearchAction",
+                target:
+                  "https://nanopocket.ai/blog?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
             }),
           }}
         />
