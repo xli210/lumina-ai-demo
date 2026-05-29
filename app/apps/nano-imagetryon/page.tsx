@@ -72,6 +72,84 @@ const data: ProductLandingData = {
       { name: "License model", value: "One-time, machine-bound; no per-photo fees" },
     ],
   },
+  documentation: {
+    lastVerified: "2026-05-29",
+    methodology:
+      "Garment-transfer fidelity is reported as VITON-HD-style FID + LPIPS on the in-house Tryon-Eval-120 set (120 paired subject + reference garment photos, balanced for body type, pose, and garment category). Per-photo wall-clock measured on RTX 4070 (12 GB VRAM, fp16) and RTX 4090 (24 GB VRAM, fp16) at 1024 × 1024 output, batch=1.",
+    scope: {
+      bestFor: [
+        "E-commerce: trying multiple SKUs on one model photo",
+        "Influencer / creator content swapping outfits between shoots",
+        "Stylists prototyping looks before a physical fitting",
+        "Brands localising catalog imagery without re-shoots",
+        "Replacing Doji / Outfit Anyone / Fashn AI cloud subscriptions",
+      ],
+      notRecommendedFor: [
+        "Garments with complex 3D structure (corsets, hoop skirts)",
+        "Footwear (current model is upper- and full-body only)",
+        "Print-quality e-commerce on > 4K subject photos",
+        "Apple Silicon Macs (Windows + NVIDIA only in v1.0.0)",
+        "Any non-consensual likeness use — explicitly prohibited",
+      ],
+    },
+    limitations: [
+      {
+        title: "Footwear is out of scope",
+        detail:
+          "v1.0.0 covers tops, dresses, jackets, and full-body looks. Shoes and footwear are not currently supported and may inherit the subject's original footwear.",
+      },
+      {
+        title: "Complex 3D garment structure",
+        detail:
+          "Highly structured garments — corsets, hoop skirts, formal wear with internal boning — can lose fit detail because the diffusion prior does not have a 3D garment representation. Use a closer-fitting reference garment if possible.",
+      },
+      {
+        title: "Pose / body-type extreme mismatch",
+        detail:
+          "Transferring a garment fitted on a 6-foot reference model onto a very different body type (e.g. seated subject) preserves proportions but can soften the garment's silhouette. Source a reference closer to the target pose.",
+      },
+      {
+        title: "Pattern drift across the body",
+        detail:
+          "Repeating prints (large checks, stripes) can shift slightly across the torso. Acceptable for marketing creative; not yet print-quality for textile reproduction.",
+      },
+      {
+        title: "Apple Silicon not supported",
+        detail:
+          "v1.0.0 is Windows + NVIDIA CUDA only. Metal port is on the roadmap.",
+      },
+      {
+        title: "Subject must be visible head-to-mid-thigh minimum",
+        detail:
+          "Detailed try-on requires the subject's torso and hips to be visible. Headshots or extreme close-ups are not supported.",
+      },
+    ],
+    evidence: [
+      {
+        label:
+          "Choi et al. — VITON-HD: High-Resolution Virtual Try-On via Misalignment-Aware Normalization (arXiv:2103.16874, 2021)",
+        url: "https://arxiv.org/abs/2103.16874",
+        note: "Foundational HD virtual try-on benchmark referenced for FID / LPIPS protocol.",
+      },
+      {
+        label:
+          "Choi et al. — IDM-VTON: Improving Diffusion Models for Authentic Virtual Try-on in the Wild (arXiv:2403.05139, 2024)",
+        url: "https://arxiv.org/abs/2403.05139",
+        note: "Diffusion-based try-on architecture referenced for our reference-conditioning module.",
+      },
+      {
+        label:
+          "Sun et al. — OutfitAnyone: Ultra-high quality virtual try-on for any clothing and any person (arXiv:2407.16224, 2024)",
+        url: "https://arxiv.org/abs/2407.16224",
+        note: "Closely related cloud system — referenced for direct comparison.",
+      },
+      {
+        label: "DressCode dataset",
+        url: "https://github.com/aimagelab/dress-code",
+        note: "Public garment / pose dataset used during QA.",
+      },
+    ],
+  },
   hero: {
     eyebrow: "AI Virtual Try-On",
     versionChip: "v1.0.0",

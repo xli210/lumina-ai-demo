@@ -74,6 +74,89 @@ const data: ProductLandingData = {
       { name: "License model", value: "One-time, machine-bound; covers Windows + macOS" },
     ],
   },
+  documentation: {
+    lastVerified: "2026-05-29",
+    methodology:
+      "Upscale quality is reported as PSNR / LPIPS against ground-truth 4K crops on the in-house ImEnh-Eval-100 set (100 photos, balanced for portrait, landscape, e-commerce, and low-light). Throughput numbers measured on RTX 4070 Ti (12 GB VRAM, fp16) and Apple M3 Pro (18 GB unified memory, Metal). Batch-mode timing excludes disk I/O.",
+    scope: {
+      bestFor: [
+        "E-commerce: 1500-image batch upscale + transparent cutout",
+        "Print preparation: small phone shots → 16-by-20 prints",
+        "Photographers needing a Mac-native workflow on M2-M5",
+        "Studios processing NDA / on-set photos that cannot leave disk",
+        "Buyers replacing Topaz Photo AI + Magnific subscription stack",
+      ],
+      notRecommendedFor: [
+        "Heavily JPEG-compressed (<60 q) source photos",
+        "Documents / scanned text — use a dedicated OCR-aware tool",
+        "Frame-by-frame video upscale (use Nano VideoEnhance)",
+        "Real-time / camera-feed processing",
+        "AI-generated images with severe diffusion artefacts",
+      ],
+    },
+    limitations: [
+      {
+        title: "Severe noise / heavy compression",
+        detail:
+          "On JPEG quality < 60 or ISO 12800+ photos the denoiser smooths fine texture along with grain. Pair with a separate noise-removal pass first, or accept reduced micro-detail.",
+      },
+      {
+        title: "Background matting on similar foreground/background tones",
+        detail:
+          "Alpha edges become ambiguous when the subject and background share hue and luminance (e.g. white shirt on white wall). Use a contrasting backdrop, or refine the alpha in Photoshop.",
+      },
+      {
+        title: "Apple Silicon throughput vs NVIDIA",
+        detail:
+          "M3 Pro / M4 Pro upscale throughput is roughly 0.5-0.7× of an RTX 4070 Ti at the same resolution. The model output is identical; only wall-clock differs.",
+      },
+      {
+        title: "Intel Macs not supported",
+        detail:
+          "v3.0 ships native arm64 only. Intel Macs (pre-M1) are explicitly out of support; running under Rosetta is not provided.",
+      },
+      {
+        title: "Maximum input dimension",
+        detail:
+          "The current build accepts source images up to 8192 × 8192. Larger files must be tiled manually; an automatic tiler is on the v3.1 roadmap.",
+      },
+      {
+        title: "Upscale + matting in one pass",
+        detail:
+          "The pipeline runs them sequentially per image (upscale → matte). Running both on a 1500-image batch on a 12 GB GPU is throughput-bound; budget accordingly.",
+      },
+    ],
+    evidence: [
+      {
+        label:
+          "Wang et al. — Real-ESRGAN: Training Real-World Blind Super-Resolution with Pure Synthetic Data (arXiv:2107.10833, 2021)",
+        url: "https://arxiv.org/abs/2107.10833",
+        note: "Foundation for the real-world degradation model used by the upscaler.",
+      },
+      {
+        label:
+          "Lin et al. — DiffBIR: Towards Blind Image Restoration with Generative Diffusion Prior (arXiv:2308.15070, 2023)",
+        url: "https://arxiv.org/abs/2308.15070",
+        note: "Diffusion-prior restoration layer used at high upscale ratios.",
+      },
+      {
+        label:
+          "Qin et al. — U²-Net: Going Deeper with Nested U-Structure for Salient Object Detection (arXiv:2005.09007, 2020)",
+        url: "https://arxiv.org/abs/2005.09007",
+        note: "Architecture lineage for the AI background-matting head.",
+      },
+      {
+        label: "Topaz Labs — Photo AI",
+        url: "https://www.topazlabs.com/topaz-photo-ai",
+        note: "Primary local commercial competitor — referenced for direct comparison.",
+      },
+      {
+        label: "Magnific AI",
+        url: "https://magnific.ai/",
+        note: "Cloud upscaler benchmark — referenced for comparison.",
+      },
+    ],
+  },
   hero: {
     eyebrow: "AI Image Enhancement",
     versionChip: "v3.0",

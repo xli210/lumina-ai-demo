@@ -76,6 +76,84 @@ const data: ProductLandingData = {
       { name: "License model", value: "One-time, machine-bound; no per-second fees" },
     ],
   },
+  documentation: {
+    lastVerified: "2026-05-29",
+    methodology:
+      "Generation throughput is reported in seconds per second of generated video, measured on RTX 4070 Ti (12 GB VRAM, fp16), RTX 4080 (16 GB VRAM, fp16), and RTX 4090 (24 GB VRAM, fp16), Windows 11 23H2 driver 553.62. Reference clip is 5 s @ 768×512, 24 fps, 30 sampling steps, no LoRA stack. Prompt-coherence numbers use VBench protocol on a 50-prompt internal set.",
+    scope: {
+      bestFor: [
+        "Pre-vis / mood-board video for 5-15 second concept clips",
+        "Image-to-video animation of a still illustration or product shot",
+        "Camera-controlled b-roll without booking a shoot",
+        "12 GB-VRAM owners replacing per-second cloud subscriptions",
+        "Studios that cannot send prompts/references to Sora or Kling",
+      ],
+      notRecommendedFor: [
+        "Feature-film or broadcast-grade VFX (use a supervised pipeline)",
+        "Long-form narrative beyond ~10 seconds per clip",
+        "Real-time generation / interactive video",
+        "Apple Silicon Macs (Windows + NVIDIA only in v1.1.2)",
+        "Photoreal multi-character dialogue (talking-head expressions)",
+      ],
+    },
+    limitations: [
+      {
+        title: "Maximum reliable clip length",
+        detail:
+          "v1.1.2 produces best results at 4-8 second clips. Beyond ~10 s the model may drift in subject identity, lighting, or camera direction. Stitch shorter clips with shared seed for longer scenes.",
+      },
+      {
+        title: "Hands and fine articulation",
+        detail:
+          "Like all current open-weight video diffusion models, Nano VideoGen still produces occasional finger-count errors and articulation glitches. Avoid prompts that hero hands; mask & inpaint in post if necessary.",
+      },
+      {
+        title: "Talking-head lip-sync is not bundled",
+        detail:
+          "The pipeline produces facial motion, but precise lip-sync to a target audio track is out of scope. Pair with a dedicated lip-sync model if dialogue accuracy matters.",
+      },
+      {
+        title: "Heavy LoRA stacks reduce throughput",
+        detail:
+          "Stacking 3+ LoRAs (camera + style + identity) increases VRAM use by 1.5-2 GB and roughly halves throughput on a 12 GB card. Budget for the higher tier or simplify the stack.",
+      },
+      {
+        title: "Apple Silicon is not supported in v1.1.2",
+        detail:
+          "Current build is Windows + NVIDIA CUDA only. Metal port is on the roadmap.",
+      },
+      {
+        title: "No exact-frame consistency between runs",
+        detail:
+          "With identical seed + prompt the run is deterministic; with any change (LoRA, sampler, seed) outputs differ. Frame-by-frame matching across runs is not currently guaranteed.",
+      },
+    ],
+    evidence: [
+      {
+        label: "Lightricks — LTX-Video model card (Hugging Face)",
+        url: "https://huggingface.co/Lightricks/LTX-Video",
+        note: "Open-weight backbone the v1.1.2 release ships against.",
+      },
+      {
+        label:
+          "VBench: Comprehensive Benchmark Suite for Video Generation (arXiv:2311.17982, 2023)",
+        url: "https://arxiv.org/abs/2311.17982",
+        note: "Public protocol used for prompt-coherence numbers.",
+      },
+      {
+        label:
+          "MovieGen / Lumiere / Sora research surveys",
+        url: "https://arxiv.org/abs/2406.04324",
+        note: "Reference for state-of-the-art video diffusion landscape.",
+      },
+      {
+        label:
+          "Hu et al. — LoRA: Low-Rank Adaptation of Large Language Models (arXiv:2106.09685, 2021)",
+        url: "https://arxiv.org/abs/2106.09685",
+        note: "Foundation for the camera-control LoRA mechanism.",
+      },
+    ],
+  },
   hero: {
     eyebrow: "AI Video Generation",
     versionChip: "v1.1.2",

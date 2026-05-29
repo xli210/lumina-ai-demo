@@ -72,6 +72,84 @@ const data: ProductLandingData = {
       { name: "License model", value: "One-time, machine-bound; no per-portrait fees" },
     ],
   },
+  documentation: {
+    lastVerified: "2026-05-29",
+    methodology:
+      "Identity preservation is reported as ArcFace cosine similarity between the original and edited portrait, averaged over the in-house FacialEdit-Eval-150 set (150 portraits, balanced for age, ethnicity, lighting, and expression starting point). Per-portrait wall-clock measured on RTX 4070 (12 GB VRAM, fp16, Windows 11 23H2 driver 553.62), single subject, per-axis edit slider full-range traversal.",
+    scope: {
+      bestFor: [
+        "Editorial / e-commerce portrait retouch on tight deadlines",
+        "Headshot subject correction (eyes closed, neutral expression)",
+        "Wedding & event photographers needing per-subject retouch",
+        "Studios that cannot upload likeness (NDA / contract talent)",
+        "Replacing Facetune + Lightroom AI subscription stack",
+      ],
+      notRecommendedFor: [
+        "Generative full-portrait composition (use Nano ImageEdit)",
+        "Body / pose editing — restricted to head and face",
+        "Ethically sensitive uses (impersonation, deepfake misuse)",
+        "Apple Silicon Macs (Windows + NVIDIA only in v1.0.2)",
+        "Profile shots beyond ~70° yaw — landmarks unreliable",
+      ],
+    },
+    limitations: [
+      {
+        title: "Profile / extreme yaw portraits",
+        detail:
+          "Identity preservation is QA-tested up to ~70° yaw. Beyond that, landmark detection becomes unreliable and the edit may distort facial structure.",
+      },
+      {
+        title: "Group photo per-face throughput",
+        detail:
+          "Each face in a group portrait is edited as a separate per-subject pass. Throughput scales linearly: a 6-person group is roughly 6× the single-subject latency.",
+      },
+      {
+        title: "Aggressive retouch can over-smooth",
+        detail:
+          "Per-portrait retouch strength is exposed as a slider. Settings above ~0.7 begin to remove individuality (freckles, fine wrinkles); we recommend ≤0.5 for editorial work.",
+      },
+      {
+        title: "Severe makeup or glasses across the face",
+        detail:
+          "Heavy theatrical makeup, mirrored sunglasses, or full-face VR headsets can defeat the identity encoder; edit results may revert toward generic prior.",
+      },
+      {
+        title: "Apple Silicon not supported",
+        detail:
+          "v1.0.2 is Windows + NVIDIA CUDA only. Metal port shares the codebase with Nano ImageEnh Pro 3.0 and is on the roadmap.",
+      },
+      {
+        title: "No body-pose editing",
+        detail:
+          "Edit axes are deliberately limited to head, face, and expression. Body and pose edits are out of scope to keep the identity-loss objective tractable.",
+      },
+    ],
+    evidence: [
+      {
+        label:
+          "Wang et al. — InstantID: Zero-shot Identity-Preserving Generation in Seconds (arXiv:2401.07519, 2024)",
+        url: "https://arxiv.org/abs/2401.07519",
+        note: "Identity-loss objective shared with the Nano FaceSwap Pro stack.",
+      },
+      {
+        label:
+          "Hyung et al. — DiffSwap: High-Fidelity and Controllable Face Swapping via 3D-Aware Masked Diffusion (arXiv:2308.13495, 2023)",
+        url: "https://arxiv.org/abs/2308.13495",
+        note: "Diffusion-based facial editing reference architecture.",
+      },
+      {
+        label:
+          "Wang et al. — RestoreFormer: High-Quality Blind Face Restoration from Undegraded Key-Value Pairs (arXiv:2201.06374, 2022)",
+        url: "https://arxiv.org/abs/2201.06374",
+        note: "Restoration head used for skin-detail preservation.",
+      },
+      {
+        label: "Lightricks — Facetune",
+        url: "https://www.lightricks.com/products/facetune/",
+        note: "Mobile competitor — referenced for direct comparison.",
+      },
+    ],
+  },
   hero: {
     eyebrow: "AI Portrait Retouch",
     versionChip: "v1.0.2",

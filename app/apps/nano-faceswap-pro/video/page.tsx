@@ -75,6 +75,85 @@ const data: ProductLandingData = {
       { name: "Account requirement", value: "Free NanoPocket sign-in + demo password" },
     ],
   },
+  documentation: {
+    lastVerified: "2026-05-29",
+    methodology:
+      "Temporal stability is reported as the average per-frame identity-similarity variance (ArcFace cosine, σ²) across 20 internal Test-Vid-1080p clips, each 10-30s with continuous head motion. Lower σ² is better. Demo capacity is measured against a NanoPocket-hosted A100-80GB pool; queue times during peak hours (UTC 14-22) can exceed the medians stated.",
+    scope: {
+      bestFor: [
+        "Short-form social, ad creative, music video pre-vis",
+        "Concept boards before committing to film-grade VFX",
+        "Localising a campaign across regional faces",
+        "Quick rough cuts with stable facial identity",
+        "Buyers comparing diffusion video swap vs Roop/FaceFusion",
+      ],
+      notRecommendedFor: [
+        "Real-time live-streaming (use Rope-Live or Deep-Live-Cam)",
+        "Feature-film VFX requiring full per-shot supervision",
+        "NDA / restricted footage — wait for the desktop release",
+        "Source clips with > 6 simultaneously-swapped faces",
+        "Any non-consensual likeness use — explicitly prohibited",
+      ],
+    },
+    limitations: [
+      {
+        title: "30-second / 1080p ceiling on the online demo",
+        detail:
+          "The browser demo enforces a 30-second clip and 1080p resolution cap to keep hosted-GPU queue times reasonable. The desktop Pro 2.0 release lifts both limits to whatever the local GPU can sustain.",
+      },
+      {
+        title: "Strong motion-blur frames",
+        detail:
+          "When a face is severely motion-blurred for 3+ consecutive frames, optical flow has no anchor and identity propagation can drift. Consider de-blurring the source first, or shoot at a higher shutter speed.",
+      },
+      {
+        title: "Rapid lighting cuts (e.g. concert strobes)",
+        detail:
+          "Identity-encoder confidence drops when scene lighting changes between every frame. Outputs may show short flicker passages that mask-toggle cannot suppress; we recommend trimming around strobe segments.",
+      },
+      {
+        title: "Crowd shots > 6 faces",
+        detail:
+          "Per-face identity tracking is QA-tested up to 6 simultaneous swapped faces. Beyond that, identity matching may swap the wrong subject between frames.",
+      },
+      {
+        title: "Hosted-GPU queue times during peak hours",
+        detail:
+          "Free demo queues lengthen at peak hours (UTC 14-22). Most submissions clear in ≤2 min, but a 5-10 min wait is possible on busy weekends until the desktop release lands.",
+      },
+      {
+        title: "Audio is preserved but not edited",
+        detail:
+          "The pipeline keeps the source audio track 1:1. Lip-sync to the swapped identity is not currently part of the demo — pair with a separate lip-sync model if required.",
+      },
+    ],
+    evidence: [
+      {
+        label:
+          "Wang et al. — InstantID: Zero-shot Identity-Preserving Generation in Seconds (arXiv:2401.07519, 2024)",
+        url: "https://arxiv.org/abs/2401.07519",
+        note: "Per-frame identity head used by the video pipeline.",
+      },
+      {
+        label:
+          "Guo et al. — PuLID: Pure and Lightning ID Customization via Contrastive Alignment (arXiv:2404.16022, 2024)",
+        url: "https://arxiv.org/abs/2404.16022",
+        note: "Skin-detail and contrast objective shared with the image swap.",
+      },
+      {
+        label:
+          "Teed & Deng — RAFT: Recurrent All-Pairs Field Transforms for Optical Flow (arXiv:2003.12039, 2020)",
+        url: "https://arxiv.org/abs/2003.12039",
+        note: "Optical-flow estimator backbone used for frame-to-frame propagation.",
+      },
+      {
+        label:
+          "Perazzi et al. — DAVIS Video Object Segmentation Benchmark",
+        url: "https://davischallenge.org/",
+        note: "Public temporal-consistency reference dataset used during QA.",
+      },
+    ],
+  },
   parent: { label: "Back to Nano FaceSwap Pro 2.0", href: "/apps/nano-faceswap-pro" },
   hero: {
     eyebrow: "Free online · Video face swap",

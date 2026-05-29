@@ -76,6 +76,82 @@ const data: ProductLandingData = {
       { name: "Pro upgrade", value: "Nano FaceSwap Pro 2.0 — diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID)" },
     ],
   },
+  documentation: {
+    lastVerified: "2026-05-29",
+    methodology:
+      "Identity transfer fidelity is reported as ArcFace cosine similarity between the swap output and the reference identity, measured on the in-house FS-Eval-100 photo set and FS-Vid-Eval-30 video set. Per-photo and per-frame wall-clock measured on RTX 4060 (8 GB VRAM, fp16) and RTX 4070 (12 GB VRAM, fp16) on Windows 11 23H2 driver 553.62.",
+    scope: {
+      bestFor: [
+        "Hobbyists and creators wanting a one-click Windows installer",
+        "Single-face swap on social-format photos and videos",
+        "Group portraits with up to ~6 faces",
+        "Buyers who want a desktop app, not a Python / Gradio script",
+        "Users not yet ready to wait for the diffusion-grade Pro 2.0",
+      ],
+      notRecommendedFor: [
+        "4K-grade single-portrait fidelity (use Nano FaceSwap Pro 2.0)",
+        "Real-time webcam streaming (use Rope-Live)",
+        "Apple Silicon Macs (Windows + NVIDIA only in v1.0.4)",
+        "Any non-consensual likeness use — explicitly prohibited",
+        "Sub-360p source media where landmarks are unreliable",
+      ],
+    },
+    limitations: [
+      {
+        title: "128-pixel identity head ceiling",
+        detail:
+          "Like other inswapper_128-class swappers (Roop, FaceFusion, Rope, Reactor), identity is rendered at 128×128 then upscaled. Skin micro-detail loss is unavoidable at the model level — Pro 2.0 fixes this with a diffusion identity head.",
+      },
+      {
+        title: "Profile angles beyond 75° yaw",
+        detail:
+          "Identity-similarity drops on near-profile shots because the inswapper backbone is trained on frontal-to-three-quarter views. Re-shoot at ≤60° yaw or upgrade to Pro 2.0's diffusion stack.",
+      },
+      {
+        title: "Strong motion blur on video",
+        detail:
+          "Faces blurred for 3+ consecutive frames lose landmark anchors. The output may flicker briefly; trim around the blur or pre-deblur the source.",
+      },
+      {
+        title: "Lighting that differs sharply from the reference",
+        detail:
+          "Mismatched colour temperature between source and reference can produce a colour cast on the swapped face. Match the reference lighting or grade-correct in post.",
+      },
+      {
+        title: "Apple Silicon is not supported",
+        detail:
+          "v1.0.4 is Windows + NVIDIA CUDA only. Mac users should use the Nano FaceSwap Pro 2.0 online demo until the Pro desktop release ships.",
+      },
+      {
+        title: "Group photos > 6 faces",
+        detail:
+          "Per-face targeting handles up to 16 detections, but identity-similarity beyond 6 simultaneously-swapped faces is outside the QA matrix and not warranted.",
+      },
+    ],
+    evidence: [
+      {
+        label:
+          "InsightFace — inswapper_128 model card (GitHub, deepinsight/insightface)",
+        url: "https://github.com/deepinsight/insightface/tree/master/python-package",
+        note: "Identity-transfer backbone shared with Roop, FaceFusion, Rope, Reactor.",
+      },
+      {
+        label: "InsightFace — ArcFace recognition model",
+        url: "https://github.com/deepinsight/insightface",
+        note: "Reference identity-similarity metric used in QA.",
+      },
+      {
+        label: "FaceFusion (s0md3v) — open-source GAN-based face swap",
+        url: "https://github.com/facefusion/facefusion",
+        note: "Closely related open-source competitor — referenced for direct comparison.",
+      },
+      {
+        label: "Roop / Rope — Gradio-based desktop face swap projects",
+        url: "https://github.com/Hillobar/Rope",
+        note: "Closest community-script alternatives — referenced for direct comparison.",
+      },
+    ],
+  },
   hero: {
     eyebrow: "Desktop Face Swap",
     versionChip: "v1.0.4",

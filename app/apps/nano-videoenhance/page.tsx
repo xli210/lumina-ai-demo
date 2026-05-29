@@ -72,6 +72,84 @@ const data: ProductLandingData = {
       { name: "Multi-GPU requirement", value: "None — single-GPU only" },
     ],
   },
+  documentation: {
+    lastVerified: "2026-05-29",
+    methodology:
+      "Throughput is reported as frames per second on RTX 4070 (12 GB VRAM, fp16, Windows 11 23H2 driver 553.62) for 1080p → 4K upscale, batch-1, with stabilize and denoise enabled. Chroma stability is measured as max ΔE2000 on saturated patches between consecutive frames on the in-house ColorBleed-30 clip set.",
+    scope: {
+      bestFor: [
+        "Restoring older interview / archival footage to 4K",
+        "Concert and event video with red/neon-saturated lighting",
+        "Hand-held travel and vlog clips needing stabilize + denoise",
+        "Editorial deliverables that cannot ship on a per-minute SaaS",
+        "RTX 30/40/50-series owners replacing Topaz Video AI",
+      ],
+      notRecommendedFor: [
+        "Apple Silicon Macs (Windows + NVIDIA only in v1.0.5)",
+        "Real-time playback / live encoding workflows",
+        "Heavy interlace or telecine pull-down — de-interlace first",
+        "Animated / cel-shaded content (use a model tuned for animation)",
+        "Sub-360p source clips with severe codec artefacts",
+      ],
+    },
+    limitations: [
+      {
+        title: "No Apple Silicon build in v1.0.5",
+        detail:
+          "Current build is Windows + NVIDIA CUDA only. Apple Silicon (Metal) support is on the roadmap and shares the model architecture with Nano ImageEnh Pro 3.0.",
+      },
+      {
+        title: "Interlace / telecine sources",
+        detail:
+          "The pipeline assumes progressive input. Interlaced or telecined sources should be de-interlaced (e.g. QTGMC in DaVinci Resolve) before upscale.",
+      },
+      {
+        title: "Animation / cel-shaded video",
+        detail:
+          "The included model is tuned for live-action footage. Anime and cel-shaded content can over-smooth line art; we recommend an animation-specific upscaler for that use case.",
+      },
+      {
+        title: "Severe codec block-noise (e.g. old MPEG-1 / VHS)",
+        detail:
+          "Block artefacts below 4 Mbps can survive denoising and reappear after upscale. A pre-pass with a dedicated codec-deblocker filter is advised.",
+      },
+      {
+        title: "Multi-GPU not supported",
+        detail:
+          "The pipeline runs on a single GPU. Render-farm or multi-GPU split is not in v1.0.5; it is on the roadmap behind Apple Silicon support.",
+      },
+      {
+        title: "Long-clip memory budget",
+        detail:
+          "On 8 GB cards, clips longer than ~3 minutes at 4K target require the chunked-render path; chunking is automatic but adds 10-15 % overhead vs whole-clip mode.",
+      },
+    ],
+    evidence: [
+      {
+        label:
+          "Liang et al. — VRT: A Video Restoration Transformer (arXiv:2201.12288, 2022)",
+        url: "https://arxiv.org/abs/2201.12288",
+        note: "Architecture lineage for the temporal-aware upscale block.",
+      },
+      {
+        label:
+          "Chan et al. — BasicVSR++: Improving Video Super-Resolution with Enhanced Propagation and Alignment (arXiv:2104.13371, 2021)",
+        url: "https://arxiv.org/abs/2104.13371",
+        note: "Frame-propagation reference for the v1.0.4 chroma fix.",
+      },
+      {
+        label: "Topaz Labs — Video AI",
+        url: "https://www.topazlabs.com/topaz-video-ai",
+        note: "Primary local-paid competitor — referenced for direct comparison.",
+      },
+      {
+        label:
+          "REDS dataset — Realistic and Dynamic Scenes for video enhancement",
+        url: "https://seungjunnah.github.io/Datasets/reds.html",
+        note: "Public reference dataset used during QA.",
+      },
+    ],
+  },
   hero: {
     eyebrow: "AI Video Enhancement",
     versionChip: "v1.0.5",

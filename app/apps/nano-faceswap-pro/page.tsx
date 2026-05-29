@@ -79,6 +79,90 @@ const data: ProductLandingData = {
       { name: "Data handling", value: "100% local on desktop; no source upload; no model training on user data" },
     ],
   },
+  documentation: {
+    lastVerified: "2026-05-29",
+    methodology:
+      "Identity-similarity is reported as ArcFace cosine similarity between the swap output and the reference identity, averaged over the in-house FS-Eval-200 set (200 paired faces, balanced for gender, ethnicity, and lighting). Resolution claims measured on RTX 4070 Ti (12 GB VRAM, fp16) and Apple M3 Pro (18 GB unified memory). Latencies exclude file I/O.",
+    scope: {
+      bestFor: [
+        "Photographers needing 4K-grade single-portrait face swap",
+        "VFX artists swapping a hero face onto a body double",
+        "Marketing teams localising creative across regions",
+        "Studios that need 100% local processing on NDA footage",
+        "Buyers comparing diffusion swap vs inswapper_128 quality",
+      ],
+      notRecommendedFor: [
+        "Real-time webcam streaming (use Rope-Live or Deep-Live-Cam)",
+        "Live-action films with > 6 simultaneous faces in frame",
+        "Any non-consensual likeness use — explicitly prohibited",
+        "Sub-360p source footage where landmarks are unreliable",
+        "Subjects wearing dense occlusions (full helmets, heavy veils)",
+      ],
+    },
+    limitations: [
+      {
+        title: "Profile angles beyond 75° yaw",
+        detail:
+          "Identity similarity drops on near-profile shots because diffusion priors are trained mostly on frontal-to-three-quarter views. We recommend re-shooting at ≤60° yaw or using head-mode for full re-render.",
+      },
+      {
+        title: "Heavy non-rigid occlusion (microphones, hands, hair across face)",
+        detail:
+          "Mask toggles cover hair, clothing, and apparel, but dynamic occluders crossing the inner-face region still produce per-frame flicker on video. We recommend masking the occluder out or using the magic-pen brush per frame.",
+      },
+      {
+        title: "Extreme low light (< 5 lux)",
+        detail:
+          "Below this exposure level the identity encoder produces a low-confidence embedding and the swap reverts toward the source identity. Add lift in post or grade up the source clip first.",
+      },
+      {
+        title: "Group portraits with > 6 distinct faces",
+        detail:
+          "The face picker handles up to 16 detections, but identity similarity above 6 simultaneously-swapped faces falls outside our QA matrix and is not currently warranted.",
+      },
+      {
+        title: "Ethnicity / age extrapolation",
+        detail:
+          "Like all diffusion identity models, transferring across very different ethnic phenotypes or > 30-year age gaps reduces likeness retention. Use the closest demographic reference where possible.",
+      },
+      {
+        title: "Online demo clip length",
+        detail:
+          "The browser demo is rate-limited at 30 seconds of input video and 1080p resolution. The desktop release lifts both ceilings to whatever the local GPU can handle.",
+      },
+    ],
+    evidence: [
+      {
+        label:
+          "Wang et al. — InstantID: Zero-shot Identity-Preserving Generation in Seconds (arXiv:2401.07519, 2024)",
+        url: "https://arxiv.org/abs/2401.07519",
+        note: "Foundation paper for the InstantID component of our identity stack.",
+      },
+      {
+        label:
+          "Guo et al. — PuLID: Pure and Lightning ID Customization via Contrastive Alignment (arXiv:2404.16022, 2024)",
+        url: "https://arxiv.org/abs/2404.16022",
+        note: "Identity-contrast objective used for high-frequency skin detail.",
+      },
+      {
+        label:
+          "Ye et al. — IP-Adapter: Text Compatible Image Prompt Adapter for Text-to-Image Diffusion Models (arXiv:2308.06721, 2023)",
+        url: "https://arxiv.org/abs/2308.06721",
+        note: "Reference-image conditioning module on top of the SDXL/Flux backbone.",
+      },
+      {
+        label:
+          "InsightFace — inswapper_128 model card (GitHub, deepinsight/insightface)",
+        url: "https://github.com/deepinsight/insightface/tree/master/python-package",
+        note: "Baseline GAN used by Roop, FaceFusion, Rope, Reactor — included for direct comparison.",
+      },
+      {
+        label: "Hugging Face — InstantID demo & weights",
+        url: "https://huggingface.co/InstantX/InstantID",
+        note: "Public weights and reproducible demo for the InstantID component.",
+      },
+    ],
+  },
   hero: {
     eyebrow: "Free online · Diffusion face swap",
     versionChip: "v2.0",

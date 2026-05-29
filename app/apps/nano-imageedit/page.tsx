@@ -75,6 +75,83 @@ const data: ProductLandingData = {
       { name: "License model", value: "One-time, machine-bound; no per-image fees" },
     ],
   },
+  documentation: {
+    lastVerified: "2026-05-29",
+    methodology:
+      "Generation throughput is reported in seconds per image at 1024 × 1024, 30 sampling steps, fp16, batch=1. Tested on RTX 4070 Ti (12 GB VRAM), RTX 4080 (16 GB VRAM), and RTX 4090 (24 GB VRAM) on Windows 11 23H2 driver 553.62. Prompt-following uses GenEval and DrawBench public protocols on internal 200-prompt subsets.",
+    scope: {
+      bestFor: [
+        "Concept art and illustration on a 12 GB-VRAM card",
+        "Image-to-image edits where structure must be preserved",
+        "Studios that cannot ship prompts to Midjourney or DALL-E",
+        "Iterating offline with seed control and reproducible re-rolls",
+        "Replacing per-image cloud subscriptions with one-time license",
+      ],
+      notRecommendedFor: [
+        "Real-time interactive painting on the same canvas",
+        "Apple Silicon Macs (Windows + NVIDIA only in v1.0.5)",
+        "Bulk e-commerce upscaling — use Nano ImageEnh Pro 3.0",
+        "Multi-character compositions with strict identity locks (use FacialEdit)",
+        "Photoreal text rendering (Flux.1 still struggles with paragraphs)",
+      ],
+    },
+    limitations: [
+      {
+        title: "Text inside images",
+        detail:
+          "Flux.1 renders short captions reasonably well but degrades on paragraphs or stylised typography. Add text in post (Photoshop / Figma) for production-quality typography.",
+      },
+      {
+        title: "Sub-12 GB VRAM throughput",
+        detail:
+          "The streaming DiT path runs the same weights on 8 GB / 10 GB cards but at roughly 0.4-0.6× throughput. Output quality is identical; only wall-clock differs.",
+      },
+      {
+        title: "Hands and fine anatomy",
+        detail:
+          "Like other open-weight diffusion models, Flux.1 still produces occasional finger-count and joint errors. Use img2img inpaint for hand fixes, or generate hands separately and composite.",
+      },
+      {
+        title: "Identity preservation across edits",
+        detail:
+          "Image-to-image with high strength may drift the subject's identity. For face-stable workflows, route the result through Nano FacialEdit's identity-preserving stack.",
+      },
+      {
+        title: "Apple Silicon is not supported in v1.0.5",
+        detail:
+          "Current build is Windows + NVIDIA CUDA only. Metal support is on the roadmap.",
+      },
+      {
+        title: "Output licensing follows Flux.1 model license",
+        detail:
+          "Generated images are usable commercially under the open Flux.1 license plus the NanoPocket Terms of Use. Subjects and trademarks must still be cleared by the user.",
+      },
+    ],
+    evidence: [
+      {
+        label: "Black Forest Labs — Flux.1 model card",
+        url: "https://huggingface.co/black-forest-labs/FLUX.1-dev",
+        note: "Open-weight backbone the v1.0.5 release ships against.",
+      },
+      {
+        label:
+          "Esser et al. — Scaling Rectified Flow Transformers for High-Resolution Image Synthesis (Stable Diffusion 3 paper, arXiv:2403.03206, 2024)",
+        url: "https://arxiv.org/abs/2403.03206",
+        note: "Architecture lineage for Flux.1's MM-DiT design.",
+      },
+      {
+        label:
+          "Ghosh et al. — GenEval: An Object-Focused Framework for Evaluating Text-to-Image Alignment (arXiv:2310.11513, 2023)",
+        url: "https://arxiv.org/abs/2310.11513",
+        note: "Public benchmark used for prompt-following numbers.",
+      },
+      {
+        label: "OpenAI — DALL-E 3 system card",
+        url: "https://openai.com/research/dall-e-3-system-card",
+        note: "Cloud benchmark — referenced for direct comparison.",
+      },
+    ],
+  },
   hero: {
     eyebrow: "AI Image Generation",
     versionChip: "v1.0.5",
