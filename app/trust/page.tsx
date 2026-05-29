@@ -7,11 +7,14 @@ import {
   CheckCircle2,
   Cpu,
   CreditCard,
+  ExternalLink,
   FileCheck2,
   Fingerprint,
   Globe2,
+  Library,
   Lock,
   ScrollText,
+  ShieldAlert,
   ShieldCheck,
 } from "lucide-react";
 import { Navbar } from "../components/navbar";
@@ -239,6 +242,215 @@ const SECURITY: SecurityNote[] = [
   },
 ];
 
+interface SubprocessorRow {
+  name: string;
+  purpose: string;
+  region: string;
+  policy: string;
+}
+
+const TRUST_SUBPROCESSORS: SubprocessorRow[] = [
+  {
+    name: "Vercel, Inc.",
+    purpose: "Web hosting, edge delivery, server logs (30 days).",
+    region: "Global edge; primary US-East.",
+    policy: "https://vercel.com/legal/privacy-policy",
+  },
+  {
+    name: "Supabase, Inc.",
+    purpose: "Auth, Postgres, account / license / activation rows.",
+    region: "US-East-1.",
+    policy: "https://supabase.com/privacy",
+  },
+  {
+    name: "Stripe, Inc.",
+    purpose: "Payment processing, tax, invoices.",
+    region: "US, EU.",
+    policy: "https://stripe.com/privacy",
+  },
+  {
+    name: "Cloudflare, Inc.",
+    purpose: "Online demo tunnels (Image / Video FaceSwap Pro).",
+    region: "Global edge.",
+    policy: "https://www.cloudflare.com/privacypolicy/",
+  },
+  {
+    name: "Google Analytics 4",
+    purpose: "Aggregate web analytics, IP anonymised at collection.",
+    region: "Global.",
+    policy: "https://policies.google.com/privacy",
+  },
+  {
+    name: "GitHub, Inc.",
+    purpose: "Source / release artifacts (LFS for some downloads).",
+    region: "US.",
+    policy: "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
+  },
+  {
+    name: "Discord, Inc.",
+    purpose: "Public community channel (opt-in).",
+    region: "US.",
+    policy: "https://discord.com/privacy",
+  },
+];
+
+interface RetentionRow {
+  category: string;
+  duration: string;
+  trigger: string;
+}
+
+const RETENTION_TABLE: RetentionRow[] = [
+  {
+    category: "Account profile",
+    duration: "While account exists; 30-day deletion window after request",
+    trigger: "Email tech@nanopocket.ai with the account email",
+  },
+  {
+    category: "License & activation rows",
+    duration: "While license is active; 7 years after final deactivation",
+    trigger: "Tax / warranty record-keeping",
+  },
+  {
+    category: "Payment metadata",
+    duration: "7 years (US/EU tax baseline)",
+    trigger: "Statutory tax record-keeping (Stripe retention applies separately)",
+  },
+  {
+    category: "Online demo content (face swap source files)",
+    duration: "Volatile only — discarded after one inference",
+    trigger: "End of HTTP response from demo tunnel",
+  },
+  {
+    category: "Feedback & survey responses",
+    duration: "While account exists",
+    trigger: "Account deletion request",
+  },
+  {
+    category: "Web analytics (GA4)",
+    duration: "14 months",
+    trigger: "GA4 default retention",
+  },
+  {
+    category: "Server logs",
+    duration: "30 days (Vercel)",
+    trigger: "Rolling automatic deletion",
+  },
+];
+
+interface IndependentLink {
+  label: string;
+  url: string;
+  category: "Model" | "Community" | "Standard" | "Comparison";
+  detail: string;
+}
+
+const INDEPENDENT_LINKS: IndependentLink[] = [
+  {
+    category: "Model",
+    label: "Hugging Face — InstantX/InstantID model card",
+    url: "https://huggingface.co/InstantX/InstantID",
+    detail: "Public weights + reproducible demo for the InstantID component of FaceSwap Pro 2.0.",
+  },
+  {
+    category: "Model",
+    label: "Hugging Face — Lightricks/LTX-Video model card",
+    url: "https://huggingface.co/Lightricks/LTX-Video",
+    detail: "Open-weight video diffusion backbone used in Nano VideoGen.",
+  },
+  {
+    category: "Model",
+    label: "Hugging Face — black-forest-labs/FLUX.1-dev",
+    url: "https://huggingface.co/black-forest-labs/FLUX.1-dev",
+    detail: "Open-weight image-generation backbone used in Nano ImageEdit.",
+  },
+  {
+    category: "Model",
+    label: "Hugging Face — Real-ESRGAN model collection",
+    url: "https://huggingface.co/ai-forever/Real-ESRGAN",
+    detail: "Foundational upscaler model lineage referenced by Nano ImageEnh Pro 3.0.",
+  },
+  {
+    category: "Standard",
+    label: "RFC 9116 — A File Format to Aid in Security Vulnerability Disclosure",
+    url: "https://www.rfc-editor.org/rfc/rfc9116",
+    detail: "We publish /.well-known/security.txt per this standard.",
+  },
+  {
+    category: "Standard",
+    label: "OWASP Application Security Verification Standard (ASVS)",
+    url: "https://owasp.org/www-project-application-security-verification-standard/",
+    detail: "Web application is built to ASVS Level 1.",
+  },
+  {
+    category: "Comparison",
+    label: "InsightFace inswapper_128 — competitor identity backbone",
+    url: "https://github.com/deepinsight/insightface",
+    detail: "GAN used by Roop / FaceFusion / Rope / Reactor — referenced for direct comparison vs Pro 2.0's diffusion stack.",
+  },
+  {
+    category: "Comparison",
+    label: "Topaz Labs — Photo AI",
+    url: "https://www.topazlabs.com/topaz-photo-ai",
+    detail: "Primary local commercial competitor for Nano ImageEnh Pro 3.0.",
+  },
+  {
+    category: "Comparison",
+    label: "Topaz Labs — Video AI",
+    url: "https://www.topazlabs.com/topaz-video-ai",
+    detail: "Primary local commercial competitor for Nano VideoEnhance.",
+  },
+  {
+    category: "Community",
+    label: "NanoPocket Discord — public community channel",
+    url: "https://discord.gg/bNfPjfUDAn",
+    detail: "Real users; bug reports, tips, and feature discussion.",
+  },
+];
+
+interface PolicyDoc {
+  href: string;
+  label: string;
+  description: string;
+  effective: string;
+  version: string;
+}
+
+const POLICY_DOCS: PolicyDoc[] = [
+  {
+    href: "/privacy",
+    label: "Privacy Policy",
+    description:
+      "What we collect, why, where it goes, retention timelines, GDPR / CCPA rights, online demo handling.",
+    effective: "2026-05-29",
+    version: "v1.0",
+  },
+  {
+    href: "/terms",
+    label: "Terms of Service",
+    description:
+      "License terms, billing, refunds, acceptable-use policy, warranty disclaimer, limitation of liability, governing law.",
+    effective: "2026-05-29",
+    version: "v1.0",
+  },
+  {
+    href: "/security",
+    label: "Security & Vulnerability Disclosure",
+    description:
+      "How to report a vulnerability, coordinated-disclosure timeline, scope, safe-harbor, code-signing posture.",
+    effective: "2026-05-29",
+    version: "Last reviewed",
+  },
+  {
+    href: "/.well-known/security.txt",
+    label: "security.txt (RFC 9116)",
+    description:
+      "Machine-readable security contact file at /.well-known/security.txt for automated discovery.",
+    effective: "2026-05-29",
+    version: "RFC 9116",
+  },
+];
+
 interface KnownIssue {
   title: string;
   detail: string;
@@ -366,11 +578,28 @@ const techArticleJsonLd = {
     },
   },
   about: { "@id": "https://nanopocket.ai#organization" },
-  citation: CITATIONS.map((c) => ({
-    "@type": "CreativeWork",
-    name: c.label,
-    url: c.url,
-    description: c.note,
+  citation: [
+    ...CITATIONS.map((c) => ({
+      "@type": "CreativeWork",
+      name: c.label,
+      url: c.url,
+      description: c.note,
+    })),
+    ...INDEPENDENT_LINKS.map((l) => ({
+      "@type": "CreativeWork",
+      name: l.label,
+      url: l.url,
+      description: l.detail,
+    })),
+  ],
+  hasPart: POLICY_DOCS.map((d) => ({
+    "@type": "WebPage",
+    name: d.label,
+    url: d.href.startsWith("/")
+      ? `https://nanopocket.ai${d.href}`
+      : d.href,
+    description: d.description,
+    dateModified: d.effective,
   })),
   mentions: KNOWN_ISSUES.map((k) => ({
     "@type": "Thing",
@@ -774,6 +1003,268 @@ export default function TrustPage() {
                   {c.label}
                 </a>
                 <p className="mt-1 text-xs text-muted-foreground">{c.note}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Linked policy documents */}
+      <section
+        id="policies"
+        className="border-t border-border/60 px-6 py-16 sm:py-20"
+      >
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-10 flex items-center gap-3">
+            <div className="rounded-xl border border-border/60 bg-muted/40 p-2.5">
+              <Library className="h-5 w-5 text-emerald-500" />
+            </div>
+            <div>
+              <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted-foreground">
+                Section 07
+              </p>
+              <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                Formal policy documents
+              </h2>
+            </div>
+          </div>
+          <p className="mb-8 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+            Each document below is dated, versioned, and authoritative. Bookmark them — these are
+            the surfaces that answer &ldquo;what is the legal status&rdquo; class of question and
+            are written to be quoted directly.
+          </p>
+          <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {POLICY_DOCS.map((doc) => (
+              <li
+                key={doc.href}
+                className="rounded-2xl border border-border/60 bg-background/60 p-6"
+              >
+                <div className="mb-3 flex items-center justify-between gap-2">
+                  <h3 className="text-base font-semibold text-foreground">{doc.label}</h3>
+                  <span className="rounded-full border border-border/60 bg-muted/40 px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-[0.16em] text-muted-foreground">
+                    {doc.version}
+                  </span>
+                </div>
+                <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+                  {doc.description}
+                </p>
+                <div className="flex items-center justify-between">
+                  <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
+                    Effective <time dateTime={doc.effective}>{doc.effective}</time>
+                  </p>
+                  {doc.href.startsWith("/.") ? (
+                    <a
+                      href={doc.href}
+                      className="inline-flex items-center gap-1 text-xs font-medium text-emerald-500 hover:underline"
+                    >
+                      Open <ExternalLink className="h-3 w-3" />
+                    </a>
+                  ) : (
+                    <Link
+                      href={doc.href}
+                      className="inline-flex items-center gap-1 text-xs font-medium text-emerald-500 hover:underline"
+                    >
+                      Read <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Subprocessor table */}
+      <section
+        id="subprocessors"
+        className="border-t border-border/60 bg-muted/20 px-6 py-16 sm:py-20"
+      >
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-10 flex items-center gap-3">
+            <div className="rounded-xl border border-border/60 bg-background/60 p-2.5">
+              <Globe2 className="h-5 w-5 text-indigo-500" />
+            </div>
+            <div>
+              <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted-foreground">
+                Section 08
+              </p>
+              <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                Subprocessors
+              </h2>
+            </div>
+          </div>
+          <p className="mb-8 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+            We use the following third-party subprocessors. Each maintains its own privacy policy;
+            we link directly so the policy can be inspected without going through us. See the
+            full categorisation in the{" "}
+            <Link
+              href="/privacy#subprocessors"
+              className="text-emerald-500 underline-offset-4 hover:underline"
+            >
+              Privacy Policy
+            </Link>
+            .
+          </p>
+          <div className="overflow-x-auto rounded-2xl border border-border/60">
+            <table className="w-full min-w-[680px]">
+              <thead>
+                <tr className="bg-muted/40 text-left text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  <th className="px-4 py-3">Subprocessor</th>
+                  <th className="px-4 py-3">Purpose</th>
+                  <th className="px-4 py-3">Region</th>
+                  <th className="px-4 py-3">Policy</th>
+                </tr>
+              </thead>
+              <tbody>
+                {TRUST_SUBPROCESSORS.map((s, i) => (
+                  <tr
+                    key={s.name}
+                    className={`border-t border-border/40 ${
+                      i % 2 === 0 ? "bg-background/40" : "bg-muted/20"
+                    }`}
+                  >
+                    <td className="px-4 py-4 align-top text-sm font-semibold text-foreground">
+                      {s.name}
+                    </td>
+                    <td className="px-4 py-4 align-top text-sm text-muted-foreground">
+                      {s.purpose}
+                    </td>
+                    <td className="px-4 py-4 align-top text-sm text-muted-foreground">
+                      {s.region}
+                    </td>
+                    <td className="px-4 py-4 align-top text-sm">
+                      <a
+                        href={s.policy}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-emerald-500 hover:underline"
+                      >
+                        view <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Retention schedule */}
+      <section id="retention" className="border-t border-border/60 px-6 py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-10 flex items-center gap-3">
+            <div className="rounded-xl border border-border/60 bg-muted/40 p-2.5">
+              <ShieldAlert className="h-5 w-5 text-amber-500" />
+            </div>
+            <div>
+              <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted-foreground">
+                Section 09
+              </p>
+              <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                Data retention schedule
+              </h2>
+            </div>
+          </div>
+          <p className="mb-8 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+            Concrete retention durations per category. The full lawful-basis breakdown is in the{" "}
+            <Link
+              href="/privacy#collect"
+              className="text-emerald-500 underline-offset-4 hover:underline"
+            >
+              Privacy Policy
+            </Link>
+            .
+          </p>
+          <div className="overflow-x-auto rounded-2xl border border-border/60">
+            <table className="w-full min-w-[680px]">
+              <thead>
+                <tr className="bg-muted/40 text-left text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  <th className="px-4 py-3">Category</th>
+                  <th className="px-4 py-3">Duration</th>
+                  <th className="px-4 py-3">Deletion trigger</th>
+                </tr>
+              </thead>
+              <tbody>
+                {RETENTION_TABLE.map((r, i) => (
+                  <tr
+                    key={r.category}
+                    className={`border-t border-border/40 ${
+                      i % 2 === 0 ? "bg-background/40" : "bg-muted/20"
+                    }`}
+                  >
+                    <td className="px-4 py-4 align-top text-sm font-semibold text-foreground">
+                      {r.category}
+                    </td>
+                    <td className="px-4 py-4 align-top text-sm text-muted-foreground">
+                      {r.duration}
+                    </td>
+                    <td className="px-4 py-4 align-top text-sm text-muted-foreground">
+                      {r.trigger}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Independent verification */}
+      <section
+        id="verify"
+        className="border-t border-border/60 bg-muted/20 px-6 py-16 sm:py-20"
+      >
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-10 flex items-center gap-3">
+            <div className="rounded-xl border border-border/60 bg-background/60 p-2.5">
+              <Library className="h-5 w-5 text-fuchsia-500" />
+            </div>
+            <div>
+              <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted-foreground">
+                Section 10
+              </p>
+              <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                Independent verification
+              </h2>
+            </div>
+          </div>
+          <p className="mb-8 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+            We do not ask anyone to take our claims on faith. Every model layer we use is open
+            and runnable on Hugging Face — anyone can reproduce our pipeline and verify the
+            quality claims for themselves. The competitor links are included so head-to-head
+            comparisons can be made independently.
+          </p>
+          <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
+            {INDEPENDENT_LINKS.map((l) => (
+              <li
+                key={l.url}
+                className="rounded-xl border border-border/60 bg-background/60 p-4"
+              >
+                <div className="mb-2 flex items-center gap-2">
+                  <span
+                    className={`rounded-full px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-[0.16em] ${
+                      l.category === "Model"
+                        ? "bg-indigo-500/10 text-indigo-500"
+                        : l.category === "Standard"
+                        ? "bg-emerald-500/10 text-emerald-500"
+                        : l.category === "Community"
+                        ? "bg-fuchsia-500/10 text-fuchsia-500"
+                        : "bg-amber-500/10 text-amber-500"
+                    }`}
+                  >
+                    {l.category}
+                  </span>
+                </div>
+                <a
+                  href={l.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-foreground hover:text-fuchsia-500 hover:underline"
+                >
+                  {l.label}
+                </a>
+                <p className="mt-1 text-xs text-muted-foreground">{l.detail}</p>
               </li>
             ))}
           </ul>

@@ -206,14 +206,43 @@ export default function RootLayout({
                   },
                 ],
               },
-              subjectOf: {
-                "@type": "WebPage",
-                "@id": "https://nanopocket.ai/trust",
-                name: "Trust & Transparency",
-                url: "https://nanopocket.ai/trust",
-                description:
-                  "Pricing terms, privacy summary, system requirements, security posture, known limitations, refund policy, and external references for every NanoPocket app.",
-              },
+              subjectOf: [
+                {
+                  "@type": "WebPage",
+                  "@id": "https://nanopocket.ai/trust",
+                  name: "Trust & Transparency",
+                  url: "https://nanopocket.ai/trust",
+                  description:
+                    "Pricing terms, privacy summary, system requirements, security posture, known limitations, refund policy, subprocessor table, retention schedule, and external references.",
+                },
+                {
+                  "@type": "PrivacyPolicy",
+                  "@id": "https://nanopocket.ai/privacy",
+                  name: "NanoPocket Privacy Policy",
+                  url: "https://nanopocket.ai/privacy",
+                  dateModified: "2026-05-29",
+                  description:
+                    "What we collect, why, where it goes, retention timelines, GDPR / CCPA rights, and online demo handling.",
+                },
+                {
+                  "@type": "TermsOfService",
+                  "@id": "https://nanopocket.ai/terms",
+                  name: "NanoPocket Terms of Service",
+                  url: "https://nanopocket.ai/terms",
+                  dateModified: "2026-05-29",
+                  description:
+                    "License terms, billing, refunds, acceptable use, warranty disclaimer, limitation of liability, governing law.",
+                },
+                {
+                  "@type": "WebPage",
+                  "@id": "https://nanopocket.ai/security",
+                  name: "NanoPocket Security & Vulnerability Disclosure",
+                  url: "https://nanopocket.ai/security",
+                  dateModified: "2026-05-29",
+                  description:
+                    "Coordinated disclosure timeline, scope, safe-harbor, code-signing posture; mirrors /.well-known/security.txt (RFC 9116).",
+                },
+              ],
             }),
           }}
         />

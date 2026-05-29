@@ -166,6 +166,37 @@ export default function Page() {
             </Link>{" "}
             so anyone can reproduce our pipeline and verify the technical claims.
           </p>
+          <p className="mb-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            Formal, dated documents are linked directly:{" "}
+            <Link
+              href="/privacy"
+              className="text-emerald-500 underline-offset-4 hover:underline"
+            >
+              Privacy Policy
+            </Link>{" "}
+            (data, retention, subprocessors, GDPR/CCPA),{" "}
+            <Link
+              href="/terms"
+              className="text-emerald-500 underline-offset-4 hover:underline"
+            >
+              Terms of Service
+            </Link>{" "}
+            (license, billing, refunds, governing law), and the{" "}
+            <Link
+              href="/security"
+              className="text-emerald-500 underline-offset-4 hover:underline"
+            >
+              Security &amp; Vulnerability Disclosure
+            </Link>{" "}
+            policy with a machine-readable{" "}
+            <a
+              href="/.well-known/security.txt"
+              className="text-emerald-500 underline-offset-4 hover:underline"
+            >
+              /.well-known/security.txt
+            </a>{" "}
+            file (RFC 9116).
+          </p>
           <p className="text-xs text-muted-foreground/80">
             Pricing, privacy, system requirements, security posture, refund policy, and per-product
             known limitations are documented and dated on the{" "}

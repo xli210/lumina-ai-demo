@@ -1,0 +1,24 @@
+Contact: mailto:security@nanopocket.ai
+Contact: https://nanopocket.ai/security
+Expires: 2027-05-29T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://nanopocket.ai/.well-known/security.txt
+Policy: https://nanopocket.ai/security
+Acknowledgments: https://nanopocket.ai/security#hall
+
+# NanoPocket Security & Vulnerability Disclosure
+#
+# This file follows RFC 9116 (https://www.rfc-editor.org/rfc/rfc9116).
+# Last reviewed: 2026-05-29
+#
+# Please email security@nanopocket.ai with reproduction steps,
+# the affected URL or app version, and the impact you observed.
+# We acknowledge every report within 72 hours.
+#
+# Coordinated disclosure timeline:
+#   Acknowledge   <= 72 hours
+#   Validate      <= 7 days
+#   Fix (CVSS):   Critical <= 14d, High <= 30d, Medium <= 60d, Low <= 90d
+#   Public:       after fix is shipped, credited (with consent) on /security
+#
+# Researcher safe harbor: see https://nanopocket.ai/security#safe-harbor
