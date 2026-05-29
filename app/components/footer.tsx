@@ -65,6 +65,18 @@ export function Footer() {
             Trust
           </Link>
           <Link
+            href="/verify"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            Verify
+          </Link>
+          <Link
+            href="/community"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            Community
+          </Link>
+          <Link
             href="/privacy"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >

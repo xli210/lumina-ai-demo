@@ -242,6 +242,24 @@ export default function RootLayout({
                   description:
                     "Coordinated disclosure timeline, scope, safe-harbor, code-signing posture; mirrors /.well-known/security.txt (RFC 9116).",
                 },
+                {
+                  "@type": "TechArticle",
+                  "@id": "https://nanopocket.ai/verify",
+                  name: "Verify NanoPocket — auditable build manifest & offline reproducibility",
+                  url: "https://nanopocket.ai/verify",
+                  dateModified: "2026-05-29",
+                  description:
+                    "Build manifest with SHA-256 / VirusTotal commitments, offline-execution reproducibility procedure, and Hugging Face commit IDs for every model in the pipeline.",
+                },
+                {
+                  "@type": "WebPage",
+                  "@id": "https://nanopocket.ai/community",
+                  name: "NanoPocket Community & Independent Coverage",
+                  url: "https://nanopocket.ai/community",
+                  dateModified: "2026-05-29",
+                  description:
+                    "Live Discord widget pulled from Discord's API, an honest list of which third-party coverage exists today, and the reviewer / journalist contact track.",
+                },
               ],
             }),
           }}

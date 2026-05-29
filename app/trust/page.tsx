@@ -449,6 +449,80 @@ const POLICY_DOCS: PolicyDoc[] = [
     effective: "2026-05-29",
     version: "RFC 9116",
   },
+  {
+    href: "/verify",
+    label: "Verify (auditable artifacts)",
+    description:
+      "Build manifest with SHA-256 / VirusTotal commitments, an offline-execution reproducibility procedure (pktmon / Little Snitch), and Hugging Face commit IDs for every model in the pipeline.",
+    effective: "2026-05-29",
+    version: "Last reviewed",
+  },
+  {
+    href: "/community",
+    label: "Community & coverage",
+    description:
+      "Live Discord widget pulled from Discord's API, an honest list of which third-party coverage exists today (and which doesn't), and the reviewer / journalist contact track.",
+    effective: "2026-05-29",
+    version: "Live",
+  },
+];
+
+interface VerificationGap {
+  label: string;
+  status: "Reproducible today" | "Scheduled" | "Honest gap";
+  detail: string;
+  href?: string;
+}
+
+const VERIFICATION_TRACKS: VerificationGap[] = [
+  {
+    label: "Open-weight model layer",
+    status: "Reproducible today",
+    detail:
+      "Every model NanoPocket ships is open-weight. Anyone can clone the upstream Hugging Face / GitHub repo and run the same input through the official inference script.",
+    href: "/verify#provenance",
+  },
+  {
+    label: "Offline execution claim",
+    status: "Reproducible today",
+    detail:
+      "We document the exact pktmon / Little Snitch / tcpdump procedure to confirm zero outbound traffic during local processing.",
+    href: "/verify#offline",
+  },
+  {
+    label: "Code-signing posture",
+    status: "Reproducible today",
+    detail:
+      "signtool verify (Windows) or codesign / spctl (macOS) returns a verifiable Authenticode / Apple Developer ID signature.",
+    href: "/verify#signing",
+  },
+  {
+    label: "SHA-256 + VirusTotal scans",
+    status: "Scheduled",
+    detail:
+      "Per-release SHA-256 hashes and VirusTotal permalinks will be published in /verify within 24 hours of every public release, starting with the next release of each app.",
+    href: "/verify#manifest",
+  },
+  {
+    label: "Independent press coverage",
+    status: "Honest gap",
+    detail:
+      "No major outlet has reviewed NanoPocket as of 2026-05-29. We provide a reviewer track with free keys and raw assets at /community.",
+    href: "/community#coverage",
+  },
+  {
+    label: "SOC 2 / ISO 27001 certification",
+    status: "Honest gap",
+    detail:
+      "Not held — would be misleading to claim. We follow OWASP ASVS Level 1 and document the posture on /security.",
+  },
+  {
+    label: "Live Discord member count",
+    status: "Reproducible today",
+    detail:
+      "Fetched live from Discord's widget API; numbers shown on /community come straight from Discord, not from us.",
+    href: "/community#discord",
+  },
 ];
 
 interface KnownIssue {
@@ -1267,6 +1341,84 @@ export default function TrustPage() {
                 <p className="mt-1 text-xs text-muted-foreground">{l.detail}</p>
               </li>
             ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Verification tracks — reproducible today vs scheduled vs honest gaps */}
+      <section
+        id="verification-tracks"
+        className="border-t border-border/60 px-6 py-16 sm:py-20"
+      >
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-10 flex items-center gap-3">
+            <div className="rounded-xl border border-border/60 bg-muted/40 p-2.5">
+              <Fingerprint className="h-5 w-5 text-amber-500" />
+            </div>
+            <div>
+              <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted-foreground">
+                Section 11
+              </p>
+              <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                What is verifiable today, scheduled, or an honest gap
+              </h2>
+            </div>
+          </div>
+          <p className="mb-8 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+            We separate every major trust claim into three buckets:{" "}
+            <strong className="text-foreground">reproducible today</strong>,{" "}
+            <strong className="text-foreground">scheduled</strong>, or{" "}
+            <strong className="text-foreground">honest gap</strong>. Saying &ldquo;none yet&rdquo;
+            out loud is more credible than implying we have something we don&apos;t. The full
+            procedural detail lives on{" "}
+            <Link
+              href="/verify"
+              className="text-emerald-500 underline-offset-4 hover:underline"
+            >
+              /verify
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="/community"
+              className="text-emerald-500 underline-offset-4 hover:underline"
+            >
+              /community
+            </Link>
+            .
+          </p>
+          <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
+            {VERIFICATION_TRACKS.map((v) => {
+              const palette =
+                v.status === "Reproducible today"
+                  ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-500"
+                  : v.status === "Scheduled"
+                  ? "border-amber-500/40 bg-amber-500/10 text-amber-500"
+                  : "border-rose-500/40 bg-rose-500/10 text-rose-500";
+              return (
+                <li
+                  key={v.label}
+                  className="rounded-xl border border-border/60 bg-background/60 p-4"
+                >
+                  <div className="mb-2 flex items-center justify-between gap-2">
+                    <span className="text-sm font-semibold text-foreground">{v.label}</span>
+                    <span
+                      className={`shrink-0 rounded-full border px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-[0.16em] ${palette}`}
+                    >
+                      {v.status}
+                    </span>
+                  </div>
+                  <p className="text-xs leading-relaxed text-muted-foreground">{v.detail}</p>
+                  {v.href ? (
+                    <Link
+                      href={v.href}
+                      className="mt-2 inline-flex items-center gap-1 text-[11px] font-medium text-emerald-500 hover:underline"
+                    >
+                      Open procedure <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  ) : null}
+                </li>
+              );
+            })}
           </ul>
         </div>
       </section>

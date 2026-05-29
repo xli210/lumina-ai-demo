@@ -181,21 +181,43 @@ export default function Page() {
             >
               Terms of Service
             </Link>{" "}
-            (license, billing, refunds, governing law), and the{" "}
+            (license, billing, refunds, governing law),{" "}
             <Link
               href="/security"
               className="text-emerald-500 underline-offset-4 hover:underline"
             >
               Security &amp; Vulnerability Disclosure
             </Link>{" "}
-            policy with a machine-readable{" "}
+            with a machine-readable{" "}
             <a
               href="/.well-known/security.txt"
               className="text-emerald-500 underline-offset-4 hover:underline"
             >
               /.well-known/security.txt
             </a>{" "}
-            file (RFC 9116).
+            (RFC 9116).
+          </p>
+          <p className="mb-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            For independent verification —{" "}
+            <strong className="text-foreground">things you can check without trusting us</strong>
+            {" "}— see{" "}
+            <Link
+              href="/verify"
+              className="text-emerald-500 underline-offset-4 hover:underline"
+            >
+              /verify
+            </Link>{" "}
+            (SHA-256 + Authenticode + VirusTotal commitments, an offline-execution
+            reproducibility procedure, and Hugging Face commit IDs for every model in our
+            pipeline) and{" "}
+            <Link
+              href="/community"
+              className="text-emerald-500 underline-offset-4 hover:underline"
+            >
+              /community
+            </Link>{" "}
+            (live Discord stats fetched from Discord&apos;s API and an honest, dated list of
+            which third-party coverage exists today — and which doesn&apos;t).
           </p>
           <p className="text-xs text-muted-foreground/80">
             Pricing, privacy, system requirements, security posture, refund policy, and per-product
