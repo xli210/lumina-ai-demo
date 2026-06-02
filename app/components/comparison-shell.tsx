@@ -376,6 +376,7 @@ const RELATED_LINKS = [
   { slug: "facefusion", name: "FaceFusion" },
   { slug: "akool", name: "Akool" },
   { slug: "magic-hour", name: "Magic Hour" },
+  { slug: "nano-banana", name: "Nano Banana" },
 ];
 
 function PickCard({

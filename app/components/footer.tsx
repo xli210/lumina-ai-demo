@@ -59,6 +59,12 @@ export function Footer() {
             Blog
           </Link>
           <Link
+            href="/about"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            About
+          </Link>
+          <Link
             href="/best-face-swap-app-2026"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >

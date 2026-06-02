@@ -81,6 +81,14 @@ const COMPARES: CompareLink[] = [
       "Multi-tool AI video suite (face swap as one feature) vs identity-specialised desktop pipeline.",
     competitorUrl: "https://magichour.ai",
   },
+  {
+    slug: "nano-banana",
+    name: "Nano Banana",
+    category: "Brand disambiguation",
+    oneLiner:
+      "Why NanoPocket is not Nano Banana, NanoBnana, or any third-party wrapper of Google's Gemini 2.5 Flash Image.",
+    competitorUrl: "https://deepmind.google/technologies/gemini/",
+  },
 ];
 
 const itemListJsonLd = {

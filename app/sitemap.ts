@@ -43,6 +43,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/compare/nanopocket-vs-facefusion`, lastModified: new Date("2026-05-29"), changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/compare/nanopocket-vs-akool`, lastModified: new Date("2026-05-29"), changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/compare/nanopocket-vs-magic-hour`, lastModified: new Date("2026-05-29"), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/compare/nanopocket-vs-nano-banana`, lastModified: new Date("2026-06-02"), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE}/about`, lastModified: new Date("2026-06-02"), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/trust`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/verify`, lastModified: new Date("2026-05-29"), changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/community`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.75 },

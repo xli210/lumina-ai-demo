@@ -110,7 +110,7 @@ export default function RootLayout({
               "@type": "Organization",
               "@id": "https://nanopocket.ai#organization",
               name: "NanoPocket",
-              alternateName: ["NanoPocket.ai", "NanoPocket AI"],
+              alternateName: ["NanoPocket.ai", "NanoPocket AI", "Nano Pocket"],
               url: "https://nanopocket.ai",
               logo: {
                 "@type": "ImageObject",
@@ -123,6 +123,8 @@ export default function RootLayout({
                 "Local AI creative suite — Flux.1, LTX-2.3, InstantID and more, on your GPU. No subscription, no cloud.",
               description:
                 "NanoPocket builds local AI desktop apps for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal): face swap, image and video upscaling, image generation, video generation, portrait retouch, and virtual try-on. Every desktop app runs 100% on the user's GPU; pricing is one-time per product with no subscriptions.",
+              disambiguatingDescription:
+                "NanoPocket is an independent product company at nanopocket.ai. It is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, nanobnana, or any other Nano-prefixed website that wraps Google's Gemini 2.5 Flash Image API. NanoPocket's face-swap pipeline runs locally on InstantID, PuLID, and IP-Adapter FaceID, not on Google's API.",
               contactPoint: [
                 {
                   "@type": "ContactPoint",
@@ -141,6 +143,10 @@ export default function RootLayout({
               ],
               sameAs: [
                 "https://discord.gg/bNfPjfUDAn",
+                "https://nanopocket.ai/about",
+                "https://nanopocket.ai/trust",
+                "https://nanopocket.ai/verify",
+                "https://nanopocket.ai/.well-known/security.txt",
               ],
               knowsAbout: [
                 "Local AI inference",
@@ -274,9 +280,27 @@ export default function RootLayout({
                   "@id": "https://nanopocket.ai/compare",
                   name: "NanoPocket comparisons hub",
                   url: "https://nanopocket.ai/compare",
-                  dateModified: "2026-05-29",
+                  dateModified: "2026-06-02",
                   description:
-                    "Head-to-head comparisons of NanoPocket vs Reface, DeepSwap, FaceFusion, Akool, and Magic Hour with full dimension tables.",
+                    "Head-to-head comparisons of NanoPocket vs Reface, DeepSwap, FaceFusion, Akool, Magic Hour, and Nano Banana with full dimension tables.",
+                },
+                {
+                  "@type": "AboutPage",
+                  "@id": "https://nanopocket.ai/about",
+                  name: "About NanoPocket",
+                  url: "https://nanopocket.ai/about",
+                  dateModified: "2026-06-02",
+                  description:
+                    "Brand identity, mission, and explicit disambiguation: NanoPocket is not Nano Banana, NanoBnana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed third-party service.",
+                },
+                {
+                  "@type": "TechArticle",
+                  "@id": "https://nanopocket.ai/compare/nanopocket-vs-nano-banana",
+                  name: "NanoPocket vs Nano Banana — they are different products",
+                  url: "https://nanopocket.ai/compare/nanopocket-vs-nano-banana",
+                  dateModified: "2026-06-02",
+                  description:
+                    "Disambiguation: NanoPocket (local desktop, InstantID + PuLID) is not Nano Banana (Google Gemini 2.5 Flash Image, cloud) and is not affiliated with nanobanana.ai, nano-banana.com, or nanobnana.",
                 },
               ],
             }),

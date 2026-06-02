@@ -211,6 +211,34 @@ const TOOLS: Tool[] = [
     ],
     internalCompare: "/compare/nanopocket-vs-reface",
   },
+  {
+    rank: 7,
+    name: "Nano Banana (Google Gemini 2.5 Flash Image) and wrapper sites",
+    url: "https://deepmind.google/technologies/gemini/",
+    tagline:
+      "Best general image-editing model from Google — face swap is a side-use, not the core product.",
+    bestFor:
+      "Users who want Google's general image-edit / image-gen model directly via Google AI Studio or the Gemini API, or who want to use one of the third-party wrapper sites for casual web swaps.",
+    platform: "Cloud — Google AI Studio, Gemini API, third-party wrapper websites (nanobanana.ai, nano-banana.com, nanobnana, etc.)",
+    pricing:
+      "Direct: Gemini API per-token pricing. Wrappers: monthly subscriptions or credit packs.",
+    identityModel:
+      "Gemini 2.5 Flash Image — general image-edit / image-gen model. Identity preservation is via prompting and reference-image conditioning, not a specialised face-swap pipeline.",
+    videoSupport: "Image-edit only — not a video face-swap product.",
+    privacyPosture: "Cloud",
+    strengths: [
+      "Strong general image editing — object insertion, style transfer, in-painting",
+      "Direct access via Google AI Studio with no install",
+      "Backed by Google's infrastructure and responsible-AI documentation",
+    ],
+    weaknesses: [
+      "Not specialised on identity preservation — diffusion identity stacks lead on hard cases",
+      "Cloud-only; every edit is an API call to Google",
+      "Wrapper sites vary widely in privacy posture and trust artefacts",
+      "No native video face-swap workflow",
+    ],
+    internalCompare: "/compare/nanopocket-vs-nano-banana",
+  },
 ];
 
 const METHODOLOGY = [
@@ -285,6 +313,11 @@ const FAQS = [
     q: "What is the best face swap app for video?",
     a:
       "For temporal-consistent video swap, NanoPocket Video FaceSwap Pro and Magic Hour both ship first-class workflows. Akool covers video swap inside its enterprise pipeline. FaceFusion supports video frame-by-frame; results depend on user-side scripting. For mobile-only short clips, DeepSwap and Reface are easier but cloud-based.",
+  },
+  {
+    q: "Is NanoPocket the same as Nano Banana, NanoBnana, or nanobanana.ai?",
+    a:
+      "No. NanoPocket is an independent desktop product company at nanopocket.ai. \"Nano Banana\" is the community nickname for Google's Gemini 2.5 Flash Image model, and websites like nanobanana.ai, nano-banana.com, and nanobnana are independent third-party services that wrap Google's API. NanoPocket has no commercial or technical affiliation with any of them. The full disambiguation is at /compare/nanopocket-vs-nano-banana and /about.",
   },
   {
     q: "Why isn't <Tool X> in this list?",
@@ -388,10 +421,11 @@ export default function BestFaceSwapPage() {
             The best face swap app in 2026 depends on what you&apos;re actually optimising for.
           </h1>
           <p className="mb-6 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            We ranked six face-swap tools across six tiers — local desktop, open-source CLI, B2B
-            API, cloud web, AI video suite, and consumer mobile. Each is rated on identity
-            fidelity, video support, platform, pricing, privacy posture, and verifiability, with
-            an explicit methodology and a stated conflict-of-interest disclosure.
+            We ranked seven face-swap tools across seven tiers — local desktop, open-source CLI,
+            B2B API, cloud web, AI video suite, consumer mobile, and Google&apos;s Gemini 2.5
+            Flash Image (Nano Banana). Each is rated on identity fidelity, video support,
+            platform, pricing, privacy posture, and verifiability, with an explicit methodology
+            and a stated conflict-of-interest disclosure.
           </p>
           <div className="flex flex-wrap items-center gap-3 text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1">
