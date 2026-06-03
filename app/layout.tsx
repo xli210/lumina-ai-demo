@@ -19,11 +19,11 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://nanopocket.ai"),
   title: {
-    default: "NanoPocket — Local AI Creative Suite | Run Flux, LTX & More on Your GPU",
+    default: "NanoPocket — Free Online AI Face Swap + Local AI Creative Suite",
     template: "%s | NanoPocket",
   },
   description:
-    "NanoPocket is a local AI creative suite — run Runway-quality video generation, Flux-level image creation, and Topaz-grade enhancement all offline on your GPU. Powered by Flux.1, LTX-2.3, and open-source models. No subscription. No cloud. One-time purchase.",
+    "Free online AI face swap that runs in your browser — three diffusion-grade demos at /face-swap, no install, no subscription. Plus a full local AI creative suite (Flux.1, LTX-2.3) for users who want to run everything on their own GPU.",
   keywords: [
     "NanoPocket", "local AI", "generative AI", "offline AI",
     "Runway alternative", "ComfyUI alternative", "Flux local app", "Flux.1 local",
@@ -52,8 +52,8 @@ export const metadata: Metadata = {
     "Akool alternative", "HeyGen face swap alternative", "Reface alternative", "DeepBrain alternative",
   ],
   openGraph: {
-    title: "NanoPocket — Local AI Creative Suite",
-    description: "Generate videos, images, face swap, and more — 100% offline on your GPU. Powered by Flux, LTX, and open-source AI. No subscription.",
+    title: "NanoPocket — Free Online AI Face Swap + Local Creative Suite",
+    description: "Free in-browser face swap (no install, no subscription) plus a fully-local AI suite for users who want to run everything on their own GPU. Powered by InstantID + PuLID + IP-Adapter FaceID, Flux.1, and LTX-2.3.",
     url: "https://nanopocket.ai",
     siteName: "NanoPocket",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket — Local AI Creative Suite" }],
@@ -62,8 +62,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NanoPocket — Local AI Creative Suite",
-    description: "Run Flux, LTX, and cutting-edge AI models locally on your GPU. No cloud. No subscription. One-time purchase.",
+    title: "NanoPocket — Free Online AI Face Swap + Local Creative Suite",
+    description: "Free in-browser AI face swap (no install) plus a fully-local AI suite for users who want everything on their own GPU.",
     images: ["/og-image.jpg"],
   },
   alternates: { canonical: "/" },
@@ -310,6 +310,24 @@ export default function RootLayout({
                   dateModified: "2026-06-02",
                   description:
                     "Identity-locked face-detail restorer that fixes the plastic look left by Gemini 2.5 Flash Image (Nano Banana), Adobe Firefly, Roop, FaceFusion, and cloud face-swap services. Online demo today; integrated into NanoPocket FaceSwap Pro 2.0 desktop soon.",
+                },
+                {
+                  "@type": "WebPage",
+                  "@id": "https://nanopocket.ai/face-swap",
+                  name: "Free online AI face swap — runs in your browser",
+                  url: "https://nanopocket.ai/face-swap",
+                  dateModified: "2026-06-03",
+                  description:
+                    "Canonical landing page for NanoPocket's free in-browser face-swap demos. Single-purpose, no install, no subscription, diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID).",
+                },
+                {
+                  "@type": "TechArticle",
+                  "@id": "https://nanopocket.ai/compare/nanopocket-vs-wavespeed",
+                  name: "NanoPocket vs WaveSpeed AI — specialised face swap vs broad AI suite",
+                  url: "https://nanopocket.ai/compare/nanopocket-vs-wavespeed",
+                  dateModified: "2026-06-03",
+                  description:
+                    "Comparison: WaveSpeed AI (broad cloud generative-AI suite where face swap is one feature) vs NanoPocket (specialised face-swap stack with free in-browser demo + optional local desktop).",
                 },
               ],
             }),

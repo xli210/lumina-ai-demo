@@ -29,6 +29,12 @@ export async function Navbar() {
 
         <div className="hidden items-center gap-6 md:flex lg:gap-8">
           <Link
+            href="/face-swap"
+            className="text-sm font-semibold text-black transition-colors hover:text-neutral-700"
+          >
+            Free Face Swap
+          </Link>
+          <Link
             href="/#showcase-features"
             className="text-sm text-neutral-500 transition-colors hover:text-black"
           >

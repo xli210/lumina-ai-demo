@@ -71,6 +71,12 @@ export function Footer() {
             Vivid
           </Link>
           <Link
+            href="/face-swap"
+            className="text-xs font-semibold text-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            Free Face Swap
+          </Link>
+          <Link
             href="/best-face-swap-app-2026"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >

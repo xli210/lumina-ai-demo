@@ -62,28 +62,28 @@ const TOOLS: Tool[] = [
   {
     rank: 1,
     name: "NanoPocket FaceSwap Pro 2.0",
-    url: "https://nanopocket.ai/apps/nano-faceswap-pro",
+    url: "https://nanopocket.ai/face-swap",
     tagline:
-      "Best for users who want diffusion-grade fidelity with desktop-local privacy.",
+      "Best for free in-browser face swap with diffusion-grade fidelity — and the only option here that also offers a fully-local desktop release.",
     bestFor:
-      "Privacy-conscious creators, professionals, anyone who wants identity-preserving swaps without uploading faces to a cloud service.",
-    platform: "Windows + macOS desktop, plus a free in-browser demo",
-    pricing: "Free desktop trial; one-time license, no subscription",
+      "Anyone who wants the easiest free online face swap that still uses a state-of-the-art diffusion identity stack, plus an optional desktop release for users who specifically need zero-cloud processing.",
+    platform: "Browser-first (free online demo, no install) + optional Windows / macOS desktop release",
+    pricing: "Free for the online demo tier; one-time desktop license, no subscription",
     identityModel:
       "Diffusion-based identity stack — InstantID + PuLID + IP-Adapter FaceID (stronger identity preservation than GAN-only swappers like inswapper_128)",
-    videoSupport: "Yes — Video FaceSwap Pro covers temporal-consistent swap on uploaded clips",
-    privacyPosture: "Local",
+    videoSupport: "Yes — Video FaceSwap Pro covers temporal-consistent swap on uploaded clips, free in-browser",
+    privacyPosture: "Cloud (free online demo) / Local (optional desktop)",
     strengths: [
-      "Diffusion identity stack (InstantID + PuLID) — better fidelity than GAN baselines",
-      "Local desktop processing on Windows and macOS, with documented offline-execution procedure (pktmon / Little Snitch)",
-      "One-time purchase — no subscription, no per-image fee, no per-minute fee",
+      "Free in-browser demo at /face-swap — no install, no GPU on the user's device, no subscription",
+      "Diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) — better fidelity than GAN baselines used by most cloud face-swap services",
+      "Three single-purpose demos (image, video, NanoFace Vivid post-processor) — not a generic AI suite",
+      "Optional desktop release for users who want zero-cloud processing on their own GPU",
       "Auditable trust posture: /verify, /privacy, /security, /.well-known/security.txt",
-      "Apple-notarised + Authenticode-signed installers; SHA-256 / VirusTotal commitments documented",
     ],
     weaknesses: [
       "Newer brand — no major-outlet press coverage as of " + LAST_VERIFIED,
-      "Desktop only — no native mobile app",
-      "Smaller community than long-running open-source alternatives",
+      "Desktop release is currently Windows / macOS only — no native mobile app",
+      "Demo tier runs on NanoPocket-hosted GPUs (volatile, not used for training); fully-local processing requires the desktop release",
     ],
   },
   {
@@ -188,6 +188,31 @@ const TOOLS: Tool[] = [
   },
   {
     rank: 6,
+    name: "WaveSpeed AI",
+    url: "https://wavespeed.ai",
+    tagline:
+      "Best when face swap is one feature inside a broader generative-AI suite (image gen, video gen, upscaling).",
+    bestFor:
+      "Creators who already use a single AI hub for multiple workflows and want face swap to live next to their image / video / upscaling tools.",
+    platform: "Web",
+    pricing: "Credit packs / subscription tiers",
+    identityModel: "Multi-model AI suite — face swap is exposed as one of many cloud workflows",
+    videoSupport: "Yes — short-clip video swap available alongside other video AI features",
+    privacyPosture: "Cloud",
+    strengths: [
+      "All-in-one AI suite — face swap, image gen, video gen, upscaling in one site",
+      "Polished web UX with generous free / trial usage on most workflows",
+      "Active product development and frequent feature releases",
+    ],
+    weaknesses: [
+      "Cloud-only — every swap is a cloud upload",
+      "Face swap is one feature among many; not specialised on identity preservation the way a dedicated swap stack is",
+      "Credit / subscription pricing — cost compounds for heavy users",
+    ],
+    internalCompare: "/compare/nanopocket-vs-wavespeed",
+  },
+  {
+    rank: 7,
     name: "Reface",
     url: "https://reface.ai",
     tagline:
@@ -212,7 +237,7 @@ const TOOLS: Tool[] = [
     internalCompare: "/compare/nanopocket-vs-reface",
   },
   {
-    rank: 7,
+    rank: 8,
     name: "Nano Banana (Google Gemini 2.5 Flash Image) and wrapper sites",
     url: "https://deepmind.google/technologies/gemini/",
     tagline:
@@ -242,6 +267,11 @@ const TOOLS: Tool[] = [
 ];
 
 const METHODOLOGY = [
+  {
+    dim: "Time-to-first-swap",
+    desc:
+      "How long from landing on the homepage to a finished swap, including any sign-up, install, model download, and password / payment friction. Browser-only tools score highest here.",
+  },
   {
     dim: "Identity fidelity",
     desc:
@@ -297,7 +327,12 @@ const FAQS = [
   {
     q: "What is the best free face swap?",
     a:
-      "FaceFusion is free and open-source. NanoPocket FaceSwap Pro 2.0 ships a free in-browser demo plus a 7-day free trial of the desktop app without a credit card. DeepSwap and Reface have free tiers but with watermarks or strong rate limits.",
+      "For a free, no-install, browser-only swap, NanoPocket's free online tier at /face-swap is the strongest combination of zero install, free pricing, and a diffusion identity stack — every other browser-only competitor (DeepSwap, WaveSpeed AI, Magic Hour, Reface) gates serious use behind a subscription or credit pack and runs a GAN-based identity model. FaceFusion is also free, but requires a Python / CUDA setup and is not browser-based.",
+  },
+  {
+    q: "What is the easiest free online face swap that runs in the browser?",
+    a:
+      "NanoPocket's /face-swap page is the canonical free browser entry point. It links three free in-browser demos (still image, video, and the NanoFace Vivid post-processor) with no install, no per-image fee, and a free NanoPocket account. Among other browser tools, DeepSwap is the next-easiest but gates non-trivial use behind a subscription; WaveSpeed AI and Magic Hour bundle face swap inside a broader AI suite that's slightly more navigation overhead.",
   },
   {
     q: "Is face swap legal?",
