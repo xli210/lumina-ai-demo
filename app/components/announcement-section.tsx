@@ -19,11 +19,15 @@ import {
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import { DEMOS as REGISTRY, demoUrl, type DemoId } from "@/lib/demos";
+import { DemoLiveDot } from "./demo-live-dot";
 
 type Vote = "like" | "dislike";
 
 interface DemoConfig {
   id: string;
+  /** Registry id used for live status lookups (image / video / vivid). */
+  registryId: DemoId;
   title: string;
   description: string;
   url: string;
@@ -34,39 +38,62 @@ interface DemoConfig {
   introHref?: string;
 }
 
-const DEMOS: DemoConfig[] = [
+interface DemoCardCopy {
+  registryId: DemoId;
+  /** id used for feedback persistence — keep stable for vote-history compatibility. */
+  id: string;
+  title: string;
+  description: string;
+  icon: typeof ImageIcon;
+  accent: string;
+  introHref?: string;
+}
+
+const DEMO_CARDS: DemoCardCopy[] = [
   {
+    registryId: "image",
     id: "image-faceswap-pro",
     title: "Image FaceSwap Pro 2.0",
     description:
       "Higher fidelity, better lighting adaptation, and more natural face swap on photos.",
-    url: "https://technique-phd-yen-insight.trycloudflare.com/login",
-    password: "nanofaceswap-pro",
     icon: ImageIcon,
     accent: "indigo",
     introHref: "/apps/nano-faceswap-pro/features",
   },
   {
+    registryId: "video",
     id: "video-faceswap-pro",
     title: "Video FaceSwap Pro",
     description:
       "Professional-grade face swap on videos with temporal consistency and smooth motion.",
-    url: "https://domain-jewelry-respondents-removal.trycloudflare.com/login",
-    password: "nanopocket-video",
     icon: Video,
     accent: "purple",
   },
   {
+    registryId: "vivid",
     id: "nanoface-vivid",
     title: "NanoFace Vivid",
     description:
       "Vivid, expression-rich face swap that pushes color, lighting, and micro-expression detail beyond the standard Pro stack.",
-    url: "https://plasma-working-null-judgment.trycloudflare.com",
-    password: "nanofacevivid",
     icon: Wand2,
     accent: "rose",
   },
 ];
+
+const DEMOS: DemoConfig[] = DEMO_CARDS.map((c) => {
+  const demo = REGISTRY.find((d) => d.id === c.registryId)!;
+  return {
+    id: c.id,
+    registryId: c.registryId,
+    title: c.title,
+    description: c.description,
+    url: demoUrl(demo),
+    password: demo.password ?? "",
+    icon: c.icon,
+    accent: c.accent,
+    introHref: c.introHref,
+  };
+});
 
 function FeedbackBlock({
   demoId,
@@ -214,13 +241,16 @@ function DemoCard({
         Coming Soon
       </div>
 
-      <div className="mb-3 flex items-center gap-3">
-        <div
-          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${accentClasses.iconBg} text-white shadow-lg`}
-        >
-          <Icon className="h-5 w-5" />
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div
+            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${accentClasses.iconBg} text-white shadow-lg`}
+          >
+            <Icon className="h-5 w-5" />
+          </div>
+          <h3 className="text-xl font-bold text-white">{demo.title}</h3>
         </div>
-        <h3 className="text-xl font-bold text-white">{demo.title}</h3>
+        <DemoLiveDot demoId={demo.registryId} variant="dark" />
       </div>
 
       <p className="mb-5 text-sm text-slate-300 leading-relaxed">

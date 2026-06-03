@@ -3,13 +3,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { getDemo, demoUrl } from "@/lib/demos";
 
 /**
  * Public Image FaceSwap Pro 2.0 demo URL. Re-exported so server pages can
  * point CTA buttons at the same target without duplicating the literal.
+ * Sourced from lib/demos so a tunnel rotation is one-place.
  */
-export const FACESWAP_PRO_DEMO_URL =
-  "https://technique-phd-yen-insight.trycloudflare.com/login";
+export const FACESWAP_PRO_DEMO_URL = demoUrl(getDemo("image"));
 
 interface ImagePart {
   src: string;

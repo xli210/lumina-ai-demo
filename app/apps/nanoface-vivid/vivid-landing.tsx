@@ -14,9 +14,11 @@ import { Footer } from "@/app/components/footer";
 import { Button } from "@/components/ui/button";
 import { BeforeAfterSlider } from "./before-after-slider";
 import { VIVID_CASES, COMPETITOR_ROWS, LAST_VERIFIED } from "./data";
+import { getDemo, demoUrl } from "@/lib/demos";
 
-const VIVID_DEMO_URL = "https://plasma-working-null-judgment.trycloudflare.com";
-const VIVID_PASSWORD = "nanofacevivid";
+const VIVID_DEMO = getDemo("vivid");
+const VIVID_DEMO_URL = demoUrl(VIVID_DEMO);
+const VIVID_PASSWORD = VIVID_DEMO.password ?? "";
 
 const REDDIT_CASES = [
   {

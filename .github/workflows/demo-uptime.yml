@@ -1,0 +1,42 @@
+name: Demo uptime check
+
+on:
+  schedule:
+    # Every 5 minutes. GitHub may delay schedules under load — actual
+    # cadence is "at least every 5 minutes, often closer to 6-7 in
+    # practice." That's still well inside our acceptable detection
+    # window for a demo tunnel.
+    - cron: "*/5 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: demo-uptime
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install pinger deps
+        # Tiny, dedicated install — doesn't need the full app's node_modules.
+        run: npm install --no-save --no-audit --no-fund @supabase/supabase-js@^2.45.0
+
+      - name: Run uptime checker
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          DEMO_DISCORD_WEBHOOK: ${{ secrets.DEMO_DISCORD_WEBHOOK }}
+          PING_TIMEOUT_MS: "10000"
+        run: node scripts/check-demos.mjs

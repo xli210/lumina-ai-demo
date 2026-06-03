@@ -18,6 +18,8 @@ import {
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { Button } from "@/components/ui/button";
+import { DemoStatusBadge } from "../components/demo-status-badge";
+import { DEMOS, demoUrl, type DemoId } from "@/lib/demos";
 
 const PAGE_URL = "https://nanopocket.ai/face-swap";
 const LAST_VERIFIED = "2026-06-03";
@@ -52,22 +54,17 @@ export const metadata: Metadata = {
   },
 };
 
-interface OnlineDemo {
-  id: string;
-  name: string;
-  href: string;
+interface OnlineDemoCopy {
+  id: DemoId;
   blurb: string;
   bullets: string[];
-  password?: string;
   Icon: React.ComponentType<{ className?: string }>;
   accent: "violet" | "sky" | "rose";
 }
 
-const ONLINE_DEMOS: OnlineDemo[] = [
+const ONLINE_DEMO_COPY: OnlineDemoCopy[] = [
   {
     id: "image",
-    name: "Image FaceSwap Pro 2.0",
-    href: "https://technique-phd-yen-insight.trycloudflare.com/login",
     blurb:
       "Photo-to-photo face swap with a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). Highest fidelity for stills.",
     bullets: [
@@ -75,14 +72,11 @@ const ONLINE_DEMOS: OnlineDemo[] = [
       "Diffusion identity stack — handles hard angles, low light, occlusion better than GAN swappers",
       "Free, browser-based, no install",
     ],
-    password: "nanofaceswap-pro",
     Icon: ImageIcon,
     accent: "violet",
   },
   {
     id: "video",
-    name: "Video FaceSwap Pro",
-    href: "https://domain-jewelry-respondents-removal.trycloudflare.com/login",
     blurb:
       "Same identity stack extended to video with temporal smoothing. Drop in a clip, get a swapped clip — no frame-by-frame work.",
     bullets: [
@@ -90,14 +84,11 @@ const ONLINE_DEMOS: OnlineDemo[] = [
       "Temporal-consistent — no flicker between frames",
       "Free, browser-based, no install",
     ],
-    password: "nanopocket-video",
     Icon: Video,
     accent: "sky",
   },
   {
     id: "vivid",
-    name: "NanoFace Vivid",
-    href: "https://plasma-working-null-judgment.trycloudflare.com",
     blurb:
       "Identity-locked face-detail restorer. Fixes the over-smoothed, plastic look that Gemini, Firefly, Roop, FaceFusion, and cloud face-swap services leave on portraits.",
     bullets: [
@@ -105,11 +96,20 @@ const ONLINE_DEMOS: OnlineDemo[] = [
       "Identity-locked: only restores texture and lighting, never changes the face",
       "Free, browser-based, no install",
     ],
-    password: "nanofacevivid",
     Icon: Wand2,
     accent: "rose",
   },
 ];
+
+const ONLINE_DEMOS = ONLINE_DEMO_COPY.map((c) => {
+  const demo = DEMOS.find((d) => d.id === c.id)!;
+  return {
+    ...c,
+    name: demo.name,
+    href: demoUrl(demo),
+    password: demo.password ?? undefined,
+  };
+});
 
 interface CompareRow {
   tool: string;
@@ -344,8 +344,12 @@ export default function FaceSwapPage() {
                   key={d.id}
                   className={`flex flex-col rounded-2xl border border-border/60 bg-background/60 p-6 ring-1 ${a.ring}`}
                 >
-                  <div className={`mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl border ${a.chip}`}>
-                    <Icon className="h-5 w-5" />
+                  <div className="mb-4 flex items-start justify-between gap-2">
+                    <div className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border ${a.chip}`}>
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    {/* @ts-expect-error Async Server Component */}
+                    <DemoStatusBadge demoId={d.id} size="sm" />
                   </div>
                   <h3 className="mb-2 text-lg font-bold text-foreground">{d.name}</h3>
                   <p className="mb-4 text-sm leading-relaxed text-muted-foreground">

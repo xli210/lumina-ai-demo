@@ -3,8 +3,9 @@ import {
   ProductLandingShell,
   type ProductLandingData,
 } from "@/app/components/product-landing-shell";
+import { getDemo, demoUrl } from "@/lib/demos";
 
-const VIDEO_DEMO_URL = "https://domain-jewelry-respondents-removal.trycloudflare.com/login";
+const VIDEO_DEMO_URL = demoUrl(getDemo("video"));
 
 export const metadata: Metadata = {
   title:

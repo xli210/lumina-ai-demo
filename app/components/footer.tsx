@@ -77,6 +77,12 @@ export function Footer() {
             Free Face Swap
           </Link>
           <Link
+            href="/status"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            Status
+          </Link>
+          <Link
             href="/best-face-swap-app-2026"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >

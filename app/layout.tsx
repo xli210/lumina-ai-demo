@@ -329,6 +329,15 @@ export default function RootLayout({
                   description:
                     "Comparison: WaveSpeed AI (broad cloud generative-AI suite where face swap is one feature) vs NanoPocket (specialised face-swap stack with free in-browser demo + optional local desktop).",
                 },
+                {
+                  "@type": "WebPage",
+                  "@id": "https://nanopocket.ai/status",
+                  name: "NanoPocket Demo Status — live uptime",
+                  url: "https://nanopocket.ai/status",
+                  dateModified: "2026-06-03",
+                  description:
+                    "Live up/down status for the three free online face-swap demos, refreshed from an independent GitHub Actions monitor every five minutes.",
+                },
               ],
             }),
           }}
