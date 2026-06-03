@@ -12,6 +12,7 @@ import {
   LogIn,
   Image as ImageIcon,
   Video,
+  Wand2,
   ThumbsUp,
   ThumbsDown,
 } from "lucide-react";
@@ -54,6 +55,16 @@ const DEMOS: DemoConfig[] = [
     password: "nanopocket-video",
     icon: Video,
     accent: "purple",
+  },
+  {
+    id: "nanoface-vivid",
+    title: "NanoFace Vivid",
+    description:
+      "Vivid, expression-rich face swap that pushes color, lighting, and micro-expression detail beyond the standard Pro stack.",
+    url: "https://plasma-working-null-judgment.trycloudflare.com",
+    password: "nanofacevivid",
+    icon: Wand2,
+    accent: "rose",
   },
 ];
 
@@ -169,6 +180,15 @@ function DemoCard({
             "bg-purple-500 hover:bg-purple-400 shadow-purple-500/30 text-white",
           numberBg: "bg-purple-500/20 text-purple-300",
           link: "text-purple-400 hover:text-purple-300",
+        }
+      : demo.accent === "rose"
+      ? {
+          badge: "bg-rose-500/10 text-rose-300 ring-rose-500/20",
+          iconBg: "from-rose-500 to-pink-500",
+          button:
+            "bg-rose-500 hover:bg-rose-400 shadow-rose-500/30 text-white",
+          numberBg: "bg-rose-500/20 text-rose-300",
+          link: "text-rose-400 hover:text-rose-300",
         }
       : {
           badge: "bg-indigo-500/10 text-indigo-300 ring-indigo-500/20",
@@ -403,10 +423,10 @@ export function AnnouncementSection() {
               Try Nano FaceSwap Pro — Free
             </h2>
             <p className="mx-auto max-w-2xl text-sm text-slate-300 sm:text-base">
-              Two professional-grade diffusion face swap demos for images and
-              videos. A local, private alternative to Roop, FaceFusion, Rope,
-              and DeepSwap — built on InstantID / PuLID / IP-Adapter FaceID
-              research.
+              Three professional-grade diffusion face swap demos — image, video,
+              and the new Vivid stack tuned for expression and color richness.
+              A local, private alternative to Roop, FaceFusion, Rope, and
+              DeepSwap, built on InstantID / PuLID / IP-Adapter FaceID research.
             </p>
             <Link
               href="/apps/nano-faceswap-pro"
@@ -417,7 +437,7 @@ export function AnnouncementSection() {
             </Link>
           </div>
 
-          <div className="relative grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+          <div className="relative grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
             {DEMOS.map((demo) => (
               <DemoCard
                 key={demo.id}
