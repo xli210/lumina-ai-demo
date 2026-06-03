@@ -65,6 +65,12 @@ export function Footer() {
             About
           </Link>
           <Link
+            href="/apps/nanoface-vivid"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            Vivid
+          </Link>
+          <Link
             href="/best-face-swap-app-2026"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >

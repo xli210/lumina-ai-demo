@@ -29,6 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/apps/nano-faceswap-pro`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.95 },
     { url: `${BASE}/apps/nano-faceswap-pro/features`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE}/apps/nano-faceswap-pro/video`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.85 },
+    { url: `${BASE}/apps/nanoface-vivid`, lastModified: new Date("2026-06-02"), changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE}/apps/nano-imageenh-pro`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE}/apps/nano-videoenhance`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/apps/nano-videogen`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },

@@ -540,6 +540,11 @@ export default function BestFaceSwapPage() {
                 All comparisons <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
+            <Link href="/apps/nanoface-vivid">
+              <Button variant="outline" size="lg">
+                NanoFace Vivid (post-processor)
+              </Button>
+            </Link>
             <Link href="/verify">
               <Button variant="ghost" size="lg">
                 How we verify claims

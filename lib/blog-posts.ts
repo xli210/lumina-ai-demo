@@ -361,4 +361,68 @@ A middle ground with a web interface:
 
 All three options keep your data 100% local and private.`,
   },
+  {
+    slug: "fix-over-smoothed-ai-faces-from-gemini-and-faceswap",
+    title: "How to fix over-smoothed AI faces from Gemini, Firefly, Roop, and cloud face-swap",
+    description: "Field notes on removing the AI taste from portraits produced by Google Gemini 2.5 Flash Image (Nano Banana), Adobe Firefly, Roop, FaceFusion, and cloud face-swap services. NanoFace Vivid as the post-processor that restores pore-level skin texture without changing identity.",
+    date: "2026-06-02",
+    keywords: [
+      "fix gemini ai face",
+      "remove ai face plastic look",
+      "make ai face realistic",
+      "nano banana face fix",
+      "face swap detailer",
+      "fix roop facefusion plastic skin",
+      "ai portrait skin texture",
+    ],
+    content: `## The problem everyone keeps describing
+
+If you generate a portrait in Google Gemini 2.5 Flash Image (community nickname "Nano Banana"), Adobe Firefly, or any cloud face-swap service, the output usually has the same failure mode: the face is anatomically right, the composition is fine, but the skin reads as plastic. Pores are gone. Lashes are uniform. The cheekbone highlight is dead-flat. People recognise it as AI inside two seconds.
+
+The same thing happens with open-source face-swap stacks like Roop, FaceFusion, and Rope (all built on InsightFace inswapper_128). Identity transfers cleanly, but the high-frequency texture is destroyed at the swap boundary. The result reads as "obviously AI-edited" at any non-thumbnail size.
+
+This post documents the workflow that fixes it.
+
+## What does NOT work
+
+- **Topaz Sharpen AI** — excellent for general sharpening, but on AI faces it tends to amplify the plastic look rather than fix it.
+- **Magnific AI** — strong upscaler, but the creativity slider can hallucinate features. Identity drifts on portraits.
+- **Photoshop film grain** — looks like a noisy AI face, not like a photograph.
+- **Re-rolling the prompt in Gemini** — usually produces a different plastic face.
+
+## What does work — NanoFace Vivid as a post-processor
+
+The fix that holds up across every test case I have tried: take whatever the AI tool produced and run it through [NanoFace Vivid](/apps/nanoface-vivid) as a final step. Vivid is purpose-built for the over-smoothed-AI-face failure mode. It is identity-locked — it only restores the high-frequency band that the upstream tool flattened (pores, lashes, brow, cheekbone specular variance) without changing the face shape or expression.
+
+Three workflows where it makes the difference:
+
+### Workflow 1 — Gemini 2.5 Flash Image (Nano Banana) portraits
+
+1. Generate the portrait in Google AI Studio.
+2. Download the output.
+3. Drop it into the NanoFace Vivid demo.
+4. The waxy forehead becomes a real-skin forehead. Lash structure returns. Identity is preserved.
+
+### Workflow 2 — Roop / FaceFusion / Rope swaps
+
+1. Run your normal swap pipeline (FaceFusion / Roop / Rope).
+2. Export the swapped frames.
+3. Run each through Vivid. The swap boundary stops being visible because Vivid restores texture on both sides.
+4. Identity does not change because Vivid is identity-locked.
+
+### Workflow 3 — Cloud face-swap output for e-commerce / fashion
+
+1. Use the cloud service for the body / pose / outfit work.
+2. Save the output.
+3. Run the face crop through Vivid before delivery.
+4. Same composition, but the face crosses the zoom-test threshold for editorial use.
+
+## What is coming
+
+The same Vivid model is being integrated into NanoPocket FaceSwap Pro 2.0 on Windows and macOS as a built-in post-processor stage. Once shipped, every local face swap optionally passes through Vivid before export — no cloud, no copy-paste between tools.
+
+## Try it
+
+The online demo is live at [/apps/nanoface-vivid](/apps/nanoface-vivid). The full before / after gallery on that page covers Gemini, Firefly, face-swap, compressed selfies, and AI-fashion product imagery.`,
+  },
 ];

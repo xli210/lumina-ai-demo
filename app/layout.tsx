@@ -302,6 +302,15 @@ export default function RootLayout({
                   description:
                     "Disambiguation: NanoPocket (local desktop, InstantID + PuLID) is not Nano Banana (Google Gemini 2.5 Flash Image, cloud) and is not affiliated with nanobanana.ai, nano-banana.com, or nanobnana.",
                 },
+                {
+                  "@type": "Article",
+                  "@id": "https://nanopocket.ai/apps/nanoface-vivid",
+                  name: "NanoFace Vivid — fix over-smoothed AI faces",
+                  url: "https://nanopocket.ai/apps/nanoface-vivid",
+                  dateModified: "2026-06-02",
+                  description:
+                    "Identity-locked face-detail restorer that fixes the plastic look left by Gemini 2.5 Flash Image (Nano Banana), Adobe Firefly, Roop, FaceFusion, and cloud face-swap services. Online demo today; integrated into NanoPocket FaceSwap Pro 2.0 desktop soon.",
+                },
               ],
             }),
           }}
