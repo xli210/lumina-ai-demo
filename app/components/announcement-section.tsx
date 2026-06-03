@@ -50,7 +50,7 @@ const DEMOS: DemoConfig[] = [
     title: "Video FaceSwap Pro",
     description:
       "Professional-grade face swap on videos with temporal consistency and smooth motion.",
-    url: "https://painting-democrats-transport-mime.trycloudflare.com",
+    url: "https://domain-jewelry-respondents-removal.trycloudflare.com/login",
     password: "nanopocket-video",
     icon: Video,
     accent: "purple",
