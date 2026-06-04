@@ -45,6 +45,8 @@ export const metadata: Metadata = {
     canonical: "/face-swap",
     languages: hreflangAlternates("https://nanopocket.ai", "/face-swap", [
       "zh-CN",
+      "ja",
+      "ko",
     ]),
   },
   openGraph: {

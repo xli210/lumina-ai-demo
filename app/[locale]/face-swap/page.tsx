@@ -49,7 +49,7 @@ export async function generateMetadata({
     description: t("description"),
     alternates: {
       canonical,
-      languages: hreflangAlternates(BASE_URL, PATH, ["zh-CN"]),
+      languages: hreflangAlternates(BASE_URL, PATH, ["zh-CN", "ja", "ko"]),
     },
     openGraph: {
       type: "website",

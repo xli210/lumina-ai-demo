@@ -19,8 +19,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  const homeLanguages = {
+    en: BASE,
+    "zh-CN": `${BASE}/zh-CN`,
+  };
+
   return [
-    { url: BASE, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
+    {
+      url: BASE,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 1.0,
+      alternates: { languages: homeLanguages },
+    },
+    {
+      url: `${BASE}/zh-CN`,
+      lastModified: new Date("2026-06-03"),
+      changeFrequency: "weekly",
+      priority: 0.95,
+      alternates: { languages: homeLanguages },
+    },
     { url: `${BASE}/download`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     ...blogEntries,
@@ -30,30 +48,44 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/apps/nano-faceswap-pro/features`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE}/apps/nano-faceswap-pro/video`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE}/apps/nanoface-vivid`, lastModified: new Date("2026-06-02"), changeFrequency: "weekly", priority: 0.9 },
-    {
-      url: `${BASE}/face-swap`,
-      lastModified: new Date("2026-06-03"),
-      changeFrequency: "weekly",
-      priority: 0.95,
-      alternates: {
-        languages: {
-          en: `${BASE}/face-swap`,
-          "zh-CN": `${BASE}/zh-CN/face-swap`,
+    ...(() => {
+      const faceSwapLanguages = {
+        en: `${BASE}/face-swap`,
+        "zh-CN": `${BASE}/zh-CN/face-swap`,
+        ja: `${BASE}/ja/face-swap`,
+        ko: `${BASE}/ko/face-swap`,
+      };
+      return [
+        {
+          url: `${BASE}/face-swap`,
+          lastModified: new Date("2026-06-03"),
+          changeFrequency: "weekly" as const,
+          priority: 0.95,
+          alternates: { languages: faceSwapLanguages },
         },
-      },
-    },
-    {
-      url: `${BASE}/zh-CN/face-swap`,
-      lastModified: new Date("2026-06-03"),
-      changeFrequency: "weekly",
-      priority: 0.9,
-      alternates: {
-        languages: {
-          en: `${BASE}/face-swap`,
-          "zh-CN": `${BASE}/zh-CN/face-swap`,
+        {
+          url: `${BASE}/zh-CN/face-swap`,
+          lastModified: new Date("2026-06-03"),
+          changeFrequency: "weekly" as const,
+          priority: 0.9,
+          alternates: { languages: faceSwapLanguages },
         },
-      },
-    },
+        {
+          url: `${BASE}/ja/face-swap`,
+          lastModified: new Date("2026-06-03"),
+          changeFrequency: "weekly" as const,
+          priority: 0.9,
+          alternates: { languages: faceSwapLanguages },
+        },
+        {
+          url: `${BASE}/ko/face-swap`,
+          lastModified: new Date("2026-06-03"),
+          changeFrequency: "weekly" as const,
+          priority: 0.9,
+          alternates: { languages: faceSwapLanguages },
+        },
+      ];
+    })(),
     { url: `${BASE}/compare/nanopocket-vs-wavespeed`, lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.75 },
     { url: `${BASE}/status`, lastModified: new Date(), changeFrequency: "hourly", priority: 0.6 },
     { url: `${BASE}/apps/nano-imageenh-pro`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },

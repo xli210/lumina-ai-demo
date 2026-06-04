@@ -1,0 +1,174 @@
+{
+  "FaceSwap": {
+    "metadata": {
+      "title": "무료 온라인 AI 페이스 스왑 — 설치 불필요, 구독 불필요 | NanoPocket",
+      "description": "브라우저에서 바로 실행되는 무료 AI 페이스 스왑입니다. 설치 불필요, 구독 불필요, GPU 불필요. 디퓨전 (diffusion) 기반 데모 3종: Image FaceSwap Pro 2.0, Video FaceSwap Pro, NanoFace Vivid. 무료 계정으로 한 번만 로그인하면 바로 사용할 수 있습니다.",
+      "ogTitle": "무료 온라인 AI 페이스 스왑 — 브라우저에서 바로 실행",
+      "ogDescription": "디퓨전 (diffusion) 기반 페이스 스왑 데모 3종, 모두 브라우저에서 실행. 무료, 설치 불필요, 구독 불필요."
+    },
+    "hero": {
+      "kicker": "무료 온라인 — 브라우저에서 바로 실행",
+      "headline": "무료 온라인 AI 페이스 스왑. 설치 불필요. 구독 불필요.",
+      "subhead": "브라우저에서 동작하는 디퓨전 (diffusion) 기반 페이스 스왑 데모 3종을 제공합니다. 무료 NanoPocket 계정으로 한 번 로그인한 뒤 타깃 이미지와 참조 얼굴을 업로드하면 몇 초 만에 결과를 받을 수 있습니다. 본인 기기에 GPU가 필요 없으며, 장당 과금, 분당 과금, 크레딧 패키지가 일절 없습니다.",
+      "lastVerifiedLabel": "최종 확인일",
+      "openSpeed": "10초 이내에 브라우저에서 열 수 있습니다",
+      "ctaPrimary": "이미지 데모 사용해보기",
+      "ctaSecondary": "무료 계정 만들기"
+    },
+    "demos": {
+      "heading": "무료 온라인 데모 3종",
+      "intro": "각 데모는 독립된 브라우저 도구입니다. 정지 사진, 짧은 동영상 클립, 또는 기존 인물 사진에 남아 있는 AI 특유의 매끈매끈한 느낌을 손볼 때 — 필요에 맞는 도구를 고르세요.",
+      "passwordLabel": "데모 비밀번호:",
+      "openCta": "브라우저에서 열기",
+      "image": {
+        "blurb": "디퓨전 (diffusion) 기반 아이덴티티 스택 (InstantID + PuLID + IP-Adapter FaceID) 으로 사진 대 사진 페이스 스왑을 수행합니다. 정지 이미지에서 가장 높은 보존도를 보입니다.",
+        "bullet1": "타깃 사진과 참조 얼굴을 업로드하면 — 몇 초 만에 스왑 결과를 받을 수 있습니다",
+        "bullet2": "디퓨전 (diffusion) 아이덴티티 스택 — 큰 각도, 어두운 조명, 가림이 있는 상황에서 GAN 기반 도구보다 안정적으로 처리합니다",
+        "bullet3": "무료, 브라우저 기반, 설치 불필요"
+      },
+      "video": {
+        "blurb": "동일한 아이덴티티 스택을 동영상까지 확장하고 시간 방향 스무딩을 더했습니다. 클립을 넣으면 프레임별 작업 없이 스왑된 클립이 나옵니다.",
+        "bullet1": "짧은 동영상 클립을 브라우저에서 바로 페이스 스왑",
+        "bullet2": "시간적으로 일관됨 — 프레임 간 깜빡임이 없습니다",
+        "bullet3": "무료, 브라우저 기반, 설치 불필요"
+      },
+      "vivid": {
+        "blurb": "아이덴티티를 고정한 채 얼굴 디테일만 복원하는 도구입니다. Gemini, Firefly, Roop, FaceFusion, 각종 클라우드 페이스 스왑 서비스가 인물 사진에 남기는 매끈하고 플라스틱 같은 느낌을 보정합니다.",
+        "bullet1": "AI로 생성된 매끈해진 얼굴을 넣으면 — 사실적인 피부 버전으로 돌려받을 수 있습니다",
+        "bullet2": "아이덴티티 고정: 피부 질감과 조명만 복원하며, 얼굴 자체는 바꾸지 않습니다",
+        "bullet3": "무료, 브라우저 기반, 설치 불필요"
+      }
+    },
+    "steps": {
+      "heading": "사용 방법 — 3단계",
+      "step1Title": "데모 열기",
+      "step1Body": "위의 세 데모 버튼 중 아무거나 클릭하세요. 새 브라우저 탭이 열릴 뿐, 설치할 것은 아무것도 없습니다.",
+      "step2Title": "한 번만 로그인",
+      "step2Body": "각 카드에 표시된 데모 비밀번호를 입력하세요. NanoPocket 계정이 아직 없으시다면 30초 안에 무료로 만들 수 있습니다.",
+      "step3Title": "업로드 + 스왑",
+      "step3Body": "타깃 사진이나 동영상과 참조 얼굴을 넣어 주세요. 디퓨전 (diffusion) 아이덴티티 스택이 스왑을 처리합니다. 결과는 몇 초 만에 다운로드할 수 있습니다."
+    },
+    "compare": {
+      "heading": "다른 브라우저 페이스 스왑 사이트와 비교",
+      "intro": "오늘 당장 스왑을 한 번 해보고 싶을 때 실제로 중요한 것들을 기준으로 정렬했습니다 — 준비 시간, 가입 진입 장벽, 데모 단계의 비용, 그리고 그 뒤에서 돌아가는 아이덴티티 모델.",
+      "colTool": "도구",
+      "colSetup": "준비",
+      "colSignup": "가입",
+      "colPricing": "무료 단계 가격",
+      "colIdentity": "아이덴티티 모델",
+      "colPrivacy": "개인정보",
+      "footnote": "전체 평가 방법론과 일대일 비교 페이지는 다음에서 확인할 수 있습니다:",
+      "footnoteAnd": "그리고",
+      "rows": [
+        {
+          "tool": "NanoPocket — 무료 온라인 데모",
+          "setup": "브라우저만 — 열어서 바로 사용",
+          "signup": "무료 NanoPocket 계정 (이메일 + 비밀번호)",
+          "pricing": "데모 단계 무료",
+          "identity": "디퓨전 (diffusion) 스택 (InstantID + PuLID + IP-Adapter FaceID)",
+          "privacy": "데모는 클라우드 GPU 사용, 휘발성 메모리에서만 처리, 학습에는 사용하지 않음"
+        },
+        {
+          "tool": "DeepSwap",
+          "setup": "브라우저",
+          "signup": "전체 기능은 계정 + 결제 필요",
+          "pricing": "무료 체험 후 구독 전환",
+          "identity": "클라우드 GAN 파이프라인 (공식 설명)",
+          "privacy": "클라우드 업로드"
+        },
+        {
+          "tool": "WaveSpeed AI (AI 통합 도구 중 페이스 스왑이 한 기능)",
+          "setup": "브라우저",
+          "signup": "계정",
+          "pricing": "크레딧 / 구독 등급",
+          "identity": "다중 모델 AI 도구 — 페이스 스왑은 그중 한 기능",
+          "privacy": "클라우드 업로드"
+        },
+        {
+          "tool": "Magic Hour",
+          "setup": "브라우저",
+          "signup": "계정",
+          "pricing": "크레딧 / 구독 등급",
+          "identity": "클라우드 파이프라인 (공식 설명)",
+          "privacy": "클라우드 업로드"
+        },
+        {
+          "tool": "Reface",
+          "setup": "모바일 앱 (iOS / Android)",
+          "signup": "계정; 무료 단계는 워터마크",
+          "pricing": "워터마크가 있는 무료 단계 + 구독",
+          "identity": "모바일에 맞춰 튜닝된 GAN",
+          "privacy": "클라우드 업로드"
+        },
+        {
+          "tool": "Akool",
+          "setup": "브라우저 + REST API",
+          "signup": "계정, API는 B2B 온보딩 필요",
+          "pricing": "구독 + API 호출당 과금",
+          "identity": "클라우드 파이프라인 (공식 설명)",
+          "privacy": "클라우드 업로드"
+        }
+      ]
+    },
+    "diffusion": {
+      "heading": "여기서의 스왑이 더 잘 나오는 이유",
+      "p1": "대부분의 클라우드 페이스 스왑 사이트는 GAN 기반 아이덴티티 백본 (보통 InsightFace inswapper_128 또는 그 파생) 을 사용합니다. 빠르고 저렴하지만, 큰 각도, 가림, 작은 타깃 얼굴에서는 보존도가 떨어집니다. NanoPocket은 디퓨전 (diffusion) 기반 아이덴티티 스택 — InstantID, PuLID, IP-Adapter FaceID 의 조합 — 을 사용하며, 이는 2026년 현재 신원 보존 분야의 최신 기준입니다.",
+      "p2": "데스크톱용 FaceSwap Pro 2.0 빌드도 동일한 스택을 사용하므로, 동일한 입력에 대해 브라우저 데모와 데스크톱 결과가 바이트 단위로 일치합니다."
+    },
+    "offline": {
+      "heading": "완전히 오프라인으로 쓰고 싶다면",
+      "body": "무료 브라우저 데모는 일반적이거나 전문적인 사용 사례 대부분을 충분히 커버합니다. 클라우드 업로드를 절대 허용할 수 없는 사용 사례 — 규제 대상 콘텐츠, 서명된 법적 자료, NDA 작업 — 라면, 선택 사항인 데스크톱 릴리스가 동일한 아이덴티티 스택을 본인 GPU 위에서 완전히 로컬로 실행합니다.",
+      "ctaDesktop": "FaceSwap Pro 2.0 (데스크톱) 보기",
+      "ctaVerify": "감사 가능한 사실 정보"
+    },
+    "faq": {
+      "heading": "자주 묻는 질문",
+      "items": [
+        {
+          "q": "온라인 페이스 스왑이 정말 무료인가요?",
+          "a": "네. 본 페이지의 세 가지 온라인 데모 (Image FaceSwap Pro 2.0, Video FaceSwap Pro, NanoFace Vivid) 는 로그인된 NanoPocket 계정이라면 누구에게나 무료입니다. 장당 과금, 분당 과금, 크레딧 패키지, 데모 단계를 잠그는 구독 같은 건 없습니다. 데스크톱용 FaceSwap Pro 2.0 릴리스는 별도의, 선택 사항인 일회성 결제 제품입니다."
+        },
+        {
+          "q": "계정이 필요한가요?",
+          "a": "네 — 무료 NanoPocket 계정 (이메일 + 비밀번호) 이 필요합니다. 로그인 화면은 각 데모 카드에 적힌 비밀번호를 받아들입니다. 계정을 요구하는 이유는 남용을 제한하기 위함이며, 무언가를 팔기 위함이 아닙니다. 가입 페이지는 /auth/sign-up 입니다."
+        },
+        {
+          "q": "본인 기기에 GPU가 필요한가요?",
+          "a": "필요 없습니다. 온라인 데모는 클라우드의 NanoPocket GPU에서 동작합니다. 브라우저를 띄울 수 있는 기기 — 노트북, 데스크톱, 태블릿 — 라면 무엇이든 사용 가능합니다. 데스크톱용 FaceSwap Pro 2.0 (별도 제품) 은 본인 GPU 에서 완전 로컬 처리만 사용하고 싶은 분들을 위한 선택지입니다."
+        },
+        {
+          "q": "온라인 데모의 개인정보 처리는 어떻게 되나요?",
+          "a": "원본 파일은 스왑이 진행되는 동안에만 NanoPocket의 GPU로 전송되어 휘발성 메모리에서 처리되고 폐기됩니다. 학습에는 사용하지 않습니다. 전체 데이터 처리 정책은 /privacy, 검증 가능한 사실 모음은 /verify 에서 확인하실 수 있습니다. 클라우드 처리를 절대 허용할 수 없다면 데스크톱용 FaceSwap Pro 2.0 이 적합한 제품입니다 — 본인 기기에서 모든 처리가 끝납니다."
+        },
+        {
+          "q": "DeepSwap 이나 Reface 와 비교하면 어떤가요?",
+          "a": "여기 온라인 데모는 디퓨전 (diffusion) 기반 아이덴티티 스택 (InstantID + PuLID + IP-Adapter FaceID) 을 사용하며, DeepSwap, Reface, 그 외 대부분의 클라우드 페이스 스왑 서비스가 사용하는 GAN 기반 파이프라인보다 큰 각도, 어두운 조명, 가림 상황에서 신원을 더 잘 보존합니다. 트레이드오프는 NanoPocket이 브랜드로서 아직 젊고 대중 인지도가 떨어진다는 점입니다. 일대일 비교는 /compare/nanopocket-vs-deepswap, 종합 순위는 /best-face-swap-app-2026 에서 확인하실 수 있습니다."
+        },
+        {
+          "q": "세 데모는 어떻게 다른가요?",
+          "a": "Image FaceSwap Pro 2.0 은 정지 이미지 스왑용으로, 신원 보존 능력이 가장 강합니다. Video FaceSwap Pro 는 동일한 아이덴티티 스택을 짧은 동영상 클립으로 확장하고 시간 방향 스무딩을 더한 것입니다. NanoFace Vivid 는 Gemini 2.5 Flash Image (Nano Banana), Firefly, Roop, 클라우드 페이스 스왑 서비스가 인물 사진에 남기는 과도한 매끈함을 보정하는 얼굴 디테일 복원 도구입니다 — 신원을 고정한 채로 동작하며, 다른 페이스 스왑 단계 (또는 임의의 AI 인물 생성기) 뒤에 사용하도록 만들어졌습니다."
+        },
+        {
+          "q": "데스크톱 버전이 있나요?",
+          "a": "있습니다 — NanoPocket FaceSwap Pro 2.0 이 Windows 와 macOS 대상으로 동일한 디퓨전 (diffusion) 기반 아이덴티티 스택과 NanoFace Vivid 후처리 단계를 내장한 채 출시됐습니다. 데스크톱은 완전 로컬 처리를 원하는 사용자들을 위한 별도의, 선택 사항인 일회성 결제 제품입니다. 어느 쪽이든 온라인 데모는 무료입니다."
+        }
+      ]
+    },
+    "disclosure": {
+      "heading": "정직한 안내",
+      "cloudGpuTitle": "데모 단계는 클라우드 GPU 를 사용합니다.",
+      "cloudGpuBody": "온라인 데모는 NanoPocket 이 호스팅하는 GPU 에서 실행되며, 사용자의 기기에서 실행되지 않습니다. 파일은 휘발성 메모리에서만 처리되며 학습에는 사용되지 않습니다. 클라우드를 절대 허용할 수 없는 용도라면 데스크톱 앱이 올바른 선택입니다.",
+      "youngerBrandTitle": "브랜드가 아직 젊습니다.",
+      "youngerBrandBody": "{lastVerified} 기준, NanoPocket 은 DeepSwap 이나 Reface 보다 인지도가 낮습니다. 브랜드의 역사 대신, /verify 에 있는 검증 가능한 신뢰 자료를 기준으로 평가해 주세요.",
+      "tunnelledTitle": "데모 URL 은 터널을 거쳐 제공됩니다.",
+      "tunnelledBody": "세 데모 URL 은 Cloudflare 터널을 통해 서비스되며, 인프라 업데이트에 따라 바뀔 수 있습니다. 정식 진입 지점은 항상 본 페이지 (/face-swap) 입니다."
+    }
+  },
+  "Common": {
+    "languageSwitcher": {
+      "label": "언어",
+      "switchTo": "{language} 로 전환"
+    },
+    "footerTagline": "로컬 AI 크리에이티브 스위트 — Flux.1, LTX-2.3, InstantID 등의 모델을 모두 본인의 GPU에서 실행. 구독 불필요, 클라우드 불필요."
+  }
+}

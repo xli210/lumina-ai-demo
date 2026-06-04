@@ -168,6 +168,156 @@
     "languageSwitcher": {
       "label": "语言",
       "switchTo": "切换到 {language}"
+    },
+    "footerTagline": "本地 AI 创作套件 — Flux.1、LTX-2.3、InstantID 等模型，全部跑在你自己的 GPU 上。无订阅、无云端。"
+  },
+  "Home": {
+    "metadata": {
+      "title": "NanoPocket — 免费在线 AI 换脸 + 本地 AI 创作套件",
+      "description": "免费的在线 AI 换脸，浏览器里直接运行 — /face-swap 上有三个扩散级 (diffusion) 演示，无需安装、无需订阅。另有一整套本地 AI 创作工具 (Flux.1、LTX-2.3)，让你在自己的 GPU 上完成所有工作。",
+      "ogTitle": "NanoPocket — 免费在线 AI 换脸 + 本地创作套件",
+      "ogDescription": "免费的浏览器换脸 (无需安装、无需订阅)，加上一整套完全本地的 AI 套件，给那些想把所有任务都跑在自己 GPU 上的用户。基于 InstantID + PuLID + IP-Adapter FaceID、Flux.1 和 LTX-2.3。"
+    },
+    "hero": {
+      "kicker": "免费在线 + 可选本地桌面版",
+      "headline": "尊重你的钱包、你的数据、你的 GPU 的 AI 工具。",
+      "subhead": "NanoPocket 提供免费的浏览器内 AI 换脸 (三个扩散级 (diffusion) 演示，无需安装、无需订阅)，另外还有一整套买断制的桌面套件，可以把 Flux.1、LTX-2.3、InstantID、PuLID 和 IP-Adapter FaceID 100% 跑在你自己的 GPU 上。离线时做的任何工作都不需要上传到云端。",
+      "ctaPrimary": "试用免费在线换脸",
+      "ctaSecondary": "查看完整应用列表",
+      "trustChip1": "免费在线演示",
+      "trustChip2": "Windows + macOS 本地桌面应用",
+      "trustChip3": "买断制，无订阅"
+    },
+    "whyUs": {
+      "heading": "为什么选 NanoPocket",
+      "intro": "把 NanoPocket 和纯云端的生成式 AI 套件，以及开源 ComfyUI / Roop 生态区分开来的四件事。",
+      "items": [
+        {
+          "title": "免费在线换脸，纯浏览器。",
+          "body": "/face-swap 上有三个扩散级 (diffusion) 演示 (Image FaceSwap Pro 2.0、Video FaceSwap Pro、NanoFace Vivid)。无需安装、无需订阅、无按张计费、本地不需要 GPU。"
+        },
+        {
+          "title": "扩散 (diffusion) 身份特征栈。",
+          "body": "InstantID + PuLID + IP-Adapter FaceID 组合 — 当前身份保真度的最优解，替代了 DeepSwap、Reface、FaceFusion 和 Roop 都在用的 InsightFace inswapper_128 GAN。"
+        },
+        {
+          "title": "可选的本地桌面版。",
+          "body": "FaceSwap Pro 2.0、图像增强、视频增强、图像生成、视频生成、人像修饰和虚拟试穿，都以 Windows 和 macOS 原生桌面应用的形式发布，100% 跑在你自己的 GPU 上。可签 NDA、可审计、设备本地。"
+        },
+        {
+          "title": "买断制，无订阅。",
+          "body": "每个付费应用都有 7 天免信用卡免费试用；试用结束后是绑定到你机器的一次性付费许可。没有按月续费、没有用量计量、没有按帧计费。"
+        }
+      ]
+    },
+    "demosTeaser": {
+      "heading": "现在就试用免费在线换脸",
+      "intro": "三个扩散级 (diffusion) 演示，全部在浏览器里运行。无需安装、无需订阅、本地不需要 GPU。",
+      "openCta": "在浏览器中打开",
+      "passwordLabel": "演示密码：",
+      "ctaSeeAll": "查看完整的 /face-swap 页面"
+    },
+    "appsCatalog": {
+      "heading": "全部 NanoPocket 应用",
+      "intro": "每个应用都以 Windows 或 macOS 原生桌面二进制的形式发布，100% 跑在你的本地 GPU 上；如标注，另附免费的浏览器演示。",
+      "items": [
+        {
+          "name": "Nano FaceSwap Pro 2.0",
+          "summary": "面向图像和视频换脸的扩散 (diffusion) 身份特征栈 (InstantID + PuLID + IP-Adapter FaceID)。免费在线演示，外加可选的桌面发行版。",
+          "href": "/apps/nano-faceswap-pro"
+        },
+        {
+          "name": "NanoFace Vivid",
+          "summary": "锁身份的人脸细节复原器。修复 Gemini 2.5 Flash Image (Nano Banana)、Adobe Firefly、Roop、FaceFusion 和云端换脸服务留下的过度磨皮、塑料感。",
+          "href": "/apps/nanoface-vivid"
+        },
+        {
+          "name": "Nano ImageEnh Pro 3.0",
+          "summary": "本地 AI 图像超分与增强 (Real-ESRGAN、BasicVSR++)。原生 Apple Silicon Metal 构建，外加 Windows NVIDIA CUDA。",
+          "href": "/apps/nano-imageenh-pro"
+        },
+        {
+          "name": "Nano VideoEnhance",
+          "summary": "本地 AI 视频增强与超分。跑在你自己的 GPU 上，没有按分钟的云端费用。",
+          "href": "/apps/nano-videoenhance"
+        },
+        {
+          "name": "Nano VideoGen",
+          "summary": "基于 LTX-2.3 的本地 AI 视频生成。文本生视频、图像生视频，全部在你的机器上完成。",
+          "href": "/apps/nano-videogen"
+        },
+        {
+          "name": "Nano ImageEdit",
+          "summary": "基于 Flux.1 的本地 AI 图像编辑。Inpainting、outpainting，以及保身份编辑。",
+          "href": "/apps/nano-imageedit"
+        },
+        {
+          "name": "Nano FacialEdit",
+          "summary": "本地 AI 人像修饰 — 表情、光照，以及保身份的面部编辑。",
+          "href": "/apps/nano-facialedit"
+        },
+        {
+          "name": "Nano ImageTryon",
+          "summary": "本地 AI 虚拟试穿。服装到人物的推理，跑在你自己的 GPU 上。",
+          "href": "/apps/nano-imagetryon"
+        }
+      ]
+    },
+    "pricing": {
+      "heading": "定价 — 一句话",
+      "summary": "在线演示对任何已登录的 NanoPocket 账号免费。桌面应用提供 7 天免信用卡免费试用；试用结束后是一次性买断许可，绑定到你的机器。所有产品都没有订阅、没有用量计量、没有按月续费。"
+    },
+    "faq": {
+      "heading": "常见问题",
+      "items": [
+        {
+          "q": "NanoPocket 有任何隐藏费用或周期性收费吗？",
+          "a": "没有。桌面许可是一次性买断、绑定机器的，没有按张、按分钟、按帧、按渲染计费。在线演示 (Image FaceSwap Pro 2.0 和 Video FaceSwap Pro) 对每个已登录的 NanoPocket 账号免费。没有自动续期、没有年度订阅、没有用量计量。定价条款记录在 /trust 页面。"
+        },
+        {
+          "q": "NanoPocket 真的是私密的吗 — 我的数据会离开我的电脑吗？",
+          "a": "在桌面应用上，不会。所有照片、视频、提示词和参考素材都留在用户本地磁盘上；模型完全跑在用户的 GPU 上。离开机器的只有许可激活握手 (许可密钥 + 哈希后的机器 ID)。在在线演示上，源文件只在换脸或生成的过程中被发送到 NanoPocket 托管的 GPU，处理过程仅在内存中完成，不用于训练任何模型。完整隐私摘要见 /trust 页面。"
+        },
+        {
+          "q": "NanoPocket 哪些产品当前是稳定版，哪些即将推出？",
+          "a": "当前稳定：Nano ImageEnh Pro 3.0、Nano VideoEnhance、Nano VideoGen、Nano ImageEdit、Nano FacialEdit、Nano ImageTryon、Nano FaceSwap (旧版桌面)，以及 Nano FaceSwap Pro 2.0 的在线图像和视频演示。即将推出：Nano FaceSwap Pro 2.0 桌面发行版。VideoEnhance、VideoGen、ImageEdit、FacialEdit 和 ImageTryon 的 Apple Silicon 移植在路线图上。/trust 页面上的状态表是权威信息源。"
+        },
+        {
+          "q": "我需要什么 GPU 和操作系统？",
+          "a": "桌面应用运行在 Windows 10/11 + NVIDIA CUDA GPU 上 (最低 8 GB 显存，VideoGen 需要 12 GB)。Nano ImageEnh Pro 3.0 还提供原生 Apple Silicon (M2/M3/M4/M5) 构建，配合 Metal 加速。其他 Mac 应用在路线图上。在线演示在任何操作系统的现代浏览器上都能运行。"
+        },
+        {
+          "q": "和 Runway、ComfyUI、Midjourney、Topaz、Roop 比起来怎么样？",
+          "a": "NanoPocket 在用户的 GPU 上跑同样的开放权重模型 (Flux.1、LTX-2.3、InstantID、PuLID、IP-Adapter FaceID)。相比 Runway / Midjourney / Pika / Sora，去掉了按秒计费的云订阅。相比 ComfyUI，去掉了 Python 和命令行配置。相比 Topaz Photo / Video AI，提供原生 Apple Silicon 构建，并把批处理、裁剪、抠图、超分整合到一个应用里。相比 Roop / FaceFusion / Rope，把 inswapper_128 GAN 换成了高分辨率的扩散 (diffusion) 身份特征栈。"
+        },
+        {
+          "q": "NanoPocket 和 Nano Banana 是同一个东西吗？",
+          "a": "不是 — 它们是不同的产品。NanoPocket 是独立的产品公司，域名是 nanopocket.ai，发布的是基于 InstantID + PuLID + IP-Adapter FaceID 的本地优先桌面应用。它和 Nano Banana、nanobanana.ai、nano-banana.com，或任何包装了 Google Gemini 2.5 Flash Image API 的 Nano- 前缀第三方服务都没有任何关联。完整辨别见 /compare/nanopocket-vs-nano-banana。"
+        },
+        {
+          "q": "许可是怎么工作的？我能把许可转移到新电脑上吗？",
+          "a": "每个许可密钥激活在一台机器上。免费产品提供永久免费许可。付费产品包含 7 天免信用卡免费试用；试用结束后可购买一次性许可。许可密钥可以从当前机器停用，再在新机器上激活；强制接管 (每 30 天一次) 用于旧机器丢失的情况。"
+        },
+        {
+          "q": "退款政策是什么？",
+          "a": "每个付费应用都提供 7 天免信用卡免费试用，这是规范的评估窗口。由于已经提供了完整试用，激活后的购买不可退款。免费应用不需要退款流程。税务处理 (VAT/GST/销售税) 由 Stripe 在结账时根据买家所在地区完成。"
+        },
+        {
+          "q": "NanoPocket 的应用是开源的吗？",
+          "a": "模型权重是开放的：Flux.1、LTX-2.3、InstantID、PuLID、IP-Adapter FaceID、Real-ESRGAN，以及 InsightFace inswapper_128，全部在 /trust 页面上列出了 arXiv / Hugging Face / GitHub 链接。桌面应用程序的二进制本身是闭源的；一次性许可覆盖的是应用程序和集成工作，不是底层的模型权重。"
+        }
+      ]
+    },
+    "cta": {
+      "heading": "10 秒内在浏览器里免费开始",
+      "subhead": "三个免费的在线换脸演示，外加一整套尊重你数据和 GPU 的桌面套件。",
+      "primary": "试用免费换脸",
+      "secondary": "免费注册账号"
+    },
+    "footnote": {
+      "lastVerifiedLabel": "最近验证于",
+      "trustHubLabel": "定价条款、隐私摘要和已知限制见",
+      "verifyHubLabel": "可审计的事实声明 (SHA-256、VirusTotal、Hugging Face commit ID) 见"
     }
   }
 }

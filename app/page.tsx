@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
+import { hreflangAlternates } from "@/lib/i18n/locales";
 import { Navbar } from "./components/navbar";
 import { WhatsNewBar } from "./components/whats-new-bar";
 import { HeroSection } from "./components/hero-section";
@@ -13,6 +15,18 @@ import { PricingSection } from "./components/pricing-section";
 import { FAQSection } from "./components/faq-section";
 import { CTASection } from "./components/cta-section";
 import { Footer } from "./components/footer";
+
+/**
+ * Page-level metadata override that adds hreflang alternates pointing at the
+ * Chinese homepage. Title, description, and OG tags all inherit from the
+ * defaults set in app/layout.tsx so the existing English SEO is unchanged.
+ */
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+    languages: hreflangAlternates("https://nanopocket.ai", "/", ["zh-CN"]),
+  },
+};
 
 const faqStructuredData = {
   "@context": "https://schema.org",

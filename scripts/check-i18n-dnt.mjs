@@ -53,37 +53,74 @@ function listLocales() {
     .map((f) => f.replace(/\.json$/, ""));
 }
 
+function readCatalogueJson(locale) {
+  const file = path.join(ROOT, "messages", `${locale}.json`);
+  if (!fs.existsSync(file)) return null;
+  return JSON.parse(fs.readFileSync(file, "utf-8"));
+}
+
 function main() {
   const dntTerms = readGlossary();
   const locales = listLocales();
-  const en = readCatalogue("en");
+  const en = readCatalogueJson("en");
   if (!en) {
     console.error("[check-i18n-dnt] missing messages/en.json");
     process.exit(1);
   }
 
   /**
-   * Only verify terms that actually occur in the English catalogue.
-   * The glossary is forward-looking and may list terms that don't appear
-   * on any translated page yet — those don't need to be checked.
+   * Per-namespace verification. For each top-level key (namespace) in
+   * messages/en.json, we only check it against locales that ALSO have
+   * that namespace. This lets us land translations one namespace at a
+   * time without forcing every locale to be in lockstep.
    */
-  const requiredTerms = dntTerms.filter((term) => en.includes(term));
-
   let failed = 0;
+  let totalVerified = 0;
+
   for (const locale of locales) {
     if (locale === "en") continue;
-    const catalogue = readCatalogue(locale);
-    if (!catalogue) continue;
-    const missing = requiredTerms.filter((term) => !catalogue.includes(term));
-    if (missing.length > 0) {
-      failed += missing.length;
+    const target = readCatalogueJson(locale);
+    if (!target) continue;
+
+    const namespaceReports = [];
+    let localeFailed = 0;
+
+    for (const namespace of Object.keys(en)) {
+      if (!(namespace in target)) continue;
+      const enNs = JSON.stringify(en[namespace]);
+      const targetNs = JSON.stringify(target[namespace]);
+
+      const requiredInNs = dntTerms.filter((term) => enNs.includes(term));
+      const missing = requiredInNs.filter((term) => !targetNs.includes(term));
+
+      if (missing.length > 0) {
+        localeFailed += missing.length;
+        namespaceReports.push({ namespace, requiredInNs, missing });
+      } else if (requiredInNs.length > 0) {
+        namespaceReports.push({ namespace, requiredInNs, missing: [] });
+      }
+
+      totalVerified += requiredInNs.length;
+    }
+
+    if (localeFailed > 0) {
+      failed += localeFailed;
       console.error(
-        `[check-i18n-dnt] messages/${locale}.json is missing ${missing.length} DNT term(s):`,
+        `[check-i18n-dnt] messages/${locale}.json — ${localeFailed} missing term(s):`,
       );
-      for (const m of missing) console.error(`    - ${m}`);
+      for (const r of namespaceReports) {
+        if (r.missing.length === 0) continue;
+        console.error(
+          `    [${r.namespace}] missing ${r.missing.length}/${r.requiredInNs.length}:`,
+        );
+        for (const m of r.missing) console.error(`        - ${m}`);
+      }
     } else {
+      const summary = namespaceReports
+        .map((r) => `${r.namespace}:${r.requiredInNs.length}`)
+        .join(", ");
       console.log(
-        `[check-i18n-dnt] messages/${locale}.json OK (${requiredTerms.length} terms verified)`,
+        `[check-i18n-dnt] messages/${locale}.json OK (${summary || "no DNT terms in shared namespaces"})`,
       );
     }
   }
@@ -93,7 +130,7 @@ function main() {
     process.exit(1);
   }
   console.log(
-    `\n[check-i18n-dnt] PASS — ${requiredTerms.length} DNT terms preserved across ${locales.length - 1} translated locale(s)`,
+    `\n[check-i18n-dnt] PASS — ${totalVerified} term-occurrences verified across ${locales.length - 1} translated locale(s)`,
   );
 }
 

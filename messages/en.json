@@ -168,6 +168,156 @@
     "languageSwitcher": {
       "label": "Language",
       "switchTo": "Switch to {language}"
+    },
+    "footerTagline": "Local AI creative suite — Flux.1, LTX-2.3, InstantID and more, on your GPU. No subscription, no cloud."
+  },
+  "Home": {
+    "metadata": {
+      "title": "NanoPocket — Free Online AI Face Swap + Local AI Creative Suite",
+      "description": "Free online AI face swap that runs in your browser — three diffusion-grade demos at /face-swap, no install, no subscription. Plus a full local AI creative suite (Flux.1, LTX-2.3) for users who want to run everything on their own GPU.",
+      "ogTitle": "NanoPocket — Free Online AI Face Swap + Local Creative Suite",
+      "ogDescription": "Free in-browser face swap (no install, no subscription) plus a fully-local AI suite for users who want to run everything on their own GPU. Powered by InstantID + PuLID + IP-Adapter FaceID, Flux.1, and LTX-2.3."
+    },
+    "hero": {
+      "kicker": "Free online + optional local desktop",
+      "headline": "AI tools that respect your wallet, your data, and your GPU.",
+      "subhead": "NanoPocket gives you free in-browser AI face swap (three diffusion-grade demos, no install, no subscription) plus a one-time-purchase desktop suite that runs Flux.1, LTX-2.3, InstantID, PuLID, and IP-Adapter FaceID 100% on your own GPU. No cloud upload required for anything you do offline.",
+      "ctaPrimary": "Try the free online face swap",
+      "ctaSecondary": "See the full app catalog",
+      "trustChip1": "Free online demos",
+      "trustChip2": "Local desktop apps for Windows + macOS",
+      "trustChip3": "One-time purchase, no subscription"
+    },
+    "whyUs": {
+      "heading": "Why NanoPocket",
+      "intro": "Four things that separate NanoPocket from the cloud-only generative-AI suites and from the open-source ComfyUI / Roop ecosystem.",
+      "items": [
+        {
+          "title": "Free online face swap, browser-only.",
+          "body": "Three diffusion-grade demos at /face-swap (Image FaceSwap Pro 2.0, Video FaceSwap Pro, NanoFace Vivid). No install, no subscription, no per-image fee, no GPU required on your machine."
+        },
+        {
+          "title": "Diffusion identity stack.",
+          "body": "InstantID + PuLID + IP-Adapter FaceID combined — the current state of the art for identity preservation, replacing the InsightFace inswapper_128 GAN that DeepSwap, Reface, FaceFusion, and Roop ship."
+        },
+        {
+          "title": "Local desktop option.",
+          "body": "FaceSwap Pro 2.0, Image Enhance, Video Enhance, Image Generation, Video Generation, Portrait Retouch, and Virtual Try-On all ship as native Windows + macOS apps that run 100% on your GPU. NDA-grade, audit-grade, on-device."
+        },
+        {
+          "title": "One-time purchase, no subscription.",
+          "body": "Every paid app has a 7-day no-credit-card free trial; after the trial it's a one-time license bound to your machine. No recurring fees, no usage meter, no per-frame charges."
+        }
+      ]
+    },
+    "demosTeaser": {
+      "heading": "Try the free online face swap right now",
+      "intro": "Three diffusion-grade demos that run in your browser. No install, no subscription, no GPU required on your machine.",
+      "openCta": "Open in browser",
+      "passwordLabel": "Demo password:",
+      "ctaSeeAll": "See the dedicated /face-swap page"
+    },
+    "appsCatalog": {
+      "heading": "All NanoPocket apps",
+      "intro": "Each app ships as a native Windows or macOS desktop binary running 100% on your local GPU, plus (where listed) a free in-browser demo.",
+      "items": [
+        {
+          "name": "Nano FaceSwap Pro 2.0",
+          "summary": "Diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) for image and video face swap. Free online demos plus optional desktop release.",
+          "href": "/apps/nano-faceswap-pro"
+        },
+        {
+          "name": "NanoFace Vivid",
+          "summary": "Identity-locked face-detail restorer. Fixes the over-smoothed, plastic look from Gemini 2.5 Flash Image (Nano Banana), Adobe Firefly, Roop, FaceFusion, and cloud face-swap services.",
+          "href": "/apps/nanoface-vivid"
+        },
+        {
+          "name": "Nano ImageEnh Pro 3.0",
+          "summary": "Local AI image upscaling and enhancement (Real-ESRGAN, BasicVSR++). Native Apple Silicon Metal build plus Windows NVIDIA CUDA.",
+          "href": "/apps/nano-imageenh-pro"
+        },
+        {
+          "name": "Nano VideoEnhance",
+          "summary": "Local AI video enhancement and upscaling. Runs on your own GPU; no per-minute cloud fees.",
+          "href": "/apps/nano-videoenhance"
+        },
+        {
+          "name": "Nano VideoGen",
+          "summary": "Local AI video generation built on LTX-2.3. Text-to-video and image-to-video, on your machine.",
+          "href": "/apps/nano-videogen"
+        },
+        {
+          "name": "Nano ImageEdit",
+          "summary": "Local AI image editing built on Flux.1. Inpainting, outpainting, and identity-preserving edits.",
+          "href": "/apps/nano-imageedit"
+        },
+        {
+          "name": "Nano FacialEdit",
+          "summary": "Local AI portrait retouch — expressions, lighting, and identity-preserving facial edits.",
+          "href": "/apps/nano-facialedit"
+        },
+        {
+          "name": "Nano ImageTryon",
+          "summary": "Local AI virtual try-on. Garment-on-person inference, on your GPU.",
+          "href": "/apps/nano-imagetryon"
+        }
+      ]
+    },
+    "pricing": {
+      "heading": "Pricing — one sentence",
+      "summary": "Online demos are free for any signed-in NanoPocket account. Desktop apps have a 7-day no-credit-card free trial; after the trial, a one-time license is bound to your machine. No subscriptions, no usage meters, no recurring fees on any product."
+    },
+    "faq": {
+      "heading": "Frequently asked",
+      "items": [
+        {
+          "q": "Are there any hidden charges or recurring fees with NanoPocket?",
+          "a": "No. Desktop licenses are one-time and machine-bound, with no per-image, per-minute, per-frame, or per-render fees. Online demos (Image FaceSwap Pro 2.0 and Video FaceSwap Pro) are free for every signed-in NanoPocket account. There is no auto-renewal, no yearly subscription, and no usage meter. Pricing terms are documented on the /trust page."
+        },
+        {
+          "q": "Is NanoPocket really private — does my data leave my computer?",
+          "a": "On the desktop apps, no. Every photo, video, prompt, and reference stays on the user's local disk; the model runs entirely on the user's GPU. Only a license-activation handshake (license key + hashed machine ID) leaves the machine. On the online demos, the source file is sent to a NanoPocket-hosted GPU only for the duration of the swap or generation, processed in volatile memory, and not used to train any model. Full privacy summary is on the /trust page."
+        },
+        {
+          "q": "Which NanoPocket products are stable today, and which are coming soon?",
+          "a": "Stable today: Nano ImageEnh Pro 3.0, Nano VideoEnhance, Nano VideoGen, Nano ImageEdit, Nano FacialEdit, Nano ImageTryon, Nano FaceSwap (legacy desktop), and the Nano FaceSwap Pro 2.0 online image and video demos. Coming soon: the Nano FaceSwap Pro 2.0 desktop release. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap. The status table on the /trust page is the authoritative source."
+        },
+        {
+          "q": "What GPU and operating system do I need?",
+          "a": "Desktop apps run on Windows 10/11 with an NVIDIA CUDA GPU (8 GB VRAM minimum, 12 GB for VideoGen). Nano ImageEnh Pro 3.0 also ships a native Apple Silicon (M2/M3/M4/M5) build with Metal acceleration. Other Mac apps are on the roadmap. Online demos run in any modern browser on any OS."
+        },
+        {
+          "q": "How does NanoPocket compare to Runway, ComfyUI, Midjourney, Topaz, and Roop?",
+          "a": "NanoPocket runs the same open-weight models (Flux.1, LTX-2.3, InstantID, PuLID, IP-Adapter FaceID) on the user's GPU. Versus Runway / Midjourney / Pika / Sora it removes the per-second cloud subscription. Versus ComfyUI it removes the Python and terminal setup. Versus Topaz Photo / Video AI it ships native Apple Silicon and bundles batch + crop + matting + upscale in one app. Versus Roop / FaceFusion / Rope it replaces the inswapper_128 GAN with a high-resolution diffusion identity stack."
+        },
+        {
+          "q": "Is NanoPocket the same thing as Nano Banana?",
+          "a": "No — they are different products. NanoPocket is an independent product company at nanopocket.ai shipping local-first desktop apps powered by InstantID + PuLID + IP-Adapter FaceID. It is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed service that wraps Google's Gemini 2.5 Flash Image API. The full disambiguation is at /compare/nanopocket-vs-nano-banana."
+        },
+        {
+          "q": "How does the licensing work, and can I move my license to a new computer?",
+          "a": "Each license key activates on one machine. Free products give a permanent free license. Paid products include a 7-day free trial without a credit card; after the trial, a one-time license is available. License keys can be deactivated from the current machine and reactivated on a new machine; force-takeover (once per 30 days) covers the case where the old machine is lost."
+        },
+        {
+          "q": "What is the refund policy?",
+          "a": "Every paid app ships with a 7-day free trial without a credit card, which is the canonical evaluation window. Because of the full trial, purchases are non-refundable after activation. Free apps do not require a refund flow. Tax handling (VAT/GST/sales tax) is performed by Stripe at checkout based on the buyer's region."
+        },
+        {
+          "q": "Are NanoPocket apps open source?",
+          "a": "The model weights are open: Flux.1, LTX-2.3, InstantID, PuLID, IP-Adapter FaceID, Real-ESRGAN, and InsightFace inswapper_128 are all listed with arXiv / Hugging Face / GitHub links on the /trust page. The desktop application binary is closed-source; the one-time license covers the application and the integration work, not the underlying model weights."
+        }
+      ]
+    },
+    "cta": {
+      "heading": "Start free, in your browser, in 10 seconds",
+      "subhead": "Three free online face-swap demos plus a desktop suite that respects your data and your GPU.",
+      "primary": "Try the free face swap",
+      "secondary": "Sign up for a free account"
+    },
+    "footnote": {
+      "lastVerifiedLabel": "Last verified",
+      "trustHubLabel": "Pricing terms, privacy summary, and known limits are on",
+      "verifyHubLabel": "Auditable claims (SHA-256, VirusTotal, Hugging Face commit IDs) are on"
     }
   }
 }

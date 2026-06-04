@@ -12,13 +12,15 @@
 
 export const DEFAULT_LOCALE = "en" as const;
 
-export const LOCALES = ["en", "zh-CN"] as const;
+export const LOCALES = ["en", "zh-CN", "ja", "ko"] as const;
 
 export type AppLocale = (typeof LOCALES)[number];
 
 export const LOCALE_LABELS: Record<AppLocale, string> = {
   en: "English",
   "zh-CN": "中文",
+  ja: "日本語",
+  ko: "한국어",
 };
 
 /**
@@ -29,6 +31,8 @@ export const LOCALE_LABELS: Record<AppLocale, string> = {
 export const LOCALE_SUBTITLES: Record<AppLocale, string> = {
   en: "English",
   "zh-CN": "Chinese (Simplified) — 简体中文",
+  ja: "Japanese — 日本語",
+  ko: "Korean — 한국어",
 };
 
 export function isAppLocale(value: unknown): value is AppLocale {
