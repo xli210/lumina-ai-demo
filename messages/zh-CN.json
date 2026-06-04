@@ -1,0 +1,173 @@
+{
+  "FaceSwap": {
+    "metadata": {
+      "title": "免费在线 AI 换脸 — 无需安装、无需订阅 | NanoPocket",
+      "description": "免费的在线 AI 换脸工具，直接在浏览器里运行。无需安装，无需订阅，无需本地 GPU。三个扩散级 (diffusion) 演示：Image FaceSwap Pro 2.0、Video FaceSwap Pro 和 NanoFace Vivid。注册一个免费账号，登录一次就能开始换脸。",
+      "ogTitle": "免费在线 AI 换脸 — 浏览器里直接运行",
+      "ogDescription": "三个扩散级 (diffusion) 换脸演示，全部在浏览器里运行。免费、无需安装、无需订阅。"
+    },
+    "hero": {
+      "kicker": "免费在线 — 浏览器里直接运行",
+      "headline": "免费在线 AI 换脸。无需安装。无需订阅。",
+      "subhead": "三个扩散级 (diffusion) 换脸演示，全部在浏览器里运行。注册一个免费的 NanoPocket 账号，登录一次，上传目标图和参考脸，几秒钟就能拿到换脸结果。本地不需要 GPU，没有按张计费、没有按分钟计费、也没有点数包。",
+      "lastVerifiedLabel": "最近验证于",
+      "openSpeed": "10 秒内即可在浏览器中打开",
+      "ctaPrimary": "试用图片换脸演示",
+      "ctaSecondary": "免费创建账号"
+    },
+    "demos": {
+      "heading": "三个免费在线演示",
+      "intro": "每个演示都是独立的浏览器工具。根据你的需求挑一个 — 静态照片、短视频片段，或修复现有人像中过度磨皮的 AI 痕迹。",
+      "passwordLabel": "演示密码：",
+      "openCta": "在浏览器中打开",
+      "image": {
+        "blurb": "基于扩散 (diffusion) 身份特征栈 (InstantID + PuLID + IP-Adapter FaceID) 的照片到照片换脸。静态图保真度最高。",
+        "bullet1": "上传一张目标照片和一张参考脸 — 几秒钟内得到换脸结果",
+        "bullet2": "扩散 (diffusion) 身份特征栈 — 在大角度、弱光、遮挡场景下比 GAN 类换脸器还原得更好",
+        "bullet3": "免费、纯浏览器、无需安装"
+      },
+      "video": {
+        "blurb": "同一套身份特征栈扩展到视频，并加入时序平滑。丢一个片段进去，拿一个换好的片段出来 — 不用逐帧处理。",
+        "bullet1": "短视频片段直接在浏览器里换脸",
+        "bullet2": "时序一致 — 帧之间不闪烁",
+        "bullet3": "免费、纯浏览器、无需安装"
+      },
+      "vivid": {
+        "blurb": "锁身份的人脸细节复原器。修复 Gemini、Firefly、Roop、FaceFusion 以及各类云端换脸服务在人像上留下的过度磨皮、塑料感。",
+        "bullet1": "上传任何一张过度磨皮的 AI 人脸 — 拿回一张皮肤真实的版本",
+        "bullet2": "锁身份：只复原皮肤纹理和光照，不会改变脸",
+        "bullet3": "免费、纯浏览器、无需安装"
+      }
+    },
+    "steps": {
+      "heading": "三步上手",
+      "step1Title": "打开演示",
+      "step1Body": "点击上面任意一个演示按钮。每个都会打开一个新的浏览器标签页 — 没有任何东西要安装。",
+      "step2Title": "登录一次",
+      "step2Body": "输入演示卡片上显示的密码。如果你还没有 NanoPocket 账号，30 秒就能免费创建一个。",
+      "step3Title": "上传 + 换脸",
+      "step3Body": "丢入一张目标照片或视频和一张参考脸。扩散 (diffusion) 身份特征栈会处理换脸。几秒钟即可下载结果。"
+    },
+    "compare": {
+      "heading": "和其他浏览器换脸网站的对比",
+      "intro": "排序依据是当你今天就想做一次换脸时真正重要的东西 — 准备时间、注册门槛、演示版的费用，以及背后用的身份模型。",
+      "colTool": "工具",
+      "colSetup": "准备",
+      "colSignup": "注册",
+      "colPricing": "免费版定价",
+      "colIdentity": "身份模型",
+      "colPrivacy": "隐私",
+      "footnote": "完整方法论和单挑对比页见",
+      "footnoteAnd": "和",
+      "rows": [
+        {
+          "tool": "NanoPocket — 免费在线演示",
+          "setup": "纯浏览器 — 打开就用",
+          "signup": "免费 NanoPocket 账号 (邮箱 + 密码)",
+          "pricing": "演示版免费",
+          "identity": "扩散 (diffusion) 栈 (InstantID + PuLID + IP-Adapter FaceID)",
+          "privacy": "演示用云端 GPU，仅在内存中运行，不用于训练"
+        },
+        {
+          "tool": "DeepSwap",
+          "setup": "浏览器",
+          "signup": "完整功能需账号 + 付费",
+          "pricing": "免费试用后转订阅",
+          "identity": "云端 GAN 流水线 (官方说法)",
+          "privacy": "上传云端"
+        },
+        {
+          "tool": "WaveSpeed AI (换脸只是 AI 套件中的一个功能)",
+          "setup": "浏览器",
+          "signup": "账号",
+          "pricing": "点数 / 订阅分级",
+          "identity": "多模型 AI 套件 — 换脸只是其中一项",
+          "privacy": "上传云端"
+        },
+        {
+          "tool": "Magic Hour",
+          "setup": "浏览器",
+          "signup": "账号",
+          "pricing": "点数 / 订阅分级",
+          "identity": "云端流水线 (官方说法)",
+          "privacy": "上传云端"
+        },
+        {
+          "tool": "Reface",
+          "setup": "移动 App (iOS / Android)",
+          "signup": "账号；免费版有水印",
+          "pricing": "带水印的免费版 + 订阅",
+          "identity": "针对移动端调优的 GAN",
+          "privacy": "上传云端"
+        },
+        {
+          "tool": "Akool",
+          "setup": "浏览器 + REST API",
+          "signup": "账号；API 需 B2B 接入",
+          "pricing": "订阅 + 按 API 调用计费",
+          "identity": "云端流水线 (官方说法)",
+          "privacy": "上传云端"
+        }
+      ]
+    },
+    "diffusion": {
+      "heading": "为什么这里的换脸看起来更好",
+      "p1": "大多数云端换脸网站使用的是基于 GAN 的身份骨干 (通常是 InsightFace inswapper_128 或它的衍生模型)。这种方案快、便宜，但在大角度、遮挡和小尺寸目标脸上会丢失细节。NanoPocket 跑的是扩散 (diffusion) 身份特征栈 — InstantID、PuLID 和 IP-Adapter FaceID 组合 — 这是 2026 年身份保真度的当前最优解。",
+      "p2": "桌面版 FaceSwap Pro 2.0 用的是同一套栈，所以浏览器演示和桌面端在同样输入下，结果是字节对齐的。"
+    },
+    "offline": {
+      "heading": "如果你想完全离线",
+      "body": "免费的浏览器演示已经覆盖了绝大多数日常和专业用例。如果你的用例明确要求零云端上传 — 比如受监管内容、有签字法律证据、需要保密协议的工作 — 可选的桌面版会把同一套身份特征栈完全跑在你自己的 GPU 上。",
+      "ctaDesktop": "查看 FaceSwap Pro 2.0 (桌面版)",
+      "ctaVerify": "可审计的事实声明"
+    },
+    "faq": {
+      "heading": "常见问题",
+      "items": [
+        {
+          "q": "在线换脸真的免费吗？",
+          "a": "是的。本页上的三个在线演示 (Image FaceSwap Pro 2.0、Video FaceSwap Pro、NanoFace Vivid) 对任何已登录的 NanoPocket 账号都是免费的。没有按张收费、没有按分钟收费、没有点数包，演示版也不需要任何订阅。桌面版 FaceSwap Pro 2.0 是一个单独的、可选的一次性付费产品。"
+        },
+        {
+          "q": "需要账号吗？",
+          "a": "需要 — 一个免费的 NanoPocket 账号 (邮箱 + 密码)。登录页接受每个演示卡片上列出的密码。要求账号是为了限制滥用，不是为了向你卖任何东西。注册地址：/auth/sign-up。"
+        },
+        {
+          "q": "本地需要 GPU 吗？",
+          "a": "不需要。在线演示运行在 NanoPocket 云端的 GPU 上。任何能打开浏览器的设备 — 笔记本、台式机、平板 — 都能用。桌面版 FaceSwap Pro 2.0 (单独的产品) 才是面向那些一定要在自己 GPU 上本地处理的用户。"
+        },
+        {
+          "q": "在线演示的隐私是怎么处理的？",
+          "a": "源文件只在换脸过程中发送到 NanoPocket 的 GPU，处理过程仅在内存中完成，处理完即丢弃。这些文件不会用于训练。完整的数据处理政策见 /privacy，可核实的事实声明见 /verify。如果你明确要求零云端处理，桌面版 FaceSwap Pro 2.0 才是合适的选择 — 它完全跑在你自己的机器上。"
+        },
+        {
+          "q": "和 DeepSwap 或 Reface 相比怎么样？",
+          "a": "这里的在线演示用的是扩散 (diffusion) 身份特征栈 (InstantID + PuLID + IP-Adapter FaceID)，比 DeepSwap、Reface 以及大多数云端换脸服务用的 GAN 流水线，在大角度、弱光和遮挡场景下能更好地保留身份特征。代价是 NanoPocket 作为品牌还比较年轻，大众认知度不如对方。单挑对比见 /compare/nanopocket-vs-deepswap，完整排名见 /best-face-swap-app-2026。"
+        },
+        {
+          "q": "三个演示之间有什么区别？",
+          "a": "Image FaceSwap Pro 2.0 用于静态图换脸，身份保真度最强。Video FaceSwap Pro 是把同一套身份特征栈扩展到短视频片段并加入时序平滑。NanoFace Vivid 是一个人脸细节复原器，专门修复 Gemini 2.5 Flash Image (Nano Banana)、Firefly、Roop 和云端换脸服务在人像上留下的过度磨皮 — 它锁身份，通常是在另一次换脸步骤之后 (或任何 AI 人像生成器之后) 运行。"
+        },
+        {
+          "q": "有桌面版吗？",
+          "a": "有 — NanoPocket FaceSwap Pro 2.0 已经在 Windows 和 macOS 上发货，使用同一套扩散 (diffusion) 身份特征栈，并内置了 NanoFace Vivid 后处理阶段。桌面版是单独的、可选的一次性付费产品，面向需要完全本地处理的用户。无论是否购买桌面版，在线演示始终免费。"
+        }
+      ]
+    },
+    "disclosure": {
+      "heading": "诚实声明",
+      "cloudGpuTitle": "演示版用的是云端 GPU。",
+      "cloudGpuBody": "在线演示运行在 NanoPocket 托管的 GPU 上，不是你的设备。文件仅在内存中处理，不用于训练。如果你的用例要求零云端，桌面版才是合适的选择。",
+      "youngerBrandTitle": "品牌还很年轻。",
+      "youngerBrandBody": "截至 {lastVerified}，NanoPocket 的知名度低于 DeepSwap 或 Reface。请用 /verify 上可核实的信任凭据来评估，而不是品牌历史。",
+      "tunnelledTitle": "演示 URL 是通过隧道暴露的。",
+      "tunnelledBody": "三个演示 URL 通过 Cloudflare 隧道转发，并可能随基础设施升级而轮换。规范入口始终是本页 (/face-swap)。"
+    }
+  },
+  "Common": {
+    "languageSwitcher": {
+      "label": "语言",
+      "switchTo": "切换到 {language}"
+    }
+  }
+}

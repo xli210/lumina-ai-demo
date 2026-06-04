@@ -20,6 +20,7 @@ import { Footer } from "../components/footer";
 import { Button } from "@/components/ui/button";
 import { DemoStatusBadge } from "../components/demo-status-badge";
 import { DEMOS, demoUrl, type DemoId } from "@/lib/demos";
+import { hreflangAlternates } from "@/lib/i18n/locales";
 
 const PAGE_URL = "https://nanopocket.ai/face-swap";
 const LAST_VERIFIED = "2026-06-03";
@@ -40,7 +41,12 @@ export const metadata: Metadata = {
     "online face swap diffusion",
     "free face swap website 2026",
   ],
-  alternates: { canonical: "/face-swap" },
+  alternates: {
+    canonical: "/face-swap",
+    languages: hreflangAlternates("https://nanopocket.ai", "/face-swap", [
+      "zh-CN",
+    ]),
+  },
   openGraph: {
     type: "website",
     url: PAGE_URL,

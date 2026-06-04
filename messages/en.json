@@ -1,0 +1,173 @@
+{
+  "FaceSwap": {
+    "metadata": {
+      "title": "Free Online AI Face Swap — No Install, No Subscription | NanoPocket",
+      "description": "Free online AI face swap that runs in your browser. No install, no subscription, no GPU required. Three diffusion-grade demos: Image FaceSwap Pro 2.0, Video FaceSwap Pro, and NanoFace Vivid. Sign in once with a free account and start swapping.",
+      "ogTitle": "Free Online AI Face Swap — runs in your browser",
+      "ogDescription": "Three diffusion-grade face-swap demos that run in your browser. Free, no install, no subscription."
+    },
+    "hero": {
+      "kicker": "Free online — runs in your browser",
+      "headline": "Free online AI face swap. No install. No subscription.",
+      "subhead": "Three diffusion-grade face-swap demos that run in your browser. Sign in once with a free NanoPocket account, upload a target and a reference face, and get a swap in seconds. No GPU required on your machine, no per-image fee, no per-minute fee, no credit pack.",
+      "lastVerifiedLabel": "Last verified",
+      "openSpeed": "Open in browser in under 10 seconds",
+      "ctaPrimary": "Try the photo demo",
+      "ctaSecondary": "Create free account"
+    },
+    "demos": {
+      "heading": "Three free online demos",
+      "intro": "Each demo is a separate browser tool. Pick the one that matches what you want to do — still photo, short video clip, or fixing the over-smoothed AI look on an existing portrait.",
+      "passwordLabel": "Demo password:",
+      "openCta": "Open in browser",
+      "image": {
+        "blurb": "Photo-to-photo face swap with a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). Highest fidelity for stills.",
+        "bullet1": "Upload a target photo and a reference face — get a swap in a few seconds",
+        "bullet2": "Diffusion identity stack — handles hard angles, low light, occlusion better than GAN swappers",
+        "bullet3": "Free, browser-based, no install"
+      },
+      "video": {
+        "blurb": "Same identity stack extended to video with temporal smoothing. Drop in a clip, get a swapped clip — no frame-by-frame work.",
+        "bullet1": "Short-clip video swap straight from the browser",
+        "bullet2": "Temporal-consistent — no flicker between frames",
+        "bullet3": "Free, browser-based, no install"
+      },
+      "vivid": {
+        "blurb": "Identity-locked face-detail restorer. Fixes the over-smoothed, plastic look that Gemini, Firefly, Roop, FaceFusion, and cloud face-swap services leave on portraits.",
+        "bullet1": "Drop in any over-smoothed AI face — get a realistic-skin version back",
+        "bullet2": "Identity-locked: only restores texture and lighting, never changes the face",
+        "bullet3": "Free, browser-based, no install"
+      }
+    },
+    "steps": {
+      "heading": "How it works — three steps",
+      "step1Title": "Open the demo",
+      "step1Body": "Click any of the three demo buttons above. Each opens a new browser tab — nothing to install.",
+      "step2Title": "Sign in once",
+      "step2Body": "Enter the demo password shown on the card. If you don't have a NanoPocket account yet, create one free in 30 seconds.",
+      "step3Title": "Upload + swap",
+      "step3Body": "Drop in a target photo or video and a reference face. The diffusion identity stack handles the swap. Download the result in seconds."
+    },
+    "compare": {
+      "heading": "How it compares to other browser face-swap sites",
+      "intro": "Sorted by what actually matters when you just want to do a swap today — setup time, sign-up friction, what you pay for the demo tier, and the underlying identity model.",
+      "colTool": "Tool",
+      "colSetup": "Setup",
+      "colSignup": "Sign-up",
+      "colPricing": "Free-tier pricing",
+      "colIdentity": "Identity model",
+      "colPrivacy": "Privacy",
+      "footnote": "Read the full methodology and head-to-head pages at",
+      "footnoteAnd": "and",
+      "rows": [
+        {
+          "tool": "NanoPocket — free online demos",
+          "setup": "Browser only — open and go",
+          "signup": "Free NanoPocket account (email + password)",
+          "pricing": "Free for the demo tier",
+          "identity": "Diffusion stack (InstantID + PuLID + IP-Adapter FaceID)",
+          "privacy": "Cloud GPU for the demo, volatile only, not used for training"
+        },
+        {
+          "tool": "DeepSwap",
+          "setup": "Browser",
+          "signup": "Account + payment for full features",
+          "pricing": "Free trial then subscription",
+          "identity": "Cloud GAN pipeline (vendor-described)",
+          "privacy": "Cloud upload"
+        },
+        {
+          "tool": "WaveSpeed AI (face swap among AI suite)",
+          "setup": "Browser",
+          "signup": "Account",
+          "pricing": "Credit / subscription tiers",
+          "identity": "Multi-model AI suite — face swap is one feature",
+          "privacy": "Cloud upload"
+        },
+        {
+          "tool": "Magic Hour",
+          "setup": "Browser",
+          "signup": "Account",
+          "pricing": "Credit / subscription tiers",
+          "identity": "Cloud pipeline (vendor-described)",
+          "privacy": "Cloud upload"
+        },
+        {
+          "tool": "Reface",
+          "setup": "Mobile app (iOS / Android)",
+          "signup": "Account; watermark on free tier",
+          "pricing": "Free tier with watermark + subscription",
+          "identity": "Mobile-tuned GAN",
+          "privacy": "Cloud upload"
+        },
+        {
+          "tool": "Akool",
+          "setup": "Browser + REST API",
+          "signup": "Account, B2B onboarding for API",
+          "pricing": "Subscription + per-API-call",
+          "identity": "Cloud pipeline (vendor-described)",
+          "privacy": "Cloud upload"
+        }
+      ]
+    },
+    "diffusion": {
+      "heading": "Why the swaps look better here",
+      "p1": "Most cloud face-swap sites use a GAN identity backbone (typically InsightFace inswapper_128 or a derivative). It is fast and cheap but loses fidelity on hard angles, occlusion, and small target faces. NanoPocket runs a diffusion identity stack — InstantID, PuLID, and IP-Adapter FaceID combined — which is the current state of the art for identity preservation in 2026.",
+      "p2": "The same stack powers the desktop FaceSwap Pro 2.0 build, so results in the browser demos and on the desktop are byte-aligned on equivalent inputs."
+    },
+    "offline": {
+      "heading": "If you want to go fully offline",
+      "body": "The free browser demos cover the vast majority of casual and professional use cases. If your use case specifically requires zero cloud upload — regulated content, signed legal media, NDA work — the optional desktop release runs the same identity stack entirely on your own GPU.",
+      "ctaDesktop": "See FaceSwap Pro 2.0 (desktop)",
+      "ctaVerify": "Auditable claims"
+    },
+    "faq": {
+      "heading": "Frequently asked",
+      "items": [
+        {
+          "q": "Is the online face swap really free?",
+          "a": "Yes. The three online demos on this page (Image FaceSwap Pro 2.0, Video FaceSwap Pro, NanoFace Vivid) are free for any signed-in NanoPocket account. There is no per-image fee, no per-minute fee, no credit pack, and no subscription gating the demo tier. The desktop FaceSwap Pro 2.0 release is a separate, optional, one-time-purchase product."
+        },
+        {
+          "q": "Do I need an account?",
+          "a": "Yes — a free NanoPocket account (email + password). The login screen accepts the password listed under each demo. The account is required so we can rate-limit abuse, not so we can sell anything. You can sign up at /auth/sign-up."
+        },
+        {
+          "q": "Do I need a GPU on my machine?",
+          "a": "No. The online demos run on NanoPocket's GPUs in the cloud. Anything that can open a browser — laptop, desktop, tablet — can use them. The desktop FaceSwap Pro 2.0 release (separate product) is the option for users who specifically want local-only processing on their own GPU."
+        },
+        {
+          "q": "How does the privacy work for the online demos?",
+          "a": "The source files are sent to NanoPocket's GPU only for the duration of the swap, processed in volatile memory, and discarded. They are not used for training. The full data-handling policy is at /privacy and the verifiable claims hub is at /verify. If you specifically want zero-cloud processing, the desktop FaceSwap Pro 2.0 is the right product — it runs entirely on your own machine."
+        },
+        {
+          "q": "How does this compare to DeepSwap or Reface?",
+          "a": "The online demos here use a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID), which preserves identity better on hard angles, low light, and occlusion than the GAN-based pipelines that DeepSwap, Reface, and most cloud face-swap services use. The trade-off is that NanoPocket is younger as a brand and has less mass-market name recognition. See the side-by-side at /compare/nanopocket-vs-deepswap and the full ranking at /best-face-swap-app-2026."
+        },
+        {
+          "q": "What is the difference between the three demos?",
+          "a": "Image FaceSwap Pro 2.0 is for still-image swaps with the strongest identity preservation. Video FaceSwap Pro is the same identity stack extended to short video clips with temporal smoothing. NanoFace Vivid is a face-detail restorer that fixes the over-smoothed look that Gemini 2.5 Flash Image (Nano Banana), Firefly, Roop, and cloud face-swap services leave on portraits — it is identity-locked and is meant to run after another face-swap step (or after any AI portrait generator)."
+        },
+        {
+          "q": "Is there a desktop version?",
+          "a": "Yes — NanoPocket FaceSwap Pro 2.0 is shipping for Windows and macOS with the same diffusion identity stack, plus the NanoFace Vivid post-processor stage built in. Desktop is a separate, optional purchase for users who want fully-local processing. The online demos are free either way."
+        }
+      ]
+    },
+    "disclosure": {
+      "heading": "Honest disclosure",
+      "cloudGpuTitle": "Cloud GPU on the demo tier.",
+      "cloudGpuBody": "The online demos run on NanoPocket-hosted GPUs, not on your device. Files are processed in volatile memory and not used for training. If your use case requires zero-cloud, the desktop app is the right choice.",
+      "youngerBrandTitle": "Younger brand.",
+      "youngerBrandBody": "NanoPocket has less name recognition than DeepSwap or Reface as of {lastVerified}. The verifiable trust artefacts at /verify are what to evaluate instead of brand history.",
+      "tunnelledTitle": "Demo URLs are tunnelled.",
+      "tunnelledBody": "The three demo URLs are served via Cloudflare tunnels and may rotate as we update infrastructure. The canonical entry point is always this page (/face-swap)."
+    }
+  },
+  "Common": {
+    "languageSwitcher": {
+      "label": "Language",
+      "switchTo": "Switch to {language}"
+    }
+  }
+}

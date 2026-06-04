@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { NavbarUserMenu } from "./navbar-user-menu";
 import { Wordmark } from "./wordmark";
+import { LocaleSwitcher } from "./locale-switcher";
 
 export async function Navbar() {
   const supabase = await createClient();
@@ -84,6 +85,7 @@ export async function Navbar() {
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          <LocaleSwitcher className="hidden sm:flex" />
           {user ? (
             <NavbarUserMenu user={user} isAdmin={isAdmin} />
           ) : (

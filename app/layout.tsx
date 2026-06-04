@@ -1,8 +1,12 @@
 import React from "react"
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, DM_Mono } from "next/font/google";
+import { headers } from "next/headers";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { DEFAULT_LOCALE, isAppLocale, type AppLocale } from "@/lib/i18n/locales";
 
 import "./globals.css";
 
@@ -76,13 +80,21 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Resolve the active locale from the header that middleware writes (see
+  // middleware.ts). Fallback to the default locale for any path that the
+  // matcher excludes (static assets, /api/license, etc.).
+  const h = await headers();
+  const headerLocale = h.get("x-app-locale");
+  const locale: AppLocale = isAppLocale(headerLocale) ? headerLocale : DEFAULT_LOCALE;
+  const messages = await getMessages();
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <script
           async
@@ -362,15 +374,17 @@ export default function RootLayout({
             }),
           }}
         />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <Toaster />
-        </ThemeProvider>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

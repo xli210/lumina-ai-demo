@@ -1,10 +1,19 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
-export async function updateSession(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({
-    request,
-  })
+export async function updateSession(
+  request: NextRequest,
+  requestHeaders?: Headers,
+) {
+  // Caller (middleware) can pass a mutated Headers object so custom request
+  // headers (e.g. x-app-locale) flow through to React Server Components.
+  // Falls back to the original request when no override is supplied.
+  const buildNext = () =>
+    requestHeaders
+      ? NextResponse.next({ request: { headers: requestHeaders } })
+      : NextResponse.next({ request })
+
+  let supabaseResponse = buildNext()
 
   // Skip Supabase session management if env vars are not configured
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
@@ -23,9 +32,7 @@ export async function updateSession(request: NextRequest) {
           cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value),
           )
-          supabaseResponse = NextResponse.next({
-            request,
-          })
+          supabaseResponse = buildNext()
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options),
           )
