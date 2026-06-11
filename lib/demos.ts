@@ -27,7 +27,7 @@ export const DEMOS: DemoEntry[] = [
   {
     id: "image",
     name: "Image FaceSwap Pro 2.0",
-    origin: "https://technique-phd-yen-insight.trycloudflare.com",
+    origin: "https://byte-writers-york-static.trycloudflare.com",
     landingPath: "/login",
     pingPath: "/login",
     password: "nanofaceswap-pro",
@@ -36,7 +36,7 @@ export const DEMOS: DemoEntry[] = [
   {
     id: "video",
     name: "Video FaceSwap Pro",
-    origin: "https://domain-jewelry-respondents-removal.trycloudflare.com",
+    origin: "https://burton-michelle-junior-surge.trycloudflare.com",
     landingPath: "/login",
     pingPath: "/login",
     password: "nanopocket-video",
