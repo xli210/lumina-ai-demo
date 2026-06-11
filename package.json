@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check:i18n-dnt": "node scripts/check-i18n-dnt.mjs"
+    "check:i18n-dnt": "node scripts/check-i18n-dnt.mjs",
+    "check:geo": "node scripts/check-geo.mjs",
+    "probe:llm": "node scripts/probe-llm.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

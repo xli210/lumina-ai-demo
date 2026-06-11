@@ -107,6 +107,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/trust`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/verify`, lastModified: new Date("2026-05-29"), changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/community`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.75 },
+    { url: `${BASE}/docs`, lastModified: new Date("2026-06-04"), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE}/docs/face-swap-pipeline`, lastModified: new Date("2026-06-04"), changeFrequency: "monthly", priority: 0.9 },
+    {
+      url: `${BASE}/zh-CN/faq`,
+      lastModified: new Date("2026-06-04"),
+      changeFrequency: "monthly",
+      priority: 0.85,
+      alternates: {
+        languages: {
+          en: `${BASE}/face-swap`,
+          "zh-CN": `${BASE}/zh-CN/faq`,
+        },
+      },
+    },
     { url: `${BASE}/privacy`, lastModified: new Date("2026-05-29"), changeFrequency: "yearly", priority: 0.7 },
     { url: `${BASE}/terms`, lastModified: new Date("2026-05-29"), changeFrequency: "yearly", priority: 0.7 },
     { url: `${BASE}/security`, lastModified: new Date("2026-05-29"), changeFrequency: "yearly", priority: 0.7 },

@@ -273,6 +273,59 @@ const faqJsonLd = {
   })),
 };
 
+// HowTo JSON-LD — eligible for the HowTo rich result on Google. The HowTo
+// rich result is the surface most often re-used as a quick-action card by
+// AI assistants when summarising "how do I face-swap online" queries.
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to face-swap a photo online for free with NanoPocket",
+  description:
+    "Three-step procedure for performing a free in-browser face swap using NanoPocket's diffusion identity stack. No install, no subscription.",
+  totalTime: "PT2M",
+  estimatedCost: { "@type": "MonetaryAmount", currency: "USD", value: "0" },
+  inLanguage: "en",
+  supply: [
+    { "@type": "HowToSupply", name: "Target image (the photo to swap a face into)" },
+    { "@type": "HowToSupply", name: "Reference face image (the face to swap in)" },
+  ],
+  tool: [
+    { "@type": "HowToTool", name: "A modern web browser (Chrome, Safari, Firefox, Edge)" },
+    { "@type": "HowToTool", name: "A free NanoPocket account" },
+  ],
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Open the demo",
+      text: "Visit nanopocket.ai/face-swap and click the button for the demo you need: Image FaceSwap Pro 2.0 for stills, Video FaceSwap Pro for short clips, or NanoFace Vivid for fixing over-smoothed AI faces. Each opens in a new browser tab.",
+      url: "https://nanopocket.ai/face-swap#demos",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Sign in with a free NanoPocket account",
+      text: "Enter the demo password listed on the card, or create a free account at /auth/sign-up. The account is required for rate-limit purposes only; the demo tier is not gated by subscription or credits.",
+      url: "https://nanopocket.ai/auth/sign-up",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Upload and swap",
+      text: "Drop in the target photo or video and a reference face. The diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) produces the swap in a few seconds. Download the result. There is no watermark, no per-image fee, and no subscription on the demo tier.",
+    },
+  ],
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://nanopocket.ai/" },
+    { "@type": "ListItem", position: 2, name: "Free Online AI Face Swap", item: PAGE_URL },
+  ],
+};
+
 export default function FaceSwapPage() {
   return (
     <main className="relative min-h-screen">
@@ -283,6 +336,14 @@ export default function FaceSwapPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       <Navbar />

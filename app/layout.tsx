@@ -20,11 +20,47 @@ const dmMono = DM_Mono({
   variable: "--font-dm-mono",
 });
 
+// Search-engine and LLM verification codes are read from environment at build
+// time. Setting one of these in the deploy environment activates the
+// corresponding <meta> tag automatically; leaving it unset is a no-op so the
+// site never ships with placeholder strings.
+const verificationOther: Record<string, string | string[]> = {};
+if (process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION) {
+  verificationOther["msvalidate.01"] =
+    process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
+}
+if (process.env.NEXT_PUBLIC_BAIDU_SITE_VERIFICATION) {
+  verificationOther["baidu-site-verification"] =
+    process.env.NEXT_PUBLIC_BAIDU_SITE_VERIFICATION;
+}
+if (process.env.NEXT_PUBLIC_360_SITE_VERIFICATION) {
+  verificationOther["360-site-verification"] =
+    process.env.NEXT_PUBLIC_360_SITE_VERIFICATION;
+}
+if (process.env.NEXT_PUBLIC_SOGOU_SITE_VERIFICATION) {
+  verificationOther["sogou_site_verification"] =
+    process.env.NEXT_PUBLIC_SOGOU_SITE_VERIFICATION;
+}
+if (process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION) {
+  verificationOther["naver-site-verification"] =
+    process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION;
+}
+if (process.env.NEXT_PUBLIC_PINTEREST_SITE_VERIFICATION) {
+  verificationOther["p:domain_verify"] =
+    process.env.NEXT_PUBLIC_PINTEREST_SITE_VERIFICATION;
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://nanopocket.ai"),
   title: {
     default: "NanoPocket — Free Online AI Face Swap + Local AI Creative Suite",
     template: "%s | NanoPocket",
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    yandex: process.env.NEXT_PUBLIC_YANDEX_SITE_VERIFICATION,
+    yahoo: process.env.NEXT_PUBLIC_YAHOO_SITE_VERIFICATION,
+    other: verificationOther,
   },
   description:
     "Free online AI face swap that runs in your browser — three diffusion-grade demos at /face-swap, no install, no subscription. Plus a full local AI creative suite (Flux.1, LTX-2.3) for users who want to run everything on their own GPU.",

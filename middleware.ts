@@ -1,6 +1,6 @@
 import { updateSession } from '@/lib/supabase/middleware'
 import { LOCALES, DEFAULT_LOCALE } from '@/lib/i18n/locales'
-import { type NextRequest } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
 
 const LOCALE_HEADER = 'x-app-locale'
 
@@ -10,7 +10,27 @@ function detectLocaleFromPath(pathname: string): string {
   return DEFAULT_LOCALE
 }
 
+// IndexNow protocol verification.
+//
+// IndexNow requires the key to be reachable at https://<host>/<key>.txt with
+// the key as the file body. Setting INDEXNOW_KEY in the deploy environment
+// activates verification at that path. Leaving it unset is a no-op (404).
+function indexNowResponse(pathname: string): NextResponse | null {
+  const key = process.env.INDEXNOW_KEY
+  if (!key) return null
+  // Restrict to short hex-shaped paths like /<key>.txt so we don't intercept
+  // arbitrary .txt routes (llms.txt, security.txt, etc.).
+  if (pathname !== `/${key}.txt`) return null
+  return new NextResponse(key, {
+    status: 200,
+    headers: { 'content-type': 'text/plain; charset=utf-8' },
+  })
+}
+
 export async function middleware(request: NextRequest) {
+  const indexNow = indexNowResponse(request.nextUrl.pathname)
+  if (indexNow) return indexNow
+
   // Resolve the locale from the URL prefix and forward it to RSCs as a
   // custom request header. We deliberately don't use next-intl's middleware
   // because we need to chain Supabase session-cookie management ourselves,
