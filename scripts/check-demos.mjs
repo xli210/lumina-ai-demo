@@ -23,19 +23,19 @@ const DEMOS = [
   {
     id: "image",
     name: "Image FaceSwap Pro 2.0",
-    origin: "https://byte-writers-york-static.trycloudflare.com",
+    origin: "https://bunch-assessments-programmer-thomson.trycloudflare.com",
     pingPath: "/login",
   },
   {
     id: "video",
     name: "Video FaceSwap Pro",
-    origin: "https://burton-michelle-junior-surge.trycloudflare.com",
+    origin: "https://lay-bedroom-jail-planet.trycloudflare.com",
     pingPath: "/login",
   },
   {
     id: "vivid",
     name: "NanoFace Vivid",
-    origin: "https://plasma-working-null-judgment.trycloudflare.com",
+    origin: "https://substance-fallen-history-avenue.trycloudflare.com",
     pingPath: "/",
   },
 ];
