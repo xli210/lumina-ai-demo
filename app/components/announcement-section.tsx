@@ -15,6 +15,9 @@ import {
   Wand2,
   ThumbsUp,
   ThumbsDown,
+  ArrowRight,
+  CheckCircle2,
+  Palette,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -94,6 +97,106 @@ const DEMOS: DemoConfig[] = DEMO_CARDS.map((c) => {
     introHref: c.introHref,
   };
 });
+
+const FACESTUDIO_TOOLS = [
+  "Face Swap (multi-face)",
+  "Mask Edit",
+  "Expression Edit",
+  "Face Vivid",
+  "2×/3×/4× Upscale",
+  "Light Adjust",
+  "Crop",
+  "100% local · your GPU",
+];
+
+/**
+ * Prominent launch spotlight for Nano FaceStudio Pro 1.0. Sits between
+ * the free-demo header and the demo grid so anyone visiting the
+ * announcement section sees the paid bundle as a "big news" callout,
+ * not a footnote. Emerald palette intentionally clashes with the
+ * indigo demo cards so it visually pops as its own thing.
+ */
+function FaceStudioLaunchSpotlight() {
+  return (
+    <div className="relative mb-8 overflow-hidden rounded-3xl border border-emerald-400/40 bg-gradient-to-br from-emerald-950/70 via-slate-900/90 to-teal-950/70 shadow-2xl shadow-emerald-500/20 ring-1 ring-emerald-500/20">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-emerald-500/20 blur-3xl" />
+        <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-teal-500/15 blur-3xl" />
+      </div>
+
+      <div className="relative p-6 sm:p-8 md:p-10">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/25 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-emerald-200 ring-1 ring-emerald-400/50">
+            <span className="relative inline-flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-300" />
+            </span>
+            Just Launched · Windows
+          </div>
+          <div className="flex items-baseline gap-2">
+            <span className="text-lg font-medium text-slate-500 line-through decoration-slate-500/70 sm:text-xl">
+              $69.90
+            </span>
+            <span className="text-4xl font-bold text-white sm:text-5xl">
+              $49.90
+            </span>
+            <span className="hidden text-[11px] font-medium uppercase tracking-[0.18em] text-emerald-300/80 sm:inline">
+              launch · through 2026-10-31
+            </span>
+          </div>
+        </div>
+
+        <div className="mb-3 flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 text-white shadow-lg shadow-emerald-500/30">
+            <Palette className="h-5 w-5" />
+          </div>
+          <h3 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
+            Nano FaceStudio Pro 1.0 is here.
+          </h3>
+        </div>
+
+        <p className="mb-5 max-w-3xl text-sm leading-relaxed text-slate-300 sm:text-base">
+          Loved the free browser demos below?{" "}
+          <span className="font-semibold text-white">
+            Nano FaceStudio Pro 1.0
+          </span>{" "}
+          is the full local desktop bundle — seven face-editing tools driven
+          by the same diffusion identity stack, every model running on your
+          own GPU. Buy the launch price today; it stays yours for good.
+        </p>
+
+        <ul className="mb-7 grid grid-cols-2 gap-x-4 gap-y-2 text-xs text-slate-300 sm:grid-cols-3 sm:text-sm md:grid-cols-4">
+          {FACESTUDIO_TOOLS.map((f) => (
+            <li key={f} className="flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-400" />
+              <span>{f}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            href="/apps/nano-facestudio-pro"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-slate-900 shadow-lg shadow-white/10 transition-all hover:bg-slate-100 hover:shadow-white/20"
+          >
+            See the full feature tour
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link
+            href="/download#nano-facestudio-pro"
+            className="inline-flex items-center gap-2 rounded-full border border-emerald-400/50 bg-emerald-500/15 px-6 py-2.5 text-sm font-semibold text-emerald-100 transition-all hover:border-emerald-300/70 hover:bg-emerald-500/25 hover:text-white"
+          >
+            Buy &amp; download for Windows
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+          <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-slate-400">
+            Windows now · macOS in ~1 week · one-time license covers both
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function FeedbackBlock({
   demoId,
@@ -465,34 +568,9 @@ export function AnnouncementSection() {
               Learn about our diffusion face-swap pipeline
               <span aria-hidden>→</span>
             </Link>
-
-            {/* Local-user launch promo — bridge from the free online demos to
-                the paid local desktop bundle. Positioned right below the
-                pipeline link so anyone reading the header sees it. */}
-            <div className="mx-auto mt-5 inline-flex max-w-2xl flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-2xl border border-emerald-500/25 bg-emerald-500/[0.06] px-4 py-2.5 text-xs text-emerald-100 sm:text-sm">
-              <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-300 ring-1 ring-emerald-500/30">
-                Launch
-              </span>
-              <span className="text-slate-200">
-                Local users can now buy the full 7-tool desktop bundle —{" "}
-                <span className="font-semibold text-white">
-                  Nano FaceStudio Pro 1.0
-                </span>
-                <span className="hidden sm:inline"> · </span>
-              </span>
-              <span className="whitespace-nowrap font-mono text-emerald-300">
-                <span className="text-emerald-300/60 line-through">$69.90</span>{" "}
-                → $49.90
-              </span>
-              <Link
-                href="/apps/nano-facestudio-pro"
-                className="inline-flex items-center gap-1 rounded-full bg-emerald-400/15 px-2.5 py-0.5 font-medium text-emerald-200 ring-1 ring-emerald-400/40 transition-colors hover:bg-emerald-400/25 hover:text-white"
-              >
-                See the bundle
-                <span aria-hidden>→</span>
-              </Link>
-            </div>
           </div>
+
+          <FaceStudioLaunchSpotlight />
 
           <div className="relative grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
             {DEMOS.map((demo) => (
