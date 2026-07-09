@@ -1,11 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { readFile } from "fs/promises";
-import { join } from "path";
-import { existsSync } from "fs";
 
-// Map allowed filenames to their product_id for license verification
+// Supabase Storage bucket that holds the installers. See
+// scripts/upload-downloads-to-supabase.mjs and docs/downloads-setup.md
+// for one-time bucket creation + upload.
+const BUCKET = "product-downloads";
+
+// Signed-URL lifetime. Long enough for a slow home connection to start the
+// download (browsers only need the redirect to happen once — the download
+// itself continues over the resumable Storage URL), short enough that a
+// leaked URL is useless within minutes.
+const SIGNED_URL_TTL_SECONDS = 300;
+
+// Map allowed filenames to their product_id for license verification.
+// The filename doubles as the object key inside the Storage bucket.
 const FILE_PRODUCT_MAP: Record<string, string> = {
   "NanoImageEdit-1.0.5-release.zip": "nano-imageedit",
   "NanoVideoGen-1.0.3-release.zip": "nano-videogen",
@@ -25,7 +34,6 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ filename: string }> }
 ) {
-  // 1. Check authentication
   const supabase = await createClient();
   const {
     data: { user },
@@ -38,13 +46,11 @@ export async function GET(
     );
   }
 
-  // 2. Validate filename (prevents directory traversal)
   const { filename } = await params;
   if (!ALLOWED_FILES.includes(filename)) {
     return NextResponse.json({ error: "File not found" }, { status: 404 });
   }
 
-  // 3. Verify user owns a valid license for this product
   const productId = FILE_PRODUCT_MAP[filename];
   const admin = createAdminClient();
 
@@ -59,32 +65,33 @@ export async function GET(
 
   if (!license) {
     return NextResponse.json(
-      { error: "You need a valid license to download this file. Please claim a license first." },
+      {
+        error:
+          "You need a valid license to download this file. Please claim a license first.",
+      },
       { status: 403 }
     );
   }
 
-  // 4. Read and serve the file
-  const filePath = join(process.cwd(), "downloads-private", filename);
+  // Generate a short-lived signed URL from Supabase Storage. The
+  // `download` option forces Content-Disposition: attachment so browsers
+  // save the file instead of previewing it in-tab.
+  const { data: signed, error: signedError } = await admin.storage
+    .from(BUCKET)
+    .createSignedUrl(filename, SIGNED_URL_TTL_SECONDS, { download: filename });
 
-  if (!existsSync(filePath)) {
-    return NextResponse.json({ error: "File not found" }, { status: 404 });
+  if (signedError || !signed?.signedUrl) {
+    console.error(
+      `[downloads] Failed to sign URL for ${filename}:`,
+      signedError
+    );
+    return NextResponse.json(
+      { error: "Download temporarily unavailable. Please try again." },
+      { status: 502 }
+    );
   }
 
-  const fileBuffer = await readFile(filePath);
-
-  const contentType = filename.toLowerCase().endsWith(".exe")
-    ? "application/vnd.microsoft.portable-executable"
-    : filename.toLowerCase().endsWith(".zip")
-      ? "application/zip"
-      : "application/octet-stream";
-
-  return new NextResponse(fileBuffer, {
-    status: 200,
-    headers: {
-      "Content-Type": contentType,
-      "Content-Disposition": `attachment; filename="${filename}"`,
-      "Content-Length": fileBuffer.length.toString(),
-    },
-  });
+  // 302 redirect keeps the response small (no bytes flow through the
+  // Lambda) and lets Supabase's CDN handle the actual transfer.
+  return NextResponse.redirect(signed.signedUrl, { status: 302 });
 }

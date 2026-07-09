@@ -15,8 +15,13 @@ const nextConfig = {
       },
     ],
   },
-  outputFileTracingIncludes: {
-    "/api/downloads/\\[filename\\]": ["./downloads-private/**/*"],
+  // Installers now live in Supabase Storage (bucket: product-downloads)
+  // and are streamed to the browser via short-lived signed URLs in
+  // /api/downloads/[filename]. The downloads-private/ folder stays in
+  // git-lfs as the source-of-truth mirror but must NOT be bundled into
+  // the Vercel Lambda — that would blow past the 250 MB function limit.
+  outputFileTracingExcludes: {
+    "*": ["./downloads-private/**/*"],
   },
   async headers() {
     return [

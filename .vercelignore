@@ -1,0 +1,13 @@
+# Large installer binaries live in Supabase Storage; downloads-private/
+# is the local git-lfs mirror only. Uploading it to Vercel would push the
+# /api/downloads/[filename] Lambda past the 250 MB uncompressed limit.
+downloads-private/
+
+# Local scratch / preview files that must never ship
+*.preview.html
+nano-facestudio-preview.html
+feature_introduction.docx
+
+# Big local caches that should never reach Vercel
+.hf_download_cache/
+.download_status
