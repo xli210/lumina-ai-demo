@@ -93,11 +93,23 @@ const productJsonLd = {
     "@type": "Offer",
     price: PROMO_PRICE,
     priceCurrency: "USD",
-    availability: "https://schema.org/PreOrder",
+    availability: "https://schema.org/InStock",
     priceValidUntil: PROMO_VALID_UNTIL,
     url: CANONICAL,
     seller: { "@type": "Organization", name: "NanoPocket" },
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      price: PROMO_PRICE,
+      priceCurrency: "USD",
+      valueAddedTaxIncluded: false,
+    },
+    // eligibleTransactionVolume documents the promotional discount from
+    // regular price → launch price so LLMs and rich-result parsers can
+    // reason about the strike-through in the page UI.
+    eligibleQuantity: { "@type": "QuantitativeValue", value: 1 },
   },
+  // additionalProperty already documents "Regular price: USD 69.90 after
+  // 2026-10-31" so the promo relationship is discoverable in structured data.
 };
 
 const faqs: { q: string; a: string }[] = [
@@ -127,7 +139,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "When does the desktop app launch?",
-    a: "The Nano FaceStudio Pro 1.0 desktop app ships shortly. This page is the pre-launch feature tour; downloads for Windows and Apple Silicon macOS appear on /download once the build is public.",
+    a: "Nano FaceStudio Pro 1.0 for Windows is available now on /download. The Windows build ships with all seven capabilities in the box (face swap, mask edit, expression editing, face vivid, upscale, light adjust, crop). The macOS Apple Silicon build is in final QA and ships approximately one week later; the one-time license purchased today covers both platforms and can be re-activated on the macOS build at no extra cost.",
   },
   {
     q: "Can I use the output for commercial or client work?",
@@ -282,10 +294,14 @@ export default function NanoFaceStudioProPage() {
         </div>
 
         <div className="relative mx-auto max-w-6xl text-center">
-          <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.22em] text-white/60">
-            <span className="font-mono text-white/40">v1.0</span>
-            <span className="h-3 w-px bg-white/20" />
-            <span>Coming Soon · Desktop for Windows &amp; Apple Silicon</span>
+          <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/[0.06] px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.22em] text-emerald-200">
+            <span className="font-mono text-emerald-300/80">v1.0</span>
+            <span className="h-3 w-px bg-emerald-400/30" />
+            <span className="relative inline-flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300/70 opacity-60" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-300" />
+            </span>
+            <span>Available now for Windows · macOS in ~1 week</span>
           </p>
 
           <h1 className="text-balance text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
@@ -301,34 +317,48 @@ export default function NanoFaceStudioProPage() {
             leaving the machine.
           </p>
 
+          {/* Prominent launch-promo pricing block. Struck-through regular
+              price sits above the big launch price so the discount is the
+              first thing eyes land on. */}
+          <div className="mx-auto mt-10 inline-flex flex-col items-center gap-1">
+            <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-200">
+              Limited-time launch offer · through {PROMO_VALID_UNTIL}
+            </div>
+            <div className="mt-3 flex items-end justify-center gap-3">
+              <span className="text-2xl font-medium text-white/40 line-through decoration-white/40 sm:text-3xl">
+                ${REGULAR_PRICE}
+              </span>
+              <span className="text-5xl font-semibold leading-none tracking-tight text-white sm:text-6xl">
+                ${PROMO_PRICE}
+              </span>
+              <span className="pb-1 text-xs uppercase tracking-[0.18em] text-white/50 sm:text-sm">
+                one-time · Windows + macOS
+              </span>
+            </div>
+            <p className="mt-2 text-[11px] uppercase tracking-[0.2em] text-emerald-300/80">
+              Save ${(Number(REGULAR_PRICE) - Number(PROMO_PRICE)).toFixed(2)} · lock in the launch price for good
+            </p>
+          </div>
+
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Link
-              href="/face-swap"
+              href="/download#nano-facestudio-pro"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-medium text-black transition-all duration-300 hover:bg-white/90"
             >
-              Try free online demos
+              Buy &amp; download for Windows
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
                 <path d="M3 7h8M8 3l3 4-3 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
-            <span
-              aria-disabled="true"
-              className="inline-flex cursor-not-allowed select-none items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-7 py-3 text-sm font-medium text-white/50"
+            <Link
+              href="/face-swap"
+              className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-7 py-3 text-sm font-medium text-white/80 transition-all duration-300 hover:border-white/25 hover:bg-white/[0.06] hover:text-white"
             >
-              <span className="relative inline-flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/60 opacity-60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white/70" />
-              </span>
-              Desktop app coming soon
-            </span>
-          </div>
-
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.22em] text-white/40">
-            <span>${PROMO_PRICE} launch price</span>
-            <span className="h-3 w-px bg-white/15" />
-            <span>Regular ${REGULAR_PRICE} after {PROMO_VALID_UNTIL}</span>
-            <span className="h-3 w-px bg-white/15" />
-            <span>One-time · both platforms</span>
+              Try free online demos first
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
+                <path d="M3 7h8M8 3l3 4-3 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>
@@ -740,28 +770,28 @@ export default function NanoFaceStudioProPage() {
 
           <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
             <Link
-              href="/face-swap"
+              href="/download#nano-facestudio-pro"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-3 text-sm font-medium text-black transition-all duration-300 hover:bg-white/90"
+            >
+              Buy &amp; download for Windows
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
+                <path d="M3 7h8M8 3l3 4-3 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+            <Link
+              href="/face-swap"
+              className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-8 py-3 text-sm font-medium text-white/80 transition-all duration-300 hover:border-white/25 hover:bg-white/[0.06] hover:text-white"
             >
               Try free online demos
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
                 <path d="M3 7h8M8 3l3 4-3 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
-            <span
-              aria-disabled="true"
-              className="inline-flex cursor-not-allowed select-none items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-8 py-3 text-sm font-medium text-white/50"
-            >
-              <span className="relative inline-flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/60 opacity-60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white/70" />
-              </span>
-              Desktop app coming soon
-            </span>
           </div>
 
           <p className="mt-10 text-[11px] uppercase tracking-[0.22em] text-white/40">
-            ${PROMO_PRICE} launch · ${REGULAR_PRICE} regular · one-time license · Windows + macOS
+            <span className="text-white/40 line-through">${REGULAR_PRICE}</span>{" "}
+            → <span className="text-white/80">${PROMO_PRICE}</span> launch · one-time license · Windows now · macOS in ~1 week
           </p>
         </div>
       </section>

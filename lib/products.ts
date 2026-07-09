@@ -3,6 +3,17 @@ export interface Product {
   name: string
   description: string
   priceInCents: number
+  /**
+   * Optional original (pre-promo) price. When set and greater than priceInCents,
+   * UIs should render it struck-through next to the current price to signal a
+   * limited-time launch offer.
+   */
+  originalPriceInCents?: number
+  /**
+   * Optional YYYY-MM-DD end date for the promotional pricing. Purely
+   * informational — display only, not enforced on the server.
+   */
+  promoValidUntil?: string
   /** Number of days for free trial. 0 or undefined = no trial. */
   trialDays?: number
   features: string[]
@@ -115,6 +126,8 @@ export const PRODUCTS: Product[] = [
     description:
       "AI Face Studio — Face swap, mask edit, expression editing, face vivid, upscale, light adjust, and crop in one local desktop app running 100% on your GPU. Free browser demos at /face-swap preview the swap + vivid capabilities.",
     priceInCents: 4990,
+    originalPriceInCents: 6990,
+    promoValidUntil: "2026-10-31",
     // No trial — the free online demos at /face-swap (Image FaceSwap Pro 2.0 +
     // NanoFace Vivid) act as the preview. This product is paid-only.
     features: [

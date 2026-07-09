@@ -23,6 +23,7 @@ import {
   Shirt,
   Sparkles,
   ArrowRight,
+  Palette,
   type LucideIcon,
 } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
@@ -60,6 +61,30 @@ interface LicenseInfo {
 }
 
 const apps: AppInfo[] = [
+  {
+    id: "nano-facestudio-pro",
+    productId: "nano-facestudio-pro",
+    name: "Nano FaceStudio Pro",
+    tagline: "AI Face Studio — 7 tools in one desktop app",
+    description:
+      "Face swap, mask edit, expression editing, face vivid restoration, 2×/3×/4× upscale, light adjust, and crop — one unified desktop studio, every model running on your GPU. Multi-face swap up to 16 faces per image using the diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID).",
+    icon: Palette,
+    version: "1.0.0",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
+    badge: "New",
+    proPageHref: "/apps/nano-facestudio-pro",
+    proPageLabel: "See the full feature tour",
+    platforms: [
+      {
+        platform: "Windows",
+        icon: Monitor,
+        fileName: "NanoFaceStudioPro-1.0.0-windows.exe",
+        downloadUrl: "/api/downloads/NanoFaceStudioPro-1.0.0-windows.exe",
+        size: "100.4 MB",
+      },
+    ],
+  },
   {
     id: "nano-facialedit",
     productId: "nano-facialedit",
@@ -428,6 +453,12 @@ export function AppCards() {
                           : "bg-primary/10 text-primary"
                       }`}
                     >
+                      {product?.originalPriceInCents &&
+                        product.originalPriceInCents > price && (
+                          <span className="mr-2 text-base font-medium line-through opacity-60">
+                            {formatPrice(product.originalPriceInCents)}
+                          </span>
+                        )}
                       <span className="text-2xl font-bold">
                         {formatPrice(price)}
                       </span>
@@ -442,6 +473,13 @@ export function AppCards() {
                         {trialDays}-day free trial
                       </p>
                     )}
+                    {product?.originalPriceInCents &&
+                      product.originalPriceInCents > price &&
+                      product.promoValidUntil && (
+                        <p className="mt-1 text-xs font-medium text-amber-500">
+                          Launch promo · through {product.promoValidUntil}
+                        </p>
+                      )}
                   </div>
                 </div>
 

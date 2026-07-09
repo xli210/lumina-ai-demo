@@ -465,6 +465,33 @@ export function AnnouncementSection() {
               Learn about our diffusion face-swap pipeline
               <span aria-hidden>→</span>
             </Link>
+
+            {/* Local-user launch promo — bridge from the free online demos to
+                the paid local desktop bundle. Positioned right below the
+                pipeline link so anyone reading the header sees it. */}
+            <div className="mx-auto mt-5 inline-flex max-w-2xl flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-2xl border border-emerald-500/25 bg-emerald-500/[0.06] px-4 py-2.5 text-xs text-emerald-100 sm:text-sm">
+              <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-300 ring-1 ring-emerald-500/30">
+                Launch
+              </span>
+              <span className="text-slate-200">
+                Local users can now buy the full 7-tool desktop bundle —{" "}
+                <span className="font-semibold text-white">
+                  Nano FaceStudio Pro 1.0
+                </span>
+                <span className="hidden sm:inline"> · </span>
+              </span>
+              <span className="whitespace-nowrap font-mono text-emerald-300">
+                <span className="text-emerald-300/60 line-through">$69.90</span>{" "}
+                → $49.90
+              </span>
+              <Link
+                href="/apps/nano-facestudio-pro"
+                className="inline-flex items-center gap-1 rounded-full bg-emerald-400/15 px-2.5 py-0.5 font-medium text-emerald-200 ring-1 ring-emerald-400/40 transition-colors hover:bg-emerald-400/25 hover:text-white"
+              >
+                See the bundle
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
           </div>
 
           <div className="relative grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3">

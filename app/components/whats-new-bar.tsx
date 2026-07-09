@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Sparkles, Video, ArrowRight, X } from "lucide-react";
+import { Sparkles, Video, ArrowRight, X, Palette } from "lucide-react";
 
 interface WhatsNewItem {
   id: string;
@@ -18,6 +18,15 @@ interface WhatsNewItem {
 }
 
 const ITEMS: WhatsNewItem[] = [
+  {
+    id: "nano-facestudio-pro-1-launch",
+    label: "LAUNCH",
+    labelClassName: "bg-emerald-100 text-emerald-700 ring-emerald-200",
+    icon: Palette,
+    iconClassName: "text-emerald-600",
+    text: "Nano FaceStudio Pro 1.0 — available now for Windows · macOS in ~1 week · $49.90 launch (was $69.90)",
+    href: "/apps/nano-facestudio-pro",
+  },
   {
     id: "faceswap-pro-2-features",
     label: "NEW",
@@ -38,7 +47,9 @@ const ITEMS: WhatsNewItem[] = [
   },
 ];
 
-const STORAGE_KEY = "nanopocket_whats_new_dismissed_v1";
+// Bumped from v1 → v2 so users who dismissed the previous bar see the new
+// Nano FaceStudio Pro launch announcement.
+const STORAGE_KEY = "nanopocket_whats_new_dismissed_v2";
 
 export function WhatsNewBar() {
   const [visible, setVisible] = useState(false);
