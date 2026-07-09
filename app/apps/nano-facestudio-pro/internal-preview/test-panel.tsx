@@ -4,15 +4,13 @@ import { useCallback, useEffect, useState } from "react";
 import {
   Loader2,
   Clock,
-  Key,
-  Copy,
-  Check,
   ShoppingCart,
   Download,
   CheckCircle2,
   AlertTriangle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LicenseKeyRow } from "./license-key-row";
 
 interface LicenseInfo {
   license_key: string;
@@ -43,16 +41,20 @@ type ClaimResult =
   | { ok: true; info: LicenseInfo }
   | { ok: false; error: string };
 
-async function postClaim(productId: string): Promise<ClaimResult> {
+async function postToLicenseEndpoint(
+  endpoint: string,
+  productId: string,
+  fallbackError: string
+): Promise<ClaimResult> {
   try {
-    const res = await fetch("/api/license/claim", {
+    const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ product_id: productId }),
     });
     const data = (await res.json()) as Record<string, unknown>;
     if (!res.ok) {
-      return { ok: false, error: (data?.error as string) ?? "Failed to start trial" };
+      return { ok: false, error: (data?.error as string) ?? fallbackError };
     }
     return {
       ok: true,
@@ -66,6 +68,16 @@ async function postClaim(productId: string): Promise<ClaimResult> {
     return { ok: false, error: "Network error — try again" };
   }
 }
+
+const postClaim = (productId: string) =>
+  postToLicenseEndpoint("/api/license/claim", productId, "Failed to start trial");
+
+const postTestGrant = (productId: string) =>
+  postToLicenseEndpoint(
+    "/api/license/test-grant",
+    productId,
+    "Failed to grant test license"
+  );
 
 export function TestPanel({
   productId,
@@ -124,8 +136,16 @@ export function TestPanel({
     setTimeout(() => setDownloading(false), 3000);
   }
 
-  function handleBuy() {
-    window.location.href = `/checkout?product=${productId}`;
+  // On the internal preview page the Buy action skips Stripe entirely
+  // and mints a real permanent license instantly via /api/license/test-grant.
+  // The endpoint is admin-only, so this shortcut is safe to expose here.
+  async function handleBuy() {
+    setClaiming(true);
+    setError(null);
+    const result = await postTestGrant(productId);
+    if (result.ok) setLicense(result.info);
+    else setError(result.error);
+    setClaiming(false);
   }
 
   const state = deriveState(license);
@@ -279,13 +299,14 @@ function NoLicensePanel({
           </>
         ) : (
           <>
-            Purchase a one-time license to unlock the Windows desktop app.
-            The free browser demos at{" "}
-            <a href="/face-swap" className="underline decoration-white/30 hover:decoration-white">
-              /face-swap
-            </a>{" "}
-            cover the swap and vivid capabilities if you want to preview those
-            first.
+            Admin-only shortcut: press <em>Grant test license</em> to mint a
+            real, permanent license row for your account without going
+            through Stripe. Use it to exercise the license → download →
+            activation loop end-to-end. The button is wired to{" "}
+            <code className="rounded bg-white/10 px-1 font-mono text-xs">
+              /api/license/test-grant
+            </code>{" "}
+            (admin-gated).
           </>
         )}
       </p>
@@ -293,7 +314,9 @@ function NoLicensePanel({
         {hasTrial && (
           <TrialButton trialDays={trialDays} claiming={claiming} onClick={onStartTrial} />
         )}
-        {isPaid && <BuyButton priceStr={priceStr} onClick={onBuy} />}
+        {isPaid && (
+          <BuyButton priceStr={priceStr} claiming={claiming} onClick={onBuy} />
+        )}
       </div>
       {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
     </div>
@@ -330,15 +353,32 @@ function TrialButton({
   );
 }
 
-function BuyButton({ priceStr, onClick }: { priceStr: string; onClick: () => void }) {
+function BuyButton({
+  priceStr,
+  claiming,
+  onClick,
+}: {
+  priceStr: string;
+  claiming: boolean;
+  onClick: () => void;
+}) {
   return (
     <Button
-      variant="outline"
       onClick={onClick}
-      className="gap-2 rounded-full border-white/20 bg-transparent px-6 text-white hover:bg-white/10"
+      disabled={claiming}
+      className="gap-2 rounded-full bg-white px-6 text-black hover:bg-white/90"
     >
-      <ShoppingCart className="h-4 w-4" />
-      Buy now — {priceStr}
+      {claiming ? (
+        <>
+          <Loader2 className="h-4 w-4 animate-spin" />
+          Granting…
+        </>
+      ) : (
+        <>
+          <ShoppingCart className="h-4 w-4" />
+          Grant test license — {priceStr}
+        </>
+      )}
     </Button>
   );
 }
@@ -494,49 +534,3 @@ function DownloadPanel({
   );
 }
 
-function LicenseKeyRow({
-  licenseKey,
-  copied,
-  onCopy,
-  note,
-}: {
-  licenseKey: string;
-  copied: boolean;
-  onCopy: () => void;
-  note: string;
-}) {
-  return (
-    <div>
-      <p className="mb-1 text-xs uppercase tracking-[0.16em] text-white/40">
-        License key — save this
-      </p>
-      <div className="flex flex-wrap items-center gap-3">
-        <code className="rounded-md bg-white/10 px-3 py-2 font-mono text-base font-semibold tracking-wider">
-          {licenseKey}
-        </code>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={onCopy}
-          className="gap-1.5 rounded-full border-white/20 bg-transparent text-white hover:bg-white/10"
-        >
-          {copied ? (
-            <>
-              <Check className="h-3.5 w-3.5" />
-              Copied
-            </>
-          ) : (
-            <>
-              <Copy className="h-3.5 w-3.5" />
-              Copy
-            </>
-          )}
-        </Button>
-      </div>
-      <p className="mt-3 flex items-start gap-1.5 text-xs text-white/50">
-        <Key className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-        {note}
-      </p>
-    </div>
-  );
-}

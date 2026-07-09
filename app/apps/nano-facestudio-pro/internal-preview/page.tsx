@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { PRODUCTS } from "@/lib/products";
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
@@ -9,17 +10,17 @@ import { TestPanel } from "./test-panel";
 /**
  * Internal preview page for Nano FaceStudio Pro 1.0 desktop.
  *
- * This route is intentionally hidden:
+ * This route is intentionally hidden AND admin-gated:
  *   - noindex, nofollow (search-engine invisible)
  *   - NOT registered in app/sitemap.ts
  *   - NOT linked from any component (navbar, footer, download page, whatsnew)
  *   - Disallowed for every user-agent in robots.txt
- *   - Requires sign-in — anonymous users are redirected to /auth/login
+ *   - Anonymous visitors redirected to /auth/login
+ *   - Non-admin authenticated users redirected to /account
  *
- * The URL is the shared secret: only someone who knows the path can reach
- * the license claim + download flow. Once the app is ready for public
- * launch, promote it into the regular /download page and delete this
- * directory.
+ * The URL is one layer of security; the admin role is the other. This is
+ * the page from which a real, permanent license can be minted for free
+ * via /api/license/test-grant — so only admins should reach it.
  */
 
 export const dynamic = "force-dynamic";
@@ -53,6 +54,19 @@ export default async function InternalPreviewPage() {
         "/apps/nano-facestudio-pro/internal-preview",
       )}`,
     );
+  }
+
+  // Admin gate — the test-grant flow mints real permanent licenses without
+  // payment, so non-admins have no business on this page even if they know
+  // the URL.
+  const admin = createAdminClient();
+  const { data: profile } = await admin
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+  if (profile?.role !== "admin") {
+    redirect("/account");
   }
 
   const product = PRODUCTS.find((p) => p.id === PRODUCT_ID);
