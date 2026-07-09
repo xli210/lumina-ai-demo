@@ -26,8 +26,8 @@ import { TestPanel } from "./test-panel";
 export const dynamic = "force-dynamic";
 
 const PRODUCT_ID = "nano-facestudio-pro";
-const WINDOWS_FILE = "NanoFaceStudioPro-1.0.8-windows.exe";
-const WINDOWS_SIZE_BYTES = 105_247_578;
+const WINDOWS_FILE = "NanoFaceStudioPro-1.0.0-windows.exe";
+const WINDOWS_SIZE_BYTES = 105_247_832;
 
 export const metadata: Metadata = {
   title: "Internal Preview · Nano FaceStudio Pro",
@@ -110,7 +110,7 @@ export default async function InternalPreviewPage() {
           </div>
 
           <h1 className="text-balance text-4xl font-semibold leading-tight tracking-tight sm:text-5xl md:text-6xl">
-            Nano FaceStudio Pro <span className="text-white/50">1.0.8</span>
+            Nano FaceStudio Pro <span className="text-white/50">1.0.0</span>
           </h1>
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">

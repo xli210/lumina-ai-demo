@@ -21,7 +21,7 @@
  *
  * Usage:
  *   node scripts/upload-downloads-to-supabase.mjs
- *   node scripts/upload-downloads-to-supabase.mjs NanoFaceStudioPro-1.0.8-windows.exe
+ *   node scripts/upload-downloads-to-supabase.mjs NanoFaceStudioPro-1.0.0-windows.exe
  *
  * If you pass filenames as CLI args, only those files are uploaded.
  * Otherwise every file in ./downloads-private/ is uploaded.
