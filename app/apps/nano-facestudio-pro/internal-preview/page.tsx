@@ -117,10 +117,10 @@ export default async function InternalPreviewPage() {
             </div>
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
               <div className="font-mono text-base font-semibold sm:text-lg">
-                {product.trialDays}-day trial
+                Preview online
               </div>
               <div className="mt-0.5 text-[11px] uppercase tracking-[0.14em] text-white/50">
-                Free to start
+                Free demos at /face-swap
               </div>
             </div>
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">

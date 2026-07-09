@@ -113,9 +113,10 @@ export const PRODUCTS: Product[] = [
     id: "nano-facestudio-pro",
     name: "Nano FaceStudio Pro",
     description:
-      "AI Face Studio — Face swap, mask edit, expression editing, face vivid, upscale, light adjust, and crop in one local desktop app running 100% on your GPU.",
+      "AI Face Studio — Face swap, mask edit, expression editing, face vivid, upscale, light adjust, and crop in one local desktop app running 100% on your GPU. Free browser demos at /face-swap preview the swap + vivid capabilities.",
     priceInCents: 4990,
-    trialDays: 7,
+    // No trial — the free online demos at /face-swap (Image FaceSwap Pro 2.0 +
+    // NanoFace Vivid) act as the preview. This product is paid-only.
     features: [
       "7-tool bundle: swap, mask, expression, vivid, upscale, light, crop",
       "Multi-face swap up to 16 faces per image",
@@ -124,7 +125,7 @@ export const PRODUCTS: Product[] = [
       "Face Vivid: de-plasticize AI-smoothed skin",
       "Runs 100% locally on NVIDIA CUDA or Apple Silicon Metal",
       "One-time license covers Windows + macOS",
-      "7-day free trial included",
+      "Free browser demos available at /face-swap",
       "All 1.x updates included",
     ],
     maxActivations: 1,

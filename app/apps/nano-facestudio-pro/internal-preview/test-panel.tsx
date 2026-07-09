@@ -265,19 +265,35 @@ function NoLicensePanel({
   onStartTrial: () => void;
   onBuy: () => void;
 }) {
+  const hasTrial = trialDays > 0;
+  const isPaid = priceInCents > 0;
   return (
     <div>
       <h2 className="mb-2 text-xl font-semibold">Get access</h2>
       <p className="mb-6 text-sm leading-relaxed text-white/60">
-        Start a {trialDays}-day free trial to test the full desktop app, or
-        purchase a permanent one-time license now. Either path gives you an
-        activation key and unlocks the Windows download below.
+        {hasTrial ? (
+          <>
+            Start a {trialDays}-day free trial to test the full desktop app,
+            or purchase a permanent one-time license now. Either path gives
+            you an activation key and unlocks the Windows download below.
+          </>
+        ) : (
+          <>
+            Purchase a one-time license to unlock the Windows desktop app.
+            The free browser demos at{" "}
+            <a href="/face-swap" className="underline decoration-white/30 hover:decoration-white">
+              /face-swap
+            </a>{" "}
+            cover the swap and vivid capabilities if you want to preview those
+            first.
+          </>
+        )}
       </p>
       <div className="flex flex-col gap-3 sm:flex-row">
-        {trialDays > 0 && (
+        {hasTrial && (
           <TrialButton trialDays={trialDays} claiming={claiming} onClick={onStartTrial} />
         )}
-        {priceInCents > 0 && <BuyButton priceStr={priceStr} onClick={onBuy} />}
+        {isPaid && <BuyButton priceStr={priceStr} onClick={onBuy} />}
       </div>
       {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
     </div>
