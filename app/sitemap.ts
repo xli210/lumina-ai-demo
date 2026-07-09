@@ -88,6 +88,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })(),
     { url: `${BASE}/compare/nanopocket-vs-wavespeed`, lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.75 },
     { url: `${BASE}/status`, lastModified: new Date(), changeFrequency: "hourly", priority: 0.6 },
+    { url: `${BASE}/apps/nano-facestudio-pro`, lastModified: new Date("2026-07-09"), changeFrequency: "weekly", priority: 0.95 },
     { url: `${BASE}/apps/nano-imageenh-pro`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE}/apps/nano-videoenhance`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/apps/nano-videogen`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
