@@ -21,6 +21,15 @@ interface HeroSlide {
 
 const demoSlides: HeroSlide[] = [
   {
+    src: "/videos/hero-faceswap.mp4",
+    type: "video",
+    alt: "Nano FaceStudio Pro — diffusion face swap demo (3600×1800)",
+    prompt:
+      "Diffusion identity stack — InstantID + PuLID + IP-Adapter FaceID — running locally on your GPU",
+    model: "Nano FaceStudio Pro",
+    tag: "AI Face Swap",
+  },
+  {
     src: "/videos/hero-1.mp4",
     type: "video",
     alt: "AI-generated cinematic video — ultra-realistic 4K",
