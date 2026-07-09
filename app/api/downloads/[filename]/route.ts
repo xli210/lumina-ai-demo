@@ -16,6 +16,7 @@ const FILE_PRODUCT_MAP: Record<string, string> = {
   "NanoImageEnh-3.0.0-windows.zip": "nnanoimageenh",
   "NanoImageEnh-3.0.0-macos.zip": "nnanoimageenh",
   "NanoImageTryon-1.0.0-release.zip": "nano-image-tryon",
+  "NanoFaceStudioPro-1.0.8-windows.exe": "nano-facestudio-pro",
 };
 
 const ALLOWED_FILES = Object.keys(FILE_PRODUCT_MAP);
@@ -72,10 +73,16 @@ export async function GET(
 
   const fileBuffer = await readFile(filePath);
 
+  const contentType = filename.toLowerCase().endsWith(".exe")
+    ? "application/vnd.microsoft.portable-executable"
+    : filename.toLowerCase().endsWith(".zip")
+      ? "application/zip"
+      : "application/octet-stream";
+
   return new NextResponse(fileBuffer, {
     status: 200,
     headers: {
-      "Content-Type": "application/zip",
+      "Content-Type": contentType,
       "Content-Disposition": `attachment; filename="${filename}"`,
       "Content-Length": fileBuffer.length.toString(),
     },

@@ -54,6 +54,9 @@ FLUX_app/
 OCR_app/
 LTX2_app/
 *.exe
+# Exception: distribution installers under downloads-private/ are the
+# whole point of that folder and are LFS-tracked (see .gitattributes).
+!downloads-private/*.exe
 
 # Desktop app secrets & runtime files (never commit)
 .license

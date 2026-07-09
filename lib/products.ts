@@ -110,6 +110,27 @@ export const PRODUCTS: Product[] = [
     masterKeyEnv: "LICENSE_MASTER_KEY_NANO_IMAGEENH",
   },
   {
+    id: "nano-facestudio-pro",
+    name: "Nano FaceStudio Pro",
+    description:
+      "AI Face Studio — Face swap, mask edit, expression editing, face vivid, upscale, light adjust, and crop in one local desktop app running 100% on your GPU.",
+    priceInCents: 4990,
+    trialDays: 7,
+    features: [
+      "7-tool bundle: swap, mask, expression, vivid, upscale, light, crop",
+      "Multi-face swap up to 16 faces per image",
+      "Diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID)",
+      "2×, 3×, 4× full-image upscale",
+      "Face Vivid: de-plasticize AI-smoothed skin",
+      "Runs 100% locally on NVIDIA CUDA or Apple Silicon Metal",
+      "One-time license covers Windows + macOS",
+      "7-day free trial included",
+      "All 1.x updates included",
+    ],
+    maxActivations: 1,
+    masterKeyEnv: "LICENSE_MASTER_KEY_NANO_FACESTUDIO_PRO",
+  },
+  {
     id: "nano-videogen",
     name: "Nano VideoGen",
     description:

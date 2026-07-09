@@ -36,6 +36,9 @@ const PRIVATE_DISALLOW = [
   "/auth/reset-password",
   "/auth/error",
   "/checkout/success",
+  // Internal / unlisted preview pages — the URL itself is the shared secret,
+  // and the pages also emit `noindex,nofollow` meta at render time.
+  "/apps/nano-facestudio-pro/internal-preview",
 ];
 
 const ALLOWED_AI_AND_SEARCH_BOTS = [
