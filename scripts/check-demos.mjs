@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* global process, console, fetch, AbortController, setTimeout, clearTimeout */
 /**
  * Pings each demo URL once, records the result in Supabase, and posts a
  * Discord webhook on state transitions (up→down or down→up).
@@ -30,13 +31,13 @@ const DEMOS = [
     id: "video",
     name: "Video FaceSwap Pro",
     origin: "https://lay-bedroom-jail-planet.trycloudflare.com",
-    pingPath: "/login",
+    pingPath: "/",
   },
   {
     id: "vivid",
     name: "NanoFace Vivid",
-    origin: "https://performing-eur-hayes-released.trycloudflare.com",
-    pingPath: "/",
+    origin: "https://sagem-julie-personnel-msg.trycloudflare.com",
+    pingPath: "/login",
   },
 ];
 
