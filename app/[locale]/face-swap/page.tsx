@@ -19,7 +19,7 @@ import { Navbar } from "../../components/navbar";
 import { Footer } from "../../components/footer";
 import { Button } from "@/components/ui/button";
 import { DemoStatusBadge } from "../../components/demo-status-badge";
-import { DEMOS, demoUrl, type DemoId } from "@/lib/demos";
+import { DEMOS, demoRedirectPath, type DemoId } from "@/lib/demos";
 import {
   hreflangAlternates,
   isAppLocale,
@@ -125,7 +125,9 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
     return {
       ...card,
       name: demo.name,
-      href: demoUrl(demo),
+      // Same-origin wrapper — 302-redirects to the tunnel after auth + quota
+      // gate. See /api/demos/open and lib/demo-quota.ts.
+      href: demoRedirectPath(card.id),
       password: demo.password ?? undefined,
       blurb: t(`demos.${card.copyKey}.blurb`),
       bullets: [

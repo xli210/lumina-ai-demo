@@ -61,6 +61,22 @@ export function demoPingUrl(d: DemoEntry): string {
   return `${d.origin}${d.pingPath}`;
 }
 
+/**
+ * Site-internal wrapper URL that user-facing buttons should point at.
+ *
+ * The path routes through /api/demos/open which auth-gates and enforces the
+ * per-user, per-day quota (see lib/demo-quota.ts + scripts/006_create_demo_usage_daily.sql)
+ * before 302-redirecting to the actual Cloudflare tunnel origin.
+ *
+ * ANY user-facing "Try free online" / "Try Pro Demo" / "Open in browser"
+ * button should use this instead of demoUrl(demo). demoUrl() is now reserved
+ * for internal machinery (status page, uptime checker) that needs the raw
+ * origin.
+ */
+export function demoRedirectPath(id: DemoId): string {
+  return `/api/demos/open?id=${id}`;
+}
+
 export function getDemo(id: DemoId): DemoEntry {
   const d = DEMOS.find((x) => x.id === id);
   if (!d) throw new Error(`Unknown demo id: ${id}`);

@@ -3,9 +3,11 @@ import {
   ProductLandingShell,
   type ProductLandingData,
 } from "@/app/components/product-landing-shell";
-import { getDemo, demoUrl } from "@/lib/demos";
+import { getDemo, demoRedirectPath } from "@/lib/demos";
 
-const VIDEO_DEMO_URL = demoUrl(getDemo("video"));
+// Same-origin wrapper — see /api/demos/open + lib/demo-quota.ts. Retained
+// getDemo("video") so a rename of the demo id is caught at build time.
+const VIDEO_DEMO_URL = demoRedirectPath(getDemo("video").id);
 
 export const metadata: Metadata = {
   title:

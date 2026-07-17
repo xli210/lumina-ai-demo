@@ -3,14 +3,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { getDemo, demoUrl } from "@/lib/demos";
+import { getDemo, demoRedirectPath } from "@/lib/demos";
 
 /**
  * Public Image FaceSwap Pro 2.0 demo URL. Re-exported so server pages can
  * point CTA buttons at the same target without duplicating the literal.
- * Sourced from lib/demos so a tunnel rotation is one-place.
+ *
+ * Points at the same-origin wrapper (/api/demos/open?id=image) rather than
+ * the raw tunnel origin so the quota gate in /api/demos/open + the auth
+ * check both apply. getDemo("image") is retained above so a rename of the
+ * demo id is caught at build time by lib/demos.ts.
  */
-export const FACESWAP_PRO_DEMO_URL = demoUrl(getDemo("image"));
+export const FACESWAP_PRO_DEMO_URL = demoRedirectPath(getDemo("image").id);
 
 interface ImagePart {
   src: string;

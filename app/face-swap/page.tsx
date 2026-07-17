@@ -19,8 +19,10 @@ import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { Button } from "@/components/ui/button";
 import { DemoStatusBadge } from "../components/demo-status-badge";
-import { DEMOS, demoUrl, type DemoId } from "@/lib/demos";
+import { DEMOS, demoRedirectPath, type DemoId } from "@/lib/demos";
 import { hreflangAlternates } from "@/lib/i18n/locales";
+import { DemoQuotaWidget } from "./quota-widget";
+import { DEMO_DAILY_LIMIT } from "@/lib/demo-quota";
 
 const PAGE_URL = "https://nanopocket.ai/face-swap";
 const LAST_VERIFIED = "2026-06-03";
@@ -114,7 +116,9 @@ const ONLINE_DEMOS = ONLINE_DEMO_COPY.map((c) => {
   return {
     ...c,
     name: demo.name,
-    href: demoUrl(demo),
+    // Same-origin wrapper — 302-redirects to the tunnel after auth + quota
+    // gate. See /api/demos/open and lib/demo-quota.ts.
+    href: demoRedirectPath(c.id),
     password: demo.password ?? undefined,
   };
 });
@@ -188,7 +192,7 @@ const FAQS = [
   },
   {
     q: "Do I need an account?",
-    a: "Yes — a free NanoPocket account (email + password). The login screen accepts the password listed under each demo. The account is required so we can rate-limit abuse, not so we can sell anything. You can sign up at /auth/sign-up.",
+    a: "Yes — a free NanoPocket account (email + password). The login screen also asks for the demo password listed under each card. The account is required so we can rate-limit fairly: every signed-in user gets 10 image opens and 10 video opens per UTC day, shared across the three demos (Image FaceSwap Pro 2.0 + NanoFace Vivid share the image quota; Video FaceSwap Pro has its own). It's not there to sell anything. Sign up at /auth/sign-up. If your workflow needs more than 10 opens/day, the desktop app (Nano FaceStudio Pro) runs the same identity stack locally with no daily cap.",
   },
   {
     q: "Do I need a GPU on my machine?",
@@ -393,16 +397,20 @@ export default function FaceSwapPage() {
       </section>
 
       {/* Three online demos */}
-      <section className="px-6 pb-12">
+      <section id="demos" className="px-6 pb-12">
         <div className="mx-auto max-w-6xl">
           <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
             Three free online demos
           </h2>
-          <p className="mb-8 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+          <p className="mb-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             Each demo is a separate browser tool. Pick the one that matches
             what you want to do — still photo, short video clip, or fixing the
-            over-smoothed AI look on an existing portrait.
+            over-smoothed AI look on an existing portrait. Every signed-in
+            account gets {DEMO_DAILY_LIMIT} image opens and {DEMO_DAILY_LIMIT}{" "}
+            video opens per day (resets at 00:00 UTC).
           </p>
+
+          <DemoQuotaWidget />
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {ONLINE_DEMOS.map((d) => {

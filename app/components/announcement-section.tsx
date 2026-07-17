@@ -22,7 +22,7 @@ import {
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
-import { DEMOS as REGISTRY, demoUrl, type DemoId } from "@/lib/demos";
+import { DEMOS as REGISTRY, demoRedirectPath, type DemoId } from "@/lib/demos";
 import { DemoLiveDot } from "./demo-live-dot";
 
 type Vote = "like" | "dislike";
@@ -90,7 +90,9 @@ const DEMOS: DemoConfig[] = DEMO_CARDS.map((c) => {
     registryId: c.registryId,
     title: c.title,
     description: c.description,
-    url: demoUrl(demo),
+    // Same-origin wrapper — 302-redirects to the tunnel after auth + quota
+    // gate. See /api/demos/open and lib/demo-quota.ts.
+    url: demoRedirectPath(c.registryId),
     password: demo.password ?? "",
     icon: c.icon,
     accent: c.accent,
