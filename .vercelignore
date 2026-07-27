@@ -11,3 +11,9 @@ feature_introduction.docx
 # Big local caches that should never reach Vercel
 .hf_download_cache/
 .download_status
+
+# Raw handoff package (140 MB of source PNGs + duplicate demos). The
+# runtime copy lives under public/private-demos/ and has been optimized
+# (WebP + only the referenced _face_crops). Ignoring the original
+# folder keeps deploys lean.
+site_handoff 2/

@@ -71,3 +71,7 @@ LTX2_app/
 # Source content drafts (kept local only)
 New features.docx
 demo 2/
+# Raw frontend handoff (140 MB of PNGs). The runtime copy lives under
+# public/private-demos/ (WebP-optimized). The handoff is kept local as
+# source input for scripts/convert-face-templates.mjs only.
+site_handoff 2/

@@ -1,0 +1,65 @@
+{
+  "templates": [
+    {
+      "id": "0",
+      "url": "face_templates/Gemini_Generated_Image_1ea4mx1ea4mx1ea4.webp",
+      "name": "Gemini_Generated_Image_1ea4mx1ea4mx1ea4.webp"
+    },
+    {
+      "id": "1",
+      "url": "face_templates/Gemini_Generated_Image_37rudb37rudb37ru.webp",
+      "name": "Gemini_Generated_Image_37rudb37rudb37ru.webp"
+    },
+    {
+      "id": "2",
+      "url": "face_templates/Gemini_Generated_Image_839ayq839ayq839a.webp",
+      "name": "Gemini_Generated_Image_839ayq839ayq839a.webp"
+    },
+    {
+      "id": "3",
+      "url": "face_templates/Gemini_Generated_Image_benkb0benkb0benk.webp",
+      "name": "Gemini_Generated_Image_benkb0benkb0benk.webp"
+    },
+    {
+      "id": "4",
+      "url": "face_templates/Gemini_Generated_Image_cmiqigcmiqigcmiq.webp",
+      "name": "Gemini_Generated_Image_cmiqigcmiqigcmiq.webp"
+    },
+    {
+      "id": "5",
+      "url": "face_templates/Gemini_Generated_Image_d5ctg1d5ctg1d5ct.webp",
+      "name": "Gemini_Generated_Image_d5ctg1d5ctg1d5ct.webp"
+    },
+    {
+      "id": "6",
+      "url": "face_templates/Gemini_Generated_Image_hhubnrhhubnrhhub.webp",
+      "name": "Gemini_Generated_Image_hhubnrhhubnrhhub.webp"
+    },
+    {
+      "id": "7",
+      "url": "face_templates/Gemini_Generated_Image_j1po26j1po26j1po.webp",
+      "name": "Gemini_Generated_Image_j1po26j1po26j1po.webp"
+    },
+    {
+      "id": "8",
+      "url": "face_templates/Gemini_Generated_Image_l80b4ql80b4ql80b.webp",
+      "name": "Gemini_Generated_Image_l80b4ql80b4ql80b.webp"
+    },
+    {
+      "id": "9",
+      "url": "face_templates/Gemini_Generated_Image_otkehotkehotkeho.webp",
+      "name": "Gemini_Generated_Image_otkehotkehotkeho.webp"
+    },
+    {
+      "id": "10",
+      "url": "face_templates/Gemini_Generated_Image_oyd43foyd43foyd4.webp",
+      "name": "Gemini_Generated_Image_oyd43foyd43foyd4.webp"
+    },
+    {
+      "id": "11",
+      "url": "face_templates/Gemini_Generated_Image_s07kc0s07kc0s07k.webp",
+      "name": "Gemini_Generated_Image_s07kc0s07kc0s07k.webp"
+    }
+  ],
+  "count": 12
+}

@@ -1,0 +1,72 @@
+{
+  "categories": [
+    {
+      "id": "gemini",
+      "label": "Gemini Faces",
+      "blurb": "AI portraits from Google Gemini's image generator \u2014 fix the plastic, smooth skin.",
+      "pairs": [
+        {
+          "key": "00",
+          "before": "demos/_face_crops/gemini/00_before.png",
+          "after": "demos/_face_crops/gemini/00_after.png"
+        },
+        {
+          "key": "01",
+          "before": "demos/_face_crops/gemini/01_before.png",
+          "after": "demos/_face_crops/gemini/01_after.png"
+        }
+      ]
+    },
+    {
+      "id": "firefly",
+      "label": "Adobe Firefly",
+      "blurb": "Restore real skin texture in Firefly's signature-soft portraits.",
+      "pairs": [
+        {
+          "key": "00",
+          "before": "demos/_face_crops/firefly/00_before.png",
+          "after": "demos/_face_crops/firefly/00_after.png"
+        },
+        {
+          "key": "01",
+          "before": "demos/_face_crops/firefly/01_before.png",
+          "after": "demos/_face_crops/firefly/01_after.png"
+        }
+      ]
+    },
+    {
+      "id": "headshot",
+      "label": "Headshot Portraits",
+      "blurb": "Bring back pores, freckles, and natural micro-detail in headshots.",
+      "pairs": [
+        {
+          "key": "00",
+          "before": "demos/_face_crops/headshot/00_before.png",
+          "after": "demos/_face_crops/headshot/00_after.png"
+        },
+        {
+          "key": "01",
+          "before": "demos/_face_crops/headshot/01_before.png",
+          "after": "demos/_face_crops/headshot/01_after.png"
+        }
+      ]
+    },
+    {
+      "id": "products",
+      "label": "Product Shots",
+      "blurb": "People on packaging, billboards, and lookbooks \u2014 add believable skin.",
+      "pairs": [
+        {
+          "key": "00",
+          "before": "demos/_face_crops/products/00_before.png",
+          "after": "demos/_face_crops/products/00_after.png"
+        },
+        {
+          "key": "01",
+          "before": "demos/_face_crops/products/01_before.png",
+          "after": "demos/_face_crops/products/01_after.png"
+        }
+      ]
+    }
+  ]
+}

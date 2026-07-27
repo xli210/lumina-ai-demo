@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NanoFace Vivid — make AI portraits look real</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <!-- top bar ───────────────────────────────────────────── -->
+  <header class="topbar">
+    <div class="brand">
+      <img src="logo.png" alt="" class="brand-logo">
+      <div class="brand-text">
+        <div class="brand-mark">NanoPocket.ai</div>
+        <div class="brand-name">NanoFace Vivid</div>
+      </div>
+    </div>
+    <nav class="topbar-links">
+      <a href="#try">Try it</a>
+      <a href="#examples">Examples</a>
+    </nav>
+  </header>
+
+  <!-- hero ──────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="pill">A new module of the Face Studio desktop app</div>
+    <h1>
+      Make AI portraits<br>
+      <span class="gradient-word">look real.</span>
+    </h1>
+    <p class="lede">
+      <strong>Make any face look real.</strong>
+      AI-smooth, blurry, or low on detail — one slider brings back skin,
+      sharpness, and life, without changing who they are.
+    </p>
+    <div class="hero-cta">
+      <a href="#try" class="cta-primary">Try it free</a>
+      <a href="#examples" class="cta-secondary">See examples</a>
+    </div>
+  </section>
+
+  <!-- examples ──────────────────────────────────────────── -->
+  <section id="examples" class="examples">
+    <div class="section-head">
+      <h2>What it fixes</h2>
+      <p class="muted">
+        Drag the slider to compare · scroll to zoom in on the detail.
+      </p>
+    </div>
+    <div class="examples-grid" id="examplesGrid">
+      <!-- categories rendered by JS from /api/demos -->
+      <div class="example-empty">Loading examples…</div>
+    </div>
+  </section>
+
+  <!-- try it ────────────────────────────────────────────── -->
+  <section id="try" class="try">
+    <div class="section-head">
+      <h2>Try it on your photo</h2>
+      <p class="muted">
+        Upload any AI portrait, real headshot, or product shot with a face.
+        We hide every knob except the one that actually matters.
+      </p>
+    </div>
+
+    <div class="try-card">
+      <!-- left: upload + slider -->
+      <div class="controls">
+        <div class="dropzone" id="dropzone" tabindex="0">
+          <input type="file" id="fileInput" accept="image/*" hidden>
+          <div class="dropzone-empty" id="dropzoneEmpty">
+            <div class="dropzone-icon">+</div>
+            <div class="dropzone-title">Drop an image here</div>
+            <div class="dropzone-sub">or click to browse · png / jpg / webp</div>
+          </div>
+          <img id="dropzonePreview" alt="" hidden>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-head">
+            <label for="strength">Detail strength</label>
+            <span class="slider-value" id="strengthValue">0.8</span>
+          </div>
+          <input id="strength" type="range" min="0" max="1" step="0.05" value="0.8">
+          <div class="slider-hint">
+            <span>Subtle</span>
+            <span>Balanced</span>
+            <span>Bold</span>
+          </div>
+        </div>
+
+        <button id="runBtn" class="run-btn" disabled>Add detail</button>
+
+        <div class="progress" id="progress" hidden>
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-meta">
+            <span id="progressDesc">Queued…</span>
+            <span id="progressTime">0s</span>
+          </div>
+        </div>
+
+        <div class="error-line" id="errorLine" hidden></div>
+      </div>
+
+      <!-- right: result viewer -->
+      <div class="viewer">
+        <div class="viewer-empty" id="viewerEmpty">
+          <div class="viewer-empty-icon">◐</div>
+          <div class="viewer-empty-title">Your detailed result will appear here</div>
+          <div class="viewer-empty-sub">Drag the divider to compare · scroll to zoom</div>
+        </div>
+        <div class="viewer-result" id="viewerResult" hidden>
+          <div class="viewer-toolbar">
+            <div class="vt-hint">Drag the divider · scroll to zoom · drag elsewhere to pan</div>
+            <div class="vt-spacer"></div>
+            <button class="vt-btn" id="vtZoomOut" title="Zoom out">−</button>
+            <span class="vt-scale" id="vtScale">100%</span>
+            <button class="vt-btn" id="vtZoomIn"  title="Zoom in">+</button>
+            <button class="vt-btn vt-btn-reset" id="vtReset" title="Fit / reset">Fit</button>
+          </div>
+          <div class="viewer-stage" id="viewerStage"></div>
+        </div>
+        <div class="viewer-footer" id="viewerFooter" hidden>
+          <a href="#" id="downloadBtn" class="footer-btn footer-btn-primary" download="nanoface_vivid_result.png">Download</a>
+          <div class="feedback">
+            <button class="fb-btn" id="fbUp" title="Looks good">👍</button>
+            <button class="fb-btn" id="fbDown" title="Could be better">👎</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- bundle note ───────────────────────────────────────── -->
+  <section class="bundle-note">
+    <div class="bundle-card">
+      <div class="bundle-card-icon">
+        <img src="logo.png" alt="">
+      </div>
+      <div class="bundle-card-body">
+        <div class="bundle-card-title">Ships inside Face Studio</div>
+        <p>
+          NanoFace Vivid will be included as a one-click module inside the
+          Face Studio desktop app — alongside Face Swap and Head Swap —
+          so the whole workflow runs locally on your machine.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>
+      <img src="logo.png" alt="" class="footer-logo">
+      <span>NanoPocket.ai · NanoFace Vivid</span>
+    </div>
+    <div class="footer-right">
+      <a href="https://nanopocket.ai/" target="_blank" rel="noopener">nanopocket.ai</a>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
