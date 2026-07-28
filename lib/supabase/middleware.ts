@@ -69,8 +69,16 @@ async function isAdmin(
   return profile?.role === 'admin'
 }
 
-/** Anonymous visitor to a protected path -> bounce to /auth/login?next=... */
+/** Anonymous visitor to a protected path. Browsers get bounced to
+ *  /auth/login?next=..., but API callers get a JSON 401 so `fetch()`
+ *  handlers see a structured error instead of an HTML redirect body. */
 function redirectToLogin(request: NextRequest): NextResponse {
+  if (request.nextUrl.pathname.startsWith('/api/')) {
+    return NextResponse.json(
+      { error: 'Authentication required' },
+      { status: 401 },
+    )
+  }
   const url = request.nextUrl.clone()
   url.pathname = '/auth/login'
   url.searchParams.set('next', request.nextUrl.pathname)
