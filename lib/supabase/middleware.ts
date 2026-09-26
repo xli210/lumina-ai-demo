@@ -13,6 +13,10 @@ const PROTECTED_PATH_PREFIXES = [
   '/admin',
   '/private-demos',
   '/api/private-demos',
+  // The wallet page. /api/credits is deliberately absent: the balance and
+  // ledger routes authenticate themselves and return a JSON 401, while
+  // /api/credits/packs is a public price list the pricing page reads.
+  '/credits',
 ]
 
 const ADMIN_PATH_PREFIXES = [
