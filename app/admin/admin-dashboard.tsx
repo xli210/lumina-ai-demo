@@ -148,14 +148,19 @@ export function AdminDashboard() {
     }
   }, [tab, fetchUsers, fetchLicenses]);
 
+  // role and is_banned are no longer writable from the browser: migration 008
+  // narrowed the UPDATE grant on profiles to display_name/avatar_url, because
+  // the blanket grant let any user promote themselves to admin. Both fields
+  // now go through SECURITY DEFINER functions that re-check admin status
+  // server-side.
   async function toggleBan(userId: string, currentlyBanned: boolean) {
-    const { error } = await supabase
-      .from("profiles")
-      .update({ is_banned: !currentlyBanned, updated_at: new Date().toISOString() })
-      .eq("id", userId);
+    const { error } = await supabase.rpc("admin_set_user_banned", {
+      p_user_id: userId,
+      p_banned: !currentlyBanned,
+    });
 
     if (error) {
-      toast.error("Failed to update user status");
+      toast.error(error.message || "Failed to update user status");
       return;
     }
 
@@ -166,13 +171,15 @@ export function AdminDashboard() {
 
   async function toggleAdmin(userId: string, currentRole: string) {
     const newRole = currentRole === "admin" ? "user" : "admin";
-    const { error } = await supabase
-      .from("profiles")
-      .update({ role: newRole, updated_at: new Date().toISOString() })
-      .eq("id", userId);
+    const { error } = await supabase.rpc("admin_set_user_role", {
+      p_user_id: userId,
+      p_role: newRole,
+    });
 
     if (error) {
-      toast.error("Failed to update user role");
+      // The function refuses to let an admin demote themselves, which would
+      // otherwise be a one-click lockout for a single-admin project.
+      toast.error(error.message || "Failed to update user role");
       return;
     }
 
