@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { DEMOS, demoUrl, type DemoId } from "@/lib/demos";
+import {
+  DEMOS,
+  demoUrl,
+  isInternalDemo,
+  isMeteredDemo,
+  type DemoId,
+} from "@/lib/demos";
 import {
   DEMO_DAILY_LIMIT,
   kindForDemo,
@@ -20,11 +26,13 @@ function isDemoId(v: string): v is DemoId {
 /**
  * GET /api/demos/open?id=<image|video|vivid>
  *
- * Auth-gates and rate-limits the three free online demos. Each signed-in
- * user gets DEMO_DAILY_LIMIT opens per "kind" per UTC day (currently 10
- * image opens + 10 video opens). On success, 302-redirects to the actual
- * Cloudflare tunnel origin so the browser opens the demo login screen
- * exactly as before.
+ * The single hop every "Try online" button on the site goes through, which is
+ * what lets a demo be repointed without touching a page.
+ *
+ * Auth-gates all three, and rate-limits the free ones: a signed-in user gets
+ * DEMO_DAILY_LIMIT opens per "kind" per UTC day. `image` is metered in
+ * credits instead and lands on /face-studio; see the metered branch below.
+ * The free ones 302 to their Cloudflare tunnel exactly as before.
  *
  * Failure modes (all 302 redirects — the button opened in a new tab and we
  * want the user to land on a real page, never on a JSON error):
@@ -59,6 +67,16 @@ export async function GET(req: NextRequest) {
       `${origin}/auth/login?next=${encodeURIComponent(next)}`,
       { status: 302 }
     );
+  }
+
+  // A metered demo charges per render, so it does not also consume the free
+  // daily allowance — the credit balance is already the limit. This is the
+  // branch Image FaceSwap Pro 2.0 takes, landing on /face-studio.
+  if (isMeteredDemo(demo)) {
+    const target = isInternalDemo(demo)
+      ? `${origin}${demo.landingPath}`
+      : demoUrl(demo);
+    return NextResponse.redirect(target, { status: 302 });
   }
 
   const admin = createAdminClient();

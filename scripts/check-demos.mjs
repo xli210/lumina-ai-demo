@@ -20,13 +20,13 @@ import { createClient } from "@supabase/supabase-js";
 
 // Inlined registry — keep in sync with lib/demos.ts. Duplicated here so
 // the script has zero TS / Next dependency at runtime.
+//
+// Image FaceSwap Pro 2.0 is deliberately absent. It is no longer a tunnel:
+// it is /face-studio on nanopocket.ai, whose availability Vercel already
+// reports, and whose real dependency is the Face Studio gateway. Pinging our
+// own auth-gated page from here would only ever confirm that the login
+// redirect works. See docs/face-studio.md.
 const DEMOS = [
-  {
-    id: "image",
-    name: "Image FaceSwap Pro 2.0",
-    origin: "https://paying-colorado-ment-cingular.trycloudflare.com",
-    pingPath: "/login",
-  },
   {
     id: "video",
     name: "Video FaceSwap Pro",

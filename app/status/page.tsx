@@ -4,7 +4,15 @@ import { ArrowRight, Activity, ExternalLink, FileCheck2 } from "lucide-react";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { DEMOS, demoUrl, type DemoId } from "@/lib/demos";
+import { DEMOS, demoUrl, isInternalDemo, type DemoId } from "@/lib/demos";
+
+/**
+ * This page reports tunnel reachability, so it covers only the demos that
+ * run behind one. Face Studio moved onto nanopocket.ai itself, where its
+ * availability is the site's own; pinging our auth-gated page from the
+ * uptime checker would only ever confirm the login redirect works.
+ */
+const MONITORED = DEMOS.filter((d) => !isInternalDemo(d));
 
 export const metadata: Metadata = {
   title: "NanoPocket Demo Status — Live Uptime for Free Online Face Swap",
@@ -42,7 +50,7 @@ async function loadAll(): Promise<DemoSnapshot[]> {
   try {
     supabase = createAdminClient();
   } catch {
-    return DEMOS.map((d) => ({
+    return MONITORED.map((d) => ({
       id: d.id,
       name: d.name,
       url: demoUrl(d),
@@ -61,7 +69,7 @@ async function loadAll(): Promise<DemoSnapshot[]> {
   const since7d = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
 
   return Promise.all(
-    DEMOS.map(async (d) => {
+    MONITORED.map(async (d) => {
       const [{ data: latestRows }, { data: rows24h }, { data: rows7d }, { data: recentRows }] =
         await Promise.all([
           supabase

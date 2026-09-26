@@ -1,8 +1,12 @@
 /**
- * Single source of truth for the three free online demos.
+ * Single source of truth for the three online demos.
  *
  * When a Cloudflare tunnel rotates, edit ONLY this file (and re-deploy).
  * Both the website and the GitHub Actions uptime checker import from here.
+ *
+ * One of the three no longer lives behind a tunnel: Image FaceSwap Pro 2.0 is
+ * now Face Studio, hosted on nanopocket.ai and metered in credits. See
+ * `internal` and `metered` below, and docs/face-studio.md.
  */
 
 export type DemoId = "image" | "video" | "vivid";
@@ -21,17 +25,34 @@ export interface DemoEntry {
   password: string | null;
   /** Internal product page on nanopocket.ai for context. */
   productHref: string;
+  /**
+   * True when this runs on nanopocket.ai itself rather than behind a tunnel,
+   * in which case `landingPath` is a site-relative route. Callers should
+   * redirect to it directly instead of to an external origin.
+   */
+  internal?: boolean;
+  /**
+   * True when credits pay for it. The free per-day demo quota is skipped for
+   * these: the balance is already the limit, and charging a user credits and
+   * then also refusing them at 10 opens a day would be two limits for one
+   * thing.
+   */
+  metered?: boolean;
 }
 
 export const DEMOS: DemoEntry[] = [
   {
     id: "image",
     name: "Image FaceSwap Pro 2.0",
-    origin: "https://paying-colorado-ment-cingular.trycloudflare.com",
-    landingPath: "/login",
-    pingPath: "/login",
-    password: "nanofaceswap-pro",
+    // Was a Cloudflare tunnel until that pipeline was retired. Now served by
+    // /face-studio against our own RunPod endpoint, priced per render.
+    origin: "https://nanopocket.ai",
+    landingPath: "/face-studio",
+    pingPath: "/face-studio",
+    password: null,
     productHref: "/apps/nano-faceswap-pro/features",
+    internal: true,
+    metered: true,
   },
   {
     id: "video",
@@ -55,6 +76,16 @@ export const DEMOS: DemoEntry[] = [
 
 export function demoUrl(d: DemoEntry): string {
   return `${d.origin}${d.landingPath}`;
+}
+
+/** Runs on nanopocket.ai rather than behind a tunnel. */
+export function isInternalDemo(d: DemoEntry): boolean {
+  return d.internal === true;
+}
+
+/** Paid per use in credits, so the free daily quota does not apply. */
+export function isMeteredDemo(d: DemoEntry): boolean {
+  return d.metered === true;
 }
 
 export function demoPingUrl(d: DemoEntry): string {

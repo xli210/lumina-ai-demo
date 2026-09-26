@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { DEMOS } from "@/lib/demos";
+import { DEMOS, isInternalDemo } from "@/lib/demos";
+
+/** Only the tunnel-hosted demos are pinged; see app/status/page.tsx. */
+const MONITORED = DEMOS.filter((d) => !isInternalDemo(d));
 
 export const runtime = "nodejs";
 // Cache the response at the edge for 60s — the writer runs every 5 min,
@@ -25,7 +28,7 @@ async function loadSnapshot(): Promise<DemoSnapshot[]> {
     supabase = createAdminClient();
   } catch {
     // Env not configured (e.g. local dev without Supabase). Return unknowns.
-    return DEMOS.map((d) => ({
+    return MONITORED.map((d) => ({
       id: d.id,
       name: d.name,
       url: `${d.origin}${d.landingPath}`,
@@ -41,7 +44,7 @@ async function loadSnapshot(): Promise<DemoSnapshot[]> {
   const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
   const snapshots = await Promise.all(
-    DEMOS.map(async (d) => {
+    MONITORED.map(async (d) => {
       const url = `${d.origin}${d.landingPath}`;
 
       const { data: latestRows } = await supabase
