@@ -5,11 +5,13 @@ import {
   DEFAULT_HOLD_TTL_SECONDS,
   SIGNUP_GRANT_CREDITS,
   isCreditEntryKind,
+  isCreditHoldStatus,
   signupGrantKey,
   type CreditAccountState,
   type CreditCaptureResult,
   type CreditEntryKind,
   type CreditHoldResult,
+  type CreditHoldStatus,
   type CreditLedgerEntry,
   type CreditMutationResult,
 } from "@/lib/credits";
@@ -179,8 +181,82 @@ export async function listCreditLedger(params: {
   return (data ?? []).map((row) => toLedgerEntry(asFields(row)));
 }
 
+/**
+ * A reservation, looked up by the upstream job id it was attached to.
+ *
+ * This is how a metered service answers "whose job is this?". The row
+ * survives settlement, so it keeps authorising downloads of a finished
+ * result, and the partial unique index on (service, job_ref) in migration
+ * 009 guarantees at most one match.
+ */
+export interface CreditHoldRecord {
+  id: string;
+  user_id: string;
+  amount: number;
+  status: CreditHoldStatus;
+  service: string;
+  job_ref: string | null;
+  created_at: string;
+}
+
+/**
+ * How many of this user's reservations for a service are still open.
+ *
+ * Metered GPU work needs a concurrency cap: every open hold is a job burning
+ * real compute, and without a ceiling one account can occupy the whole pool.
+ * Counting open holds is the cap, since a hold exists for exactly the window
+ * a job is running.
+ */
+export async function countOpenHolds(
+  service: string,
+  userId: string
+): Promise<number> {
+  const supabase = createAdminClient();
+  const { count, error } = await supabase
+    .from("credit_holds")
+    .select("id", { head: true, count: "exact" })
+    .eq("service", service)
+    .eq("user_id", userId)
+    .eq("status", "open");
+
+  if (error) throw new Error(`Failed to count open holds: ${error.message}`);
+  return count ?? 0;
+}
+
+export async function findHoldByJobRef(
+  service: string,
+  jobRef: string
+): Promise<CreditHoldRecord | null> {
+  const supabase = createAdminClient();
+  const { data, error } = await supabase
+    .from("credit_holds")
+    .select("id, user_id, amount, status, service, job_ref, created_at")
+    .eq("service", service)
+    .eq("job_ref", jobRef)
+    .maybeSingle();
+
+  if (error) throw new Error(`Failed to look up hold: ${error.message}`);
+  if (!data) return null;
+
+  const row = asFields(data);
+  const status = row.get("status");
+  if (!isCreditHoldStatus(status)) {
+    throw new Error(`Hold ${str(row, "id") ?? "?"} has an unknown status`);
+  }
+
+  return {
+    id: str(row, "id") ?? "",
+    user_id: str(row, "user_id") ?? "",
+    amount: num(row, "amount"),
+    status,
+    service: str(row, "service") ?? "",
+    job_ref: str(row, "job_ref") ?? null,
+    created_at: str(row, "created_at") ?? "",
+  };
+}
+
 /* ------------------------------------------------------------------ */
-/* Writes                                                              */
+/* Writes                                                             */
 /* ------------------------------------------------------------------ */
 
 /**
@@ -250,6 +326,48 @@ export async function ensureSignupGrant(
     kind: "signup_grant",
     idempotencyKey,
     reference: { reason: "welcome_grant" },
+  });
+}
+
+/**
+ * Top an account up to a free daily allowance, once per UTC day.
+ *
+ * Deliberately a `promo` grant rather than a parallel quota counter, so a
+ * free render is indistinguishable from a paid one everywhere downstream:
+ * the same reservation protects the GPU, a failure refunds by the same path,
+ * ownership resolves through the same hold, and the user sees the allowance
+ * as a line on their statement instead of an invisible counter.
+ *
+ * Tops *up to* `amount`, never adds to it. Adding would let an allowance
+ * accumulate across idle days into a balance nobody paid for; topping up
+ * bounds the free tier at `amount` per day no matter how long an account
+ * sits unused. An account already above the line gets nothing, and
+ * `credit_grant` rejects a zero amount, so that case must not call it.
+ *
+ * The date in the idempotency key is what makes it once-daily.
+ */
+export async function ensureDailyAllowance(params: {
+  userId: string;
+  amount: number;
+  /** Distinguishes one service's allowance from another's. */
+  service: string;
+  /** UTC date as YYYY-MM-DD. */
+  day: string;
+}): Promise<CreditAccountState> {
+  const account = await getCreditAccount(params.userId);
+  if (account.available >= params.amount) return account;
+
+  return grantCredits({
+    userId: params.userId,
+    amount: params.amount - account.available,
+    kind: "promo",
+    idempotencyKey: `allowance:${params.service}:${params.userId}:${params.day}`,
+    reference: {
+      reason: "daily_free_allowance",
+      service: params.service,
+      day: params.day,
+      topped_up_to: params.amount,
+    },
   });
 }
 

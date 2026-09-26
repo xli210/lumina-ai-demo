@@ -1,0 +1,9 @@
+# Face Studio gateway.
+#
+# Pillow is deliberately absent: the browser uploads photos straight to R2 and
+# normalises orientation on a canvas before it does, so this service never
+# handles image bytes on the way in.
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.30,<1.0
+boto3>=1.34,<2.0
+pydantic>=2.7,<3.0

@@ -1,0 +1,57 @@
+# Render blueprint for the Face Studio gateway.
+#
+# Deploy with: Render dashboard -> New -> Blueprint -> pick this repo.
+# Render reads this file and creates the service, so the only manual work left
+# is pasting the four secrets it asks for.
+#
+# Every secret is marked `sync: false`, which tells Render to prompt for it
+# rather than read it from this file. None of them belong in git.
+#
+# See docs/face-studio.md §5.
+
+services:
+  - type: web
+    name: facestudio-gateway
+    runtime: python
+    rootDir: facestudio-gateway
+    # Starter, not free, on purpose: a free instance cold-starts in ~50 s,
+    # which is longer than the 45 s cap on the detect wait, so the first
+    # upload after an idle period would time out rather than just feel slow.
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: python server.py --host 0.0.0.0
+    # The one route that does not require the gateway token, because Render's
+    # health check cannot present one.
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12"
+
+      # Shared secret with the Vercel app. Must match FACESTUDIO_GATEWAY_TOKEN
+      # there exactly. Generate with: openssl rand -hex 32
+      - key: FACESTUDIO_GATEWAY_TOKEN
+        sync: false
+
+      # RunPod. Use a key created specifically for this service so it can be
+      # revoked without affecting anything else.
+      - key: RUNPOD_API_KEY
+        sync: false
+      - key: RUNPOD_ENDPOINT_ID
+        value: kgcsaw0mpwbz4c
+
+      # Cloudflare R2. Must be the same bucket the RunPod endpoint writes
+      # results to, and S3_OUTPUT_PREFIX must equal its OUTPUT_S3_PREFIX.
+      - key: S3_ENDPOINT
+        sync: false
+      - key: S3_ACCESS_KEY_ID
+        sync: false
+      - key: S3_SECRET_ACCESS_KEY
+        sync: false
+      - key: S3_REGION
+        value: auto
+      - key: S3_BUCKET
+        value: video-api
+      - key: S3_INPUT_PREFIX
+        value: facestudio/input
+      - key: S3_OUTPUT_PREFIX
+        value: facestudio/output
