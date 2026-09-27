@@ -1,0 +1,65 @@
+{
+  "templates": [
+    {
+      "id": "0",
+      "url": "face_templates/Gemini_Generated_Image_1ea4mx1ea4mx1ea4.png",
+      "name": "Gemini_Generated_Image_1ea4mx1ea4mx1ea4.png"
+    },
+    {
+      "id": "1",
+      "url": "face_templates/Gemini_Generated_Image_37rudb37rudb37ru.png",
+      "name": "Gemini_Generated_Image_37rudb37rudb37ru.png"
+    },
+    {
+      "id": "2",
+      "url": "face_templates/Gemini_Generated_Image_839ayq839ayq839a.png",
+      "name": "Gemini_Generated_Image_839ayq839ayq839a.png"
+    },
+    {
+      "id": "3",
+      "url": "face_templates/Gemini_Generated_Image_benkb0benkb0benk.png",
+      "name": "Gemini_Generated_Image_benkb0benkb0benk.png"
+    },
+    {
+      "id": "4",
+      "url": "face_templates/Gemini_Generated_Image_cmiqigcmiqigcmiq.png",
+      "name": "Gemini_Generated_Image_cmiqigcmiqigcmiq.png"
+    },
+    {
+      "id": "5",
+      "url": "face_templates/Gemini_Generated_Image_d5ctg1d5ctg1d5ct.png",
+      "name": "Gemini_Generated_Image_d5ctg1d5ctg1d5ct.png"
+    },
+    {
+      "id": "6",
+      "url": "face_templates/Gemini_Generated_Image_hhubnrhhubnrhhub.png",
+      "name": "Gemini_Generated_Image_hhubnrhhubnrhhub.png"
+    },
+    {
+      "id": "7",
+      "url": "face_templates/Gemini_Generated_Image_j1po26j1po26j1po.png",
+      "name": "Gemini_Generated_Image_j1po26j1po26j1po.png"
+    },
+    {
+      "id": "8",
+      "url": "face_templates/Gemini_Generated_Image_l80b4ql80b4ql80b.png",
+      "name": "Gemini_Generated_Image_l80b4ql80b4ql80b.png"
+    },
+    {
+      "id": "9",
+      "url": "face_templates/Gemini_Generated_Image_otkehotkehotkeho.png",
+      "name": "Gemini_Generated_Image_otkehotkehotkeho.png"
+    },
+    {
+      "id": "10",
+      "url": "face_templates/Gemini_Generated_Image_oyd43foyd43foyd4.png",
+      "name": "Gemini_Generated_Image_oyd43foyd43foyd4.png"
+    },
+    {
+      "id": "11",
+      "url": "face_templates/Gemini_Generated_Image_s07kc0s07kc0s07k.png",
+      "name": "Gemini_Generated_Image_s07kc0s07kc0s07k.png"
+    }
+  ],
+  "count": 12
+}

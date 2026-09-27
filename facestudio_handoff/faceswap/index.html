@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nanopocket FaceSwap Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://nanopocket.ai/" target="_blank" rel="noopener">
+          <img src="logo.png" alt="NanoPocket.ai" class="logo-img">
+        </a>
+        <h1>Face Studio
+          <a href="https://nanopocket.ai/" target="_blank" rel="noopener" class="logo-brand">
+            - NanoPocket.ai
+          </a>
+        </h1>
+      </div>
+      <p class="site-subtitle">Best single-face or multi-face swap app.</p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── Step 1: Upload body image ── -->
+    <section class="v5-step">
+      <div class="v5-step-head">
+        <span class="v5-step-num">1</span>
+        <h2>Upload your photo</h2>
+        <p>Faces are auto-detected. We support up to <strong>6 faces</strong> per image.</p>
+      </div>
+
+      <div class="upload-zone v5-body-zone" id="zone-body">
+        <input type="file" accept="image/*" id="input-body" hidden>
+        <div class="upload-placeholder" id="placeholder-body">
+          <div class="upload-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="6" y="6" width="36" height="36" rx="4"/>
+              <circle cx="18" cy="18" r="4"/>
+              <path d="M6 34 L16 24 L26 34 L36 22 L42 28"/>
+            </svg>
+          </div>
+          <span class="upload-label">Body / Group Photo</span>
+          <span class="upload-hint">Drag &amp; drop or click to upload</span>
+        </div>
+        <div class="upload-preview" id="preview-body" hidden>
+          <img id="img-body" alt="Body preview">
+          <button class="remove-btn" id="remove-body" title="Remove">&times;</button>
+        </div>
+      </div>
+
+      <p class="v5-detect-status" id="detect-status">_Upload a photo to auto-detect faces._</p>
+    </section>
+
+    <!-- ── Step 2: Detected faces + per-face references ── -->
+    <section class="v5-step" id="faces-step" hidden>
+      <div class="v5-step-head">
+        <span class="v5-step-num">2</span>
+        <h2>Pick faces to swap</h2>
+        <p>Upload a reference image for each face you want to replace.
+          Faces left blank are <strong>preserved exactly</strong>.</p>
+      </div>
+
+      <!-- Single global hint for the per-face "Keep occluders" panels below -->
+      <div class="v5-occlude-banner" id="occlude-banner" hidden>
+        <strong>Choose what you want to preserve on each face</strong>
+        — things in front of the face such as
+        <em>hands holding products, accessories, jewelry, hair fringe,
+        glasses, scarves, clothing</em> — so the swap keeps them intact.
+        Each face card below has its own selector with a small map of the
+        regions it found.
+      </div>
+
+      <!-- Mode selector — visible only when exactly 1 face is detected -->
+      <div class="v5-mode-section" id="mode-section" hidden>
+        <div class="v5-mode-header">
+          <h2 class="v5-mode-title">Choose swap mode</h2>
+          <p class="v5-mode-subtitle">Pick how much of the original head to replace before you upload a reference.</p>
+        </div>
+        <div class="v5-mode-cards">
+          <button type="button" class="v5-mode-card active" data-mode="face_swap">
+            <div class="v5-mode-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="24" cy="22" r="9"/>
+                <path d="M16 32 c2 -2 5 -4 8 -4 s6 2 8 4"/>
+              </svg>
+            </div>
+            <h3>Face Swap</h3>
+            <p>Only the face region is swapped. Hair, head shape and background stay exactly the same.</p>
+          </button>
+
+          <button type="button" class="v5-mode-card" data-mode="head_swap">
+            <div class="v5-mode-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                <ellipse cx="24" cy="20" rx="12" ry="14"/>
+                <path d="M14 30 c-3 4 -3 10 0 14 h20 c3 -4 3 -10 0 -14"/>
+              </svg>
+            </div>
+            <h3>Head Swap</h3>
+            <p>The whole head is swapped — more identical to your reference.</p>
+          </button>
+        </div>
+      </div>
+
+      <div class="v5-faces-grid" id="faces-grid">
+        <!-- populated from JS -->
+      </div>
+
+      <!-- ── Inline virtual face library (3x3 picker) ── -->
+      <div class="vface-inline" id="vface-inline" hidden>
+        <div class="vface-inline-head">
+          <h3>Or pick a virtual face</h3>
+          <span class="vface-inline-hint" id="vface-inline-hint">
+            Click a face below to use it as the reference for the next empty face card.
+          </span>
+        </div>
+        <div class="vface-grid" id="vface-grid">
+          <!-- populated from JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Step 3: Generate (params hidden — uses sensible defaults) ── -->
+    <section class="v5-step" id="generate-step" hidden>
+      <div class="v5-step-head">
+        <span class="v5-step-num">3</span>
+        <h2>Generate</h2>
+      </div>
+
+      <div class="action-section">
+        <button id="btn-generate" class="btn-generate" disabled>
+          <span class="btn-text">Generate</span>
+          <span class="btn-loader" hidden>
+            <span class="spinner"></span>
+            Processing…
+          </span>
+        </button>
+        <p class="action-hint" id="action-hint">Upload a reference for at least one face to enable Generate.</p>
+      </div>
+    </section>
+
+    <!-- ── Live progress (just bar + elapsed time, no step text) ── -->
+    <section class="v5-progress-section" id="progress-section" hidden>
+      <div class="v5-progress-card">
+        <div class="v5-progress-bar-wrap">
+          <div class="v5-progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="v5-progress-meta">
+          <span id="progress-elapsed">0s</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Result Section: Before/After slider ── -->
+    <section class="result-section" id="result-section" hidden>
+      <div class="result-card">
+        <div class="result-header">
+          <h2>Result</h2>
+          <div class="result-actions">
+            <span class="result-time" id="result-time"></span>
+            <a id="btn-download" class="btn-download" download="face_studio_result.png">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download
+            </a>
+          </div>
+        </div>
+
+        <!-- Step-by-step instructions for editing the result -->
+        <div class="cmp-howto">
+          <p class="cmp-howto-title">
+            Not perfect yet? You can polish the result yourself in a few clicks:
+          </p>
+          <ol>
+            <li>Zoom in to the face you want to fix.</li>
+            <li>Turn <strong>Brush</strong> on and pick a comfortable brush size.</li>
+            <li>On <em>either</em> image, paint over anything you want pulled from the
+                original — fine details, jewelry, hair edges, products, occluders,
+                or any seam artifacts.</li>
+            <li>Click <strong>Bring back masked region</strong> — those areas are
+                instantly restored from the original photo.</li>
+            <li>Made a mistake while painting? Hit <strong>Clear mask</strong>.
+                Want the original AI result back? Hit <strong>Reset</strong>.</li>
+            <li>Repeat steps 2-4 until you're happy with the result.</li>
+          </ol>
+        </div>
+
+        <div class="cmp-toolbar">
+          <!-- Primary group: brush, size, apply (the editing action) -->
+          <div class="cmp-tool-group cmp-tool-group-primary">
+            <button type="button" class="cmp-btn" id="cmp-brush-toggle"
+                    title="Toggle brush mode (draw on either image to bring those pixels back)">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 21l3-3 8-8 4 4-8 8-3 3z"/>
+                <path d="M14 7l3-3 4 4-3 3z"/>
+              </svg>
+              <span id="cmp-brush-toggle-label">Brush: off</span>
+            </button>
+            <label class="cmp-tool-label" for="cmp-brush-size">Size</label>
+            <input type="range" id="cmp-brush-size" min="6" max="200" value="40">
+            <span class="cmp-tool-value" id="cmp-brush-size-val">40 px</span>
+            <button type="button" class="cmp-btn cmp-btn-primary" id="cmp-apply">
+              Bring back masked region
+            </button>
+          </div>
+
+          <!-- Secondary group: view + cleanup actions -->
+          <div class="cmp-tool-group cmp-tool-group-secondary">
+            <label class="cmp-tool-label" for="cmp-zoom">Zoom</label>
+            <input type="range" id="cmp-zoom" min="50" max="500" value="100">
+            <span class="cmp-tool-value" id="cmp-zoom-val">100%</span>
+            <button type="button" class="cmp-btn" id="cmp-fit">Fit</button>
+            <button type="button" class="cmp-btn" id="cmp-clear">Clear mask</button>
+            <button type="button" class="cmp-btn" id="cmp-reset">Reset</button>
+          </div>
+        </div>
+
+        <div class="result-compare">
+          <div class="compare-pane">
+            <span class="compare-label">Before</span>
+            <div class="compare-pane-clip" id="cmp-pane-before">
+              <div class="compare-pane-content" id="cmp-content-before">
+                <canvas id="cmp-body-canvas"></canvas>
+                <canvas id="cmp-mask-canvas"></canvas>
+              </div>
+              <div class="cmp-brush-cursor" id="cmp-brush-cursor" hidden></div>
+            </div>
+          </div>
+          <div class="compare-pane">
+            <span class="compare-label">After</span>
+            <div class="compare-pane-clip" id="cmp-pane-after">
+              <div class="compare-pane-content" id="cmp-content-after">
+                <canvas id="cmp-after-canvas"></canvas>
+                <canvas id="cmp-mask-canvas-after"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="feedback-bar" id="feedback-bar">
+          <span class="feedback-question">How would you like the result?</span>
+          <div class="feedback-actions">
+            <button class="feedback-btn feedback-up" id="feedback-up" type="button" title="Like it">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <path d="M7 11V21H4a1 1 0 01-1-1V12a1 1 0 011-1h3z"/>
+                <path d="M7 11l4-7a3 3 0 015 2v3h5a2 2 0 012 2.4l-1.6 7A2 2 0 0119.4 21H7"/>
+              </svg>
+              <span>Like</span>
+            </button>
+            <button class="feedback-btn feedback-down" id="feedback-down" type="button" title="Don't like it">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <path d="M17 13V3h3a1 1 0 011 1v8a1 1 0 01-1 1h-3z"/>
+                <path d="M17 13l-4 7a3 3 0 01-5-2v-3H3a2 2 0 01-2-2.4l1.6-7A2 2 0 014.6 3H17"/>
+              </svg>
+              <span>Dislike</span>
+            </button>
+          </div>
+          <span class="feedback-thanks" id="feedback-thanks" hidden>Thanks for the feedback!</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Face Studio &mdash; Powered by <a href="https://nanopocket.ai/" target="_blank" rel="noopener">NanoPocket.ai</a></p>
+    <div class="legal-disclaimer">
+      <p><strong>Disclaimer:</strong> Faces displayed in demos are used solely to demonstrate technical capability.
+        Users are responsible for ensuring their use of this technology complies with applicable laws and
+        the rights of third parties.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

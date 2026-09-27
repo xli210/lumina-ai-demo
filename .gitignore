@@ -75,3 +75,13 @@ demo 2/
 # public/private-demos/ (WebP-optimized). The handoff is kept local as
 # source input for scripts/convert-face-templates.mjs only.
 site_handoff 2/
+
+# Face Studio handoff: the original 6.8 MB PNG face templates.
+#
+# The same 13 images are already in the repo as 2.2 MB of WebP under
+# public/face-studio/face_templates/, which is what the console actually
+# serves. Committing the PNGs would add 81 MB for no benefit, and
+# next.config.mjs already has to exclude downloads-private/ to stay under
+# the 250 MB Vercel Lambda limit. The rest of the handoff is committed,
+# because docs/face-studio.md cites it.
+facestudio_handoff/faceswap/face_templates/
