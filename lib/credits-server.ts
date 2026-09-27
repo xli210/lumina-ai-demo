@@ -15,6 +15,11 @@ import {
   type CreditLedgerEntry,
   type CreditMutationResult,
 } from "@/lib/credits";
+import type {
+  CreditDailyRow,
+  CreditSummary,
+  CreditTopUser,
+} from "@/lib/credit-analytics";
 
 /**
  * Typed surface over the credit RPCs in scripts/010_create_credit_functions.sql.
@@ -31,6 +36,12 @@ import {
 
 /** How many abandoned holds one sweeper run will free. */
 const SWEEP_BATCH_LIMIT = 500;
+
+/** Default reporting window for the admin dashboard. */
+const ANALYTICS_WINDOW_DAYS = 30;
+
+/** How many accounts the admin dashboard ranks. */
+const ANALYTICS_TOP_USERS = 25;
 
 /** Statement page size when a caller does not ask for one. */
 const LEDGER_PAGE_SIZE = 25;
@@ -524,6 +535,57 @@ export async function releaseExpiredHolds(
     throw new Error(`credit_release_expired_holds failed: ${error.message}`);
   }
   return typeof data === "number" ? data : 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Admin analytics                                                     */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Headline credit metrics for the admin dashboard.
+ *
+ * Goes through the admin client like everything else here, but the RPC
+ * re-checks `is_admin()` on its own, so the caller must still have
+ * established that the human asking is an admin. Migration 012 grants these
+ * to `authenticated` precisely so a forgotten route gate fails closed
+ * instead of leaking.
+ */
+export async function getCreditSummary(
+  windowDays = ANALYTICS_WINDOW_DAYS
+): Promise<CreditSummary> {
+  const supabase = createAdminClient();
+  const { data, error } = await supabase.rpc("credit_admin_summary", {
+    p_days: windowDays,
+  });
+
+  if (error) throw new Error(`credit_admin_summary failed: ${error.message}`);
+  return data as CreditSummary;
+}
+
+/** Per-UTC-day series with zero-filled gaps. */
+export async function getCreditDaily(
+  windowDays = ANALYTICS_WINDOW_DAYS
+): Promise<CreditDailyRow[]> {
+  const supabase = createAdminClient();
+  const { data, error } = await supabase.rpc("credit_admin_daily", {
+    p_days: windowDays,
+  });
+
+  if (error) throw new Error(`credit_admin_daily failed: ${error.message}`);
+  return (data ?? []) as CreditDailyRow[];
+}
+
+/** Accounts ranked by lifetime spend. */
+export async function getCreditTopUsers(
+  limit = ANALYTICS_TOP_USERS
+): Promise<CreditTopUser[]> {
+  const supabase = createAdminClient();
+  const { data, error } = await supabase.rpc("credit_admin_top_users", {
+    p_limit: limit,
+  });
+
+  if (error) throw new Error(`credit_admin_top_users failed: ${error.message}`);
+  return (data ?? []) as CreditTopUser[];
 }
 
 /* ------------------------------------------------------------------ */

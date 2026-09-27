@@ -5,7 +5,7 @@ Prepaid credits for the hosted AI services. Desktop licenses are unaffected.
 Phases 1 and 2 are implemented: the ledger and reservation model, Stripe
 webhook de-duplication, and a working top-up flow at `/credits`. Nothing
 *spends* credits yet — no service is metered against them. See
-[Roadmap](#9-roadmap).
+[Roadmap](#10-roadmap).
 
 ---
 
@@ -394,7 +394,41 @@ query parameter, so there is no id to substitute.
 
 ---
 
-## 9. Roadmap
+## 9. Admin analytics
+
+`/admin/credits` reports revenue, consumption, what the free tier costs, and
+outstanding liability. Migration `scripts/012_create_credit_analytics.sql`
+adds three read-only RPCs behind it.
+
+Aggregation happens in Postgres, not in the page. Summing the ledger in the
+app stops working the first time the ledger is large, and it would put the
+definition of "revenue" in two places with nothing keeping them in step.
+
+Each RPC re-checks `is_admin()` rather than trusting its caller, and the
+functions are granted to `authenticated` on purpose: a route that forgets its
+own gate then fails closed with `42501` instead of leaking. `/admin/credits`
+is gated three times over — middleware on the prefix, a role check on the
+page, and the check inside each function.
+
+Two definitions worth knowing before reading the numbers:
+
+- **Revenue counts `purchase` only.** Bonus credits were given away; counting
+  them would overstate takings by exactly the bonus rate.
+- **Spends are reported as positive magnitudes.** The ledger stores them
+  negative; `spent: −4,210` on a dashboard reads like a bug.
+
+The figure to actually watch is **free-funded render share**. High is fine
+early — it means people are trying the thing. High *and flat over months*
+means the free tier has become the product rather than a funnel.
+
+Migration 012 also adds `idx_credit_ledger_kind_created`. Every aggregate
+filters by `kind`, and the only pre-existing index is on
+`(user_id, created_at)`, so without it each dashboard load is a sequential
+scan of the whole ledger.
+
+---
+
+## 10. Roadmap
 
 Phases 1 and 2 are done. Each subsequent phase ends in a shippable state.
 
@@ -427,7 +461,7 @@ same clip would cost different amounts on two submissions.
 
 ---
 
-## 10. Open decisions
+## 11. Open decisions
 
 - **The credits-per-frame rate.** Not yet set; it depends on the real GPU
   cost basis and target margin. The interactive model used to derive it is
