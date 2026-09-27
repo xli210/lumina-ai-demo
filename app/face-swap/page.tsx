@@ -23,6 +23,13 @@ import { DEMOS, demoRedirectPath, type DemoId } from "@/lib/demos";
 import { hreflangAlternates } from "@/lib/i18n/locales";
 import { DemoQuotaWidget } from "./quota-widget";
 import { DEMO_DAILY_LIMIT } from "@/lib/demo-quota";
+import {
+  DIFFERENTIATORS,
+  FACE_SWAP_USD,
+  FREE_RENDERS_PER_DAY,
+  usd,
+} from "@/lib/face-studio-facts";
+import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
 
 const PAGE_URL = "https://nanopocket.ai/face-swap";
 const LAST_VERIFIED = "2026-06-03";
@@ -75,12 +82,13 @@ interface OnlineDemoCopy {
 const ONLINE_DEMO_COPY: OnlineDemoCopy[] = [
   {
     id: "image",
-    blurb:
-      "Photo-to-photo face swap with a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). Highest fidelity for stills.",
+    blurb: `Face Studio: photo face swap on a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). Up to ${FACESTUDIO_MAX_FACES} faces in one pass, whole-head mode, and per-face control over what survives the swap.`,
     bullets: [
-      "Upload a target photo and a reference face — get a swap in a few seconds",
-      "Diffusion identity stack — handles hard angles, low light, occlusion better than GAN swappers",
-      "Free, browser-based, no install",
+      `Up to ${FACESTUDIO_MAX_FACES} faces per photo, each with its own reference — most tools do one`,
+      "Keep the original hair, hands and glasses that cross a face, per face — everywhere else they get painted over",
+      "Whole-head swap for when a face-only result reads as a mask",
+      `Full source resolution, up to 4080×4080, no watermark on any tier`,
+      `${FREE_RENDERS_PER_DAY} free renders every day, then ${usd(FACE_SWAP_USD)} each — no subscription, credits never expire`,
     ],
     Icon: ImageIcon,
     accent: "violet",
@@ -188,11 +196,25 @@ const COMPARE_ROWS: CompareRow[] = [
 const FAQS = [
   {
     q: "Is the online face swap really free?",
-    a: "Yes. The three online demos on this page (Image FaceSwap Pro 2.0, Video FaceSwap Pro, NanoFace Vivid) are free for any signed-in NanoPocket account. There is no per-image fee, no per-minute fee, no credit pack, and no subscription gating the demo tier. The desktop FaceSwap Pro 2.0 release is a separate, optional, one-time-purchase product.",
+    a: `Free to start, and free every day. Video FaceSwap Pro and NanoFace Vivid are free for any signed-in NanoPocket account with a daily open quota. Face Studio, the photo face swap, gives every signed-in account ${FREE_RENDERS_PER_DAY} free renders per day at full resolution with no watermark — identical output to a paid render — and face detection is always free. Past that it is ${usd(
+      FACE_SWAP_USD
+    )} per face swap, prepaid in credits that never expire, with no subscription and no auto-renewal. A render that fails is refunded in full automatically. The desktop FaceSwap Pro 2.0 release is a separate, optional, one-time-purchase product; buying credits does not affect a desktop license and owning one does not consume credits.`,
   },
   {
     q: "Do I need an account?",
-    a: "Yes — a free NanoPocket account (email + password). The login screen also asks for the demo password listed under each card. The account is required so we can rate-limit fairly: every signed-in user gets 10 image opens and 10 video opens per UTC day, shared across the three demos (Image FaceSwap Pro 2.0 + NanoFace Vivid share the image quota; Video FaceSwap Pro has its own). It's not there to sell anything. Sign up at /auth/sign-up. If your workflow needs more than 10 opens/day, the desktop app (Nano FaceStudio Pro) runs the same identity stack locally with no daily cap.",
+    a: `Yes — a free NanoPocket account (email + password). It is what the free daily allowance is attached to: every signed-in account gets ${FREE_RENDERS_PER_DAY} Face Studio renders per day, plus 10 video opens per UTC day for Video FaceSwap Pro and NanoFace Vivid. It is not there to sell anything — no card is required to use the free allowance. Sign up at /auth/sign-up. If your workflow needs more than the daily allowance, buy credits at /credits or run the desktop app locally with no cap.`,
+  },
+  {
+    q: `Can it swap more than one face in a photo?`,
+    a: `Yes — Face Studio detects up to ${FACESTUDIO_MAX_FACES} faces in one upload and each can be given its own reference photo and its own preserve settings in a single render. Most browser face swaps handle one face per run, and Akool bills per selected face, so a group photo multiplies in price there. Detection is free regardless of how many faces it finds.`,
+  },
+  {
+    q: "Why do other face swaps paint over hair and hands, and what is occlusion preserve?",
+    a: "Most browser face swaps composite the new identity over the whole face region, so anything crossing the face — a hand on a cheek, a strand of hair over an eye, the frame of a pair of glasses — is painted over. It is the most common visible failure in online face swaps. Face Studio returns a segmentation map for each detected face and lets you choose, per face, which classes to keep from the original. Those regions keep their original pixels. This control is effectively unique among browser face swaps.",
+  },
+  {
+    q: "What resolution do the results come out at, and is there a watermark?",
+    a: "Face Studio returns results at the source resolution, up to 4080×4080, as PNG of around 20 MB, with no watermark on any tier — including the free daily allowance. Reface's free tier is 720p watermarked and Akool's is 720p watermarked; most free and mid tiers elsewhere cap at 720p or 1080p. Uploads are accepted up to 40 MB because the photo goes straight to object storage rather than through a web server.",
   },
   {
     q: "Do I need a GPU on my machine?",
@@ -216,7 +238,10 @@ const FAQS = [
   },
 ];
 
-const accentClasses: Record<OnlineDemo["accent"], { ring: string; chip: string; cta: string }> = {
+const accentClasses: Record<
+  OnlineDemoCopy["accent"],
+  { ring: string; chip: string; cta: string }
+> = {
   violet: {
     ring: "ring-violet-500/30",
     chip: "border-violet-500/30 bg-violet-500/10 text-violet-500",
@@ -425,7 +450,6 @@ export default function FaceSwapPage() {
                     <div className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border ${a.chip}`}>
                       <Icon className="h-5 w-5" />
                     </div>
-                    {/* @ts-expect-error Async Server Component */}
                     <DemoStatusBadge demoId={d.id} size="sm" />
                   </div>
                   <h3 className="mb-2 text-lg font-bold text-foreground">{d.name}</h3>

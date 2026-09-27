@@ -37,6 +37,11 @@ const BASE = (() => {
 const URLS_TO_CHECK = [
   { path: "/", expectJsonLd: ["Organization", "WebSite", "FAQPage"], expectHreflangs: ["en", "zh-CN", "x-default"] },
   { path: "/face-swap", expectJsonLd: ["WebPage", "FAQPage", "HowTo", "BreadcrumbList"], expectHreflangs: ["en", "zh-CN", "ja", "ko", "x-default"] },
+  // Face Studio's landing page. This entry is load-bearing: the page sits at
+  // the root of a path prefix whose children are auth-gated, so a middleware
+  // change that accidentally protects /face-studio itself would make the
+  // flagship product invisible to every crawler. A 200 here is the guard.
+  { path: "/face-studio", expectJsonLd: ["SoftwareApplication", "FAQPage", "HowTo", "BreadcrumbList"] },
   { path: "/about", expectJsonLd: ["AboutPage"] },
   { path: "/trust", expectJsonLd: [] },
   { path: "/verify", expectJsonLd: ["TechArticle"] },

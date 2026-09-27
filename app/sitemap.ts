@@ -40,6 +40,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: { languages: homeLanguages },
     },
     { url: `${BASE}/download`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    // Face Studio. High priority because it is the only indexable description
+    // of the hosted product, and because /api/demos/open?id=image — every
+    // "Try online" button on the site — now lands on it.
+    {
+      url: `${BASE}/face-studio`,
+      lastModified: new Date("2026-09-27"),
+      changeFrequency: "weekly",
+      priority: 0.95,
+    },
     { url: `${BASE}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     ...blogEntries,
     ...releaseNoteEntries,

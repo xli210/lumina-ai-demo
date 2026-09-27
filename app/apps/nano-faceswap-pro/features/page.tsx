@@ -90,7 +90,7 @@ const featuresFaqs = [
   },
   {
     q: "When does the desktop app come out?",
-    a: "The Nano FaceSwap Pro 2.0 desktop app launches shortly after the feature tour goes public. The Image FaceSwap Pro and Video FaceSwap Pro online demos are live today and are free for every signed-in NanoPocket account; the desktop release brings the same diffusion pipeline 100% local.",
+    a: "The Nano FaceSwap Pro 2.0 desktop app launches shortly after the feature tour goes public. Face Studio at /face-studio is live today: it gives every signed-in account three free full-resolution renders a day with no watermark, handles up to six faces in one photo, and is the only browser face swap with per-face control over which original regions survive. Video FaceSwap Pro is free for every signed-in account. The desktop release brings the same diffusion pipeline 100% local with no metering.",
   },
 ];
 

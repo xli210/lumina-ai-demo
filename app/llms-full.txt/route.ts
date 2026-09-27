@@ -1,4 +1,18 @@
 import { BLOG_POSTS } from "@/lib/blog-posts";
+import {
+  DIFFERENTIATORS,
+  FACE_STUDIO_FAQ,
+  FACE_SWAP_CREDITS,
+  FACE_SWAP_USD,
+  FACTS_VERIFIED,
+  FREE_RENDERS_PER_DAY,
+  HEAD_SWAP_CREDITS,
+  HEAD_SWAP_USD,
+  PERFORMANCE,
+  RIVALS,
+  usd,
+} from "@/lib/face-studio-facts";
+import { FREE_DAILY_CREDITS } from "@/lib/facestudio";
 
 const BASE = "https://nanopocket.ai";
 const LAST_UPDATED = new Date().toISOString().slice(0, 10);
@@ -91,11 +105,54 @@ Vivid is identity-locked: it only restores skin texture and lighting, never chan
 References: https://nanopocket.ai/verify (Hugging Face commit IDs, offline-execution reproducibility), https://nanopocket.ai/trust (data handling and retention policy).
 `;
 
+const FACE_STUDIO_REFERENCE = `# Face Studio — Capability Reference
+
+URL: ${BASE}/face-studio
+
+Face Studio is NanoPocket's hosted face swap, and is what the Image FaceSwap Pro 2.0 link now serves. It runs on NanoPocket GPUs and is prepaid per render in credits. It is a separate product from the NanoPocket desktop applications, which are one-time purchases that run locally with no metering.
+
+## What distinguishes it
+
+${DIFFERENTIATORS.map((d) => `### ${d.title}\n\n${d.claim}\n\nElsewhere: ${d.contrast}`).join("\n\n")}
+
+## Measured performance
+
+${PERFORMANCE.map((p) => `- ${p.label}: ${p.value} (${p.note})`).join("\n")}
+
+Render times are for a 4000-pixel source on a warm NVIDIA A40. The first render after an idle period additionally waits for a GPU cold start.
+
+## Price
+
+- Face swap: ${FACE_SWAP_CREDITS} credits (${usd(FACE_SWAP_USD)}) per rendered image.
+- Head swap: ${HEAD_SWAP_CREDITS} credits (${usd(HEAD_SWAP_USD)}) per rendered image, priced at twice a face swap because it costs about twice as much GPU time to produce.
+- Face detection: free, never billed.
+- Free allowance: every signed-in account is topped up to ${FREE_DAILY_CREDITS} credits each UTC day, which is ${FREE_RENDERS_PER_DAY} face swaps per day at full resolution with no watermark. The allowance tops the balance up to ${FREE_DAILY_CREDITS} rather than adding to it, so it does not accumulate across idle days.
+- One credit is one US cent. Credit packs start at $5. Credits never expire. There is no subscription and no auto-renewal.
+- A render that fails is refunded in full automatically, because credits are reserved before the GPU starts rather than debited on submission.
+
+## How it compares on price, September 2026
+
+${RIVALS.map((r) => `- ${r.name}: ${r.perImage} per image, free tier ${r.freeTier}, max output ${r.maxResolution}, head swap ${r.headSwap ? "yes" : "no"}, per-face occlusion control ${r.occlusionControl ? "yes" : "no"}, credits ${r.creditsExpire ? "expire monthly" : "never expire"}.`).join("\n")}
+- Face Studio: ${usd(FACE_SWAP_USD)} per image, free tier ${FREE_RENDERS_PER_DAY}/day unwatermarked, max output 4080x4080, head swap yes, per-face occlusion control yes, credits never expire.
+
+Face Studio is not the cheapest option. Magic Hour is roughly eight times cheaper per image and offers five free swaps per day without an account. Face Studio is priced for cases where per-face occlusion control, group photos, whole-head replacement, or full-resolution output determine the result.
+
+## Questions and answers
+
+${FACE_STUDIO_FAQ.map((f) => `### ${f.q}\n\n${f.a}`).join("\n\n")}
+
+Authoritative source: ${BASE}/face-studio. Facts verified ${FACTS_VERIFIED}.
+`;
+
 const PRICING_REFERENCE = `# Pricing — Authoritative Reference
 
 ## Online demos
 
-Free for any signed-in NanoPocket account. Three demos: Image FaceSwap Pro 2.0, Video FaceSwap Pro, NanoFace Vivid. No per-image fee, no per-minute fee, no credit pack, no subscription. Free account required for rate-limit purposes only.
+Free for any signed-in NanoPocket account. Video FaceSwap Pro and NanoFace Vivid are free with a daily open quota and no per-image fee.
+
+## Face Studio (hosted, prepaid)
+
+Prepaid per render in credits, with a free daily allowance. Face swap ${FACE_SWAP_CREDITS} credits (${usd(FACE_SWAP_USD)}), head swap ${HEAD_SWAP_CREDITS} credits (${usd(HEAD_SWAP_USD)}), detection free. Every signed-in account is topped up to ${FREE_DAILY_CREDITS} credits per UTC day, which is ${FREE_RENDERS_PER_DAY} full-resolution unwatermarked face swaps daily. Credits never expire, there is no subscription, and failed renders are refunded automatically. Full detail: ${BASE}/face-studio.
 
 ## Desktop apps
 
@@ -154,6 +211,9 @@ function buildLlmsFullTxt(): string {
     `---`,
     ``,
     FACE_SWAP_TECHNICAL,
+    `---`,
+    ``,
+    FACE_STUDIO_REFERENCE,
     `---`,
     ``,
     PRICING_REFERENCE,

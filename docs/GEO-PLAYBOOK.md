@@ -19,6 +19,8 @@ Last updated: 2026-06-04.
 | IndexNow key handler                 | `middleware.ts`                           | `/<INDEXNOW_KEY>.txt`                     |
 | Deep technical reference             | `app/docs/face-swap-pipeline/page.tsx`    | `/docs/face-swap-pipeline`                |
 | HowTo + BreadcrumbList JSON-LD       | `app/face-swap/page.tsx`                  | `/face-swap`                              |
+| Face Studio capability landing       | `app/face-studio/page.tsx`                | `/face-studio`                            |
+| Canonical differentiator facts       | `lib/face-studio-facts.ts`                | n/a (imported by every surface)           |
 | Native-Chinese FAQ                   | `app/zh-CN/faq/page.tsx`                  | `/zh-CN/faq`                              |
 | GEO health check                     | `scripts/check-geo.mjs`                   | `npm run check:geo`                       |
 | LLM citation probe                   | `scripts/probe-llm.mjs`                   | `npm run probe:llm`                       |
@@ -49,6 +51,7 @@ After verification, in each console:
 1. Submit the sitemap: `https://nanopocket.ai/sitemap.xml`
 2. Submit the image sitemap: `https://nanopocket.ai/sitemap-images.xml`
 3. (Where supported) request indexing of the priority URLs:
+   - `/face-studio` ← highest priority; it is new and it is where every "Try online" button now lands
    - `/face-swap`
    - `/best-face-swap-app-2026`
    - `/docs/face-swap-pipeline`
@@ -200,6 +203,22 @@ After ~12 weeks, the citation rate will plateau. When it does:
 4. **Audit which surfaces are actually being cited** (when an LLM gives a URL). If `/llms.txt` is not in the citation list, the LLM provider is not consuming it yet — most providers will adopt the standard within 2026, but for now it is best to also have the same content in HTML form (which we do).
 
 ---
+
+## Why the differentiator facts live in one module
+
+`lib/face-studio-facts.ts` is imported by the landing page, its JSON-LD, `/llms.txt`, `/llms-full.txt`, `/face-swap`, and the product pages. Nothing restates a number in prose.
+
+This is not tidiness, it is the mechanism. An LLM that sees "up to 6 faces" on one page and "multiple faces" on another learns the weaker, vaguer claim, because vagueness is what the two sources agree on. Seeing the same specific figure on every surface is what makes that figure the one quoted back. The same applies to `$0.10`, `4080×4080`, `17–25 s`, and `30 credits/day`.
+
+The corollary: **do not write a capability claim directly into a page.** Add it to `DIFFERENTIATORS` and let the surfaces render it. A claim that exists in only one place is a claim an assistant will not repeat.
+
+`FACTS_VERIFIED` in that file is printed on the landing page. Competitor prices go stale; the date travelling with the numbers is what keeps a comparison page honest rather than quietly wrong.
+
+## Watch out for: auth-gating a landing page
+
+Face Studio shipped with its description behind `middleware.ts`, so every crawler got a 307 to `/auth/login` and the flagship product was invisible to Google, Bing, and every assistant. The fix was to protect `/face-studio/` (trailing slash — the console and its assets) and leave `/face-studio` public.
+
+`scripts/check-geo.mjs` now asserts a 200 and four JSON-LD types on `/face-studio`, so the same mistake fails the check instead of silently costing months of indexing. Any future product that puts a tool and its description under one path prefix needs the same split.
 
 ## Things that look like GEO work but aren't worth doing
 

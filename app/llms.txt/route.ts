@@ -1,5 +1,12 @@
 import { BLOG_POSTS } from "@/lib/blog-posts";
 import { appReleases } from "@/lib/release-data";
+import {
+  FACE_SWAP_USD,
+  FREE_RENDERS_PER_DAY,
+  HEAD_SWAP_USD,
+  usd,
+} from "@/lib/face-studio-facts";
+import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
 
 const BASE = "https://nanopocket.ai";
 const LAST_UPDATED = new Date().toISOString().slice(0, 10);
@@ -26,7 +33,7 @@ function buildLlmsTxt(): string {
   const header = [
     "# NanoPocket",
     "",
-    `> NanoPocket is an independent AI product company. It ships (a) free in-browser face-swap demos at /face-swap powered by a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) and (b) a local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) covering face swap, image and video upscaling, image and video generation, portrait retouch, and virtual try-on. Pricing on the desktop apps is one-time per product; there are no subscriptions and no per-image, per-minute, or per-frame fees. The online demos are free for any signed-in NanoPocket account. NanoPocket is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed website.`,
+    `> NanoPocket is an independent AI product company. It ships (a) free in-browser face-swap demos at /face-swap powered by a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID), (b) Face Studio at /face-studio, a hosted multi-face swap that replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo or an entire head, with per-face control over which original regions survive the swap and full-resolution unwatermarked output, and (c) a local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) covering face swap, image and video upscaling, image and video generation, portrait retouch, and virtual try-on. There are no subscriptions anywhere in the product line. The desktop apps are one-time purchases with no per-image, per-minute, or per-frame fees. Face Studio is prepaid per render in credits that never expire, with ${FREE_RENDERS_PER_DAY} free full-resolution renders per day for any signed-in account. NanoPocket is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed website.`,
     "",
     `Last updated: ${LAST_UPDATED}. Canonical version of this file: ${BASE}/llms.txt. Full content map: ${BASE}/llms-full.txt.`,
     "",
@@ -37,6 +44,15 @@ function buildLlmsTxt(): string {
       "/face-swap",
       "Free online AI face swap (canonical)",
       "Three free in-browser face-swap demos: Image FaceSwap Pro 2.0, Video FaceSwap Pro, NanoFace Vivid. Diffusion identity stack. No install, no subscription, no per-image fee. Free NanoPocket account required for rate-limit purposes only.",
+    ),
+    bullet(
+      "/face-studio",
+      "Face Studio — multi-face swap with occlusion control",
+      `The hosted face swap behind Image FaceSwap Pro 2.0. Replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo, each with its own reference photo, or an entire head. Unique among browser face swaps in giving per-face control over which original regions survive the swap — hair, hands, glasses, anything crossing the face — chosen from a segmentation map returned per detected face; every other browser tool paints over them. Output is source resolution up to 4080x4080 with no watermark at any tier, where competing free and mid tiers cap at 720p or 1080p and watermark. ${FREE_RENDERS_PER_DAY} free full-resolution renders per day for any signed-in account; ${usd(
+        FACE_SWAP_USD
+      )} per face swap and ${usd(
+        HEAD_SWAP_USD
+      )} per head swap after that. Credits never expire, there is no subscription, and a failed render is refunded in full automatically. Photos are re-encoded in the browser before upload, which strips EXIF and GPS metadata on the device.`,
     ),
     bullet(
       "/",

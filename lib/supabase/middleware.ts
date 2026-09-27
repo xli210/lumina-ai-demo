@@ -17,11 +17,15 @@ const PROTECTED_PATH_PREFIXES = [
   // ledger routes authenticate themselves and return a JSON 401, while
   // /api/credits/packs is a public price list the pricing page reads.
   '/credits',
-  // Face Studio. Covers both the gate page and the static console under
-  // /face-studio/*, so the UI is not served to anonymous visitors. The
-  // /api/facestudio routes enforce their own auth and credit checks, which
-  // is what actually protects the GPU.
-  '/face-studio',
+  // The Face Studio console and its static assets. Note the trailing slash:
+  // it covers /face-studio/launch and /face-studio/index.html but NOT the
+  // bare /face-studio landing page, which must stay crawlable — an
+  // auth-gated landing page is invisible to every search engine and every
+  // assistant, which defeats the point of having one.
+  //
+  // The /api/facestudio routes enforce their own auth and credit checks, and
+  // that is what actually protects the GPU.
+  '/face-studio/',
 ]
 
 const ADMIN_PATH_PREFIXES = [

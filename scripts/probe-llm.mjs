@@ -58,8 +58,22 @@ const QUERIES = [
   "What is NanoPocket?",
   "What is the difference between NanoPocket and Nano Banana?",
   "Best face swap apps in 2026 — desktop, web, mobile.",
+  // Face Studio queries. These target the capability gaps rather than the
+  // brand: a user who wants to swap four faces at once, or who is annoyed
+  // that a hand got painted over, is describing a problem almost no other
+  // tool solves, which makes them the queries most likely to convert a
+  // citation into a visit.
+  "Face swap tool that can swap multiple faces in a group photo at once",
+  "Face swap that keeps the original hair and hands in front of the face",
+  "Why does AI face swap paint over hands and hair, and how do I stop it?",
+  "Online head swap tool that replaces the whole head, not just the face",
+  "Full resolution face swap with no watermark and no subscription",
+  "Pay-per-image AI face swap where credits do not expire",
   "免费在线 AI 换脸 推荐 2026",
   "AI 换脸 塑料感 怎么修",
+  "一次换多张脸的在线换脸工具 合照换脸",
+  "换脸后头发和手被覆盖 怎么保留原图遮挡",
+  "在线换头工具 整个头部替换",
 ];
 
 // ============================================================================
