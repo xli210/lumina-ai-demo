@@ -1,6 +1,7 @@
 import "server-only";
 
 import { createAdminClient } from "@/lib/supabase/admin";
+import { createClient as createSessionClient } from "@/lib/supabase/server";
 import {
   DEFAULT_HOLD_TTL_SECONDS,
   SIGNUP_GRANT_CREDITS,
@@ -24,10 +25,14 @@ import type {
 /**
  * Typed surface over the credit RPCs in scripts/010_create_credit_functions.sql.
  *
- * Every function here goes through the service-role client, because the RPCs
- * are granted to `service_role` only — a signed-in user calling
+ * The mutation functions go through the service-role client, because those
+ * RPCs are granted to `service_role` only — a signed-in user calling
  * `credit_grant` directly would be minting money, so the grant was revoked
  * from `authenticated` in that migration.
+ *
+ * The analytics functions are the deliberate exception and use the caller's
+ * own session, because `is_admin()` resolves the user through `auth.uid()`,
+ * which is NULL for the service role. See the note above them.
  *
  * Callers are responsible for having authenticated the user first and
  * passing a trusted user id, exactly like the existing
@@ -542,18 +547,24 @@ export async function releaseExpiredHolds(
 /* ------------------------------------------------------------------ */
 
 /**
- * Headline credit metrics for the admin dashboard.
+ * The analytics RPCs are the exception to this file's service-role rule:
+ * they must be called with the *caller's own session*.
  *
- * Goes through the admin client like everything else here, but the RPC
- * re-checks `is_admin()` on its own, so the caller must still have
- * established that the human asking is an admin. Migration 012 grants these
- * to `authenticated` precisely so a forgotten route gate fails closed
- * instead of leaking.
+ * `public.is_admin()` resolves the current user with `auth.uid()`, and
+ * `auth.uid()` is NULL for the service role — it is not a user. So these
+ * functions, which re-check `is_admin()` by design, raise
+ * "not authorized" (42501) when reached through `createAdminClient()`,
+ * however genuinely admin the human at the keyboard is.
+ *
+ * Migration 012 grants EXECUTE to `authenticated` precisely so this path
+ * works. Do not "fix" a 42501 here by switching to the admin client; that
+ * would remove the check rather than satisfy it.
  */
+/** Headline credit metrics for the admin dashboard. */
 export async function getCreditSummary(
   windowDays = ANALYTICS_WINDOW_DAYS
 ): Promise<CreditSummary> {
-  const supabase = createAdminClient();
+  const supabase = await createSessionClient();
   const { data, error } = await supabase.rpc("credit_admin_summary", {
     p_days: windowDays,
   });
@@ -566,7 +577,7 @@ export async function getCreditSummary(
 export async function getCreditDaily(
   windowDays = ANALYTICS_WINDOW_DAYS
 ): Promise<CreditDailyRow[]> {
-  const supabase = createAdminClient();
+  const supabase = await createSessionClient();
   const { data, error } = await supabase.rpc("credit_admin_daily", {
     p_days: windowDays,
   });
@@ -579,7 +590,7 @@ export async function getCreditDaily(
 export async function getCreditTopUsers(
   limit = ANALYTICS_TOP_USERS
 ): Promise<CreditTopUser[]> {
-  const supabase = createAdminClient();
+  const supabase = await createSessionClient();
   const { data, error } = await supabase.rpc("credit_admin_top_users", {
     p_limit: limit,
   });
