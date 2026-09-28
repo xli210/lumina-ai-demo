@@ -14,6 +14,7 @@ import {
   Sparkles,
   Video,
   Wand2,
+  Wrench,
 } from "lucide-react";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
@@ -125,9 +126,11 @@ const ONLINE_DEMOS = ONLINE_DEMO_COPY.map((c) => {
     ...c,
     name: demo.name,
     // Same-origin wrapper — 302-redirects to the tunnel after auth + quota
-    // gate. See /api/demos/open and lib/demo-quota.ts.
+    // gate, or to /demos/unavailable when the demo is offline. See
+    // /api/demos/open and lib/demo-quota.ts.
     href: demoRedirectPath(c.id),
     password: demo.password ?? undefined,
+    maintenance: demo.maintenance,
   };
 });
 
@@ -464,7 +467,7 @@ export default function FaceSwapPage() {
                       </li>
                     ))}
                   </ul>
-                  {d.password ? (
+                  {d.password && !d.maintenance ? (
                     <p className="mb-4 text-xs text-muted-foreground">
                       Demo password:{" "}
                       <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-foreground">
@@ -473,11 +476,38 @@ export default function FaceSwapPage() {
                     </p>
                   ) : null}
                   <div className="mt-auto">
-                    <Button asChild className={`w-full rounded-full text-white ${a.cta}`}>
-                      <a href={d.href} target="_blank" rel="noopener noreferrer">
-                        Open in browser <ExternalLink className="ml-2 h-4 w-4" />
-                      </a>
-                    </Button>
+                    {d.maintenance ? (
+                      // Offline on purpose. The button stays, because a card
+                      // with no action reads as broken, but it says what it
+                      // is and leads to the page that offers alternatives
+                      // rather than to a dead origin.
+                      <>
+                        <p className="mb-3 flex items-start gap-2 text-xs text-amber-500">
+                          <Wrench className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                          <span>
+                            Temporarily offline while it moves onto our own
+                            GPUs. {d.name === "NanoFace Vivid" ? "" : ""}
+                            Nothing to do — it will be back.
+                          </span>
+                        </p>
+                        <Button
+                          asChild
+                          variant="outline"
+                          className="w-full rounded-full"
+                        >
+                          <Link href={`/demos/unavailable?id=${d.id}`}>
+                            What to use instead{" "}
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                          </Link>
+                        </Button>
+                      </>
+                    ) : (
+                      <Button asChild className={`w-full rounded-full text-white ${a.cta}`}>
+                        <a href={d.href} target="_blank" rel="noopener noreferrer">
+                          Open in browser <ExternalLink className="ml-2 h-4 w-4" />
+                        </a>
+                      </Button>
+                    )}
                   </div>
                 </div>
               );

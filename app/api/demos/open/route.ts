@@ -6,6 +6,7 @@ import {
   demoUrl,
   isInternalDemo,
   isMeteredDemo,
+  isUnderMaintenance,
   type DemoId,
 } from "@/lib/demos";
 import {
@@ -65,6 +66,18 @@ export async function GET(req: NextRequest) {
     const next = `/api/demos/open?id=${demoId}`;
     return NextResponse.redirect(
       `${origin}/auth/login?next=${encodeURIComponent(next)}`,
+      { status: 302 }
+    );
+  }
+
+  // Knowingly offline: send the visitor to a page that says so and points
+  // at what does work, rather than to an origin that will fail as a browser
+  // connection error with no explanation and no way back.
+  //
+  // Checked before the quota so a maintenance visit never burns an open.
+  if (isUnderMaintenance(demo)) {
+    return NextResponse.redirect(
+      `${origin}/demos/unavailable?id=${demoId}`,
       { status: 302 }
     );
   }

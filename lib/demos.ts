@@ -38,6 +38,25 @@ export interface DemoEntry {
    * thing.
    */
   metered?: boolean;
+  /**
+   * Set when the demo is knowingly offline. `/api/demos/open` then sends the
+   * visitor to /demos/unavailable instead of a dead origin, and the cards
+   * stop advertising it as something to try.
+   *
+   * Deliberately a manual switch rather than something derived from the
+   * uptime checker. A monitor false positive would otherwise pull a working
+   * demo off the site on its own, and the failure it guards against — a
+   * retired tunnel — is something we always know about before users do.
+   * Setting it is a one-line edit and a deploy.
+   */
+  maintenance?: {
+    /** ISO date it went down, shown to the user so the page is not vague. */
+    since: string;
+    /** One honest sentence: what happened and what is being done. */
+    note: string;
+    /** Rough return, or omitted when there is genuinely no estimate. */
+    eta?: string;
+  };
 }
 
 export const DEMOS: DemoEntry[] = [
@@ -62,6 +81,11 @@ export const DEMOS: DemoEntry[] = [
     pingPath: "/",
     password: "nanopocket-video",
     productHref: "/apps/nano-faceswap-pro/video",
+    maintenance: {
+      since: "2026-09-28",
+      note: "The tunnel this demo ran through has been retired. It is being moved onto our own GPU infrastructure, the same one Face Studio now runs on.",
+      eta: "No firm date yet",
+    },
   },
   {
     id: "vivid",
@@ -71,6 +95,11 @@ export const DEMOS: DemoEntry[] = [
     pingPath: "/login",
     password: "nanofacevivid",
     productHref: "/apps/nanoface-vivid",
+    maintenance: {
+      since: "2026-09-28",
+      note: "The tunnel this demo ran through has been retired. It is being moved onto our own GPU infrastructure, the same one Face Studio now runs on.",
+      eta: "No firm date yet",
+    },
   },
 ];
 
@@ -86,6 +115,16 @@ export function isInternalDemo(d: DemoEntry): boolean {
 /** Paid per use in credits, so the free daily quota does not apply. */
 export function isMeteredDemo(d: DemoEntry): boolean {
   return d.metered === true;
+}
+
+/** Knowingly offline. Do not send anyone to its origin. */
+export function isUnderMaintenance(d: DemoEntry): boolean {
+  return d.maintenance !== undefined;
+}
+
+/** The demos a visitor can actually use right now. */
+export function liveDemos(): DemoEntry[] {
+  return DEMOS.filter((d) => !isUnderMaintenance(d));
 }
 
 export function demoPingUrl(d: DemoEntry): string {

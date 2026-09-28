@@ -26,16 +26,22 @@ import { createClient } from "@supabase/supabase-js";
 // reports, and whose real dependency is the Face Studio gateway. Pinging our
 // own auth-gated page from here would only ever confirm that the login
 // redirect works. See docs/face-studio.md.
+//
+// A demo with `maintenance` set in lib/demos.ts belongs here with
+// `skip: true`: it is knowingly offline, so paging about it every five
+// minutes trains everyone to ignore the alert that matters.
 const DEMOS = [
   {
     id: "video",
     name: "Video FaceSwap Pro",
+    skip: true, // maintenance — tunnel retired 2026-09-28
     origin: "https://lay-bedroom-jail-planet.trycloudflare.com",
     pingPath: "/",
   },
   {
     id: "vivid",
     name: "NanoFace Vivid",
+    skip: true, // maintenance — tunnel retired 2026-09-28
     origin: "https://sagem-julie-personnel-msg.trycloudflare.com",
     pingPath: "/login",
   },
@@ -206,6 +212,11 @@ async function main() {
   const results = [];
 
   for (const demo of DEMOS) {
+    if (demo.skip) {
+      if (!QUIET) console.log(`[${demo.id}] skipped — under maintenance`);
+      continue;
+    }
+
     const prev = await getPreviousStatus(demo.id);
     const curr = await pingOne(demo);
 
