@@ -85,3 +85,13 @@ site_handoff 2/
 # the 250 MB Vercel Lambda limit. The rest of the handoff is committed,
 # because docs/face-studio.md cites it.
 facestudio_handoff/faceswap/face_templates/
+
+# Handoff bundle. Contains plaintext production credentials and is assembled
+# for download only. THIS REPO IS PUBLIC — committing this directory would
+# publish every key in it. Regenerate with scripts/build-handoff-bundle.sh.
+_handoff/
+_handoff.zip
+_bundles/
+
+# One-off license recovery input: customer emails and account ids
+scripts/.backfill-payments.json
