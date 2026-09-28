@@ -13,7 +13,9 @@
     "check:migrations": "node scripts/probe-migration-state.mjs",
     "probe:llm": "node scripts/probe-llm.mjs",
     "indexnow": "node scripts/indexnow.mjs",
-    "probe:facestudio": "node scripts/probe-facestudio-contract.mjs"
+    "probe:facestudio": "node scripts/probe-facestudio-contract.mjs",
+    "check:downloads": "node scripts/check-downloads-storage.mjs",
+    "upload:downloads": "node scripts/upload-downloads-to-supabase.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

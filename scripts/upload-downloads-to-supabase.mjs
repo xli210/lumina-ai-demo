@@ -108,6 +108,30 @@ async function main() {
     auth: { autoRefreshToken: false, persistSession: false },
   });
 
+  // Make sure the bucket is there before uploading into it. Without this the
+  // script fails once per file with "Bucket not found", which reads like an
+  // upload problem rather than a missing container.
+  //
+  // Private, always: these are licensed installers and the download route
+  // serves them only through short-lived signed URLs. A public bucket would
+  // make every paid installer downloadable by anyone who guessed the name.
+  const { data: buckets, error: listBucketsError } =
+    await admin.storage.listBuckets();
+  if (listBucketsError) {
+    console.error(`Cannot list buckets: ${listBucketsError.message}`);
+    process.exit(1);
+  }
+  if (!buckets.some((b) => b.name === BUCKET)) {
+    console.log(`Bucket "${BUCKET}" is missing. Creating it (private).`);
+    const { error: createError } = await admin.storage.createBucket(BUCKET, {
+      public: false,
+    });
+    if (createError) {
+      console.error(`Could not create bucket: ${createError.message}`);
+      process.exit(1);
+    }
+  }
+
   const dir = join(
     dirname(fileURLToPath(import.meta.url)),
     "..",

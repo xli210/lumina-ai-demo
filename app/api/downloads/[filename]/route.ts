@@ -1,10 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import {
+  presignR2Get,
+  r2DownloadsConfig,
+  r2DownloadsPrefix,
+} from "@/lib/r2-sign";
 
-// Supabase Storage bucket that holds the installers. See
-// scripts/upload-downloads-to-supabase.mjs and docs/downloads-setup.md
-// for one-time bucket creation + upload.
+// Fallback Supabase Storage bucket. Installers now live in Cloudflare R2;
+// this path stays so a misconfigured R2 does not take downloads offline,
+// and because the six installers under 50 MB are still there.
+//
+// Why the move: Supabase Storage caps a single file at 50 MB on the free
+// plan, which silently excluded the three largest installers (89-114 MB)
+// when this project was downgraded from Pro, and its egress allowance is
+// 5 GB a month — 44 downloads of the 114 MB installer. R2 charges nothing
+// for egress, which is the whole reason it exists.
 const BUCKET = "product-downloads";
 
 // Signed-URL lifetime. Long enough for a slow home connection to start the
@@ -73,9 +84,21 @@ export async function GET(
     );
   }
 
-  // Generate a short-lived signed URL from Supabase Storage. The
-  // `download` option forces Content-Disposition: attachment so browsers
-  // save the file instead of previewing it in-tab.
+  // Preferred path: a presigned R2 URL. Signing is pure computation, so it
+  // cannot fail on a network hiccup the way a Storage API call can.
+  const r2 = r2DownloadsConfig();
+  if (r2) {
+    const signedUrl = presignR2Get(
+      r2,
+      `${r2DownloadsPrefix()}/${filename}`,
+      { expiresIn: SIGNED_URL_TTL_SECONDS, downloadAs: filename }
+    );
+    return NextResponse.redirect(signedUrl, { status: 302 });
+  }
+
+  // Fallback: Supabase Storage. The `download` option forces
+  // Content-Disposition: attachment so browsers save the file instead of
+  // previewing it in-tab.
   const { data: signed, error: signedError } = await admin.storage
     .from(BUCKET)
     .createSignedUrl(filename, SIGNED_URL_TTL_SECONDS, { download: filename });
@@ -83,7 +106,8 @@ export async function GET(
   if (signedError || !signed?.signedUrl) {
     console.error(
       `[downloads] Failed to sign URL for ${filename}:`,
-      signedError
+      signedError,
+      "(R2 is not configured; set R2_DOWNLOADS_* to use it instead)"
     );
     return NextResponse.json(
       { error: "Download temporarily unavailable. Please try again." },
@@ -92,6 +116,6 @@ export async function GET(
   }
 
   // 302 redirect keeps the response small (no bytes flow through the
-  // Lambda) and lets Supabase's CDN handle the actual transfer.
+  // Lambda) and lets the storage CDN handle the actual transfer.
   return NextResponse.redirect(signed.signedUrl, { status: 302 });
 }
