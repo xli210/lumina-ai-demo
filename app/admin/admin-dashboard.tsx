@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import {
   Users,
   Key,
+  BadgeDollarSign,
   Search,
   Ban,
   CheckCircle2,
@@ -41,6 +42,10 @@ interface License {
   max_activations: number;
   is_revoked: boolean;
   created_at: string;
+  /** Set only by the Stripe webhook. Its presence is what makes a sale a sale. */
+  stripe_payment_intent_id: string | null;
+  is_trial: boolean | null;
+  trial_ends_at: string | null;
 }
 
 interface Activation {
@@ -55,6 +60,45 @@ interface Activation {
 type Tab = "users" | "licenses";
 
 const PAGE_SIZE = 20;
+
+/**
+ * Badge describing where a license came from.
+ *
+ * Only `stripe_payment_intent_id` proves money changed hands — every other
+ * route leaves it NULL. Note this does not distinguish a free-product claim
+ * from a comped copy of a paid product; that needs the catalogue price, and
+ * /admin/licenses does it there.
+ */
+function OriginBadge({ license }: { license: License }) {
+  if (license.stripe_payment_intent_id) {
+    return (
+      <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-semibold text-emerald-500">
+        Paid
+      </span>
+    );
+  }
+  if (license.is_trial) {
+    const live =
+      license.trial_ends_at !== null &&
+      new Date(license.trial_ends_at).getTime() > Date.now();
+    return (
+      <span
+        className={`rounded-full px-2 py-0.5 text-xs ${
+          live
+            ? "bg-sky-500/10 text-sky-500"
+            : "bg-muted text-muted-foreground"
+        }`}
+      >
+        {live ? "Trial" : "Trial expired"}
+      </span>
+    );
+  }
+  return (
+    <span className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+      Granted
+    </span>
+  );
+}
 
 export function AdminDashboard() {
   const supabase = createClient();
@@ -81,20 +125,26 @@ export function AdminDashboard() {
   const [stats, setStats] = useState({
     totalUsers: 0,
     totalLicenses: 0,
+    paidLicenses: 0,
     totalActivations: 0,
     bannedUsers: 0,
   });
 
   const fetchStats = useCallback(async () => {
-    const [usersRes, licensesRes, activationsRes, bannedRes] = await Promise.all([
+    const [usersRes, licensesRes, paidRes, activationsRes, bannedRes] = await Promise.all([
       supabase.from("profiles").select("*", { count: "exact", head: true }),
       supabase.from("licenses").select("*", { count: "exact", head: true }),
+      supabase
+        .from("licenses")
+        .select("*", { count: "exact", head: true })
+        .not("stripe_payment_intent_id", "is", null),
       supabase.from("activations").select("*", { count: "exact", head: true }),
       supabase.from("profiles").select("*", { count: "exact", head: true }).eq("is_banned", true),
     ]);
     setStats({
       totalUsers: usersRes.count ?? 0,
       totalLicenses: licensesRes.count ?? 0,
+      paidLicenses: paidRes.count ?? 0,
       totalActivations: activationsRes.count ?? 0,
       bannedUsers: bannedRes.count ?? 0,
     });
@@ -239,10 +289,11 @@ export function AdminDashboard() {
   return (
     <div className="flex flex-col gap-6">
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
         {[
           { label: "Total Users", value: stats.totalUsers, icon: Users, color: "text-blue-400" },
           { label: "Licenses", value: stats.totalLicenses, icon: Key, color: "text-green-400" },
+          { label: "Paid Licenses", value: stats.paidLicenses, icon: BadgeDollarSign, color: "text-emerald-400" },
           { label: "Activations", value: stats.totalActivations, icon: Monitor, color: "text-purple-400" },
           { label: "Banned", value: stats.bannedUsers, icon: Ban, color: "text-red-400" },
         ].map((stat) => {
@@ -427,6 +478,9 @@ export function AdminDashboard() {
                                   <span className="ml-2 text-xs text-muted-foreground">
                                     ({lic.product_id})
                                   </span>
+                                  <span className="ml-2">
+                                    <OriginBadge license={lic} />
+                                  </span>
                                   {lic.is_revoked && (
                                     <span className="ml-2 rounded-full bg-red-500/10 px-2 py-0.5 text-xs text-red-400">
                                       Revoked
@@ -508,6 +562,7 @@ export function AdminDashboard() {
                         <span className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
                           {lic.product_id}
                         </span>
+                        <OriginBadge license={lic} />
                         {lic.is_revoked && (
                           <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-xs text-red-400">
                             Revoked
