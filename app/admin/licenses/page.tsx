@@ -658,17 +658,6 @@ function Dashboard({
 
   return (
     <div className="flex flex-col gap-12">
-      <Reconciliation recon={recon} />
-
-      {stripe && stripe.undelivered.length > 0 && (
-        <Section
-          title="Paid but never delivered"
-          note="Money Stripe collected that produced no license. Resending the webhook delivery fixes each one; the handler is idempotent."
-        >
-          <UndeliveredTable rows={stripe.undelivered} />
-        </Section>
-      )}
-
       <Section
         title="Money collected"
         note="Taken from Stripe, which is the ledger of record. The licenses table only knows about a payment if the webhook succeeded, so it is the wrong place to count revenue."
@@ -924,28 +913,48 @@ export default async function AdminLicensesPage() {
           </p>
         </div>
 
-        {failure !== null || summary === null ? (
-          <div className="glass flex items-start gap-3 rounded-2xl p-6">
-            <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
-            <div>
-              <p className="font-medium text-foreground">
-                Could not load analytics
-              </p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {failure ?? "No data returned."}
-              </p>
-              <p className="mt-3 text-sm text-muted-foreground">
-                If this mentions a missing function, run{" "}
-                <code className="rounded bg-muted px-1.5 py-0.5 text-xs">
-                  scripts/013_create_license_analytics.sql
-                </code>{" "}
-                in the Supabase SQL editor.
-              </p>
+        {/*
+          The reconciliation renders above the licenses breakdown and outside
+          its failure branch, because the two have independent sources and
+          very different urgency. A missing migration should not be able to
+          hide the fact that someone paid and got nothing.
+        */}
+        <div className="flex flex-col gap-12">
+          <Reconciliation recon={recon} />
+
+          {recon.configured && recon.undelivered.length > 0 && (
+            <Section
+              title="Paid but never delivered"
+              note="Money Stripe collected that produced no license. Resending the webhook delivery fixes each one; the handler is idempotent."
+            >
+              <UndeliveredTable rows={recon.undelivered} />
+            </Section>
+          )}
+
+          {failure !== null || summary === null ? (
+            <div className="glass flex items-start gap-3 rounded-2xl p-6">
+              <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
+              <div>
+                <p className="font-medium text-foreground">
+                  Could not load the licenses breakdown
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {failure ?? "No data returned."}
+                </p>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  If this mentions a missing function, run{" "}
+                  <code className="rounded bg-muted px-1.5 py-0.5 text-xs">
+                    scripts/013_create_license_analytics.sql
+                  </code>{" "}
+                  in the Supabase SQL editor. The Stripe figures above do not
+                  depend on it.
+                </p>
+              </div>
             </div>
-          </div>
-        ) : (
-          <Dashboard summary={summary} recon={recon} />
-        )}
+          ) : (
+            <Dashboard summary={summary} recon={recon} />
+          )}
+        </div>
       </div>
       <Footer />
     </main>
