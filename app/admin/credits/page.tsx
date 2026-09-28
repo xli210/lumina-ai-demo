@@ -19,8 +19,8 @@ import {
   givenAwayCredits,
   liabilityRatio,
   payingConversion,
+  revenueCredits,
   revenuePerPayingUser,
-  revenueUsd,
   unbilledRenderShare,
   type CreditDailyRow,
   type CreditSummary,
@@ -278,18 +278,22 @@ function Dashboard({
     <div className="flex flex-col gap-12">
       <Section
         title="Money"
-        note="Revenue counts purchased credits only. Bonus credits were given away, so counting them would overstate takings by the bonus rate."
+        note="Revenue is net of refunds and excludes bonus credits, because a bonus was given away and a refund was given back. Neither is money you kept."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Metric
             label="Revenue, all time"
-            value={fmtUsd(all.purchased)}
-            sub={`${fmtCredits(all.purchased)} credits sold`}
+            value={fmtUsd(revenueCredits(all))}
+            sub={
+              all.reversed > 0
+                ? `${fmtUsd(all.purchased)} taken, ${fmtUsd(all.reversed)} reversed`
+                : `${fmtCredits(all.purchased)} credits sold`
+            }
             accent
           />
           <Metric
             label={`Revenue, last ${summary.window_days}d`}
-            value={fmtUsd(win.purchased)}
+            value={fmtUsd(revenueCredits(win))}
             sub={`${summary.users.purchased_in_window} accounts bought`}
           />
           <Metric

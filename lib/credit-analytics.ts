@@ -115,13 +115,32 @@ export interface CreditTopUser {
 /* -------------------------------------------------------------------------- */
 
 /**
- * Cash actually collected, in credits.
+ * Cash actually kept, in credits.
  *
- * `purchased` only — deliberately excluding `bonus`. A bonus credit was given
- * away, so counting it as revenue would overstate takings by the bonus rate
- * and make the margin look better than it is.
+ * Two deductions, for different reasons.
+ *
+ * `bonus` is excluded because it was given away. Counting it would overstate
+ * takings by the bonus rate and make the margin look better than it is.
+ *
+ * `reversed` is subtracted because a refunded payment is not revenue. This
+ * previously returned `purchased` alone, so money handed back still showed
+ * as income — and the figure could only ever drift upward, which is the
+ * wrong direction for a number you make decisions on.
+ *
+ * The subtraction is deliberately blunt: a refund claws back the bonus
+ * credits too, so `reversed` exceeds the cash refunded by the bonus rate and
+ * this understates revenue slightly on refunded packs. Splitting it exactly
+ * means matching each reversal to its purchase through the payment intent in
+ * the idempotency key, which is real work for a correction that only ever
+ * errs conservatively. Floored at zero so a test or a full refund cannot
+ * render a negative headline.
  */
 export function revenueCredits(t: CreditTotals): number {
+  return Math.max(0, t.purchased - t.reversed);
+}
+
+/** Money taken before refunds. Shown alongside net, never instead of it. */
+export function grossPurchasedCredits(t: CreditTotals): number {
   return t.purchased;
 }
 
