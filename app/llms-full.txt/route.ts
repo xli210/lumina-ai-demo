@@ -123,8 +123,8 @@ Render times are for a 4000-pixel source on a warm NVIDIA A40. The first render 
 
 ## Price
 
-- Face swap: ${FACE_SWAP_CREDITS} credits (${usd(FACE_SWAP_USD)}) per rendered image.
-- Head swap: ${HEAD_SWAP_CREDITS} credits (${usd(HEAD_SWAP_USD)}) per rendered image, priced at twice a face swap because it costs about twice as much GPU time to produce.
+- Face swap: ${FACE_SWAP_CREDITS} credits (${usd(FACE_SWAP_USD)}) per FACE replaced, not per image. The model runs one diffusion pass per face, so a render costs this rate times the number of reference photos supplied; faces left alone are free. Swapping one person out of a group of six costs the same as a portrait.
+- Head swap: ${HEAD_SWAP_CREDITS} credits (${usd(HEAD_SWAP_USD)}), priced at twice a face swap because it costs about twice as much GPU time. Head swap operates on exactly one face.
 - Face detection: free, never billed.
 - Free allowance: every signed-in account is topped up to ${FREE_DAILY_CREDITS} credits each UTC day, which is ${FREE_RENDERS_PER_DAY} face swaps per day at full resolution with no watermark. The allowance tops the balance up to ${FREE_DAILY_CREDITS} rather than adding to it, so it does not accumulate across idle days.
 - One credit is one US cent. Credit packs start at $5. Credits never expire. There is no subscription and no auto-renewal.
@@ -133,7 +133,7 @@ Render times are for a 4000-pixel source on a warm NVIDIA A40. The first render 
 ## How it compares on price, September 2026
 
 ${RIVALS.map((r) => `- ${r.name}: ${r.perImage} per image, free tier ${r.freeTier}, max output ${r.maxResolution}, head swap ${r.headSwap ? "yes" : "no"}, per-face occlusion control ${r.occlusionControl ? "yes" : "no"}, credits ${r.creditsExpire ? "expire monthly" : "never expire"}.`).join("\n")}
-- Face Studio: ${usd(FACE_SWAP_USD)} per image, free tier ${FREE_RENDERS_PER_DAY}/day unwatermarked, max output 4080x4080, head swap yes, per-face occlusion control yes, credits never expire.
+- Face Studio: ${usd(FACE_SWAP_USD)} per face replaced (one-face render; a six-face group render costs six times that), free tier ${FREE_RENDERS_PER_DAY}/day unwatermarked, max output 4080x4080, head swap yes, per-face occlusion control yes, credits never expire.
 
 Face Studio is not the cheapest option. Magic Hour is roughly eight times cheaper per image and offers five free swaps per day without an account. Face Studio is priced for cases where per-face occlusion control, group photos, whole-head replacement, or full-resolution output determine the result.
 

@@ -34,28 +34,62 @@ export function isFaceStudioMode(v: unknown): v is FaceStudioMode {
 }
 
 /**
- * What one render costs, in credits (1 credit = $0.01).
+ * What one swapped face costs, in credits (1 credit = $0.01).
+ *
+ * Named per *face*, not per render, because the worker runs one diffusion
+ * pass per face: a six-face group photo is six times the GPU work of a
+ * portrait. Charging per render would have meant a flat fee for anything
+ * between one and six times the cost, which is both unprofitable at the top
+ * end and overpriced at the bottom.
  *
  * Derived from the measured GPU cost in README_INTEGRATION.md §7 at $0.00034
- * per GPU second: a face swap runs 17-25 s (~$0.006-0.008) and a head swap
- * 30-47 s (~$0.010-0.016). Head swap is priced at twice face swap because it
- * costs roughly twice as much to produce, which keeps the margin flat across
- * both instead of subsidising head swaps out of face swap revenue.
+ * per GPU second: a single-face swap runs 17-25 s (~$0.006-0.008) and a head
+ * swap 30-47 s (~$0.010-0.016). Head swap is twice face swap because it costs
+ * roughly twice as much to produce, which keeps the margin flat across both
+ * instead of subsidising head swaps out of face swap revenue.
  *
  * Detection is free; see the reasoning on DETECT_MIN_BALANCE below.
  */
-export const FACESTUDIO_PRICES: Readonly<Record<FaceStudioMode, number>> = {
+export const FACESTUDIO_PRICE_PER_FACE: Readonly<
+  Record<FaceStudioMode, number>
+> = {
   face_swap: 10,
   head_swap: 20,
 };
 
+/** The per-face rate. Use `creditsForJob` to price an actual render. */
 export function creditsForMode(mode: FaceStudioMode): number {
-  return FACESTUDIO_PRICES[mode];
+  return FACESTUDIO_PRICE_PER_FACE[mode];
 }
 
-/** The cheapest render, used for the "can this user afford anything" check. */
+/**
+ * What a whole render costs: the per-face rate times the number of faces
+ * being replaced.
+ *
+ * `faceCount` is the number of reference photos supplied, not the number of
+ * faces detected — a group photo where only one person is being swapped is
+ * one face of work and is billed as one.
+ *
+ * Head swap accepts exactly one face, so this is always the base rate there;
+ * the multiplication is written generally anyway so the two modes cannot
+ * drift apart if that constraint is ever lifted.
+ *
+ * Linear is a slight overcharge: a render has fixed overhead (decoding the
+ * source, encoding a ~20 MB PNG) that does not repeat per face. The ledger
+ * records both the face count and the measured render time, so the curve can
+ * be fitted from real data later rather than guessed at now.
+ */
+export function creditsForJob(
+  mode: FaceStudioMode,
+  faceCount: number
+): number {
+  const faces = Math.min(Math.max(Math.trunc(faceCount), 1), FACESTUDIO_MAX_FACES);
+  return FACESTUDIO_PRICE_PER_FACE[mode] * faces;
+}
+
+/** The cheapest possible render — one face — for affordability checks. */
 export const FACESTUDIO_MIN_PRICE = Math.min(
-  ...FACESTUDIO_MODES.map((m) => FACESTUDIO_PRICES[m])
+  ...FACESTUDIO_MODES.map((m) => FACESTUDIO_PRICE_PER_FACE[m])
 );
 
 /**
@@ -205,8 +239,11 @@ export interface FaceStudioInsufficientCredits {
 /* Display helpers                                                             */
 /* -------------------------------------------------------------------------- */
 
-/** `10 credits ($0.10)` — for the price shown on the render button. */
-export function describePrice(mode: FaceStudioMode): string {
-  const credits = creditsForMode(mode);
+/** `30 credits ($0.30)` — the price of an actual render, for the button. */
+export function describePrice(
+  mode: FaceStudioMode,
+  faceCount: number
+): string {
+  const credits = creditsForJob(mode, faceCount);
   return `${credits} credits ($${(credits / CREDITS_PER_USD).toFixed(2)})`;
 }

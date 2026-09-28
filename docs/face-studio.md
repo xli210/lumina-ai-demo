@@ -13,20 +13,47 @@ needed editing. Built from `facestudio_handoff/`, with the changes in
 
 ## 1. Price
 
-| Mode | Credits | USD | GPU cost | Margin |
+**Per swapped face, not per photo.**
+
+| Unit | Credits | USD | GPU cost | Margin |
 | --- | --- | --- | --- | --- |
-| Face swap | 10 | $0.10 | ~$0.006–0.008 | ~92% |
+| Face swap, per face | 10 | $0.10 | ~$0.006–0.008 | ~92% |
 | Head swap | 20 | $0.20 | ~$0.010–0.016 | ~85% |
 | Detection | free | — | ~$0.001 | — |
 
-GPU costs are from `facestudio_handoff/README_INTEGRATION.md` §7 at $0.00034
-per GPU second. Head swap is priced at twice face swap because it costs
-roughly twice as much to produce — a flat price would have face swaps
-subsidising head swaps.
+A render costs the rate times the number of **reference photos supplied** —
+not faces detected. Swapping one person out of a group of six costs the same
+as a portrait; swapping all six costs six times that.
 
-Prices live in one place, `FACESTUDIO_PRICES` in `lib/facestudio.ts`. The
-console has its own copy in `public/face-studio/app.js` for the button label
-only; the server never trusts it.
+This is the fix for a real mispricing. The worker runs one diffusion pass per
+face, so a six-face group render is six times the GPU work of a portrait, and
+the original flat per-render price charged the same for both. That is
+unprofitable at the top end and overpriced at the bottom.
+
+Head swap operates on exactly one face, so its price is unaffected. It is
+twice a face swap because it costs roughly twice the GPU time — a flat price
+would have face swaps subsidising head swaps.
+
+Linear in face count is a slight overcharge: a render has fixed overhead
+(decoding the source, encoding a ~20 MB PNG) that does not repeat per face.
+That is deliberate for now and measurable later — `credit_holds.estimate`
+records the face count and the capture reference records the measured
+`elapsed_seconds`, so the curve can be fitted from real jobs rather than
+guessed at again. `price_version` in the estimate is bumped whenever the
+formula changes, so old holds stay interpretable.
+
+Prices live in one place, `FACESTUDIO_PRICE_PER_FACE` in `lib/facestudio.ts`,
+and `creditsForJob(mode, faceCount)` is the only correct way to price a
+render. The console has its own copy in `public/face-studio/app.js` for the
+button label; the server never trusts it.
+
+### Where this makes us expensive
+
+Against a tool that bills per photo, a crowded photo is where Face Studio
+costs the most: six faces is $0.60 against Magic Hour's $0.013 for the same
+picture. Akool also bills per face. The comparison table on `/face-studio`
+states this rather than hiding it, and quotes our single-face price in the
+row so the comparison is like-for-like.
 
 ### The free daily allowance
 

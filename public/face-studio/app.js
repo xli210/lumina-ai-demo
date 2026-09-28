@@ -27,8 +27,18 @@
   // ══════════════════════════════════════════════════════════════════════
   const API_BASE = "/api/facestudio";
 
-  /** Keep in step with FACESTUDIO_PRICES in lib/facestudio.ts. */
+  /**
+   * Credits per swapped FACE, not per render. Keep in step with
+   * FACESTUDIO_PRICE_PER_FACE in lib/facestudio.ts. The worker runs one
+   * diffusion pass per face, so a render costs this times the number of
+   * reference photos supplied.
+   */
   const PRICES = { face_swap: 10, head_swap: 20 };
+
+  /** What this render will cost, given how many references are attached. */
+  function priceFor(mode, faceCount) {
+    return (PRICES[mode] || PRICES.face_swap) * Math.max(1, faceCount);
+  }
   /** Keep in step with FREE_DAILY_CREDITS in lib/facestudio.ts. */
   const FREE_DAILY_CREDITS = 30;
   const TOPUP_URL = "/credits";
@@ -718,7 +728,7 @@
   // ── Generate button state ──
   function updateGenButton() {
     const selectedCount = refFiles.filter(Boolean).length;
-    const price = PRICES[selectedMode] || PRICES.face_swap;
+    const price = priceFor(selectedMode, selectedCount);
     // A null balance means we could not read it; leave the button enabled and
     // let the server be the one to refuse, rather than blocking on our own
     // failed request.
@@ -726,7 +736,11 @@
     const ready = bodyFile && detectionId && selectedCount > 0 && affordable;
     btnGenerate.disabled = !ready;
 
-    const cost = `Costs ${price} credits ($${(price / 100).toFixed(2)}).`;
+    const perFace = PRICES[selectedMode] || PRICES.face_swap;
+    const cost =
+      selectedCount > 1
+        ? `Costs ${price} credits ($${(price / 100).toFixed(2)}) — ${perFace} per face × ${selectedCount}.`
+        : `Costs ${price} credits ($${(price / 100).toFixed(2)}).`;
 
     if (!bodyFile) {
       actionHint.textContent = "Upload a photo to begin.";
@@ -738,8 +752,10 @@
       showActionError(
         Object.assign(
           new Error(
-            `This render costs ${price} credits and you have ` +
-              `${creditsAvailable}. You get ${FREE_DAILY_CREDITS} free every day.`
+            `Swapping ${selectedCount} face${selectedCount === 1 ? "" : "s"} ` +
+              `costs ${price} credits and you have ${creditsAvailable}. Swap ` +
+              `fewer faces, or come back tomorrow for another ` +
+              `${FREE_DAILY_CREDITS} free.`
           ),
           { needsTopUp: true }
         )

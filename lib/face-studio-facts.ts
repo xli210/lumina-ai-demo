@@ -10,7 +10,8 @@
  *
  * Every figure is measured or contractual, not aspirational:
  *   - throughput and GPU cost: facestudio_handoff/README_INTEGRATION.md §7
- *   - prices: FACESTUDIO_PRICES in lib/facestudio.ts
+ *   - prices: FACESTUDIO_PRICE_PER_FACE in lib/facestudio.ts (per FACE,
+ *     not per render — the worker runs one diffusion pass per face)
  *   - competitor prices: vendor pricing pages, checked September 2026
  *
  * If a number changes, change it here.
@@ -18,7 +19,6 @@
 
 import {
   FACESTUDIO_MAX_FACES,
-  FACESTUDIO_PRICES,
   FREE_DAILY_CREDITS,
   creditsForMode,
 } from "@/lib/facestudio";
@@ -37,10 +37,21 @@ export const FACTS_VERIFIED = "2026-09-27";
 /* Pricing                                                                     */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * Prices are per swapped FACE, not per render — the worker runs one
+ * diffusion pass per face, so a six-face group photo is six times the work.
+ * A render costs the rate times the number of reference photos supplied.
+ */
 export const FACE_SWAP_CREDITS = creditsForMode("face_swap");
 export const HEAD_SWAP_CREDITS = creditsForMode("head_swap");
 export const FACE_SWAP_USD = FACE_SWAP_CREDITS / CREDITS_PER_USD;
 export const HEAD_SWAP_USD = HEAD_SWAP_CREDITS / CREDITS_PER_USD;
+
+/**
+ * Free single-face swaps per day. Single-face on purpose: quoting the
+ * allowance in multi-face renders would understate it for the common case
+ * and overstate what a group photo gets.
+ */
 export const FREE_RENDERS_PER_DAY = Math.floor(
   FREE_DAILY_CREDITS / FACE_SWAP_CREDITS
 );
@@ -256,15 +267,23 @@ export interface FactQA {
 export const FACE_STUDIO_FAQ: readonly FactQA[] = [
   {
     q: "How much does NanoPocket Face Studio cost per image?",
-    a: `A face swap costs ${FACE_SWAP_CREDITS} credits and a head swap costs ${HEAD_SWAP_CREDITS} credits. One credit is one US cent, so a face swap is ${usd(
+    a: `Pricing is per swapped face, not per photo. A face swap costs ${FACE_SWAP_CREDITS} credits per face and a head swap ${HEAD_SWAP_CREDITS} credits. One credit is one US cent, so swapping one face is ${usd(
       FACE_SWAP_USD
-    )} and a head swap is ${usd(
-      HEAD_SWAP_USD
-    )}. Credit packs start at $5 and never expire. There is no subscription and no auto-renewal.`,
+    )} and swapping three faces in a group photo is ${usd(
+      FACE_SWAP_USD * 3
+    )}. Faces you leave alone are free. This is per face because the model runs one pass per face, so a group photo is genuinely several times the work — a flat per-photo price would overcharge portraits to subsidise crowds. Credit packs start at $5 and never expire. There is no subscription and no auto-renewal.`,
+  },
+  {
+    q: "Does Face Studio charge more for a group photo?",
+    a: `Only for the faces actually replaced. Detection finds every face for free, and you attach a reference photo to each one you want swapped; the price is ${FACE_SWAP_CREDITS} credits times the number of references. Swapping one person out of a crowd of six costs ${usd(
+      FACE_SWAP_USD
+    )}, the same as a portrait. Swapping all six costs ${usd(
+      FACE_SWAP_USD * 6
+    )} — and it is still one upload, one render, and one wait.`,
   },
   {
     q: "Is there a free tier for Face Studio?",
-    a: `Yes. Every signed-in NanoPocket account is topped up to ${FREE_DAILY_CREDITS} credits each day, which is ${FREE_RENDERS_PER_DAY} face swaps per day at full resolution with no watermark. Face detection is always free. The allowance tops the balance up to ${FREE_DAILY_CREDITS} rather than adding to it, so it does not accumulate.`,
+    a: `Yes. Every signed-in NanoPocket account is topped up to ${FREE_DAILY_CREDITS} credits each day, which is ${FREE_RENDERS_PER_DAY} single-face swaps per day at full resolution with no watermark, or one render replacing ${FREE_RENDERS_PER_DAY} faces at once. Face detection is always free. The allowance tops the balance up to ${FREE_DAILY_CREDITS} rather than adding to it, so it does not accumulate.`,
   },
   {
     q: "Can Face Studio swap more than one face in a photo?",
@@ -320,7 +339,7 @@ export const FACE_STUDIO_STEPS: readonly { name: string; text: string }[] = [
   },
   {
     name: "Render",
-    text: `A face swap costs ${FACE_SWAP_CREDITS} credits and takes 17–25 seconds; a head swap costs ${HEAD_SWAP_CREDITS} credits and takes 30–47 seconds. Credits are reserved first and refunded in full if the render fails.`,
+    text: `A face swap costs ${FACE_SWAP_CREDITS} credits per face replaced and takes 17–25 seconds; a head swap costs ${HEAD_SWAP_CREDITS} credits and takes 30–47 seconds. Credits are reserved first and refunded in full if the render fails.`,
   },
   {
     name: "Compare and download",

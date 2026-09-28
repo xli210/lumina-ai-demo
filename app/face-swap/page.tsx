@@ -198,7 +198,7 @@ const FAQS = [
     q: "Is the online face swap really free?",
     a: `Free to start, and free every day. Video FaceSwap Pro and NanoFace Vivid are free for any signed-in NanoPocket account with a daily open quota. Face Studio, the photo face swap, gives every signed-in account ${FREE_RENDERS_PER_DAY} free renders per day at full resolution with no watermark — identical output to a paid render — and face detection is always free. Past that it is ${usd(
       FACE_SWAP_USD
-    )} per face swap, prepaid in credits that never expire, with no subscription and no auto-renewal. A render that fails is refunded in full automatically. The desktop FaceSwap Pro 2.0 release is a separate, optional, one-time-purchase product; buying credits does not affect a desktop license and owning one does not consume credits.`,
+    )} per face replaced — one pass runs per face, so faces you leave alone are free — prepaid in credits that never expire, with no subscription and no auto-renewal. A render that fails is refunded in full automatically. The desktop FaceSwap Pro 2.0 release is a separate, optional, one-time-purchase product; buying credits does not affect a desktop license and owning one does not consume credits.`,
   },
   {
     q: "Do I need an account?",

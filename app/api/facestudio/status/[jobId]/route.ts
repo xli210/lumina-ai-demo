@@ -53,10 +53,20 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
     let charged = settled ? 0 : hold.amount;
     if (!settled) {
       try {
+        // Record what the render actually took. Pricing is currently linear
+        // in face count, which ignores the fixed per-render overhead; pairing
+        // elapsed time with the face count already in the hold's estimate is
+        // what will let that curve be fitted from real jobs instead of
+        // re-guessed.
+        const elapsed = upstream.body.elapsed_seconds;
         const capture = await captureHold({
           holdId: hold.id,
           actualAmount: hold.amount,
-          reference: { service: "facestudio", job_ref: jobId },
+          reference: {
+            service: "facestudio",
+            job_ref: jobId,
+            elapsed_seconds: typeof elapsed === "number" ? elapsed : null,
+          },
         });
         charged = capture.charged ?? hold.amount;
       } catch (err: unknown) {

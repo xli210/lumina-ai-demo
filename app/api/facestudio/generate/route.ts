@@ -17,6 +17,7 @@ import {
   FACESTUDIO_MAX_FACES,
   FACESTUDIO_SERVICE,
   FREE_DAILY_CREDITS,
+  creditsForJob,
   creditsForMode,
   isFaceStudioMode,
   isStorageKey,
@@ -166,7 +167,12 @@ export async function POST(req: NextRequest) {
     return privateJson({ detail: parsed }, 400);
   }
 
-  const price = creditsForMode(parsed.mode);
+  // One diffusion pass runs per face, so a six-face group photo is six times
+  // the GPU work of a portrait and is priced accordingly. Counted from the
+  // references actually supplied, not the faces detected: swapping one person
+  // out of a crowd is one face of work.
+  const faceCount = Object.keys(parsed.refs).length;
+  const price = creditsForJob(parsed.mode, faceCount);
 
   // Hand out today's free allowance before reserving, so the first renders of
   // the day are paid for by it rather than out of a purchased balance.
@@ -208,8 +214,11 @@ export async function POST(req: NextRequest) {
       ttlSeconds: FACESTUDIO_HOLD_TTL_SECONDS,
       estimate: {
         mode: parsed.mode,
-        faces: Object.keys(parsed.refs).length,
-        price_version: 1,
+        faces: faceCount,
+        credits_per_face: creditsForMode(parsed.mode),
+        // Bumped whenever the pricing formula changes, so historical holds
+        // stay interpretable when the rate no longer matches today's.
+        price_version: 2,
       },
     });
   } catch (err: unknown) {
@@ -222,8 +231,9 @@ export async function POST(req: NextRequest) {
     return privateJson(
       {
         detail:
-          `This render costs ${price} credits and you have ${hold.available}. ` +
-          `Buy credits to keep going, or come back tomorrow for another ` +
+          `Swapping ${faceCount} face${faceCount === 1 ? "" : "s"} costs ` +
+          `${price} credits and you have ${hold.available}. Swap fewer faces, ` +
+          `buy credits, or come back tomorrow for another ` +
           `${FREE_DAILY_CREDITS} free.`,
         reason: "insufficient_credits",
         required: price,
@@ -311,6 +321,7 @@ export async function POST(req: NextRequest) {
     {
       job_id: jobId,
       credits_held: price,
+      faces: faceCount,
       balance: hold.balance,
       available: hold.available,
     },

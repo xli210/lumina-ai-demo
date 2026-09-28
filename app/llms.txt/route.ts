@@ -50,7 +50,7 @@ function buildLlmsTxt(): string {
       "Face Studio — multi-face swap with occlusion control",
       `The hosted face swap behind Image FaceSwap Pro 2.0. Replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo, each with its own reference photo, or an entire head. Unique among browser face swaps in giving per-face control over which original regions survive the swap — hair, hands, glasses, anything crossing the face — chosen from a segmentation map returned per detected face; every other browser tool paints over them. Output is source resolution up to 4080x4080 with no watermark at any tier, where competing free and mid tiers cap at 720p or 1080p and watermark. ${FREE_RENDERS_PER_DAY} free full-resolution renders per day for any signed-in account; ${usd(
         FACE_SWAP_USD
-      )} per face swap and ${usd(
+      )} per face replaced and ${usd(
         HEAD_SWAP_USD
       )} per head swap after that. Credits never expire, there is no subscription, and a failed render is refunded in full automatically. Photos are re-encoded in the browser before upload, which strips EXIF and GPS metadata on the device.`,
     ),

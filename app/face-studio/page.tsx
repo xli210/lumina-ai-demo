@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     "Face Studio — multi-face swap with occlusion control | NanoPocket",
   description: `Swap up to ${FACESTUDIO_MAX_FACES} faces in one photo, or replace a whole head, at full resolution with no watermark. Choose per face what to keep from the original — hair, hands, glasses. ${usd(
     FACE_SWAP_USD
-  )} per face swap, ${FREE_RENDERS_PER_DAY} free every day, credits never expire, no subscription.`,
+  )} per face replaced, ${FREE_RENDERS_PER_DAY} free every day, credits never expire, no subscription.`,
   keywords: [
     "multi face swap",
     "group photo face swap",
@@ -64,7 +64,8 @@ export const metadata: Metadata = {
     "face swap occlusion",
     "full resolution face swap",
     "face swap no watermark",
-    "pay per image face swap",
+    "pay per face swap",
+    "group photo face swap price",
     "face swap no subscription",
     "ai face swap online",
   ],
@@ -99,7 +100,7 @@ const softwareJsonLd = {
       name: "Face swap",
       price: FACE_SWAP_USD.toFixed(2),
       priceCurrency: "USD",
-      description: `${FACE_SWAP_CREDITS} credits per rendered image. Credits never expire and there is no subscription.`,
+      description: `${FACE_SWAP_CREDITS} credits per face replaced, because the model runs one pass per face. Faces left alone are free. Credits never expire and there is no subscription.`,
       url: PAGE_URL,
     },
     {
@@ -107,7 +108,7 @@ const softwareJsonLd = {
       name: "Head swap",
       price: HEAD_SWAP_USD.toFixed(2),
       priceCurrency: "USD",
-      description: `${HEAD_SWAP_CREDITS} credits per rendered image, for whole-head replacement.`,
+      description: `${HEAD_SWAP_CREDITS} credits, for whole-head replacement. Head swap operates on exactly one face.`,
       url: PAGE_URL,
     },
     {
@@ -236,7 +237,7 @@ export default function FaceStudioLandingPage() {
           <p className="mt-4 text-sm text-muted-foreground">
             {FREE_RENDERS_PER_DAY} free renders every day for any signed-in
             account, at full resolution with no watermark. After that,{" "}
-            {usd(FACE_SWAP_USD)} per face swap. No subscription, and credits
+            {usd(FACE_SWAP_USD)} per face replaced. No subscription, and credits
             never expire.
           </p>
         </div>
@@ -376,11 +377,15 @@ export default function FaceStudioLandingPage() {
           </div>
 
           <p className="mt-4 text-xs text-muted-foreground">
-            Magic Hour is roughly eight times cheaper per image and gives five
-            free swaps a day without an account. If price per image is the only
-            thing that matters for your use, it is the better choice. Face
-            Studio is priced for the cases where occlusion control, group
-            photos, head swap, or full-resolution output decide the result.
+            The Face Studio row is a one-face render, which is what the other
+            rows are. We charge per face, so a six-face group render is six
+            times that — and against a tool that bills per photo, a crowded
+            photo is where we are most expensive. Akool also bills per face.
+            Magic Hour is roughly eight times cheaper on a single face and
+            gives five free swaps a day without an account; if price is the
+            only thing that matters for your use, it is the better choice.
+            Face Studio is priced for the cases where occlusion control, head
+            swap, or full-resolution output decide the result.
           </p>
         </div>
       </section>
