@@ -180,29 +180,12 @@ $$;
 -- the dashboard reads them with the user's own session, which is required:
 -- is_admin() resolves through auth.uid(), and the service role has none.
 -- --------------------------------------------
-DO $$
-DECLARE
-  v_signature TEXT;
-BEGIN
-  FOREACH v_signature IN ARRAY ARRAY[
-    'public.license_admin_summary()',
-    'public.license_origin(TEXT, BOOLEAN, TIMESTAMPTZ)'
-  ]
-  LOOP
-    EXECUTE format('REVOKE ALL ON FUNCTION %s FROM PUBLIC', v_signature);
-    EXECUTE format('REVOKE ALL ON FUNCTION %s FROM anon', v_signature);
-    EXECUTE format('GRANT EXECUTE ON FUNCTION %s TO authenticated', v_signature);
-    EXECUTE format('GRANT EXECUTE ON FUNCTION %s TO service_role', v_signature);
-  END LOOP;
-END;
-$$;
+REVOKE ALL ON FUNCTION public.license_admin_summary() FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.license_admin_summary() FROM anon;
+GRANT EXECUTE ON FUNCTION public.license_admin_summary() TO authenticated;
+GRANT EXECUTE ON FUNCTION public.license_admin_summary() TO service_role;
 
 COMMENT ON FUNCTION public.license_admin_summary() IS
   'Admin-only license breakdown by origin. A license counts as paid only if '
   'stripe_payment_intent_id is set, which the Stripe webhook is the sole '
   'writer of. Re-checks is_admin().';
-
-COMMENT ON FUNCTION public.license_origin(TEXT, BOOLEAN, TIMESTAMPTZ) IS
-  'Classifies a license as paid / trial_active / trial_expired / granted. '
-  'Does not split granted into free-product vs comped: that depends on the '
-  'product price, which lives in lib/products.ts.';
