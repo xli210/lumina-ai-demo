@@ -244,6 +244,12 @@ LANGUAGE plpgsql
 SECURITY DEFINER
 SET search_path = public
 AS $$
+-- `day` and `renders` are both OUT parameters here and column names in the
+-- query below. Every reference is table-qualified, and this pragma states
+-- the resolution rule rather than relying on the next editor to remember
+-- it. Safe for these functions because their OUT parameters are only ever
+-- assigned by RETURN QUERY, never read.
+#variable_conflict use_column
 BEGIN
   IF NOT public.is_admin() THEN
     RAISE EXCEPTION 'not authorized' USING ERRCODE = '42501';
@@ -315,6 +321,13 @@ LANGUAGE plpgsql
 SECURITY DEFINER
 SET search_path = public
 AS $$
+-- RETURNS TABLE declares user_id, renders, first_seen and last_activity as
+-- OUT parameters, and credit_ledger has columns by those names too, so a
+-- bare reference in the body is ambiguous and plpgsql refuses it. Every
+-- column below is therefore table-qualified. This pragma makes the
+-- resolution explicit rather than leaving it to whichever way the next
+-- editor happens to write a join.
+#variable_conflict use_column
 BEGIN
   IF NOT public.is_admin() THEN
     RAISE EXCEPTION 'not authorized' USING ERRCODE = '42501';
@@ -340,13 +353,13 @@ BEGIN
   LEFT JOIN public.profiles p ON p.id = a.user_id
   LEFT JOIN (
     SELECT
-      user_id,
-      COUNT(*) FILTER (WHERE kind = 'spend') AS renders,
-      MIN(created_at) AS first_seen,
-      MAX(created_at) AS last_activity
-    FROM public.credit_ledger
-    GROUP BY user_id
-  ) l ON l.user_id = a.user_id
+      cl.user_id                                  AS uid,
+      COUNT(*) FILTER (WHERE cl.kind = 'spend')   AS renders,
+      MIN(cl.created_at)                          AS first_seen,
+      MAX(cl.created_at)                          AS last_activity
+    FROM public.credit_ledger cl
+    GROUP BY cl.user_id
+  ) l ON l.uid = a.user_id
   ORDER BY a.lifetime_spent DESC, a.lifetime_purchased DESC
   LIMIT p_limit;
 END;

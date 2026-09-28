@@ -426,6 +426,40 @@ filters by `kind`, and the only pre-existing index is on
 `(user_id, created_at)`, so without it each dashboard load is a sequential
 scan of the whole ledger.
 
+### Testing them from the SQL editor
+
+These functions are hard to test, and it is worth knowing why before trusting
+one. `is_admin()` raises before the query is planned, and plpgsql compiles a
+function body lazily on first execution — so **any caller that is not a real
+admin gets `42501` and never compiles the body**. A syntax or
+column-ambiguity error inside the query is therefore invisible to every check
+that does not hold an admin session, including the Supabase SQL editor, which
+runs with `auth.uid()` NULL.
+
+Impersonate yourself to actually exercise them:
+
+```sql
+-- Your own id, from: select id, display_name, role from public.profiles where role = 'admin';
+select set_config(
+  'request.jwt.claims',
+  json_build_object('sub', '00000000-0000-0000-0000-000000000000')::text,
+  true            -- transaction-local; ends with this statement batch
+);
+
+select public.credit_admin_summary(30);
+select * from public.credit_admin_daily(7);
+select * from public.credit_admin_top_users(5);
+```
+
+All three must return without error. `set_config(..., true)` is
+transaction-local, so the impersonation does not outlive the query.
+
+Two bugs shipped past me here for exactly this reason: calling the RPCs with
+the service-role client (whose `auth.uid()` is NULL, so `is_admin()` is always
+false), and an ambiguous `user_id` between a `RETURNS TABLE` OUT parameter and
+a `credit_ledger` column. Run the snippet above after touching any of these
+functions.
+
 ---
 
 ## 10. Roadmap
