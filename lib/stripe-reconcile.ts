@@ -54,8 +54,18 @@ export interface StripeReconciliation {
   mode: "live" | "test" | "unknown";
   /** Succeeded payments only. Stripe is the ledger of record. */
   succeeded: ReconciledPayment[];
-  /** Succeeded payments with no license. Each one is a customer owed software. */
+  /**
+   * Payments made after this database existed that produced no license.
+   * Each one is a customer owed software.
+   */
   undelivered: ReconciledPayment[];
+  /**
+   * Payments older than this database. They cannot be matched here no
+   * matter what happened, so they are reported apart from real failures.
+   */
+  predates_database: ReconciledPayment[];
+  /** When this database started, or null if it could not be determined. */
+  database_since: string | null;
   gross_amount: number;
   currency: string;
   /** True if more payments exist than were walked. */
@@ -63,6 +73,32 @@ export interface StripeReconciliation {
   webhooks: WebhookEndpointInfo[];
   /** Rows in stripe_events, i.e. webhook deliveries the app actually processed. */
   events_recorded: number | null;
+}
+
+/**
+ * When this database started accepting users.
+ *
+ * This Supabase project was created on 2026-03-15 and replaced an earlier
+ * one whose data was never migrated — the first profile here is two hours
+ * younger than the project itself, and the app had been issuing licenses
+ * since February. So a Stripe payment older than this simply has no license
+ * to find, and reporting it as an undelivered order would be wrong.
+ *
+ * Read from the data rather than hardcoded, so restoring the old rows or
+ * moving projects again corrects this automatically instead of silently
+ * mis-reporting.
+ */
+async function databaseSince(
+  admin: ReturnType<typeof createAdminClient>
+): Promise<string | null> {
+  const { data } = await admin
+    .from("profiles")
+    .select("created_at")
+    .order("created_at", { ascending: true })
+    .limit(1)
+    .maybeSingle();
+
+  return data?.created_at ?? null;
 }
 
 export interface StripeUnavailable {
@@ -219,11 +255,20 @@ export async function reconcileStripe(): Promise<StripeReconcileResult> {
     .select("*", { count: "exact", head: true });
   if (!eventsError) eventsRecorded = count ?? 0;
 
+  const since = await databaseSince(admin);
+  const sinceMs = since ? new Date(since).getTime() : null;
+
+  const unmatched = succeeded.filter((p) => !p.delivered);
+  const tooOld = (p: ReconciledPayment) =>
+    sinceMs !== null && new Date(p.created).getTime() < sinceMs;
+
   return {
     configured: true,
     mode: modeOf(key),
     succeeded,
-    undelivered: succeeded.filter((p) => !p.delivered),
+    undelivered: unmatched.filter((p) => !tooOld(p)),
+    predates_database: unmatched.filter(tooOld),
+    database_since: since,
     gross_amount: succeeded.reduce((sum, p) => sum + p.amount, 0),
     currency: succeeded[0]?.currency ?? "usd",
     truncated,

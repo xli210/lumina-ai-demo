@@ -150,6 +150,28 @@ function Reconciliation({ recon }: { recon: StripeReconcileResult }) {
 
   const paid = recon.succeeded.length;
   const missing = recon.undelivered.length;
+  const older = recon.predates_database.length;
+  const since = recon.database_since
+    ? new Date(recon.database_since).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : null;
+
+  /**
+   * Payments older than this database are a normal consequence of the
+   * March 2026 project switch, not a delivery failure, so they get a
+   * neutral note rather than a place in any warning.
+   */
+  const olderNote = older > 0 && since && (
+    <p className="text-muted-foreground">
+      A further {fmtCount(older)} payment{older === 1 ? "" : "s"} predate{" "}
+      {since}, when this database was created. Their licenses live in the
+      Supabase project this one replaced, so they cannot be matched here and
+      are not counted as failures.
+    </p>
+  );
 
   if (paid === 0) {
     return (
@@ -170,17 +192,22 @@ function Reconciliation({ recon }: { recon: StripeReconcileResult }) {
   }
 
   if (missing === 0) {
+    const matchable = paid - older;
     return (
       <div className="glass flex items-start gap-3 rounded-2xl border border-emerald-500/30 p-6">
         <CircleCheck className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
         <div className="space-y-2 text-sm">
           <p className="text-base font-semibold text-foreground">
-            All {fmtCount(paid)} Stripe payments have a license
+            Every payment this database could have served has a license
           </p>
           <p className="text-muted-foreground">
-            {fmtMoney(recon.gross_amount)} collected in the {recon.mode}{" "}
-            account, every payment matched to a license key.
+            {fmtMoney(recon.gross_amount)} collected across {fmtCount(paid)}{" "}
+            payment{paid === 1 ? "" : "s"} in the {recon.mode} account.{" "}
+            {fmtCount(matchable)} of them fall inside this database&rsquo;s
+            lifetime, and all {matchable === 1 ? "of it is" : "are"} matched
+            to a license key.
           </p>
+          {olderNote}
         </div>
       </div>
     );
@@ -197,8 +224,9 @@ function Reconciliation({ recon }: { recon: StripeReconcileResult }) {
         <p className="text-muted-foreground">
           Stripe collected {fmtCount(paid)} payment
           {paid === 1 ? "" : "s"} totalling {fmtMoney(recon.gross_amount)} in
-          the {recon.mode} account, but only {fmtCount(paid - missing)} produced
-          a license row. The webhook writes{" "}
+          the {recon.mode} account, but only{" "}
+          {fmtCount(paid - missing - older)} produced a license row. The
+          webhook writes{" "}
           <code className="rounded bg-muted px-1 py-0.5 text-xs">
             stripe_payment_intent_id
           </code>{" "}
@@ -211,9 +239,10 @@ function Reconciliation({ recon }: { recon: StripeReconcileResult }) {
             <code className="rounded bg-muted px-1 py-0.5 text-xs">
               stripe_events
             </code>{" "}
-            table has no rows at all, which means this app has not processed a
-            single webhook delivery. That points at the endpoint itself rather
-            than at individual failures.
+            table has no rows, so no delivery has been processed since that
+            table was added in migration 011. It says nothing about earlier
+            deliveries, but if a recent payment is in the list above, it
+            points at the endpoint rather than at one bad delivery.
           </p>
         )}
         <p className="text-muted-foreground">
@@ -225,6 +254,7 @@ function Reconciliation({ recon }: { recon: StripeReconcileResult }) {
           deliveries and resend them. The handler is idempotent, so resending
           is safe.
         </p>
+        {olderNote}
       </div>
     </div>
   );
@@ -677,13 +707,21 @@ function Dashboard({
             label="Delivered a license"
             value={
               stripe
-                ? fmtCount(stripe.succeeded.length - stripe.undelivered.length)
+                ? fmtCount(
+                    stripe.succeeded.length -
+                      stripe.undelivered.length -
+                      stripe.predates_database.length
+                  )
                 : fmtCount(t.paid)
             }
             sub={
-              stripe && stripe.undelivered.length > 0
-                ? `${fmtCount(stripe.undelivered.length)} customers still owed`
-                : "every payment matched to a license"
+              stripe === null
+                ? "counted from licenses, not Stripe"
+                : stripe.undelivered.length > 0
+                  ? `${fmtCount(stripe.undelivered.length)} customers still owed`
+                  : stripe.predates_database.length > 0
+                    ? `${fmtCount(stripe.predates_database.length)} older than this database, unmatchable`
+                    : "every payment matched to a license"
             }
           />
           <Metric
@@ -742,7 +780,7 @@ function Dashboard({
 
       <Section
         title="By product"
-        note="Comped means a paid product handed out without payment — a test-grant or a manual comp. Free claims are the intended flow for products priced at zero, so they are counted separately."
+        note="Comped means a product that costs money today but was handed out without payment. That includes test-grants, manual comps, and licenses claimed back when the product was still free — the price is read from today's catalogue, not from what it cost at the time."
       >
         <ProductTable rows={products} />
       </Section>
@@ -928,6 +966,15 @@ export default async function AdminLicensesPage() {
               note="Money Stripe collected that produced no license. Resending the webhook delivery fixes each one; the handler is idempotent."
             >
               <UndeliveredTable rows={recon.undelivered} />
+            </Section>
+          )}
+
+          {recon.configured && recon.predates_database.length > 0 && (
+            <Section
+              title="Payments older than this database"
+              note="Real revenue, but from before this Supabase project existed. Their licenses were issued by the project this one replaced, whose rows were never migrated, so nothing here can match them. Listed for completeness, not as a problem to fix."
+            >
+              <UndeliveredTable rows={recon.predates_database} />
             </Section>
           )}
 
