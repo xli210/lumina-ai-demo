@@ -30,6 +30,13 @@
  *                   is visible before anything is written
  *   email           report only, so you know who to notify
  *
+ * Optionally:
+ *   attach_to       an existing license_key that already fulfilled this
+ *                   payment. Use when the customer was served by hand or by
+ *                   a system this database replaced: it records the payment
+ *                   intent on the license that exists rather than issuing a
+ *                   second one the customer neither needs nor asked for.
+ *
  * /admin/licenses lists all of these under "Paid but never delivered".
  *
  * Usage:
@@ -133,6 +140,44 @@ async function recover(payment) {
     return { state: "already", key: already.license_key };
   }
 
+  // Already fulfilled by hand, or by the system this database replaced.
+  // Record the payment against that license instead of minting another.
+  if (payment.attach_to) {
+    const { data: existing } = await db
+      .from("licenses")
+      .select("id, user_id, product_id, stripe_payment_intent_id")
+      .eq("license_key", payment.attach_to)
+      .maybeSingle();
+
+    if (!existing) {
+      return { state: "error", detail: `No license ${payment.attach_to}` };
+    }
+    if (existing.product_id !== payment.product_id) {
+      return {
+        state: "error",
+        detail:
+          `${payment.attach_to} is for ${existing.product_id}, ` +
+          `payment was for ${payment.product_id}`,
+      };
+    }
+    if (existing.stripe_payment_intent_id) {
+      return {
+        state: "error",
+        detail: `${payment.attach_to} already records ${existing.stripe_payment_intent_id}`,
+      };
+    }
+
+    if (!APPLY) return { state: "would-attach", key: payment.attach_to };
+
+    const { error } = await db
+      .from("licenses")
+      .update({ stripe_payment_intent_id: payment.payment_intent })
+      .eq("id", existing.id);
+
+    if (error) return { state: "error", detail: error.message };
+    return { state: "attached", key: payment.attach_to };
+  }
+
   // Same order as the webhook: an existing trial is upgraded in place so the
   // customer keeps the key they may already have entered somewhere.
   const { data: trial } = await db
@@ -208,6 +253,14 @@ for (const payment of PAYMENTS) {
       break;
     case "would-create":
       console.log(`  + ${label}\n      would issue a new license`);
+      break;
+    case "would-attach":
+      console.log(
+        `  ~ ${label}\n      would record this payment on existing ${result.key}`
+      );
+      break;
+    case "attached":
+      console.log(`  ✓ ${label}\n      payment recorded on existing ${result.key}`);
       break;
     case "upgraded":
       console.log(`  ✓ ${label}\n      trial upgraded: ${result.key}`);
