@@ -1,7 +1,53 @@
 import { NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
+import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
+/**
+ * GET /api/debug/stripe — admin only.
+ *
+ * This route shipped unauthenticated and was live in production returning
+ * real customer email addresses, checkout metadata including
+ * supabase_user_id, the webhook endpoint URLs, and the first ten characters
+ * of STRIPE_WEBHOOK_SECRET, to anyone who requested it.
+ *
+ * It is genuinely useful for diagnosing "the payment went through but no
+ * license arrived", so it is gated rather than deleted. Nothing here is safe
+ * to expose: treat every field as customer data.
+ *
+ * Not in ADMIN_PATH_PREFIXES — /api/debug is not a protected prefix — so the
+ * check has to live here.
+ */
+async function requireAdmin(): Promise<NextResponse | null> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
+  const admin = createAdminClient();
+  const { data: profile } = await admin
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  if (profile?.role !== "admin") {
+    return NextResponse.json({ error: "Admin access required" }, { status: 403 });
+  }
+  return null;
+}
 
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
+  const stripe = getStripe();
   const results: Record<string, unknown> = {};
 
   const secretKey = process.env.STRIPE_SECRET_KEY || "";
