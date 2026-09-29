@@ -739,8 +739,8 @@
     const perFace = PRICES[selectedMode] || PRICES.face_swap;
     const cost =
       selectedCount > 1
-        ? `Costs ${price} credits ($${(price / 100).toFixed(2)}) — ${perFace} per face × ${selectedCount}.`
-        : `Costs ${price} credits ($${(price / 100).toFixed(2)}).`;
+        ? `Costs ${price} credits — ${perFace} per face × ${selectedCount}.`
+        : `Costs ${price} credits.`;
 
     if (!bodyFile) {
       actionHint.textContent = "Upload a photo to begin.";

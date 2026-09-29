@@ -66,7 +66,10 @@ export const DEMOS: DemoEntry[] = [
     // Was a Cloudflare tunnel until that pipeline was retired. Now served by
     // /face-studio against our own RunPod endpoint, priced per render.
     origin: "https://nanopocket.ai",
-    landingPath: "/face-studio",
+    // The console, not the /face-studio marketing page: "Try Pro Demo" should
+    // open the tool. /face-studio/launch is login-gated, provisions today's
+    // free credits, then redirects to /face-studio/index.html.
+    landingPath: "/face-studio/launch",
     pingPath: "/face-studio",
     password: null,
     productHref: "/apps/nano-faceswap-pro/features",

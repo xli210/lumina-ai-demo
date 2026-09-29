@@ -167,7 +167,10 @@ FACESWAP_PRO_DEMO_URL = demoRedirectPath(getDemo("image").id)
 /api/demos/open?id=image        auth gate; metered demos skip the daily
           │                     open quota, because credits are the limit
           ▼
-/face-studio
+/face-studio/launch             auth gate again; provisions today's credits
+          │
+          ▼
+/face-studio/index.html         the console itself
 ```
 
 `lib/demos.ts` marks the `image` entry `internal` and `metered`. `internal`
@@ -282,7 +285,8 @@ With credits in your account (see `docs/credit-system.md`):
 
 1. Open `/face-studio`. The header pill should show your balance.
 2. Upload a photo. It uploads to R2, then faces appear. **No charge.**
-3. Add a reference face. The hint reads `Costs 10 credits ($0.10).`
+3. Add a reference face. The hint reads `Costs 10 credits.` (credits only;
+   the console does not show a USD conversion).
 4. Render. The pill drops by 10 immediately — that is the reservation — and
    `/credits` shows the hold under **Reserved**, not yet as a spend.
 5. On success, `/credits` gains a `spend` line of −10.
