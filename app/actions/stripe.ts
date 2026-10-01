@@ -16,6 +16,15 @@ export async function startCheckoutSession(productId: string) {
 
   console.log('[Stripe] Product found:', product.name, 'price:', product.priceInCents)
 
+  // Free products are claimed through /api/license/claim, not paid for. This is
+  // a server action, so the check in the /checkout page does not protect it:
+  // anyone can call it directly. Without this guard a $0 session is created and
+  // the webhook issues a license that shows up as a payment.
+  if (product.priceInCents <= 0) {
+    console.error('[Stripe] Refusing checkout for free product:', productId)
+    throw new Error(`Product "${productId}" is free and cannot be purchased`)
+  }
+
   const supabase = await createClient()
   const {
     data: { user },

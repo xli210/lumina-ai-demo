@@ -160,6 +160,19 @@ async function handleLicenseCheckout(
     return;
   }
 
+  // A free product is claimed through /api/license/claim. A Stripe session for
+  // one is never a sale, so do not issue a license from it (which would also be
+  // counted as a payment).
+  const sessionProduct = PRODUCTS.find(
+    (p) => p.id === session.metadata?.product_id
+  );
+  if (sessionProduct && sessionProduct.priceInCents <= 0) {
+    console.warn(
+      `[Webhook] Session ${session.id} is for free product ${sessionProduct.id}; not issuing a license`
+    );
+    return;
+  }
+
   const paymentIntentId = sessionPaymentIntentId(session);
   const customerEmail = session.customer_details?.email;
 
