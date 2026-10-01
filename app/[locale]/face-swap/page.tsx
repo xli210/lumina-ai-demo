@@ -255,7 +255,7 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Three online demos */}
+      {/* Online demos */}
       <section className="px-6 pb-12">
         <div className="mx-auto max-w-6xl">
           <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">

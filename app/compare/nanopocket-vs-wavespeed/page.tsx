@@ -58,7 +58,7 @@ const data: ComparisonData = {
     {
       dimension: "Free entry point",
       nanopocket:
-        "Three free in-browser demos at /face-swap (image, video, Vivid). Free for any signed-in NanoPocket account, no per-image fee.",
+        "Face Studio at /face-studio with free full-resolution renders every day for any signed-in NanoPocket account, plus more online demos at /face-swap. No subscription.",
       competitor:
         "Free / trial credits across the suite, then credit packs or subscription. Free quota is shared across many AI features, not face-swap specific.",
       winner: "nanopocket",

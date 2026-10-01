@@ -5,6 +5,7 @@ import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { DEMOS, demoUrl, isInternalDemo, type DemoId } from "@/lib/demos";
+import { demoAvailabilityEn } from "@/lib/demo-availability";
 
 /**
  * This page reports tunnel reachability, so it covers only the demos that
@@ -17,14 +18,14 @@ const MONITORED = DEMOS.filter((d) => !isInternalDemo(d));
 export const metadata: Metadata = {
   title: "NanoPocket Demo Status — Live Uptime for Free Online Face Swap",
   description:
-    "Live uptime status for the three free online face-swap demos: Image FaceSwap Pro 2.0, Video FaceSwap Pro, and NanoFace Vivid. Updated every 5 minutes from an independent GitHub Actions runner.",
+    `Live uptime status for NanoPocket's online face-swap demos, updated every 5 minutes from an independent GitHub Actions runner. ${demoAvailabilityEn()}`,
   alternates: { canonical: "/status" },
   openGraph: {
     type: "website",
     url: "https://nanopocket.ai/status",
     title: "NanoPocket Demo Status",
     description:
-      "Live up/down status for the three free online face-swap demos, updated every 5 minutes.",
+      "Live up/down status for NanoPocket's online face-swap demos, updated every 5 minutes.",
   },
 };
 
@@ -156,7 +157,7 @@ export default async function StatusPage() {
     url: "https://nanopocket.ai/status",
     name: "NanoPocket Demo Status",
     description:
-      "Live uptime status for the three NanoPocket free online face-swap demos. Updated every 5 minutes by an independent GitHub Actions runner. Snapshot generated " +
+      `Live uptime status for NanoPocket's online face-swap demos. ${demoAvailabilityEn()} Updated every 5 minutes by an independent GitHub Actions runner. Snapshot generated ` +
       generatedAt +
       ".",
     dateModified: generatedAt,
@@ -210,7 +211,7 @@ export default async function StatusPage() {
             <span className={headlineColor}>{headline}</span>
           </h1>
           <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Each of the three free online face-swap demos at{" "}
+            Each online face-swap demo at{" "}
             <Link href="/face-swap" className="text-foreground underline-offset-2 hover:underline">
               /face-swap
             </Link>{" "}

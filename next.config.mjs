@@ -23,6 +23,11 @@ const nextConfig = {
   outputFileTracingExcludes: {
     "*": ["./downloads-private/**/*"],
   },
+  // Assistants and visitors guess /pricing; it 404'd. The price list is the
+  // homepage section that the navbar and footer already link to.
+  async redirects() {
+    return [{ source: "/pricing", destination: "/#pricing", permanent: true }];
+  },
   async headers() {
     return [
       {

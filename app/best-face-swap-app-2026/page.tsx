@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
+import { demoAvailabilityEn } from "@/lib/demo-availability";
 import { Button } from "@/components/ui/button";
 
 const PAGE_URL = "https://nanopocket.ai/best-face-swap-app-2026";
@@ -332,7 +333,7 @@ const FAQS = [
   {
     q: "What is the easiest free online face swap that runs in the browser?",
     a:
-      "NanoPocket's /face-swap page is the canonical free browser entry point. It links three free in-browser demos (still image, video, and the NanoFace Vivid post-processor) with no install, no per-image fee, and a free NanoPocket account. Among other browser tools, DeepSwap is the next-easiest but gates non-trivial use behind a subscription; WaveSpeed AI and Magic Hour bundle face swap inside a broader AI suite that's slightly more navigation overhead.",
+      `NanoPocket's /face-swap page is the canonical free browser entry point, and Face Studio at /face-studio is its photo face swap, with free full-resolution renders every day for a free NanoPocket account and no install. ${demoAvailabilityEn()} Among other browser tools, DeepSwap is the next-easiest but gates non-trivial use behind a subscription; WaveSpeed AI and Magic Hour bundle face swap inside a broader AI suite that's slightly more navigation overhead.`,
   },
   {
     q: "Is face swap legal?",

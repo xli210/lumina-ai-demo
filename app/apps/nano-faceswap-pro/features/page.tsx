@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
 import { FaceSwapFeatureRows, FACESWAP_PRO_DEMO_URL } from "./feature-rows";
+import { demoStatusEn } from "@/lib/demo-availability";
 
 const DEMO_URL = FACESWAP_PRO_DEMO_URL;
 
@@ -90,7 +91,7 @@ const featuresFaqs = [
   },
   {
     q: "When does the desktop app come out?",
-    a: "The Nano FaceSwap Pro 2.0 desktop app launches shortly after the feature tour goes public. Face Studio at /face-studio is live today: it gives every signed-in account three free full-resolution renders a day with no watermark, handles up to six faces in one photo, and is the only browser face swap with per-face control over which original regions survive. Video FaceSwap Pro is free for every signed-in account. The desktop release brings the same diffusion pipeline 100% local with no metering.",
+    a: `The Nano FaceSwap Pro 2.0 desktop app launches shortly after the feature tour goes public. Face Studio at /face-studio is live today: it gives every signed-in account three free full-resolution renders a day with no watermark, handles up to six faces in one photo, and is the only browser face swap with per-face control over which original regions survive. Video FaceSwap Pro: ${demoStatusEn("video")} The desktop release brings the same diffusion pipeline 100% local with no metering.`,
   },
 ];
 

@@ -2,7 +2,7 @@
 
 Internal-facing playbook for closing the visibility loop on Google, Baidu, Bing, ChatGPT, Gemini, DeepSeek, Perplexity, and Claude. Lives in repo at `docs/GEO-PLAYBOOK.md`. **Not** served as a public page — that's intentional, this is operational guidance, not marketing copy.
 
-Last updated: 2026-06-04.
+Last updated: 2026-10-01.
 
 ---
 
@@ -219,6 +219,31 @@ The corollary: **do not write a capability claim directly into a page.** Add it 
 Face Studio shipped with its description behind `middleware.ts`, so every crawler got a 307 to `/auth/login` and the flagship product was invisible to Google, Bing, and every assistant. The fix was to protect `/face-studio/` (trailing slash — the console and its assets) and leave `/face-studio` public.
 
 `scripts/check-geo.mjs` now asserts a 200 and four JSON-LD types on `/face-studio`, so the same mistake fails the check instead of silently costing months of indexing. Any future product that puts a tool and its description under one path prefix needs the same split.
+
+## Watch out for: claims that outlive the thing they describe
+
+From 2026-09-28 two of the three online demos were offline, but about twenty
+surfaces — every locale's homepage and /face-swap copy, the sitewide JSON-LD,
+`/llms.txt`, `/llms-full.txt`, `/status`, the ranking and comparison pages —
+still said "three free online demos". Assistants quoted it, and the visitors
+they sent landed on a maintenance page. That is the worst kind of citation:
+it spends the trust the citation earned.
+
+Availability is now prose generated from the `maintenance` flags in
+`lib/demos.ts`, via `lib/demo-availability.ts`. Flip a flag and redeploy; every
+LLM-facing file and the pages that list demos follow. Copy that does not need
+a count no longer has one, and Face Studio, the demo that is actually live, is
+named first.
+
+Two rules:
+
+- **Never write a demo count or "free online demo" claim by hand.** Use
+  `demoAvailabilityEn()` / `demoAvailabilityZh()` / `demoStatusEn(id)` in TS,
+  and count-neutral wording in `messages/*.json`, which cannot import code.
+- **Sitemap `lastModified` is the date the content changed.** It used to be
+  `new Date()` on most URLs, i.e. "everything changed at every deploy", which
+  teaches crawlers to ignore the field. Bump the date by hand when you change
+  a page. `/status` is the only URL that is legitimately "now".
 
 ## Things that look like GEO work but aren't worth doing
 

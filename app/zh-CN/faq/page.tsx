@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Navbar } from "../../components/navbar";
 import { Footer } from "../../components/footer";
+import { demoAvailabilityZh } from "@/lib/demo-availability";
 
 const PAGE_URL = "https://nanopocket.ai/zh-CN/faq";
 const LAST_VERIFIED = "2026-06-04";
@@ -70,7 +71,7 @@ interface FaqItem {
 const FAQS: FaqItem[] = [
   {
     q: "什么是 NanoPocket 的免费在线 AI 换脸？",
-    a: "NanoPocket 在 nanopocket.ai/zh-CN/face-swap 提供三个浏览器在线换脸工具：Face Studio（图片换脸，即原 Image FaceSwap Pro 2.0）、Video FaceSwap Pro（视频换脸）、NanoFace Vivid（修复 AI 人脸塑料感）。注册一个免费的 NanoPocket 账号即可使用，全部输出都不加水印。Face Studio 每天为每个登录账号免费提供 30 积分，也就是 3 次全分辨率换脸；超出后按「换几张脸」计费，1 积分 = 1 美分,换一张脸 10 积分（0.10 美元）。积分永不过期，没有订阅。",
+    a: `NanoPocket 在 nanopocket.ai/zh-CN/face-swap 提供浏览器在线换脸工具：Face Studio（图片换脸，即原 Image FaceSwap Pro 2.0）、Video FaceSwap Pro（视频换脸）、NanoFace Vivid（修复 AI 人脸塑料感）。${demoAvailabilityZh()}注册一个免费的 NanoPocket 账号即可使用，全部输出都不加水印。Face Studio 每天为每个登录账号免费提供 30 积分，也就是 3 次全分辨率换脸；超出后按「换几张脸」计费，1 积分 = 1 美分,换一张脸 10 积分（0.10 美元）。积分永不过期，没有订阅。`,
   },
   {
     q: "在线换脸真的是免费的吗？有没有隐藏收费？",

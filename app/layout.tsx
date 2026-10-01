@@ -7,6 +7,7 @@ import { getMessages } from "next-intl/server";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { DEFAULT_LOCALE, isAppLocale, type AppLocale } from "@/lib/i18n/locales";
+import { demoAvailabilityEn } from "@/lib/demo-availability";
 
 import "./globals.css";
 
@@ -63,7 +64,7 @@ export const metadata: Metadata = {
     other: verificationOther,
   },
   description:
-    "Free online AI face swap that runs in your browser — three diffusion-grade demos at /face-swap, no install, no subscription. Plus a full local AI creative suite (Flux.1, LTX-2.3) for users who want to run everything on their own GPU.",
+    "Free online AI face swap that runs in your browser — Face Studio and the demos at /face-swap, no install, no subscription. Plus a full local AI creative suite (Flux.1, LTX-2.3) for users who want to run everything on their own GPU.",
   keywords: [
     "NanoPocket", "local AI", "generative AI", "offline AI",
     "Runway alternative", "ComfyUI alternative", "Flux local app", "Flux.1 local",
@@ -382,9 +383,8 @@ export default async function RootLayout({
                   "@id": "https://nanopocket.ai/status",
                   name: "NanoPocket Demo Status — live uptime",
                   url: "https://nanopocket.ai/status",
-                  dateModified: "2026-06-03",
-                  description:
-                    "Live up/down status for the three free online face-swap demos, refreshed from an independent GitHub Actions monitor every five minutes.",
+                  dateModified: "2026-10-01",
+                  description: `Live up/down status for NanoPocket's online face-swap demos, refreshed from an independent GitHub Actions monitor every five minutes. ${demoAvailabilityEn()}`,
                 },
               ],
             }),

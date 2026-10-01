@@ -221,7 +221,7 @@ export default async function DemoLimitPage({ searchParams }: PageProps) {
           </h2>
           <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-white/70 sm:text-base">
             <li>
-              The three online demos are free, no watermark, no per-image fee.
+              The free online demos have no watermark and no per-image fee.
               To keep them that way for everyone, each signed-in user is
               limited to {DEMO_DAILY_LIMIT} image opens/day and{" "}
               {DEMO_DAILY_LIMIT} video opens/day.

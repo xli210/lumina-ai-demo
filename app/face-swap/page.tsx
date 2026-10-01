@@ -31,15 +31,16 @@ import {
   usd,
 } from "@/lib/face-studio-facts";
 import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
+import { demoAvailabilityEn } from "@/lib/demo-availability";
 
 const PAGE_URL = "https://nanopocket.ai/face-swap";
-const LAST_VERIFIED = "2026-06-03";
+const LAST_VERIFIED = "2026-10-01";
 
 export const metadata: Metadata = {
   title:
     "Free Online AI Face Swap — No Install, No Subscription | NanoPocket",
   description:
-    "Free online AI face swap that runs in your browser. No install, no subscription, no GPU required. Three diffusion-grade demos: Image FaceSwap Pro 2.0, Video FaceSwap Pro, and NanoFace Vivid. Sign in once with a free account and start swapping.",
+    `Free online AI face swap that runs in your browser. No install, no subscription, no GPU required. Face Studio swaps up to ${FACESTUDIO_MAX_FACES} faces in one photo at full resolution with no watermark, with free renders every day. Sign in once with a free account and start swapping.`,
   keywords: [
     "free online face swap",
     "ai face swap online",
@@ -64,7 +65,7 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     title: "Free Online AI Face Swap — runs in your browser",
     description:
-      "Three diffusion-grade face-swap demos that run in your browser. Free, no install, no subscription.",
+      "Diffusion-grade face swap that runs in your browser. Free daily renders, no install, no subscription.",
     images: ["/images/vivid/gemini-after.jpg"],
   },
   other: {
@@ -232,8 +233,8 @@ const FAQS = [
     a: "The online demos here use a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID), which preserves identity better on hard angles, low light, and occlusion than the GAN-based pipelines that DeepSwap, Reface, and most cloud face-swap services use. The trade-off is that NanoPocket is younger as a brand and has less mass-market name recognition. See the side-by-side at /compare/nanopocket-vs-deepswap and the full ranking at /best-face-swap-app-2026.",
   },
   {
-    q: "What is the difference between the three demos?",
-    a: "Image FaceSwap Pro 2.0 is for still-image swaps with the strongest identity preservation. Video FaceSwap Pro is the same identity stack extended to short video clips with temporal smoothing. NanoFace Vivid is a face-detail restorer that fixes the over-smoothed look that Gemini 2.5 Flash Image (Nano Banana), Firefly, Roop, and cloud face-swap services leave on portraits — it is identity-locked and is meant to run after another face-swap step (or after any AI portrait generator).",
+    q: "What is the difference between the demos?",
+    a: "Face Studio (formerly Image FaceSwap Pro 2.0) is for still-image swaps, including several faces in one photo, with the strongest identity preservation. Video FaceSwap Pro is the same identity stack extended to short video clips with temporal smoothing. NanoFace Vivid is a face-detail restorer that fixes the over-smoothed look that Gemini 2.5 Flash Image (Nano Banana), Firefly, Roop, and cloud face-swap services leave on portraits — it is identity-locked and is meant to run after another face-swap step (or after any AI portrait generator).",
   },
   {
     q: "Is there a desktop version?",
@@ -269,7 +270,7 @@ const webPageJsonLd = {
   url: PAGE_URL,
   name: "Free Online AI Face Swap — NanoPocket",
   description:
-    "Free online AI face swap, runs in any browser, no install, no subscription. Three diffusion-grade demos powered by InstantID + PuLID + IP-Adapter FaceID.",
+    `Free online AI face swap, runs in any browser, no install, no subscription. Diffusion-grade face swap powered by InstantID + PuLID + IP-Adapter FaceID. ${demoAvailabilityEn()}`,
   inLanguage: "en",
   isAccessibleForFree: true,
   dateModified: LAST_VERIFIED,
@@ -344,7 +345,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 3,
       name: "Upload and swap",
-      text: "Drop in the target photo or video and a reference face. The diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) produces the swap in a few seconds. Download the result. There is no watermark, no per-image fee, and no subscription on the demo tier.",
+      text: "Drop in the target photo or video and a reference face. The diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) produces the swap in a few seconds. Download the result. There is no watermark and no subscription, and Face Studio includes free renders every day.",
     },
   ],
 };
@@ -392,10 +393,11 @@ export default function FaceSwapPage() {
             Free online AI face swap. No install. No subscription.
           </h1>
           <p className="mb-6 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Three diffusion-grade face-swap demos that run in your browser.
-            Sign in once with a free NanoPocket account, upload a target and
-            a reference face, and get a swap in seconds. No GPU required on
-            your machine, no per-image fee, no per-minute fee, no credit pack.
+            Diffusion-grade face swap that runs in your browser. Sign in once
+            with a free NanoPocket account, upload a photo and a reference
+            face, and get a swap in seconds. No GPU required on your machine
+            and no subscription; Face Studio includes {FREE_RENDERS_PER_DAY}{" "}
+            free full-resolution renders every day.
           </p>
 
           <div className="mb-6 flex flex-wrap items-center gap-3 text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
@@ -412,7 +414,7 @@ export default function FaceSwapPage() {
           <div className="flex flex-wrap gap-3">
             <Button asChild size="lg" className="rounded-full bg-foreground text-background">
               <a href={ONLINE_DEMOS[0].href} target="_blank" rel="noopener noreferrer">
-                Try the photo demo <ExternalLink className="ml-2 h-4 w-4" />
+                Try Face Studio free <ExternalLink className="ml-2 h-4 w-4" />
               </a>
             </Button>
             <Button asChild variant="outline" size="lg" className="rounded-full">
@@ -424,18 +426,19 @@ export default function FaceSwapPage() {
         </div>
       </section>
 
-      {/* Three online demos */}
+      {/* Online demos */}
       <section id="demos" className="px-6 pb-12">
         <div className="mx-auto max-w-6xl">
           <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            Three free online demos
+            Free online demos
           </h2>
           <p className="mb-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             Each demo is a separate browser tool. Pick the one that matches
             what you want to do — still photo, short video clip, or fixing the
-            over-smoothed AI look on an existing portrait. Every signed-in
-            account gets {DEMO_DAILY_LIMIT} image opens and {DEMO_DAILY_LIMIT}{" "}
-            video opens per day (resets at 00:00 UTC).
+            over-smoothed AI look on an existing portrait. {demoAvailabilityEn()}{" "}
+            Face Studio is paid in credits with {FREE_RENDERS_PER_DAY} free
+            renders every day; the free demos allow {DEMO_DAILY_LIMIT} opens
+            per kind per day (resets at 00:00 UTC).
           </p>
 
           <DemoQuotaWidget />
@@ -527,7 +530,7 @@ export default function FaceSwapPage() {
               {
                 n: 1,
                 title: "Open the demo",
-                body: "Click any of the three demo buttons above. Each opens a new browser tab — nothing to install.",
+                body: "Click a demo button above. Each opens a new browser tab — nothing to install.",
               },
               {
                 n: 2,
@@ -710,9 +713,12 @@ export default function FaceSwapPage() {
               what to evaluate instead of brand history.
             </li>
             <li>
-              <strong className="text-foreground">Demo URLs are tunnelled.</strong>{" "}
-              The three demo URLs are served via Cloudflare tunnels and may
-              rotate as we update infrastructure. The canonical entry point
+              <strong className="text-foreground">Some demos run on tunnels.</strong>{" "}
+              Some demos are served through Cloudflare tunnels, which can
+              change as we update infrastructure;{" "}
+              <Link href="/status" className="underline">/status</Link> shows
+              which are live right now. Face Studio runs on nanopocket.ai
+              itself. The canonical entry point
               is always this page (<code className="rounded bg-muted px-1.5 py-0.5 font-mono text-foreground">/face-swap</code>).
             </li>
           </ul>

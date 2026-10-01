@@ -2,21 +2,21 @@
   "FaceSwap": {
     "metadata": {
       "title": "무료 온라인 AI 페이스 스왑 — 설치 불필요, 구독 불필요 | NanoPocket",
-      "description": "브라우저에서 바로 실행되는 무료 AI 페이스 스왑입니다. 설치 불필요, 구독 불필요, GPU 불필요. 디퓨전 (diffusion) 기반 데모 3종: Image FaceSwap Pro 2.0, Video FaceSwap Pro, NanoFace Vivid. 무료 계정으로 한 번만 로그인하면 바로 사용할 수 있습니다.",
+      "description": "브라우저에서 바로 실행되는 무료 AI 페이스 스왑입니다. 설치 불필요, 구독 불필요, GPU 불필요. Face Studio 는 사진 한 장 속 여러 얼굴을 원본 해상도 그대로, 워터마크 없이 바꿔 주며, 로그인한 계정에는 매일 무료 렌더링이 제공됩니다. 무료 계정으로 한 번만 로그인하면 바로 사용할 수 있습니다.",
       "ogTitle": "무료 온라인 AI 페이스 스왑 — 브라우저에서 바로 실행",
-      "ogDescription": "디퓨전 (diffusion) 기반 페이스 스왑 데모 3종, 모두 브라우저에서 실행. 무료, 설치 불필요, 구독 불필요."
+      "ogDescription": "브라우저에서 실행되는 디퓨전 (diffusion) 기반 페이스 스왑. 매일 무료 렌더링, 설치 불필요, 구독 불필요."
     },
     "hero": {
       "kicker": "무료 온라인 — 브라우저에서 바로 실행",
       "headline": "무료 온라인 AI 페이스 스왑. 설치 불필요. 구독 불필요.",
-      "subhead": "브라우저에서 동작하는 디퓨전 (diffusion) 기반 페이스 스왑 데모 3종을 제공합니다. 무료 NanoPocket 계정으로 한 번 로그인한 뒤 타깃 이미지와 참조 얼굴을 업로드하면 몇 초 만에 결과를 받을 수 있습니다. 본인 기기에 GPU가 필요 없으며, 장당 과금, 분당 과금, 크레딧 패키지가 일절 없습니다.",
+      "subhead": "브라우저에서 동작하는 디퓨전 (diffusion) 기반 페이스 스왑입니다. 무료 NanoPocket 계정으로 한 번 로그인한 뒤 사진과 참조 얼굴을 업로드하면 몇 초 만에 결과를 받을 수 있습니다. 본인 기기에 GPU가 필요 없고 구독도 없으며, Face Studio 는 매일 무료 원본 해상도 렌더링을 제공합니다.",
       "lastVerifiedLabel": "최종 확인일",
       "openSpeed": "10초 이내에 브라우저에서 열 수 있습니다",
       "ctaPrimary": "이미지 데모 사용해보기",
       "ctaSecondary": "무료 계정 만들기"
     },
     "demos": {
-      "heading": "무료 온라인 데모 3종",
+      "heading": "무료 온라인 데모",
       "intro": "각 데모는 독립된 브라우저 도구입니다. 정지 사진, 짧은 동영상 클립, 또는 기존 인물 사진에 남아 있는 AI 특유의 매끈매끈한 느낌을 손볼 때 — 필요에 맞는 도구를 고르세요.",
       "passwordLabel": "데모 비밀번호:",
       "openCta": "브라우저에서 열기",
@@ -42,7 +42,7 @@
     "steps": {
       "heading": "사용 방법 — 3단계",
       "step1Title": "데모 열기",
-      "step1Body": "위의 세 데모 버튼 중 아무거나 클릭하세요. 새 브라우저 탭이 열릴 뿐, 설치할 것은 아무것도 없습니다.",
+      "step1Body": "위의 데모 버튼을 클릭하세요. 새 브라우저 탭이 열릴 뿐, 설치할 것은 아무것도 없습니다.",
       "step2Title": "한 번만 로그인",
       "step2Body": "각 카드에 표시된 데모 비밀번호를 입력하세요. NanoPocket 계정이 아직 없으시다면 30초 안에 무료로 만들 수 있습니다.",
       "step3Title": "업로드 + 스왑",
@@ -126,7 +126,7 @@
       "items": [
         {
           "q": "온라인 페이스 스왑이 정말 무료인가요?",
-          "a": "네. 본 페이지의 세 가지 온라인 데모 (Image FaceSwap Pro 2.0, Video FaceSwap Pro, NanoFace Vivid) 는 로그인된 NanoPocket 계정이라면 누구에게나 무료입니다. 장당 과금, 분당 과금, 크레딧 패키지, 데모 단계를 잠그는 구독 같은 건 없습니다. 데스크톱용 FaceSwap Pro 2.0 릴리스는 별도의, 선택 사항인 일회성 결제 제품입니다."
+          "a": "네, 무료로 시작할 수 있습니다. Face Studio (현재 Image FaceSwap Pro 2.0 이 실행되는 서비스) 는 로그인한 모든 NanoPocket 계정에 매일 무료 원본 해상도 렌더링을 제공하고, 그 이상은 만료되지 않는 선불 크레딧으로 얼굴당 과금합니다. Video FaceSwap Pro 와 NanoFace Vivid 는 온라인 상태일 때 로그인한 계정이라면 무료입니다. 지금 어떤 데모를 쓸 수 있는지는 /status 에서 확인할 수 있습니다. 구독은 어디에도 없습니다. 데스크톱용 FaceSwap Pro 2.0 릴리스는 별도의, 선택 사항인 일회성 결제 제품입니다."
         },
         {
           "q": "계정이 필요한가요?",
@@ -145,8 +145,8 @@
           "a": "여기 온라인 데모는 디퓨전 (diffusion) 기반 아이덴티티 스택 (InstantID + PuLID + IP-Adapter FaceID) 을 사용하며, DeepSwap, Reface, 그 외 대부분의 클라우드 페이스 스왑 서비스가 사용하는 GAN 기반 파이프라인보다 큰 각도, 어두운 조명, 가림 상황에서 신원을 더 잘 보존합니다. 트레이드오프는 NanoPocket이 브랜드로서 아직 젊고 대중 인지도가 떨어진다는 점입니다. 일대일 비교는 /compare/nanopocket-vs-deepswap, 종합 순위는 /best-face-swap-app-2026 에서 확인하실 수 있습니다."
         },
         {
-          "q": "세 데모는 어떻게 다른가요?",
-          "a": "Image FaceSwap Pro 2.0 은 정지 이미지 스왑용으로, 신원 보존 능력이 가장 강합니다. Video FaceSwap Pro 는 동일한 아이덴티티 스택을 짧은 동영상 클립으로 확장하고 시간 방향 스무딩을 더한 것입니다. NanoFace Vivid 는 Gemini 2.5 Flash Image (Nano Banana), Firefly, Roop, 클라우드 페이스 스왑 서비스가 인물 사진에 남기는 과도한 매끈함을 보정하는 얼굴 디테일 복원 도구입니다 — 신원을 고정한 채로 동작하며, 다른 페이스 스왑 단계 (또는 임의의 AI 인물 생성기) 뒤에 사용하도록 만들어졌습니다."
+          "q": "각 데모는 어떻게 다른가요?",
+          "a": "Face Studio (구 Image FaceSwap Pro 2.0) 는 정지 이미지 스왑용으로, 사진 한 장의 여러 얼굴도 처리하며 신원 보존 능력이 가장 강합니다. Video FaceSwap Pro 는 동일한 아이덴티티 스택을 짧은 동영상 클립으로 확장하고 시간 방향 스무딩을 더한 것입니다. NanoFace Vivid 는 Gemini 2.5 Flash Image (Nano Banana), Firefly, Roop, 클라우드 페이스 스왑 서비스가 인물 사진에 남기는 과도한 매끈함을 보정하는 얼굴 디테일 복원 도구입니다 — 신원을 고정한 채로 동작하며, 다른 페이스 스왑 단계 (또는 임의의 AI 인물 생성기) 뒤에 사용하도록 만들어졌습니다."
         },
         {
           "q": "데스크톱 버전이 있나요?",
@@ -160,8 +160,8 @@
       "cloudGpuBody": "온라인 데모는 NanoPocket 이 호스팅하는 GPU 에서 실행되며, 사용자의 기기에서 실행되지 않습니다. 파일은 휘발성 메모리에서만 처리되며 학습에는 사용되지 않습니다. 클라우드를 절대 허용할 수 없는 용도라면 데스크톱 앱이 올바른 선택입니다.",
       "youngerBrandTitle": "브랜드가 아직 젊습니다.",
       "youngerBrandBody": "{lastVerified} 기준, NanoPocket 은 DeepSwap 이나 Reface 보다 인지도가 낮습니다. 브랜드의 역사 대신, /verify 에 있는 검증 가능한 신뢰 자료를 기준으로 평가해 주세요.",
-      "tunnelledTitle": "데모 URL 은 터널을 거쳐 제공됩니다.",
-      "tunnelledBody": "세 데모 URL 은 Cloudflare 터널을 통해 서비스되며, 인프라 업데이트에 따라 바뀔 수 있습니다. 정식 진입 지점은 항상 본 페이지 (/face-swap) 입니다."
+      "tunnelledTitle": "일부 데모는 터널을 거쳐 제공됩니다.",
+      "tunnelledBody": "일부 데모는 Cloudflare 터널을 통해 서비스되며, 인프라 업데이트에 따라 바뀔 수 있습니다. 지금 어떤 데모를 쓸 수 있는지는 /status 에서 확인할 수 있습니다. Face Studio 는 nanopocket.ai 에서 직접 실행됩니다. 정식 진입 지점은 항상 본 페이지 (/face-swap) 입니다."
     }
   },
   "Common": {

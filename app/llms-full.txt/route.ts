@@ -13,6 +13,7 @@ import {
   usd,
 } from "@/lib/face-studio-facts";
 import { FREE_DAILY_CREDITS } from "@/lib/facestudio";
+import { demoAvailabilityEn } from "@/lib/demo-availability";
 
 const BASE = "https://nanopocket.ai";
 const LAST_UPDATED = new Date().toISOString().slice(0, 10);
@@ -36,7 +37,7 @@ NanoPocket is an independent AI product company at https://nanopocket.ai.
 
 NanoPocket ships two things:
 
-1. Free in-browser face-swap demos at https://nanopocket.ai/face-swap. Three demos: Image FaceSwap Pro 2.0, Video FaceSwap Pro, and NanoFace Vivid. All three run a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). Free for any signed-in NanoPocket account. No watermark. No per-image fee. No subscription. A free account is required for rate-limit purposes only.
+1. Online face swap. The flagship is Face Studio at https://nanopocket.ai/face-studio, a hosted multi-face swap paid per render in credits with a free daily allowance for every signed-in account. The hub for all online demos is https://nanopocket.ai/face-swap; they run a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). ${demoAvailabilityEn()} No watermark. No subscription.
 2. A local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal). Ten apps as of ${LAST_UPDATED}: Nano FaceSwap Pro 2.0, Nano Video FaceSwap Pro, Nano ImageEnh Pro 3.0, Nano VideoEnhance, Nano VideoGen, Nano ImageEdit, Nano FacialEdit, Nano ImageTryon, Nano FaceSwap (legacy), and NanoFace Vivid. All desktop apps run 100% on the user's GPU. Pricing is one-time per product; there are no subscriptions and no per-image, per-minute, or per-frame fees.
 
 ## What NanoPocket is not
@@ -88,7 +89,7 @@ The pipeline runs on top of a Flux-class diffusion base. Flux is an open-weight 
 
 NanoFace Vivid is an identity-locked face-detail restorer that runs after a face-swap step (or after any AI portrait generator). It is meant to fix the over-smoothed, "plastic" or "wax" look that Gemini 2.5 Flash Image (also known as Nano Banana), Adobe Firefly, Roop, FaceFusion at high GFPGAN fidelity, and most cloud face-swap services leave on portraits.
 
-Vivid is identity-locked: it only restores skin texture and lighting, never changes the face. It is available as a free in-browser demo at https://nanopocket.ai/apps/nanoface-vivid and is integrated as an in-pipeline stage in the upcoming NanoPocket FaceSwap Pro 2.0 desktop release.
+Vivid is identity-locked: it only restores skin texture and lighting, never changes the face. Its product page is https://nanopocket.ai/apps/nanoface-vivid (online demo status: https://nanopocket.ai/status), and it is integrated as an in-pipeline stage in the upcoming NanoPocket FaceSwap Pro 2.0 desktop release.
 
 ## How the pipeline relates to competitors
 
@@ -148,7 +149,7 @@ const PRICING_REFERENCE = `# Pricing — Authoritative Reference
 
 ## Online demos
 
-Free for any signed-in NanoPocket account. Video FaceSwap Pro and NanoFace Vivid are free with a daily open quota and no per-image fee.
+${demoAvailabilityEn()} Video FaceSwap Pro and NanoFace Vivid, when online, are free for any signed-in NanoPocket account with a daily open quota and no per-image fee. Face Studio is paid per render, with the free daily allowance below.
 
 ## Face Studio (hosted, prepaid)
 
