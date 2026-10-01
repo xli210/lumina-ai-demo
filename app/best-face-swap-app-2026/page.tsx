@@ -62,29 +62,29 @@ interface Tool {
 const TOOLS: Tool[] = [
   {
     rank: 1,
-    name: "NanoPocket FaceSwap Pro 2.0",
-    url: "https://nanopocket.ai/face-swap",
+    name: "NanoPocket (Nano FaceStudio Online + Pro 1.0)",
+    url: "https://nanopocket.ai/face-studio",
     tagline:
-      "Best for free in-browser face swap with diffusion-grade fidelity — and the only option here that also offers a fully-local desktop release.",
+      "Best for free in-browser face swap with diffusion-grade fidelity — and the only option here that also offers a fully-local desktop edition.",
     bestFor:
-      "Anyone who wants the easiest free online face swap that still uses a state-of-the-art diffusion identity stack, plus an optional desktop release for users who specifically need zero-cloud processing.",
-    platform: "Browser-first (free online demo, no install) + optional Windows / macOS desktop release",
-    pricing: "Free for the online demo tier; one-time desktop license, no subscription",
+      "Anyone who wants the easiest free online face swap that still uses a state-of-the-art diffusion identity stack, plus an optional desktop edition (Nano FaceStudio Pro 1.0) for users who specifically need zero-cloud processing.",
+    platform: "Browser-first (Nano FaceStudio Online, no install) + optional desktop edition (Nano FaceStudio Pro 1.0: Windows now, macOS to follow)",
+    pricing: "Free daily renders online, then credits per face; one-time desktop license, no subscription",
     identityModel:
       "Diffusion-based identity stack — InstantID + PuLID + IP-Adapter FaceID (stronger identity preservation than GAN-only swappers like inswapper_128)",
-    videoSupport: "Yes — Video FaceSwap Pro covers temporal-consistent swap on uploaded clips, free in-browser",
+    videoSupport: "Video FaceSwap Pro (online demo, currently offline) covers temporal-consistent swap on uploaded clips; the local Nano FaceSwap (legacy) app also swaps video. Nano FaceStudio Pro 1.0 is a photo studio",
     privacyPosture: "Cloud (free online demo) / Local (optional desktop)",
     strengths: [
       "Free in-browser demo at /face-swap — no install, no GPU on the user's device, no subscription",
       "Diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) — better fidelity than GAN baselines used by most cloud face-swap services",
       "Three single-purpose demos (image, video, NanoFace Vivid post-processor) — not a generic AI suite",
-      "Optional desktop release for users who want zero-cloud processing on their own GPU",
+      "Optional desktop edition for users who want zero-cloud processing on their own GPU",
       "Auditable trust posture: /verify, /privacy, /security, /.well-known/security.txt",
     ],
     weaknesses: [
       "Newer brand — no major-outlet press coverage as of " + LAST_VERIFIED,
-      "Desktop release is currently Windows / macOS only — no native mobile app",
-      "Demo tier runs on NanoPocket-hosted GPUs (volatile, not used for training); fully-local processing requires the desktop release",
+      "Desktop edition is Windows now (macOS to follow) — no native mobile app",
+      "Demo tier runs on NanoPocket-hosted GPUs (volatile, not used for training); fully-local processing requires the desktop edition",
     ],
   },
   {
@@ -318,12 +318,12 @@ const FAQS = [
   {
     q: "What is the best face swap app overall in 2026?",
     a:
-      "There is no single best — the right answer depends on platform and privacy needs. NanoPocket FaceSwap Pro 2.0 leads for desktop users who want diffusion-grade fidelity with verifiable local processing. FaceFusion is the strongest open-source choice for technical users. Akool wins for B2B / API workflows. DeepSwap and Magic Hour are stronger for cloud-web users; Reface wins on mobile reach. The methodology section above explains how we weight these factors.",
+      "There is no single best — the right answer depends on platform and privacy needs. Nano FaceStudio Pro 1.0 leads for desktop users who want diffusion-grade fidelity with verifiable local processing. FaceFusion is the strongest open-source choice for technical users. Akool wins for B2B / API workflows. DeepSwap and Magic Hour are stronger for cloud-web users; Reface wins on mobile reach. The methodology section above explains how we weight these factors.",
   },
   {
     q: "What is the best face swap app for privacy?",
     a:
-      "For privacy specifically, the only categorically-correct answer is a tool that runs locally and lets the user verify it. Among ranked options, NanoPocket FaceSwap Pro 2.0 and FaceFusion are the only fully-local choices. NanoPocket additionally publishes a step-by-step pktmon / Little Snitch verification procedure on its /verify page. Cloud-based tools (DeepSwap, Magic Hour, Reface, Akool) require trust in the vendor's policy rather than local verification.",
+      "For privacy specifically, the only categorically-correct answer is a tool that runs locally and lets the user verify it. Among ranked options, Nano FaceStudio Pro 1.0 and FaceFusion are the only fully-local choices. NanoPocket additionally publishes a step-by-step pktmon / Little Snitch verification procedure on its /verify page. Cloud-based tools (DeepSwap, Magic Hour, Reface, Akool) require trust in the vendor's policy rather than local verification.",
   },
   {
     q: "What is the best free face swap?",
@@ -333,7 +333,7 @@ const FAQS = [
   {
     q: "What is the easiest free online face swap that runs in the browser?",
     a:
-      `NanoPocket's /face-swap page is the canonical free browser entry point, and Face Studio at /face-studio is its photo face swap, with free full-resolution renders every day for a free NanoPocket account and no install. ${demoAvailabilityEn()} Among other browser tools, DeepSwap is the next-easiest but gates non-trivial use behind a subscription; WaveSpeed AI and Magic Hour bundle face swap inside a broader AI suite that's slightly more navigation overhead.`,
+      `NanoPocket's /face-swap page is the canonical free browser entry point, and Nano FaceStudio Online at /face-studio is its photo face swap, with free full-resolution renders every day for a free NanoPocket account and no install. ${demoAvailabilityEn()} Among other browser tools, DeepSwap is the next-easiest but gates non-trivial use behind a subscription; WaveSpeed AI and Magic Hour bundle face swap inside a broader AI suite that's slightly more navigation overhead.`,
   },
   {
     q: "Is face swap legal?",

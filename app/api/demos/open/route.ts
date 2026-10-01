@@ -32,7 +32,7 @@ function isDemoId(v: string): v is DemoId {
  *
  * Auth-gates all three, and rate-limits the free ones: a signed-in user gets
  * DEMO_DAILY_LIMIT opens per "kind" per UTC day. `image` is metered in
- * credits instead and lands on the Face Studio console; see the metered branch below.
+ * credits instead and lands on the Nano FaceStudio Online console; see the metered branch below.
  * The free ones 302 to their Cloudflare tunnel exactly as before.
  *
  * Failure modes (all 302 redirects — the button opened in a new tab and we
@@ -84,7 +84,7 @@ export async function GET(req: NextRequest) {
 
   // A metered demo charges per render, so it does not also consume the free
   // daily allowance — the credit balance is already the limit. This is the
-  // branch Image FaceSwap Pro 2.0 takes, landing on /face-studio/launch.
+  // branch Nano FaceStudio Online takes, landing on /face-studio/launch.
   if (isMeteredDemo(demo)) {
     const target = isInternalDemo(demo)
       ? `${origin}${demo.landingPath}`

@@ -9,7 +9,7 @@ export const runtime = "nodejs";
 interface UsageResponse {
   signedIn: boolean;
   limit: number;
-  /** Count of image-kind opens today (Image FaceSwap Pro 2.0 + NanoFace Vivid). */
+  /** Count of image-kind opens today (Nano FaceStudio Online + NanoFace Vivid). */
   image: number;
   /** Count of video-kind opens today (Video FaceSwap Pro). */
   video: number;

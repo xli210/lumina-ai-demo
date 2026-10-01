@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   Face Studio — multi-face swap frontend
+   Nano FaceStudio Online — multi-face swap frontend
    ═══════════════════════════════════════════════════════════════ */
 
 (function () {

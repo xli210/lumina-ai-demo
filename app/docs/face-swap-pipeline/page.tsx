@@ -121,7 +121,7 @@ const SECTIONS: Section[] = [
     title: "Summary",
     paragraphs: [
       "NanoPocket runs a diffusion identity stack for face swap. The stack composes three identity adapters on a Flux diffusion base: InstantID, PuLID, and IP-Adapter FaceID.",
-      "The stack is used both in NanoPocket's free in-browser demos at /face-swap and in the upcoming NanoPocket FaceSwap Pro 2.0 desktop release for Windows and macOS.",
+      "The stack is used both in NanoPocket's free in-browser demos at /face-swap and in the desktop Nano FaceStudio Pro 1.0, available for Windows with macOS to follow.",
       "This document describes the components, how they compose, the failure modes the stack is designed to address, and the differences from a GAN-based pipeline.",
     ],
   },
@@ -202,7 +202,7 @@ const SECTIONS: Section[] = [
       "NanoFace Vivid is an identity-locked face-detail restorer.",
       "It is designed to fix the 'plastic' or 'wax' look that AI portrait pipelines leave on faces. The most common upstream causes are: Gemini 2.5 Flash Image (also known as Nano Banana), Adobe Firefly, Roop or FaceFusion with GFPGAN at high fidelity, and most cloud face-swap services.",
       "Vivid only restores skin texture and lighting. It never changes the face. The identity-lock constraint is enforced by re-conditioning on the InstantID embedding extracted from the input.",
-      "Vivid is available as a free in-browser demo at /apps/nanoface-vivid. It is integrated as an in-pipeline stage in the upcoming NanoPocket FaceSwap Pro 2.0 desktop release.",
+      "Vivid is available as a free in-browser demo at /apps/nanoface-vivid. The same restoration model is built into the desktop Nano FaceStudio Pro 1.0 as its Face Vivid tool.",
     ],
   },
   {
@@ -259,7 +259,7 @@ const SECTIONS: Section[] = [
     id: "disclosure",
     title: "Disclosure",
     paragraphs: [
-      "We are NanoPocket. The pipeline described above is the one that powers our /face-swap demos and the upcoming desktop release.",
+      "We are NanoPocket. The pipeline described above is the one that powers our /face-swap demos and the desktop Nano FaceStudio Pro 1.0.",
       "All third-party components named on this page are open-weight and openly published. The links above are to the original authors' canonical surfaces, not to NanoPocket-controlled mirrors.",
       "If a claim on this page is inaccurate, please file an issue or email tech@nanopocket.ai. We will date-stamp the correction.",
     ],

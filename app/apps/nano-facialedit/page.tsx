@@ -129,7 +129,7 @@ const data: ProductLandingData = {
         label:
           "Wang et al. — InstantID: Zero-shot Identity-Preserving Generation in Seconds (arXiv:2401.07519, 2024)",
         url: "https://arxiv.org/abs/2401.07519",
-        note: "Identity-loss objective shared with the Nano FaceSwap Pro stack.",
+        note: "Identity-loss objective shared with the Nano FaceStudio stack.",
       },
       {
         label:
@@ -224,10 +224,10 @@ const data: ProductLandingData = {
       index: "04",
       eyebrow: "Portrait swap",
       title: "Built-in face swap for portraits.",
-      lead: "A face-swap mode is bundled inside the same desktop app for portrait scenarios, sharing the diffusion identity backbone with Nano FaceSwap Pro 2.0 so the same identity quality applies to single-subject portrait work without launching a second tool.",
+      lead: "A face-swap mode is bundled inside the same desktop app for portrait scenarios, sharing the diffusion identity backbone with Nano FaceStudio Pro 1.0 so the same identity quality applies to single-subject portrait work without launching a second tool.",
       bullets: [
         "Single-subject portrait face swap inside the app",
-        "Shared identity backbone with Nano FaceSwap Pro 2.0",
+        "Shared identity backbone with Nano FaceStudio Pro 1.0",
         "No separate install required",
         "Same accessory-preservation behavior",
       ],

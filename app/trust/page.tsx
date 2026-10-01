@@ -72,23 +72,23 @@ interface SystemReq {
 
 const SYSTEM_REQS: SystemReq[] = [
   {
-    product: "Nano FaceSwap Pro 2.0 (online)",
-    href: "/apps/nano-faceswap-pro",
+    product: "Nano FaceStudio Online",
+    href: "/face-studio",
     os: "Any modern browser (Chrome, Edge, Safari, Firefox)",
     gpu: "Hosted GPU (no local hardware required)",
     vram: "—",
     status: "Stable",
   },
   {
-    product: "Nano FaceSwap Pro 2.0 (desktop)",
-    href: "/apps/nano-faceswap-pro/features",
-    os: "Windows 10/11; macOS Apple Silicon (M2/M3/M4/M5)",
-    gpu: "NVIDIA CUDA (Win) or Apple Silicon Metal (Mac)",
+    product: "Nano FaceStudio Pro 1.0 (desktop)",
+    href: "/apps/nano-facestudio-pro",
+    os: "Windows 10/11 now; macOS Apple Silicon (M2/M3/M4/M5) to follow",
+    gpu: "NVIDIA CUDA (Win) or Apple Silicon Metal (Mac, to follow)",
     vram: "8 GB minimum",
-    status: "Coming soon",
+    status: "Stable",
   },
   {
-    product: "Nano Video FaceSwap Pro (online)",
+    product: "Video FaceSwap Pro (online)",
     href: "/apps/nano-faceswap-pro/video",
     os: "Any modern browser, signed-in NanoPocket account",
     gpu: "Hosted GPU (no local hardware required)",
@@ -350,7 +350,7 @@ const INDEPENDENT_LINKS: IndependentLink[] = [
     category: "Model",
     label: "Hugging Face — InstantX/InstantID model card",
     url: "https://huggingface.co/InstantX/InstantID",
-    detail: "Public weights + reproducible demo for the InstantID component of FaceSwap Pro 2.0.",
+    detail: "Public weights + reproducible demo for the InstantID component of Nano FaceStudio Pro 1.0.",
   },
   {
     category: "Model",
@@ -386,7 +386,7 @@ const INDEPENDENT_LINKS: IndependentLink[] = [
     category: "Comparison",
     label: "InsightFace inswapper_128 — competitor identity backbone",
     url: "https://github.com/deepinsight/insightface",
-    detail: "GAN used by Roop / FaceFusion / Rope / Reactor — referenced for direct comparison vs Pro 2.0's diffusion stack.",
+    detail: "GAN used by Roop / FaceFusion / Rope / Reactor — referenced for direct comparison vs the diffusion stack in Nano FaceStudio.",
   },
   {
     category: "Comparison",
@@ -541,22 +541,22 @@ const KNOWN_ISSUES: KnownIssue[] = [
     href: "/trust#sysreqs",
   },
   {
-    title: "Pro 2.0 desktop app is pre-release",
-    product: "Nano FaceSwap Pro 2.0",
+    title: "Nano FaceStudio Pro 1.0 is Windows-only for now",
+    product: "Nano FaceStudio Pro 1.0",
     detail:
-      "Online demo (image and video) is live and free for signed-in accounts; the 100% local desktop app launches shortly after the public feature tour. The chip on the homepage shows 'Coming soon' until then.",
-    href: "/apps/nano-faceswap-pro",
+      "The 100% local desktop app is available now for Windows (NVIDIA CUDA). The macOS Apple Silicon build is still to come, and the same license will cover it. Nano FaceStudio Online runs in any browser in the meantime.",
+    href: "/apps/nano-facestudio-pro",
   },
   {
     title: "Inswapper-class identity ceiling on Nano FaceSwap (legacy)",
     product: "Nano FaceSwap 1.0.4",
     detail:
-      "Identity is rendered at 128×128 then upscaled (same pipeline as Roop / FaceFusion / Rope). The diffusion-grade replacement ships with Pro 2.0.",
+      "Identity is rendered at 128×128 then upscaled (same pipeline as Roop / FaceFusion / Rope). The diffusion-grade replacement is Nano FaceStudio Pro 1.0.",
     href: "/apps/nano-faceswap",
   },
   {
     title: "Online demo capacity at peak hours",
-    product: "Nano Video FaceSwap Pro (online)",
+    product: "Video FaceSwap Pro (online)",
     detail:
       "Free demo queues lengthen during UTC 14-22. Most submissions clear in ≤2 min, but a 5-10 min wait is possible on busy weekends.",
     href: "/apps/nano-faceswap-pro/video",
@@ -580,7 +580,7 @@ const CITATIONS: Citation[] = [
   {
     label: "Wang et al. — InstantID: Zero-shot Identity-Preserving Generation in Seconds (arXiv:2401.07519, 2024)",
     url: "https://arxiv.org/abs/2401.07519",
-    note: "Identity backbone in Nano FaceSwap Pro 2.0 and FacialEdit.",
+    note: "Identity backbone in Nano FaceStudio Pro 1.0 and FacialEdit.",
   },
   {
     label: "Guo et al. — PuLID: Pure and Lightning ID Customization via Contrastive Alignment (arXiv:2404.16022, 2024)",
@@ -620,7 +620,7 @@ const CITATIONS: Citation[] = [
   {
     label: "InsightFace — inswapper_128 model card (GitHub, deepinsight/insightface)",
     url: "https://github.com/deepinsight/insightface",
-    note: "Identity backbone of legacy Nano FaceSwap; included for direct comparison vs Pro 2.0's diffusion stack.",
+    note: "Identity backbone of legacy Nano FaceSwap; included for direct comparison vs the diffusion stack in Nano FaceStudio.",
   },
 ];
 
@@ -715,7 +715,7 @@ const trustFaqJsonLd = {
       name: "Which products are stable vs. coming soon?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Stable today: Nano ImageEnh Pro 3.0, VideoEnhance, VideoGen, ImageEdit, FacialEdit, ImageTryon, FaceSwap (legacy), and the Nano FaceSwap Pro 2.0 online image and video demos. Coming soon: the Nano FaceSwap Pro 2.0 desktop release. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap.",
+        text: "Stable today: Nano ImageEnh Pro 3.0, VideoEnhance, VideoGen, ImageEdit, FacialEdit, ImageTryon, FaceSwap (legacy), and Nano FaceStudio Pro 1.0 (Windows now, macOS to follow), plus the Nano FaceStudio Online and Video FaceSwap Pro online demos. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap.",
       },
     },
     {

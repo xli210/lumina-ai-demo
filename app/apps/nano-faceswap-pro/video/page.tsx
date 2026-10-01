@@ -11,11 +11,11 @@ const VIDEO_DEMO_URL = demoRedirectPath(getDemo("video").id);
 
 export const metadata: Metadata = {
   title:
-    "Nano Video FaceSwap Pro — Free Online AI Video Face Swap with Temporal Consistency",
+    "Video FaceSwap Pro — Free Online AI Video Face Swap with Temporal Consistency",
   description:
-    "Nano Video FaceSwap Pro is a free, browser-hosted AI video face-swap demo. It runs a diffusion identity backbone (InstantID, PuLID, IP-Adapter FaceID) with optical-flow-guided propagation, supports up to 1080p input, and is free for every signed-in NanoPocket account.",
+    "Video FaceSwap Pro is a free, browser-hosted AI video face-swap demo. It runs a diffusion identity backbone (InstantID, PuLID, IP-Adapter FaceID) with optical-flow-guided propagation, supports up to 1080p input, and is free for every signed-in NanoPocket account.",
   keywords: [
-    "Nano Video FaceSwap Pro",
+    "Video FaceSwap Pro",
     "AI video face swap",
     "free video face swap",
     "diffusion video face swap",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/apps/nano-faceswap-pro/video" },
   openGraph: {
-    title: "Nano Video FaceSwap Pro — Free Online AI Video Face Swap",
+    title: "Video FaceSwap Pro — Free Online AI Video Face Swap",
     description:
       "Free, browser-hosted diffusion video face swap with optical-flow temporal propagation. 1080p input, frame-stable output, no per-minute fees.",
     type: "website",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nano Video FaceSwap Pro — Free Online Diffusion Video Face Swap",
+    title: "Video FaceSwap Pro — Free Online Diffusion Video Face Swap",
     description:
       "Free online video face swap with optical-flow temporal consistency. 1080p input, no per-minute fees.",
   },
@@ -59,7 +59,7 @@ const data: ProductLandingData = {
     softwareVersion: "Demo · 2026.05",
     releaseDate: "2026-05-08",
     description:
-      "Nano Video FaceSwap Pro — free, browser-hosted diffusion video face-swap demo with optical-flow temporal propagation. 1080p input, frame-stable output, free for every signed-in NanoPocket account. A privacy-friendly alternative to DeepFaceLab, Rope Live, DeepSwap, Akool, and HeyGen.",
+      "Video FaceSwap Pro — free, browser-hosted diffusion video face-swap demo with optical-flow temporal propagation. 1080p input, frame-stable output, free for every signed-in NanoPocket account. A privacy-friendly alternative to DeepFaceLab, Rope Live, DeepSwap, Akool, and HeyGen.",
     offer: {
       price: "0.00",
       priceCurrency: "USD",
@@ -93,7 +93,7 @@ const data: ProductLandingData = {
       notRecommendedFor: [
         "Real-time live-streaming (use Rope-Live or Deep-Live-Cam)",
         "Feature-film VFX requiring full per-shot supervision",
-        "NDA / restricted footage — wait for the desktop release",
+        "NDA / restricted footage — use the local desktop Nano FaceSwap (legacy) instead",
         "Source clips with > 6 simultaneously-swapped faces",
         "Any non-consensual likeness use — explicitly prohibited",
       ],
@@ -102,7 +102,7 @@ const data: ProductLandingData = {
       {
         title: "30-second / 1080p ceiling on the online demo",
         detail:
-          "The browser demo enforces a 30-second clip and 1080p resolution cap to keep hosted-GPU queue times reasonable. The desktop Pro 2.0 release lifts both limits to whatever the local GPU can sustain.",
+          "The browser demo enforces a 30-second clip and 1080p resolution cap to keep hosted-GPU queue times reasonable. The desktop Nano FaceSwap (legacy) app has no such cap, but uses an inswapper-class identity model rather than the diffusion stack.",
       },
       {
         title: "Strong motion-blur frames",
@@ -122,7 +122,7 @@ const data: ProductLandingData = {
       {
         title: "Hosted-GPU queue times during peak hours",
         detail:
-          "Free demo queues lengthen at peak hours (UTC 14-22). Most submissions clear in ≤2 min, but a 5-10 min wait is possible on busy weekends until the desktop release lands.",
+          "Free demo queues lengthen at peak hours (UTC 14-22). Most submissions clear in ≤2 min, but a 5-10 min wait is possible on busy weekends.",
       },
       {
         title: "Audio is preserved but not edited",
@@ -157,13 +157,13 @@ const data: ProductLandingData = {
       },
     ],
   },
-  parent: { label: "Back to Nano FaceSwap Pro 2.0", href: "/apps/nano-faceswap-pro" },
+  parent: { label: "Back to Nano FaceStudio Online", href: "/face-studio" },
   hero: {
     eyebrow: "Free online · Video face swap",
     versionChip: "Demo",
-    title: "Nano Video FaceSwap",
+    title: "Video FaceSwap Pro",
     titleAccent: "Pro",
-    lead: "Nano Video FaceSwap Pro is a free, browser-hosted diffusion video face-swap demo that uses optical-flow-guided identity propagation on a single hosted GPU, accepts up to 1080p input, and produces frame-stable output across long clips with strong head motion.",
+    lead: "Video FaceSwap Pro is a free, browser-hosted diffusion video face-swap demo that uses optical-flow-guided identity propagation on a single hosted GPU, accepts up to 1080p input, and produces frame-stable output across long clips with strong head motion.",
     parameters: [
       { value: "1080p", label: "Maximum input resolution" },
       {
@@ -181,8 +181,8 @@ const data: ProductLandingData = {
       external: true,
     },
     secondaryCta: {
-      label: "See full feature tour",
-      href: "/apps/nano-faceswap-pro/features",
+      label: "See Nano FaceStudio Online",
+      href: "/face-studio",
       variant: "secondary",
     },
   },
@@ -236,12 +236,12 @@ const data: ProductLandingData = {
       index: "04",
       eyebrow: "Inputs supported",
       title: "Up to 1080p input, common containers.",
-      lead: "The demo accepts MP4 and MOV containers up to 1080p input resolution and a typical clip length, with automatic frame-rate handling. The desktop Pro release lifts this ceiling further on the user's local hardware.",
+      lead: "The demo accepts MP4 and MOV containers up to 1080p input resolution and a typical clip length, with automatic frame-rate handling. The desktop Nano FaceSwap (legacy) app is not limited by these ceilings.",
       bullets: [
         "MP4 and MOV containers",
         "Up to 1080p input in the online demo",
         "Automatic frame-rate handling",
-        "Higher ceilings on the desktop Pro release",
+        "No such ceilings on the local desktop Nano FaceSwap (legacy) app",
       ],
       hint: "MP4 · MOV · 1080p",
     },
@@ -249,14 +249,14 @@ const data: ProductLandingData = {
       index: "05",
       eyebrow: "How it compares",
       title: "Cloud face swap, without the per-minute charge.",
-      lead: "DeepSwap, Akool, HeyGen, DeepBrain, and Reface charge per minute of processed video and upload media to their servers. The Nano Video FaceSwap Pro demo is free, runs on dedicated NanoPocket-hosted GPUs, and the desktop release runs the same pipeline 100% on the user's local GPU.",
+      lead: "DeepSwap, Akool, HeyGen, DeepBrain, and Reface charge per minute of processed video and upload media to their servers. The Video FaceSwap Pro demo is free, runs on dedicated NanoPocket-hosted GPUs, and the desktop Nano FaceSwap (legacy) app processes video 100% on the user's local GPU.",
       bullets: [
         "No per-minute or per-frame charges",
-        "No cloud retention requirement on the desktop release",
-        "Same diffusion identity head across online and desktop",
-        "One-time license on the desktop release, no usage fees",
+        "No cloud upload at all on the local desktop Nano FaceSwap (legacy) app",
+        "Online demo uses the diffusion identity stack; the legacy desktop app uses inswapper-class identity",
+        "One-time license on the desktop app, no usage fees",
       ],
-      hint: "Free online · local on desktop",
+      hint: "Free online · local legacy desktop",
     },
   ],
   faqs: [
@@ -270,7 +270,7 @@ const data: ProductLandingData = {
     },
     {
       q: "What resolution and clip length does the demo accept?",
-      a: "The online demo accepts MP4 and MOV containers up to 1080p input. Typical short-to-medium clips work without manual chunking. The desktop Pro release lifts the resolution and clip-length ceilings on the user's local GPU.",
+      a: "The online demo accepts MP4 and MOV containers up to 1080p input. Typical short-to-medium clips work without manual chunking. The desktop Nano FaceSwap (legacy) app is not limited by these ceilings.",
     },
     {
       q: "Will the face stay stable across all frames?",
@@ -278,11 +278,11 @@ const data: ProductLandingData = {
     },
     {
       q: "How is this different from DeepFaceLab or Rope Live?",
-      a: "DeepFaceLab and Rope Live are open-source Gradio scripts that need a Python environment and a per-machine training pass. Nano Video FaceSwap Pro is hosted in the browser, runs diffusion identity instead of inswapper_128, and requires no install or training.",
+      a: "DeepFaceLab and Rope Live are open-source Gradio scripts that need a Python environment and a per-machine training pass. Video FaceSwap Pro is hosted in the browser, runs diffusion identity instead of inswapper_128, and requires no install or training.",
     },
     {
       q: "Is this safe for private or NDA footage?",
-      a: "The source clip is sent to a NanoPocket-hosted GPU only for the duration of the swap and is not used for model training. For strict-NDA work, wait for the desktop Pro release, which keeps every frame on the local disk.",
+      a: "The source clip is sent to a NanoPocket-hosted GPU only for the duration of the swap and is not used for model training. For strict-NDA work, use the desktop Nano FaceSwap (legacy) app, which keeps every frame on the local disk.",
     },
     {
       q: "Can I download my result?",
@@ -298,8 +298,8 @@ const data: ProductLandingData = {
       external: true,
     },
     secondaryCta: {
-      label: "See the eight-section feature tour",
-      href: "/apps/nano-faceswap-pro/features",
+      label: "See Nano FaceStudio Online",
+      href: "/face-studio",
       variant: "secondary",
     },
   },

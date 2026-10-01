@@ -52,7 +52,7 @@ const CONSOLE_URL = "/face-studio/launch";
 
 export const metadata: Metadata = {
   title:
-    "Face Studio — multi-face swap with occlusion control | NanoPocket",
+    "Nano FaceStudio Online — multi-face swap with occlusion control | NanoPocket",
   description: `Swap up to ${FACESTUDIO_MAX_FACES} faces in one photo, or replace a whole head, at full resolution with no watermark. Choose per face what to keep from the original — hair, hands, glasses. ${usd(
     FACE_SWAP_USD
   )} per face replaced, ${FREE_RENDERS_PER_DAY} free every day, credits never expire, no subscription.`,
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: PAGE_URL,
-    title: "Face Studio — multi-face swap with occlusion control",
+    title: "Nano FaceStudio Online — multi-face swap with occlusion control",
     description: `Up to ${FACESTUDIO_MAX_FACES} faces per photo, whole-head swap, full-resolution output, and per-face control over what survives the swap. ${usd(
       FACE_SWAP_USD
     )} per render with ${FREE_RENDERS_PER_DAY} free daily.`,
@@ -140,7 +140,7 @@ const faqJsonLd = {
 const howToJsonLd = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: "How to swap several faces in one photo with Face Studio",
+  name: "How to swap several faces in one photo with Nano FaceStudio Online",
   description: `Detect up to ${FACESTUDIO_MAX_FACES} faces in a photo, give each one its own reference, choose what to keep from the original, and render at full resolution.`,
   totalTime: "PT2M",
   estimatedCost: {
@@ -172,7 +172,7 @@ const breadcrumbJsonLd = {
       name: "Online face swap",
       item: "https://nanopocket.ai/face-swap",
     },
-    { "@type": "ListItem", position: 3, name: "Face Studio", item: PAGE_URL },
+    { "@type": "ListItem", position: 3, name: "Nano FaceStudio Online", item: PAGE_URL },
   ],
 };
 
@@ -215,7 +215,7 @@ export default function FaceStudioLandingPage() {
           </h1>
 
           <p className="mt-5 max-w-3xl text-lg text-muted-foreground">
-            Face Studio replaces up to {FACESTUDIO_MAX_FACES} faces in a single
+            Nano FaceStudio Online replaces up to {FACESTUDIO_MAX_FACES} faces in a single
             photo — or an entire head — and lets you choose, per face, which
             parts of the original survive. A hand in front of a cheek, a strand
             of hair across an eye, the frame of a pair of glasses: they stay.
@@ -225,7 +225,7 @@ export default function FaceStudioLandingPage() {
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button asChild size="lg" className="rounded-full">
               <Link href={CONSOLE_URL}>
-                Open Face Studio
+                Open Nano FaceStudio Online
                 <ArrowRight className="ml-1.5 h-4 w-4" />
               </Link>
             </Button>
@@ -339,7 +339,7 @@ export default function FaceStudioLandingPage() {
               </thead>
               <tbody>
                 <tr className="border-b border-border bg-primary/5">
-                  <td className="py-3 pr-4 font-semibold text-primary">Face Studio</td>
+                  <td className="py-3 pr-4 font-semibold text-primary">Nano FaceStudio Online</td>
                   <td className="py-3 pr-4 tabular-nums text-foreground">
                     {usd(FACE_SWAP_USD)}
                   </td>
@@ -377,14 +377,14 @@ export default function FaceStudioLandingPage() {
           </div>
 
           <p className="mt-4 text-xs text-muted-foreground">
-            The Face Studio row is a one-face render, which is what the other
+            The Nano FaceStudio Online row is a one-face render, which is what the other
             rows are. We charge per face, so a six-face group render is six
             times that — and against a tool that bills per photo, a crowded
             photo is where we are most expensive. Akool also bills per face.
             Magic Hour is roughly eight times cheaper on a single face and
             gives five free swaps a day without an account; if price is the
             only thing that matters for your use, it is the better choice.
-            Face Studio is priced for the cases where occlusion control, head
+            Nano FaceStudio Online is priced for the cases where occlusion control, head
             swap, or full-resolution output decide the result.
           </p>
         </div>
@@ -415,11 +415,11 @@ export default function FaceStudioLandingPage() {
         <div className="mx-auto max-w-5xl">
           <div className="glass-strong rounded-2xl p-7">
             <h2 className="text-xl font-bold text-foreground">
-              Face Studio is not the desktop apps, and buying one does not
+              Nano FaceStudio Online is not the desktop apps, and buying one does not
               affect the other
             </h2>
             <p className="mt-3 text-muted-foreground">
-              Face Studio is a hosted service that runs on our GPUs and is
+              Nano FaceStudio Online is a hosted service that runs on our GPUs and is
               billed per render in credits. The NanoPocket desktop applications
               are separate one-time purchases that run entirely on your own GPU
               with no metering, no subscription, and no per-image, per-minute or
@@ -465,7 +465,7 @@ export default function FaceStudioLandingPage() {
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <Button asChild size="lg" className="rounded-full">
               <Link href={CONSOLE_URL}>
-                Open Face Studio
+                Open Nano FaceStudio Online
                 <ArrowRight className="ml-1.5 h-4 w-4" />
               </Link>
             </Button>

@@ -34,7 +34,7 @@ function buildLlmsTxt(): string {
   const header = [
     "# NanoPocket",
     "",
-    `> NanoPocket is an independent AI product company. Its flagship online product is Face Studio at /face-studio, a hosted multi-face swap that replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo or an entire head, with per-face control over which original regions survive the swap and full-resolution unwatermarked output. Its online face-swap demos at /face-swap use a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). ${demoAvailabilityEn()} It also ships a local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) covering face swap, image and video upscaling, image and video generation, portrait retouch, and virtual try-on. There are no subscriptions anywhere in the product line. The desktop apps are one-time purchases with no per-image, per-minute, or per-frame fees. Face Studio is prepaid per render in credits that never expire, with ${FREE_RENDERS_PER_DAY} free full-resolution renders per day for any signed-in account. NanoPocket is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed website.`,
+    `> NanoPocket is an independent AI product company. Its flagship online product is Nano FaceStudio Online at /face-studio, a hosted multi-face swap that replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo or an entire head, with per-face control over which original regions survive the swap and full-resolution unwatermarked output. Its online face-swap demos at /face-swap use a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). ${demoAvailabilityEn()} It also ships a local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) covering face swap, image and video upscaling, image and video generation, portrait retouch, and virtual try-on. There are no subscriptions anywhere in the product line. The desktop apps are one-time purchases with no per-image, per-minute, or per-frame fees. Nano FaceStudio Online is prepaid per render in credits that never expire, with ${FREE_RENDERS_PER_DAY} free full-resolution renders per day for any signed-in account. NanoPocket is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed website.`,
     "",
     `Last updated: ${LAST_UPDATED}. Canonical version of this file: ${BASE}/llms.txt. Full content map: ${BASE}/llms-full.txt.`,
     "",
@@ -43,8 +43,8 @@ function buildLlmsTxt(): string {
   const primary = section("Primary entry points", [
     bullet(
       "/face-studio",
-      "Face Studio — multi-face swap with occlusion control (flagship, live)",
-      `NanoPocket's hosted face swap, and what Image FaceSwap Pro 2.0 now runs on. Replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo, each with its own reference photo, or an entire head. Unique among browser face swaps in giving per-face control over which original regions survive the swap — hair, hands, glasses, anything crossing the face — chosen from a segmentation map returned per detected face; every other browser tool paints over them. Output is source resolution up to 4080x4080 with no watermark at any tier, where competing free and mid tiers cap at 720p or 1080p and watermark. ${FREE_RENDERS_PER_DAY} free full-resolution renders per day for any signed-in account; ${usd(
+      "Nano FaceStudio Online — multi-face swap with occlusion control (flagship, live)",
+      `NanoPocket's hosted face swap, and what Nano FaceStudio Online now runs on. Replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo, each with its own reference photo, or an entire head. Unique among browser face swaps in giving per-face control over which original regions survive the swap — hair, hands, glasses, anything crossing the face — chosen from a segmentation map returned per detected face; every other browser tool paints over them. Output is source resolution up to 4080x4080 with no watermark at any tier, where competing free and mid tiers cap at 720p or 1080p and watermark. ${FREE_RENDERS_PER_DAY} free full-resolution renders per day for any signed-in account; ${usd(
         FACE_SWAP_USD
       )} per face replaced and ${usd(
         HEAD_SWAP_USD
@@ -84,19 +84,19 @@ function buildLlmsTxt(): string {
 
   const products = section("Products", [
     bullet(
-      "/apps/nano-faceswap-pro",
-      "Nano FaceSwap Pro 2.0",
-      "Diffusion-based AI face swap. Free online demo (browser) and 100% local desktop (Windows + macOS Apple Silicon). Built on InstantID, PuLID, IP-Adapter FaceID research. One-time license, no subscription.",
+      "/apps/nano-facestudio-pro",
+      "Nano FaceStudio Pro 1.0",
+      "Local desktop face studio, and the full-featured counterpart of Nano FaceStudio Online: multi-face swap on a diffusion identity stack (InstantID, PuLID, IP-Adapter FaceID) plus mask edit, expression editing, Face Vivid, upscale, light adjust, and crop. 100% on the user's GPU. One-time license, no subscription. Available for Windows now; macOS to follow.",
     ),
     bullet(
       "/apps/nano-faceswap-pro/video",
-      "Nano Video FaceSwap Pro",
+      "Video FaceSwap Pro",
       `Same identity stack as the photo product, extended to short video clips with temporal smoothing. ${demoStatusEn("video")}`,
     ),
     bullet(
       "/apps/nanoface-vivid",
       "NanoFace Vivid",
-      `Identity-locked face-detail restorer. Fixes the over-smoothed plastic look left by Gemini 2.5 Flash Image (Nano Banana), Adobe Firefly, Roop, FaceFusion, and cloud face-swap services. ${demoStatusEn("vivid")} Integrated into FaceSwap Pro 2.0 desktop soon.`,
+      `Identity-locked face-detail restorer. Fixes the over-smoothed plastic look left by Gemini 2.5 Flash Image (Nano Banana), Adobe Firefly, Roop, FaceFusion, and cloud face-swap services. ${demoStatusEn("vivid")} Integrated into Nano FaceStudio Pro 1.0 desktop soon.`,
     ),
     bullet(
       "/apps/nano-imageenh-pro",
@@ -108,7 +108,7 @@ function buildLlmsTxt(): string {
     bullet("/apps/nano-imageedit", "Nano ImageEdit", "Local AI image editor."),
     bullet("/apps/nano-facialedit", "Nano FacialEdit", "Local AI portrait retouch."),
     bullet("/apps/nano-imagetryon", "Nano ImageTryon", "Local AI virtual try-on."),
-    bullet("/apps/nano-faceswap", "Nano FaceSwap (legacy desktop)", "First-generation desktop face-swap; superseded by FaceSwap Pro 2.0."),
+    bullet("/apps/nano-faceswap", "Nano FaceSwap (legacy desktop)", "First-generation desktop face-swap; superseded by Nano FaceStudio Pro 1.0."),
   ]);
 
   const comparisons = section("Comparisons & rankings", [

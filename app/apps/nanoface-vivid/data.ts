@@ -142,7 +142,7 @@ export const COMPETITOR_ROWS: CompetitorRow[] = [
     problem:
       "Convenient web/mobile UX, but cloud GAN swappers consistently produce the smoothest faces in the category. Output rarely passes a zoom test.",
     vividHelps:
-      "Save the cloud-swap output, run it through NanoFace Vivid (online demo today, FaceSwap Pro 2.0 desktop integration coming), and the same face crosses the zoom-test threshold.",
+      "Save the cloud-swap output, run it through NanoFace Vivid (the online demo, or the Face Vivid tool built into Nano FaceStudio Pro 1.0), and the same face crosses the zoom-test threshold.",
   },
   {
     tool: "Topaz Photo AI / Sharpen AI",

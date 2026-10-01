@@ -6,7 +6,7 @@ const PAGE_URL = "https://nanopocket.ai/compare/nanopocket-vs-akool";
 export const metadata: Metadata = {
   title: "NanoPocket vs Akool — Honest 2026 Comparison",
   description:
-    "NanoPocket FaceSwap Pro 2.0 (creator desktop, one-time license) vs Akool (B2B / API, subscription + per-call). Pricing, video workflows, identity model, and platform compared dimension by dimension.",
+    "Nano FaceStudio Pro 1.0 (creator desktop, one-time license) vs Akool (B2B / API, subscription + per-call). Pricing, video workflows, identity model, and platform compared dimension by dimension.",
   keywords: [
     "nanopocket vs akool",
     "akool alternative",
@@ -30,7 +30,7 @@ const data: ComparisonData = {
   competitorUrl: "https://akool.com",
   lastVerified: "2026-05-29",
   tldr:
-    "Akool is a cloud B2B platform with a REST API, talking-avatar workflows, and enterprise contracts. NanoPocket FaceSwap Pro 2.0 is a creator-focused desktop app with a one-time license and local processing. Pick Akool if you're integrating face swap into another product or generating at scale via API; pick NanoPocket if you're a creator who wants to do the work on your own machine without a subscription.",
+    "Akool is a cloud B2B platform with a REST API, talking-avatar workflows, and enterprise contracts. Nano FaceStudio Pro 1.0 is a creator-focused desktop app with a one-time license and local processing. Pick Akool if you're integrating face swap into another product or generating at scale via API; pick NanoPocket if you're a creator who wants to do the work on your own machine without a subscription.",
   pickIf: {
     nanopocket: [
       "You're a single creator or a small team, not an integration partner.",

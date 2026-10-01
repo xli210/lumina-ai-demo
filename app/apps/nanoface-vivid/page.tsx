@@ -5,7 +5,7 @@ import { PAGE_URL, LAST_VERIFIED } from "./data";
 export const metadata: Metadata = {
   title: "NanoFace Vivid — Fix Over-Smoothed AI Faces from Gemini, Firefly, and Face Swap",
   description:
-    "NanoFace Vivid is a face-detail restorer that fixes the plastic, over-smoothed look that Google Gemini 2.5 Flash Image (Nano Banana), Adobe Firefly, Roop, FaceFusion, and cloud face-swap services leave on portraits. Online demo today, integrating into NanoPocket FaceSwap Pro 2.0 desktop app soon.",
+    "NanoFace Vivid is a face-detail restorer that fixes the plastic, over-smoothed look that Google Gemini 2.5 Flash Image (Nano Banana), Adobe Firefly, Roop, FaceFusion, and cloud face-swap services leave on portraits. Available as an online demo and as the Face Vivid tool built into Nano FaceStudio Pro 1.0 for Windows.",
   keywords: [
     "nanoface vivid",
     "fix gemini ai face",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     title: "NanoFace Vivid — fix the AI taste in over-smoothed faces",
     description:
-      "Restore pores, lashes, lighting variance, and color depth on portraits flattened by Gemini, Firefly, or any face-swap pipeline. Coming to NanoPocket FaceSwap Pro 2.0.",
+      "Restore pores, lashes, lighting variance, and color depth on portraits flattened by Gemini, Firefly, or any face-swap pipeline. Included in Nano FaceStudio Pro 1.0 as Face Vivid.",
     images: ["/images/vivid/gemini-after.jpg"],
   },
   other: {

@@ -6,7 +6,7 @@ import {
 } from "@/lib/facestudio";
 
 /**
- * Server-side plumbing for the Face Studio gateway.
+ * Server-side plumbing for the Nano FaceStudio Online gateway.
  *
  * The gateway holds the RunPod key and the R2 credentials, so the browser can
  * never reach either. The console at /face-studio talks only to our own

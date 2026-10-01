@@ -17,11 +17,10 @@ export const I18N_DNT_TERMS = [
   // First-party brand names
   "NanoPocket",
   "NanoFace Vivid",
-  "FaceSwap Pro 2.0",
-  "Image FaceSwap Pro 2.0",
+  "Nano FaceStudio Online",
+  "Nano FaceStudio Pro",
+  "Nano FaceStudio Pro 1.0",
   "Video FaceSwap Pro",
-  "Nano FaceSwap Pro",
-  "Nano Video FaceSwap Pro",
 
   // Competitor brand names (referenced in comparisons)
   "DeepSwap",
@@ -79,7 +78,8 @@ export const I18N_DNT_TERMS = [
   "/compare/nanopocket-vs-deepswap",
   "/compare/nanopocket-vs-wavespeed",
   "/compare/nanopocket-vs-nano-banana",
-  "/apps/nano-faceswap-pro",
+  "/face-studio",
+  "/apps/nano-facestudio-pro",
   "/apps/nanoface-vivid",
   "/auth/sign-up",
   "/privacy",

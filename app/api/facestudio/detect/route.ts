@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     return privateJson(
       {
         detail:
-          "Face Studio is not configured on this deployment. Set " +
+          "Nano FaceStudio Online is not configured on this deployment. Set " +
           "FACESTUDIO_GATEWAY_TOKEN. See docs/face-studio.md.",
       },
       503

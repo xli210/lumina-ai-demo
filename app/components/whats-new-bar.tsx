@@ -33,8 +33,8 @@ const ITEMS: WhatsNewItem[] = [
     labelClassName: "bg-purple-100 text-purple-700 ring-purple-200",
     icon: Video,
     iconClassName: "text-purple-600",
-    text: "Introducing Nano FaceSwap Pro 2.0 — full feature tour",
-    href: "/apps/nano-faceswap-pro/features",
+    text: "Introducing Nano FaceStudio Pro 1.0 — the full local face studio",
+    href: "/apps/nano-facestudio-pro",
   },
   {
     id: "nano-imageenh-pro-3",

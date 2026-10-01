@@ -38,7 +38,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "This demo is temporarily offline — NanoPocket",
   description:
-    "This online demo is being moved onto new infrastructure. Face Studio is live in the meantime, and the desktop apps run everything locally.",
+    "This online demo is being moved onto new infrastructure. Nano FaceStudio Online is live in the meantime, and the desktop apps run everything locally.",
   robots: { index: false, follow: false, nocache: true },
 };
 

@@ -27,7 +27,7 @@ const REDDIT_CASES = [
     body: [
       "Generated about thirty portraits in Google AI Studio with Gemini 2.5 Flash Image (the one people call Nano Banana). Composition was perfect every time. The faces always read as AI inside two seconds: shiny forehead, no pores, eyes too symmetric, a strange uniform softness across the whole skin.",
       "Tried Topaz Sharpen AI. Made it look like over-edited Instagram. Tried Magnific. It changed the face. Tried just dropping film grain on top in Photoshop. It just looked like a noisy AI face.",
-      "What actually worked: I ran the Gemini output through NanoFace Vivid (the online demo at the time, sounds like it is integrating into the NanoPocket FaceSwap Pro 2.0 desktop app soon). It only touched the high-frequency band — pores, lash detail, micro-shadows under the cheekbones. The face shape and identity stayed identical. After the pass it stopped reading as AI to anyone I showed it to.",
+      "What actually worked: I ran the Gemini output through NanoFace Vivid (the online demo at the time; the same model now also ships as Face Vivid inside the Nano FaceStudio Pro 1.0 desktop app). It only touched the high-frequency band — pores, lash detail, micro-shadows under the cheekbones. The face shape and identity stayed identical. After the pass it stopped reading as AI to anyone I showed it to.",
       "If you are stuck with the same problem, the trick is to use it as a final post-processing step, not as a replacement for the generator. Generate in Gemini, finish in Vivid.",
     ],
     tags: ["gemini 2.5 flash image", "nano banana", "post-processor"],
@@ -37,7 +37,7 @@ const REDDIT_CASES = [
     body: [
       "Spent a weekend benchmarking face-swap tools for a client video project. Roop, FaceFusion, Rope, the InsightFace inswapper_128 base — all of them transfer identity well at thumbnail size, but when you zoom to 1:1 the face has that classic plastic AI skin and the swap boundary is visible.",
       "What I ended up doing: keep using FaceFusion for the actual swap (the identity preservation is good), then run every output frame through NanoFace Vivid as a post-processor. The boundary stops being visible because Vivid restores the high-frequency texture on both sides of it. Identity does not change because Vivid is identity-locked by design.",
-      "The roadmap note says this is going to be integrated directly into NanoPocket FaceSwap Pro 2.0 on the desktop side. Honestly that is the missing piece for that app — the diffusion swap is already strong, the Vivid pass on top should make it the only local stack worth using.",
+      "Vivid is now built into Nano FaceStudio Pro 1.0 on the desktop side as the Face Vivid tool. Honestly that was the missing piece for that app — the diffusion swap is already strong, and the Vivid pass on top makes it the only local stack worth using.",
     ],
     tags: ["roop", "facefusion", "face swap detailer", "post-processor"],
   },
@@ -62,8 +62,8 @@ const FAQS = [
     a: "No. Vivid is identity-locked by design. It targets only the high-frequency band that AI generators and face-swappers flatten — pores, fine hair, lash and brow structure, and the small specular highlights that make a face read as a real photograph. The underlying identity, shape, expression, and pose are preserved.",
   },
   {
-    q: "Will NanoFace Vivid be integrated into NanoPocket FaceSwap Pro 2.0?",
-    a: "Yes. The current Vivid online demo (try at the URL on this page) is the production model, served through a Cloudflare tunnel. The same model is being integrated into the NanoPocket FaceSwap Pro 2.0 desktop application as a built-in post-processor stage that runs locally after every swap. Once shipped, every face swap done on the desktop will optionally pass through Vivid before export.",
+    q: "Is NanoFace Vivid included in Nano FaceStudio Pro 1.0?",
+    a: "Yes. Nano FaceStudio Pro 1.0 includes Face Vivid, built on the same restoration model as the Vivid online demo, as one of its seven tools, and it runs locally on your GPU. The online demo (try at the URL on this page) is served through a Cloudflare tunnel; /status shows whether it is online right now, and the desktop tool works either way. Nano FaceStudio Pro 1.0 is available now for Windows, with macOS to follow.",
   },
   {
     q: "How is this different from Topaz Sharpen AI or Magnific?",
@@ -75,7 +75,7 @@ const FAQS = [
   },
   {
     q: "Is the underlying model open?",
-    a: "The Vivid model is a NanoPocket-trained network derived from open-weight diffusion components. The model layer it builds on (Real-ESRGAN, DiffBIR, IP-Adapter) is documented at /verify with upstream Hugging Face / GitHub links. The trained weights themselves are NanoPocket's, shipped under the same desktop license as the rest of the FaceSwap Pro 2.0 stack.",
+    a: "The Vivid model is a NanoPocket-trained network derived from open-weight diffusion components. The model layer it builds on (Real-ESRGAN, DiffBIR, IP-Adapter) is documented at /verify with upstream Hugging Face / GitHub links. The trained weights themselves are NanoPocket's, shipped under the same desktop license as the rest of the Nano FaceStudio Pro 1.0 stack.",
   },
   {
     q: "Can I use it on Gemini Nano Banana output specifically?",
@@ -100,9 +100,9 @@ const articleJsonLd = {
   about: {
     "@type": "SoftwareApplication",
     name: "NanoFace Vivid",
-    operatingSystem: "Web demo today; Windows + macOS desktop integration coming via NanoPocket FaceSwap Pro 2.0",
+    operatingSystem: "Web demo; Windows desktop via Face Vivid in Nano FaceStudio Pro 1.0 (macOS to follow)",
     applicationCategory: "MultimediaApplication",
-    offers: { "@type": "Offer", availability: "https://schema.org/PreOrder" },
+    offers: { "@type": "Offer", availability: "https://schema.org/InStock" },
   },
   image: VIVID_CASES.map((c) => `https://nanopocket.ai${c.afterSrc}`),
 };
@@ -158,7 +158,7 @@ export function VividLanding() {
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-amber-500">
               <Cpu className="h-3.5 w-3.5" />
-              Desktop integration coming to FaceSwap Pro 2.0
+              Included in Nano FaceStudio Pro 1.0 as Face Vivid
             </span>
           </div>
 
@@ -169,8 +169,8 @@ export function VividLanding() {
               </a>
             </Button>
             <Button asChild variant="outline" size="lg" className="rounded-full">
-              <Link href="/apps/nano-faceswap-pro">
-                See FaceSwap Pro 2.0 (host app) <ArrowRight className="ml-2 h-4 w-4" />
+              <Link href="/apps/nano-facestudio-pro">
+                See Nano FaceStudio Pro 1.0 (host app) <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>
@@ -205,17 +205,14 @@ export function VividLanding() {
         <div className="mx-auto max-w-5xl rounded-2xl border border-amber-500/30 bg-amber-500/5 p-6 sm:p-8">
           <h2 className="mb-3 flex items-center gap-2 text-xl font-bold tracking-tight text-foreground sm:text-2xl">
             <Sparkles className="h-5 w-5 text-amber-500" />
-            Coming to NanoPocket FaceSwap Pro 2.0 — local desktop, no cloud
+            Included in Nano FaceStudio Pro 1.0 — local desktop, no cloud
           </h2>
           <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-            The Vivid online demo runs the same model that is being shipped as
-            a built-in post-processor stage inside NanoPocket FaceSwap Pro 2.0
-            for Windows and macOS. Once the desktop integration lands, every
-            face swap done locally will optionally pass through Vivid before
-            export — no cloud, no extra subscription, no copy-paste between
-            tools. The online demo on this page is the production model; the
-            output you see today will be byte-identical to the desktop result
-            on the same input.
+            The Vivid online demo runs the same restoration model that ships
+            as the Face Vivid tool inside Nano FaceStudio Pro 1.0, available
+            now for Windows with macOS to follow. Run a swapped portrait
+            through Face Vivid locally — no cloud, no extra subscription, no
+            upload — alongside the other six tools in the same app.
           </p>
         </div>
       </section>
@@ -334,9 +331,9 @@ export function VividLanding() {
             </p>
             <p className="leading-relaxed">
               Identity-locked, frequency-targeted, drop-in post-processor for
-              any face-swap or AI-portrait pipeline. Online demo today;
-              integrated stage inside NanoPocket FaceSwap Pro 2.0 on
-              Windows / macOS soon.
+              any face-swap or AI-portrait pipeline. Available as an online
+              demo and as the Face Vivid tool inside Nano FaceStudio Pro 1.0
+              (Windows now, macOS to follow).
             </p>
           </div>
         </div>
@@ -381,7 +378,7 @@ export function VividLanding() {
               On extremely low-resolution inputs (under ~256 px face crop) the recovery is limited because the original signal is missing. Vivid is most effective on 512–2048 px face crops.
             </li>
             <li>
-              The desktop integration into FaceSwap Pro 2.0 is on the roadmap; the dated commitment is a <em>pre-order</em> availability flag in the structured data, not a live release. The online demo is live today.
+              Face Vivid in Nano FaceStudio Pro 1.0 is available now for Windows; the macOS build is still to come. The online demo is a separate, free service and can be offline at times — see /status.
             </li>
           </ul>
         </div>

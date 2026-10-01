@@ -419,7 +419,7 @@ Three workflows where it makes the difference:
 
 ## What is coming
 
-The same Vivid model is being integrated into NanoPocket FaceSwap Pro 2.0 on Windows and macOS as a built-in post-processor stage. Once shipped, every local face swap optionally passes through Vivid before export — no cloud, no copy-paste between tools.
+The same Vivid model is built into Nano FaceStudio Pro 1.0 for Windows as its Face Vivid tool, with macOS to follow. Run a swapped portrait through Face Vivid locally — no cloud, no copy-paste between tools.
 
 ## Try it
 

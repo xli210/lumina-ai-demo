@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   title:
     "Free Online AI Face Swap — No Install, No Subscription | NanoPocket",
   description:
-    `Free online AI face swap that runs in your browser. No install, no subscription, no GPU required. Face Studio swaps up to ${FACESTUDIO_MAX_FACES} faces in one photo at full resolution with no watermark, with free renders every day. Sign in once with a free account and start swapping.`,
+    `Free online AI face swap that runs in your browser. No install, no subscription, no GPU required. Nano FaceStudio Online swaps up to ${FACESTUDIO_MAX_FACES} faces in one photo at full resolution with no watermark, with free renders every day. Sign in once with a free account and start swapping.`,
   keywords: [
     "free online face swap",
     "ai face swap online",
@@ -84,7 +84,7 @@ interface OnlineDemoCopy {
 const ONLINE_DEMO_COPY: OnlineDemoCopy[] = [
   {
     id: "image",
-    blurb: `Face Studio: photo face swap on a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). Up to ${FACESTUDIO_MAX_FACES} faces in one pass, whole-head mode, and per-face control over what survives the swap.`,
+    blurb: `Nano FaceStudio Online: photo face swap on a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). Up to ${FACESTUDIO_MAX_FACES} faces in one pass, whole-head mode, and per-face control over what survives the swap.`,
     bullets: [
       `Up to ${FACESTUDIO_MAX_FACES} faces per photo, each with its own reference — most tools do one`,
       "Keep the original hair, hands and glasses that cross a face, per face — everywhere else they get painted over",
@@ -200,33 +200,33 @@ const COMPARE_ROWS: CompareRow[] = [
 const FAQS = [
   {
     q: "Is the online face swap really free?",
-    a: `Free to start, and free every day. Video FaceSwap Pro and NanoFace Vivid are free for any signed-in NanoPocket account with a daily open quota. Face Studio, the photo face swap, gives every signed-in account ${FREE_RENDERS_PER_DAY} free renders per day at full resolution with no watermark — identical output to a paid render — and face detection is always free. Past that it is ${usd(
+    a: `Free to start, and free every day. Video FaceSwap Pro and NanoFace Vivid are free for any signed-in NanoPocket account with a daily open quota. Nano FaceStudio Online, the photo face swap, gives every signed-in account ${FREE_RENDERS_PER_DAY} free renders per day at full resolution with no watermark — identical output to a paid render — and face detection is always free. Past that it is ${usd(
       FACE_SWAP_USD
-    )} per face replaced — one pass runs per face, so faces you leave alone are free — prepaid in credits that never expire, with no subscription and no auto-renewal. A render that fails is refunded in full automatically. The desktop FaceSwap Pro 2.0 release is a separate, optional, one-time-purchase product; buying credits does not affect a desktop license and owning one does not consume credits.`,
+    )} per face replaced — one pass runs per face, so faces you leave alone are free — prepaid in credits that never expire, with no subscription and no auto-renewal. A render that fails is refunded in full automatically. Nano FaceStudio Pro 1.0, the local desktop version, is a separate, optional, one-time-purchase product; buying credits does not affect a desktop license and owning one does not consume credits.`,
   },
   {
     q: "Do I need an account?",
-    a: `Yes — a free NanoPocket account (email + password). It is what the free daily allowance is attached to: every signed-in account gets ${FREE_RENDERS_PER_DAY} Face Studio renders per day, plus 10 video opens per UTC day for Video FaceSwap Pro and NanoFace Vivid. It is not there to sell anything — no card is required to use the free allowance. Sign up at /auth/sign-up. If your workflow needs more than the daily allowance, buy credits at /credits or run the desktop app locally with no cap.`,
+    a: `Yes — a free NanoPocket account (email + password). It is what the free daily allowance is attached to: every signed-in account gets ${FREE_RENDERS_PER_DAY} Nano FaceStudio Online renders per day, plus 10 video opens per UTC day for Video FaceSwap Pro and NanoFace Vivid. It is not there to sell anything — no card is required to use the free allowance. Sign up at /auth/sign-up. If your workflow needs more than the daily allowance, buy credits at /credits or run the desktop app locally with no cap.`,
   },
   {
     q: `Can it swap more than one face in a photo?`,
-    a: `Yes — Face Studio detects up to ${FACESTUDIO_MAX_FACES} faces in one upload and each can be given its own reference photo and its own preserve settings in a single render. Most browser face swaps handle one face per run, and Akool bills per selected face, so a group photo multiplies in price there. Detection is free regardless of how many faces it finds.`,
+    a: `Yes — Nano FaceStudio Online detects up to ${FACESTUDIO_MAX_FACES} faces in one upload and each can be given its own reference photo and its own preserve settings in a single render. Most browser face swaps handle one face per run, and Akool bills per selected face, so a group photo multiplies in price there. Detection is free regardless of how many faces it finds.`,
   },
   {
     q: "Why do other face swaps paint over hair and hands, and what is occlusion preserve?",
-    a: "Most browser face swaps composite the new identity over the whole face region, so anything crossing the face — a hand on a cheek, a strand of hair over an eye, the frame of a pair of glasses — is painted over. It is the most common visible failure in online face swaps. Face Studio returns a segmentation map for each detected face and lets you choose, per face, which classes to keep from the original. Those regions keep their original pixels. This control is effectively unique among browser face swaps.",
+    a: "Most browser face swaps composite the new identity over the whole face region, so anything crossing the face — a hand on a cheek, a strand of hair over an eye, the frame of a pair of glasses — is painted over. It is the most common visible failure in online face swaps. Nano FaceStudio Online returns a segmentation map for each detected face and lets you choose, per face, which classes to keep from the original. Those regions keep their original pixels. This control is effectively unique among browser face swaps.",
   },
   {
     q: "What resolution do the results come out at, and is there a watermark?",
-    a: "Face Studio returns results at the source resolution, up to 4080×4080, as PNG of around 20 MB, with no watermark on any tier — including the free daily allowance. Reface's free tier is 720p watermarked and Akool's is 720p watermarked; most free and mid tiers elsewhere cap at 720p or 1080p. Uploads are accepted up to 40 MB because the photo goes straight to object storage rather than through a web server.",
+    a: "Nano FaceStudio Online returns results at the source resolution, up to 4080×4080, as PNG of around 20 MB, with no watermark on any tier — including the free daily allowance. Reface's free tier is 720p watermarked and Akool's is 720p watermarked; most free and mid tiers elsewhere cap at 720p or 1080p. Uploads are accepted up to 40 MB because the photo goes straight to object storage rather than through a web server.",
   },
   {
     q: "Do I need a GPU on my machine?",
-    a: "No. The online demos run on NanoPocket's GPUs in the cloud. Anything that can open a browser — laptop, desktop, tablet — can use them. The desktop FaceSwap Pro 2.0 release (separate product) is the option for users who specifically want local-only processing on their own GPU.",
+    a: "No. The online demos run on NanoPocket's GPUs in the cloud. Anything that can open a browser — laptop, desktop, tablet — can use them. Nano FaceStudio Pro 1.0, the desktop version (a separate product), is the option for users who specifically want local-only processing on their own GPU.",
   },
   {
     q: "How does the privacy work for the online demos?",
-    a: "The source files are sent to NanoPocket's GPU only for the duration of the swap, processed in volatile memory, and discarded. They are not used for training. The full data-handling policy is at /privacy and the verifiable claims hub is at /verify. If you specifically want zero-cloud processing, the desktop FaceSwap Pro 2.0 is the right product — it runs entirely on your own machine.",
+    a: "The source files are sent to NanoPocket's GPU only for the duration of the swap, processed in volatile memory, and discarded. They are not used for training. The full data-handling policy is at /privacy and the verifiable claims hub is at /verify. If you specifically want zero-cloud processing, the Nano FaceStudio Pro 1.0 is the right product — it runs entirely on your own machine.",
   },
   {
     q: "How does this compare to DeepSwap or Reface?",
@@ -234,11 +234,11 @@ const FAQS = [
   },
   {
     q: "What is the difference between the demos?",
-    a: "Face Studio (formerly Image FaceSwap Pro 2.0) is for still-image swaps, including several faces in one photo, with the strongest identity preservation. Video FaceSwap Pro is the same identity stack extended to short video clips with temporal smoothing. NanoFace Vivid is a face-detail restorer that fixes the over-smoothed look that Gemini 2.5 Flash Image (Nano Banana), Firefly, Roop, and cloud face-swap services leave on portraits — it is identity-locked and is meant to run after another face-swap step (or after any AI portrait generator).",
+    a: "Nano FaceStudio Online (formerly Image FaceSwap Pro 2.0) is for still-image swaps, including several faces in one photo, with the strongest identity preservation. Video FaceSwap Pro is the same identity stack extended to short video clips with temporal smoothing. NanoFace Vivid is a face-detail restorer that fixes the over-smoothed look that Gemini 2.5 Flash Image (Nano Banana), Firefly, Roop, and cloud face-swap services leave on portraits — it is identity-locked and is meant to run after another face-swap step (or after any AI portrait generator).",
   },
   {
     q: "Is there a desktop version?",
-    a: "Yes — NanoPocket FaceSwap Pro 2.0 is shipping for Windows and macOS with the same diffusion identity stack, plus the NanoFace Vivid post-processor stage built in. Desktop is a separate, optional purchase for users who want fully-local processing. The online demos are free either way.",
+    a: "Yes — Nano FaceStudio Pro 1.0 is available now for Windows, with the macOS build to follow. It uses the same diffusion identity stack as Nano FaceStudio Online and adds six more tools, including Face Vivid (the NanoFace Vivid restoration). It is a separate, optional one-time purchase for users who want fully-local processing. The online demos are free either way.",
   },
 ];
 
@@ -283,7 +283,7 @@ const webPageJsonLd = {
     applicationSubCategory: "Face swap",
     operatingSystem: "Browser (any modern OS)",
     browserRequirements: "Modern browser; WebGL not required",
-    softwareVersion: "Pro 2.0",
+    softwareVersion: "1.0",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     featureList: [
       "Photo face swap",
@@ -331,7 +331,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 1,
       name: "Open the demo",
-      text: "Visit nanopocket.ai/face-swap and click the button for the demo you need: Image FaceSwap Pro 2.0 for stills, Video FaceSwap Pro for short clips, or NanoFace Vivid for fixing over-smoothed AI faces. Each opens in a new browser tab.",
+      text: "Visit nanopocket.ai/face-swap and click the button for the demo you need: Nano FaceStudio Online for stills, Video FaceSwap Pro for short clips, or NanoFace Vivid for fixing over-smoothed AI faces. Each opens in a new browser tab.",
       url: "https://nanopocket.ai/face-swap#demos",
     },
     {
@@ -345,7 +345,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 3,
       name: "Upload and swap",
-      text: "Drop in the target photo or video and a reference face. The diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) produces the swap in a few seconds. Download the result. There is no watermark and no subscription, and Face Studio includes free renders every day.",
+      text: "Drop in the target photo or video and a reference face. The diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) produces the swap in a few seconds. Download the result. There is no watermark and no subscription, and Nano FaceStudio Online includes free renders every day.",
     },
   ],
 };
@@ -396,7 +396,7 @@ export default function FaceSwapPage() {
             Diffusion-grade face swap that runs in your browser. Sign in once
             with a free NanoPocket account, upload a photo and a reference
             face, and get a swap in seconds. No GPU required on your machine
-            and no subscription; Face Studio includes {FREE_RENDERS_PER_DAY}{" "}
+            and no subscription; Nano FaceStudio Online includes {FREE_RENDERS_PER_DAY}{" "}
             free full-resolution renders every day.
           </p>
 
@@ -414,7 +414,7 @@ export default function FaceSwapPage() {
           <div className="flex flex-wrap gap-3">
             <Button asChild size="lg" className="rounded-full bg-foreground text-background">
               <a href={ONLINE_DEMOS[0].href} target="_blank" rel="noopener noreferrer">
-                Try Face Studio free <ExternalLink className="ml-2 h-4 w-4" />
+                Try Nano FaceStudio Online free <ExternalLink className="ml-2 h-4 w-4" />
               </a>
             </Button>
             <Button asChild variant="outline" size="lg" className="rounded-full">
@@ -436,7 +436,7 @@ export default function FaceSwapPage() {
             Each demo is a separate browser tool. Pick the one that matches
             what you want to do — still photo, short video clip, or fixing the
             over-smoothed AI look on an existing portrait. {demoAvailabilityEn()}{" "}
-            Face Studio is paid in credits with {FREE_RENDERS_PER_DAY} free
+            Nano FaceStudio Online is paid in credits with {FREE_RENDERS_PER_DAY} free
             renders every day; the free demos allow {DEMO_DAILY_LIMIT} opens
             per kind per day (resets at 00:00 UTC).
           </p>
@@ -630,9 +630,9 @@ export default function FaceSwapPage() {
             state of the art for identity preservation in 2026.
           </p>
           <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-            The same stack powers the desktop FaceSwap Pro 2.0 build, so
-            results in the browser demos and on the desktop are byte-aligned
-            on equivalent inputs.
+            The same stack powers the desktop Nano FaceStudio Pro 1.0, so
+            the browser demos and the desktop app run the same identity
+            models.
           </p>
         </div>
       </section>
@@ -648,13 +648,13 @@ export default function FaceSwapPage() {
             The free browser demos cover the vast majority of casual and
             professional use cases. If your use case specifically requires
             zero cloud upload — regulated content, signed legal media, NDA
-            work — the optional desktop release runs the same identity stack
-            entirely on your own GPU.
+            work — the optional desktop Nano FaceStudio Pro 1.0 runs the same identity
+            stack entirely on your own GPU.
           </p>
           <div className="flex flex-wrap gap-3">
             <Button asChild variant="outline" className="rounded-full">
-              <Link href="/apps/nano-faceswap-pro">
-                See FaceSwap Pro 2.0 (desktop) <ArrowRight className="ml-2 h-4 w-4" />
+              <Link href="/apps/nano-facestudio-pro">
+                See Nano FaceStudio Pro 1.0 (desktop) <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button asChild variant="ghost" className="rounded-full">
@@ -717,7 +717,7 @@ export default function FaceSwapPage() {
               Some demos are served through Cloudflare tunnels, which can
               change as we update infrastructure;{" "}
               <Link href="/status" className="underline">/status</Link> shows
-              which are live right now. Face Studio runs on nanopocket.ai
+              which are live right now. Nano FaceStudio Online runs on nanopocket.ai
               itself. The canonical entry point
               is always this page (<code className="rounded bg-muted px-1.5 py-0.5 font-mono text-foreground">/face-swap</code>).
             </li>

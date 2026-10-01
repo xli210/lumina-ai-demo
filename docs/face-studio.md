@@ -1,9 +1,9 @@
-# Face Studio
+# Nano FaceStudio Online
 
 The credit-metered face swap at `/face-studio`, with a free daily allowance so
 every signed-in account can use it without paying.
 
-This is what **Image FaceSwap Pro 2.0** now serves. Its Cloudflare tunnel was
+This is what **Nano FaceStudio Online** now serves. Its Cloudflare tunnel was
 retired, and `/api/demos/open?id=image` — the single hop every "Try online"
 button on the site already went through — now lands here instead, so no page
 needed editing. Built from `facestudio_handoff/`, with the changes in
@@ -49,7 +49,7 @@ button label; the server never trusts it.
 
 ### Where this makes us expensive
 
-Against a tool that bills per photo, a crowded photo is where Face Studio
+Against a tool that bills per photo, a crowded photo is where Nano FaceStudio Online
 costs the most: six faces is $0.60 against Magic Hour's $0.013 for the same
 picture. Akool also bills per face. The comparison table on `/face-studio`
 states this rather than hiding it, and quotes our single-face price in the
@@ -188,7 +188,7 @@ That leaves a hole: with no reservation, **a user with a zero balance can
 start unlimited GPU jobs** and merely fail to be charged afterwards. The GPU
 time is spent either way.
 
-So Face Studio uses the reserve-then-settle model from
+So Nano FaceStudio Online uses the reserve-then-settle model from
 [docs/credit-system.md](./credit-system.md) instead:
 
 1. **`generate` reserves.** `credit_hold` puts 10 or 20 credits aside *before*

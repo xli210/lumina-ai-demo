@@ -56,12 +56,12 @@ const DEMO_CARDS: DemoCardCopy[] = [
   {
     registryId: "image",
     id: "image-faceswap-pro",
-    title: "Image FaceSwap Pro 2.0",
+    title: "Nano FaceStudio Online",
     description:
       "Higher fidelity, better lighting adaptation, and more natural face swap on photos.",
     icon: ImageIcon,
     accent: "indigo",
-    introHref: "/apps/nano-faceswap-pro/features",
+    introHref: "/apps/nano-facestudio-pro",
   },
   {
     registryId: "video",
@@ -433,7 +433,7 @@ function DemoCard({
             >
               <Link href={demo.introHref}>
                 <Sparkles className="h-4 w-4 text-indigo-300" />
-                Introducing Nano FaceSwap Pro 2.0
+                Introducing Nano FaceStudio Pro 1.0
                 <span aria-hidden className="ml-0.5">→</span>
               </Link>
             </Button>
@@ -555,16 +555,17 @@ export function AnnouncementSection() {
 
           <div className="relative mb-6 text-center md:mb-8">
             <h2 className="mb-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">
-              Try Nano FaceSwap Pro — Free
+              Try Nano FaceStudio Online — Free
             </h2>
             <p className="mx-auto max-w-2xl text-sm text-slate-300 sm:text-base">
-              Three professional-grade diffusion face swap demos — image, video,
-              and the new Vivid stack tuned for expression and color richness.
+              Professional-grade diffusion face swap in your browser — photos
+              with Nano FaceStudio Online, plus video and the Vivid stack tuned
+              for expression and color richness whenever those demos are online.
               A local, private alternative to Roop, FaceFusion, Rope, and
               DeepSwap, built on InstantID / PuLID / IP-Adapter FaceID research.
             </p>
             <Link
-              href="/apps/nano-faceswap-pro"
+              href="/docs/face-swap-pipeline"
               className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-indigo-300 hover:text-indigo-200 transition-colors"
             >
               Learn about our diffusion face-swap pipeline

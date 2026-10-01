@@ -6,7 +6,7 @@ import Link from "next/link";
 import { getDemo, demoRedirectPath } from "@/lib/demos";
 
 /**
- * Public Image FaceSwap Pro 2.0 demo URL. Re-exported so server pages can
+ * Public Nano FaceStudio Online demo URL. Re-exported so server pages can
  * point CTA buttons at the same target without duplicating the literal.
  *
  * Points at the same-origin wrapper (/api/demos/open?id=image) rather than

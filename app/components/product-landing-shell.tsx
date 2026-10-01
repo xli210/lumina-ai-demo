@@ -197,7 +197,7 @@ export interface ProductLandingData {
     eyebrow: string;
     /** Optional version chip, e.g. "v3.0" or "Coming Soon" */
     versionChip?: string;
-    /** H1, e.g. "Nano FaceSwap Pro 2.0" */
+    /** H1, e.g. "Nano FaceStudio Pro 1.0" */
     title: string;
     /** Optional gradient-colored final word/phrase, rendered after `title` */
     titleAccent?: string;

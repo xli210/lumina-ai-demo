@@ -35,12 +35,12 @@ alone. `scripts/check-downloads-storage.mjs` automates that reasoning.
 ## Layout
 
 Installers live in the existing `video-api` bucket under `downloads/`,
-alongside the prefixes VSR-Pro and Face Studio already use:
+alongside the prefixes VSR-Pro and Nano FaceStudio Online already use:
 
 ```
 video-api/
 ├── downloads/        installers (this document)
-├── facestudio/       Face Studio input and output
+├── facestudio/       Nano FaceStudio Online input and output
 ├── gateway/          VSR-Pro input and output
 └── weights/
 ```

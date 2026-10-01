@@ -17,7 +17,7 @@ const PROTECTED_PATH_PREFIXES = [
   // ledger routes authenticate themselves and return a JSON 401, while
   // /api/credits/packs is a public price list the pricing page reads.
   '/credits',
-  // The Face Studio console and its static assets. Note the trailing slash:
+  // The Nano FaceStudio Online console and its static assets. Note the trailing slash:
   // it covers /face-studio/launch and /face-studio/index.html but NOT the
   // bare /face-studio landing page, which must stay crawlable — an
   // auth-gated landing page is invisible to every search engine and every

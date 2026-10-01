@@ -41,10 +41,10 @@ export const metadata: Metadata = {
 
 const APPS = [
   {
-    label: "Nano FaceSwap Pro 2.0",
-    url: "/apps/nano-faceswap-pro",
+    label: "Nano FaceStudio Pro 1.0",
+    url: "/apps/nano-facestudio-pro",
     detail:
-      "Diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) — image and video.",
+      "Local face studio: multi-face swap on a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID), mask edit, expression editing, Face Vivid, upscale, light adjust, crop.",
   },
   {
     label: "Nano ImageEnh Pro 3.0",

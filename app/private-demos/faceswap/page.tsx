@@ -14,7 +14,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Face Studio face-swap preview \u2014 admin only",
+  title: "Nano FaceStudio Online face-swap preview \u2014 admin only",
   robots: { index: false, follow: false, nocache: true },
   alternates: { canonical: undefined },
 };

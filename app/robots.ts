@@ -39,7 +39,7 @@ const PRIVATE_DISALLOW = [
   // Internal / unlisted preview pages — the URL itself is the shared secret,
   // and the pages also emit `noindex,nofollow` meta at render time.
   "/apps/nano-facestudio-pro/internal-preview",
-  // API-proxy demo previews (NanoFace Vivid + Face Studio face-swap).
+  // API-proxy demo previews (NanoFace Vivid + Nano FaceStudio Online face-swap).
   // Both the wrapper pages and the underlying handoff HTML in
   // public/private-demos/** are admin-gated by middleware; the robots
   // block is defense-in-depth against accidental indexing.

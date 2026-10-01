@@ -161,7 +161,7 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
       applicationSubCategory: "Face swap",
       operatingSystem: "Browser (any modern OS)",
       browserRequirements: "Modern browser; WebGL not required",
-      softwareVersion: "Pro 2.0",
+      softwareVersion: "1.0",
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       featureList: [
         "Photo face swap",
@@ -458,7 +458,7 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
           </p>
           <div className="flex flex-wrap gap-3">
             <Button asChild variant="outline" className="rounded-full">
-              <Link href="/apps/nano-faceswap-pro">
+              <Link href="/apps/nano-facestudio-pro">
                 {t("offline.ctaDesktop")}{" "}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

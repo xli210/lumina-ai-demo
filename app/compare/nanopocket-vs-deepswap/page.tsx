@@ -6,7 +6,7 @@ const PAGE_URL = "https://nanopocket.ai/compare/nanopocket-vs-deepswap";
 export const metadata: Metadata = {
   title: "NanoPocket vs DeepSwap — Honest 2026 Comparison",
   description:
-    "NanoPocket FaceSwap Pro 2.0 (desktop, local, one-time license) vs DeepSwap (cloud web + mobile, subscription). Identity fidelity, video, privacy, total cost of ownership compared.",
+    "Nano FaceStudio Pro 1.0 (desktop, local, one-time license) vs DeepSwap (cloud web + mobile, subscription). Identity fidelity, video, privacy, total cost of ownership compared.",
   keywords: [
     "nanopocket vs deepswap",
     "deepswap alternative",
@@ -30,7 +30,7 @@ const data: ComparisonData = {
   competitorUrl: "https://www.deepswap.ai",
   lastVerified: "2026-05-29",
   tldr:
-    "DeepSwap is a cloud-web face swap service with iOS and Android companion apps and a subscription pricing model. NanoPocket FaceSwap Pro 2.0 is a desktop tool with a free in-browser demo, a one-time license, and verifiable local processing. The trade-off is convenience-without-install vs privacy + lower long-run cost.",
+    "DeepSwap is a cloud-web face swap service with iOS and Android companion apps and a subscription pricing model. Nano FaceStudio Pro 1.0 is a desktop tool with a free in-browser demo, a one-time license, and verifiable local processing. The trade-off is convenience-without-install vs privacy + lower long-run cost.",
   pickIf: {
     nanopocket: [
       "You don't want every face you swap to be uploaded to a cloud service.",

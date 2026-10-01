@@ -4,8 +4,8 @@
  * When a Cloudflare tunnel rotates, edit ONLY this file (and re-deploy).
  * Both the website and the GitHub Actions uptime checker import from here.
  *
- * One of the three no longer lives behind a tunnel: Image FaceSwap Pro 2.0 is
- * now Face Studio, hosted on nanopocket.ai and metered in credits. See
+ * One of the three no longer lives behind a tunnel: Nano FaceStudio Online is
+ * now Nano FaceStudio Online, hosted on nanopocket.ai and metered in credits. See
  * `internal` and `metered` below, and docs/face-studio.md.
  */
 
@@ -62,7 +62,7 @@ export interface DemoEntry {
 export const DEMOS: DemoEntry[] = [
   {
     id: "image",
-    name: "Image FaceSwap Pro 2.0",
+    name: "Nano FaceStudio Online",
     // Was a Cloudflare tunnel until that pipeline was retired. Now served by
     // /face-studio against our own RunPod endpoint, priced per render.
     origin: "https://nanopocket.ai",
@@ -72,7 +72,7 @@ export const DEMOS: DemoEntry[] = [
     landingPath: "/face-studio/launch",
     pingPath: "/face-studio",
     password: null,
-    productHref: "/apps/nano-faceswap-pro/features",
+    productHref: "/face-studio",
     internal: true,
     metered: true,
   },
@@ -86,7 +86,7 @@ export const DEMOS: DemoEntry[] = [
     productHref: "/apps/nano-faceswap-pro/video",
     maintenance: {
       since: "2026-09-28",
-      note: "The tunnel this demo ran through has been retired. It is being moved onto our own GPU infrastructure, the same one Face Studio now runs on.",
+      note: "The tunnel this demo ran through has been retired. It is being moved onto our own GPU infrastructure, the same one Nano FaceStudio Online now runs on.",
       eta: "No firm date yet",
     },
   },
@@ -100,7 +100,7 @@ export const DEMOS: DemoEntry[] = [
     productHref: "/apps/nanoface-vivid",
     maintenance: {
       since: "2026-09-28",
-      note: "The tunnel this demo ran through has been retired. It is being moved onto our own GPU infrastructure, the same one Face Studio now runs on.",
+      note: "The tunnel this demo ran through has been retired. It is being moved onto our own GPU infrastructure, the same one Nano FaceStudio Online now runs on.",
       eta: "No firm date yet",
     },
   },

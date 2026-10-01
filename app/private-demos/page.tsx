@@ -19,7 +19,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
  * /private-demos
  *
  * Internal test index for the two API-proxied demo pages
- * (NanoFace Vivid + Face Studio face-swap). Ship-behind-admin-gate
+ * (NanoFace Vivid + Nano FaceStudio Online face-swap). Ship-behind-admin-gate
  * equivalent of the /internal-preview pattern:
  *
  *   - noindex, nofollow (search-engine invisible)
@@ -185,7 +185,7 @@ export default async function PrivateDemosIndex() {
             />
             <DemoCard
               href="/private-demos/faceswap"
-              title="Face Studio \u2014 multi-face swap"
+              title="Nano FaceStudio Online \u2014 multi-face swap"
               upstream="paying-colorado-ment-cingular.trycloudflare.com"
               blurb="Full multi-face swap with detection, per-face reference upload, occluder-preserve panels, and manual brush corrections. Uses the v5 API contract."
               bullets={[

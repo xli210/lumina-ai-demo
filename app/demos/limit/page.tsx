@@ -62,8 +62,8 @@ const KIND_COPY: Record<Kind, KindCopy> = {
   image: {
     chip: "IMAGE DEMOS",
     headline: `You've used today's ${DEMO_DAILY_LIMIT} free image swaps`,
-    sub: "The image quota is shared between Image FaceSwap Pro 2.0 and NanoFace Vivid. It resets at 00:00 UTC.",
-    demos: "Image FaceSwap Pro 2.0 · NanoFace Vivid",
+    sub: "The image quota is shared between Nano FaceStudio Online and NanoFace Vivid. It resets at 00:00 UTC.",
+    demos: "Nano FaceStudio Online · NanoFace Vivid",
     Icon: ImageIcon,
     accentChip: "border-violet-400/30 bg-violet-500/15 text-violet-200",
     accentText: "text-violet-200",

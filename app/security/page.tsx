@@ -116,7 +116,7 @@ export default function SecurityPage() {
           <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground">In scope</h2>
           <ul className="list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
             <li>nanopocket.ai and its subdomains.</li>
-            <li>The Image FaceSwap Pro 2.0 and Video FaceSwap Pro online demos (Cloudflare tunnels).</li>
+            <li>The Nano FaceStudio Online and Video FaceSwap Pro online demos (Cloudflare tunnels).</li>
             <li>The desktop applications: Nano FaceSwap, FaceSwap Pro, ImageEnh Pro, VideoEnhance, VideoGen, ImageEdit, FacialEdit, ImageTryon.</li>
             <li>Account, license, and activation APIs (auth, license, activations).</li>
             <li>Update channel and the signed-manifest update mechanism.</li>

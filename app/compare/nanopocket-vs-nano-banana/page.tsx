@@ -123,7 +123,7 @@ const data: ComparisonData = {
     {
       dimension: "Best at general image editing",
       nanopocket:
-        "Nano ImageEdit covers general image-edit workflows but is not the same product family as Nano FaceSwap Pro.",
+        "Nano ImageEdit covers general image-edit workflows but is not the same product family as Nano FaceStudio Pro.",
       competitor:
         "General-purpose image editing is exactly what Gemini 2.5 Flash Image is designed for — strong at object insertion, style transfer, in-painting.",
       winner: "competitor",

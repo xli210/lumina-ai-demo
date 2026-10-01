@@ -19,7 +19,7 @@ Last updated: 2026-10-01.
 | IndexNow key handler                 | `middleware.ts`                           | `/<INDEXNOW_KEY>.txt`                     |
 | Deep technical reference             | `app/docs/face-swap-pipeline/page.tsx`    | `/docs/face-swap-pipeline`                |
 | HowTo + BreadcrumbList JSON-LD       | `app/face-swap/page.tsx`                  | `/face-swap`                              |
-| Face Studio capability landing       | `app/face-studio/page.tsx`                | `/face-studio`                            |
+| Nano FaceStudio Online capability landing       | `app/face-studio/page.tsx`                | `/face-studio`                            |
 | Canonical differentiator facts       | `lib/face-studio-facts.ts`                | n/a (imported by every surface)           |
 | Native-Chinese FAQ                   | `app/zh-CN/faq/page.tsx`                  | `/zh-CN/faq`                              |
 | GEO health check                     | `scripts/check-geo.mjs`                   | `npm run check:geo`                       |
@@ -216,7 +216,7 @@ The corollary: **do not write a capability claim directly into a page.** Add it 
 
 ## Watch out for: auth-gating a landing page
 
-Face Studio shipped with its description behind `middleware.ts`, so every crawler got a 307 to `/auth/login` and the flagship product was invisible to Google, Bing, and every assistant. The fix was to protect `/face-studio/` (trailing slash — the console and its assets) and leave `/face-studio` public.
+Nano FaceStudio Online shipped with its description behind `middleware.ts`, so every crawler got a 307 to `/auth/login` and the flagship product was invisible to Google, Bing, and every assistant. The fix was to protect `/face-studio/` (trailing slash — the console and its assets) and leave `/face-studio` public.
 
 `scripts/check-geo.mjs` now asserts a 200 and four JSON-LD types on `/face-studio`, so the same mistake fails the check instead of silently costing months of indexing. Any future product that puts a tool and its description under one path prefix needs the same split.
 
@@ -232,7 +232,7 @@ it spends the trust the citation earned.
 Availability is now prose generated from the `maintenance` flags in
 `lib/demos.ts`, via `lib/demo-availability.ts`. Flip a flag and redeploy; every
 LLM-facing file and the pages that list demos follow. Copy that does not need
-a count no longer has one, and Face Studio, the demo that is actually live, is
+a count no longer has one, and Nano FaceStudio Online, the demo that is actually live, is
 named first.
 
 Two rules:

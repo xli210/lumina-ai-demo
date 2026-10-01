@@ -114,8 +114,8 @@ const productJsonLd = {
 
 const faqs: { q: string; a: string }[] = [
   {
-    q: "How is Nano FaceStudio Pro different from Nano FaceSwap Pro?",
-    a: "Nano FaceSwap Pro is a single-purpose swap app (image and video). Nano FaceStudio Pro is a broader photo studio built around the same diffusion identity stack and adds mask edit, expression editing, face vivid restoration, full-image upscale, auto light adjust, and precision crop in one unified desktop UI. If you only need face swap for video, Nano FaceSwap Pro is the right tool; for full portrait retouching, FaceStudio Pro is the bundle.",
+    q: "How is Nano FaceStudio Pro different from Nano FaceStudio Online?",
+    a: "Nano FaceStudio Online is the browser edition: it swaps faces and whole heads, billed per face in prepaid credits with a free daily allowance, on NanoPocket-hosted GPUs. Nano FaceStudio Pro is the local desktop edition, a one-time license that runs 100% on your own GPU with no per-image fee, and it is the broader studio: multi-face swap with per-region protection, mask edit, expression editing, face vivid restoration, full-image upscale, auto light adjust, and precision crop in one unified desktop UI. Both use the same diffusion identity stack.",
   },
   {
     q: "What are the seven bundled tools?",
@@ -135,7 +135,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Can I try it before I buy?",
-    a: "Yes. The free browser demos at /face-swap cover the two most common capabilities — Image FaceSwap Pro 2.0 (the same swap engine bundled here) and NanoFace Vivid (the same restoration model). The full seven-tool studio is the desktop app; the online demos are single-purpose previews.",
+    a: "Yes. The free browser demos at /face-swap cover the two most common capabilities — Nano FaceStudio Online (the same swap engine bundled here) and NanoFace Vivid (the same restoration model). The full seven-tool studio is the desktop app; the online demos are single-purpose previews.",
   },
   {
     q: "When does the desktop app launch?",
@@ -424,7 +424,7 @@ export default function NanoFaceStudioProPage() {
               <Shot
                 src={`${IMG}/face-swap-auto.png`}
                 alt="Nano FaceStudio Pro — one-click auto face swap output"
-                caption="Same diffusion identity stack as Nano FaceSwap Pro 2.0. Full input resolution — no 128-pixel bottleneck."
+                caption="Same diffusion identity stack as Nano FaceStudio Online. Full input resolution — no 128-pixel bottleneck."
               />
             </div>
 

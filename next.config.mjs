@@ -26,7 +26,18 @@ const nextConfig = {
   // Assistants and visitors guess /pricing; it 404'd. The price list is the
   // homepage section that the navbar and footer already link to.
   async redirects() {
-    return [{ source: "/pricing", destination: "/#pricing", permanent: true }];
+    return [
+      { source: "/pricing", destination: "/#pricing", permanent: true },
+      // "Nano FaceSwap Pro 2.0" never shipped as a desktop product; its pages
+      // described Nano FaceStudio Online (browser) and Nano FaceStudio Pro
+      // (desktop). Send old links and search results to the real pages.
+      { source: "/apps/nano-faceswap-pro", destination: "/face-studio", permanent: true },
+      {
+        source: "/apps/nano-faceswap-pro/features",
+        destination: "/apps/nano-facestudio-pro",
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     return [

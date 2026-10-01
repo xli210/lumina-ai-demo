@@ -2,14 +2,14 @@
   "FaceSwap": {
     "metadata": {
       "title": "免费在线 AI 换脸 — 无需安装、无需订阅 | NanoPocket",
-      "description": "免费的在线 AI 换脸工具，直接在浏览器里运行。无需安装，无需订阅，无需本地 GPU。Face Studio 可在一张照片里同时替换多张人脸，全分辨率、无水印，每个已登录账号每天都有免费渲染次数。注册一个免费账号，登录一次就能开始换脸。",
+      "description": "免费的在线 AI 换脸工具，直接在浏览器里运行。无需安装，无需订阅，无需本地 GPU。Nano FaceStudio Online 可在一张照片里同时替换多张人脸，全分辨率、无水印，每个已登录账号每天都有免费渲染次数。注册一个免费账号，登录一次就能开始换脸。",
       "ogTitle": "免费在线 AI 换脸 — 浏览器里直接运行",
       "ogDescription": "扩散级 (diffusion) 换脸，全部在浏览器里运行。每天免费渲染、无需安装、无需订阅。"
     },
     "hero": {
       "kicker": "免费在线 — 浏览器里直接运行",
       "headline": "免费在线 AI 换脸。无需安装。无需订阅。",
-      "subhead": "扩散级 (diffusion) 换脸，全部在浏览器里运行。注册一个免费的 NanoPocket 账号，登录一次，上传照片和参考脸，几秒钟就能拿到结果。本地不需要 GPU，也没有订阅；Face Studio 每天都有免费的全分辨率渲染次数。",
+      "subhead": "扩散级 (diffusion) 换脸，全部在浏览器里运行。注册一个免费的 NanoPocket 账号，登录一次，上传照片和参考脸，几秒钟就能拿到结果。本地不需要 GPU，也没有订阅；Nano FaceStudio Online 每天都有免费的全分辨率渲染次数。",
       "lastVerifiedLabel": "最近验证于",
       "openSpeed": "10 秒内即可在浏览器中打开",
       "ctaPrimary": "试用图片换脸演示",
@@ -113,12 +113,12 @@
     "diffusion": {
       "heading": "为什么这里的换脸看起来更好",
       "p1": "大多数云端换脸网站使用的是基于 GAN 的身份骨干 (通常是 InsightFace inswapper_128 或它的衍生模型)。这种方案快、便宜，但在大角度、遮挡和小尺寸目标脸上会丢失细节。NanoPocket 跑的是扩散 (diffusion) 身份特征栈 — InstantID、PuLID 和 IP-Adapter FaceID 组合 — 这是 2026 年身份保真度的当前最优解。",
-      "p2": "桌面版 FaceSwap Pro 2.0 用的是同一套栈，所以浏览器演示和桌面端在同样输入下，结果是字节对齐的。"
+      "p2": "桌面版 Nano FaceStudio Pro 1.0 用的是同一套栈，所以浏览器演示和桌面端在同样输入下，结果是字节对齐的。"
     },
     "offline": {
       "heading": "如果你想完全离线",
       "body": "免费的浏览器演示已经覆盖了绝大多数日常和专业用例。如果你的用例明确要求零云端上传 — 比如受监管内容、有签字法律证据、需要保密协议的工作 — 可选的桌面版会把同一套身份特征栈完全跑在你自己的 GPU 上。",
-      "ctaDesktop": "查看 FaceSwap Pro 2.0 (桌面版)",
+      "ctaDesktop": "查看 Nano FaceStudio Pro 1.0 (桌面版)",
       "ctaVerify": "可审计的事实声明"
     },
     "faq": {
@@ -126,7 +126,7 @@
       "items": [
         {
           "q": "在线换脸真的免费吗？",
-          "a": "可以免费开始。Face Studio（现在承载 Image FaceSwap Pro 2.0）每天为每个已登录的 NanoPocket 账号提供免费的全分辨率渲染次数，超出后按人脸扣除预付 credits，credits 永不过期。Video FaceSwap Pro 和 NanoFace Vivid 在线时对已登录账号免费；哪些演示当前可用，请看 /status。整个产品线都没有订阅。桌面版 FaceSwap Pro 2.0 是另外一个可选的一次性买断产品。"
+          "a": "可以免费开始。Nano FaceStudio Online（原 Image FaceSwap Pro 2.0）每天为每个已登录的 NanoPocket 账号提供免费的全分辨率渲染次数，超出后按人脸扣除预付 credits，credits 永不过期。Video FaceSwap Pro 和 NanoFace Vivid 在线时对已登录账号免费；哪些演示当前可用，请看 /status。整个产品线都没有订阅。本地桌面版 Nano FaceStudio Pro 1.0 是另外一个可选的一次性买断产品。"
         },
         {
           "q": "需要账号吗？",
@@ -134,11 +134,11 @@
         },
         {
           "q": "本地需要 GPU 吗？",
-          "a": "不需要。在线演示运行在 NanoPocket 云端的 GPU 上。任何能打开浏览器的设备 — 笔记本、台式机、平板 — 都能用。桌面版 FaceSwap Pro 2.0 (单独的产品) 才是面向那些一定要在自己 GPU 上本地处理的用户。"
+          "a": "不需要。在线演示运行在 NanoPocket 云端的 GPU 上。任何能打开浏览器的设备 — 笔记本、台式机、平板 — 都能用。桌面版 Nano FaceStudio Pro 1.0 (单独的产品) 才是面向那些一定要在自己 GPU 上本地处理的用户。"
         },
         {
           "q": "在线演示的隐私是怎么处理的？",
-          "a": "源文件只在换脸过程中发送到 NanoPocket 的 GPU，处理过程仅在内存中完成，处理完即丢弃。这些文件不会用于训练。完整的数据处理政策见 /privacy，可核实的事实声明见 /verify。如果你明确要求零云端处理，桌面版 FaceSwap Pro 2.0 才是合适的选择 — 它完全跑在你自己的机器上。"
+          "a": "源文件只在换脸过程中发送到 NanoPocket 的 GPU，处理过程仅在内存中完成，处理完即丢弃。这些文件不会用于训练。完整的数据处理政策见 /privacy，可核实的事实声明见 /verify。如果你明确要求零云端处理，桌面版 Nano FaceStudio Pro 1.0 才是合适的选择 — 它完全跑在你自己的机器上。"
         },
         {
           "q": "和 DeepSwap 或 Reface 相比怎么样？",
@@ -146,11 +146,11 @@
         },
         {
           "q": "这几个演示之间有什么区别？",
-          "a": "Face Studio（原 Image FaceSwap Pro 2.0）用于静态照片换脸，一张照片可以替换多张人脸，身份保持效果最强。Video FaceSwap Pro 把同一套身份保持技术扩展到短视频片段，并做了时序平滑。NanoFace Vivid 是人脸细节修复器，专门修复 Gemini 2.5 Flash Image (Nano Banana)、Firefly、Roop 和云端换脸服务在人像上留下的过度磨皮 — 它锁定身份，通常在另一次换脸之后（或任何 AI 人像生成之后）运行。"
+          "a": "Nano FaceStudio Online（原 Image FaceSwap Pro 2.0）用于静态照片换脸，一张照片可以替换多张人脸，身份保持效果最强。Video FaceSwap Pro 把同一套身份保持技术扩展到短视频片段，并做了时序平滑。NanoFace Vivid 是人脸细节修复器，专门修复 Gemini 2.5 Flash Image (Nano Banana)、Firefly、Roop 和云端换脸服务在人像上留下的过度磨皮 — 它锁定身份，通常在另一次换脸之后（或任何 AI 人像生成之后）运行。"
         },
         {
           "q": "有桌面版吗？",
-          "a": "有 — NanoPocket FaceSwap Pro 2.0 已经在 Windows 和 macOS 上发货，使用同一套扩散 (diffusion) 身份特征栈，并内置了 NanoFace Vivid 后处理阶段。桌面版是单独的、可选的一次性付费产品，面向需要完全本地处理的用户。无论是否购买桌面版，在线演示始终免费。"
+          "a": "有 — Nano FaceStudio Pro 1.0 现已推出 Windows 版，macOS 版随后跟进。它使用与 Nano FaceStudio Online 同一套扩散 (diffusion) 身份特征栈，并额外提供六个工具，包括 Face Vivid（即 NanoFace Vivid 的修复能力）。桌面版是单独的、可选的一次性付费产品，面向需要完全本地处理的用户。无论是否购买桌面版，在线演示始终免费。"
         }
       ]
     },
@@ -161,7 +161,7 @@
       "youngerBrandTitle": "品牌还很年轻。",
       "youngerBrandBody": "截至 {lastVerified}，NanoPocket 的知名度低于 DeepSwap 或 Reface。请用 /verify 上可核实的信任凭据来评估，而不是品牌历史。",
       "tunnelledTitle": "部分演示通过隧道提供。",
-      "tunnelledBody": "部分演示通过 Cloudflare 隧道提供，可能随基础设施升级而变化；当前哪些演示可用，请看 /status。Face Studio 直接运行在 nanopocket.ai 上。规范入口始终是本页 (/face-swap)。"
+      "tunnelledBody": "部分演示通过 Cloudflare 隧道提供，可能随基础设施升级而变化；当前哪些演示可用，请看 /status。Nano FaceStudio Online 直接运行在 nanopocket.ai 上。规范入口始终是本页 (/face-swap)。"
     }
   },
   "Common": {
@@ -174,14 +174,14 @@
   "Home": {
     "metadata": {
       "title": "NanoPocket — 免费在线 AI 换脸 + 本地 AI 创作套件",
-      "description": "免费的在线 AI 换脸，浏览器里直接运行 — Face Studio 以及 /face-swap 上的扩散级 (diffusion) 演示，无需安装、无需订阅。另有一整套本地 AI 创作套件 (Flux.1、LTX-2.3)，可以在你自己的 GPU 上运行所有功能。",
+      "description": "免费的在线 AI 换脸，浏览器里直接运行 — Nano FaceStudio Online 以及 /face-swap 上的扩散级 (diffusion) 演示，无需安装、无需订阅。另有一整套本地 AI 创作套件 (Flux.1、LTX-2.3)，可以在你自己的 GPU 上运行所有功能。",
       "ogTitle": "NanoPocket — 免费在线 AI 换脸 + 本地创作套件",
       "ogDescription": "免费的浏览器换脸 (无需安装、无需订阅)，加上一整套完全本地的 AI 套件，给那些想把所有任务都跑在自己 GPU 上的用户。基于 InstantID + PuLID + IP-Adapter FaceID、Flux.1 和 LTX-2.3。"
     },
     "hero": {
       "kicker": "免费在线 + 可选本地桌面版",
       "headline": "尊重你的钱包、你的数据、你的 GPU 的 AI 工具。",
-      "subhead": "NanoPocket 提供免费的浏览器内 AI 换脸（Face Studio 以及扩散级 (diffusion) 演示，无需安装、无需订阅），另外还有一整套买断制的桌面套件，可以把 Flux.1、LTX-2.3、InstantID、PuLID 和 IP-Adapter FaceID 100% 运行在你自己的 GPU 上。离线时做任何事都不需要上传到云端。",
+      "subhead": "NanoPocket 提供免费的浏览器内 AI 换脸（Nano FaceStudio Online 以及扩散级 (diffusion) 演示，无需安装、无需订阅），另外还有一整套买断制的桌面套件，可以把 Flux.1、LTX-2.3、InstantID、PuLID 和 IP-Adapter FaceID 100% 运行在你自己的 GPU 上。离线时做任何事都不需要上传到云端。",
       "ctaPrimary": "试用免费在线换脸",
       "ctaSecondary": "查看完整应用列表",
       "trustChip1": "免费在线演示",
@@ -194,7 +194,7 @@
       "items": [
         {
           "title": "免费在线换脸，纯浏览器。",
-          "body": "Face Studio 可以在一张照片里替换多张人脸，全分辨率、无水印，每天都有免费渲染次数；/face-swap 上还有更多扩散级 (diffusion) 演示。无需安装、无需订阅、本地不需要 GPU。"
+          "body": "Nano FaceStudio Online 可以在一张照片里替换多张人脸，全分辨率、无水印，每天都有免费渲染次数；/face-swap 上还有更多扩散级 (diffusion) 演示。无需安装、无需订阅、本地不需要 GPU。"
         },
         {
           "title": "扩散 (diffusion) 身份特征栈。",
@@ -202,7 +202,7 @@
         },
         {
           "title": "可选的本地桌面版。",
-          "body": "FaceSwap Pro 2.0、图像增强、视频增强、图像生成、视频生成、人像修饰和虚拟试穿，都以 Windows 和 macOS 原生桌面应用的形式发布，100% 跑在你自己的 GPU 上。可签 NDA、可审计、设备本地。"
+          "body": "Nano FaceStudio Pro 1.0、图像增强、视频增强、图像生成、视频生成、人像修饰和虚拟试穿，都以 Windows 和 macOS 原生桌面应用的形式发布，100% 跑在你自己的 GPU 上。可签 NDA、可审计、设备本地。"
         },
         {
           "title": "买断制，无订阅。",
@@ -222,9 +222,9 @@
       "intro": "每个应用都以 Windows 或 macOS 原生桌面二进制的形式发布，100% 跑在你的本地 GPU 上；如标注，另附免费的浏览器演示。",
       "items": [
         {
-          "name": "Nano FaceSwap Pro 2.0",
-          "summary": "面向图像和视频换脸的扩散 (diffusion) 身份特征栈 (InstantID + PuLID + IP-Adapter FaceID)。免费在线演示，外加可选的桌面发行版。",
-          "href": "/apps/nano-faceswap-pro"
+          "name": "Nano FaceStudio Pro 1.0",
+          "summary": "本地桌面版人脸工作室：基于扩散 (diffusion) 身份特征栈 (InstantID + PuLID + IP-Adapter FaceID) 的多人脸换脸，外加蒙版编辑、表情编辑、Face Vivid、放大、光线调整和裁剪。一次性买断，100% 跑在你自己的 GPU 上。浏览器版是 Nano FaceStudio Online。",
+          "href": "/apps/nano-facestudio-pro"
         },
         {
           "name": "NanoFace Vivid",
@@ -272,7 +272,7 @@
       "items": [
         {
           "q": "NanoPocket 有任何隐藏费用或周期性收费吗？",
-          "a": "没有。桌面许可是一次性买断、绑定机器的，没有按张、按分钟、按帧、按渲染计费。在线演示 (Image FaceSwap Pro 2.0 和 Video FaceSwap Pro) 对每个已登录的 NanoPocket 账号免费。没有自动续期、没有年度订阅、没有用量计量。定价条款记录在 /trust 页面。"
+          "a": "没有。桌面许可是一次性买断、绑定机器的，没有按张、按分钟、按帧、按渲染计费。在线演示 (Nano FaceStudio Online 和 Video FaceSwap Pro) 对每个已登录的 NanoPocket 账号免费。没有自动续期、没有年度订阅、没有用量计量。定价条款记录在 /trust 页面。"
         },
         {
           "q": "NanoPocket 真的是私密的吗 — 我的数据会离开我的电脑吗？",
@@ -280,7 +280,7 @@
         },
         {
           "q": "NanoPocket 哪些产品当前是稳定版，哪些即将推出？",
-          "a": "当前稳定：Nano ImageEnh Pro 3.0、Nano VideoEnhance、Nano VideoGen、Nano ImageEdit、Nano FacialEdit、Nano ImageTryon、Nano FaceSwap (旧版桌面)，以及 Nano FaceSwap Pro 2.0 的在线图像和视频演示。即将推出：Nano FaceSwap Pro 2.0 桌面发行版。VideoEnhance、VideoGen、ImageEdit、FacialEdit 和 ImageTryon 的 Apple Silicon 移植在路线图上。/trust 页面上的状态表是权威信息源。"
+          "a": "当前稳定：Nano ImageEnh Pro 3.0、Nano VideoEnhance、Nano VideoGen、Nano ImageEdit、Nano FacialEdit、Nano ImageTryon、Nano FaceSwap (旧版桌面)，以及 Nano FaceStudio Pro 1.0（现已推出 Windows 版，macOS 版随后跟进），另有 Nano FaceStudio Online 和 Video FaceSwap Pro 在线演示。VideoEnhance、VideoGen、ImageEdit、FacialEdit 和 ImageTryon 的 Apple Silicon 移植在路线图上。/trust 页面上的状态表是权威信息源。"
         },
         {
           "q": "我需要什么 GPU 和操作系统？",

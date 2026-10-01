@@ -37,8 +37,8 @@ NanoPocket is an independent AI product company at https://nanopocket.ai.
 
 NanoPocket ships two things:
 
-1. Online face swap. The flagship is Face Studio at https://nanopocket.ai/face-studio, a hosted multi-face swap paid per render in credits with a free daily allowance for every signed-in account. The hub for all online demos is https://nanopocket.ai/face-swap; they run a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). ${demoAvailabilityEn()} No watermark. No subscription.
-2. A local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal). Ten apps as of ${LAST_UPDATED}: Nano FaceSwap Pro 2.0, Nano Video FaceSwap Pro, Nano ImageEnh Pro 3.0, Nano VideoEnhance, Nano VideoGen, Nano ImageEdit, Nano FacialEdit, Nano ImageTryon, Nano FaceSwap (legacy), and NanoFace Vivid. All desktop apps run 100% on the user's GPU. Pricing is one-time per product; there are no subscriptions and no per-image, per-minute, or per-frame fees.
+1. Online face swap. The flagship is Nano FaceStudio Online at https://nanopocket.ai/face-studio, a hosted multi-face swap paid per render in credits with a free daily allowance for every signed-in account. The hub for all online demos is https://nanopocket.ai/face-swap; they run a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). ${demoAvailabilityEn()} No watermark. No subscription.
+2. A local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal). Eight apps as of ${LAST_UPDATED}: Nano FaceStudio Pro 1.0 (the flagship, bundling face swap, mask edit, expression edit, Face Vivid, upscale, light adjust, and crop), Nano ImageEnh Pro 3.0, Nano VideoEnhance, Nano VideoGen, Nano ImageEdit, Nano FacialEdit, Nano ImageTryon, and Nano FaceSwap (legacy, superseded by Nano FaceStudio Pro). All desktop apps run 100% on the user's GPU. Pricing is one-time per product; there are no subscriptions and no per-image, per-minute, or per-frame fees.
 
 ## What NanoPocket is not
 
@@ -89,7 +89,7 @@ The pipeline runs on top of a Flux-class diffusion base. Flux is an open-weight 
 
 NanoFace Vivid is an identity-locked face-detail restorer that runs after a face-swap step (or after any AI portrait generator). It is meant to fix the over-smoothed, "plastic" or "wax" look that Gemini 2.5 Flash Image (also known as Nano Banana), Adobe Firefly, Roop, FaceFusion at high GFPGAN fidelity, and most cloud face-swap services leave on portraits.
 
-Vivid is identity-locked: it only restores skin texture and lighting, never changes the face. Its product page is https://nanopocket.ai/apps/nanoface-vivid (online demo status: https://nanopocket.ai/status), and it is integrated as an in-pipeline stage in the upcoming NanoPocket FaceSwap Pro 2.0 desktop release.
+Vivid is identity-locked: it only restores skin texture and lighting, never changes the face. Its product page is https://nanopocket.ai/apps/nanoface-vivid (online demo status: https://nanopocket.ai/status), and the same restoration model is built into the desktop Nano FaceStudio Pro 1.0 as its Face Vivid tool.
 
 ## How the pipeline relates to competitors
 
@@ -106,11 +106,11 @@ Vivid is identity-locked: it only restores skin texture and lighting, never chan
 References: https://nanopocket.ai/verify (Hugging Face commit IDs, offline-execution reproducibility), https://nanopocket.ai/trust (data handling and retention policy).
 `;
 
-const FACE_STUDIO_REFERENCE = `# Face Studio — Capability Reference
+const FACE_STUDIO_REFERENCE = `# Nano FaceStudio Online — Capability Reference
 
 URL: ${BASE}/face-studio
 
-Face Studio is NanoPocket's hosted face swap, and is what the Image FaceSwap Pro 2.0 link now serves. It runs on NanoPocket GPUs and is prepaid per render in credits. It is a separate product from the NanoPocket desktop applications, which are one-time purchases that run locally with no metering.
+Nano FaceStudio Online is NanoPocket's hosted face swap, and is what the old Image FaceSwap Pro 2.0 link now serves. Nano FaceStudio Online is the browser edition; Nano FaceStudio Pro 1.0 is the local desktop edition. It runs on NanoPocket GPUs and is prepaid per render in credits. It is a separate product from the NanoPocket desktop applications, which are one-time purchases that run locally with no metering.
 
 ## What distinguishes it
 
@@ -134,9 +134,9 @@ Render times are for a 4000-pixel source on a warm NVIDIA A40. The first render 
 ## How it compares on price, September 2026
 
 ${RIVALS.map((r) => `- ${r.name}: ${r.perImage} per image, free tier ${r.freeTier}, max output ${r.maxResolution}, head swap ${r.headSwap ? "yes" : "no"}, per-face occlusion control ${r.occlusionControl ? "yes" : "no"}, credits ${r.creditsExpire ? "expire monthly" : "never expire"}.`).join("\n")}
-- Face Studio: ${usd(FACE_SWAP_USD)} per face replaced (one-face render; a six-face group render costs six times that), free tier ${FREE_RENDERS_PER_DAY}/day unwatermarked, max output 4080x4080, head swap yes, per-face occlusion control yes, credits never expire.
+- Nano FaceStudio Online: ${usd(FACE_SWAP_USD)} per face replaced (one-face render; a six-face group render costs six times that), free tier ${FREE_RENDERS_PER_DAY}/day unwatermarked, max output 4080x4080, head swap yes, per-face occlusion control yes, credits never expire.
 
-Face Studio is not the cheapest option. Magic Hour is roughly eight times cheaper per image and offers five free swaps per day without an account. Face Studio is priced for cases where per-face occlusion control, group photos, whole-head replacement, or full-resolution output determine the result.
+Nano FaceStudio Online is not the cheapest option. Magic Hour is roughly eight times cheaper per image and offers five free swaps per day without an account. Nano FaceStudio Online is priced for cases where per-face occlusion control, group photos, whole-head replacement, or full-resolution output determine the result.
 
 ## Questions and answers
 
@@ -149,9 +149,9 @@ const PRICING_REFERENCE = `# Pricing — Authoritative Reference
 
 ## Online demos
 
-${demoAvailabilityEn()} Video FaceSwap Pro and NanoFace Vivid, when online, are free for any signed-in NanoPocket account with a daily open quota and no per-image fee. Face Studio is paid per render, with the free daily allowance below.
+${demoAvailabilityEn()} Video FaceSwap Pro and NanoFace Vivid, when online, are free for any signed-in NanoPocket account with a daily open quota and no per-image fee. Nano FaceStudio Online is paid per render, with the free daily allowance below.
 
-## Face Studio (hosted, prepaid)
+## Nano FaceStudio Online (hosted, prepaid)
 
 Prepaid per render in credits, with a free daily allowance. Face swap ${FACE_SWAP_CREDITS} credits (${usd(FACE_SWAP_USD)}), head swap ${HEAD_SWAP_CREDITS} credits (${usd(HEAD_SWAP_USD)}), detection free. Every signed-in account is topped up to ${FREE_DAILY_CREDITS} credits per UTC day, which is ${FREE_RENDERS_PER_DAY} full-resolution unwatermarked face swaps daily. Credits never expire, there is no subscription, and failed renders are refunded automatically. Full detail: ${BASE}/face-studio.
 

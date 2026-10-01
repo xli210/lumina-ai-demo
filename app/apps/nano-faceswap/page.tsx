@@ -73,7 +73,7 @@ const data: ProductLandingData = {
       { name: "Data handling", value: "100% local; no upload of source media" },
       { name: "Network requirement", value: "Only for license activation" },
       { name: "License model", value: "One-time, machine-bound; no per-minute or per-frame fees" },
-      { name: "Pro upgrade", value: "Nano FaceSwap Pro 2.0 — diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID)" },
+      { name: "Pro upgrade", value: "Nano FaceStudio Pro 1.0 — diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID)" },
     ],
   },
   documentation: {
@@ -86,10 +86,10 @@ const data: ProductLandingData = {
         "Single-face swap on social-format photos and videos",
         "Group portraits with up to ~6 faces",
         "Buyers who want a desktop app, not a Python / Gradio script",
-        "Users not yet ready to wait for the diffusion-grade Pro 2.0",
+        "Users who do not need the diffusion-grade identity of Nano FaceStudio",
       ],
       notRecommendedFor: [
-        "4K-grade single-portrait fidelity (use Nano FaceSwap Pro 2.0)",
+        "4K-grade single-portrait fidelity (use Nano FaceStudio Pro 1.0)",
         "Real-time webcam streaming (use Rope-Live)",
         "Apple Silicon Macs (Windows + NVIDIA only in v1.0.4)",
         "Any non-consensual likeness use — explicitly prohibited",
@@ -100,12 +100,12 @@ const data: ProductLandingData = {
       {
         title: "128-pixel identity head ceiling",
         detail:
-          "Like other inswapper_128-class swappers (Roop, FaceFusion, Rope, Reactor), identity is rendered at 128×128 then upscaled. Skin micro-detail loss is unavoidable at the model level — Pro 2.0 fixes this with a diffusion identity head.",
+          "Like other inswapper_128-class swappers (Roop, FaceFusion, Rope, Reactor), identity is rendered at 128×128 then upscaled. Skin micro-detail loss is unavoidable at the model level — Nano FaceStudio Pro 1.0 and Nano FaceStudio Online use a diffusion identity head instead.",
       },
       {
         title: "Profile angles beyond 75° yaw",
         detail:
-          "Identity-similarity drops on near-profile shots because the inswapper backbone is trained on frontal-to-three-quarter views. Re-shoot at ≤60° yaw or upgrade to Pro 2.0's diffusion stack.",
+          "Identity-similarity drops on near-profile shots because the inswapper backbone is trained on frontal-to-three-quarter views. Re-shoot at ≤60° yaw or move to the diffusion stack in Nano FaceStudio Pro 1.0.",
       },
       {
         title: "Strong motion blur on video",
@@ -120,7 +120,7 @@ const data: ProductLandingData = {
       {
         title: "Apple Silicon is not supported",
         detail:
-          "v1.0.4 is Windows + NVIDIA CUDA only. Mac users should use the Nano FaceSwap Pro 2.0 online demo until the Pro desktop release ships.",
+          "v1.0.4 is Windows + NVIDIA CUDA only. Mac users can use Nano FaceStudio Online in the browser until the macOS build of Nano FaceStudio Pro 1.0 ships.",
       },
       {
         title: "Group photos > 6 faces",
@@ -171,8 +171,8 @@ const data: ProductLandingData = {
     ],
     primaryCta: { label: "Download for Windows", href: "/download" },
     secondaryCta: {
-      label: "Compare with Pro 2.0",
-      href: "/apps/nano-faceswap-pro",
+      label: "See Nano FaceStudio Pro 1.0",
+      href: "/apps/nano-facestudio-pro",
       variant: "secondary",
     },
   },
@@ -250,16 +250,16 @@ const data: ProductLandingData = {
     },
     {
       index: "06",
-      eyebrow: "Path to Pro 2.0",
-      title: "Diffusion upgrade lands in Pro 2.0.",
-      lead: "Nano FaceSwap (this app) ships the inswapper-class identity swap. Nano FaceSwap Pro 2.0 ships a diffusion identity stack (InstantID, PuLID, IP-Adapter FaceID), a virtual identity library, mask control, magic pen, and identity-preserving expression editing.",
+      eyebrow: "Path to Nano FaceStudio Pro",
+      title: "The diffusion upgrade is Nano FaceStudio Pro 1.0.",
+      lead: "Nano FaceSwap (this app) ships the inswapper-class identity swap. Nano FaceStudio Pro 1.0 ships a diffusion identity stack (InstantID, PuLID, IP-Adapter FaceID) with multi-face swap, mask edit, identity-preserving expression editing, Face Vivid, upscale, light adjust, and crop in one app.",
       bullets: [
-        "Pro 2.0 adds a diffusion identity stack",
-        "Pro 2.0 adds a license-free virtual identity library",
-        "Pro 2.0 adds region-level mask control and a magic pen",
-        "Pro 2.0 adds identity-preserving expression editing",
+        "Nano FaceStudio Pro 1.0 adds a diffusion identity stack",
+        "Nano FaceStudio Pro 1.0 adds multi-face swap with per-region protection",
+        "Nano FaceStudio Pro 1.0 adds mask edit and identity-preserving expression editing",
+        "Nano FaceStudio Pro 1.0 adds Face Vivid, upscale, light adjust, and crop",
       ],
-      hint: "Free online demo for Pro 2.0 available",
+      hint: "Try the browser edition: Nano FaceStudio Online",
     },
   ],
   faqs: [
@@ -280,8 +280,8 @@ const data: ProductLandingData = {
       a: "Roop, Roop-Unleashed, FaceFusion, Rope, Rope-Live, and Reactor ship as Gradio scripts that wrap the InsightFace inswapper_128 GAN — they require a Python environment, a pip/conda setup, and per-machine recompilation. Nano FaceSwap ships as a single Windows installer with a desktop UI and a one-time license. No Python required.",
     },
     {
-      q: "Should I get this or Nano FaceSwap Pro 2.0?",
-      a: "Nano FaceSwap (this app) is the inswapper-class desktop swap, available today. Nano FaceSwap Pro 2.0 is the diffusion upgrade with a virtual identity library, per-region mask control, magic-pen restoration, head-vs-face mode, and a benchmark gallery. The Pro 2.0 online demos (image + video) are free for every signed-in NanoPocket account; the Pro 2.0 desktop release ships soon.",
+      q: "Should I get this or Nano FaceStudio Pro 1.0?",
+      a: "Nano FaceSwap (this app) is the inswapper-class desktop swap, available today. Nano FaceStudio Pro 1.0 is the diffusion upgrade, with multi-face swap, mask edit, expression editing, Face Vivid, upscale, light adjust, and crop in one app. Nano FaceStudio Online, its browser edition, gives every signed-in NanoPocket account free renders each day.",
     },
     {
       q: "Do my photos and videos stay private?",
@@ -297,8 +297,8 @@ const data: ProductLandingData = {
     body: "Local desktop face swap for photos and videos on a single NVIDIA GPU. One-time license, no per-minute fees, source media stays on your disk.",
     primaryCta: { label: "Download for Windows", href: "/download" },
     secondaryCta: {
-      label: "Compare with Pro 2.0",
-      href: "/apps/nano-faceswap-pro",
+      label: "See Nano FaceStudio Pro 1.0",
+      href: "/apps/nano-facestudio-pro",
       variant: "secondary",
     },
   },

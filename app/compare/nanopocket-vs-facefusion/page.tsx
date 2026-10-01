@@ -6,7 +6,7 @@ const PAGE_URL = "https://nanopocket.ai/compare/nanopocket-vs-facefusion";
 export const metadata: Metadata = {
   title: "NanoPocket vs FaceFusion — Honest 2026 Comparison",
   description:
-    "NanoPocket FaceSwap Pro 2.0 (diffusion stack, GUI, local) vs FaceFusion (open-source GAN CLI). Identity fidelity, install friction, license, video, and verifiability compared dimension by dimension.",
+    "Nano FaceStudio Pro 1.0 (diffusion stack, GUI, local) vs FaceFusion (open-source GAN CLI). Identity fidelity, install friction, license, video, and verifiability compared dimension by dimension.",
   keywords: [
     "nanopocket vs facefusion",
     "facefusion alternative",
@@ -30,7 +30,7 @@ const data: ComparisonData = {
   competitorUrl: "https://github.com/facefusion/facefusion",
   lastVerified: "2026-05-29",
   tldr:
-    "FaceFusion is the leading open-source face-swap project, built on InsightFace's inswapper_128 GAN. NanoPocket FaceSwap Pro 2.0 uses a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) inside a desktop GUI with a one-time license. Pick FaceFusion if you want fully-free, fully-open code that you can read line by line; pick NanoPocket if you want stronger identity preservation, no Python setup, and a maintained product with support.",
+    "FaceFusion is the leading open-source face-swap project, built on InsightFace's inswapper_128 GAN. Nano FaceStudio Pro 1.0 uses a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) inside a desktop GUI with a one-time license. Pick FaceFusion if you want fully-free, fully-open code that you can read line by line; pick NanoPocket if you want stronger identity preservation, no Python setup, and a maintained product with support.",
   pickIf: {
     nanopocket: [
       "You want a desktop GUI with no Python / CUDA / git setup.",

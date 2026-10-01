@@ -9,7 +9,7 @@ import { demoAvailabilityEn } from "@/lib/demo-availability";
 
 /**
  * This page reports tunnel reachability, so it covers only the demos that
- * run behind one. Face Studio moved onto nanopocket.ai itself, where its
+ * run behind one. Nano FaceStudio Online moved onto nanopocket.ai itself, where its
  * availability is the site's own; pinging our auth-gated page from the
  * uptime checker would only ever confirm the login redirect works.
  */

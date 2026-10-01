@@ -37,7 +37,7 @@ const faqStructuredData = {
       name: "Are there any hidden charges or recurring fees with NanoPocket?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. Desktop licenses are one-time and machine-bound, with no per-image, per-minute, per-frame, or per-render fees. Online demos (Image FaceSwap Pro 2.0 and Video FaceSwap Pro) are free for every signed-in NanoPocket account. There is no auto-renewal, no yearly subscription, and no usage meter. Pricing terms are documented on the /trust page.",
+        text: "No. Desktop licenses are one-time and machine-bound, with no per-image, per-minute, per-frame, or per-render fees. Online demos (Nano FaceStudio Online and Video FaceSwap Pro) are free for every signed-in NanoPocket account. There is no auto-renewal, no yearly subscription, and no usage meter. Pricing terms are documented on the /trust page.",
       },
     },
     {
@@ -53,7 +53,7 @@ const faqStructuredData = {
       name: "Which NanoPocket products are stable today, and which are coming soon?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Stable today: Nano ImageEnh Pro 3.0, Nano VideoEnhance, Nano VideoGen, Nano ImageEdit, Nano FacialEdit, Nano ImageTryon, Nano FaceSwap (legacy desktop), and the Nano FaceSwap Pro 2.0 online image and video demos. Coming soon: the Nano FaceSwap Pro 2.0 desktop release. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap. The status table on the /trust page is the authoritative source.",
+        text: "Stable today: Nano ImageEnh Pro 3.0, Nano VideoEnhance, Nano VideoGen, Nano ImageEdit, Nano FacialEdit, Nano ImageTryon, Nano FaceSwap (legacy desktop), and Nano FaceStudio Pro 1.0 (Windows now, macOS to follow), plus the Nano FaceStudio Online and Video FaceSwap Pro online demos. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap. The status table on the /trust page is the authoritative source.",
       },
     },
     {

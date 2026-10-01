@@ -342,7 +342,7 @@ export default async function CommunityPage() {
             User reports &amp; feedback signals
           </h2>
           <p className="mb-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Live like / dislike feedback aggregated from the Image FaceSwap Pro 2.0 demo is
+            Live like / dislike feedback aggregated from the Nano FaceStudio Online demo is
             visible (to admins) in the internal{" "}
             <Link
               href="/admin/feedback"

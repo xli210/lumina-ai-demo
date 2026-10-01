@@ -64,7 +64,7 @@ async function currentUserId(): Promise<string | null> {
  * Bring an account's credits up to date before anything reads them.
  *
  * Two grants, both idempotent: the one-off welcome credits, and the free
- * daily allowance that keeps Face Studio usable without paying. Called by
+ * daily allowance that keeps Nano FaceStudio Online usable without paying. Called by
  * every gate rather than on a schedule, so it costs nothing for accounts
  * that never visit.
  */
@@ -88,7 +88,7 @@ export async function requireUser(): Promise<
   if (!userId) {
     return {
       ok: false,
-      response: privateJson({ detail: "Sign in to use Face Studio." }, 401),
+      response: privateJson({ detail: "Sign in to use Nano FaceStudio Online." }, 401),
     };
   }
   return { ok: true, userId };
@@ -106,7 +106,7 @@ export async function requireSpendableBalance(): Promise<FaceStudioGate> {
   if (!userId) {
     return {
       ok: false,
-      response: privateJson({ detail: "Sign in to use Face Studio." }, 401),
+      response: privateJson({ detail: "Sign in to use Nano FaceStudio Online." }, 401),
     };
   }
 
@@ -158,7 +158,7 @@ export async function requireJobOwner(
   if (!userId) {
     return {
       ok: false,
-      response: privateJson({ detail: "Sign in to use Face Studio." }, 401),
+      response: privateJson({ detail: "Sign in to use Nano FaceStudio Online." }, 401),
     };
   }
 

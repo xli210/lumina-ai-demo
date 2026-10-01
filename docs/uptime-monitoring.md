@@ -1,6 +1,6 @@
 # Demo uptime monitoring — setup guide
 
-This guide wires up the three online demo URLs (Image FaceSwap Pro 2.0,
+This guide wires up the three online demo URLs (Nano FaceStudio Online,
 Video FaceSwap Pro, NanoFace Vivid) to a 5-minute uptime checker that:
 
 1. Pings each demo from a GitHub Actions runner every 5 minutes.
@@ -125,14 +125,14 @@ URL automatically.
 When a demo flips `up → down` or `down → up`, the Discord channel
 gets a message like:
 
-> 🔴 **Demo down — Image FaceSwap Pro 2.0**
+> 🔴 **Demo down — Nano FaceStudio Online**
 > URL: https://technique-phd-yen-insight.trycloudflare.com/login
 > HTTP: 522 — error: connection reset
 > Last successful check: 14 min ago
 
 Healthy recoveries are posted as well so you can confirm the fix:
 
-> 🟢 **Demo recovered — Image FaceSwap Pro 2.0**
+> 🟢 **Demo recovered — Nano FaceStudio Online**
 > URL: https://technique-phd-yen-insight.trycloudflare.com/login
 > HTTP: 200 — latency 412 ms
 > Total downtime: 12 min

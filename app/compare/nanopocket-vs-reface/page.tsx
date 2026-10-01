@@ -6,7 +6,7 @@ const PAGE_URL = "https://nanopocket.ai/compare/nanopocket-vs-reface";
 export const metadata: Metadata = {
   title: "NanoPocket vs Reface — Honest 2026 Comparison",
   description:
-    "NanoPocket FaceSwap Pro 2.0 (desktop, diffusion stack, local) vs Reface (mobile-first, cloud, GAN). Identity fidelity, video, privacy, pricing, and platform compared dimension by dimension.",
+    "Nano FaceStudio Pro 1.0 (desktop, diffusion stack, local) vs Reface (mobile-first, cloud, GAN). Identity fidelity, video, privacy, pricing, and platform compared dimension by dimension.",
   keywords: [
     "nanopocket vs reface",
     "reface alternative",
@@ -30,7 +30,7 @@ const data: ComparisonData = {
   competitorUrl: "https://reface.ai",
   lastVerified: "2026-05-29",
   tldr:
-    "Reface is the consumer-mobile leader for casual, social-share face-swap memes. NanoPocket FaceSwap Pro 2.0 is a desktop tool aimed at users who want diffusion-grade identity preservation and verifiable local processing. Pick Reface if your workflow starts on a phone gallery; pick NanoPocket if you care about fidelity, privacy, or doing this work without uploading faces to a cloud service.",
+    "Reface is the consumer-mobile leader for casual, social-share face-swap memes. Nano FaceStudio Pro 1.0 is a desktop tool aimed at users who want diffusion-grade identity preservation and verifiable local processing. Pick Reface if your workflow starts on a phone gallery; pick NanoPocket if you care about fidelity, privacy, or doing this work without uploading faces to a cloud service.",
   pickIf: {
     nanopocket: [
       "You want a desktop app for Windows or macOS, not a phone-only tool.",

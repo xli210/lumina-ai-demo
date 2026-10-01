@@ -156,7 +156,7 @@ export default function TermsPage() {
         </Section>
 
         <Section id="demos" title="3. Online demos">
-          The Image FaceSwap Pro 2.0 and Video FaceSwap Pro online demos are provided free for
+          The Nano FaceStudio Online and Video FaceSwap Pro online demos are provided free for
           every signed-in NanoPocket account. They are best-effort, rate-limited services with no
           uptime SLA. The user retains all rights to demo outputs, subject to the Acceptable Use
           policy below. Source content is processed in volatile memory and discarded as described

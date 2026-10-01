@@ -143,7 +143,7 @@ interface ModelComponent {
 const MODEL_PROVENANCE: ModelComponent[] = [
   {
     category: "Identity (face)",
-    product: "Nano FaceSwap Pro 2.0 (Image / Video)",
+    product: "Nano FaceStudio Online / Nano FaceStudio Pro 1.0 / Video FaceSwap Pro",
     upstream: "InstantX / InstantID",
     upstreamUrl: "https://huggingface.co/InstantX/InstantID",
     license: "Apache-2.0 (model card terms)",
@@ -153,7 +153,7 @@ const MODEL_PROVENANCE: ModelComponent[] = [
   },
   {
     category: "Identity (face)",
-    product: "Nano FaceSwap Pro 2.0",
+    product: "Nano FaceStudio Pro 1.0",
     upstream: "ToTheBeginning / PuLID",
     upstreamUrl: "https://github.com/ToTheBeginning/PuLID",
     license: "Apache-2.0",

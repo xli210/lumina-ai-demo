@@ -58,7 +58,7 @@ const data: ComparisonData = {
     {
       dimension: "Free entry point",
       nanopocket:
-        "Face Studio at /face-studio with free full-resolution renders every day for any signed-in NanoPocket account, plus more online demos at /face-swap. No subscription.",
+        "Nano FaceStudio Online at /face-studio with free full-resolution renders every day for any signed-in NanoPocket account, plus more online demos at /face-swap. No subscription.",
       competitor:
         "Free / trial credits across the suite, then credit packs or subscription. Free quota is shared across many AI features, not face-swap specific.",
       winner: "nanopocket",
@@ -157,7 +157,7 @@ const data: ComparisonData = {
     {
       q: "Can I move from the browser demo to local processing on NanoPocket?",
       a:
-        "Yes — the desktop FaceSwap Pro 2.0 release runs the same diffusion identity stack as the browser demo, on the user's own GPU. WaveSpeed AI is cloud-only, so the move from cloud to local is not available within that product.",
+        "Yes — the desktop Nano FaceStudio Pro 1.0 runs the same diffusion identity stack as the browser edition, on the user's own GPU. WaveSpeed AI is cloud-only, so the move from cloud to local is not available within that product.",
     },
     {
       q: "Which one has more independent reviews?",

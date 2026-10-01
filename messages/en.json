@@ -2,14 +2,14 @@
   "FaceSwap": {
     "metadata": {
       "title": "Free Online AI Face Swap — No Install, No Subscription | NanoPocket",
-      "description": "Free online AI face swap that runs in your browser. No install, no subscription, no GPU required. Face Studio swaps multiple faces in one photo at full resolution with no watermark, with free renders every day for any signed-in account. Sign in once with a free account and start swapping.",
+      "description": "Free online AI face swap that runs in your browser. No install, no subscription, no GPU required. Nano FaceStudio Online swaps multiple faces in one photo at full resolution with no watermark, with free renders every day for any signed-in account. Sign in once with a free account and start swapping.",
       "ogTitle": "Free Online AI Face Swap — runs in your browser",
       "ogDescription": "Diffusion-grade face swap that runs in your browser. Free daily renders, no install, no subscription."
     },
     "hero": {
       "kicker": "Free online — runs in your browser",
       "headline": "Free online AI face swap. No install. No subscription.",
-      "subhead": "Diffusion-grade face swap that runs in your browser. Sign in once with a free NanoPocket account, upload a photo and a reference face, and get a swap in seconds. No GPU required on your machine and no subscription; Face Studio includes free full-resolution renders every day.",
+      "subhead": "Diffusion-grade face swap that runs in your browser. Sign in once with a free NanoPocket account, upload a photo and a reference face, and get a swap in seconds. No GPU required on your machine and no subscription; Nano FaceStudio Online includes free full-resolution renders every day.",
       "lastVerifiedLabel": "Last verified",
       "openSpeed": "Open in browser in under 10 seconds",
       "ctaPrimary": "Try the photo demo",
@@ -113,12 +113,12 @@
     "diffusion": {
       "heading": "Why the swaps look better here",
       "p1": "Most cloud face-swap sites use a GAN identity backbone (typically InsightFace inswapper_128 or a derivative). It is fast and cheap but loses fidelity on hard angles, occlusion, and small target faces. NanoPocket runs a diffusion identity stack — InstantID, PuLID, and IP-Adapter FaceID combined — which is the current state of the art for identity preservation in 2026.",
-      "p2": "The same stack powers the desktop FaceSwap Pro 2.0 build, so results in the browser demos and on the desktop are byte-aligned on equivalent inputs."
+      "p2": "The same stack powers the desktop Nano FaceStudio Pro 1.0, so results in the browser demos and on the desktop are byte-aligned on equivalent inputs."
     },
     "offline": {
       "heading": "If you want to go fully offline",
       "body": "The free browser demos cover the vast majority of casual and professional use cases. If your use case specifically requires zero cloud upload — regulated content, signed legal media, NDA work — the optional desktop release runs the same identity stack entirely on your own GPU.",
-      "ctaDesktop": "See FaceSwap Pro 2.0 (desktop)",
+      "ctaDesktop": "See Nano FaceStudio Pro 1.0 (desktop)",
       "ctaVerify": "Auditable claims"
     },
     "faq": {
@@ -126,7 +126,7 @@
       "items": [
         {
           "q": "Is the online face swap really free?",
-          "a": "Yes, to start. Face Studio, which now runs Image FaceSwap Pro 2.0, gives every signed-in NanoPocket account free full-resolution renders each day, then charges per face in prepaid credits that never expire. Video FaceSwap Pro and NanoFace Vivid are free for signed-in accounts whenever they are online; /status shows which demos are live right now. There is no subscription anywhere. The desktop FaceSwap Pro 2.0 release is a separate, optional, one-time-purchase product."
+          "a": "Yes, to start. Nano FaceStudio Online (formerly Image FaceSwap Pro 2.0) gives every signed-in NanoPocket account free full-resolution renders each day, then charges per face in prepaid credits that never expire. Video FaceSwap Pro and NanoFace Vivid are free for signed-in accounts whenever they are online; /status shows which demos are live right now. There is no subscription anywhere. Nano FaceStudio Pro 1.0, the local desktop version, is a separate, optional, one-time-purchase product."
         },
         {
           "q": "Do I need an account?",
@@ -134,11 +134,11 @@
         },
         {
           "q": "Do I need a GPU on my machine?",
-          "a": "No. The online demos run on NanoPocket's GPUs in the cloud. Anything that can open a browser — laptop, desktop, tablet — can use them. The desktop FaceSwap Pro 2.0 release (separate product) is the option for users who specifically want local-only processing on their own GPU."
+          "a": "No. The online demos run on NanoPocket's GPUs in the cloud. Anything that can open a browser — laptop, desktop, tablet — can use them. Nano FaceStudio Pro 1.0, the desktop version (a separate product), is the option for users who specifically want local-only processing on their own GPU."
         },
         {
           "q": "How does the privacy work for the online demos?",
-          "a": "The source files are sent to NanoPocket's GPU only for the duration of the swap, processed in volatile memory, and discarded. They are not used for training. The full data-handling policy is at /privacy and the verifiable claims hub is at /verify. If you specifically want zero-cloud processing, the desktop FaceSwap Pro 2.0 is the right product — it runs entirely on your own machine."
+          "a": "The source files are sent to NanoPocket's GPU only for the duration of the swap, processed in volatile memory, and discarded. They are not used for training. The full data-handling policy is at /privacy and the verifiable claims hub is at /verify. If you specifically want zero-cloud processing, Nano FaceStudio Pro 1.0, the desktop version, is the right product — it runs entirely on your own machine."
         },
         {
           "q": "How does this compare to DeepSwap or Reface?",
@@ -146,11 +146,11 @@
         },
         {
           "q": "What is the difference between the demos?",
-          "a": "Face Studio (formerly Image FaceSwap Pro 2.0) is for still-image swaps, including several faces in one photo, with the strongest identity preservation. Video FaceSwap Pro is the same identity stack extended to short video clips with temporal smoothing. NanoFace Vivid is a face-detail restorer that fixes the over-smoothed look that Gemini 2.5 Flash Image (Nano Banana), Firefly, Roop, and cloud face-swap services leave on portraits — it is identity-locked and is meant to run after another face-swap step (or after any AI portrait generator)."
+          "a": "Nano FaceStudio Online (formerly Image FaceSwap Pro 2.0) is for still-image swaps, including several faces in one photo, with the strongest identity preservation. Video FaceSwap Pro is the same identity stack extended to short video clips with temporal smoothing. NanoFace Vivid is a face-detail restorer that fixes the over-smoothed look that Gemini 2.5 Flash Image (Nano Banana), Firefly, Roop, and cloud face-swap services leave on portraits — it is identity-locked and is meant to run after another face-swap step (or after any AI portrait generator)."
         },
         {
           "q": "Is there a desktop version?",
-          "a": "Yes — NanoPocket FaceSwap Pro 2.0 is shipping for Windows and macOS with the same diffusion identity stack, plus the NanoFace Vivid post-processor stage built in. Desktop is a separate, optional purchase for users who want fully-local processing. The online demos are free either way."
+          "a": "Yes — Nano FaceStudio Pro 1.0 is available now for Windows, with the macOS build to follow. It uses the same diffusion identity stack as Nano FaceStudio Online and adds six more tools, including Face Vivid (the NanoFace Vivid restoration). It is a separate, optional one-time purchase for users who want fully-local processing. The online demos are free either way."
         }
       ]
     },
@@ -161,7 +161,7 @@
       "youngerBrandTitle": "Younger brand.",
       "youngerBrandBody": "NanoPocket has less name recognition than DeepSwap or Reface as of {lastVerified}. The verifiable trust artefacts at /verify are what to evaluate instead of brand history.",
       "tunnelledTitle": "Some demos run on tunnels.",
-      "tunnelledBody": "Some demos are served through Cloudflare tunnels, which can change as we update infrastructure; /status shows which demos are live right now. Face Studio runs on nanopocket.ai itself. The canonical entry point is always this page (/face-swap)."
+      "tunnelledBody": "Some demos are served through Cloudflare tunnels, which can change as we update infrastructure; /status shows which demos are live right now. Nano FaceStudio Online runs on nanopocket.ai itself. The canonical entry point is always this page (/face-swap)."
     }
   },
   "Common": {
@@ -174,14 +174,14 @@
   "Home": {
     "metadata": {
       "title": "NanoPocket — Free Online AI Face Swap + Local AI Creative Suite",
-      "description": "Free online AI face swap that runs in your browser — Face Studio and the demos at /face-swap, no install, no subscription. Plus a full local AI creative suite (Flux.1, LTX-2.3) for users who want to run everything on their own GPU.",
+      "description": "Free online AI face swap that runs in your browser — Nano FaceStudio Online and the demos at /face-swap, no install, no subscription. Plus a full local AI creative suite (Flux.1, LTX-2.3) for users who want to run everything on their own GPU.",
       "ogTitle": "NanoPocket — Free Online AI Face Swap + Local Creative Suite",
       "ogDescription": "Free in-browser face swap (no install, no subscription) plus a fully-local AI suite for users who want to run everything on their own GPU. Powered by InstantID + PuLID + IP-Adapter FaceID, Flux.1, and LTX-2.3."
     },
     "hero": {
       "kicker": "Free online + optional local desktop",
       "headline": "AI tools that respect your wallet, your data, and your GPU.",
-      "subhead": "NanoPocket gives you free in-browser AI face swap (Face Studio plus diffusion-grade demos, no install, no subscription) plus a one-time-purchase desktop suite that runs Flux.1, LTX-2.3, InstantID, PuLID, and IP-Adapter FaceID 100% on your own GPU. No cloud upload required for anything you do offline.",
+      "subhead": "NanoPocket gives you free in-browser AI face swap (Nano FaceStudio Online plus diffusion-grade demos, no install, no subscription) plus a one-time-purchase desktop suite that runs Flux.1, LTX-2.3, InstantID, PuLID, and IP-Adapter FaceID 100% on your own GPU. No cloud upload required for anything you do offline.",
       "ctaPrimary": "Try the free online face swap",
       "ctaSecondary": "See the full app catalog",
       "trustChip1": "Free online demos",
@@ -194,7 +194,7 @@
       "items": [
         {
           "title": "Free online face swap, browser-only.",
-          "body": "Face Studio swaps multiple faces in one photo at full resolution with no watermark, with free renders every day; more diffusion-grade demos live at /face-swap. No install, no subscription, no GPU required on your machine."
+          "body": "Nano FaceStudio Online swaps multiple faces in one photo at full resolution with no watermark, with free renders every day; more diffusion-grade demos live at /face-swap. No install, no subscription, no GPU required on your machine."
         },
         {
           "title": "Diffusion identity stack.",
@@ -202,7 +202,7 @@
         },
         {
           "title": "Local desktop option.",
-          "body": "FaceSwap Pro 2.0, Image Enhance, Video Enhance, Image Generation, Video Generation, Portrait Retouch, and Virtual Try-On all ship as native Windows + macOS apps that run 100% on your GPU. NDA-grade, audit-grade, on-device."
+          "body": "Nano FaceStudio Pro 1.0, Image Enhance, Video Enhance, Image Generation, Video Generation, Portrait Retouch, and Virtual Try-On all ship as native Windows + macOS apps that run 100% on your GPU. NDA-grade, audit-grade, on-device."
         },
         {
           "title": "One-time purchase, no subscription.",
@@ -222,9 +222,9 @@
       "intro": "Each app ships as a native Windows or macOS desktop binary running 100% on your local GPU, plus (where listed) a free in-browser demo.",
       "items": [
         {
-          "name": "Nano FaceSwap Pro 2.0",
-          "summary": "Diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) for image and video face swap. Free online demos plus optional desktop release.",
-          "href": "/apps/nano-faceswap-pro"
+          "name": "Nano FaceStudio Pro 1.0",
+          "summary": "Local desktop face studio: multi-face swap on a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID), mask edit, expression editing, Face Vivid, upscale, light adjust, and crop. One-time license, 100% on your GPU. The browser edition is Nano FaceStudio Online.",
+          "href": "/apps/nano-facestudio-pro"
         },
         {
           "name": "NanoFace Vivid",
@@ -272,7 +272,7 @@
       "items": [
         {
           "q": "Are there any hidden charges or recurring fees with NanoPocket?",
-          "a": "No. Desktop licenses are one-time and machine-bound, with no per-image, per-minute, per-frame, or per-render fees. Online demos (Image FaceSwap Pro 2.0 and Video FaceSwap Pro) are free for every signed-in NanoPocket account. There is no auto-renewal, no yearly subscription, and no usage meter. Pricing terms are documented on the /trust page."
+          "a": "No. Desktop licenses are one-time and machine-bound, with no per-image, per-minute, per-frame, or per-render fees. Online demos (Nano FaceStudio Online and Video FaceSwap Pro) are free for every signed-in NanoPocket account. There is no auto-renewal, no yearly subscription, and no usage meter. Pricing terms are documented on the /trust page."
         },
         {
           "q": "Is NanoPocket really private — does my data leave my computer?",
@@ -280,7 +280,7 @@
         },
         {
           "q": "Which NanoPocket products are stable today, and which are coming soon?",
-          "a": "Stable today: Nano ImageEnh Pro 3.0, Nano VideoEnhance, Nano VideoGen, Nano ImageEdit, Nano FacialEdit, Nano ImageTryon, Nano FaceSwap (legacy desktop), and the Nano FaceSwap Pro 2.0 online image and video demos. Coming soon: the Nano FaceSwap Pro 2.0 desktop release. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap. The status table on the /trust page is the authoritative source."
+          "a": "Stable today: Nano ImageEnh Pro 3.0, Nano VideoEnhance, Nano VideoGen, Nano ImageEdit, Nano FacialEdit, Nano ImageTryon, Nano FaceSwap (legacy desktop), and Nano FaceStudio Pro 1.0 (Windows now, macOS to follow), plus the Nano FaceStudio Online and Video FaceSwap Pro online demos. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap. The status table on the /trust page is the authoritative source."
         },
         {
           "q": "What GPU and operating system do I need?",

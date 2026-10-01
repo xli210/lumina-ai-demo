@@ -49,7 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
       alternates: { languages: homeLanguages },
     },
-    // Face Studio. High priority because it is the only indexable description
+    // Nano FaceStudio Online. High priority because it is the only indexable description
     // of the hosted product, and because /api/demos/open?id=image — every
     // "Try online" button on the site — now lands on it.
     {
@@ -62,8 +62,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogEntries,
     ...releaseNoteEntries,
     // 10 SEO product landings
-    { url: `${BASE}/apps/nano-faceswap-pro`, lastModified: new Date("2026-09-28"), changeFrequency: "weekly", priority: 0.95 },
-    { url: `${BASE}/apps/nano-faceswap-pro/features`, lastModified: new Date("2026-10-01"), changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE}/apps/nano-faceswap-pro/video`, lastModified: new Date("2026-07-17"), changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE}/apps/nanoface-vivid`, lastModified: new Date("2026-06-02"), changeFrequency: "weekly", priority: 0.9 },
     ...(() => {

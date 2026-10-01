@@ -128,7 +128,7 @@ export const PRODUCTS: Product[] = [
     priceInCents: 4990,
     originalPriceInCents: 6990,
     promoValidUntil: "2026-10-31",
-    // No trial — the free online demos at /face-swap (Image FaceSwap Pro 2.0 +
+    // No trial — the free online demos at /face-swap (Nano FaceStudio Online +
     // NanoFace Vivid) act as the preview. This product is paid-only.
     features: [
       "7-tool bundle: swap, mask, expression, vivid, upscale, light, crop",

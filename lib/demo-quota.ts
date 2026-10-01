@@ -3,7 +3,7 @@ import type { DemoId } from "./demos";
 /**
  * Daily limit per user, per kind.
  *
- * kind = "image" pools the two image-producing demos (Image FaceSwap Pro 2.0
+ * kind = "image" pools the two image-producing demos (Nano FaceStudio Online
  * + NanoFace Vivid). kind = "video" is just the video demo. So a signed-in
  * user can burn 10 image opens + 10 video opens = 20 opens/day across the
  * three demos, then hits the /demos/limit CTA until 00:00 UTC.

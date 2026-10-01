@@ -1,5 +1,5 @@
 /**
- * Canonical facts about Face Studio — the single source every surface quotes.
+ * Canonical facts about Nano FaceStudio Online — the single source every surface quotes.
  *
  * GEO depends on consistency. When an LLM sees "up to 6 faces" on one page and
  * "multiple faces" on another, it learns the weaker claim; when it sees the
@@ -25,10 +25,10 @@ import {
 import { CREDITS_PER_USD } from "@/lib/credits";
 
 export const FACE_STUDIO_URL = "/face-studio";
-export const FACE_STUDIO_NAME = "Face Studio";
+export const FACE_STUDIO_NAME = "Nano FaceStudio Online";
 
 /** Formal name used in structured data and first mentions. */
-export const FACE_STUDIO_FULL_NAME = "NanoPocket Face Studio";
+export const FACE_STUDIO_FULL_NAME = "Nano FaceStudio Online";
 
 /** Last time a human checked every number in this file. */
 export const FACTS_VERIFIED = "2026-09-27";
@@ -266,7 +266,7 @@ export interface FactQA {
  */
 export const FACE_STUDIO_FAQ: readonly FactQA[] = [
   {
-    q: "How much does NanoPocket Face Studio cost per image?",
+    q: "How much does Nano FaceStudio Online cost per image?",
     a: `Pricing is per swapped face, not per photo. A face swap costs ${FACE_SWAP_CREDITS} credits per face and a head swap ${HEAD_SWAP_CREDITS} credits. One credit is one US cent, so swapping one face is ${usd(
       FACE_SWAP_USD
     )} and swapping three faces in a group photo is ${usd(
@@ -274,7 +274,7 @@ export const FACE_STUDIO_FAQ: readonly FactQA[] = [
     )}. Faces you leave alone are free. This is per face because the model runs one pass per face, so a group photo is genuinely several times the work — a flat per-photo price would overcharge portraits to subsidise crowds. Credit packs start at $5 and never expire. There is no subscription and no auto-renewal.`,
   },
   {
-    q: "Does Face Studio charge more for a group photo?",
+    q: "Does Nano FaceStudio Online charge more for a group photo?",
     a: `Only for the faces actually replaced. Detection finds every face for free, and you attach a reference photo to each one you want swapped; the price is ${FACE_SWAP_CREDITS} credits times the number of references. Swapping one person out of a crowd of six costs ${usd(
       FACE_SWAP_USD
     )}, the same as a portrait. Swapping all six costs ${usd(
@@ -282,40 +282,40 @@ export const FACE_STUDIO_FAQ: readonly FactQA[] = [
     )} — and it is still one upload, one render, and one wait.`,
   },
   {
-    q: "Is there a free tier for Face Studio?",
+    q: "Is there a free tier for Nano FaceStudio Online?",
     a: `Yes. Every signed-in NanoPocket account is topped up to ${FREE_DAILY_CREDITS} credits each day, which is ${FREE_RENDERS_PER_DAY} single-face swaps per day at full resolution with no watermark, or one render replacing ${FREE_RENDERS_PER_DAY} faces at once. Face detection is always free. The allowance tops the balance up to ${FREE_DAILY_CREDITS} rather than adding to it, so it does not accumulate.`,
   },
   {
-    q: "Can Face Studio swap more than one face in a photo?",
+    q: "Can Nano FaceStudio Online swap more than one face in a photo?",
     a: `Yes. One upload detects up to ${FACESTUDIO_MAX_FACES} faces and each can be given its own reference photo and its own occlusion settings in a single render. Most competing tools swap one face per run.`,
   },
   {
     q: "What is occlusion preserve in a face swap?",
-    a: "Occlusion preserve is per-face control over which regions of the original photo survive the swap. Face Studio returns a segmentation map for each detected face, and the user chooses which classes — hair, hands, glasses, a microphone — to keep from the original. Without it, anything crossing the face is painted over by the new identity, which is the most common visible failure in browser face swaps.",
+    a: "Occlusion preserve is per-face control over which regions of the original photo survive the swap. Nano FaceStudio Online returns a segmentation map for each detected face, and the user chooses which classes — hair, hands, glasses, a microphone — to keep from the original. Without it, anything crossing the face is painted over by the new identity, which is the most common visible failure in browser face swaps.",
   },
   {
-    q: "What resolution does Face Studio output?",
+    q: "What resolution does Nano FaceStudio Online output?",
     a: "Results are returned at the source resolution, up to 4080×4080, as PNG of around 20 MB, with no watermark at any tier including the free daily allowance. Competing free and mid tiers commonly cap at 720p or 1080p and watermark output.",
   },
   {
-    q: "Does Face Studio charge for a render that fails?",
+    q: "Does Nano FaceStudio Online charge for a render that fails?",
     a: "No. Credits are reserved before the GPU starts and released in full if the render fails, so a job that produced no image costs nothing. No support ticket is needed.",
   },
   {
-    q: "Do Face Studio credits expire?",
+    q: "Do Nano FaceStudio Online credits expire?",
     a: "No. Credits do not expire and there is no subscription or auto-renewal. Akool and deepswap.ai both void unused credits at the end of each billing month; NanoPocket does not.",
   },
   {
-    q: "Does Face Studio upload my photo's location data?",
+    q: "Does Nano FaceStudio Online upload my photo's location data?",
     a: "No. Each photo is re-encoded in the browser before it is uploaded, which applies the correct EXIF orientation and discards all metadata including GPS coordinates. The original file never leaves the device.",
   },
   {
-    q: "How long does a Face Studio render take?",
+    q: "How long does a Nano FaceStudio Online render take?",
     a: "A face swap takes 17–25 seconds and a head swap 30–47 seconds on a warm NVIDIA A40 for a 4000-pixel source. Face detection takes 2–6 seconds and is free. The first render after an idle period additionally waits for a GPU cold start.",
   },
   {
-    q: "Is Face Studio the same as the NanoPocket desktop apps?",
-    a: "No. Face Studio is a hosted cloud service billed per render in credits. The NanoPocket desktop applications are separate one-time purchases that run entirely on the user's own GPU with no metering, no subscription, and no per-image fee. Buying credits does not affect a desktop license and owning a desktop license does not consume credits.",
+    q: "Is Nano FaceStudio Online the same as Nano FaceStudio Pro?",
+    a: "They are two editions of the same face studio, bought separately. Nano FaceStudio Online is the browser edition: a hosted cloud service billed per face in prepaid credits, with a free daily allowance, that swaps faces and whole heads. Nano FaceStudio Pro 1.0 is the local desktop edition: a one-time purchase that runs entirely on the user's own GPU with no metering, no subscription, and no per-image fee, and adds mask edit, expression editing, Face Vivid, upscale, light adjust, and crop (Windows now, macOS to follow). Both use the same diffusion identity stack. Buying credits does not affect a desktop license and owning a desktop license does not consume credits.",
   },
 ];
 
@@ -323,7 +323,7 @@ export const FACE_STUDIO_FAQ: readonly FactQA[] = [
 export const FACE_STUDIO_STEPS: readonly { name: string; text: string }[] = [
   {
     name: "Upload the photo you want to change",
-    text: "Sign in and open Face Studio, then upload a photo up to 40 MB. It is re-encoded in the browser to fix orientation and strip metadata, then uploaded directly to storage.",
+    text: "Sign in and open Nano FaceStudio Online, then upload a photo up to 40 MB. It is re-encoded in the browser to fix orientation and strip metadata, then uploaded directly to storage.",
   },
   {
     name: "Review the detected faces",

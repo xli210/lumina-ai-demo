@@ -148,7 +148,7 @@ export async function POST(req: NextRequest) {
     return privateJson(
       {
         detail:
-          "Face Studio is not configured on this deployment. Set " +
+          "Nano FaceStudio Online is not configured on this deployment. Set " +
           "FACESTUDIO_GATEWAY_TOKEN. See docs/face-studio.md.",
       },
       503
@@ -277,7 +277,7 @@ export async function POST(req: NextRequest) {
     console.error("[facestudio] gateway unreachable:", message);
     return abort(
       "gateway_unreachable",
-      "Face Studio gateway unreachable. You have not been charged.",
+      "Nano FaceStudio Online gateway unreachable. You have not been charged.",
       502
     );
   }

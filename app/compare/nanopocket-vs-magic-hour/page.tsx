@@ -6,7 +6,7 @@ const PAGE_URL = "https://nanopocket.ai/compare/nanopocket-vs-magic-hour";
 export const metadata: Metadata = {
   title: "NanoPocket vs Magic Hour — Honest 2026 Comparison",
   description:
-    "NanoPocket FaceSwap Pro 2.0 (specialised desktop face-swap stack, one-time license) vs Magic Hour (cloud AI video suite, subscription). Suite breadth, identity model, privacy, and pricing compared dimension by dimension.",
+    "Nano FaceStudio Pro 1.0 (specialised desktop face-swap stack, one-time license) vs Magic Hour (cloud AI video suite, subscription). Suite breadth, identity model, privacy, and pricing compared dimension by dimension.",
   keywords: [
     "nanopocket vs magic hour",
     "magic hour alternative",
@@ -30,7 +30,7 @@ const data: ComparisonData = {
   competitorUrl: "https://magichour.ai",
   lastVerified: "2026-05-29",
   tldr:
-    "Magic Hour is a cloud AI-video suite where face swap is one feature among lip-sync, avatars, image-to-video, and more. NanoPocket FaceSwap Pro 2.0 is a specialised desktop face-swap pipeline with diffusion identity preservation and a one-time license. Pick Magic Hour if you need the full AI-video toolbox in one subscription; pick NanoPocket if face swap is your primary need and you care about fidelity and local processing.",
+    "Magic Hour is a cloud AI-video suite where face swap is one feature among lip-sync, avatars, image-to-video, and more. Nano FaceStudio Pro 1.0 is a specialised desktop face-swap pipeline with diffusion identity preservation and a one-time license. Pick Magic Hour if you need the full AI-video toolbox in one subscription; pick NanoPocket if face swap is your primary need and you care about fidelity and local processing.",
   pickIf: {
     nanopocket: [
       "Face swap is your primary use case, not a side feature.",

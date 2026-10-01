@@ -12,7 +12,7 @@
 //   2. Baidu Image and Sogou Image use the same Google Sitemaps Image
 //      extension; we get CJK image discovery for free.
 //   3. Listing the images here also gives the Vivid before/after pairs and
-//      the FaceSwap Pro 2.0 demo screenshots a deliberate caption + title,
+//      the Nano FaceStudio Online example outputs a deliberate caption + title,
 //      which is the metadata search engines will use for alt text when our
 //      original alt text is missing or generic.
 
@@ -50,16 +50,16 @@ const IMAGE_GROUPS: PageImageGroup[] = [
       },
       {
         src: `${BASE}/images/demos/faceswap-after.jpg`,
-        title: "Image FaceSwap Pro 2.0 — diffusion identity result",
+        title: "Nano FaceStudio Online — diffusion identity result",
         caption:
-          "Result from the free in-browser Image FaceSwap Pro 2.0 demo, showing diffusion identity preservation at full input resolution.",
+          "Result from the free in-browser Nano FaceStudio Online demo, showing diffusion identity preservation at full input resolution.",
         license: LICENSE,
       },
       {
         src: `${BASE}/images/demos/faceswap-before.jpg`,
-        title: "Image FaceSwap Pro 2.0 — input target",
+        title: "Nano FaceStudio Online — input target",
         caption:
-          "Input target image used by the Image FaceSwap Pro 2.0 demo before the swap.",
+          "Input target image used by the Nano FaceStudio Online demo before the swap.",
         license: LICENSE,
       },
     ],
@@ -118,37 +118,37 @@ const IMAGE_GROUPS: PageImageGroup[] = [
     ],
   },
   {
-    page: `${BASE}/apps/nano-faceswap-pro`,
+    page: `${BASE}/face-studio`,
     images: [
       {
         src: `${BASE}/images/faceswap-pro/image1.png`,
-        title: "NanoPocket FaceSwap Pro 2.0 — diffusion swap example",
+        title: "Nano FaceStudio Online — diffusion swap example",
         caption:
-          "Example output from NanoPocket FaceSwap Pro 2.0, the diffusion-based face-swap pipeline available as a free in-browser demo and an upcoming local desktop release.",
+          "Example output from Nano FaceStudio Online, the diffusion-based face-swap pipeline that runs in the browser; the same identity stack powers the desktop Nano FaceStudio Pro 1.0.",
         license: LICENSE,
       },
       {
         src: `${BASE}/images/faceswap-pro/image2.png`,
-        title: "NanoPocket FaceSwap Pro 2.0 — second example",
-        caption: "Second diffusion face-swap example from NanoPocket FaceSwap Pro 2.0.",
+        title: "Nano FaceStudio Online — second example",
+        caption: "Second diffusion face-swap example from Nano FaceStudio Online.",
         license: LICENSE,
       },
       {
         src: `${BASE}/images/faceswap-pro/image3.png`,
-        title: "NanoPocket FaceSwap Pro 2.0 — third example",
-        caption: "Third diffusion face-swap example from NanoPocket FaceSwap Pro 2.0.",
+        title: "Nano FaceStudio Online — third example",
+        caption: "Third diffusion face-swap example from Nano FaceStudio Online.",
         license: LICENSE,
       },
       {
         src: `${BASE}/images/faceswap-pro/image4.png`,
-        title: "NanoPocket FaceSwap Pro 2.0 — fourth example",
-        caption: "Fourth diffusion face-swap example from NanoPocket FaceSwap Pro 2.0.",
+        title: "Nano FaceStudio Online — fourth example",
+        caption: "Fourth diffusion face-swap example from Nano FaceStudio Online.",
         license: LICENSE,
       },
       {
         src: `${BASE}/images/faceswap-pro/image5.png`,
-        title: "NanoPocket FaceSwap Pro 2.0 — fifth example",
-        caption: "Fifth diffusion face-swap example from NanoPocket FaceSwap Pro 2.0.",
+        title: "Nano FaceStudio Online — fifth example",
+        caption: "Fifth diffusion face-swap example from Nano FaceStudio Online.",
         license: LICENSE,
       },
     ],

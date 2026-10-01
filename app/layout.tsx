@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     other: verificationOther,
   },
   description:
-    "Free online AI face swap that runs in your browser — Face Studio and the demos at /face-swap, no install, no subscription. Plus a full local AI creative suite (Flux.1, LTX-2.3) for users who want to run everything on their own GPU.",
+    "Free online AI face swap that runs in your browser — Nano FaceStudio Online and the demos at /face-swap, no install, no subscription. Plus a full local AI creative suite (Flux.1, LTX-2.3) for users who want to run everything on their own GPU.",
   keywords: [
     "NanoPocket", "local AI", "generative AI", "offline AI",
     "Runway alternative", "ComfyUI alternative", "Flux local app", "Flux.1 local",
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
     "image generation", "video generation", "face swap", "image enhancement", "video enhancement",
 
     // Face swap — diffusion tech & local positioning
-    "Nano FaceSwap Pro", "free face swap", "free online face swap", "face swap free trial",
+    "Nano FaceStudio Online", "Nano FaceStudio Pro", "free face swap", "free online face swap", "face swap free trial",
     "diffusion face swap", "stable diffusion face swap", "diffusion model face swap",
     "local face swap", "offline face swap", "private face swap", "GPU face swap",
     "video face swap AI", "image face swap AI", "best face swap AI",
@@ -216,12 +216,12 @@ export default async function RootLayout({
                 itemListElement: [
                   {
                     "@type": "Offer",
-                    name: "Nano FaceSwap Pro 2.0",
-                    url: "https://nanopocket.ai/apps/nano-faceswap-pro",
+                    name: "Nano FaceStudio Pro 1.0",
+                    url: "https://nanopocket.ai/apps/nano-facestudio-pro",
                   },
                   {
                     "@type": "Offer",
-                    name: "Nano Video FaceSwap Pro (online demo)",
+                    name: "Video FaceSwap Pro (online demo)",
                     url: "https://nanopocket.ai/apps/nano-faceswap-pro/video",
                   },
                   {
@@ -358,7 +358,7 @@ export default async function RootLayout({
                   url: "https://nanopocket.ai/apps/nanoface-vivid",
                   dateModified: "2026-06-02",
                   description:
-                    "Identity-locked face-detail restorer that fixes the plastic look left by Gemini 2.5 Flash Image (Nano Banana), Adobe Firefly, Roop, FaceFusion, and cloud face-swap services. Online demo today; integrated into NanoPocket FaceSwap Pro 2.0 desktop soon.",
+                    "Identity-locked face-detail restorer that fixes the plastic look left by Gemini 2.5 Flash Image (Nano Banana), Adobe Firefly, Roop, FaceFusion, and cloud face-swap services. Available as an online demo and as the Face Vivid tool in Nano FaceStudio Pro 1.0.",
                 },
                 {
                   "@type": "WebPage",

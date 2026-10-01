@@ -1,7 +1,7 @@
 /**
- * Face Studio contract — safe to import from both client and server.
+ * Nano FaceStudio Online contract — safe to import from both client and server.
  *
- * Face Studio is the paid, credit-metered version of the multi-face swap and
+ * Nano FaceStudio Online is the paid, credit-metered version of the multi-face swap and
  * head swap tool. The GPU work runs on a RunPod Serverless endpoint behind a
  * gateway; this file holds the vocabulary and the prices that the browser,
  * the /api/facestudio/* routes and the gateway all have to agree on.

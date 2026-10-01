@@ -20,12 +20,12 @@ import {
   type DemoEntry,
 } from "@/lib/demos";
 
-/** Shown in place of the registry name for the demo Face Studio replaced. */
+/** Shown in place of the registry name for the demo Nano FaceStudio Online replaced. */
 const DISPLAY_NAME: Partial<Record<DemoEntry["id"], string>> = {
-  image: "Face Studio (formerly Image FaceSwap Pro 2.0)",
+  image: "Nano FaceStudio Online (formerly Image FaceSwap Pro 2.0)",
 };
 const DISPLAY_NAME_ZH: Partial<Record<DemoEntry["id"], string>> = {
-  image: "Face Studio（原 Image FaceSwap Pro 2.0）",
+  image: "Nano FaceStudio Online（原 Image FaceSwap Pro 2.0）",
 };
 
 function displayName(d: DemoEntry): string {
@@ -58,7 +58,7 @@ function offlineSince(): string | null {
  * One or two sentences: what can be used today, and what is offline since
  * when. Safe to drop into any paragraph, llms.txt bullet, or JSON-LD string.
  *
- * e.g. "Face Studio (formerly Image FaceSwap Pro 2.0) is live. Video FaceSwap
+ * e.g. "Nano FaceStudio Online (formerly Image FaceSwap Pro 2.0) is live. Video FaceSwap
  * Pro and NanoFace Vivid are temporarily offline since 2026-09-28 while they
  * move to NanoPocket's own GPU infrastructure."
  */

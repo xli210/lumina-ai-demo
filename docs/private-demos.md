@@ -12,7 +12,7 @@ injects a secret `X-API-Key` server-side.
 |---|---|
 | `/private-demos` | Admin-only index with two cards (FaceVivid + FaceSwap). |
 | `/private-demos/facevivid` | Redirects to the handoff HTML wrapper for NanoFace Vivid. |
-| `/private-demos/faceswap` | Redirects to the handoff HTML wrapper for Face Studio face-swap. |
+| `/private-demos/faceswap` | Redirects to the handoff HTML wrapper for Nano FaceStudio Online face-swap. |
 
 All three paths are:
 - Gated by `lib/supabase/middleware.ts` (anonymous → `/auth/login`, non-admin → `/account`).
@@ -35,7 +35,7 @@ Frontend calls (from `public/private-demos/{facevivid,faceswap}/app.js`) hit:
 | `POST /api/private-demos/facevivid/feedback` | `POST {FACEVIVID_UPSTREAM}/api/feedback` |
 | `POST /api/private-demos/facevivid/visit` | `POST {FACEVIVID_UPSTREAM}/api/visit` |
 
-### Face Studio face-swap — 6 routes (v5 API contract)
+### Nano FaceStudio Online face-swap — 6 routes (v5 API contract)
 
 | Frontend | Forwarded to upstream |
 |---|---|
@@ -63,7 +63,7 @@ in your local `.env.local`:
 FACEVIVID_UPSTREAM_URL=https://sagem-julie-personnel-msg.trycloudflare.com
 FACEVIVID_API_KEY=nfv_ecy6x9XMEJQGvFAJ3woT8mantnOHqLEp
 
-# --- Face Studio face-swap upstream ---
+# --- Nano FaceStudio Online face-swap upstream ---
 FACESWAP_UPSTREAM_URL=https://paying-colorado-ment-cingular.trycloudflare.com
 FACESWAP_API_KEY=fsw_qwPil6sPYGHq-IellDaWgBgR_C8sVqQ8
 ```

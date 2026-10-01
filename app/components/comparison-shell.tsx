@@ -90,7 +90,7 @@ function buildComparisonJsonLd(data: ComparisonData) {
       {
         "@type": "SoftwareApplication",
         name: "NanoPocket",
-        url: "https://nanopocket.ai/apps/nano-faceswap-pro",
+        url: "https://nanopocket.ai/apps/nano-facestudio-pro",
       },
       {
         "@type": "SoftwareApplication",
@@ -303,7 +303,7 @@ export function ComparisonShell({ data }: { data: ComparisonData }) {
               title="NanoPocket"
               accent="emerald"
               verdict={data.verdicts.nanopocket}
-              cta={{ href: "/apps/nano-faceswap-pro", label: "See NanoPocket FaceSwap Pro" }}
+              cta={{ href: "/apps/nano-facestudio-pro", label: "See Nano FaceStudio Pro" }}
             />
             <VerdictCard
               title={data.competitorName}
