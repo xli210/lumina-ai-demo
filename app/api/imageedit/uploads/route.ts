@@ -46,7 +46,7 @@ export async function POST() {
   if (available < IMAGEEDIT_CREDITS_PER_EDIT) {
     return privateJson(
       {
-        detail: `An edit costs ${IMAGEEDIT_CREDITS_PER_EDIT} credits and you have ${available}. Buy credits to keep going, or come back tomorrow for the free daily allowance.`,
+        detail: `An edit costs ${IMAGEEDIT_CREDITS_PER_EDIT} credits and you have ${available}. Buy credits to keep editing.`,
         reason: "insufficient_credits",
         required: IMAGEEDIT_CREDITS_PER_EDIT,
         available,

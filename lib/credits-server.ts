@@ -3,6 +3,11 @@ import "server-only";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient as createSessionClient } from "@/lib/supabase/server";
 import {
+  claimFreeCredits,
+  getFreeClaimOutcome,
+  isAllowedOutcome,
+} from "@/lib/free-claim";
+import {
   DEFAULT_HOLD_TTL_SECONDS,
   SIGNUP_GRANT_CREDITS,
   isCreditEntryKind,
@@ -317,6 +322,15 @@ export async function grantCredits(params: {
  * The pre-check is only there to keep an ordinary balance read off the
  * write path — `credit_grant` takes a row lock before it checks its own
  * idempotency key, and correctness still rests on that key, not on this.
+ *
+ * The grant is free money, so it is also the thing a person with several
+ * accounts collects several times. Before paying it out we ask
+ * `free_credit_claim` whether this device or network has already claimed
+ * (lib/free-claim.ts). A refused account gets nothing here and is remembered
+ * as refused, so it is not asked again on every balance read.
+ *
+ * If that check cannot run, the grant goes ahead: an outage in the abuse
+ * check must not take free credits, or the whole product, away from everyone.
  */
 export async function ensureSignupGrant(
   userId: string
@@ -336,6 +350,20 @@ export async function ensureSignupGrant(
 
   if (data) return getCreditAccount(userId);
 
+  try {
+    const prior = await getFreeClaimOutcome(userId);
+    if (prior && !isAllowedOutcome(prior)) return getCreditAccount(userId);
+
+    const outcome = prior ?? (await claimFreeCredits(userId));
+    // null means the limit is not active yet (migration 015 not applied).
+    if (outcome !== null && !isAllowedOutcome(outcome)) {
+      return getCreditAccount(userId);
+    }
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    console.error("[credits] free-claim check failed, granting anyway:", message);
+  }
+
   return grantCredits({
     userId,
     amount: SIGNUP_GRANT_CREDITS,
@@ -343,6 +371,47 @@ export async function ensureSignupGrant(
     idempotencyKey,
     reference: { reason: "welcome_grant" },
   });
+}
+
+/**
+ * May this account receive free credits (the daily top-up)?
+ *
+ *   - An account that has bought credits always may. Whoever paid is not
+ *     farming, and it is the way out for a real person who shares a network
+ *     with someone who already claimed.
+ *   - Otherwise the verdict recorded by `free_credit_claim` decides.
+ *   - An account with no verdict that already holds welcome credits was
+ *     created before the limit existed. It is recorded as grandfathered, so
+ *     it keeps its allowance but cannot be used to claim twice on one device.
+ *
+ * Fails open, for the reason given on `ensureSignupGrant`.
+ */
+async function isFreeEligible(
+  userId: string,
+  account: CreditAccountState
+): Promise<boolean> {
+  if (account.lifetime_purchased > 0) return true;
+
+  try {
+    const recorded = await getFreeClaimOutcome(userId);
+    if (recorded) return isAllowedOutcome(recorded);
+
+    const supabase = createAdminClient();
+    const { data, error } = await supabase
+      .from("credit_ledger")
+      .select("id")
+      .eq("idempotency_key", signupGrantKey(userId))
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!data) return true; // no welcome grant either: nothing to compare against
+
+    const outcome = await claimFreeCredits(userId, { grandfather: true });
+    return outcome === null || isAllowedOutcome(outcome);
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    console.error("[credits] free-eligibility check failed, allowing:", message);
+    return true;
+  }
 }
 
 /**
@@ -372,6 +441,7 @@ export async function ensureDailyAllowance(params: {
 }): Promise<CreditAccountState> {
   const account = await getCreditAccount(params.userId);
   if (account.available >= params.amount) return account;
+  if (!(await isFreeEligible(params.userId, account))) return account;
 
   return grantCredits({
     userId: params.userId,

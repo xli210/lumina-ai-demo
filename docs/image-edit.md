@@ -58,15 +58,21 @@ Do not apply it to `imageedit/samples/`. The R2 token cannot set lifecycle rules
 
 ## 2. Price
 
-**30 credits ($0.30) per finished edit; each variation is an edit.** Failed and
+**50 credits ($0.50) per finished edit; each variation is an edit.** Failed and
 cancelled edits are refunded in full (reserve-then-settle, as Face Studio).
+It was 30 credits for the first day.
 
 Measured on 2026-10-01: a 12-step remove billed 26–32 s on an H100, the owner's
 estimate is $0.05 per edit, and the cold start (no worker up) queued 50 s.
-30 credits keeps margin near Face Studio's after Stripe fees on small packs and
-refunded failures, and equals the free daily allowance (`FREE_DAILY_CREDITS`),
-so every signed-in account gets one free edit a day. The allowance is shared
-with Face Studio.
+50 credits is a ~90% margin before Stripe fees, which take a large share of a
+$5 pack, and before edits that fail after the GPU has run (refunded, so the
+successful ones carry them).
+
+It is above the free daily allowance (30, shared with Face Studio), so the
+allowance alone never pays for an edit. Free edits come from the welcome grant
+(100 credits, two edits), which is limited to one claim per device and per
+network (`docs/credit-system.md`). Do not advertise a number of free edits per
+day: it depends on that rule and the allowance can change.
 
 Each capture records RunPod's `billed_ms` in the ledger reference, so the real
 cost per edit can be computed from `credit_ledger` and the price revisited.

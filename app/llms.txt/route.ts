@@ -9,7 +9,7 @@ import {
 import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
 import { demoAvailabilityEn, demoStatusEn } from "@/lib/demo-availability";
 import { IMAGEEDIT_CREDITS_PER_EDIT, IMAGEEDIT_NAME } from "@/lib/imageedit";
-import { FREE_DAILY_CREDITS } from "@/lib/facestudio";
+import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 
 const BASE = "https://nanopocket.ai";
 const LAST_UPDATED = new Date().toISOString().slice(0, 10);
@@ -55,7 +55,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/image-edit",
       `${IMAGEEDIT_NAME} — prompt-driven photo editor (live)`,
-      `Edit a photo by describing the change: add, remove or replace objects, change text on signs, relight or colour-grade, change the season, or restore and colourise old photos, plus a brush-limited free-form edit. Returns full resolution as PNG; for object edits every pixel outside the edited area stays bit-identical to the original. ${IMAGEEDIT_CREDITS_PER_EDIT} credits ($${(IMAGEEDIT_CREDITS_PER_EDIT / 100).toFixed(2)}) per edit, prepaid in credits that never expire; every signed-in account gets ${FREE_DAILY_CREDITS} free credits a day; failed or cancelled edits are refunded. Separate from the Nano ImageEdit desktop app.`,
+      `Edit a photo by describing the change: add, remove or replace objects, change text on signs, relight or colour-grade, change the season, or restore and colourise old photos, plus a brush-limited free-form edit. Returns full resolution as PNG; for object edits every pixel outside the edited area stays bit-identical to the original. ${IMAGEEDIT_CREDITS_PER_EDIT} credits ($${(IMAGEEDIT_CREDITS_PER_EDIT / 100).toFixed(2)}) per edit, prepaid in credits that never expire; new accounts get ${SIGNUP_GRANT_CREDITS} free credits, one grant per person; failed or cancelled edits are refunded. Separate from the Nano ImageEdit desktop app.`,
     ),
     bullet(
       "/face-swap",

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { NavbarUserMenu } from "./navbar-user-menu";
 import { Wordmark } from "./wordmark";
 import { LocaleSwitcher } from "./locale-switcher";
+import { MobileNav } from "./mobile-nav";
 
 export async function Navbar() {
   const supabase = await createClient();
@@ -96,7 +97,8 @@ export async function Navbar() {
             <NavbarUserMenu user={user} isAdmin={isAdmin} />
           ) : (
             <>
-              <Link href="/auth/login">
+              {/* Below sm "Sign In" lives in the mobile menu, so the bar fits. */}
+              <Link href="/auth/login" className="hidden sm:block">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -112,6 +114,7 @@ export async function Navbar() {
               </Link>
             </>
           )}
+          <MobileNav isLoggedIn={!!user} />
         </div>
       </div>
     </nav>

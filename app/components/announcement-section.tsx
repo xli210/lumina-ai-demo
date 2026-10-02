@@ -18,11 +18,8 @@ import {
   demoRedirectPath,
   isUnderMaintenance,
 } from "@/lib/demos";
-import { FACESTUDIO_MAX_FACES, FREE_DAILY_CREDITS } from "@/lib/facestudio";
-import {
-  FACE_SWAP_CREDITS,
-  FREE_RENDERS_PER_DAY,
-} from "@/lib/face-studio-facts";
+import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
+import { FACE_SWAP_CREDITS } from "@/lib/face-studio-facts";
 import {
   IMAGEEDIT_CREDITS_PER_EDIT,
   IMAGEEDIT_NAME,
@@ -45,9 +42,6 @@ import {
 type Vote = "like" | "dislike";
 
 const FACESTUDIO_ID = "image-faceswap-pro"; // feedback id; keep stable for vote history
-const FREE_IMAGEEDITS_PER_DAY = Math.floor(
-  FREE_DAILY_CREDITS / IMAGEEDIT_CREDITS_PER_EDIT
-);
 
 const FACESTUDIO_POINTS = [
   `Up to ${FACESTUDIO_MAX_FACES} faces in one photo`,
@@ -281,7 +275,7 @@ function ComingSoon() {
             </>
           );
           const cls =
-            "flex items-center gap-3 rounded-2xl border border-border bg-card/40 px-4 py-3";
+            "flex min-w-0 items-center gap-3 rounded-2xl border border-border bg-card/40 px-4 py-3";
           return offline ? (
             <div key={title} className={cls}>
               {body}
@@ -449,7 +443,7 @@ export function AnnouncementSection() {
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
             Face swap and photo editing on NanoPocket&apos;s GPUs. No install,
-            no subscription, and free credits every day.
+            no subscription, and free credits to get you started.
           </p>
           <Link href="/docs/face-swap-pipeline" className={`mt-4 ${textLink}`}>
             How our diffusion face-swap pipeline works
@@ -465,7 +459,7 @@ export function AnnouncementSection() {
             title="Nano FaceStudio Online"
             lede="Swap faces, or a whole head, in a photo. Diffusion-grade identity at the full resolution you upload."
             points={FACESTUDIO_POINTS}
-            priceLine={`${FACE_SWAP_CREDITS} credits per face · ${FREE_RENDERS_PER_DAY} free swaps every day`}
+            priceLine={`${FACE_SWAP_CREDITS} credits per face`}
             cta={{ href: demoRedirectPath("image"), label: "Try Nano FaceStudio Online" }}
             learnMore={{ href: "/face-studio", label: "Learn more" }}
           >
@@ -482,7 +476,7 @@ export function AnnouncementSection() {
             title={IMAGEEDIT_NAME}
             lede="Describe the change and get your photo back at full resolution. Add, remove, replace, restyle or restore."
             points={IMAGEEDIT_POINTS}
-            priceLine={`${IMAGEEDIT_CREDITS_PER_EDIT} credits per edit · ${FREE_IMAGEEDITS_PER_DAY} free ${FREE_IMAGEEDITS_PER_DAY === 1 ? "edit" : "edits"} every day`}
+            priceLine={`${IMAGEEDIT_CREDITS_PER_EDIT} credits per edit`}
             cta={{ href: "/image-edit/launch", label: "Open the editor" }}
             learnMore={{ href: "/image-edit", label: "Learn more" }}
           />

@@ -1,6 +1,12 @@
 import { updateSession } from '@/lib/supabase/middleware'
 import { LOCALES, DEFAULT_LOCALE } from '@/lib/i18n/locales'
 import { NextResponse, type NextRequest } from 'next/server'
+import {
+  DEVICE_COOKIE,
+  DEVICE_COOKIE_MAX_AGE_S,
+  isDeviceId,
+  newDeviceId,
+} from '@/lib/device-cookie'
 
 const LOCALE_HEADER = 'x-app-locale'
 
@@ -45,6 +51,20 @@ export async function middleware(request: NextRequest) {
   const response = await updateSession(request, requestHeaders)
   // Also expose on the response for any client-side fetcher that needs it.
   response.headers.set(LOCALE_HEADER, locale)
+
+  // Give a browser that has no device id one. It is how a second account on
+  // the same browser is told apart from a new person (lib/free-claim.ts).
+  // httpOnly: page scripts never need it. Pages are navigations, not
+  // prefetches of someone else's session, so this runs once per browser.
+  if (!isDeviceId(request.cookies.get(DEVICE_COOKIE)?.value)) {
+    response.cookies.set(DEVICE_COOKIE, newDeviceId(), {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: DEVICE_COOKIE_MAX_AGE_S,
+    })
+  }
   return response
 }
 

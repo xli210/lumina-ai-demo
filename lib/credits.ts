@@ -17,8 +17,14 @@
  */
 export const CREDITS_PER_USD = 100;
 
-/** Credits handed to a new account so it can complete one real job. */
-export const SIGNUP_GRANT_CREDITS = 200;
+/**
+ * Credits handed to a new account so it can try the services once. Paid out
+ * at most once per person: see lib/free-claim.ts for how "person" is
+ * approximated (one device, one network) and what that cannot catch.
+ * Was 200; halved because a free grant with no condition was being collected
+ * repeatedly.
+ */
+export const SIGNUP_GRANT_CREDITS = 100;
 
 /**
  * How long a reservation survives without being settled. The sweeper

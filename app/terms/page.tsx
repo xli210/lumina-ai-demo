@@ -173,6 +173,12 @@ export default function TermsPage() {
         <Section id="billing" title="4. Billing">
           <ul className="list-disc space-y-2 pl-5">
             <li>
+              <strong>Free credits.</strong> Welcome credits and any daily free allowance are
+              intended for one account per person. We may decline them to an account opened from
+              a device or network that has already received them, and we may remove free credits
+              obtained through multiple accounts. Credits you have bought are never affected.
+            </li>
+            <li>
               <strong className="text-foreground">One-time license.</strong> Paid licenses are
               one-time purchases. There is no recurring fee, no auto-renewal, no per-image charge,
               no per-minute charge, and no per-frame charge.

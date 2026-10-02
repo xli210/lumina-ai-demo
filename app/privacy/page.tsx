@@ -95,6 +95,16 @@ const DATA_CATEGORIES: DataCategory[] = [
     retention: "14 months in Google Analytics 4 (default GA4 retention).",
   },
   {
+    category: "Free-credit abuse prevention",
+    items:
+      "A random device id held in a first-party cookie, and a one-way keyed hash of your IP address (an IPv6 address is reduced to its /64 first). Neither is stored in readable form, and the hash cannot be turned back into an address. We also record whether this account was allowed to receive free credits.",
+    purpose:
+      "Stop one person collecting the free welcome credits and daily allowance again by opening several accounts.",
+    basis: "Legitimate interest in preventing abuse (GDPR Art. 6(1)(f)).",
+    retention:
+      "The hashes are kept while the account exists and deleted with it. The IP hash only counts against a new account for 30 days.",
+  },
+  {
     category: "Server logs",
     items:
       "HTTP request logs from Vercel and Supabase: timestamp, IP address, path, status code, user-agent.",
@@ -420,8 +430,11 @@ export default function PrivacyPage() {
             5. Cookies &amp; web tracking
           </h2>
           <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-            We use a single first-party session cookie for authenticated dashboards (set by
-            Supabase&apos;s auth client). Google Analytics 4 sets analytics cookies for aggregate
+            We use a first-party session cookie for authenticated dashboards (set by
+            Supabase&apos;s auth client), and a second first-party cookie, <code>np_did</code>,
+            holding a random device id for two years. It is used only to tell whether a second
+            account on the same browser has already collected free credits, is never shared with
+            another party, and is not used for advertising or analytics. Google Analytics 4 sets analytics cookies for aggregate
             traffic measurement; IPs are anonymised at collection. We do not use advertising
             pixels (Meta Pixel, TikTok Pixel, LinkedIn Insight Tag, Google Ads conversion pixels,
             etc.) and we do not retarget visitors.

@@ -4,7 +4,7 @@
 // results come back as redirects to presigned R2 GETs. See docs/image-edit.md.
 const $ = (id) => document.getElementById(id);
 const API = "/api/imageedit";
-const COST = 30; // credits per edit; the server is the source of truth (lib/imageedit.ts)
+const COST = 50; // credits per edit; the server is the source of truth (lib/imageedit.ts)
 const MAX_SIDE = 4096; // long side after in-browser re-encode; iOS cannot allocate a larger canvas
 const KEEP = " Keep everything else in the image exactly the same.";
 

@@ -22,12 +22,16 @@ export const IMAGEEDIT_SERVICE = "imageedit";
  * own edit and its own GPU job, so it is charged separately.
  *
  * Measured cost is about $0.05 per edit: ~26-32 s billed on an H100 for the
- * warm path, plus the cold start when no worker is up. 30 credits keeps the
- * margin near Nano FaceStudio Online's after Stripe fees and refunded failures,
- * and equals the free daily allowance, so every account gets one free edit a
- * day. Failed and cancelled edits are refunded in full.
+ * warm path, plus the cold start when no worker is up. 50 credits ($0.50) is a
+ * ~90% margin before Stripe fees, which take a large share of a small pack,
+ * and before edits that fail after the GPU has run: those are refunded in
+ * full, so the successful edits have to carry them.
+ *
+ * It is deliberately above the free daily allowance (FREE_DAILY_CREDITS, 30):
+ * the allowance alone never pays for an edit. Free edits come from the welcome
+ * grant, which is the part limited to one claim per person.
  */
-export const IMAGEEDIT_CREDITS_PER_EDIT = 30;
+export const IMAGEEDIT_CREDITS_PER_EDIT = 50;
 
 export const IMAGEEDIT_MAX_VARIATIONS = 4;
 

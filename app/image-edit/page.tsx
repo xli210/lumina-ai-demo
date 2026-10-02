@@ -16,8 +16,7 @@ import {
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
 import { Button } from "@/components/ui/button";
-import { FREE_DAILY_CREDITS } from "@/lib/facestudio";
-import { CREDITS_PER_USD } from "@/lib/credits";
+import { CREDITS_PER_USD, SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import {
   IMAGEEDIT_CREDITS_PER_EDIT,
   IMAGEEDIT_MAX_SIDE,
@@ -37,11 +36,10 @@ import {
 const PAGE_URL = "https://nanopocket.ai/image-edit";
 const LAUNCH = "/image-edit/launch";
 const USD = (IMAGEEDIT_CREDITS_PER_EDIT / CREDITS_PER_USD).toFixed(2);
-const FREE_EDITS = Math.floor(FREE_DAILY_CREDITS / IMAGEEDIT_CREDITS_PER_EDIT);
 
 export const metadata: Metadata = {
   title: `${IMAGEEDIT_NAME} — Edit Photos by Describing the Change | NanoPocket`,
-  description: `Add, remove or replace objects, change text on signs, relight, change the season or restore old photos by describing the edit. Full-resolution output; pixels outside the edit stay identical. ${IMAGEEDIT_CREDITS_PER_EDIT} credits ($${USD}) per edit, with a free daily allowance.`,
+  description: `Add, remove or replace objects, change text on signs, relight, change the season or restore old photos by describing the edit. Full-resolution output; pixels outside the edit stay identical. ${IMAGEEDIT_CREDITS_PER_EDIT} credits ($${USD}) per edit, with free credits for new accounts.`,
   alternates: { canonical: "/image-edit" },
   openGraph: {
     type: "website",
@@ -81,7 +79,7 @@ const SAMPLE_CREDITS: { file: string; title: string; url: string; license: strin
 const FAQS = [
   {
     q: `How much does ${IMAGEEDIT_NAME} cost?`,
-    a: `${IMAGEEDIT_CREDITS_PER_EDIT} credits ($${USD}) per finished edit, prepaid in credits that never expire. Every signed-in account is topped up to ${FREE_DAILY_CREDITS} free credits each day, which covers ${FREE_EDITS === 1 ? "one edit" : `${FREE_EDITS} edits`}. Each variation is a separate edit. An edit that fails or that you cancel is refunded in full. There is no subscription.`,
+    a: `${IMAGEEDIT_CREDITS_PER_EDIT} credits ($${USD}) per finished edit, prepaid in credits that never expire. New accounts start with ${SIGNUP_GRANT_CREDITS} free credits to try it, one grant per person. Each variation is a separate edit. An edit that fails or that you cancel is refunded in full. There is no subscription.`,
   },
   {
     q: "Does it change parts of the photo I did not ask to edit?",
@@ -110,7 +108,7 @@ const jsonLd = {
       url: PAGE_URL,
       applicationCategory: "MultimediaApplication",
       operatingSystem: "Web browser",
-      offers: { "@type": "Offer", price: USD, priceCurrency: "USD", description: "Per edit, prepaid in credits; free daily allowance" },
+      offers: { "@type": "Offer", price: USD, priceCurrency: "USD", description: "Per edit, prepaid in credits; free credits for new accounts" },
       publisher: { "@type": "Organization", "@id": "https://nanopocket.ai#organization", name: "NanoPocket" },
     },
     {
@@ -146,7 +144,7 @@ export default function ImageEditLanding() {
               </Link>
             </Button>
             <span className="text-sm text-muted-foreground">
-              {IMAGEEDIT_CREDITS_PER_EDIT} credits (${USD}) per edit · {FREE_DAILY_CREDITS} free credits every day · failed edits refunded
+              {IMAGEEDIT_CREDITS_PER_EDIT} credits (${USD}) per edit · free credits for new accounts · failed edits refunded
             </span>
           </div>
         </div>

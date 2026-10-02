@@ -162,7 +162,7 @@ export async function POST(request: NextRequest) {
         detail:
           jobs.length > 0
             ? `Started ${jobs.length} of ${n}; each edit costs ${IMAGEEDIT_CREDITS_PER_EDIT} credits and you have ${hold.available} left.`
-            : `An edit costs ${IMAGEEDIT_CREDITS_PER_EDIT} credits and you have ${hold.available}. Buy credits, or come back tomorrow for the free daily allowance.`,
+            : `An edit costs ${IMAGEEDIT_CREDITS_PER_EDIT} credits and you have ${hold.available}. Buy credits to keep editing.`,
         status: 402,
         extra: { reason: "insufficient_credits", required: IMAGEEDIT_CREDITS_PER_EDIT, available: hold.available, topup_url: "/credits" },
       };

@@ -332,12 +332,46 @@ file, so a client that edits the numbers changes nothing it is charged.
 
 ### Welcome credits
 
-New accounts get `SIGNUP_GRANT_CREDITS` (200, $2 — enough for one real
-job). `ensureSignupGrant` does this lazily on first balance read rather
+New accounts get `SIGNUP_GRANT_CREDITS` (100, $1). It was 200 until
+2026-10-02, when it was halved after the grant, which had no condition, was
+being collected repeatedly through several free email accounts.
+`ensureSignupGrant` does this lazily on first balance read rather
 than from the signup trigger, so the users who registered before credits
 existed are covered by the same code path. It pre-checks the ledger for
 `signup:<user_id>` only to keep an ordinary read off the write path;
 correctness rests on that idempotency key, not on the pre-check.
+
+### One claim per device and network
+
+Free credits are the welcome grant **and** the daily top-up (the top-up is the
+larger leak: it is paid every day, per account). Both are limited by
+`free_credit_claim` (scripts/015, wrapped by `lib/free-claim.ts`):
+
+| Rule | Value |
+| --- | --- |
+| Accounts per device that may receive free credits | 1, forever. The device is an httpOnly cookie `np_did`, set by `middleware.ts` |
+| Accounts per network | 1 per 30 days. The network is the IP (IPv6 reduced to its /64) |
+| Existing accounts | Grandfathered: they keep their credits and allowance. They count against a *device*, not against an *IP* |
+| Accounts that have bought credits | Always eligible for the daily top-up |
+
+Both keys are HMAC'd with a server secret (`FREE_CLAIM_HASH_SECRET`, falling
+back to `SUPABASE_SERVICE_ROLE_KEY`) before they are stored; the table holds no
+IP addresses or cookie values. A refused account gets no welcome grant and no
+daily top-up, can still buy credits, and sees why on `/credits`.
+
+**What it does not stop:** someone who changes network and clears cookies (a VPN
+plus a new browser profile). **Who it can wrongly refuse:** a real person on a
+network that someone else already claimed from: a dorm, an office, a mobile
+carrier, a household. Buying any pack lifts the refusal for the daily top-up.
+The next steps up are a CAPTCHA at signup (Supabase supports Turnstile) and
+asking for a card or phone number before releasing free credits.
+
+If the migration is not applied, `claimFreeCredits` logs
+`free_credit_claim() is missing` and the grant goes ahead (reduced to 100): an
+outage of the check must not take free credits away from everyone.
+
+Looking for abuse: the queries are at the bottom of
+`scripts/015_create_free_credit_claims.sql`.
 
 ### Purchase
 
