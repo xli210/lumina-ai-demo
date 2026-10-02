@@ -34,7 +34,7 @@ const common = `Prices and times on this page are those of ${IMAGE_EDIT_NAME} on
 export const IMAGE_EDIT_GUIDE_POSTS: BlogPost[] = [
   {
     slug: "remove-objects-from-photos-with-ai",
-    title: "How to Remove an Object From a Photo With AI (and Keep Every Other Pixel)",
+    title: "How to Remove an Object From a Photo With AI",
     description:
       "Remove a car, a person or any object from a photo by describing it, and have the background filled in. A step-by-step guide with a real before and after.",
     date: DATE,
@@ -99,7 +99,7 @@ The street photo is "Parked Panek car, Batuty street, Warsaw.jpg" from Wikimedia
   },
   {
     slug: "replace-objects-in-photos-with-ai",
-    title: "How to Replace an Object in a Photo With AI, in the Same Place and Light",
+    title: "How to Replace an Object in a Photo With AI",
     description:
       "Swap one object for another in a photo by describing both. A guide with a real before and after, and the one wording fix that removed a leftover stem.",
     date: DATE,

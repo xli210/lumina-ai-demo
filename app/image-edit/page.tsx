@@ -35,7 +35,8 @@ import { IMAGE_EDIT_EXAMPLES, IMAGE_EDIT_OG } from "@/lib/image-edit-examples";
  */
 
 const LAUNCH = "/image-edit/launch";
-const TITLE = `AI Photo Editor Online: Edit Photos by Prompt | ${IMAGE_EDIT_NAME}`;
+// The site template appends " | NanoPocket", so keep this short enough to survive it (~60 characters shown in results).
+const TITLE = `${IMAGE_EDIT_NAME}: AI Photo Editor by Prompt`;
 const DESCRIPTION = `Remove, replace or add objects, change text on signs, relight, change the season or restore old photos by describing the edit. Full-resolution PNG, the rest of the photo stays identical. ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per edit, no subscription.`;
 
 export const metadata: Metadata = {
