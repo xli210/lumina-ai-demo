@@ -3,256 +3,311 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import {
-  Sparkles,
-  ExternalLink,
-  Eye,
-  EyeOff,
-  Copy,
+  ArrowRight,
   Check,
-  LogIn,
-  Image as ImageIcon,
-  Video,
-  Wand2,
   ThumbsUp,
   ThumbsDown,
-  ArrowRight,
-  CheckCircle2,
-  Palette,
+  ScanFace,
+  Wand2,
+  Video,
 } from "lucide-react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
-import { DEMOS as REGISTRY, demoRedirectPath, type DemoId } from "@/lib/demos";
-import { DemoLiveDot } from "./demo-live-dot";
-import { IMAGEEDIT_CREDITS_PER_EDIT, IMAGEEDIT_NAME } from "@/lib/imageedit";
+import {
+  DEMOS as REGISTRY,
+  demoRedirectPath,
+  isUnderMaintenance,
+} from "@/lib/demos";
+import { FACESTUDIO_MAX_FACES, FREE_DAILY_CREDITS } from "@/lib/facestudio";
+import {
+  FACE_SWAP_CREDITS,
+  FREE_RENDERS_PER_DAY,
+} from "@/lib/face-studio-facts";
+import {
+  IMAGEEDIT_CREDITS_PER_EDIT,
+  IMAGEEDIT_NAME,
+} from "@/lib/imageedit";
+
+/*
+ * The homepage "try it" section.
+ *
+ * Design rules, so it stays consistent with the rest of the page:
+ *   - semantic tokens only (foreground, muted-foreground, primary, border);
+ *     one accent colour, the site's blue, and no gradients of its own;
+ *   - cards use the same `glass-strong rounded-3xl` surface as the pricing
+ *     section, with the same eyebrow / heading / lede rhythm above them;
+ *   - products that work today get the space; demos that are offline get a
+ *     single quiet line each, so the page never advertises what cannot be used.
+ *
+ * Which demos are offline comes from lib/demos.ts, not from this file.
+ */
 
 type Vote = "like" | "dislike";
 
-interface DemoConfig {
-  id: string;
-  /** Registry id used for live status lookups (image / video / vivid). */
-  registryId: DemoId;
-  title: string;
-  description: string;
-  url: string;
-  password: string;
-  icon: typeof ImageIcon;
-  accent: string;
-  /** Optional internal link to a product introduction page (rendered as a small ghost CTA above the demo button). */
-  introHref?: string;
-}
+const FACESTUDIO_ID = "image-faceswap-pro"; // feedback id; keep stable for vote history
+const FREE_IMAGEEDITS_PER_DAY = Math.floor(
+  FREE_DAILY_CREDITS / IMAGEEDIT_CREDITS_PER_EDIT
+);
 
-interface DemoCardCopy {
-  registryId: DemoId;
-  /** id used for feedback persistence — keep stable for vote-history compatibility. */
-  id: string;
-  title: string;
-  description: string;
-  icon: typeof ImageIcon;
-  accent: string;
-  introHref?: string;
-}
+const FACESTUDIO_POINTS = [
+  `Up to ${FACESTUDIO_MAX_FACES} faces in one photo`,
+  "Whole-head swap",
+  "Keep hair, hands and glasses",
+  "Full resolution, no watermark",
+];
 
-const DEMO_CARDS: DemoCardCopy[] = [
+const IMAGEEDIT_POINTS = [
+  "Add, remove or replace objects",
+  "Change the text on signs",
+  "Relight, restyle, change the season",
+  "Everything else stays pixel-identical",
+];
+
+const PRO_POINTS = [
+  "Multi-face swap",
+  "Mask & expression edit",
+  "Face Vivid & upscale",
+  "Light adjust & crop",
+];
+
+/** Demos that are not online yet, shown as one compact line each. */
+const SOON = [
   {
-    registryId: "image",
-    id: "image-faceswap-pro",
-    title: "Nano FaceStudio Online",
-    description:
-      "Higher fidelity, better lighting adaptation, and more natural face swap on photos.",
-    icon: ImageIcon,
-    accent: "indigo",
-    introHref: "/apps/nano-facestudio-pro",
-  },
-  {
-    registryId: "video",
-    id: "video-faceswap-pro",
+    registryId: "video" as const,
     title: "Video FaceSwap Pro",
-    description:
-      "Professional-grade face swap on videos with temporal consistency and smooth motion.",
+    description: "Face swap on video clips with temporal consistency.",
     icon: Video,
-    accent: "purple",
   },
   {
-    registryId: "vivid",
-    id: "nanoface-vivid",
+    registryId: "vivid" as const,
     title: "NanoFace Vivid",
-    description:
-      "Vivid, expression-rich face swap that pushes color, lighting, and micro-expression detail beyond the standard Pro stack.",
+    description: "Restores natural skin detail on over-smoothed AI portraits.",
     icon: Wand2,
-    accent: "rose",
   },
-];
+].map((d) => ({
+  ...d,
+  offline: isUnderMaintenance(REGISTRY.find((r) => r.id === d.registryId)!),
+  href: demoRedirectPath(d.registryId),
+}));
 
-const DEMOS: DemoConfig[] = DEMO_CARDS.map((c) => {
-  const demo = REGISTRY.find((d) => d.id === c.registryId)!;
-  return {
-    id: c.id,
-    registryId: c.registryId,
-    title: c.title,
-    description: c.description,
-    // Same-origin wrapper — 302-redirects to the tunnel after auth + quota
-    // gate. See /api/demos/open and lib/demo-quota.ts.
-    url: demoRedirectPath(c.registryId),
-    password: demo.password ?? "",
-    icon: c.icon,
-    accent: c.accent,
-    introHref: c.introHref,
-  };
-});
-
-const FACESTUDIO_TOOLS = [
-  "Face Swap (multi-face)",
-  "Mask Edit",
-  "Expression Edit",
-  "Face Vivid",
-  "2×/3×/4× Upscale",
-  "Light Adjust",
-  "Crop",
-  "100% local · your GPU",
-];
-
-/**
- * Prominent launch spotlight for Nano FaceStudio Pro 1.0. Sits between
- * the free-demo header and the demo grid so anyone visiting the
- * announcement section sees the paid bundle as a "big news" callout,
- * not a footnote. Emerald palette intentionally clashes with the
- * indigo demo cards so it visually pops as its own thing.
- */
-const IMAGEEDIT_TOOLS = ["Magic brush edit", "Add", "Remove", "Replace", "Change text", "Light & style", "Season", "Restore"];
-
-/** Nano ImageEdit 2.0 Online: the browser photo editor (docs/image-edit.md). */
-function ImageEditSpotlight() {
+/** The pill above a card title. Same shape as the pricing section's. */
+function Pill({
+  children,
+  live = false,
+}: {
+  children: React.ReactNode;
+  live?: boolean;
+}) {
   return (
-    <div className="relative mb-8 overflow-hidden rounded-3xl border border-sky-400/40 bg-gradient-to-br from-sky-950/70 via-slate-900/90 to-indigo-950/70 shadow-2xl shadow-sky-500/20 ring-1 ring-sky-500/20">
-      <div className="relative p-6 sm:p-8">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-sky-500/25 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-sky-200 ring-1 ring-sky-400/50">
-          New · Online
-        </div>
-        <div className="mb-3 flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sky-400 to-indigo-500 text-white shadow-lg shadow-sky-500/30">
-            <Wand2 className="h-5 w-5" />
-          </div>
-          <h3 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">{IMAGEEDIT_NAME}</h3>
-        </div>
-        <p className="mb-5 max-w-3xl text-sm leading-relaxed text-slate-300 sm:text-base">
-          Describe the change and get your photo back at full resolution — add, remove or replace objects,
-          rewrite a sign, relight the scene or restore an old print. Everything you don&apos;t ask to change
-          stays pixel-identical. {IMAGEEDIT_CREDITS_PER_EDIT} credits per edit, with free credits every day.
-        </p>
-        <ul className="mb-6 grid grid-cols-2 gap-x-4 gap-y-2 text-xs text-slate-300 sm:grid-cols-4 sm:text-sm">
-          {IMAGEEDIT_TOOLS.map((f) => (
-            <li key={f} className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-sky-400" />
-              <span>{f}</span>
-            </li>
-          ))}
-        </ul>
-        <div className="flex flex-wrap items-center gap-3">
-          <Link
-            href="/image-edit/launch"
-            className="inline-flex items-center gap-2 rounded-full bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-sky-500/30 transition-colors hover:bg-sky-400"
+    <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+      {live && (
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
+        </span>
+      )}
+      {children}
+    </span>
+  );
+}
+
+function PointList({ points }: { points: string[] }) {
+  return (
+    <ul className="space-y-2.5">
+      {points.map((point) => (
+        <li key={point} className="flex items-start gap-3 text-sm text-foreground">
+          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
+            <Check className="h-3 w-3 text-primary" />
+          </span>
+          {point}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+const primaryButton =
+  "inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:opacity-90 hover:shadow-xl hover:shadow-primary/30";
+const textLink =
+  "inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-opacity hover:opacity-80";
+
+/** A product that works today. Both online products use this one layout. */
+function ProductCard({
+  icon: Icon,
+  pill,
+  live,
+  title,
+  lede,
+  points,
+  priceLine,
+  cta,
+  learnMore,
+  children,
+}: {
+  icon: typeof Wand2;
+  pill: string;
+  live?: boolean;
+  title: string;
+  lede: string;
+  points: string[];
+  priceLine: string;
+  cta: { href: string; label: string };
+  learnMore: { href: string; label: string };
+  children?: React.ReactNode;
+}) {
+  return (
+    <div className="glass-strong flex h-full flex-col rounded-3xl border border-primary/10 p-6 sm:p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <Pill live={live}>{pill}</Pill>
+        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+          <Icon className="h-5 w-5" />
+        </span>
+      </div>
+
+      <h3 className="mb-2 text-2xl font-bold tracking-tight text-foreground">
+        {title}
+      </h3>
+      <p className="mb-6 text-sm leading-relaxed text-muted-foreground sm:text-base">
+        {lede}
+      </p>
+
+      <PointList points={points} />
+
+      <div className="mt-auto pt-8">
+        <p className="mb-4 text-xs text-muted-foreground">{priceLine}</p>
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <a
+            href={cta.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={primaryButton}
           >
-            Open the editor <ArrowRight className="h-4 w-4" />
+            {cta.label}
+            <ArrowRight className="h-4 w-4" />
+          </a>
+          <Link href={learnMore.href} className={textLink}>
+            {learnMore.label}
+            <span aria-hidden>→</span>
           </Link>
-          <Link href="/image-edit" className="text-sm font-medium text-sky-300 hover:text-sky-200">
-            How it works →
-          </Link>
+        </div>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/** The paid desktop bundle: one wide card under the two online products. */
+function ProSpotlight() {
+  return (
+    <div className="glass-strong rounded-3xl border border-primary/10 p-6 sm:p-8 md:p-10">
+      <div className="grid gap-8 md:grid-cols-[1.3fr_1fr] md:items-center md:gap-12">
+        <div>
+          <div className="mb-5">
+            <Pill>Desktop · Windows now</Pill>
+          </div>
+          <h3 className="mb-2 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+            Nano FaceStudio Pro 1.0
+          </h3>
+          <p className="mb-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+            The full local bundle: seven face-editing tools on the same
+            diffusion identity stack, every model running on your own GPU.
+            Buy once, keep it for good.
+          </p>
+          <div className="grid gap-2.5 sm:grid-cols-2">
+            {PRO_POINTS.map((point) => (
+              <div key={point} className="flex items-start gap-3 text-sm text-foreground">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                  <Check className="h-3 w-3 text-primary" />
+                </span>
+                {point}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="md:border-l md:border-border md:pl-12">
+          <div className="mb-1 flex items-baseline gap-2">
+            <span className="text-5xl font-bold tracking-tight text-foreground">
+              $49.90
+            </span>
+            <span className="text-lg text-muted-foreground line-through">
+              $69.90
+            </span>
+          </div>
+          <p className="mb-6 text-xs text-muted-foreground">
+            Launch price through 2026-10-31 · one-time · macOS to follow
+          </p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Link href="/download#nano-facestudio-pro" className={primaryButton}>
+              Buy for Windows
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href="/apps/nano-facestudio-pro" className={textLink}>
+              See the feature tour
+              <span aria-hidden>→</span>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-function FaceStudioLaunchSpotlight() {
+/** Demos that are not online: one quiet line each, nothing to click. */
+function ComingSoon() {
   return (
-    <div className="relative mb-8 overflow-hidden rounded-3xl border border-emerald-400/40 bg-gradient-to-br from-emerald-950/70 via-slate-900/90 to-teal-950/70 shadow-2xl shadow-emerald-500/20 ring-1 ring-emerald-500/20">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-emerald-500/20 blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-teal-500/15 blur-3xl" />
-      </div>
-
-      <div className="relative p-6 sm:p-8 md:p-10">
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/25 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-emerald-200 ring-1 ring-emerald-400/50">
-            <span className="relative inline-flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-300" />
-            </span>
-            Just Launched · Windows
-          </div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-lg font-medium text-slate-500 line-through decoration-slate-500/70 sm:text-xl">
-              $69.90
-            </span>
-            <span className="text-4xl font-bold text-white sm:text-5xl">
-              $49.90
-            </span>
-            <span className="hidden text-[11px] font-medium uppercase tracking-[0.18em] text-emerald-300/80 sm:inline">
-              launch · through 2026-10-31
-            </span>
-          </div>
-        </div>
-
-        <div className="mb-3 flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 text-white shadow-lg shadow-emerald-500/30">
-            <Palette className="h-5 w-5" />
-          </div>
-          <h3 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
-            Nano FaceStudio Pro 1.0 is here.
-          </h3>
-        </div>
-
-        <p className="mb-5 max-w-3xl text-sm leading-relaxed text-slate-300 sm:text-base">
-          Loved the free browser demos below?{" "}
-          <span className="font-semibold text-white">
-            Nano FaceStudio Pro 1.0
-          </span>{" "}
-          is the full local desktop bundle — seven face-editing tools driven
-          by the same diffusion identity stack, every model running on your
-          own GPU. Buy the launch price today; it stays yours for good.
-        </p>
-
-        <ul className="mb-7 grid grid-cols-2 gap-x-4 gap-y-2 text-xs text-slate-300 sm:grid-cols-3 sm:text-sm md:grid-cols-4">
-          {FACESTUDIO_TOOLS.map((f) => (
-            <li key={f} className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-400" />
-              <span>{f}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div className="flex flex-wrap items-center gap-3">
-          <Link
-            href="/apps/nano-facestudio-pro"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-slate-900 shadow-lg shadow-white/10 transition-all hover:bg-slate-100 hover:shadow-white/20"
-          >
-            See the full feature tour
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link
-            href="/download#nano-facestudio-pro"
-            className="inline-flex items-center gap-2 rounded-full border border-emerald-400/50 bg-emerald-500/15 px-6 py-2.5 text-sm font-semibold text-emerald-100 transition-all hover:border-emerald-300/70 hover:bg-emerald-500/25 hover:text-white"
-          >
-            Buy &amp; download for Windows
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-          <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-slate-400">
-            Windows now · macOS in ~1 week · one-time license covers both
-          </span>
-        </div>
+    <div className="mt-8">
+      <p className="mb-3 text-center text-xs font-medium uppercase tracking-widest text-muted-foreground">
+        Also in the works
+      </p>
+      <div className="grid gap-3 sm:grid-cols-2">
+        {SOON.map(({ title, description, icon: Icon, offline, href }) => {
+          const body = (
+            <>
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Icon className="h-4 w-4" />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="flex items-center gap-2">
+                  <span className="text-sm font-semibold text-foreground">{title}</span>
+                  <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                    {offline ? "Coming soon" : "Live"}
+                  </span>
+                </span>
+                <span className="block truncate text-xs text-muted-foreground">
+                  {description}
+                </span>
+              </span>
+            </>
+          );
+          const cls =
+            "flex items-center gap-3 rounded-2xl border border-border bg-card/40 px-4 py-3";
+          return offline ? (
+            <div key={title} className={cls}>
+              {body}
+            </div>
+          ) : (
+            <a
+              key={title}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${cls} transition-colors hover:border-primary/30`}
+            >
+              {body}
+            </a>
+          );
+        })}
       </div>
     </div>
   );
 }
 
 function FeedbackBlock({
-  demoId,
   isLoggedIn,
   existingVote,
   onSubmit,
 }: {
-  demoId: string;
   isLoggedIn: boolean;
   existingVote: Vote | null;
   onSubmit: (vote: Vote) => Promise<void>;
@@ -269,265 +324,55 @@ function FeedbackBlock({
     }
   }
 
-  if (!isLoggedIn) {
-    return null;
-  }
+  if (!isLoggedIn) return null;
 
   if (existingVote) {
     return (
-      <div className="flex items-center justify-between gap-3 rounded-xl bg-white/5 px-3 py-2.5 ring-1 ring-white/10">
-        <p className="text-xs text-slate-300">
-          {existingVote === "like" ? (
-            <>
-              <span className="text-emerald-400">Thanks for the thumbs up!</span>{" "}
-              We&apos;ll keep building.
-            </>
-          ) : (
-            <>
-              <span className="text-rose-400">Got it — thanks for the honest feedback.</span>{" "}
-              We&apos;re working on it.
-            </>
-          )}
-        </p>
+      <p className="mt-5 flex items-center gap-2 text-xs text-muted-foreground">
         {existingVote === "like" ? (
-          <ThumbsUp className="h-4 w-4 shrink-0 text-emerald-400" />
+          <ThumbsUp className="h-3.5 w-3.5 text-primary" />
         ) : (
-          <ThumbsDown className="h-4 w-4 shrink-0 text-rose-400" />
+          <ThumbsDown className="h-3.5 w-3.5" />
         )}
-      </div>
+        {existingVote === "like"
+          ? "Thanks for the thumbs up. We'll keep building."
+          : "Thanks for the honest feedback. We're working on it."}
+      </p>
     );
   }
 
-  return (
-    <div className="rounded-xl bg-white/5 p-3 ring-1 ring-white/10">
-      <div className="mb-2 flex items-center justify-between gap-2">
-        <p className="text-xs font-medium text-slate-200">
-          Tried it? How was it?
-        </p>
-        <p className="text-[10px] text-slate-500">One vote per account</p>
-      </div>
-      <div className="flex gap-2">
-        <button
-          type="button"
-          onClick={() => handle("like")}
-          disabled={!!submitting}
-          aria-label="Like this demo"
-          className="group flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-300 ring-1 ring-emerald-500/20 transition-all hover:bg-emerald-500/20 hover:text-emerald-200 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          <ThumbsUp className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5" />
-          {submitting === "like" ? "Saving..." : "Like it"}
-        </button>
-        <button
-          type="button"
-          onClick={() => handle("dislike")}
-          disabled={!!submitting}
-          aria-label="Dislike this demo"
-          className="group flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-rose-500/10 px-3 py-2 text-xs font-semibold text-rose-300 ring-1 ring-rose-500/20 transition-all hover:bg-rose-500/20 hover:text-rose-200 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          <ThumbsDown className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
-          {submitting === "dislike" ? "Saving..." : "Dislike it"}
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function DemoCard({
-  demo,
-  isLoggedIn,
-  loading,
-  existingVote,
-  onSubmitVote,
-}: {
-  demo: DemoConfig;
-  isLoggedIn: boolean;
-  loading: boolean;
-  existingVote: Vote | null;
-  onSubmitVote: (demoId: string, vote: Vote) => Promise<void>;
-}) {
-  const [showPassword, setShowPassword] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const Icon = demo.icon;
-
-  const accentClasses =
-    demo.accent === "purple"
-      ? {
-          badge: "bg-purple-500/10 text-purple-300 ring-purple-500/20",
-          iconBg: "from-purple-500 to-fuchsia-500",
-          button:
-            "bg-purple-500 hover:bg-purple-400 shadow-purple-500/30 text-white",
-          numberBg: "bg-purple-500/20 text-purple-300",
-          link: "text-purple-400 hover:text-purple-300",
-        }
-      : demo.accent === "rose"
-      ? {
-          badge: "bg-rose-500/10 text-rose-300 ring-rose-500/20",
-          iconBg: "from-rose-500 to-pink-500",
-          button:
-            "bg-rose-500 hover:bg-rose-400 shadow-rose-500/30 text-white",
-          numberBg: "bg-rose-500/20 text-rose-300",
-          link: "text-rose-400 hover:text-rose-300",
-        }
-      : {
-          badge: "bg-indigo-500/10 text-indigo-300 ring-indigo-500/20",
-          iconBg: "from-indigo-500 to-blue-500",
-          button:
-            "bg-indigo-500 hover:bg-indigo-400 shadow-indigo-500/30 text-white",
-          numberBg: "bg-indigo-500/20 text-indigo-300",
-          link: "text-indigo-400 hover:text-indigo-300",
-        };
-
-  async function handleCopy() {
-    await navigator.clipboard.writeText(demo.password);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }
+  const vote =
+    "flex flex-1 items-center justify-center gap-1.5 rounded-full border border-border px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-60";
 
   return (
-    <div className="flex h-full flex-col rounded-2xl bg-white/5 p-6 ring-1 ring-white/10 backdrop-blur-sm">
-      <div
-        className={`mb-4 inline-flex w-fit items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold ring-1 ${accentClasses.badge}`}
+    <div className="mt-5 flex items-center gap-3">
+      <p className="shrink-0 text-xs text-muted-foreground">Tried it?</p>
+      <button
+        type="button"
+        onClick={() => handle("like")}
+        disabled={!!submitting}
+        aria-label="Like this demo"
+        className={vote}
       >
-        <Sparkles className="h-3 w-3" />
-        Coming Soon
-      </div>
-
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div
-            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${accentClasses.iconBg} text-white shadow-lg`}
-          >
-            <Icon className="h-5 w-5" />
-          </div>
-          <h3 className="text-xl font-bold text-white">{demo.title}</h3>
-        </div>
-        <DemoLiveDot demoId={demo.registryId} variant="dark" />
-      </div>
-
-      <p className="mb-5 text-sm text-slate-300 leading-relaxed">
-        {demo.description}
-      </p>
-
-      {isLoggedIn ? (
-        <div className="mt-auto flex flex-col gap-4">
-          <div className="rounded-xl bg-white/5 p-4 ring-1 ring-white/10">
-            <p className="mb-2 text-xs font-medium text-slate-200">
-              How to try it:
-            </p>
-            <ol className="space-y-1.5 text-xs text-slate-400">
-              <li className="flex items-start gap-2">
-                <span
-                  className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${accentClasses.numberBg}`}
-                >
-                  1
-                </span>
-                <span>Click the button to open the demo server</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span
-                  className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${accentClasses.numberBg}`}
-                >
-                  2
-                </span>
-                <span>Enter the access password</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span
-                  className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${accentClasses.numberBg}`}
-                >
-                  3
-                </span>
-                <span>Upload your media and try the Pro model</span>
-              </li>
-            </ol>
-          </div>
-
-          <div className="flex items-center gap-2 rounded-xl bg-white/5 px-3 py-2 ring-1 ring-white/10">
-            <span className="text-xs text-slate-400">Password:</span>
-            <code className="flex-1 truncate font-mono text-xs font-bold text-white tracking-wider">
-              {showPassword ? demo.password : "••••••••••"}
-            </code>
-            <button
-              onClick={() => setShowPassword(!showPassword)}
-              className="text-slate-400 hover:text-white transition-colors"
-              title={showPassword ? "Hide" : "Show"}
-            >
-              {showPassword ? (
-                <EyeOff className="h-3.5 w-3.5" />
-              ) : (
-                <Eye className="h-3.5 w-3.5" />
-              )}
-            </button>
-            <button
-              onClick={handleCopy}
-              className="text-slate-400 hover:text-white transition-colors"
-              title="Copy"
-            >
-              {copied ? (
-                <Check className="h-3.5 w-3.5 text-emerald-400" />
-              ) : (
-                <Copy className="h-3.5 w-3.5" />
-              )}
-            </button>
-          </div>
-
-          {demo.introHref && (
-            <Button
-              asChild
-              variant="outline"
-              className="w-full gap-2 rounded-full border-white/15 bg-white/5 text-white hover:bg-white/10 hover:text-white"
-            >
-              <Link href={demo.introHref}>
-                <Sparkles className="h-4 w-4 text-indigo-300" />
-                Introducing Nano FaceStudio Pro 1.0
-                <span aria-hidden className="ml-0.5">→</span>
-              </Link>
-            </Button>
-          )}
-
-          <Button
-            asChild
-            className={`w-full gap-2 rounded-full shadow-lg ${accentClasses.button}`}
-          >
-            <a href={demo.url} target="_blank" rel="noopener noreferrer">
-              Try Pro Demo
-              <ExternalLink className="h-4 w-4" />
-            </a>
-          </Button>
-
-          <FeedbackBlock
-            demoId={demo.id}
-            isLoggedIn={isLoggedIn}
-            existingVote={existingVote}
-            onSubmit={(vote) => onSubmitVote(demo.id, vote)}
-          />
-        </div>
-      ) : (
-        !loading && (
-          <div className="mt-auto rounded-xl bg-white/5 p-4 ring-1 ring-white/10">
-            <p className="mb-3 text-xs text-slate-300">
-              Sign in to your NanoPocket account to get free access to this demo.
-            </p>
-            <Button
-              asChild
-              className="w-full gap-2 rounded-full bg-white/10 text-white hover:bg-white/20 ring-1 ring-white/20"
-              size="sm"
-            >
-              <Link href="/auth/login">
-                <LogIn className="h-4 w-4" />
-                Sign In to Try Free
-              </Link>
-            </Button>
-          </div>
-        )
-      )}
+        <ThumbsUp className="h-3.5 w-3.5" />
+        {submitting === "like" ? "Saving..." : "Like"}
+      </button>
+      <button
+        type="button"
+        onClick={() => handle("dislike")}
+        disabled={!!submitting}
+        aria-label="Dislike this demo"
+        className={vote}
+      >
+        <ThumbsDown className="h-3.5 w-3.5" />
+        {submitting === "dislike" ? "Saving..." : "Dislike"}
+      </button>
     </div>
   );
 }
 
 export function AnnouncementSection() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [votes, setVotes] = useState<Record<string, Vote>>({});
 
   const refreshVotes = useCallback(async () => {
@@ -545,10 +390,7 @@ export function AnnouncementSection() {
     const supabase = createClient();
     supabase.auth.getUser().then(({ data: { user } }) => {
       setIsLoggedIn(!!user);
-      setLoading(false);
-      if (user) {
-        void refreshVotes();
-      }
+      if (user) void refreshVotes();
     });
   }, [refreshVotes]);
 
@@ -591,51 +433,66 @@ export function AnnouncementSection() {
   );
 
   return (
-    <section id="announcement" className="relative scroll-mt-24 px-6 py-12">
+    <section id="announcement" className="relative scroll-mt-24 px-6 py-24">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+        <div className="absolute -bottom-1/4 left-1/4 h-[500px] w-[500px] rounded-full bg-primary/5 blur-[120px]" />
+      </div>
+
       <div className="relative mx-auto max-w-6xl">
-        <div className="overflow-hidden rounded-3xl border border-indigo-500/20 bg-gradient-to-br from-indigo-950/80 via-slate-900/90 to-purple-950/80 p-6 sm:p-8 md:p-10 shadow-2xl shadow-indigo-500/10">
-          <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute -top-20 -right-20 h-[300px] w-[300px] rounded-full bg-indigo-500/10 blur-[100px]" />
-            <div className="absolute -bottom-20 -left-20 h-[250px] w-[250px] rounded-full bg-purple-500/10 blur-[80px]" />
-          </div>
-
-          <div className="relative mb-6 text-center md:mb-8">
-            <h2 className="mb-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">
-              Try Nano FaceStudio Online — Free
-            </h2>
-            <p className="mx-auto max-w-2xl text-sm text-slate-300 sm:text-base">
-              Professional-grade diffusion face swap in your browser — photos
-              with Nano FaceStudio Online, plus video and the Vivid stack tuned
-              for expression and color richness whenever those demos are online.
-              A local, private alternative to Roop, FaceFusion, Rope, and
-              DeepSwap, built on InstantID / PuLID / IP-Adapter FaceID research.
-            </p>
-            <Link
-              href="/docs/face-swap-pipeline"
-              className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-indigo-300 hover:text-indigo-200 transition-colors"
-            >
-              Learn about our diffusion face-swap pipeline
-              <span aria-hidden>→</span>
-            </Link>
-          </div>
-
-          <FaceStudioLaunchSpotlight />
-
-          <ImageEditSpotlight />
-
-          <div className="relative grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
-            {DEMOS.map((demo) => (
-              <DemoCard
-                key={demo.id}
-                demo={demo}
-                isLoggedIn={isLoggedIn}
-                loading={loading}
-                existingVote={votes[demo.id] ?? null}
-                onSubmitVote={submitVote}
-              />
-            ))}
-          </div>
+        <div className="mb-16 text-center">
+          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-primary">
+            Try it now
+          </p>
+          <h2 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+            Start creating in your browser.
+          </h2>
+          <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
+            Face swap and photo editing on NanoPocket&apos;s GPUs. No install,
+            no subscription, and free credits every day.
+          </p>
+          <Link href="/docs/face-swap-pipeline" className={`mt-4 ${textLink}`}>
+            How our diffusion face-swap pipeline works
+            <span aria-hidden>→</span>
+          </Link>
         </div>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <ProductCard
+            icon={ScanFace}
+            pill="Live"
+            live
+            title="Nano FaceStudio Online"
+            lede="Swap faces, or a whole head, in a photo. Diffusion-grade identity at the full resolution you upload."
+            points={FACESTUDIO_POINTS}
+            priceLine={`${FACE_SWAP_CREDITS} credits per face · ${FREE_RENDERS_PER_DAY} free swaps every day`}
+            cta={{ href: demoRedirectPath("image"), label: "Try Nano FaceStudio Online" }}
+            learnMore={{ href: "/face-studio", label: "Learn more" }}
+          >
+            <FeedbackBlock
+              isLoggedIn={isLoggedIn}
+              existingVote={votes[FACESTUDIO_ID] ?? null}
+              onSubmit={(vote) => submitVote(FACESTUDIO_ID, vote)}
+            />
+          </ProductCard>
+
+          <ProductCard
+            icon={Wand2}
+            pill="New"
+            title={IMAGEEDIT_NAME}
+            lede="Describe the change and get your photo back at full resolution. Add, remove, replace, restyle or restore."
+            points={IMAGEEDIT_POINTS}
+            priceLine={`${IMAGEEDIT_CREDITS_PER_EDIT} credits per edit · ${FREE_IMAGEEDITS_PER_DAY} free ${FREE_IMAGEEDITS_PER_DAY === 1 ? "edit" : "edits"} every day`}
+            cta={{ href: "/image-edit/launch", label: "Open the editor" }}
+            learnMore={{ href: "/image-edit", label: "Learn more" }}
+          />
+        </div>
+
+        <div className="mt-6">
+          <ProSpotlight />
+        </div>
+
+        <ComingSoon />
       </div>
     </section>
   );

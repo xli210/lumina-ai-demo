@@ -28,52 +28,52 @@ export async function Navbar() {
           <Wordmark className="h-5 w-auto text-black sm:h-6" />
         </Link>
 
-        <div className="hidden items-center gap-6 md:flex lg:gap-8">
+        <div className="hidden items-center gap-4 md:flex lg:gap-6 xl:gap-8">
           <Link
             href="/face-swap"
-            className="text-sm font-semibold text-black transition-colors hover:text-neutral-700"
+            className="whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
           >
             Free Face Swap
           </Link>
           <Link
             href="/image-edit"
-            className="text-sm font-semibold text-black transition-colors hover:text-neutral-700"
+            className="whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
           >
             AI Image Edit
           </Link>
           <Link
             href="/#showcase-features"
-            className="text-sm text-neutral-500 transition-colors hover:text-black"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black xl:inline"
           >
             Showcase
           </Link>
           <Link
             href="/#demo"
-            className="text-sm text-neutral-500 transition-colors hover:text-black"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black xl:inline"
           >
             Demo
           </Link>
           <Link
             href="/#how-it-works"
-            className="text-sm text-neutral-500 transition-colors hover:text-black"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black xl:inline"
           >
             How It Works
           </Link>
           <Link
             href="/#pricing"
-            className="text-sm text-neutral-500 transition-colors hover:text-black"
+            className="whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black"
           >
             Apps
           </Link>
           <Link
             href="/#faq"
-            className="text-sm text-neutral-500 transition-colors hover:text-black"
+            className="whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black"
           >
             FAQ
           </Link>
           <Link
             href="/download"
-            className="text-sm text-neutral-500 transition-colors hover:text-black"
+            className="whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black"
           >
             Download
           </Link>
