@@ -23,7 +23,7 @@ export async function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-neutral-200">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
+      <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
         <Link href="/" className="flex items-center">
           <Wordmark className="h-5 w-auto text-black sm:h-6" />
         </Link>
@@ -43,37 +43,37 @@ export async function Navbar() {
           </Link>
           <Link
             href="/#showcase-features"
-            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black xl:inline"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1440px]:inline"
           >
             Showcase
           </Link>
           <Link
             href="/#demo"
-            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black xl:inline"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1440px]:inline"
           >
             Demo
           </Link>
           <Link
             href="/#how-it-works"
-            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black xl:inline"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1440px]:inline"
           >
             How It Works
           </Link>
           <Link
             href="/#pricing"
-            className="whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black lg:inline"
           >
             Apps
           </Link>
           <Link
             href="/#faq"
-            className="whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1100px]:inline"
           >
             FAQ
           </Link>
           <Link
             href="/download"
-            className="whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[960px]:inline"
           >
             Download
           </Link>
@@ -81,7 +81,7 @@ export async function Navbar() {
             href="https://discord.gg/bNfPjfUDAn"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-400 transition-colors hover:text-[#5865F2]"
+            className="hidden text-neutral-400 transition-colors hover:text-[#5865F2] min-[1100px]:block"
             title="Join our Discord"
           >
             <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
