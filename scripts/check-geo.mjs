@@ -42,6 +42,14 @@ const URLS_TO_CHECK = [
   // change that accidentally protects /face-studio itself would make the
   // flagship product invisible to every crawler. A 200 here is the guard.
   { path: "/face-studio", expectJsonLd: ["SoftwareApplication", "FAQPage", "HowTo", "BreadcrumbList"] },
+  // Nano ImageEdit 2.0 Online's public page. Same trap as /face-studio: the
+  // editor lives under the auth-gated /image-edit/ prefix, so a middleware
+  // change that protects the bare path would hide the product from crawlers.
+  { path: "/image-edit", expectJsonLd: ["SoftwareApplication", "WebPage", "FAQPage", "HowTo", "BreadcrumbList"] },
+  { path: "/blog/remove-objects-from-photos-with-ai", expectJsonLd: ["Article", "BreadcrumbList"] },
+  { path: "/blog/replace-objects-in-photos-with-ai", expectJsonLd: ["Article", "BreadcrumbList"] },
+  { path: "/blog/change-text-in-photos-with-ai", expectJsonLd: ["Article", "BreadcrumbList"] },
+  { path: "/blog/restore-and-colorize-old-photos-with-ai", expectJsonLd: ["Article", "BreadcrumbList"] },
   { path: "/about", expectJsonLd: ["AboutPage"] },
   { path: "/trust", expectJsonLd: [] },
   { path: "/verify", expectJsonLd: ["TechArticle"] },

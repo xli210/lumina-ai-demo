@@ -1,13 +1,22 @@
+import { IMAGE_EDIT_GUIDE_POSTS } from "@/lib/blog-posts-image-edit";
+
 export interface BlogPost {
   slug: string;
   title: string;
   description: string;
   date: string;
+  /** ISO date of the last substantive edit; defaults to `date`. */
+  updated?: string;
   keywords: string[];
   content: string;
+  /** Lead image: shown under the title, used for Open Graph and the Article schema. */
+  image?: { src: string; alt: string; width: number; height: number };
+  /** Replaces the default "download our apps" call to action at the end. */
+  cta?: { title: string; body: string; href: string; label: string };
 }
 
 export const BLOG_POSTS: BlogPost[] = [
+  ...IMAGE_EDIT_GUIDE_POSTS,
   {
     slug: "nanopocket-vs-runway",
     title: "NanoPocket vs Runway: Local AI Video Generation Without Subscriptions",

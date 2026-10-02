@@ -28,9 +28,36 @@ interface PageImageGroup {
   }>;
 }
 
+import { IMAGE_EDIT_EXAMPLES, IMAGE_EDIT_OG } from "@/lib/image-edit-examples";
+
 const LICENSE = `${BASE}/terms`;
 
 const IMAGE_GROUPS: PageImageGroup[] = [
+  {
+    page: `${BASE}/image-edit`,
+    images: [
+      {
+        src: `${BASE}${IMAGE_EDIT_OG.src}`,
+        title: "Nano ImageEdit 2.0 Online: edit photos by describing the change",
+        caption: IMAGE_EDIT_OG.alt,
+        license: LICENSE,
+      },
+      ...IMAGE_EDIT_EXAMPLES.flatMap((e) => [
+        {
+          src: `${BASE}${e.after}`,
+          title: `${e.toolName} example, after: ${e.prompt}`,
+          caption: `${e.alt} (after). Source photo: ${e.credit.title}, ${e.credit.license}.`,
+          license: e.credit.url,
+        },
+        {
+          src: `${BASE}${e.before}`,
+          title: `${e.toolName} example, before`,
+          caption: `${e.alt} (before). Source photo: ${e.credit.title}, ${e.credit.license}.`,
+          license: e.credit.url,
+        },
+      ]),
+    ],
+  },
   {
     page: `${BASE}/face-swap`,
     images: [

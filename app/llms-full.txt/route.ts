@@ -13,6 +13,17 @@ import {
   usd,
 } from "@/lib/face-studio-facts";
 import { FREE_DAILY_CREDITS } from "@/lib/facestudio";
+import {
+  IMAGE_EDIT_FAQ,
+  IMAGE_EDIT_GUIDES,
+  IMAGE_EDIT_KEY_FACTS,
+  IMAGE_EDIT_LAUNCHED,
+  IMAGE_EDIT_LIMITS,
+  IMAGE_EDIT_NAME,
+  IMAGE_EDIT_STEPS,
+  IMAGE_EDIT_TOOLS,
+} from "@/lib/image-edit-facts";
+import { IMAGE_EDIT_EXAMPLES } from "@/lib/image-edit-examples";
 import { demoAvailabilityEn } from "@/lib/demo-availability";
 
 const BASE = "https://nanopocket.ai";
@@ -147,6 +158,45 @@ ${FACE_STUDIO_FAQ.map((f) => `### ${f.q}\n\n${f.a}`).join("\n\n")}
 Authoritative source: ${BASE}/face-studio. Facts verified ${FACTS_VERIFIED}.
 `;
 
+const IMAGE_EDIT_REFERENCE = `# ${IMAGE_EDIT_NAME} — Capability Reference
+
+URL: ${BASE}/image-edit
+
+${IMAGE_EDIT_NAME} is NanoPocket's browser-based AI photo editor, launched ${IMAGE_EDIT_LAUNCHED}. The user uploads a photo, picks a tool, describes the change in plain words, and receives the edited photo at full resolution. It runs on NanoPocket-hosted GPUs, so nothing is installed. It is a separate product from the Nano ImageEdit desktop app and from Nano FaceStudio Online (face swap).
+
+## Key facts
+
+${IMAGE_EDIT_KEY_FACTS.map((f) => `- ${f.label}: ${f.value}`).join("\n")}
+
+## The eight tools
+
+${IMAGE_EDIT_TOOLS.map((t) => `### ${t.name}\n\n${t.summary} Example instruction: "${t.example}" ${t.scope === "region" ? "The rest of the photo is kept identical." : "This tool changes the whole photo."} Answers the search: ${t.searchPhrase}.`).join("\n\n")}
+
+## How it works
+
+${IMAGE_EDIT_STEPS.map((s, i) => `${i + 1}. ${s.name}. ${s.text}`).join("\n")}
+
+## Real examples
+
+Each is a real edit made with the product on 2026-10-02, not retouched afterwards.
+
+${IMAGE_EDIT_EXAMPLES.map((e) => `- ${e.toolName}: "${e.prompt}"${e.editedPct !== undefined ? ` The editor reported ${e.editedPct}% of the image changed and the rest identical.` : " This tool changes the whole photo."} Images: ${BASE}${e.before} (before), ${BASE}${e.after} (after). Photo: ${e.credit.title}, ${e.credit.license}.`).join("\n")}
+
+## Limits
+
+${IMAGE_EDIT_LIMITS.map((l) => `- ${l}`).join("\n")}
+
+## Questions and answers
+
+${IMAGE_EDIT_FAQ.map((f) => `### ${f.q}\n\n${f.a}`).join("\n\n")}
+
+## Guides
+
+${IMAGE_EDIT_GUIDES.map((g) => `- ${g.title}: ${BASE}/blog/${g.slug}`).join("\n")}
+
+Authoritative source: ${BASE}/image-edit.
+`;
+
 const PRICING_REFERENCE = `# Pricing — Authoritative Reference
 
 ## Online demos
@@ -217,6 +267,9 @@ function buildLlmsFullTxt(): string {
     `---`,
     ``,
     FACE_STUDIO_REFERENCE,
+    `---`,
+    ``,
+    IMAGE_EDIT_REFERENCE,
     `---`,
     ``,
     PRICING_REFERENCE,

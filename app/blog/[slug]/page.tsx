@@ -28,8 +28,74 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.description,
       type: "article",
       publishedTime: post.date,
+      modifiedTime: post.updated ?? post.date,
+      ...(post.image
+        ? {
+            images: [
+              {
+                url: post.image.src,
+                width: post.image.width,
+                height: post.image.height,
+                alt: post.image.alt,
+              },
+            ],
+          }
+        : {}),
+    },
+    twitter: {
+      card: post.image ? "summary_large_image" : "summary",
+      title: post.title,
+      description: post.description,
+      ...(post.image ? { images: [post.image.src] } : {}),
     },
   };
+}
+
+/**
+ * Inline markup: **bold** and [label](url). The renderer used to strip both,
+ * which meant a post could not link to anything: no internal links, so no
+ * route for a reader or a crawler from a guide to the product it describes.
+ * Site paths use next/link; anything else opens as an ordinary external link.
+ */
+function renderInline(text: string, keyPrefix: string): React.ReactNode[] {
+  const out: React.ReactNode[] = [];
+  const pattern = /\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)\s]+)\)/g;
+  let last = 0;
+  let match: RegExpExecArray | null;
+  let n = 0;
+  while ((match = pattern.exec(text)) !== null) {
+    if (match.index > last) out.push(text.slice(last, match.index));
+    if (match[1] !== undefined) {
+      out.push(
+        <strong key={`${keyPrefix}-b${n++}`} className="font-semibold text-foreground">
+          {match[1]}
+        </strong>
+      );
+    } else {
+      const href = match[3];
+      const cls = "font-medium text-primary underline-offset-4 hover:underline";
+      out.push(
+        href.startsWith("/") ? (
+          <Link key={`${keyPrefix}-l${n++}`} href={href} className={cls}>
+            {match[2]}
+          </Link>
+        ) : (
+          <a
+            key={`${keyPrefix}-l${n++}`}
+            href={href}
+            className={cls}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {match[2]}
+          </a>
+        )
+      );
+    }
+    last = match.index + match[0].length;
+  }
+  if (last < text.length) out.push(text.slice(last));
+  return out;
 }
 
 function renderMarkdown(content: string) {
@@ -60,7 +126,7 @@ function renderMarkdown(content: string) {
               <tr key={ri}>
                 {row.map((cell, ci) => (
                   <td key={ci} className="border-b border-border/50 px-3 py-2 text-muted-foreground">
-                    {cell.trim().replace(/\*\*(.*?)\*\*/g, "$1")}
+                    {renderInline(cell.trim(), `c${ri}-${ci}`)}
                   </td>
                 ))}
               </tr>
@@ -98,32 +164,29 @@ function renderMarkdown(content: string) {
         elements.push(
           <li key={i} className="ml-4 mb-2 text-sm text-muted-foreground list-disc">
             <strong className="text-foreground">{match[1]}</strong>
-            {match[2] ? `: ${match[2]}` : ""}
+            {match[2] ? <>: {renderInline(match[2], `li${i}`)}</> : null}
           </li>
         );
       }
     } else if (line.startsWith("- ")) {
       elements.push(
         <li key={i} className="ml-4 mb-2 text-sm text-muted-foreground list-disc">
-          {line.slice(2)}
+          {renderInline(line.slice(2), `li${i}`)}
         </li>
       );
     } else if (line.match(/^\d+\. /)) {
-      const text = line.replace(/^\d+\.\s*/, "").replace(/\*\*(.*?)\*\*/g, "$1").replace(/\[(.*?)\]\((.*?)\)/g, "$1");
+      const text = line.replace(/^\d+\.\s*/, "");
       elements.push(
         <li key={i} className="ml-4 mb-2 text-sm text-muted-foreground list-decimal">
-          {text}
+          {renderInline(text, `ol${i}`)}
         </li>
       );
     } else if (line.trim() === "") {
       continue;
     } else {
-      const text = line
-        .replace(/\*\*(.*?)\*\*/g, "$1")
-        .replace(/\[(.*?)\]\((.*?)\)/g, "$1");
       elements.push(
         <p key={i} className="mb-4 text-sm leading-relaxed text-muted-foreground">
-          {text}
+          {renderInline(line, `p${i}`)}
         </p>
       );
     }
@@ -137,14 +200,28 @@ export default async function BlogPostPage({ params }: Props) {
   const post = BLOG_POSTS.find((p) => p.slug === slug);
   if (!post) notFound();
 
+  const url = `https://nanopocket.ai/blog/${post.slug}`;
   const articleData = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.description,
     datePublished: post.date,
-    author: { "@type": "Organization", name: "NanoPocket" },
+    dateModified: post.updated ?? post.date,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    ...(post.image ? { image: [`https://nanopocket.ai${post.image.src}`] } : {}),
+    keywords: post.keywords.join(", "),
+    author: { "@type": "Organization", name: "NanoPocket", url: "https://nanopocket.ai" },
     publisher: { "@type": "Organization", name: "NanoPocket", url: "https://nanopocket.ai" },
+  };
+  const breadcrumbData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "NanoPocket", item: "https://nanopocket.ai" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://nanopocket.ai/blog" },
+      { "@type": "ListItem", position: 3, name: post.title, item: url },
+    ],
   };
 
   return (
@@ -152,6 +229,10 @@ export default async function BlogPostPage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
       />
       <Navbar />
       <article className="px-6 pt-28 pb-24 sm:pt-32">
@@ -187,20 +268,35 @@ export default async function BlogPostPage({ params }: Props) {
             ))}
           </div>
 
+          {post.image && (
+            <figure className="mb-10">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={post.image.src}
+                alt={post.image.alt}
+                width={post.image.width}
+                height={post.image.height}
+                className="w-full rounded-2xl border border-border"
+                fetchPriority="high"
+              />
+            </figure>
+          )}
+
           <div className="prose-nano">{renderMarkdown(post.content)}</div>
 
           <div className="mt-12 rounded-2xl glass p-8 text-center">
             <h3 className="mb-2 text-lg font-bold text-foreground">
-              Ready to try NanoPocket?
+              {post.cta?.title ?? "Ready to try NanoPocket?"}
             </h3>
             <p className="mb-4 text-sm text-muted-foreground">
-              Download our AI tools and start creating locally — free apps and 7-day trials available.
+              {post.cta?.body ??
+                "Download our AI tools and start creating locally — free apps and 7-day trials available."}
             </p>
             <Link
-              href="/download"
+              href={post.cta?.href ?? "/download"}
               className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
             >
-              Download Free
+              {post.cta?.label ?? "Download Free"}
             </Link>
           </div>
         </div>

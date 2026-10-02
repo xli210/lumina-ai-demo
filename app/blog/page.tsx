@@ -33,7 +33,9 @@ export default function BlogPage() {
           </p>
 
           <div className="flex flex-col gap-6">
-            {BLOG_POSTS.map((post) => (
+            {[...BLOG_POSTS]
+              .sort((a, b) => b.date.localeCompare(a.date))
+              .map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}

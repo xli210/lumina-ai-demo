@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Sparkles, Video, ArrowRight, X, Palette } from "lucide-react";
+import { Sparkles, Video, ArrowRight, X, Palette, Wand2, ScanFace } from "lucide-react";
 
 interface WhatsNewItem {
   id: string;
@@ -19,6 +19,15 @@ interface WhatsNewItem {
 
 const ITEMS: WhatsNewItem[] = [
   {
+    id: "nano-imageedit-2-online-launch",
+    label: "NEW",
+    labelClassName: "bg-sky-100 text-sky-700 ring-sky-200",
+    icon: Wand2,
+    iconClassName: "text-sky-600",
+    text: "Nano ImageEdit 2.0 Online — edit photos by describing the change · remove, replace, restyle, restore",
+    href: "/image-edit",
+  },
+  {
     id: "nano-facestudio-pro-1-launch",
     label: "LAUNCH",
     labelClassName: "bg-emerald-100 text-emerald-700 ring-emerald-200",
@@ -28,13 +37,13 @@ const ITEMS: WhatsNewItem[] = [
     href: "/apps/nano-facestudio-pro",
   },
   {
-    id: "faceswap-pro-2-features",
-    label: "NEW",
+    id: "nano-facestudio-online-live",
+    label: "LIVE",
     labelClassName: "bg-purple-100 text-purple-700 ring-purple-200",
-    icon: Video,
+    icon: ScanFace,
     iconClassName: "text-purple-600",
-    text: "Introducing Nano FaceStudio Pro 1.0 — the full local face studio",
-    href: "/apps/nano-facestudio-pro",
+    text: "Nano FaceStudio Online — swap up to 6 faces in one photo, in your browser",
+    href: "/face-studio",
   },
   {
     id: "nano-imageenh-pro-3",
@@ -47,9 +56,9 @@ const ITEMS: WhatsNewItem[] = [
   },
 ];
 
-// Bumped from v1 → v2 so users who dismissed the previous bar see the new
-// Nano FaceStudio Pro launch announcement.
-const STORAGE_KEY = "nanopocket_whats_new_dismissed_v2";
+// Bumped each time the announcements change, so people who dismissed the
+// previous bar see the new ones. v3: Nano ImageEdit 2.0 Online launch.
+const STORAGE_KEY = "nanopocket_whats_new_dismissed_v3";
 
 export function WhatsNewBar() {
   const [visible, setVisible] = useState(false);

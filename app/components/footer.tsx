@@ -77,6 +77,12 @@ export function Footer() {
             Free Face Swap
           </Link>
           <Link
+            href="/image-edit"
+            className="text-xs font-semibold text-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            AI Image Edit
+          </Link>
+          <Link
             href="/status"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
