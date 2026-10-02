@@ -102,6 +102,29 @@ export function presignR2Get(
   objectKey: string,
   options: PresignOptions
 ): string {
+  return presign(config, "GET", objectKey, options);
+}
+
+/**
+ * Presign a PUT, so a browser can upload one object straight to the bucket.
+ *
+ * Only `host` is signed, so the browser may send any Content-Type. The bucket's
+ * CORS rule has to allow PUT from the site's origin.
+ */
+export function presignR2Put(
+  config: R2Config,
+  objectKey: string,
+  options: { expiresIn: number }
+): string {
+  return presign(config, "PUT", objectKey, options);
+}
+
+function presign(
+  config: R2Config,
+  method: "GET" | "PUT",
+  objectKey: string,
+  options: PresignOptions
+): string {
   const url = new URL(config.endpoint);
   const host = url.host;
 
@@ -138,7 +161,7 @@ export function presignR2Get(
   const canonicalQuery = query.toString().replace(/\+/g, "%20");
 
   const canonicalRequest = [
-    "GET",
+    method,
     canonicalUri,
     canonicalQuery,
     `host:${host}\n`,

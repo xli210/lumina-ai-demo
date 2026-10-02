@@ -36,6 +36,12 @@ export async function Navbar() {
             Free Face Swap
           </Link>
           <Link
+            href="/image-edit"
+            className="text-sm font-semibold text-black transition-colors hover:text-neutral-700"
+          >
+            AI Image Edit
+          </Link>
+          <Link
             href="/#showcase-features"
             className="text-sm text-neutral-500 transition-colors hover:text-black"
           >

@@ -63,9 +63,10 @@ export function upstreamString(
  *
  * Every route we proxy returns a small JSON document, so this buffers rather
  * than streams. The one exception is the result PNG, handled by
- * `fetchResult` below.
+ * `fetchResult` below. Exported for lib/imageedit-server.ts, which shares the
+ * gateway and its token.
  */
-async function callUpstream(
+export async function callUpstream(
   path: string,
   init: { method: "GET" | "POST"; json?: unknown; timeoutMs?: number }
 ): Promise<UpstreamResult> {

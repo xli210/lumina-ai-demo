@@ -120,9 +120,10 @@ def require_token(
 # ---------------------------------------------------------------------------
 # RunPod
 # ---------------------------------------------------------------------------
-def runpod(method: str, path: str, body: dict | None = None, timeout: int = 60) -> dict:
+def runpod(method: str, path: str, body: dict | None = None, timeout: int = 60,
+           endpoint: str | None = None) -> dict:
     req = urllib.request.Request(
-        f"https://api.runpod.ai/v2/{RUNPOD_ENDPOINT_ID}{path}", method=method,
+        f"https://api.runpod.ai/v2/{endpoint or RUNPOD_ENDPOINT_ID}{path}", method=method,
         data=json.dumps(body).encode() if body is not None else None,
         headers={"Authorization": "Bearer " + RUNPOD_API_KEY,
                  "Content-Type": "application/json"},
@@ -367,6 +368,67 @@ def v5_feedback(body: FeedbackRequest):
     return {"ok": True}
 
 
+# ---------------------------------------------------------------------------
+# Nano ImageEdit Online
+#
+# Same token and RunPod account as Face Studio, different endpoint. No image
+# bytes pass through here: the Vercel app signs R2 URLs itself (lib/r2-sign.ts)
+# and the worker reads and writes the bucket directly, so this router only
+# relays job JSON. See docs/image-edit.md.
+# ---------------------------------------------------------------------------
+IMAGEEDIT_ENDPOINT_ID = os.environ.get("IMAGEEDIT_ENDPOINT_ID", "8zekyhvth8nfp6")
+# Keys the Vercel app minted. Interpolated into storage paths by the worker, so
+# nothing outside imageedit/ and nothing with ".." may get through.
+_IE_SRC_KEY = re.compile(r"^imageedit/(src|out|samples)/[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+){0,3}\.png$")
+_IE_OUT_PREFIX = re.compile(r"^imageedit/out/[A-Za-z0-9_-]+/[A-Za-z0-9_-]+$")
+_IE_TOOLS = {"magic", "add", "remove", "replace", "text", "style", "season", "restore"}
+# RunPod rejects a /run body over 10 MB; the brush mask is the only large field.
+_IE_MAX_REQ_BYTES = 8 * 1024 * 1024
+
+ie = APIRouter(prefix="/ie/api", dependencies=[Depends(require_token)])
+
+
+class ImageEditRunRequest(BaseModel):
+    src_key: str
+    out_prefix: str
+    req: dict
+
+
+@ie.post("/run")
+def ie_run(body: ImageEditRunRequest):
+    if not _IE_SRC_KEY.match(body.src_key) or ".." in body.src_key:
+        raise HTTPException(400, "Unknown source image; upload the photo again.")
+    if not _IE_OUT_PREFIX.match(body.out_prefix):
+        raise HTTPException(400, "Bad output location.")
+    if body.req.get("tool") not in _IE_TOOLS:
+        raise HTTPException(400, "Unknown tool.")
+    if len(json.dumps(body.req)) > _IE_MAX_REQ_BYTES:
+        raise HTTPException(413, "The brush mask is too large.")
+    job = runpod("POST", "/run", {"input": {
+        "src_key": body.src_key, "out_prefix": body.out_prefix, "req": body.req,
+    }}, timeout=30, endpoint=IMAGEEDIT_ENDPOINT_ID)
+    if not job.get("id"):
+        raise HTTPException(502, "The edit could not be queued.")
+    return {"job_id": job["id"]}
+
+
+@ie.get("/status/{job_id}")
+def ie_status(job_id: str):
+    st = runpod("GET", f"/status/{check_job_id(job_id)}", timeout=20,
+                endpoint=IMAGEEDIT_ENDPOINT_ID)
+    # Passed through as-is; the Vercel app maps it to the console's job view
+    # and settles the credit hold. delayTime/executionTime are RunPod's queue
+    # and billed milliseconds, kept for cost tracking.
+    return {k: st.get(k) for k in ("id", "status", "output", "error", "delayTime", "executionTime")}
+
+
+@ie.post("/cancel/{job_id}")
+def ie_cancel(job_id: str):
+    runpod("POST", f"/cancel/{check_job_id(job_id)}", timeout=15,
+           endpoint=IMAGEEDIT_ENDPOINT_ID)
+    return {"ok": True}
+
+
 @app.get("/healthz")
 def healthz():
     """Liveness probe. Render calls this, so it is the one unauthenticated
@@ -375,6 +437,7 @@ def healthz():
 
 
 app.include_router(api)
+app.include_router(ie)
 
 
 if __name__ == "__main__":

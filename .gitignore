@@ -95,3 +95,9 @@ _bundles/
 
 # One-off license recovery input: customer emails and account ids
 scripts/.backfill-payments.json
+
+# Image edit studio package (cloud image editor). It holds code shared with the
+# GPU worker and 12 CC BY-SA sample photos. THIS REPO IS PUBLIC: deploy it from a
+# private repo, never from here.
+image-edit-studio*.zip
+image-edit-studio/

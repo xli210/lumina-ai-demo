@@ -58,6 +58,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.95,
     },
+    // Nano ImageEdit 2.0 Online landing page; the editor itself is auth-gated.
+    { url: `${BASE}/image-edit`, lastModified: new Date("2026-10-01"), changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE}/blog`, lastModified: new Date("2026-03-19"), changeFrequency: "weekly", priority: 0.8 },
     ...blogEntries,
     ...releaseNoteEntries,

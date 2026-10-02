@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { DEMOS as REGISTRY, demoRedirectPath, type DemoId } from "@/lib/demos";
 import { DemoLiveDot } from "./demo-live-dot";
+import { IMAGEEDIT_CREDITS_PER_EDIT, IMAGEEDIT_NAME } from "@/lib/imageedit";
 
 type Vote = "like" | "dislike";
 
@@ -118,6 +119,51 @@ const FACESTUDIO_TOOLS = [
  * not a footnote. Emerald palette intentionally clashes with the
  * indigo demo cards so it visually pops as its own thing.
  */
+const IMAGEEDIT_TOOLS = ["Magic brush edit", "Add", "Remove", "Replace", "Change text", "Light & style", "Season", "Restore"];
+
+/** Nano ImageEdit 2.0 Online: the browser photo editor (docs/image-edit.md). */
+function ImageEditSpotlight() {
+  return (
+    <div className="relative mb-8 overflow-hidden rounded-3xl border border-sky-400/40 bg-gradient-to-br from-sky-950/70 via-slate-900/90 to-indigo-950/70 shadow-2xl shadow-sky-500/20 ring-1 ring-sky-500/20">
+      <div className="relative p-6 sm:p-8">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-sky-500/25 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-sky-200 ring-1 ring-sky-400/50">
+          New · Online
+        </div>
+        <div className="mb-3 flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sky-400 to-indigo-500 text-white shadow-lg shadow-sky-500/30">
+            <Wand2 className="h-5 w-5" />
+          </div>
+          <h3 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">{IMAGEEDIT_NAME}</h3>
+        </div>
+        <p className="mb-5 max-w-3xl text-sm leading-relaxed text-slate-300 sm:text-base">
+          Describe the change and get your photo back at full resolution — add, remove or replace objects,
+          rewrite a sign, relight the scene or restore an old print. Everything you don&apos;t ask to change
+          stays pixel-identical. {IMAGEEDIT_CREDITS_PER_EDIT} credits per edit, with free credits every day.
+        </p>
+        <ul className="mb-6 grid grid-cols-2 gap-x-4 gap-y-2 text-xs text-slate-300 sm:grid-cols-4 sm:text-sm">
+          {IMAGEEDIT_TOOLS.map((f) => (
+            <li key={f} className="flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-sky-400" />
+              <span>{f}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            href="/image-edit/launch"
+            className="inline-flex items-center gap-2 rounded-full bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-sky-500/30 transition-colors hover:bg-sky-400"
+          >
+            Open the editor <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link href="/image-edit" className="text-sm font-medium text-sky-300 hover:text-sky-200">
+            How it works →
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function FaceStudioLaunchSpotlight() {
   return (
     <div className="relative mb-8 overflow-hidden rounded-3xl border border-emerald-400/40 bg-gradient-to-br from-emerald-950/70 via-slate-900/90 to-teal-950/70 shadow-2xl shadow-emerald-500/20 ring-1 ring-emerald-500/20">
@@ -574,6 +620,8 @@ export function AnnouncementSection() {
           </div>
 
           <FaceStudioLaunchSpotlight />
+
+          <ImageEditSpotlight />
 
           <div className="relative grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
             {DEMOS.map((demo) => (

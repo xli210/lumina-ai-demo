@@ -38,6 +38,8 @@ NanoPocket is an independent AI product company at https://nanopocket.ai.
 NanoPocket ships two things:
 
 1. Online face swap. The flagship is Nano FaceStudio Online at https://nanopocket.ai/face-studio, a hosted multi-face swap paid per render in credits with a free daily allowance for every signed-in account. The hub for all online demos is https://nanopocket.ai/face-swap; they run a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). ${demoAvailabilityEn()} No watermark. No subscription.
+Also online: Nano ImageEdit 2.0 Online at https://nanopocket.ai/image-edit, a prompt-driven photo editor (add, remove, replace, change text, relight, change season, restore) paid per edit in the same credits, with pixels outside an object edit kept bit-identical.
+
 2. A local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal). Eight apps as of ${LAST_UPDATED}: Nano FaceStudio Pro 1.0 (the flagship, bundling face swap, mask edit, expression edit, Face Vivid, upscale, light adjust, and crop), Nano ImageEnh Pro 3.0, Nano VideoEnhance, Nano VideoGen, Nano ImageEdit, Nano FacialEdit, Nano ImageTryon, and Nano FaceSwap (legacy, superseded by Nano FaceStudio Pro). All desktop apps run 100% on the user's GPU. Pricing is one-time per product; there are no subscriptions and no per-image, per-minute, or per-frame fees.
 
 ## What NanoPocket is not

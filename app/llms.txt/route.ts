@@ -8,6 +8,8 @@ import {
 } from "@/lib/face-studio-facts";
 import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
 import { demoAvailabilityEn, demoStatusEn } from "@/lib/demo-availability";
+import { IMAGEEDIT_CREDITS_PER_EDIT, IMAGEEDIT_NAME } from "@/lib/imageedit";
+import { FREE_DAILY_CREDITS } from "@/lib/facestudio";
 
 const BASE = "https://nanopocket.ai";
 const LAST_UPDATED = new Date().toISOString().slice(0, 10);
@@ -49,6 +51,11 @@ function buildLlmsTxt(): string {
       )} per face replaced and ${usd(
         HEAD_SWAP_USD
       )} per head swap after that. Credits never expire, there is no subscription, and a failed render is refunded in full automatically. Photos are re-encoded in the browser before upload, which strips EXIF and GPS metadata on the device.`,
+    ),
+    bullet(
+      "/image-edit",
+      `${IMAGEEDIT_NAME} — prompt-driven photo editor (live)`,
+      `Edit a photo by describing the change: add, remove or replace objects, change text on signs, relight or colour-grade, change the season, or restore and colourise old photos, plus a brush-limited free-form edit. Returns full resolution as PNG; for object edits every pixel outside the edited area stays bit-identical to the original. ${IMAGEEDIT_CREDITS_PER_EDIT} credits ($${(IMAGEEDIT_CREDITS_PER_EDIT / 100).toFixed(2)}) per edit, prepaid in credits that never expire; every signed-in account gets ${FREE_DAILY_CREDITS} free credits a day; failed or cancelled edits are refunded. Separate from the Nano ImageEdit desktop app.`,
     ),
     bullet(
       "/face-swap",
