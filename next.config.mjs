@@ -3,6 +3,11 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 /** @type {import('next').NextConfig} */
+const PUBLIC_CACHE = {
+  key: "Cache-Control",
+  value: "public, max-age=0, s-maxage=600, stale-while-revalidate=86400",
+};
+
 const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
@@ -49,6 +54,25 @@ const nextConfig = {
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "X-DNS-Prefetch-Control", value: "on" },
         ],
+      },
+      // Public pages are identical for every visitor (the signed-in state is read
+      // in the browser), so the CDN may keep them briefly. Next marks pages that
+      // read request headers as no-store, and the middleware's own Cache-Control is
+      // overridden on Vercel, so it is set here. Keep in step with middleware.ts.
+      {
+        source:
+          "/:path(|about|blog|face-swap|image-edit|compare|trust|security|privacy|terms|best-face-swap-app-2026|docs|release-notes|apps|status)",
+        headers: [PUBLIC_CACHE],
+      },
+      {
+        // internal-preview reads the signed-in user on the server: never cached.
+        source: "/apps/:rest((?!nano-facestudio-pro/internal-preview).*)",
+        headers: [PUBLIC_CACHE],
+      },
+      {
+        source:
+          "/:section(blog|compare|release-notes|docs|face-swap|zh-CN|ja|ko)/:rest*",
+        headers: [PUBLIC_CACHE],
       },
     ];
   },
