@@ -1,27 +1,10 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
-import { Button } from "@/components/ui/button";
-import { NavbarUserMenu } from "./navbar-user-menu";
 import { Wordmark } from "./wordmark";
-import { LocaleSwitcher } from "./locale-switcher";
-import { MobileNav } from "./mobile-nav";
+import { NavbarAuth } from "./navbar-auth";
 
-export async function Navbar() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  let isAdmin = false;
-  if (user) {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", user.id)
-      .single();
-    isAdmin = profile?.role === "admin";
-  }
-
+// Static markup only: the signed-in state is resolved in the browser
+// (navbar-auth.tsx) so the page HTML is the same for every visitor.
+export function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-neutral-200">
       <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
@@ -91,31 +74,7 @@ export async function Navbar() {
           </a>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <LocaleSwitcher className="hidden sm:flex" />
-          {user ? (
-            <NavbarUserMenu user={user} isAdmin={isAdmin} />
-          ) : (
-            <>
-              {/* Below sm "Sign In" lives in the mobile menu, so the bar fits. */}
-              <Link href="/auth/login" className="hidden sm:block">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-xs text-neutral-500 hover:text-black sm:text-sm"
-                >
-                  Sign In
-                </Button>
-              </Link>
-              <Link href="/auth/sign-up">
-                <Button size="sm" className="text-xs bg-black text-white hover:bg-neutral-800 sm:text-sm">
-                  Get Started
-                </Button>
-              </Link>
-            </>
-          )}
-          <MobileNav isLoggedIn={!!user} />
-        </div>
+        <NavbarAuth />
       </div>
     </nav>
   );

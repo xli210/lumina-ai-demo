@@ -180,9 +180,13 @@ export async function updateSession(
     { cookies: cookieBridge },
   )
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  // No Supabase auth cookie means nobody is signed in (every crawler, most
+  // first visits). Skip the network round trip to Supabase and treat the
+  // request as anonymous; protected paths still redirect below.
+  const hasAuthCookie = request.cookies
+    .getAll()
+    .some((c) => c.name.startsWith('sb-') && c.name.includes('-auth-token'))
+  const user = hasAuthCookie ? (await supabase.auth.getUser()).data.user : null
 
   const gate = await enforceAccessPolicy(request, user, supabase)
   if (gate) return gate

@@ -33,6 +33,36 @@ function indexNowResponse(pathname: string): NextResponse | null {
   })
 }
 
+// Paths whose HTML is identical for every visitor (the signed-in state is read
+// in the browser, see app/components/navbar-auth.tsx). The CDN may keep these
+// for a few minutes, so a crawler hitting the same page a thousand times costs
+// one render, not a thousand. Anything not listed stays uncached. A new
+// deployment purges the CDN, so stale copies never outlive a release.
+const CACHEABLE_EXACT = new Set([
+  '/', '/about', '/blog', '/face-swap', '/image-edit', '/compare', '/trust',
+  '/security', '/privacy', '/terms', '/best-face-swap-app-2026', '/docs',
+  '/release-notes', '/apps', '/status',
+])
+const CACHEABLE_PREFIXES = [
+  '/blog/', '/compare/', '/apps/', '/release-notes/', '/docs/', '/face-swap/',
+  '/zh-CN', '/ja', '/ko',
+]
+// Paths that issue the device cookie. It only matters when someone is about to
+// sign up or spend credits; handing one to every anonymous page view (crawlers
+// never keep it) would also stop the CDN from caching those pages.
+const DEVICE_COOKIE_PREFIXES = [
+  '/auth', '/face-studio/', '/image-edit/', '/credits', '/account', '/checkout',
+  '/download', '/api/facestudio', '/api/imageedit', '/api/credits',
+]
+
+function isCacheablePublicPage(request: NextRequest): boolean {
+  if (request.method !== 'GET') return false
+  const p = request.nextUrl.pathname
+  if (p.startsWith('/api/') || p.startsWith('/_next/')) return false
+  if (p.includes('internal-preview')) return false
+  return CACHEABLE_EXACT.has(p) || CACHEABLE_PREFIXES.some((x) => p.startsWith(x))
+}
+
 export async function middleware(request: NextRequest) {
   const indexNow = indexNowResponse(request.nextUrl.pathname)
   if (indexNow) return indexNow
@@ -56,7 +86,10 @@ export async function middleware(request: NextRequest) {
   // the same browser is told apart from a new person (lib/free-claim.ts).
   // httpOnly: page scripts never need it. Pages are navigations, not
   // prefetches of someone else's session, so this runs once per browser.
-  if (!isDeviceId(request.cookies.get(DEVICE_COOKIE)?.value)) {
+  const wantsDeviceCookie = DEVICE_COOKIE_PREFIXES.some((x) =>
+    request.nextUrl.pathname.startsWith(x),
+  )
+  if (wantsDeviceCookie && !isDeviceId(request.cookies.get(DEVICE_COOKIE)?.value)) {
     response.cookies.set(DEVICE_COOKIE, newDeviceId(), {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -64,6 +97,13 @@ export async function middleware(request: NextRequest) {
       path: '/',
       maxAge: DEVICE_COOKIE_MAX_AGE_S,
     })
+  }
+
+  if (isCacheablePublicPage(request) && !response.headers.has('set-cookie')) {
+    response.headers.set(
+      'Cache-Control',
+      'public, max-age=0, s-maxage=600, stale-while-revalidate=86400',
+    )
   }
   return response
 }
