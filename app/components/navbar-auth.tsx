@@ -29,31 +29,46 @@ export function NavbarAuth() {
   const [state, setState] = useState<AuthState | null>(lastKnown);
 
   useEffect(() => {
-    const supabase = createClient();
+    // A failure here (missing config, network, a blocked storage API) must
+    // leave the bar usable as signed-out, never take the whole page down.
     let cancelled = false;
+    let unsubscribe: (() => void) | undefined;
 
-    async function apply(user: User | null) {
-      let isAdmin = false;
-      if (user) {
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("role")
-          .eq("id", user.id)
-          .single();
-        isAdmin = profile?.role === "admin";
-      }
-      if (cancelled) return;
-      lastKnown = { user, isAdmin };
-      setState(lastKnown);
+    try {
+      const supabase = createClient();
+
+      const apply = async (user: User | null) => {
+        let isAdmin = false;
+        if (user) {
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("role")
+            .eq("id", user.id)
+            .single();
+          isAdmin = profile?.role === "admin";
+        }
+        if (cancelled) return;
+        lastKnown = { user, isAdmin };
+        setState(lastKnown);
+      };
+
+      supabase.auth
+        .getSession()
+        .then(({ data }) => apply(data.session?.user ?? null))
+        .catch(() => {
+          if (!cancelled) setState({ user: null, isAdmin: false });
+        });
+      const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+        void apply(session?.user ?? null);
+      });
+      unsubscribe = () => sub.subscription.unsubscribe();
+    } catch {
+      setState({ user: null, isAdmin: false });
     }
 
-    supabase.auth.getSession().then(({ data }) => apply(data.session?.user ?? null));
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      void apply(session?.user ?? null);
-    });
     return () => {
       cancelled = true;
-      sub.subscription.unsubscribe();
+      unsubscribe?.();
     };
   }, []);
 

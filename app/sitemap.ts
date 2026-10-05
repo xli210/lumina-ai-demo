@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { BLOG_POSTS } from "@/lib/blog-posts";
 import { appReleases } from "@/lib/release-data";
+import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
 
 const BASE = "https://nanopocket.ai";
 
@@ -59,7 +60,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     // Nano ImageEdit 2.0 Online landing page; the editor itself is auth-gated.
-    { url: `${BASE}/image-edit`, lastModified: new Date("2026-10-02"), changeFrequency: "weekly", priority: 0.95 },
+    { url: `${BASE}/image-edit`, lastModified: new Date("2026-10-05"), changeFrequency: "weekly", priority: 0.95 },
+    { url: `${BASE}/use-cases`, lastModified: new Date("2026-10-05"), changeFrequency: "monthly", priority: 0.8 },
+    ...IMAGE_EDIT_USE_CASES.map((u) => ({ url: `${BASE}/use-cases/${u.slug}`, lastModified: new Date("2026-10-05"), changeFrequency: "monthly" as const, priority: 0.85 })),
     { url: `${BASE}/blog`, lastModified: new Date("2026-03-19"), changeFrequency: "weekly", priority: 0.8 },
     ...blogEntries,
     ...releaseNoteEntries,

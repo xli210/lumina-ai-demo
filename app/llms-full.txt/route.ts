@@ -24,6 +24,7 @@ import {
   IMAGE_EDIT_TOOLS,
 } from "@/lib/image-edit-facts";
 import { IMAGE_EDIT_EXAMPLES } from "@/lib/image-edit-examples";
+import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
 import { demoAvailabilityEn } from "@/lib/demo-availability";
 
 const BASE = "https://nanopocket.ai";
@@ -178,7 +179,7 @@ ${IMAGE_EDIT_STEPS.map((s, i) => `${i + 1}. ${s.name}. ${s.text}`).join("\n")}
 
 ## Real examples
 
-Each is a real edit made with the product on 2026-10-02, not retouched afterwards.
+Each is a real edit made with the product between 2026-10-02 and 2026-10-05, not retouched afterwards.
 
 ${IMAGE_EDIT_EXAMPLES.map((e) => `- ${e.toolName}: "${e.prompt}"${e.editedPct !== undefined ? ` The editor reported ${e.editedPct}% of the image changed and the rest identical.` : " This tool changes the whole photo."} Images: ${BASE}${e.before} (before), ${BASE}${e.after} (after). Photo: ${e.credit.title}, ${e.credit.license}.`).join("\n")}
 
@@ -193,6 +194,10 @@ ${IMAGE_EDIT_FAQ.map((f) => `### ${f.q}\n\n${f.a}`).join("\n\n")}
 ## Guides
 
 ${IMAGE_EDIT_GUIDES.map((g) => `- ${g.title}: ${BASE}/blog/${g.slug}`).join("\n")}
+
+## Who it is for
+
+${IMAGE_EDIT_USE_CASES.map((u) => `### ${u.name}: ${BASE}/use-cases/${u.slug}\n\n${u.intro[0]}\n\nSearches this answers: ${u.searchPhrases.join("; ")}.\n\nLimits: ${u.limits.join(" ")}`).join("\n\n")}
 
 Authoritative source: ${BASE}/image-edit.
 `;

@@ -22,6 +22,7 @@ import {
   IMAGE_EDIT_WARM_SECONDS,
 } from "@/lib/image-edit-facts";
 import { IMAGE_EDIT_EXAMPLES, IMAGE_EDIT_OG } from "@/lib/image-edit-examples";
+import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
 
 /**
  * /image-edit: the public, indexable page for Nano ImageEdit 2.0 Online.
@@ -111,7 +112,7 @@ const webPageJsonLd = {
   description: DESCRIPTION,
   inLanguage: "en",
   datePublished: IMAGE_EDIT_LAUNCHED,
-  dateModified: IMAGE_EDIT_EXAMPLES.length ? "2026-10-02" : IMAGE_EDIT_LAUNCHED,
+  dateModified: IMAGE_EDIT_EXAMPLES.length ? "2026-10-05" : IMAGE_EDIT_LAUNCHED,
   primaryImageOfPage: { "@type": "ImageObject", url: abs(IMAGE_EDIT_OG.src), width: IMAGE_EDIT_OG.width, height: IMAGE_EDIT_OG.height },
   about: { "@id": `${IMAGE_EDIT_URL}#software` },
   isPartOf: { "@type": "WebSite", name: "NanoPocket", url: "https://nanopocket.ai" },
@@ -361,6 +362,26 @@ export default function ImageEditLanding() {
                 </summary>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">{f.a}</p>
               </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Audience pages: the long-tail routes into this product */}
+      <section className="px-6 pb-24">
+        <div className="mx-auto max-w-5xl">
+          <p className={eyebrow}>Who it is for</p>
+          <h2 className={h2}>Made for work where the rest of the photo must stay put.</h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {IMAGE_EDIT_USE_CASES.map((u) => (
+              <Link
+                key={u.slug}
+                href={`/use-cases/${u.slug}`}
+                className="glass-strong rounded-3xl border border-primary/10 p-5 transition-shadow hover:shadow-lg"
+              >
+                <h3 className="mb-1 text-base font-semibold text-foreground">{u.name}</h3>
+                <p className="text-sm text-muted-foreground">{u.whoFor}</p>
+              </Link>
             ))}
           </div>
         </div>

@@ -16,6 +16,7 @@ import {
   IMAGE_EDIT_WELCOME_CREDITS,
   IMAGE_EDIT_WARM_SECONDS,
 } from "@/lib/image-edit-facts";
+import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
 
 const BASE = "https://nanopocket.ai";
 const LAST_UPDATED = new Date().toISOString().slice(0, 10);
@@ -62,6 +63,11 @@ function buildLlmsTxt(): string {
       "/image-edit",
       `${IMAGE_EDIT_NAME} — AI photo editor you drive with text instructions (live)`,
       `Upload a photo, pick a tool, describe the change, and get it back at full resolution: ${IMAGE_EDIT_TOOLS.map((t) => t.name).join(", ")}. For Remove, Replace, Add, Text and Magic Edit every pixel outside the edited area stays identical to the original and the editor confirms it; Light & Style, Season and Restore change the whole photo. ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per edit, prepaid in credits that never expire; new accounts get ${IMAGE_EDIT_WELCOME_CREDITS} free credits, one grant per person; failed or cancelled edits are refunded. Usually ${IMAGE_EDIT_WARM_SECONDS} per edit. Lossless PNG output, no watermark, no subscription. Separate from the Nano ImageEdit desktop app. Real before/after examples, tool-by-tool instructions, honest limits and an FAQ are on the page.`,
+    ),
+    bullet(
+      "/use-cases",
+      `${IMAGE_EDIT_NAME} use cases`,
+      `Four audience pages with real edits and stated limits: ${IMAGE_EDIT_USE_CASES.map((u) => `${u.name} (${BASE}/use-cases/${u.slug})`).join("; ")}.`,
     ),
     bullet(
       "/face-swap",
