@@ -9,19 +9,24 @@ import {
 
 const faqs = [
   {
+    question: "Can I try it without downloading anything?",
+    answer:
+      "Yes. Nano FaceStudio Online swaps up to six faces in one photo in your browser, and Nano ImageEdit 2.0 Online edits a photo by describing the change. Both need only a free account; new accounts start with free credits, and failed jobs are refunded. The desktop apps are for working offline on your own GPU.",
+  },
+  {
     question: "What GPU do I need to run these apps?",
     answer:
-      "An NVIDIA GPU with a minimum of 8 GB VRAM is required to run most applications. Only CUDA-enabled GPUs are currently supported. For optimal performance: Video Generation requires 16 GB+ VRAM; Image Generation, Image Editing & Video Enhancement require 10 GB+ VRAM. macOS and AMD GPU support are coming soon — stay tuned for updates.",
+      "An NVIDIA GPU with a minimum of 8 GB VRAM is required to run most applications. Only CUDA-enabled GPUs are currently supported. For optimal performance: Video Generation requires 16 GB+ VRAM; Image Generation, Image Editing & Video Enhancement require 10 GB+ VRAM. Nano ImageEnh Pro 3.0 also has a native Apple Silicon build; other Mac apps and AMD GPU support are on the roadmap. The online tools need no GPU at all.",
   },
   {
     question: "Is my data really private?",
     answer:
-      "Yes — 100%. All AI processing happens locally on your machine. No images or videos ever leave your computer. There are no cloud APIs, no telemetry, and no data collection. Your creations are entirely yours.",
+      "On the desktop apps, yes: all AI processing happens on your own machine and your images and videos never leave it. Only a license-activation handshake is sent. The online tools (Nano FaceStudio Online, Nano ImageEdit 2.0 Online) work differently: your photo is sent to a NanoPocket-hosted GPU for the length of the job and is not used to train any model. The /trust page has the full privacy summary.",
   },
   {
     question: "Do I need an internet connection?",
     answer:
-      "Only for the initial setup: downloading the app, activating your license, and downloading AI models. After that, everything runs completely offline. Perfect for air-gapped environments and fieldwork.",
+      "For the desktop apps, only for the initial setup: downloading the app, activating your license, and downloading AI models. After that, everything runs completely offline. Perfect for air-gapped environments and fieldwork.",
   },
   {
     question: "How does the licensing work?",
@@ -36,7 +41,7 @@ const faqs = [
   {
     question: "What operating systems are supported?",
     answer:
-      "Currently, all apps are available for Windows 10/11 (64-bit) with NVIDIA GPU support via CUDA. macOS and Linux support is on our roadmap — stay tuned for updates.",
+      "The desktop apps run on Windows 10/11 (64-bit) with an NVIDIA CUDA GPU. Nano ImageEnh Pro 3.0 also ships a native Apple Silicon build; other Mac apps and Linux are on the roadmap. The online tools run in any modern browser on any system.",
   },
   {
     question: "Are updates really free forever?",

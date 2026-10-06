@@ -165,26 +165,36 @@ export function HeroSection() {
             <h1 className="mb-6 text-balance text-center text-3xl font-bold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
               A whole AI studio, right in your pocket
             </h1>
+            <p className="mb-7 hidden max-w-2xl text-balance text-center text-sm text-white/85 sm:block sm:text-base md:text-lg">
+              Face swap and photo editing in your browser, free to start. Or download the
+              desktop apps and run everything offline on your own GPU.
+            </p>
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-              <Link href="/download">
+              <Link href="/face-swap">
                 <Button
                   size="lg"
                   className="group gap-2 rounded-full bg-white px-8 text-black shadow-lg hover:bg-neutral-100 hover:shadow-xl transition-all"
                 >
-                  <Download className="h-4 w-4" />
-                  Download Free
+                  <Play className="h-4 w-4" />
+                  Try Face Swap Free
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
-              <Link href="/#demo">
+              <Link href="/image-edit">
                 <Button
                   variant="outline"
                   size="lg"
                   className="group gap-2 rounded-full px-8 border-white/30 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all"
                 >
-                  <Play className="h-4 w-4" />
-                  Watch Demo
+                  Edit a Photo with AI
                 </Button>
+              </Link>
+              <Link
+                href="/download"
+                className="hidden items-center gap-2 text-sm font-medium text-white/85 underline-offset-4 hover:text-white hover:underline sm:inline-flex"
+              >
+                <Download className="h-4 w-4" />
+                Download desktop apps
               </Link>
             </div>
           </div>

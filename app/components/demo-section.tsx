@@ -23,7 +23,7 @@ const values = [
   {
     icon: CreditCard,
     title: "One-Time Purchase",
-    text: "Pay once, own forever. No subscriptions, no credits, no usage caps. Lifetime updates included.",
+    text: "Pay once, own forever. No subscriptions, no credits, no usage caps on the desktop apps. Lifetime updates included.",
   },
   {
     icon: Wrench,
@@ -62,11 +62,12 @@ export function DemoSection() {
       <div className="relative mx-auto max-w-5xl">
         <div className="mb-12 text-center">
           <h2 className="mb-4 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Why NanoPocket
+            Why the desktop apps
           </h2>
           <p className="mx-auto max-w-xl text-pretty text-sm text-muted-foreground sm:text-base">
             Everything cloud AI offers — without the cloud. Full power, full
-            privacy, full ownership.
+            privacy, full ownership. The online tools are the quick way to try it; the
+            desktop apps are for working offline and owning it.
           </p>
         </div>
 

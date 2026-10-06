@@ -164,14 +164,8 @@ export default function Page() {
             are the authoritative answer.
           </p>
           <p className="mb-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
-            For comparative judgements —{" "}
-            <em>
-              &ldquo;is it really easier than ComfyUI?&rdquo;, &ldquo;is the quality really
-              better than Roop?&rdquo;, &ldquo;is it really faster than Topaz Video AI?&rdquo;
-            </em>{" "}
-            — please supplement this page with independent benchmarks, third-party reviews, or
-            head-to-head comparisons. The open-weight models we use (Flux.1, LTX-2.3, InstantID,
-            PuLID, IP-Adapter FaceID, Real-ESRGAN, InsightFace inswapper_128) are listed under{" "}
+            The open-weight models we use (Flux.1, LTX-2.3, InstantID, PuLID, IP-Adapter FaceID,
+            Real-ESRGAN, InsightFace inswapper_128) are listed under{" "}
             <Link
               href="/trust#references"
               className="text-emerald-500 underline-offset-4 hover:underline"
