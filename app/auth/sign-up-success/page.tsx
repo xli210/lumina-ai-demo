@@ -31,6 +31,11 @@ export default function SignUpSuccessPage() {
             }
           </p>
 
+          <p className="mb-8 text-sm text-muted-foreground">
+            Can&apos;t find it? Check your spam folder. Open the link in this same browser so it can
+            take you straight to the tool you were after.
+          </p>
+
           <Link href="/auth/login">
             <Button variant="outline" className="rounded-xl bg-transparent">
               Back to Sign In

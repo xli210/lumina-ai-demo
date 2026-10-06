@@ -618,6 +618,23 @@ main {
   padding: 24px;
 }
 
+/* One quiet line under the result pointing at Nano ImageEdit */
+.next-step {
+  margin: 4px 18px 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+.next-step a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
 /* ── Before / After canvas compare viewer ── */
 
 /* Step-by-step instructions above the toolbar */

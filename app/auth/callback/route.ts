@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
+import { NEXT_COOKIE, safeNext } from "@/lib/auth-next";
 
 /**
  * Map raw Supabase/PKCE errors to user-friendly messages.
@@ -20,7 +22,10 @@ function friendlyCallbackError(raw: string): string {
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/account";
+  // Query string first, then the cookie set before the provider / email trip.
+  const jar = await cookies();
+  const safeDest =
+    safeNext(searchParams.get("next")) ?? safeNext(jar.get(NEXT_COOKIE)?.value) ?? "/account";
   const errorParam = searchParams.get("error");
   const errorDescription = searchParams.get("error_description");
 
@@ -33,14 +38,13 @@ export async function GET(request: Request) {
   }
 
   // Prevent open-redirect attacks: only allow relative paths on this origin
-  const safeNext =
-    next.startsWith("/") && !next.startsWith("//") ? next : "/account";
 
   if (code) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      return NextResponse.redirect(`${origin}${safeNext}`);
+      jar.delete(NEXT_COOKIE);
+      return NextResponse.redirect(`${origin}${safeDest}`);
     }
     const msg = friendlyCallbackError(error.message);
     return NextResponse.redirect(

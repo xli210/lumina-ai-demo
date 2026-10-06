@@ -1,8 +1,9 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
+import { NEXT_COOKIE, NEXT_COOKIE_MAX_AGE_S, safeNext } from "@/lib/auth-next";
 
 // ──────────────────────────────────────────────────────────────────
 // Site-URL detection
@@ -62,6 +63,25 @@ function friendlyError(raw: string): string {
 // ──────────────────────────────────────────────────────────────────
 // Email / Password Login
 // ──────────────────────────────────────────────────────────────────
+// Remember where the visitor was going, for the trip through the provider or the
+// confirmation email (see lib/auth-next.ts). Clears any stale value when none.
+async function rememberNext(raw: unknown): Promise<string | null> {
+  const next = safeNext(raw);
+  const jar = await cookies();
+  if (next) {
+    jar.set(NEXT_COOKIE, next, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: NEXT_COOKIE_MAX_AGE_S,
+    });
+  } else {
+    jar.delete(NEXT_COOKIE);
+  }
+  return next;
+}
+
 export async function login(formData: FormData) {
   const supabase = await createClient();
 
@@ -81,7 +101,7 @@ export async function login(formData: FormData) {
     redirect(`/auth/login?error=${encodeURIComponent(friendlyError(error.message))}`);
   }
 
-  redirect("/account");
+  redirect(safeNext(formData.get("next")) ?? "/account");
 }
 
 // ──────────────────────────────────────────────────────────────────
@@ -103,6 +123,7 @@ export async function signup(formData: FormData) {
   }
 
   const siteUrl = await getSiteUrl();
+  await rememberNext(formData.get("next"));
 
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -162,9 +183,10 @@ export async function forgotPassword(formData: FormData) {
 // ──────────────────────────────────────────────────────────────────
 // Google OAuth
 // ──────────────────────────────────────────────────────────────────
-export async function signInWithGoogle() {
+export async function signInWithGoogle(next?: string) {
   const supabase = await createClient();
   const siteUrl = await getSiteUrl();
+  await rememberNext(next);
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
@@ -191,9 +213,10 @@ export async function signInWithGoogle() {
 // ──────────────────────────────────────────────────────────────────
 // GitHub OAuth
 // ──────────────────────────────────────────────────────────────────
-export async function signInWithGitHub() {
+export async function signInWithGitHub(next?: string) {
   const supabase = await createClient();
   const siteUrl = await getSiteUrl();
+  await rememberNext(next);
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "github",

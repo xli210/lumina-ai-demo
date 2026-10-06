@@ -9,6 +9,7 @@ import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { signup, signInWithGoogle, signInWithGitHub } from "../actions";
 import { Wordmark } from "@/app/components/wordmark";
+import { safeNext } from "@/lib/auth-next";
 
 function SignUpForm() {
   const searchParams = useSearchParams();
@@ -16,6 +17,9 @@ function SignUpForm() {
   const [oauthLoading, setOauthLoading] = useState<string | null>(null);
 
   const errorMsg = searchParams.get("error");
+  // Where the visitor was going when middleware sent them here.
+  const next = safeNext(searchParams.get("next"));
+  const withNext = (path: string) => (next ? `${path}?next=${encodeURIComponent(next)}` : path);
 
   async function handleSignup(formData: FormData) {
     setLoading(true);
@@ -30,7 +34,7 @@ function SignUpForm() {
   async function handleGoogle() {
     setOauthLoading("google");
     try {
-      await signInWithGoogle();
+      await signInWithGoogle(next ?? undefined);
     } catch {
       // Server action redirects
     }
@@ -40,7 +44,7 @@ function SignUpForm() {
   async function handleGitHub() {
     setOauthLoading("github");
     try {
-      await signInWithGitHub();
+      await signInWithGitHub(next ?? undefined);
     } catch {
       // Server action redirects
     }
@@ -144,6 +148,7 @@ function SignUpForm() {
           </div>
 
           <form action={handleSignup} className="flex flex-col gap-5">
+            <input type="hidden" name="next" value={next ?? ""} />
             <div className="flex flex-col gap-2">
               <Label htmlFor="displayName" className="text-foreground">
                 Display Name
@@ -210,7 +215,7 @@ function SignUpForm() {
           <div className="mt-6 text-center text-sm text-muted-foreground">
             Already have an account?{" "}
             <Link
-              href="/auth/login"
+              href={withNext("/auth/login")}
               className="font-medium text-primary hover:underline"
             >
               Sign in

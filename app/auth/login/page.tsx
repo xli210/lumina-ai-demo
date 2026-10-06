@@ -9,6 +9,7 @@ import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { login, signInWithGoogle, signInWithGitHub } from "../actions";
 import { Wordmark } from "@/app/components/wordmark";
+import { safeNext } from "@/lib/auth-next";
 
 function LoginForm() {
   const searchParams = useSearchParams();
@@ -16,6 +17,9 @@ function LoginForm() {
   const [oauthLoading, setOauthLoading] = useState<string | null>(null);
 
   const errorMsg = searchParams.get("error");
+  // Where the visitor was going when middleware sent them here.
+  const next = safeNext(searchParams.get("next"));
+  const withNext = (path: string) => (next ? `${path}?next=${encodeURIComponent(next)}` : path);
   const successMsg = searchParams.get("message");
 
   async function handleLogin(formData: FormData) {
@@ -31,7 +35,7 @@ function LoginForm() {
   async function handleGoogle() {
     setOauthLoading("google");
     try {
-      await signInWithGoogle();
+      await signInWithGoogle(next ?? undefined);
     } catch {
       // Server action redirects
     }
@@ -41,7 +45,7 @@ function LoginForm() {
   async function handleGitHub() {
     setOauthLoading("github");
     try {
-      await signInWithGitHub();
+      await signInWithGitHub(next ?? undefined);
     } catch {
       // Server action redirects
     }
@@ -150,6 +154,7 @@ function LoginForm() {
           </div>
 
           <form action={handleLogin} className="flex flex-col gap-5">
+            <input type="hidden" name="next" value={next ?? ""} />
             <div className="flex flex-col gap-2">
               <Label htmlFor="email" className="text-foreground">
                 Email
@@ -208,7 +213,7 @@ function LoginForm() {
           <div className="mt-6 text-center text-sm text-muted-foreground">
             {"Don't have an account? "}
             <Link
-              href="/auth/sign-up"
+              href={withNext("/auth/sign-up")}
               className="font-medium text-primary hover:underline"
             >
               Sign up
