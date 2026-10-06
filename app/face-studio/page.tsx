@@ -28,7 +28,6 @@ import {
   HEAD_SWAP_CREDITS,
   HEAD_SWAP_USD,
   PERFORMANCE,
-  RIVALS,
   usd,
 } from "@/lib/face-studio-facts";
 import { FACESTUDIO_MAX_FACES, FREE_DAILY_CREDITS } from "@/lib/facestudio";
@@ -312,80 +311,21 @@ export default function FaceStudioLandingPage() {
         </div>
       </section>
 
-      {/* Price comparison */}
-      <section className="px-6 py-14">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="text-2xl font-bold text-foreground">
-            How the price compares
-          </h2>
-          <p className="mt-2 max-w-3xl text-muted-foreground">
-            Per-image cost for one photo face swap, normalised to USD from each
-            vendor&apos;s own credit units. Checked against vendor pricing pages
-            on {FACTS_VERIFIED}. We are not the cheapest, and the table says so.
-          </p>
-
-          <div className="mt-7 overflow-x-auto">
-            <table className="w-full min-w-[720px] border-collapse text-sm">
-              <thead>
-                <tr className="border-b border-border text-left">
-                  <th className="pb-3 pr-4 font-semibold text-foreground">Service</th>
-                  <th className="pb-3 pr-4 font-semibold text-foreground">Per image</th>
-                  <th className="pb-3 pr-4 font-semibold text-foreground">Free tier</th>
-                  <th className="pb-3 pr-4 font-semibold text-foreground">Max output</th>
-                  <th className="pb-3 pr-4 font-semibold text-foreground">Head swap</th>
-                  <th className="pb-3 pr-4 font-semibold text-foreground">Occlusion control</th>
-                  <th className="pb-3 font-semibold text-foreground">Credits expire</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-border bg-primary/5">
-                  <td className="py-3 pr-4 font-semibold text-primary">Nano FaceStudio Online</td>
-                  <td className="py-3 pr-4 tabular-nums text-foreground">
-                    {usd(FACE_SWAP_USD)}
-                  </td>
-                  <td className="py-3 pr-4 text-foreground">
-                    {FREE_RENDERS_PER_DAY}/day, no watermark
-                  </td>
-                  <td className="py-3 pr-4 text-foreground">4080×4080</td>
-                  <td className="py-3 pr-4 text-foreground">Yes</td>
-                  <td className="py-3 pr-4 text-foreground">Yes, per face</td>
-                  <td className="py-3 text-foreground">Never</td>
-                </tr>
-                {RIVALS.map((r) => (
-                  <tr key={r.name} className="border-b border-border">
-                    <td className="py-3 pr-4 text-foreground">{r.name}</td>
-                    <td className="py-3 pr-4 tabular-nums text-muted-foreground">
-                      {r.perImage}
-                    </td>
-                    <td className="py-3 pr-4 text-muted-foreground">{r.freeTier}</td>
-                    <td className="py-3 pr-4 text-muted-foreground">
-                      {r.maxResolution}
-                    </td>
-                    <td className="py-3 pr-4 text-muted-foreground">
-                      {r.headSwap ? "Yes" : "No"}
-                    </td>
-                    <td className="py-3 pr-4 text-muted-foreground">
-                      {r.occlusionControl ? "Yes" : "No"}
-                    </td>
-                    <td className="py-3 text-muted-foreground">
-                      {r.creditsExpire ? "Monthly" : "Never"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <p className="mt-4 text-xs text-muted-foreground">
-            The Nano FaceStudio Online row is a one-face render, which is what the other
-            rows are. We charge per face, so a six-face group render is six
-            times that — and against a tool that bills per photo, a crowded
-            photo is where we are most expensive. Akool also bills per face.
-            Magic Hour is roughly eight times cheaper on a single face and
-            gives five free swaps a day without an account; if price is the
-            only thing that matters for your use, it is the better choice.
-            Nano FaceStudio Online is priced for the cases where occlusion control, head
-            swap, or full-resolution output decide the result.
+      {/* Where to compare. The price table that used to be here told visitors
+          a rival was eight times cheaper, which sent buyers away from the page
+          meant to convert them. Comparisons live under /compare, for people who
+          went looking for one; the facts stay in lib/face-studio-facts.ts. */}
+      <section className="px-6 py-10">
+        <div className="mx-auto max-w-5xl rounded-3xl border border-primary/10 bg-primary/5 p-6 sm:p-8">
+          <h2 className="text-xl font-bold text-foreground">Comparing face swap tools?</h2>
+          <p className="mt-2 max-w-3xl text-sm text-muted-foreground sm:text-base">
+            Head swap, per-face control over what stays from the original, and
+            output up to 4080×4080 with no watermark are what Nano FaceStudio
+            Online is built around. Side-by-side pages with sources are in{" "}
+            <Link href="/compare" className="font-medium text-primary underline-offset-4 hover:underline">
+              our comparisons
+            </Link>
+            .
           </p>
         </div>
       </section>
