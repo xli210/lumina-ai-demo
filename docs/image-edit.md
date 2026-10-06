@@ -58,19 +58,21 @@ Do not apply it to `imageedit/samples/`. The R2 token cannot set lifecycle rules
 
 ## 2. Price
 
-**50 credits ($0.50) per finished edit; each variation is an edit.** Failed and
+**30 credits ($0.30) per finished edit; each variation is an edit.** Failed and
 cancelled edits are refunded in full (reserve-then-settle, as Face Studio).
-It was 30 credits for the first day.
+It was 30 credits on the first day, 50 until 2026-10-06, and 30 again after the
+first week showed almost nobody trying the tool at 50.
 
 Measured on 2026-10-01: a 12-step remove billed 26–32 s on an H100, the owner's
 estimate is $0.05 per edit, and the cold start (no worker up) queued 50 s.
-50 credits is a ~90% margin before Stripe fees, which take a large share of a
+30 credits is roughly an 80% margin before Stripe fees, which take a large share of a
 $5 pack, and before edits that fail after the GPU has run (refunded, so the
 successful ones carry them).
 
-It is above the free daily allowance (30, shared with Face Studio), so the
-allowance alone never pays for an edit. Free edits come from the welcome grant
-(100 credits, two edits), which is limited to one claim per device and per
+It equals the free daily allowance (30, shared with Face Studio), so an account
+that has spent its welcome credits can still make one edit a day for free: about
+$0.05 per active free account per day. The welcome grant (100 credits, three
+edits) is limited to one claim per device and per
 network (`docs/credit-system.md`). Do not advertise a number of free edits per
 day: it depends on that rule and the allowance can change.
 

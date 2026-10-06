@@ -44,7 +44,7 @@ Check each community's self-promotion rules first. Several ban or restrict them.
 >
 > I built an in-browser editor where you describe an edit ("remove the silver sedan parked at the curb") and the model changes only that region. For object edits it keeps every other pixel identical and reports the share of the image that changed, 4.15% in this street example. Whole-photo tools (season, relight, restore) are labelled as such because they are not pixel-identical.
 >
-> It is generative, so runs differ and it can fail: in one test I could not get it to remove a small sign stand from a window sill by description alone (three tries, it reported no change). The page lists limits like that. 50 credits ($0.50) per edit, no subscription, free credits on signup.
+> It is generative, so runs differ and it can fail: in one test I could not get it to remove a small sign stand from a window sill by description alone (three tries, it reported no change). The page lists limits like that. 30 credits ($0.30) per edit, no subscription, free credits on signup.
 >
 > Real before/after examples with the exact prompts: https://nanopocket.ai/image-edit?utm_source=hn&utm_medium=social&utm_campaign=launch
 >

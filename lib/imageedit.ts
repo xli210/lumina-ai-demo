@@ -22,16 +22,21 @@ export const IMAGEEDIT_SERVICE = "imageedit";
  * own edit and its own GPU job, so it is charged separately.
  *
  * Measured cost is about $0.05 per edit: ~26-32 s billed on an H100 for the
- * warm path, plus the cold start when no worker is up. 50 credits ($0.50) is a
- * ~90% margin before Stripe fees, which take a large share of a small pack,
- * and before edits that fail after the GPU has run: those are refunded in
+ * warm path, plus the cold start when no worker is up. 30 credits ($0.30) is
+ * roughly an 80% margin before Stripe fees, which take a large share of a small
+ * pack, and before edits that fail after the GPU has run: those are refunded in
  * full, so the successful edits have to carry them.
  *
- * It is deliberately above the free daily allowance (FREE_DAILY_CREDITS, 30):
- * the allowance alone never pays for an edit. Free edits come from the welcome
- * grant, which is the part limited to one claim per person.
+ * It equals the free daily allowance (FREE_DAILY_CREDITS, 30), so an account
+ * that has spent its welcome credits can still make one edit a day for free.
+ * That is a deliberate cost (about $0.05 per active free account per day), not
+ * an accident: raising either number changes it. Free edits otherwise come from
+ * the welcome grant, which is the part limited to one claim per person.
+ *
+ * It was 30 for the first day, then 50, then 30 again on 2026-10-06 because
+ * almost nobody tried the tool at 50.
  */
-export const IMAGEEDIT_CREDITS_PER_EDIT = 50;
+export const IMAGEEDIT_CREDITS_PER_EDIT = 30;
 
 export const IMAGEEDIT_MAX_VARIATIONS = 4;
 

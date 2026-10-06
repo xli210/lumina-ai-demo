@@ -131,7 +131,9 @@ export async function startEdit(params: {
   return callUpstream("/ie/api/run", {
     method: "POST",
     json: { src_key: params.srcKey, out_prefix: params.outPrefix, req: params.req },
-    timeoutMs: 30_000,
+    // Long enough for a sleeping gateway to wake (about 32 s measured) and then
+    // queue the job. The route's own limit is 60 s, so this stays below it.
+    timeoutMs: 50_000,
   });
 }
 

@@ -4,7 +4,7 @@
 // results come back as redirects to presigned R2 GETs. See docs/image-edit.md.
 const $ = (id) => document.getElementById(id);
 const API = "/api/imageedit";
-const COST = 50; // credits per edit; the server is the source of truth (lib/imageedit.ts)
+const COST = 30; // credits per edit; the server is the source of truth (lib/imageedit.ts)
 const MAX_SIDE = 4096; // long side after in-browser re-encode; iOS cannot allocate a larger canvas
 const KEEP = " Keep everything else in the image exactly the same.";
 
@@ -94,8 +94,24 @@ let credits = null;
 function setCredits(n) {
   if (typeof n !== "number") return;
   credits = n;
+  renderCredits();
+}
+// The pill is always a way to top up; below the price of one edit it turns into
+// the call to action, and a short banner under Generate says what to do next.
+function renderCredits() {
+  if (credits === null) return;
+  const low = credits < COST;
   const p = $("creditsPill");
-  if (p) p.textContent = `${n} credits`;
+  if (p) {
+    p.textContent = low ? "Out of credits · Buy more" : `${credits} credits · Top up`;
+    p.classList.toggle("low", low);
+  }
+  const box = $("lowCredits");
+  if (box) {
+    box.hidden = !low;
+    const t = $("lowCreditsText");
+    if (t) t.textContent = `You have ${credits} credits and an edit costs ${COST}.`;
+  }
 }
 async function refreshCredits() {
   try {
@@ -724,6 +740,8 @@ function init() {
     for (const s of list) $("samples").append(el("button", { title: s.name, style: `background-image:url(/image-edit/samples/${s.name}_t.jpg)`, onclick: () => useSample(s.name) }));
   }).catch(() => {});
   refreshCredits();
+  // Wake the gateway while the person picks a photo (see app/api/imageedit/warm).
+  fetch("/api/imageedit/warm", { method: "POST" }).catch(() => {});
   $("browseBtn").onclick = () => $("fileInput").click();
   $("drop").onclick = (e) => { if (e.target === $("drop")) $("fileInput").click(); };
   $("newBtn").onclick = () => $("fileInput").click();

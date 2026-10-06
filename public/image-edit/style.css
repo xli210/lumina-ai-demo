@@ -194,3 +194,10 @@ details .field:first-of-type { margin-top: 12px; }
 @keyframes pop { from { transform: translateY(8px); opacity: 0; } }
 
 @media (max-width: 1280px) { .workspace { grid-template-columns: 70px 260px 1fr 230px; } .samples { grid-template-columns: repeat(4, 104px); } }
+
+/* Out of credits: the pill and the banner under Generate */
+.btn.ghost.low { border-color: var(--warn); color: var(--warn); }
+.low-credits { margin-top: 12px; padding: 12px 14px; border: 1px solid var(--warn); border-radius: 10px;
+  background: #ffb54714; font-size: 12.5px; line-height: 1.55; display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.low-credits[hidden] { display: none; }
+.low-credits .btn { height: 30px; font-size: 12.5px; }
