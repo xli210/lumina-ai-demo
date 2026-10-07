@@ -38,8 +38,9 @@ const nextConfig = {
       // (desktop). Send old links and search results to the real pages.
       { source: "/apps/nano-faceswap-pro", destination: "/face-studio", permanent: true },
       {
+        // The illustrated feature tour now lives on /face-studio itself.
         source: "/apps/nano-faceswap-pro/features",
-        destination: "/apps/nano-facestudio-pro",
+        destination: "/face-studio#features",
         permanent: true,
       },
     ];
