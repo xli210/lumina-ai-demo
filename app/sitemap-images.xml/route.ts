@@ -29,6 +29,7 @@ interface PageImageGroup {
 }
 
 import { IMAGE_EDIT_EXAMPLES, IMAGE_EDIT_OG } from "@/lib/image-edit-examples";
+import { FACE_STUDIO_OG, SHOWCASE_IMAGES } from "@/lib/face-studio-showcase";
 
 const LICENSE = `${BASE}/terms`;
 
@@ -148,36 +149,17 @@ const IMAGE_GROUPS: PageImageGroup[] = [
     page: `${BASE}/face-studio`,
     images: [
       {
-        src: `${BASE}/images/faceswap-pro/image1.png`,
-        title: "Nano FaceStudio Online — diffusion swap example",
-        caption:
-          "Example output from Nano FaceStudio Online, the diffusion-based face-swap pipeline that runs in the browser; the same identity stack powers the desktop Nano FaceStudio Pro 1.0.",
+        src: `${BASE}${FACE_STUDIO_OG.src}`,
+        title: "Nano FaceStudio Online: swap every face, keep everything else",
+        caption: FACE_STUDIO_OG.alt,
         license: LICENSE,
       },
-      {
-        src: `${BASE}/images/faceswap-pro/image2.png`,
-        title: "Nano FaceStudio Online — second example",
-        caption: "Second diffusion face-swap example from Nano FaceStudio Online.",
+      ...SHOWCASE_IMAGES.map(({ image, title }) => ({
+        src: `${BASE}${image.src}`,
+        title: `Nano FaceStudio Online: ${title}`,
+        caption: image.alt,
         license: LICENSE,
-      },
-      {
-        src: `${BASE}/images/faceswap-pro/image3.png`,
-        title: "Nano FaceStudio Online — third example",
-        caption: "Third diffusion face-swap example from Nano FaceStudio Online.",
-        license: LICENSE,
-      },
-      {
-        src: `${BASE}/images/faceswap-pro/image4.png`,
-        title: "Nano FaceStudio Online — fourth example",
-        caption: "Fourth diffusion face-swap example from Nano FaceStudio Online.",
-        license: LICENSE,
-      },
-      {
-        src: `${BASE}/images/faceswap-pro/image5.png`,
-        title: "Nano FaceStudio Online — fifth example",
-        caption: "Fifth diffusion face-swap example from Nano FaceStudio Online.",
-        license: LICENSE,
-      },
+      })),
     ],
   },
   {

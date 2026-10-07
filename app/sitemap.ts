@@ -55,7 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // "Try online" button on the site — now lands on it.
     {
       url: `${BASE}/face-studio`,
-      lastModified: new Date("2026-09-27"),
+      lastModified: new Date("2026-10-06"),
       changeFrequency: "weekly",
       priority: 0.95,
     },
