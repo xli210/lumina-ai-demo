@@ -36,10 +36,12 @@ from __future__ import annotations
 
 import argparse
 import base64
+import http.client
 import json
 import os
 import re
 import secrets
+import socket
 import threading
 import time
 import urllib.error
@@ -49,7 +51,7 @@ import uuid
 import boto3
 from botocore.exceptions import ClientError
 from fastapi import APIRouter, Depends, FastAPI, HTTPException
-from fastapi.responses import Response
+from fastapi.responses import JSONResponse, Response
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, Field
 
@@ -83,7 +85,14 @@ MODES = ("face_swap", "head_swap")
 # Typical warm times, for the progress bar only.
 EXPECTED_S = {"face_swap": 20.0, "head_swap": 35.0}
 # Bounded so the caller's 60 s function timeout is never the thing that fires.
+# Only the old synchronous /detect route uses it.
 DETECT_TIMEOUT_S = 45.0
+# How long a job may sit IN_QUEUE (no GPU yet) before it is cancelled. The slowest
+# start measured on 2026-10-07 was 405 s, for a fresh host pulling the image.
+STARTING_UP_LIMIT_S = 900
+# Every job input carries this, so the worker answers with stable error codes
+# (see docs/face-studio-worker-contract.md).
+API_VERSION = 2
 
 S3 = boto3.client(
     "s3", endpoint_url=os.environ.get("S3_ENDPOINT") or None,
@@ -118,6 +127,93 @@ def require_token(
 
 
 # ---------------------------------------------------------------------------
+# Errors
+#
+# One shape for every failure the browser can see, whether it came from the
+# worker, from RunPod, or from this service. `error_code` is stable and is what
+# the page switches on; `error_message` is English and safe to show. Codes the
+# worker sends are listed in docs/face-studio-worker-contract.md. The ones this
+# service adds: gpu_unavailable, worker_crashed, job_timed_out, job_cancelled,
+# gpu_service_unreachable, gpu_service_error, bad_worker_response, job_not_found,
+# missing_field, invalid_mode.
+# ---------------------------------------------------------------------------
+def _error(code, message, kind="server", retryable=False, field=None, details=None):
+    return {"ok": False, "error_code": code, "error_message": message,
+            "error_kind": kind, "retryable": retryable,
+            "field": field, "details": details or {}}
+
+
+class GatewayError(Exception):
+    """A failure with a ready-made error body and HTTP status."""
+
+    def __init__(self, error: dict, status: int):
+        super().__init__(error["error_message"])
+        self.error = error
+        self.status = status
+
+
+class UpstreamError(GatewayError):
+    """RunPod could not be reached, or answered with an error status."""
+
+    def __init__(self, code, message, retryable=True, http_status=None):
+        super().__init__(_error(code, message, retryable=retryable,
+                                details={"http_status": http_status}), 502)
+
+
+# The worker adds these for diagnostics. They are logged, never sent on.
+_PRIVATE_KEYS = ("worker", "diag", "timing", "timing_cpu", "timing_majflt")
+
+
+def _public(result: dict) -> dict:
+    """What the browser may see of a worker output or error object."""
+    out = {k: v for k, v in result.items() if k not in _PRIVATE_KEYS}
+    if out.get("ok") is False and out.get("error_kind") == "server":
+        # details.reason holds the worker's exception text.
+        out["details"] = {}
+    return out
+
+
+def read_job(st: dict) -> dict:
+    """Turn a finished RunPod job into the worker output (ok: True) or an
+    error object (ok: False), in one fixed shape."""
+    status = st.get("status")
+    out = st.get("output") if isinstance(st.get("output"), dict) else {}
+    if status == "COMPLETED":
+        if out.get("ok") is True:
+            return out
+        if out.get("ok") is False and out.get("error_code"):
+            return out
+        if "ok" not in out and not out.get("error"):
+            # A job submitted before api_version 2 was sent, finishing during
+            # a deploy: the old output has no `ok`. Treat it as the success it is.
+            return {**out, "ok": True}
+        return _error("bad_worker_response", "The GPU worker returned an unexpected response.")
+    if status == "FAILED":
+        try:
+            info = json.loads(st.get("error") or "")
+            if isinstance(info, dict) and info.get("error_code"):
+                return info
+        except (TypeError, ValueError):
+            pass
+        # Plain text or nothing: the worker process died mid-job.
+        return _error("worker_crashed", "The GPU worker stopped unexpectedly. Please try again.",
+                      retryable=True, details={"raw": str(st.get("error") or "")[:300]})
+    if status == "TIMED_OUT":
+        return _error("job_timed_out", "This took too long and was stopped. Please try again.",
+                      retryable=True)
+    if status == "CANCELLED":
+        return _error("job_cancelled", "The job was cancelled.", retryable=True)
+    return _error("bad_worker_response", f"Unexpected job status {status!r}.")
+
+
+def _log_failure(job_id: str, result: dict) -> None:
+    """One log line per failed job, with the worker's own details (never sent on)."""
+    print(json.dumps({"job_failed": job_id, "error_code": result.get("error_code"),
+                      "kind": result.get("error_kind"), "field": result.get("field"),
+                      "details": result.get("details")}, default=str)[:900], flush=True)
+
+
+# ---------------------------------------------------------------------------
 # RunPod
 # ---------------------------------------------------------------------------
 def runpod(method: str, path: str, body: dict | None = None, timeout: int = 60,
@@ -131,10 +227,18 @@ def runpod(method: str, path: str, body: dict | None = None, timeout: int = 60,
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
             return json.load(r)
-    except urllib.error.HTTPError as e:
-        raise HTTPException(502, f"GPU service error {e.code}")
-    except urllib.error.URLError:
-        raise HTTPException(502, "GPU service unreachable")
+    except urllib.error.HTTPError as e:  # RunPod answered with an error status
+        busy = e.code in (429, 500, 502, 503, 504)
+        raise UpstreamError("gpu_service_error",
+                            "The GPU service is having trouble. Please try again.",
+                            retryable=busy, http_status=e.code) from e
+    # HTTPError is a URLError, so it has to be caught first. A read that times out
+    # raises socket.timeout / TimeoutError, which is neither, and used to escape as
+    # an HTTP 500.
+    except (urllib.error.URLError, socket.timeout, TimeoutError, ConnectionError,
+            http.client.HTTPException, ValueError) as e:
+        raise UpstreamError("gpu_service_unreachable",
+                            "Could not reach the GPU service. Please try again.") from e
 
 
 def input_url(name: str) -> str:
@@ -166,6 +270,16 @@ def check_job_id(job_id: str) -> str:
 
 # ---------------------------------------------------------------------------
 app = FastAPI()
+
+
+@app.exception_handler(GatewayError)
+async def _gateway_error(_request, exc: GatewayError):
+    """Every failure this service produces, in the standard body. `detail` is
+    kept so callers written before the error codes existed still show a message."""
+    print(json.dumps({"gateway_error": exc.error["error_code"], "status": exc.status,
+                      "details": exc.error.get("details")}, default=str)[:600], flush=True)
+    return JSONResponse({"state": "error", **_public(exc.error), "detail": exc.error["error_message"]},
+                        status_code=exc.status)
 
 # Everything under /v5/api requires the token. /healthz is mounted on the app
 # itself, because Render's health check cannot present one.
@@ -211,21 +325,30 @@ def v5_visit():
             return {"ok": True, "skipped": True}
         _last_warm = time.time()
     # A 64x64 grey JPEG is small enough to inline, so this path needs no
-    # storage round trip.
-    blank = base64.b64decode(
-        "/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8U"
-        "HRofHh0aHBwcJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPDIzNP/AABEIAEAAQAMBIgAC"
-        "EQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQD"
-        "BQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZ"
-        "GiUmJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeI"
-        "iYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk"
-        "5ebn6Onq8fLz9PX29/j5+v/aAAwDAQACEQMRAD8A9/oAKACgD//Z"
+    # storage round trip. (The previous constant was not a decodable image: the
+    # worker rejected it every time. It still woke the GPU, but each warm-up
+    # counted as a failed job.)
+    blank = (
+        "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR"
+        "0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgV"
+        "GC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2"
+        "NjY2NjY2NjY2P/wAARCABAAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAA"
+        "AAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhBy"
+        "JxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpT"
+        "VFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqr"
+        "KztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QA"
+        "HwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQ"
+        "J3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRom"
+        "JygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiI"
+        "mKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk"
+        "5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwAooooAKKKKACiiigAooooAKKKKAC"
+        "iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/9k="
     )
     try:
         runpod("POST", "/run", {"input": {
-            "action": "detect", "segmentation": False,
-            "body_image": base64.b64encode(blank).decode()}})
-    except HTTPException:
+            "api_version": API_VERSION, "action": "detect", "segmentation": False,
+            "body_image": blank}}, timeout=20)
+    except UpstreamError:
         pass
     return {"ok": True}
 
@@ -261,32 +384,76 @@ def v5_uploads(body: UploadRequest):
     }
 
 
+def _detect_input(name: str) -> dict:
+    return {"api_version": API_VERSION, "action": "detect", "body_image": input_url(name)}
+
+
 @api.post("/detect")
 def v5_detect(body: DetectRequest):
-    """Find faces in an already-uploaded photo.
+    """Find faces in an already-uploaded photo, waiting for the answer.
 
-    Synchronous: the console cannot draw its face cards until it has them.
-    The wait is capped at DETECT_TIMEOUT_S so the caller's function timeout is
-    never what fires — this way the user sees our message, not a bare 504.
+    Kept for pages that have not moved to /detect/start yet. A cold start longer
+    than DETECT_TIMEOUT_S fails here; the asynchronous routes below do not.
     """
     name = check_storage_key(body.input_key, "input_key")
-    st = runpod(
-        "POST", "/runsync",
-        {"input": {"action": "detect", "body_image": input_url(name)}},
-        timeout=int(DETECT_TIMEOUT_S) + 10,
-    )
+    st = runpod("POST", "/run", {"input": _detect_input(name)}, timeout=30)
     t0 = time.time()
     while st.get("status") in ("IN_QUEUE", "IN_PROGRESS"):
         if time.time() - t0 > DETECT_TIMEOUT_S:
             runpod("POST", f"/cancel/{st['id']}")
-            raise HTTPException(504, "The GPU is busy. Please try again.")
+            raise GatewayError(_error("gpu_unavailable", "The GPU is busy. Please try again.",
+                                      retryable=True), 504)
         time.sleep(0.5)
         st = runpod("GET", f"/status/{st['id']}")
-    out = st.get("output") or {}
-    if st.get("status") != "COMPLETED" or out.get("error"):
-        raise HTTPException(502, out.get("error") or "Face detection failed.")
-    return {"detection_id": name, "count": out.get("count", 0),
-            "max_faces": out.get("max_faces", 6), "faces": out.get("faces", [])}
+    result = read_job(st)
+    if not result.get("ok"):
+        _log_failure(st.get("id", "?"), result)
+        raise GatewayError(_public(result), 400 if result.get("error_kind") == "user" else 502)
+    return {"detection_id": name, "count": result.get("count", 0),
+            "max_faces": result.get("max_faces", 6), "faces": result.get("faces", [])}
+
+
+@api.post("/detect/start")
+def v5_detect_start(body: DetectRequest):
+    """Queue a detect job and return at once; the page polls /detect/status.
+
+    Detect is the first GPU job of every session, so it absorbs the whole cold
+    start (0.4 s warm, up to ~400 s on a fresh host). Holding the browser's
+    request open through that is what produced "Timed out waiting for a GPU".
+    """
+    name = check_storage_key(body.input_key, "input_key")
+    job = runpod("POST", "/run", {"input": _detect_input(name)}, timeout=20)
+    if not job.get("id"):
+        raise UpstreamError("gpu_service_error", "The GPU service did not accept the job.")
+    # The submit time rides in the id, so this service keeps no state.
+    return {"job_id": f"{job['id']}.{int(time.time())}", "state": "starting"}
+
+
+_DETECT_JOB_ID = re.compile(r"^([A-Za-z0-9-]{8,80})\.(\d{9,11})$")
+
+
+@api.get("/detect/status/{job_id}")
+def v5_detect_status(job_id: str):
+    m = _DETECT_JOB_ID.match(job_id or "")
+    if not m:
+        raise GatewayError(_error("job_not_found", "Unknown job.", kind="user"), 404)
+    rp_id, started = m.group(1), int(m.group(2))
+    waited = max(0, int(time.time()) - started)
+    st = runpod("GET", f"/status/{rp_id}", timeout=20)
+    status = st.get("status")
+    if status == "IN_QUEUE":
+        if waited > STARTING_UP_LIMIT_S:
+            runpod("POST", f"/cancel/{rp_id}", timeout=15)
+            return {"state": "error", **_error(
+                "gpu_unavailable", "No GPU became available. Please try again in a minute.",
+                retryable=True, details={"waited_s": waited})}
+        return {"state": "starting", "waited_s": waited}
+    if status == "IN_PROGRESS":
+        return {"state": "processing", "waited_s": waited}
+    result = read_job(st)
+    if not result.get("ok"):
+        _log_failure(rp_id, result)
+    return {"state": "done" if result.get("ok") else "error", **_public(result)}
 
 
 @api.post("/generate")
@@ -299,11 +466,14 @@ def v5_generate(body: GenerateRequest):
     """
     det = check_storage_key(body.detection_id, "detection_id")
     if body.mode not in MODES:
-        raise HTTPException(400, f"unknown mode {body.mode!r}")
+        raise GatewayError(_error("invalid_mode", "That swap mode is not available.",
+                                  kind="user", field="mode"), 400)
     if not body.refs:
-        raise HTTPException(400, "Upload a reference for at least one face.")
+        raise GatewayError(_error("missing_field", "Upload a reference for at least one face.",
+                                  kind="user", field="refs"), 400)
     if body.mode == "head_swap" and len(body.refs) != 1:
-        raise HTTPException(400, "Head swap works on exactly one face.")
+        raise GatewayError(_error("head_swap_needs_one_face", "Head swap works on exactly one face.",
+                                  kind="user", field="body_image"), 400)
 
     refs = {
         index: input_url(check_storage_key(key, f"refs[{index}]"))
@@ -311,7 +481,7 @@ def v5_generate(body: GenerateRequest):
     }
 
     job = runpod("POST", "/run", {"input": {
-        "action": "generate", "mode": body.mode,
+        "api_version": API_VERSION, "action": "generate", "mode": body.mode,
         "body_image": input_url(det), "refs": refs,
         "options": (
             {"preserve_classes_map": body.preserve_classes_map}
@@ -324,23 +494,31 @@ def v5_generate(body: GenerateRequest):
 
 @api.get("/status/{job_id}")
 def v5_status(job_id: str):
-    st = runpod("GET", f"/status/{check_job_id(job_id)}")
+    """State of a render.
+
+    `status` (queued | running | done | error) is what the Vercel route settles
+    credits on, and is unchanged. `state` and the error fields are the same
+    information in the shared shape the page reads.
+    """
+    st = runpod("GET", f"/status/{check_job_id(job_id)}", timeout=20)
     status = st.get("status")
-    out = st.get("output") or {}
     elapsed = (st.get("delayTime", 0) + st.get("executionTime", 0)) / 1000
-    if status == "COMPLETED" and not out.get("error"):
-        return {"status": "done", "progress_pct": 1.0,
-                "elapsed_seconds": round(elapsed, 1)}
-    if status in ("FAILED", "CANCELLED", "TIMED_OUT") or out.get("error"):
-        return {"status": "error", "error": out.get("error") or "Generation failed.",
-                "elapsed_seconds": round(elapsed, 1)}
+    if status in ("COMPLETED", "FAILED", "TIMED_OUT", "CANCELLED"):
+        result = read_job(st)
+        if result.get("ok"):
+            return {"status": "done", "state": "done", "ok": True, "progress_pct": 1.0,
+                    "elapsed_seconds": round(elapsed, 1)}
+        _log_failure(job_id, result)
+        public = _public(result)
+        return {"status": "error", "state": "error", **public,
+                "error": public["error_message"], "elapsed_seconds": round(elapsed, 1)}
     if status == "IN_QUEUE":
-        return {"status": "queued", "progress_pct": 0.0, "elapsed_seconds": 0}
+        return {"status": "queued", "state": "starting", "progress_pct": 0.0, "elapsed_seconds": 0}
     # RunPod reports no timings until the job ends, so a running job's elapsed
     # time is counted from when this instance first saw it running.
     started = _running_since.setdefault(job_id, time.time())
     run_s = time.time() - started
-    return {"status": "running",
+    return {"status": "running", "state": "processing",
             "progress_pct": min(0.95, run_s / EXPECTED_S.get(_modes.get(job_id), 30.0)),
             "elapsed_seconds": round(run_s, 1)}
 
