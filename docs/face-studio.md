@@ -1,6 +1,6 @@
 # Nano FaceStudio Online
 
-The credit-metered face swap at `/face-studio`, with a free daily allowance so
+The credit-metered face swap at `/face-studio`, with a free allowance so
 every signed-in account can use it without paying.
 
 This is what **Nano FaceStudio Online** now serves. Its Cloudflare tunnel was
@@ -55,10 +55,21 @@ picture. Akool also bills per face. The comparison table on `/face-studio`
 states this rather than hiding it, and quotes our single-face price in the
 row so the comparison is like-for-like.
 
-### The free daily allowance
+### The free allowance
 
-Every signed-in account is topped up to `FREE_DAILY_CREDITS` (30 — three face
-swaps) once per UTC day. Credits are the *upgrade*, not the toll gate.
+A signed-in account is topped up to `FREE_TOPUP_CREDITS` (30: three face swaps, or
+one Nano ImageEdit) when its balance is below that. An account that has never
+bought credits is topped up at most `FREE_TOPUPS_PER_WINDOW` (2) times in any
+`FREE_TOPUP_WINDOW_DAYS` (7) days, and never twice in one UTC day; an account
+that has bought credits is topped up whenever it runs low. Credits are the
+*upgrade*, not the toll gate.
+
+It was once per UTC day for everyone until 2026-10-08. That is a standing wage
+for anyone willing to open several accounts, and it removed any reason to pay
+for a person who needs one edit a day. All copy quotes the rule through
+`FREE_ALLOWANCE_SHORT` / `FREE_TOPUP_FREQUENCY`, so changing the constants in
+`lib/facestudio.ts` changes the pages; the static console
+(`public/face-studio/index.html`, `app.js`) repeats it and must be edited by hand.
 
 This is not a nicety. "Free for every signed-in NanoPocket account" is
 published in fourteen files, including the homepage FAQ's `FAQPage` JSON-LD
@@ -66,7 +77,7 @@ and `/trust`, and `free online face swap` is a keyword the product pages rank
 on. A paid-only tool would have meant rewriting all of it — and two of those
 files are currently empty in the working tree, so two CTAs would have gone on
 saying "Try free online" while charging. A free tier costs ~$0.024 of GPU per
-active user per day and keeps every published claim true.
+top-up and keeps every published claim true.
 
 Implemented as a `promo` grant through `ensureDailyAllowance`, not as a
 parallel quota counter. That makes a free render indistinguishable from a paid

@@ -115,7 +115,7 @@ const productJsonLd = {
 const faqs: { q: string; a: string }[] = [
   {
     q: "How is Nano FaceStudio Pro different from Nano FaceStudio Online?",
-    a: "Nano FaceStudio Online is the browser edition: it swaps faces and whole heads, billed per face in prepaid credits with a free daily allowance, on NanoPocket-hosted GPUs. Nano FaceStudio Pro is the local desktop edition, a one-time license that runs 100% on your own GPU with no per-image fee, and it is the broader studio: multi-face swap with per-region protection, mask edit, expression editing, face vivid restoration, full-image upscale, auto light adjust, and precision crop in one unified desktop UI. Both use the same diffusion identity stack.",
+    a: "Nano FaceStudio Online is the browser edition: it swaps faces and whole heads, billed per face in prepaid credits with a free allowance, on NanoPocket-hosted GPUs. Nano FaceStudio Pro is the local desktop edition, a one-time license that runs 100% on your own GPU with no per-image fee, and it is the broader studio: multi-face swap with per-region protection, mask edit, expression editing, face vivid restoration, full-image upscale, auto light adjust, and precision crop in one unified desktop UI. Both use the same diffusion identity stack.",
   },
   {
     q: "What are the seven bundled tools?",

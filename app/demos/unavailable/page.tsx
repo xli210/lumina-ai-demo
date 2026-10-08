@@ -19,7 +19,7 @@ import {
   type DemoEntry,
   type DemoId,
 } from "@/lib/demos";
-import { FREE_RENDERS_PER_DAY } from "@/lib/face-studio-facts";
+import { FREE_ALLOWANCE_SHORT } from "@/lib/face-studio-facts";
 
 /**
  * /demos/unavailable?id=<demo>
@@ -119,7 +119,7 @@ export default async function DemoUnavailablePage({ searchParams }: PageProps) {
                       <p className="font-semibold text-foreground">{alt.name}</p>
                       <p className="mt-0.5 text-sm text-muted-foreground">
                         {alt.id === "image"
-                          ? `Photo face swap on our own GPUs — up to six faces at once, full resolution, no watermark. ${FREE_RENDERS_PER_DAY} free renders every day.`
+                          ? `Photo face swap on our own GPUs — up to six faces at once, full resolution, no watermark. ${FREE_ALLOWANCE_SHORT}.`
                           : "Live now."}
                       </p>
                     </div>

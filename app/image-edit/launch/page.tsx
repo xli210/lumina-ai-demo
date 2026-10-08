@@ -15,7 +15,7 @@ import { provisionCredits } from "@/lib/facestudio-gate";
  * sample photos, but not the bare `/image-edit` landing page.
  *
  * Renders nothing — it establishes the session, makes sure the account has its
- * welcome credits and today's free allowance, then hands over to the static
+ * welcome credits and any free top-up that is due, then hands over to the static
  * app. Kept out of the index for the same reason a redirect should never be a
  * search result.
  */

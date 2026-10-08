@@ -281,7 +281,7 @@ const data: ProductLandingData = {
     },
     {
       q: "Should I get this or Nano FaceStudio Pro 1.0?",
-      a: "Nano FaceSwap (this app) is the inswapper-class desktop swap, available today. Nano FaceStudio Pro 1.0 is the diffusion upgrade, with multi-face swap, mask edit, expression editing, Face Vivid, upscale, light adjust, and crop in one app. Nano FaceStudio Online, its browser edition, gives every signed-in NanoPocket account free renders each day.",
+      a: "Nano FaceSwap (this app) is the inswapper-class desktop swap, available today. Nano FaceStudio Pro 1.0 is the diffusion upgrade, with multi-face swap, mask edit, expression editing, Face Vivid, upscale, light adjust, and crop in one app. Nano FaceStudio Online, its browser edition, gives every signed-in NanoPocket account a free allowance of renders.",
     },
     {
       q: "Do my photos and videos stay private?",

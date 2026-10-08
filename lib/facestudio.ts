@@ -103,20 +103,34 @@ export const FACESTUDIO_MIN_PRICE = Math.min(
 export const DETECT_MIN_BALANCE = FACESTUDIO_MIN_PRICE;
 
 /**
- * What every signed-in account is topped up to, free, once per UTC day.
+ * What a signed-in account is topped up to, free, when it runs low.
  *
- * 30 credits is three face swaps, costing us at most ~$0.024 of GPU per
- * active user per day. This is what keeps "free for every signed-in account"
- * true — the claim is published across the site and in the homepage FAQ's
- * JSON-LD, so credits had to be an upgrade rather than a toll gate.
- *
- * It tops the balance *up to* this figure rather than adding to it, which is
- * the whole reason it is safe: an account that sat idle for a hundred days
+ * 30 credits is three face swaps or one Nano ImageEdit, costing us at most
+ * ~$0.05 of GPU. It tops the balance *up to* this figure rather than adding to
+ * it, which is why it is safe: an account that sat idle for a hundred days
  * still arrives with 30, not 3,000. The consequence is that someone holding a
- * purchased balance above 30 receives nothing, which is intended — the free
- * tier exists so people can try the thing, not as a discount on volume.
+ * balance above 30 receives nothing, which is intended: the free tier exists so
+ * people can try the thing, not as a discount on volume.
  */
-export const FREE_DAILY_CREDITS = 30;
+export const FREE_TOPUP_CREDITS = 30;
+
+/**
+ * How often a free top-up may happen, for an account that has never bought
+ * credits: at most this many times in any rolling window of
+ * FREE_TOPUP_WINDOW_DAYS days.
+ *
+ * It was once per UTC day. That is a standing wage for anyone willing to open
+ * several accounts, and it made paying for credits pointless for a person who
+ * needs one edit a day. Twice a week keeps the free tier a way to try the
+ * product and to come back to it, not a way to live on it. Accounts that have
+ * bought credits are not limited: see ensureDailyAllowance.
+ */
+export const FREE_TOPUPS_PER_WINDOW = 2;
+export const FREE_TOPUP_WINDOW_DAYS = 7;
+
+const TIMES = ["never", "once", "twice", "three times", "four times", "five times"];
+/** "twice a week", for copy. Derived, so it cannot disagree with the rule. */
+export const FREE_TOPUP_FREQUENCY = `${TIMES[FREE_TOPUPS_PER_WINDOW] ?? `${FREE_TOPUPS_PER_WINDOW} times`} a week`;
 
 /**
  * How long a reservation survives unsettled.

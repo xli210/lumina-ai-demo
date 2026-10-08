@@ -99,7 +99,7 @@ const DATA_CATEGORIES: DataCategory[] = [
     items:
       "A random device id held in a first-party cookie, and a one-way keyed hash of your IP address (an IPv6 address is reduced to its /64 first). Neither is stored in readable form, and the hash cannot be turned back into an address. We also record whether this account was allowed to receive free credits.",
     purpose:
-      "Stop one person collecting the free welcome credits and daily allowance again by opening several accounts.",
+      "Stop one person collecting the free welcome credits and top-ups again by opening several accounts.",
     basis: "Legitimate interest in preventing abuse (GDPR Art. 6(1)(f)).",
     retention:
       "The hashes are kept while the account exists and deleted with it. The IP hash only counts against a new account for 30 days.",

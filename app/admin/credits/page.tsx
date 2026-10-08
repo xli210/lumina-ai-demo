@@ -355,7 +355,7 @@ function Dashboard({
             sub={`${fmtUsd(givenAwayCredits(all))} at list price`}
           />
           <Metric
-            label="Daily allowance"
+            label="Free top-ups"
             value={fmtCredits(all.promo)}
             sub="promo grants"
           />

@@ -343,8 +343,10 @@ correctness rests on that idempotency key, not on the pre-check.
 
 ### One claim per device and network
 
-Free credits are the welcome grant **and** the daily top-up (the top-up is the
-larger leak: it is paid every day, per account). Both are limited by
+Free credits are the welcome grant **and** the free top-up (the top-up is the
+larger leak: it recurs, per account). The top-up is also rate-limited: at most
+twice in any rolling 7 days for an account that has never bought credits (counted
+from the ledger's `allowance:` promo grants; see `ensureDailyAllowance`). Both are limited by
 `free_credit_claim` (scripts/015, wrapped by `lib/free-claim.ts`):
 
 | Rule | Value |

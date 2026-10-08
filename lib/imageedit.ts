@@ -27,10 +27,11 @@ export const IMAGEEDIT_SERVICE = "imageedit";
  * pack, and before edits that fail after the GPU has run: those are refunded in
  * full, so the successful edits have to carry them.
  *
- * It equals the free daily allowance (FREE_DAILY_CREDITS, 30), so an account
- * that has spent its welcome credits can still make one edit a day for free.
- * That is a deliberate cost (about $0.05 per active free account per day), not
- * an accident: raising either number changes it. Free edits otherwise come from
+ * It equals the free top-up (FREE_TOPUP_CREDITS, 30), so an account that has
+ * spent its welcome credits can still make one edit per top-up. That is a
+ * deliberate cost (about $0.05 each, at most twice in any 7 days for an account
+ * that has never bought credits), not an accident: raising either number
+ * changes it. Free edits otherwise come from
  * the welcome grant, which is the part limited to one claim per person.
  *
  * It was 30 for the first day, then 50, then 30 again on 2026-10-06 because

@@ -2,14 +2,14 @@
   "FaceSwap": {
     "metadata": {
       "title": "무료 온라인 AI 페이스 스왑 — 설치 불필요, 구독 불필요 | NanoPocket",
-      "description": "브라우저에서 바로 실행되는 무료 AI 페이스 스왑입니다. 설치 불필요, 구독 불필요, GPU 불필요. Nano FaceStudio Online 는 사진 한 장 속 여러 얼굴을 원본 해상도 그대로, 워터마크 없이 바꿔 주며, 로그인한 계정에는 매일 무료 렌더링이 제공됩니다. 무료 계정으로 한 번만 로그인하면 바로 사용할 수 있습니다.",
+      "description": "브라우저에서 바로 실행되는 무료 AI 페이스 스왑입니다. 설치 불필요, 구독 불필요, GPU 불필요. Nano FaceStudio Online 는 사진 한 장 속 여러 얼굴을 원본 해상도 그대로, 워터마크 없이 바꿔 주며, 로그인한 계정에는 무료 렌더링이 제공됩니다. 무료 계정으로 한 번만 로그인하면 바로 사용할 수 있습니다.",
       "ogTitle": "무료 온라인 AI 페이스 스왑 — 브라우저에서 바로 실행",
-      "ogDescription": "브라우저에서 실행되는 디퓨전 (diffusion) 기반 페이스 스왑. 매일 무료 렌더링, 설치 불필요, 구독 불필요."
+      "ogDescription": "브라우저에서 실행되는 디퓨전 (diffusion) 기반 페이스 스왑. 무료 렌더링, 설치 불필요, 구독 불필요."
     },
     "hero": {
       "kicker": "무료 온라인 — 브라우저에서 바로 실행",
       "headline": "무료 온라인 AI 페이스 스왑. 설치 불필요. 구독 불필요.",
-      "subhead": "브라우저에서 동작하는 디퓨전 (diffusion) 기반 페이스 스왑입니다. 무료 NanoPocket 계정으로 한 번 로그인한 뒤 사진과 참조 얼굴을 업로드하면 몇 초 만에 결과를 받을 수 있습니다. 본인 기기에 GPU가 필요 없고 구독도 없으며, Nano FaceStudio Online 는 매일 무료 원본 해상도 렌더링을 제공합니다.",
+      "subhead": "브라우저에서 동작하는 디퓨전 (diffusion) 기반 페이스 스왑입니다. 무료 NanoPocket 계정으로 한 번 로그인한 뒤 사진과 참조 얼굴을 업로드하면 몇 초 만에 결과를 받을 수 있습니다. 본인 기기에 GPU가 필요 없고 구독도 없으며, Nano FaceStudio Online 는 무료 원본 해상도 렌더링을 제공합니다.",
       "lastVerifiedLabel": "최종 확인일",
       "openSpeed": "10초 이내에 브라우저에서 열 수 있습니다",
       "ctaPrimary": "이미지 데모 사용해보기",
@@ -126,7 +126,7 @@
       "items": [
         {
           "q": "온라인 페이스 스왑이 정말 무료인가요?",
-          "a": "네, 무료로 시작할 수 있습니다. Nano FaceStudio Online (구 Image FaceSwap Pro 2.0) 는 로그인한 모든 NanoPocket 계정에 매일 무료 원본 해상도 렌더링을 제공하고, 그 이상은 만료되지 않는 선불 크레딧으로 얼굴당 과금합니다. Video FaceSwap Pro 와 NanoFace Vivid 는 온라인 상태일 때 로그인한 계정이라면 무료입니다. 지금 어떤 데모를 쓸 수 있는지는 /status 에서 확인할 수 있습니다. 구독은 어디에도 없습니다. 로컬 데스크톱 버전인 Nano FaceStudio Pro 1.0 은 별도의, 선택 사항인 일회성 결제 제품입니다."
+          "a": "네, 무료로 시작할 수 있습니다. Nano FaceStudio Online (구 Image FaceSwap Pro 2.0) 는 로그인한 모든 NanoPocket 계정에 무료 원본 해상도 렌더링을 제공하고, 그 이상은 만료되지 않는 선불 크레딧으로 얼굴당 과금합니다. Video FaceSwap Pro 와 NanoFace Vivid 는 온라인 상태일 때 로그인한 계정이라면 무료입니다. 지금 어떤 데모를 쓸 수 있는지는 /status 에서 확인할 수 있습니다. 구독은 어디에도 없습니다. 로컬 데스크톱 버전인 Nano FaceStudio Pro 1.0 은 별도의, 선택 사항인 일회성 결제 제품입니다."
         },
         {
           "q": "계정이 필요한가요?",

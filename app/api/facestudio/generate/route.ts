@@ -16,7 +16,8 @@ import {
   FACESTUDIO_HOLD_TTL_SECONDS,
   FACESTUDIO_MAX_FACES,
   FACESTUDIO_SERVICE,
-  FREE_DAILY_CREDITS,
+  FREE_TOPUP_CREDITS,
+  FREE_TOPUP_FREQUENCY,
   creditsForJob,
   creditsForMode,
   isFaceStudioMode,
@@ -174,8 +175,8 @@ export async function POST(req: NextRequest) {
   const faceCount = Object.keys(parsed.refs).length;
   const price = creditsForJob(parsed.mode, faceCount);
 
-  // Hand out today's free allowance before reserving, so the first renders of
-  // the day are paid for by it rather than out of a purchased balance.
+  // Hand out a free top-up if one is due before reserving, so the first renders
+  // are paid for by it rather than out of a purchased balance.
   try {
     await provisionCredits(userId);
   } catch (err: unknown) {
@@ -233,8 +234,8 @@ export async function POST(req: NextRequest) {
         detail:
           `Swapping ${faceCount} face${faceCount === 1 ? "" : "s"} costs ` +
           `${price} credits and you have ${hold.available}. Swap fewer faces, ` +
-          `buy credits, or come back tomorrow for another ` +
-          `${FREE_DAILY_CREDITS} free.`,
+          `or buy credits. Free credits are topped up to ${FREE_TOPUP_CREDITS}, ` +
+          `${FREE_TOPUP_FREQUENCY}.`,
         reason: "insufficient_credits",
         required: price,
         available: hold.available,

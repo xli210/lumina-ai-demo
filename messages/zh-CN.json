@@ -2,14 +2,14 @@
   "FaceSwap": {
     "metadata": {
       "title": "免费在线 AI 换脸 — 无需安装、无需订阅 | NanoPocket",
-      "description": "免费的在线 AI 换脸工具，直接在浏览器里运行。无需安装，无需订阅，无需本地 GPU。Nano FaceStudio Online 可在一张照片里同时替换多张人脸，全分辨率、无水印，每个已登录账号每天都有免费渲染次数。注册一个免费账号，登录一次就能开始换脸。",
+      "description": "免费的在线 AI 换脸工具，直接在浏览器里运行。无需安装，无需订阅，无需本地 GPU。Nano FaceStudio Online 可在一张照片里同时替换多张人脸，全分辨率、无水印，每个已登录账号都有免费渲染额度。注册一个免费账号，登录一次就能开始换脸。",
       "ogTitle": "免费在线 AI 换脸 — 浏览器里直接运行",
-      "ogDescription": "扩散级 (diffusion) 换脸，全部在浏览器里运行。每天免费渲染、无需安装、无需订阅。"
+      "ogDescription": "扩散级 (diffusion) 换脸，全部在浏览器里运行。免费渲染、无需安装、无需订阅。"
     },
     "hero": {
       "kicker": "免费在线 — 浏览器里直接运行",
       "headline": "免费在线 AI 换脸。无需安装。无需订阅。",
-      "subhead": "扩散级 (diffusion) 换脸，全部在浏览器里运行。注册一个免费的 NanoPocket 账号，登录一次，上传照片和参考脸，几秒钟就能拿到结果。本地不需要 GPU，也没有订阅；Nano FaceStudio Online 每天都有免费的全分辨率渲染次数。",
+      "subhead": "扩散级 (diffusion) 换脸，全部在浏览器里运行。注册一个免费的 NanoPocket 账号，登录一次，上传照片和参考脸，几秒钟就能拿到结果。本地不需要 GPU，也没有订阅；Nano FaceStudio Online 提供免费的全分辨率渲染额度。",
       "lastVerifiedLabel": "最近验证于",
       "openSpeed": "10 秒内即可在浏览器中打开",
       "ctaPrimary": "试用图片换脸演示",
@@ -126,7 +126,7 @@
       "items": [
         {
           "q": "在线换脸真的免费吗？",
-          "a": "可以免费开始。Nano FaceStudio Online（原 Image FaceSwap Pro 2.0）每天为每个已登录的 NanoPocket 账号提供免费的全分辨率渲染次数，超出后按人脸扣除预付 credits，credits 永不过期。Video FaceSwap Pro 和 NanoFace Vivid 在线时对已登录账号免费；哪些演示当前可用，请看 /status。整个产品线都没有订阅。本地桌面版 Nano FaceStudio Pro 1.0 是另外一个可选的一次性买断产品。"
+          "a": "可以免费开始。Nano FaceStudio Online（原 Image FaceSwap Pro 2.0）为每个已登录的 NanoPocket 账号提供免费的全分辨率渲染额度，超出后按人脸扣除预付 credits，credits 永不过期。Video FaceSwap Pro 和 NanoFace Vivid 在线时对已登录账号免费；哪些演示当前可用，请看 /status。整个产品线都没有订阅。本地桌面版 Nano FaceStudio Pro 1.0 是另外一个可选的一次性买断产品。"
         },
         {
           "q": "需要账号吗？",
@@ -194,7 +194,7 @@
       "items": [
         {
           "title": "免费在线换脸，纯浏览器。",
-          "body": "Nano FaceStudio Online 可以在一张照片里替换多张人脸，全分辨率、无水印，每天都有免费渲染次数；/face-swap 上还有更多扩散级 (diffusion) 演示。无需安装、无需订阅、本地不需要 GPU。"
+          "body": "Nano FaceStudio Online 可以在一张照片里替换多张人脸，全分辨率、无水印，并提供免费渲染额度；/face-swap 上还有更多扩散级 (diffusion) 演示。无需安装、无需订阅、本地不需要 GPU。"
         },
         {
           "title": "扩散 (diffusion) 身份特征栈。",

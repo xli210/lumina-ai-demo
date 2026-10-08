@@ -415,7 +415,39 @@ async function isFreeEligible(
 }
 
 /**
- * Top an account up to a free daily allowance, once per UTC day.
+ * Free credits granted by top-ups to this account in the last `windowDays`
+ * days, or null if that could not be read.
+ *
+ * Counted from the ledger rather than a separate counter, for the reason the
+ * top-up is a `promo` grant at all: one source of truth, visible on the user's
+ * statement. The top-up's idempotency key starts with `allowance:`.
+ */
+async function countRecentTopUps(
+  userId: string,
+  windowDays: number
+): Promise<number | null> {
+  try {
+    const since = new Date(Date.now() - windowDays * 86_400_000).toISOString();
+    const supabase = createAdminClient();
+    const { count, error } = await supabase
+      .from("credit_ledger")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", userId)
+      .eq("kind", "promo")
+      .like("idempotency_key", "allowance:%")
+      .gte("created_at", since);
+    if (error) throw new Error(error.message);
+    return count ?? 0;
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    console.error("[credits] could not count recent top-ups:", message);
+    return null;
+  }
+}
+
+/**
+ * Top an account up to a free allowance, at most `maxPerWindow` times in any
+ * rolling `windowDays` days, and never twice in one UTC day.
  *
  * Deliberately a `promo` grant rather than a parallel quota counter, so a
  * free render is indistinguishable from a paid one everywhere downstream:
@@ -425,9 +457,15 @@ async function isFreeEligible(
  *
  * Tops *up to* `amount`, never adds to it. Adding would let an allowance
  * accumulate across idle days into a balance nobody paid for; topping up
- * bounds the free tier at `amount` per day no matter how long an account
+ * bounds the free tier at `amount` per top-up no matter how long an account
  * sits unused. An account already above the line gets nothing, and
  * `credit_grant` rejects a zero amount, so that case must not call it.
+ *
+ * The limit applies only to accounts that have never bought credits. Someone
+ * who has paid keeps a top-up whenever they run low: the free tier is for
+ * trying the product, and the people it should not be rationing are the ones
+ * who have shown they will pay. If the count cannot be read, nothing is
+ * granted: a free grant is the one thing that is safe to skip.
  *
  * The date in the idempotency key is what makes it once-daily.
  */
@@ -438,10 +476,18 @@ export async function ensureDailyAllowance(params: {
   service: string;
   /** UTC date as YYYY-MM-DD. */
   day: string;
+  /** Top-ups allowed per window for an account that has never bought. */
+  maxPerWindow?: number;
+  windowDays?: number;
 }): Promise<CreditAccountState> {
   const account = await getCreditAccount(params.userId);
   if (account.available >= params.amount) return account;
   if (!(await isFreeEligible(params.userId, account))) return account;
+
+  if (account.lifetime_purchased === 0 && params.maxPerWindow !== undefined) {
+    const used = await countRecentTopUps(params.userId, params.windowDays ?? 7);
+    if (used === null || used >= params.maxPerWindow) return account;
+  }
 
   return grantCredits({
     userId: params.userId,

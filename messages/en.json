@@ -2,14 +2,14 @@
   "FaceSwap": {
     "metadata": {
       "title": "Free Online AI Face Swap — No Install, No Subscription | NanoPocket",
-      "description": "Free online AI face swap that runs in your browser. No install, no subscription, no GPU required. Nano FaceStudio Online swaps multiple faces in one photo at full resolution with no watermark, with free renders every day for any signed-in account. Sign in once with a free account and start swapping.",
+      "description": "Free online AI face swap that runs in your browser. No install, no subscription, no GPU required. Nano FaceStudio Online swaps multiple faces in one photo at full resolution with no watermark, with a free allowance of renders for any signed-in account. Sign in once with a free account and start swapping.",
       "ogTitle": "Free Online AI Face Swap — runs in your browser",
-      "ogDescription": "Diffusion-grade face swap that runs in your browser. Free daily renders, no install, no subscription."
+      "ogDescription": "Diffusion-grade face swap that runs in your browser. Free renders to start, no install, no subscription."
     },
     "hero": {
       "kicker": "Free online — runs in your browser",
       "headline": "Free online AI face swap. No install. No subscription.",
-      "subhead": "Diffusion-grade face swap that runs in your browser. Sign in once with a free NanoPocket account, upload a photo and a reference face, and get a swap in seconds. No GPU required on your machine and no subscription; Nano FaceStudio Online includes free full-resolution renders every day.",
+      "subhead": "Diffusion-grade face swap that runs in your browser. Sign in once with a free NanoPocket account, upload a photo and a reference face, and get a swap in seconds. No GPU required on your machine and no subscription; Nano FaceStudio Online includes a free allowance of full-resolution renders.",
       "lastVerifiedLabel": "Last verified",
       "openSpeed": "Open in browser in under 10 seconds",
       "ctaPrimary": "Try the photo demo",
@@ -194,7 +194,7 @@
       "items": [
         {
           "title": "Free online face swap, browser-only.",
-          "body": "Nano FaceStudio Online swaps multiple faces in one photo at full resolution with no watermark, with free renders every day; more diffusion-grade demos live at /face-swap. No install, no subscription, no GPU required on your machine."
+          "body": "Nano FaceStudio Online swaps multiple faces in one photo at full resolution with no watermark, with a free allowance of renders; more diffusion-grade demos live at /face-swap. No install, no subscription, no GPU required on your machine."
         },
         {
           "title": "Diffusion identity stack.",

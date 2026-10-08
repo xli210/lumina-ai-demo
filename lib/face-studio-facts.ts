@@ -19,7 +19,10 @@
 
 import {
   FACESTUDIO_MAX_FACES,
-  FREE_DAILY_CREDITS,
+  FREE_TOPUP_CREDITS,
+  FREE_TOPUP_FREQUENCY,
+  FREE_TOPUPS_PER_WINDOW,
+  FREE_TOPUP_WINDOW_DAYS,
   creditsForMode,
 } from "@/lib/facestudio";
 import { CREDITS_PER_USD } from "@/lib/credits";
@@ -48,13 +51,16 @@ export const FACE_SWAP_USD = FACE_SWAP_CREDITS / CREDITS_PER_USD;
 export const HEAD_SWAP_USD = HEAD_SWAP_CREDITS / CREDITS_PER_USD;
 
 /**
- * Free single-face swaps per day. Single-face on purpose: quoting the
+ * Free single-face swaps per top-up. Single-face on purpose: quoting the
  * allowance in multi-face renders would understate it for the common case
  * and overstate what a group photo gets.
  */
-export const FREE_RENDERS_PER_DAY = Math.floor(
-  FREE_DAILY_CREDITS / FACE_SWAP_CREDITS
+export const FREE_RENDERS_PER_TOPUP = Math.floor(
+  FREE_TOPUP_CREDITS / FACE_SWAP_CREDITS
 );
+
+/** \"3 free swaps, topped up twice a week\": one phrase for every page, so it follows the rule. */
+export const FREE_ALLOWANCE_SHORT = `${FREE_RENDERS_PER_TOPUP} free swaps, topped up ${FREE_TOPUP_FREQUENCY}`;
 
 /** Rendered as `$0.10` — two decimals, because these are cents-precise. */
 export function usd(amount: number): string {
@@ -283,7 +289,7 @@ export const FACE_STUDIO_FAQ: readonly FactQA[] = [
   },
   {
     q: "Is there a free tier for Nano FaceStudio Online?",
-    a: `Yes. Every signed-in NanoPocket account is topped up to ${FREE_DAILY_CREDITS} credits each day, which is ${FREE_RENDERS_PER_DAY} single-face swaps per day at full resolution with no watermark, or one render replacing ${FREE_RENDERS_PER_DAY} faces at once. Face detection is always free. The allowance tops the balance up to ${FREE_DAILY_CREDITS} rather than adding to it, so it does not accumulate.`,
+    a: `Yes. A signed-in NanoPocket account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low, which is ${FREE_RENDERS_PER_TOPUP} single-face swaps at full resolution with no watermark, or one render replacing ${FREE_RENDERS_PER_TOPUP} faces at once. An account that has never bought credits is topped up at most ${FREE_TOPUPS_PER_WINDOW === 2 ? "twice" : `${FREE_TOPUPS_PER_WINDOW} times`} in any ${FREE_TOPUP_WINDOW_DAYS} days; one that has bought credits is topped up whenever it runs low. Face detection is always free. The top-up goes up to ${FREE_TOPUP_CREDITS} rather than adding to it, so it does not accumulate.`,
   },
   {
     q: "Can Nano FaceStudio Online swap more than one face in a photo?",
@@ -295,7 +301,7 @@ export const FACE_STUDIO_FAQ: readonly FactQA[] = [
   },
   {
     q: "What resolution does Nano FaceStudio Online output?",
-    a: "Results are returned at the source resolution, up to 4080×4080, as PNG of around 20 MB, with no watermark at any tier including the free daily allowance. Competing free and mid tiers commonly cap at 720p or 1080p and watermark output.",
+    a: "Results are returned at the source resolution, up to 4080×4080, as PNG of around 20 MB, with no watermark at any tier including the free allowance. Competing free and mid tiers commonly cap at 720p or 1080p and watermark output.",
   },
   {
     q: "Does Nano FaceStudio Online charge for a render that fails?",
@@ -315,7 +321,7 @@ export const FACE_STUDIO_FAQ: readonly FactQA[] = [
   },
   {
     q: "Is Nano FaceStudio Online the same as Nano FaceStudio Pro?",
-    a: "They are two editions of the same face studio, bought separately. Nano FaceStudio Online is the browser edition: a hosted cloud service billed per face in prepaid credits, with a free daily allowance, that swaps faces and whole heads. Nano FaceStudio Pro 1.0 is the local desktop edition: a one-time purchase that runs entirely on the user's own GPU with no metering, no subscription, and no per-image fee, and adds mask edit, expression editing, Face Vivid, upscale, light adjust, and crop (Windows now, macOS to follow). Both use the same diffusion identity stack. Buying credits does not affect a desktop license and owning a desktop license does not consume credits.",
+    a: "They are two editions of the same face studio, bought separately. Nano FaceStudio Online is the browser edition: a hosted cloud service billed per face in prepaid credits, with a free allowance, that swaps faces and whole heads. Nano FaceStudio Pro 1.0 is the local desktop edition: a one-time purchase that runs entirely on the user's own GPU with no metering, no subscription, and no per-image fee, and adds mask edit, expression editing, Face Vivid, upscale, light adjust, and crop (Windows now, macOS to follow). Both use the same diffusion identity stack. Buying credits does not affect a desktop license and owning a desktop license does not consume credits.",
   },
 ];
 

@@ -69,9 +69,9 @@ estimate is $0.05 per edit, and the cold start (no worker up) queued 50 s.
 $5 pack, and before edits that fail after the GPU has run (refunded, so the
 successful ones carry them).
 
-It equals the free daily allowance (30, shared with Face Studio), so an account
-that has spent its welcome credits can still make one edit a day for free: about
-$0.05 per active free account per day. The welcome grant (100 credits, three
+It equals the free top-up (30, shared with Face Studio), so an account that has
+spent its welcome credits can still make one edit per top-up: about $0.05 each,
+and at most twice in any 7 days for an account that has never bought credits. The welcome grant (100 credits, three
 edits) is limited to one claim per device and per
 network (`docs/credit-system.md`). Do not advertise a number of free edits per
 day: it depends on that rule and the allowance can change.

@@ -2,7 +2,7 @@ import { BLOG_POSTS } from "@/lib/blog-posts";
 import { appReleases } from "@/lib/release-data";
 import {
   FACE_SWAP_USD,
-  FREE_RENDERS_PER_DAY,
+  FREE_ALLOWANCE_SHORT,
   HEAD_SWAP_USD,
   usd,
 } from "@/lib/face-studio-facts";
@@ -43,7 +43,7 @@ function buildLlmsTxt(): string {
   const header = [
     "# NanoPocket",
     "",
-    `> NanoPocket is an independent AI product company. Its flagship online product is Nano FaceStudio Online at /face-studio, a hosted multi-face swap that replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo or an entire head, with per-face control over which original regions survive the swap and full-resolution unwatermarked output. Its online face-swap demos at /face-swap use a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). ${demoAvailabilityEn()} It also ships a local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) covering face swap, image and video upscaling, image and video generation, portrait retouch, and virtual try-on. There are no subscriptions anywhere in the product line. The desktop apps are one-time purchases with no per-image, per-minute, or per-frame fees. Nano FaceStudio Online is prepaid per render in credits that never expire, with ${FREE_RENDERS_PER_DAY} free full-resolution renders per day for any signed-in account. NanoPocket is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed website.`,
+    `> NanoPocket is an independent AI product company. Its flagship online product is Nano FaceStudio Online at /face-studio, a hosted multi-face swap that replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo or an entire head, with per-face control over which original regions survive the swap and full-resolution unwatermarked output. Its online face-swap demos at /face-swap use a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). ${demoAvailabilityEn()} It also ships a local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) covering face swap, image and video upscaling, image and video generation, portrait retouch, and virtual try-on. There are no subscriptions anywhere in the product line. The desktop apps are one-time purchases with no per-image, per-minute, or per-frame fees. Nano FaceStudio Online is prepaid per render in credits that never expire, with ${FREE_ALLOWANCE_SHORT}, at full resolution, for any signed-in account. NanoPocket is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed website.`,
     "",
     `Last updated: ${LAST_UPDATED}. Canonical version of this file: ${BASE}/llms.txt. Full content map: ${BASE}/llms-full.txt.`,
     "",
@@ -53,7 +53,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/face-studio",
       "Nano FaceStudio Online — multi-face swap with occlusion control (flagship, live)",
-      `NanoPocket's hosted face swap, and what Nano FaceStudio Online now runs on. Replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo, each with its own reference photo, or an entire head. Unique among browser face swaps in giving per-face control over which original regions survive the swap — hair, hands, glasses, anything crossing the face — chosen from a segmentation map returned per detected face; every other browser tool paints over them. Output is source resolution up to 4080x4080 with no watermark at any tier, where competing free and mid tiers cap at 720p or 1080p and watermark. ${FREE_RENDERS_PER_DAY} free full-resolution renders per day for any signed-in account; ${usd(
+      `NanoPocket's hosted face swap, and what Nano FaceStudio Online now runs on. Replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo, each with its own reference photo, or an entire head. Unique among browser face swaps in giving per-face control over which original regions survive the swap — hair, hands, glasses, anything crossing the face — chosen from a segmentation map returned per detected face; every other browser tool paints over them. Output is source resolution up to 4080x4080 with no watermark at any tier, where competing free and mid tiers cap at 720p or 1080p and watermark. ${FREE_ALLOWANCE_SHORT}, at full resolution, for any signed-in account; ${usd(
         FACE_SWAP_USD
       )} per face replaced and ${usd(
         HEAD_SWAP_USD

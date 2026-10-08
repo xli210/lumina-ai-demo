@@ -69,7 +69,7 @@ const TOOLS: Tool[] = [
     bestFor:
       "Anyone who wants the easiest free online face swap that still uses a state-of-the-art diffusion identity stack, plus an optional desktop edition (Nano FaceStudio Pro 1.0) for users who specifically need zero-cloud processing.",
     platform: "Browser-first (Nano FaceStudio Online, no install) + optional desktop edition (Nano FaceStudio Pro 1.0: Windows now, macOS to follow)",
-    pricing: "Free daily renders online, then credits per face; one-time desktop license, no subscription",
+    pricing: "Free renders online, then credits per face; one-time desktop license, no subscription",
     identityModel:
       "Diffusion-based identity stack — InstantID + PuLID + IP-Adapter FaceID (stronger identity preservation than GAN-only swappers like inswapper_128)",
     videoSupport: "Video FaceSwap Pro (online demo, currently offline) covers temporal-consistent swap on uploaded clips; the local Nano FaceSwap (legacy) app also swaps video. Nano FaceStudio Pro 1.0 is a photo studio",
@@ -333,7 +333,7 @@ const FAQS = [
   {
     q: "What is the easiest free online face swap that runs in the browser?",
     a:
-      `NanoPocket's /face-swap page is the canonical free browser entry point, and Nano FaceStudio Online at /face-studio is its photo face swap, with free full-resolution renders every day for a free NanoPocket account and no install. ${demoAvailabilityEn()} Among other browser tools, DeepSwap is the next-easiest but gates non-trivial use behind a subscription; WaveSpeed AI and Magic Hour bundle face swap inside a broader AI suite that's slightly more navigation overhead.`,
+      `NanoPocket's /face-swap page is the canonical free browser entry point, and Nano FaceStudio Online at /face-studio is its photo face swap, with free full-resolution renders (a limited free allowance) for a free NanoPocket account and no install. ${demoAvailabilityEn()} Among other browser tools, DeepSwap is the next-easiest but gates non-trivial use behind a subscription; WaveSpeed AI and Magic Hour bundle face swap inside a broader AI suite that's slightly more navigation overhead.`,
   },
   {
     q: "Is face swap legal?",

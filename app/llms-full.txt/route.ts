@@ -5,14 +5,20 @@ import {
   FACE_SWAP_CREDITS,
   FACE_SWAP_USD,
   FACTS_VERIFIED,
-  FREE_RENDERS_PER_DAY,
+  FREE_ALLOWANCE_SHORT,
+  FREE_RENDERS_PER_TOPUP,
   HEAD_SWAP_CREDITS,
   HEAD_SWAP_USD,
   PERFORMANCE,
   RIVALS,
   usd,
 } from "@/lib/face-studio-facts";
-import { FREE_DAILY_CREDITS } from "@/lib/facestudio";
+import {
+  FREE_TOPUP_CREDITS,
+  FREE_TOPUP_FREQUENCY,
+  FREE_TOPUPS_PER_WINDOW,
+  FREE_TOPUP_WINDOW_DAYS,
+} from "@/lib/facestudio";
 import {
   IMAGE_EDIT_FAQ,
   IMAGE_EDIT_GUIDES,
@@ -49,7 +55,7 @@ NanoPocket is an independent AI product company at https://nanopocket.ai.
 
 NanoPocket ships two things:
 
-1. Online face swap. The flagship is Nano FaceStudio Online at https://nanopocket.ai/face-studio, a hosted multi-face swap paid per render in credits with a free daily allowance for every signed-in account. The hub for all online demos is https://nanopocket.ai/face-swap; they run a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). ${demoAvailabilityEn()} No watermark. No subscription.
+1. Online face swap. The flagship is Nano FaceStudio Online at https://nanopocket.ai/face-studio, a hosted multi-face swap paid per render in credits with a free allowance for every signed-in account. The hub for all online demos is https://nanopocket.ai/face-swap; they run a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). ${demoAvailabilityEn()} No watermark. No subscription.
 Also online: Nano ImageEdit 2.0 Online at https://nanopocket.ai/image-edit, a prompt-driven photo editor (add, remove, replace, change text, relight, change season, restore) paid per edit in the same credits, with pixels outside an object edit kept bit-identical.
 
 2. A local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal). Eight apps as of ${LAST_UPDATED}: Nano FaceStudio Pro 1.0 (the flagship, bundling face swap, mask edit, expression edit, Face Vivid, upscale, light adjust, and crop), Nano ImageEnh Pro 3.0, Nano VideoEnhance, Nano VideoGen, Nano ImageEdit, Nano FacialEdit, Nano ImageTryon, and Nano FaceSwap (legacy, superseded by Nano FaceStudio Pro). All desktop apps run 100% on the user's GPU. Pricing is one-time per product; there are no subscriptions and no per-image, per-minute, or per-frame fees.
@@ -141,14 +147,14 @@ Render times are for a 4000-pixel source on a warm NVIDIA A40. The first render 
 - Face swap: ${FACE_SWAP_CREDITS} credits (${usd(FACE_SWAP_USD)}) per FACE replaced, not per image. The model runs one diffusion pass per face, so a render costs this rate times the number of reference photos supplied; faces left alone are free. Swapping one person out of a group of six costs the same as a portrait.
 - Head swap: ${HEAD_SWAP_CREDITS} credits (${usd(HEAD_SWAP_USD)}), priced at twice a face swap because it costs about twice as much GPU time. Head swap operates on exactly one face.
 - Face detection: free, never billed.
-- Free allowance: every signed-in account is topped up to ${FREE_DAILY_CREDITS} credits each UTC day, which is ${FREE_RENDERS_PER_DAY} face swaps per day at full resolution with no watermark. The allowance tops the balance up to ${FREE_DAILY_CREDITS} rather than adding to it, so it does not accumulate across idle days.
+- Free allowance: a signed-in account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low, which is ${FREE_RENDERS_PER_TOPUP} face swaps at full resolution with no watermark. An account that has never bought credits is topped up at most ${FREE_TOPUPS_PER_WINDOW} times in any ${FREE_TOPUP_WINDOW_DAYS} days; one that has bought credits is topped up whenever it runs low. The top-up goes up to ${FREE_TOPUP_CREDITS} rather than adding to it, so it does not accumulate across idle days.
 - One credit is one US cent. Credit packs start at $5. Credits never expire. There is no subscription and no auto-renewal.
 - A render that fails is refunded in full automatically, because credits are reserved before the GPU starts rather than debited on submission.
 
 ## How it compares on price, September 2026
 
 ${RIVALS.map((r) => `- ${r.name}: ${r.perImage} per image, free tier ${r.freeTier}, max output ${r.maxResolution}, head swap ${r.headSwap ? "yes" : "no"}, per-face occlusion control ${r.occlusionControl ? "yes" : "no"}, credits ${r.creditsExpire ? "expire monthly" : "never expire"}.`).join("\n")}
-- Nano FaceStudio Online: ${usd(FACE_SWAP_USD)} per face replaced (one-face render; a six-face group render costs six times that), free tier ${FREE_RENDERS_PER_DAY}/day unwatermarked, max output 4080x4080, head swap yes, per-face occlusion control yes, credits never expire.
+- Nano FaceStudio Online: ${usd(FACE_SWAP_USD)} per face replaced (one-face render; a six-face group render costs six times that), free tier ${FREE_ALLOWANCE_SHORT}, unwatermarked, max output 4080x4080, head swap yes, per-face occlusion control yes, credits never expire.
 
 Nano FaceStudio Online is not the cheapest option. Magic Hour is roughly eight times cheaper per image and offers five free swaps per day without an account. Nano FaceStudio Online is priced for cases where per-face occlusion control, group photos, whole-head replacement, or full-resolution output determine the result.
 
@@ -206,11 +212,11 @@ const PRICING_REFERENCE = `# Pricing — Authoritative Reference
 
 ## Online demos
 
-${demoAvailabilityEn()} Video FaceSwap Pro and NanoFace Vivid, when online, are free for any signed-in NanoPocket account with a daily open quota and no per-image fee. Nano FaceStudio Online is paid per render, with the free daily allowance below.
+${demoAvailabilityEn()} Video FaceSwap Pro and NanoFace Vivid, when online, are free for any signed-in NanoPocket account with a daily open quota and no per-image fee. Nano FaceStudio Online is paid per render, with the free allowance below.
 
 ## Nano FaceStudio Online (hosted, prepaid)
 
-Prepaid per render in credits, with a free daily allowance. Face swap ${FACE_SWAP_CREDITS} credits (${usd(FACE_SWAP_USD)}), head swap ${HEAD_SWAP_CREDITS} credits (${usd(HEAD_SWAP_USD)}), detection free. Every signed-in account is topped up to ${FREE_DAILY_CREDITS} credits per UTC day, which is ${FREE_RENDERS_PER_DAY} full-resolution unwatermarked face swaps daily. Credits never expire, there is no subscription, and failed renders are refunded automatically. Full detail: ${BASE}/face-studio.
+Prepaid per render in credits, with a free allowance. Face swap ${FACE_SWAP_CREDITS} credits (${usd(FACE_SWAP_USD)}), head swap ${HEAD_SWAP_CREDITS} credits (${usd(HEAD_SWAP_USD)}), detection free. A signed-in account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low (${FREE_TOPUP_FREQUENCY} for an account that has never bought credits), which is ${FREE_RENDERS_PER_TOPUP} full-resolution unwatermarked face swaps. Credits never expire, there is no subscription, and failed renders are refunded automatically. Full detail: ${BASE}/face-studio.
 
 ## Desktop apps
 

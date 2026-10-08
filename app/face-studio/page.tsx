@@ -14,13 +14,14 @@ import {
   FACE_SWAP_CREDITS,
   FACE_SWAP_USD,
   FACTS_VERIFIED,
-  FREE_RENDERS_PER_DAY,
+  FREE_ALLOWANCE_SHORT,
+  FREE_RENDERS_PER_TOPUP,
   HEAD_SWAP_CREDITS,
   HEAD_SWAP_USD,
   PERFORMANCE,
   usd,
 } from "@/lib/face-studio-facts";
-import { FACESTUDIO_MAX_FACES, FREE_DAILY_CREDITS } from "@/lib/facestudio";
+import { FACESTUDIO_MAX_FACES, FREE_TOPUP_CREDITS, FREE_TOPUP_FREQUENCY } from "@/lib/facestudio";
 import { FACE_STUDIO_OG, SHOWCASE, SHOWCASE_IMAGES, type ShowImage } from "@/lib/face-studio-showcase";
 
 /**
@@ -44,7 +45,7 @@ const abs = (path: string) => `https://nanopocket.ai${path}`;
 const TITLE = "Nano FaceStudio Online: Multi-Face Swap That Keeps Hair & Hands";
 const DESCRIPTION = `Swap up to ${FACESTUDIO_MAX_FACES} faces in one photo, or a whole head, and keep the hair, hands, glasses and jewellery that cross the face. Full resolution, no watermark. ${usd(
   FACE_SWAP_USD,
-)} per face, ${FREE_RENDERS_PER_DAY} free swaps a day, no subscription.`;
+)} per face, ${FREE_ALLOWANCE_SHORT}, no subscription.`;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -114,10 +115,10 @@ const softwareJsonLd = {
     },
     {
       "@type": "Offer",
-      name: "Free daily allowance",
+      name: "Free allowance",
       price: "0",
       priceCurrency: "USD",
-      description: `Every signed-in account is topped up to ${FREE_DAILY_CREDITS} credits per day, which is ${FREE_RENDERS_PER_DAY} full-resolution unwatermarked face swaps. Face detection is always free.`,
+      description: `A signed-in account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low (${FREE_TOPUP_FREQUENCY} for an account that has never bought credits), which is ${FREE_RENDERS_PER_TOPUP} full-resolution unwatermarked face swaps. Face detection is always free.`,
       url: PAGE_URL,
     },
   ],
@@ -264,7 +265,7 @@ export default function FaceStudioLandingPage() {
     { value: String(FACESTUDIO_MAX_FACES), label: "faces in one photo" },
     { value: "4080 px", label: "output, no watermark" },
     { value: usd(FACE_SWAP_USD), label: "per face swapped" },
-    { value: String(FREE_RENDERS_PER_DAY), label: "free swaps every day" },
+    { value: String(FREE_RENDERS_PER_TOPUP), label: `free swaps, topped up ${FREE_TOPUP_FREQUENCY}` },
   ];
 
   return (
@@ -310,7 +311,7 @@ export default function FaceStudioLandingPage() {
               </a>
             </div>
             <p className="mt-5 text-xs text-white/50">
-              {FREE_RENDERS_PER_DAY} free swaps a day for any signed-in account · then {usd(FACE_SWAP_USD)} per face ·
+              {FREE_ALLOWANCE_SHORT} for any signed-in account · then {usd(FACE_SWAP_USD)} per face ·
               credits never expire · failed renders refunded
             </p>
           </div>
@@ -537,7 +538,7 @@ export default function FaceStudioLandingPage() {
         <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl bg-neutral-950 text-white">
           <div className="grid gap-px bg-white/10 md:grid-cols-3">
             {[
-              { name: "Free every day", price: "$0", note: `Topped up to ${FREE_DAILY_CREDITS} credits daily: ${FREE_RENDERS_PER_DAY} face swaps at full resolution, no watermark.` },
+              { name: "Free allowance", price: "$0", note: `Topped up to ${FREE_TOPUP_CREDITS} credits when you run low, ${FREE_TOPUP_FREQUENCY}: ${FREE_RENDERS_PER_TOPUP} face swaps at full resolution, no watermark. Accounts that have bought credits are topped up whenever they run low.` },
               { name: "Face swap", price: usd(FACE_SWAP_USD), note: `${FACE_SWAP_CREDITS} credits per face you replace. Faces you leave alone are free.` },
               { name: "Head swap", price: usd(HEAD_SWAP_USD), note: `${HEAD_SWAP_CREDITS} credits, one head per render.` },
             ].map((p) => (

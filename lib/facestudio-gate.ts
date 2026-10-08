@@ -11,7 +11,10 @@ import {
 import {
   DETECT_MIN_BALANCE,
   FACESTUDIO_SERVICE,
-  FREE_DAILY_CREDITS,
+  FREE_TOPUP_CREDITS,
+  FREE_TOPUP_FREQUENCY,
+  FREE_TOPUPS_PER_WINDOW,
+  FREE_TOPUP_WINDOW_DAYS,
   isFaceStudioJobId,
 } from "@/lib/facestudio";
 import { todayUtc } from "@/lib/demo-quota";
@@ -64,7 +67,8 @@ async function currentUserId(): Promise<string | null> {
  * Bring an account's credits up to date before anything reads them.
  *
  * Two grants, both idempotent: the one-off welcome credits, and the free
- * daily allowance that keeps Nano FaceStudio Online usable without paying. Called by
+ * top-up (limited per week for accounts that have never bought credits) that
+ * keeps Nano FaceStudio Online usable without paying. Called by
  * every gate rather than on a schedule, so it costs nothing for accounts
  * that never visit.
  */
@@ -74,9 +78,11 @@ export async function provisionCredits(
   await ensureSignupGrant(userId);
   return ensureDailyAllowance({
     userId,
-    amount: FREE_DAILY_CREDITS,
+    amount: FREE_TOPUP_CREDITS,
     service: FACESTUDIO_SERVICE,
     day: todayUtc(),
+    maxPerWindow: FREE_TOPUPS_PER_WINDOW,
+    windowDays: FREE_TOPUP_WINDOW_DAYS,
   });
 }
 
@@ -128,8 +134,8 @@ export async function requireSpendableBalance(): Promise<FaceStudioGate> {
       response: privateJson(
         {
           detail:
-            `You have used today's free renders. Buy credits to keep going, ` +
-            `or come back tomorrow for another ${FREE_DAILY_CREDITS}.`,
+            `You have used your free credits. Buy credits to keep going; free ` +
+            `credits are topped up to ${FREE_TOPUP_CREDITS}, ${FREE_TOPUP_FREQUENCY}.`,
           reason: "insufficient_credits",
           required: DETECT_MIN_BALANCE,
           available: account.available,
