@@ -29,8 +29,8 @@ export const IMAGEEDIT_SERVICE = "imageedit";
  *
  * It equals the free top-up (FREE_TOPUP_CREDITS, 30), so an account that has
  * spent its welcome credits can still make one edit per top-up. That is a
- * deliberate cost (about $0.05 each, at most twice in any 7 days for an account
- * that has never bought credits), not an accident: raising either number
+ * deliberate cost (about $0.05 each, at most three times in any 30 days for an
+ * account that has never bought credits), not an accident: raising either number
  * changes it. Free edits otherwise come from
  * the welcome grant, which is the part limited to one claim per person.
  *

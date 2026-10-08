@@ -1,6 +1,7 @@
 import "server-only";
 
 import { createAdminClient } from "@/lib/supabase/admin";
+import { longestWindowDays, topUpAllowed, type TopUpLimit } from "@/lib/free-topup";
 import { createClient as createSessionClient } from "@/lib/supabase/server";
 import {
   claimFreeCredits,
@@ -415,39 +416,39 @@ async function isFreeEligible(
 }
 
 /**
- * Free credits granted by top-ups to this account in the last `windowDays`
- * days, or null if that could not be read.
+ * When this account was last topped up, within the last `days` days, as
+ * millisecond timestamps; null if that could not be read.
  *
- * Counted from the ledger rather than a separate counter, for the reason the
+ * Read from the ledger rather than a separate counter, for the reason the
  * top-up is a `promo` grant at all: one source of truth, visible on the user's
  * statement. The top-up's idempotency key starts with `allowance:`.
  */
-async function countRecentTopUps(
-  userId: string,
-  windowDays: number
-): Promise<number | null> {
+async function recentTopUpTimes(userId: string, days: number): Promise<number[] | null> {
   try {
-    const since = new Date(Date.now() - windowDays * 86_400_000).toISOString();
+    const since = new Date(Date.now() - days * 86_400_000).toISOString();
     const supabase = createAdminClient();
-    const { count, error } = await supabase
+    const { data, error } = await supabase
       .from("credit_ledger")
-      .select("id", { count: "exact", head: true })
+      .select("created_at")
       .eq("user_id", userId)
       .eq("kind", "promo")
       .like("idempotency_key", "allowance:%")
-      .gte("created_at", since);
+      .gte("created_at", since)
+      .limit(200);
     if (error) throw new Error(error.message);
-    return count ?? 0;
+    return (data ?? [])
+      .map((row) => Date.parse(String((row as { created_at: unknown }).created_at)))
+      .filter((t) => Number.isFinite(t));
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";
-    console.error("[credits] could not count recent top-ups:", message);
+    console.error("[credits] could not read recent top-ups:", message);
     return null;
   }
 }
 
 /**
- * Top an account up to a free allowance, at most `maxPerWindow` times in any
- * rolling `windowDays` days, and never twice in one UTC day.
+ * Top an account up to a free allowance, within `limits` (each: at most `max`
+ * top-ups in any rolling `days` days), and never twice in one UTC day.
  *
  * Deliberately a `promo` grant rather than a parallel quota counter, so a
  * free render is indistinguishable from a paid one everywhere downstream:
@@ -476,17 +477,16 @@ export async function ensureDailyAllowance(params: {
   service: string;
   /** UTC date as YYYY-MM-DD. */
   day: string;
-  /** Top-ups allowed per window for an account that has never bought. */
-  maxPerWindow?: number;
-  windowDays?: number;
+  /** Rate limits for an account that has never bought; all must hold. */
+  limits?: readonly TopUpLimit[];
 }): Promise<CreditAccountState> {
   const account = await getCreditAccount(params.userId);
   if (account.available >= params.amount) return account;
   if (!(await isFreeEligible(params.userId, account))) return account;
 
-  if (account.lifetime_purchased === 0 && params.maxPerWindow !== undefined) {
-    const used = await countRecentTopUps(params.userId, params.windowDays ?? 7);
-    if (used === null || used >= params.maxPerWindow) return account;
+  if (account.lifetime_purchased === 0 && params.limits && params.limits.length > 0) {
+    const times = await recentTopUpTimes(params.userId, longestWindowDays(params.limits));
+    if (times === null || !topUpAllowed(times, params.limits, Date.now())) return account;
   }
 
   return grantCredits({

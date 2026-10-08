@@ -13,8 +13,7 @@ import {
   FACESTUDIO_SERVICE,
   FREE_TOPUP_CREDITS,
   FREE_TOPUP_FREQUENCY,
-  FREE_TOPUPS_PER_WINDOW,
-  FREE_TOPUP_WINDOW_DAYS,
+  FREE_TOPUP_LIMITS,
   isFaceStudioJobId,
 } from "@/lib/facestudio";
 import { todayUtc } from "@/lib/demo-quota";
@@ -67,7 +66,7 @@ async function currentUserId(): Promise<string | null> {
  * Bring an account's credits up to date before anything reads them.
  *
  * Two grants, both idempotent: the one-off welcome credits, and the free
- * top-up (limited per week for accounts that have never bought credits) that
+ * top-up (rate-limited for accounts that have never bought credits) that
  * keeps Nano FaceStudio Online usable without paying. Called by
  * every gate rather than on a schedule, so it costs nothing for accounts
  * that never visit.
@@ -81,8 +80,7 @@ export async function provisionCredits(
     amount: FREE_TOPUP_CREDITS,
     service: FACESTUDIO_SERVICE,
     day: todayUtc(),
-    maxPerWindow: FREE_TOPUPS_PER_WINDOW,
-    windowDays: FREE_TOPUP_WINDOW_DAYS,
+    limits: FREE_TOPUP_LIMITS,
   });
 }
 

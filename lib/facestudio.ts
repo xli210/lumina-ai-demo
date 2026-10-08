@@ -116,21 +116,33 @@ export const FREE_TOPUP_CREDITS = 30;
 
 /**
  * How often a free top-up may happen, for an account that has never bought
- * credits: at most this many times in any rolling window of
- * FREE_TOPUP_WINDOW_DAYS days.
+ * credits. Every limit below must hold, so the tighter one decides:
+ *
+ *   - at most FREE_TOPUPS_PER_WINDOW in any FREE_TOPUP_WINDOW_DAYS days
+ *     (2 in 7), so the free tier cannot be drawn on in a burst; and
+ *   - at most FREE_TOPUPS_PER_MONTH in any FREE_TOPUP_MONTH_DAYS days
+ *     (3 in 30), which is the ceiling that matters: two a week alone would
+ *     allow eight a month.
  *
  * It was once per UTC day. That is a standing wage for anyone willing to open
  * several accounts, and it made paying for credits pointless for a person who
- * needs one edit a day. Twice a week keeps the free tier a way to try the
- * product and to come back to it, not a way to live on it. Accounts that have
- * bought credits are not limited: see ensureDailyAllowance.
+ * needs one edit a day. Accounts that have bought credits are not limited: see
+ * ensureDailyAllowance.
  */
 export const FREE_TOPUPS_PER_WINDOW = 2;
 export const FREE_TOPUP_WINDOW_DAYS = 7;
+export const FREE_TOPUPS_PER_MONTH = 3;
+export const FREE_TOPUP_MONTH_DAYS = 30;
+export const FREE_TOPUP_LIMITS: readonly { max: number; days: number }[] = [
+  { max: FREE_TOPUPS_PER_WINDOW, days: FREE_TOPUP_WINDOW_DAYS },
+  { max: FREE_TOPUPS_PER_MONTH, days: FREE_TOPUP_MONTH_DAYS },
+];
 
 const TIMES = ["never", "once", "twice", "three times", "four times", "five times"];
-/** "twice a week", for copy. Derived, so it cannot disagree with the rule. */
-export const FREE_TOPUP_FREQUENCY = `${TIMES[FREE_TOPUPS_PER_WINDOW] ?? `${FREE_TOPUPS_PER_WINDOW} times`} a week`;
+/** "at most three times a month", for copy. Derived, so it cannot disagree with the rule. */
+export const FREE_TOPUP_FREQUENCY = `at most ${TIMES[FREE_TOPUPS_PER_MONTH] ?? `${FREE_TOPUPS_PER_MONTH} times`} a month`;
+/** The exact rule, for places that state both limits. */
+export const FREE_TOPUP_RULE = `at most ${TIMES[FREE_TOPUPS_PER_WINDOW] ?? `${FREE_TOPUPS_PER_WINDOW} times`} in any ${FREE_TOPUP_WINDOW_DAYS} days and ${TIMES[FREE_TOPUPS_PER_MONTH] ?? `${FREE_TOPUPS_PER_MONTH} times`} in any ${FREE_TOPUP_MONTH_DAYS} days`;
 
 /**
  * How long a reservation survives unsettled.

@@ -60,14 +60,16 @@ row so the comparison is like-for-like.
 A signed-in account is topped up to `FREE_TOPUP_CREDITS` (30: three face swaps, or
 one Nano ImageEdit) when its balance is below that. An account that has never
 bought credits is topped up at most `FREE_TOPUPS_PER_WINDOW` (2) times in any
-`FREE_TOPUP_WINDOW_DAYS` (7) days, and never twice in one UTC day; an account
+`FREE_TOPUP_WINDOW_DAYS` (7) days **and** `FREE_TOPUPS_PER_MONTH` (3) times in any
+`FREE_TOPUP_MONTH_DAYS` (30) days, and never twice in one UTC day; an account
 that has bought credits is topped up whenever it runs low. Credits are the
 *upgrade*, not the toll gate.
 
-It was once per UTC day for everyone until 2026-10-08. That is a standing wage
+It was once per UTC day for everyone until 2026-10-08, then 2 per 7 days, and
+3 per 30 days was added the same day (two a week alone allows eight a month). That is a standing wage
 for anyone willing to open several accounts, and it removed any reason to pay
 for a person who needs one edit a day. All copy quotes the rule through
-`FREE_ALLOWANCE_SHORT` / `FREE_TOPUP_FREQUENCY`, so changing the constants in
+`FREE_ALLOWANCE_SHORT` / `FREE_TOPUP_FREQUENCY` / `FREE_TOPUP_RULE`, so changing the constants in
 `lib/facestudio.ts` changes the pages; the static console
 (`public/face-studio/index.html`, `app.js`) repeats it and must be edited by hand.
 

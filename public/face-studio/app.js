@@ -41,7 +41,7 @@
   }
   /** Keep in step with FREE_TOPUP_CREDITS and FREE_TOPUP_FREQUENCY in lib/facestudio.ts. */
   const FREE_TOPUP_CREDITS = 30;
-  const FREE_TOPUP_FREQUENCY = "twice a week";
+  const FREE_TOPUP_FREQUENCY = "at most three times a month";
   const TOPUP_URL = "/credits";
 
   const MAX_FACES = 64; // upper bound for the refFiles array; the actual

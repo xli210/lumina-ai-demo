@@ -21,8 +21,7 @@ import {
   FACESTUDIO_MAX_FACES,
   FREE_TOPUP_CREDITS,
   FREE_TOPUP_FREQUENCY,
-  FREE_TOPUPS_PER_WINDOW,
-  FREE_TOPUP_WINDOW_DAYS,
+  FREE_TOPUP_RULE,
   creditsForMode,
 } from "@/lib/facestudio";
 import { CREDITS_PER_USD } from "@/lib/credits";
@@ -59,7 +58,7 @@ export const FREE_RENDERS_PER_TOPUP = Math.floor(
   FREE_TOPUP_CREDITS / FACE_SWAP_CREDITS
 );
 
-/** \"3 free swaps, topped up twice a week\": one phrase for every page, so it follows the rule. */
+/** \"3 free swaps, topped up at most three times a month\": one phrase for every page, so it follows the rule. */
 export const FREE_ALLOWANCE_SHORT = `${FREE_RENDERS_PER_TOPUP} free swaps, topped up ${FREE_TOPUP_FREQUENCY}`;
 
 /** Rendered as `$0.10` — two decimals, because these are cents-precise. */
@@ -289,7 +288,7 @@ export const FACE_STUDIO_FAQ: readonly FactQA[] = [
   },
   {
     q: "Is there a free tier for Nano FaceStudio Online?",
-    a: `Yes. A signed-in NanoPocket account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low, which is ${FREE_RENDERS_PER_TOPUP} single-face swaps at full resolution with no watermark, or one render replacing ${FREE_RENDERS_PER_TOPUP} faces at once. An account that has never bought credits is topped up at most ${FREE_TOPUPS_PER_WINDOW === 2 ? "twice" : `${FREE_TOPUPS_PER_WINDOW} times`} in any ${FREE_TOPUP_WINDOW_DAYS} days; one that has bought credits is topped up whenever it runs low. Face detection is always free. The top-up goes up to ${FREE_TOPUP_CREDITS} rather than adding to it, so it does not accumulate.`,
+    a: `Yes. A signed-in NanoPocket account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low, which is ${FREE_RENDERS_PER_TOPUP} single-face swaps at full resolution with no watermark, or one render replacing ${FREE_RENDERS_PER_TOPUP} faces at once. An account that has never bought credits is topped up ${FREE_TOPUP_RULE}; one that has bought credits is topped up whenever it runs low. Face detection is always free. The top-up goes up to ${FREE_TOPUP_CREDITS} rather than adding to it, so it does not accumulate.`,
   },
   {
     q: "Can Nano FaceStudio Online swap more than one face in a photo?",

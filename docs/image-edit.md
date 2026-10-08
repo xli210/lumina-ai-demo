@@ -71,7 +71,7 @@ successful ones carry them).
 
 It equals the free top-up (30, shared with Face Studio), so an account that has
 spent its welcome credits can still make one edit per top-up: about $0.05 each,
-and at most twice in any 7 days for an account that has never bought credits. The welcome grant (100 credits, three
+and at most 3 times in any 30 days (2 in any 7) for an account that has never bought credits. The welcome grant (100 credits, three
 edits) is limited to one claim per device and per
 network (`docs/credit-system.md`). Do not advertise a number of free edits per
 day: it depends on that rule and the allowance can change.
