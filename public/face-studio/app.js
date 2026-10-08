@@ -161,6 +161,9 @@
    */
   async function toError(res) {
     const body = await res.json().catch(() => ({}));
+    // The gateway's shared error shape: error_code, error_message, error_kind,
+    // retryable, field, details. Kept whole so the page can say where and what.
+    const info = body && body.error_code ? body : null;
     if (res.status === 402) {
       if (typeof body.available === "number") setCredits(body.available);
       const err = new Error(body.detail || "You are out of credits.");
@@ -172,11 +175,133 @@
       err.needsSignIn = true;
       return err;
     }
-    return new Error(body.detail || `HTTP ${res.status}`);
+    const err = new Error(
+      (info && info.error_message) || body.detail || `HTTP ${res.status}`
+    );
+    if (info) err.info = info;
+    return err;
+  }
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  Failures: say what went wrong, where, and what to do next
+  // ══════════════════════════════════════════════════════════════════════
+
+  const SERVER_FAULT = "Something went wrong on our side. Your photos are fine.";
+  const TROUBLE = "We're having trouble reaching our servers. Please try again in a moment.";
+  const INTERRUPTED = "Something interrupted this one. Your photos are fine; please try again.";
+  const ERROR_TEXT = {
+    no_face_in_body: "We couldn't find a face in this photo. Try one where the face is clear and well lit.",
+    no_face_in_reference: "We couldn't find a face in this reference photo. Try a clearer, front-facing one.",
+    head_swap_needs_one_face: (d) =>
+      "Head swap works with one face. This photo has " +
+      (d && d.faces_detected != null ? d.faces_detected : "a different number") +
+      ". Use Face swap, or pick a photo with one person.",
+    head_swap_no_usable_face:
+      "The face here is too small, turned or covered for Head swap. Try a front-facing photo, or use Face swap.",
+    unreadable_image: "This file isn't a photo we can read. Please use JPEG, PNG or WebP.",
+    image_too_large: "This photo is too large (limit 40 MB). Please use a smaller one.",
+    invalid_image_data: "The upload didn't come through. Please add the photo again.",
+    gpu_unavailable: "All our GPUs are busy right now. Your photos are fine; please try again in a minute.",
+    worker_crashed: INTERRUPTED,
+    job_timed_out: INTERRUPTED,
+    job_cancelled: INTERRUPTED,
+    gpu_out_of_memory: "This photo was too heavy to process. Try again, or use a smaller photo.",
+    output_upload_failed: "We made your image but couldn't save it. Please try again.",
+    gpu_service_unreachable: TROUBLE,
+    gpu_service_error: TROUBLE,
+    internal_error: SERVER_FAULT,
+    bad_worker_response: SERVER_FAULT,
+    output_too_large: SERVER_FAULT,
+  };
+  // Problems with a photo are shown at that photo, with the photo kept.
+  const PHOTO_CODES = new Set([
+    "no_face_in_body", "no_face_in_reference", "head_swap_needs_one_face",
+    "head_swap_no_usable_face", "unreadable_image", "image_too_large", "invalid_image_data",
+  ]);
+
+  /** { text, atPhoto, retry } for an error object from the gateway. */
+  function describeError(info) {
+    let text = ERROR_TEXT[info.error_code];
+    if (typeof text === "function") text = text(info.details);
+    if (!text) {
+      // Not in the table: a user error's own message is written to be shown;
+      // anything else gets the generic server line, never an exception text.
+      if (info.error_code === "image_download_failed") {
+        text = info.retryable ? TROUBLE : ERROR_TEXT.invalid_image_data;
+      } else {
+        text = info.error_kind === "user" && info.error_message ? info.error_message : SERVER_FAULT;
+      }
+    }
+    const atPhoto =
+      PHOTO_CODES.has(info.error_code) ||
+      (info.error_code === "image_download_failed" && !info.retryable);
+    // Never show codes, field paths or exception text; log them instead.
+    if (info.error_kind === "server" || !ERROR_TEXT[info.error_code]) {
+      console.warn("[face-studio] failure", info.error_code, info.field || "", info.details || "");
+    }
+    return {
+      text,
+      atPhoto,
+      retry: !!info.retryable || (info.error_kind === "server" && !atPhoto),
+    };
+  }
+
+  function clearCardErrors() {
+    document.querySelectorAll(".v5-face-card.has-error").forEach((c) => c.classList.remove("has-error"));
+    document.querySelectorAll(".v5-card-error").forEach((n) => n.remove());
+  }
+
+  /** Outline the reference slot named by `field` ("refs.1" = Face 2) and put the text under it. */
+  function markReferenceError(field, text) {
+    const m = /^refs\.(\d+)$/.exec(field || "");
+    const card = m && facesGrid.querySelector('.v5-face-card[data-idx="' + m[1] + '"]');
+    if (!card) return false;
+    card.classList.add("has-error");
+    const p = document.createElement("p");
+    p.className = "v5-card-error";
+    p.textContent = text;
+    card.append(p);
+    card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    return true;
+  }
+
+  /** A "Try again" button that runs `fn`; the only next step offered for a temporary problem. */
+  function retryButton(fn) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "v5-retry";
+    b.textContent = "Try again";
+    b.addEventListener("click", fn);
+    return b;
+  }
+
+  /**
+   * Show a failure from the gateway where it belongs. Keeps the user's work:
+   * nothing is cleared, only the slot at fault needs replacing.
+   */
+  function showFailure(info, opts) {
+    const d = describeError(info);
+    const notCharged = opts && opts.notCharged ? " You were not charged." : "";
+    if (d.atPhoto && info.field === "body_image") {
+      setDetectStatus(d.text, "error");
+      actionHint.textContent = "Choose another photo to continue.";
+      return;
+    }
+    if (d.atPhoto && markReferenceError(info.field, d.text)) {
+      actionHint.textContent = "Replace the highlighted reference photo, then press Generate.";
+      return;
+    }
+    actionHint.innerHTML = "";
+    actionHint.append(d.text + notCharged + " ");
+    if (d.retry && opts && opts.retry) actionHint.append(retryButton(opts.retry));
   }
 
   /** Show an error, offering the top-up link when that is the actual fix. */
   function showActionError(err) {
+    if (err.info) {
+      showFailure(err.info, { retry: () => btnGenerate.click(), notCharged: true });
+      return;
+    }
     actionHint.innerHTML = "";
     actionHint.append("Error: " + err.message + " ");
     if (err.needsTopUp) {
@@ -379,9 +504,87 @@
   }
 
   // ── Detect faces ──
+
+  const sleep = (ms, signal) =>
+    new Promise((resolve, reject) => {
+      const t = setTimeout(resolve, ms);
+      if (signal) {
+        signal.addEventListener("abort", () => {
+          clearTimeout(t);
+          reject(Object.assign(new Error("aborted"), { name: "AbortError" }));
+        });
+      }
+    });
+
+  function errorFromInfo(info) {
+    const e = new Error(info.error_message || info.detail || "Face detection failed.");
+    e.info = info;
+    return e;
+  }
+
+  /** What to say while a detect job waits: nothing new at first, then why it is slow. */
+  function waitingText(state, waited) {
+    if (state === "processing") return "Finding faces…";
+    if (waited < 5) return "Detecting faces…";
+    if (waited < 60) return "Starting up a GPU for you. This usually takes under a minute.";
+    const m = Math.floor(waited / 60);
+    const sec = String(Math.floor(waited % 60)).padStart(2, "0");
+    return (
+      "Still starting up (" + m + ":" + sec + "). The first run after a quiet period can " +
+      "take a few minutes. You can keep this tab open."
+    );
+  }
+
+  /**
+   * Queue a detect job and poll it. The gateway answers at once, so a cold GPU
+   * is a visible state ("starting") rather than a timeout, and gives up on its
+   * own after 15 minutes. A poll that fails is not a failed job: keep polling,
+   * and only say so after several in a row.
+   */
+  async function runDetect(inputKey, signal) {
+    const res = await fetch(API_BASE + "/detect/start", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ input_key: inputKey }),
+      signal,
+    });
+    if (!res.ok) throw await toError(res);
+    const job = await res.json();
+
+    let lost = 0;
+    for (;;) {
+      let view = null;
+      try {
+        const r = await fetch(API_BASE + "/detect/status/" + encodeURIComponent(job.job_id), { signal });
+        if (r.status === 200) {
+          view = await r.json();
+        } else if (r.status === 401 || r.status === 402 || r.status === 404) {
+          throw await toError(r);
+        }
+      } catch (e) {
+        if (e.name === "AbortError" || e.needsTopUp || e.needsSignIn || e.info) throw e;
+      }
+
+      if (!view) {
+        lost += 1;
+        if (lost >= 30) throw new Error("We lost the connection to the server. Please try again.");
+        if (lost >= 5) setDetectStatus("We lost the connection. Checking again…", "");
+        await sleep(1000, signal);
+        continue;
+      }
+      lost = 0;
+
+      if (view.state === "done") return view;
+      if (view.state === "error") throw errorFromInfo(view);
+      setDetectStatus(waitingText(view.state, view.waited_s || 0), "");
+      await sleep(view.state === "processing" ? 500 : 1000, signal);
+    }
+  }
+
   async function detectFaces() {
     if (detectAbort) detectAbort.abort();
     detectAbort = new AbortController();
+    const signal = detectAbort.signal;
 
     setDetectStatus("Detecting faces…", "");
     facesStep.hidden = true;
@@ -391,6 +594,7 @@
     detectedFaces = [];
     detectionId = null;
     refFiles = new Array(MAX_FACES).fill(null);
+    clearCardErrors();
     updateGenButton();
 
     try {
@@ -398,19 +602,25 @@
       const inputKey = await uploadImage(bodyFile);
 
       setDetectStatus("Detecting faces…", "");
-      const res = await fetch(API_BASE + "/detect", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ input_key: inputKey }),
-        signal: detectAbort.signal,
-      });
-      if (!res.ok) throw await toError(res);
-      const data = await res.json();
-      detectionId = data.detection_id;
+      let data;
+      try {
+        data = await runDetect(inputKey, signal);
+      } catch (e) {
+        // A worker that stopped mid-job lands on a healthy one next time:
+        // retry once on our own before the user sees anything.
+        if (e.info && e.info.retryable && e.info.error_code !== "gpu_unavailable") {
+          await sleep(2000, signal);
+          data = await runDetect(inputKey, signal);
+        } else {
+          throw e;
+        }
+      }
+      detectionId = inputKey; // the render re-reads the same stored photo
       detectedFaces = data.faces || [];
 
       if (!detectedFaces.length) {
-        setDetectStatus("No faces detected. Try a clearer photo with visible faces.", "error");
+        // Not an error: the photo is fine, it just has no faces in it.
+        setDetectStatus("We couldn't find any faces in this photo. Try one where a face is clearly visible.", "error");
         return;
       }
 
@@ -426,8 +636,17 @@
       if (faceTemplates.length) vfaceInline.hidden = false;
     } catch (e) {
       if (e.name === "AbortError") return;
-      setDetectStatus("Detection failed: " + e.message, "error");
-      if (e.needsTopUp || e.needsSignIn) showActionError(e);
+      if (e.needsTopUp || e.needsSignIn) {
+        setDetectStatus("Detection failed: " + e.message, "error");
+        showActionError(e);
+      } else if (e.info) {
+        const d = describeError(e.info);
+        setDetectStatus(d.text, "error");
+        if (d.retry && !d.atPhoto) detectStatus.append(" ", retryButton(detectFaces));
+      } else {
+        setDetectStatus("Detection failed: " + e.message, "error");
+        detectStatus.append(" ", retryButton(detectFaces));
+      }
     }
   }
 
@@ -798,6 +1017,7 @@
       // Reference photos go straight to storage too. Uploaded before the
       // render is requested, so credits are only reserved once every input
       // is actually in place.
+      clearCardErrors();
       actionHint.textContent = "Uploading reference photos…";
       const refs = {};
       for (let i = 0; i < refFiles.length; i++) {
@@ -829,10 +1049,19 @@
   }
 
   function pollStatus(jobId) {
+    let lost = 0;
+    let waitingSince = 0;
     polling = setInterval(async () => {
       try {
         const res = await fetch(API_BASE + `/status/${jobId}`);
+        if (!res.ok && res.status !== 502) {
+          // 502 is a blip reaching the gateway: the job is still running. Any
+          // other failure here is ours (sign-in, ownership) and will not clear.
+          if (res.status === 401 || res.status === 404) throw await toError(res);
+        }
         const data = await res.json();
+        if (!res.ok) throw new Error("status unavailable");
+        lost = 0;
 
         const pct = Math.max(0, Math.min(1, data.progress_pct || 0)) * 100;
         progressBar.style.width = pct.toFixed(1) + "%";
@@ -851,15 +1080,38 @@
           clearInterval(polling);
           polling = null;
           setProcessing(false);
+          if (data.error_code) {
+            showFailure(data, { retry: () => btnGenerate.click(), notCharged: true });
+          } else {
+            actionHint.textContent =
+              "Error: " + (data.error || "Generation failed") + " — you were not charged.";
+          }
+        } else if (data.state === "starting") {
+          if (!waitingSince) waitingSince = Date.now();
+          const waited = (Date.now() - waitingSince) / 1000;
           actionHint.textContent =
-            "Error: " +
-            (data.error || "Generation failed") +
-            " — you were not charged.";
+            waited < 5
+              ? "Rendering…"
+              : waited < 60
+                ? "Starting up a GPU for you. This usually takes under a minute."
+                : "Still starting up. The first run after a quiet period can take a few minutes. You can keep this tab open.";
+        } else if (data.state === "processing") {
+          actionHint.textContent = "Swapping faces…";
         }
-      } catch {
-        // network blip — keep polling
+      } catch (e) {
+        if (e && (e.needsSignIn || e.info)) {
+          clearInterval(polling);
+          polling = null;
+          setProcessing(false);
+          showActionError(e);
+          return;
+        }
+        // A failed poll is not a failed render. Keep polling, and say so after
+        // five in a row rather than showing an error.
+        lost += 1;
+        if (lost >= 5) actionHint.textContent = "We lost the connection. Checking again…";
       }
-    }, 1500);
+    }, 700);
   }
 
   function showResult(jobId, elapsed) {

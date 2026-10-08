@@ -1145,3 +1145,28 @@ main {
   color: #7fb8ff;
   font-weight: 500;
 }
+
+/* A failed photo: outlined at the photo, with the reason under it and the work kept. */
+.v5-face-card.has-error {
+  border-color: #f87171;
+  box-shadow: 0 0 0 1px #f87171;
+}
+.v5-card-error {
+  margin: 10px 0 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #f87171;
+}
+.v5-retry {
+  margin-left: 4px;
+  padding: 3px 12px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.v5-retry:hover { background: rgba(255, 255, 255, 0.12); }

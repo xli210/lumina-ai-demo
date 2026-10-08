@@ -144,6 +144,29 @@ export async function detectFaces(inputKey: string): Promise<UpstreamResult> {
   });
 }
 
+/**
+ * Queue a detect job and return at once: `{ job_id, state: "starting" }`.
+ *
+ * The asynchronous form of `detectFaces`. The job id carries the time it was
+ * queued, so the gateway can cancel one that has waited too long for a GPU
+ * without keeping any state.
+ */
+export async function detectStart(inputKey: string): Promise<UpstreamResult> {
+  return callUpstream("/v5/api/detect/start", {
+    method: "POST",
+    json: { input_key: inputKey },
+    timeoutMs: 20_000,
+  });
+}
+
+/** Where a queued detect job is: starting, processing, done or error. */
+export async function detectStatus(jobId: string): Promise<UpstreamResult> {
+  return callUpstream(`/v5/api/detect/status/${encodeURIComponent(jobId)}`, {
+    method: "GET",
+    timeoutMs: 20_000,
+  });
+}
+
 /** Start a render. Returns `{ job_id }` on success. */
 export async function startGenerate(params: {
   detectionId: string;
