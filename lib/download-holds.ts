@@ -10,9 +10,8 @@
  * Imported by both server and client code, so keep it to plain data.
  */
 export const HELD_DOWNLOADS: Readonly<Record<string, string>> = {
-  // 2026-10-09: 37 of 69 VirusTotal vendors flagged the installer, and Windows
-  // Defender deletes it on download. The installer's loader is the unmodified
-  // Inno Setup stub, so the cause is in the files it carries. Under review.
-  "NanoFacialEdit-1.0.2-release.zip":
-    "Paused while we re-check this build: security software flagged it. Please do not use an earlier copy either.",
+  // Nothing is paused. Nano FacialEdit was paused for a few hours on 2026-10-09
+  // by mistake of judgement (it was not asked for) and restored at the owner's
+  // instruction. The mechanism stays so a download can be switched off with one
+  // line: add `"<file name>": "<reason shown to users>"`.
 };
