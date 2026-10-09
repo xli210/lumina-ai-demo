@@ -27,6 +27,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
+import { HELD_DOWNLOADS } from "@/lib/download-holds";
 
 interface PlatformDownload {
   platform: string;
@@ -738,6 +739,9 @@ export function AppCards() {
                         const PlatformIcon = platform.icon;
                         const downloadKey = `${app.id}-${platform.platform}`;
                         const isDownloading = downloading === downloadKey;
+                        const heldReason = Object.prototype.hasOwnProperty.call(HELD_DOWNLOADS, platform.fileName)
+                          ? HELD_DOWNLOADS[platform.fileName]
+                          : null;
 
                         return (
                           <div
@@ -757,6 +761,12 @@ export function AppCards() {
                                 </p>
                               </div>
                             </div>
+                            {heldReason ? (
+                              <div className="max-w-[16rem] text-right">
+                                <p className="text-sm font-semibold text-amber-600">Temporarily unavailable</p>
+                                <p className="mt-0.5 text-xs leading-snug text-muted-foreground">{heldReason}</p>
+                              </div>
+                            ) : (
                             <Button
                               size="sm"
                               className={`gap-1.5 rounded-full px-5 shrink-0 transition-all bg-gradient-to-r ${app.gradient} text-white border-0 hover:opacity-90 shadow-md ${app.shadowColor}`}
@@ -775,6 +785,7 @@ export function AppCards() {
                                 </>
                               )}
                             </Button>
+                            )}
                           </div>
                         );
                       })}

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { HELD_DOWNLOADS } from "@/lib/download-holds";
 import { createAdminClient } from "@/lib/supabase/admin";
 import {
   presignR2Get,
@@ -60,6 +61,14 @@ export async function GET(
   const { filename } = await params;
   if (!ALLOWED_FILES.includes(filename)) {
     return NextResponse.json({ error: "File not found" }, { status: 404 });
+  }
+
+  // A download that is switched off while it is re-checked (lib/download-holds.ts).
+  if (Object.prototype.hasOwnProperty.call(HELD_DOWNLOADS, filename)) {
+    return NextResponse.json(
+      { error: HELD_DOWNLOADS[filename] },
+      { status: 503, headers: { "Cache-Control": "no-store" } }
+    );
   }
 
   const productId = FILE_PRODUCT_MAP[filename];
