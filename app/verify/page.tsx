@@ -13,17 +13,18 @@ import {
   ScanSearch,
   Terminal,
 } from "lucide-react";
+import { DOWNLOAD_HASHES, DOWNLOAD_HASHES_CHECKED, formatSize, virusTotalUrl } from "@/lib/download-hashes";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 
 const PAGE_URL = "https://nanopocket.ai/verify";
-const LAST_REVIEWED = "2026-05-29";
+const LAST_REVIEWED = "2026-10-09";
 
 export const metadata: Metadata = {
   title:
     "Verify NanoPocket — checksums, code-signing, offline reproducibility, model provenance",
   description:
-    "Independently verify NanoPocket: SHA-256 checksums, Authenticode + Apple notarisation fingerprints, VirusTotal scan links, a step-by-step procedure to confirm offline execution with pktmon / Little Snitch, and Hugging Face commit IDs for every shipping model.",
+    "Independently verify NanoPocket: SHA-256 checksums for every download, an honest statement of code-signing status, VirusTotal lookup links, a step-by-step procedure to confirm offline execution with pktmon / Little Snitch, and Hugging Face commit IDs for every shipping model.",
   keywords: [
     "NanoPocket SHA256",
     "NanoPocket checksum",
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     title: "Verify NanoPocket — auditable build manifest & offline reproducibility",
     description:
-      "Checksums, signing fingerprints, VirusTotal links, an offline-execution verification procedure, and Hugging Face commit IDs for every model.",
+      "Checksums for every download, code-signing status, VirusTotal lookup links, an offline-execution verification procedure, and Hugging Face commit IDs for every model.",
   },
 };
 
@@ -63,10 +64,9 @@ const BUILD_MANIFEST: BuildEntry[] = [
     version: "3.0.0",
     platform: "Windows x64 + macOS Apple Silicon",
     releaseDate: "2026-04",
-    signing: "Authenticode (Win) + Apple Notarisation (Mac)",
-    shaPolicy: "Published per release on /verify and in /release-notes/nano-imageenh-pro",
-    vtPolicy:
-      "Each installer is uploaded to VirusTotal at release; permalink shipped in this page within 24h of upload.",
+    signing: "Windows: not yet code-signed. macOS: see §2",
+    shaPolicy: "Published in the table above",
+    vtPolicy: "No VirusTotal permalink published yet; look the SHA-256 up yourself.",
   },
   {
     app: "Nano VideoEnhance",
@@ -74,9 +74,9 @@ const BUILD_MANIFEST: BuildEntry[] = [
     version: "1.0.5",
     platform: "Windows x64",
     releaseDate: "2026-03",
-    signing: "Authenticode (Win)",
-    shaPolicy: "Published per release on /verify",
-    vtPolicy: "VirusTotal permalink published within 24h of release.",
+    signing: "Not yet code-signed",
+    shaPolicy: "Published in the table above",
+    vtPolicy: "No VirusTotal permalink published yet; look the SHA-256 up yourself.",
   },
   {
     app: "Nano VideoGen",
@@ -84,9 +84,9 @@ const BUILD_MANIFEST: BuildEntry[] = [
     version: "1.0.x",
     platform: "Windows x64",
     releaseDate: "2026-Q2",
-    signing: "Authenticode (Win)",
-    shaPolicy: "Published per release on /verify",
-    vtPolicy: "VirusTotal permalink published within 24h of release.",
+    signing: "Not yet code-signed",
+    shaPolicy: "Published in the table above",
+    vtPolicy: "No VirusTotal permalink published yet; look the SHA-256 up yourself.",
   },
   {
     app: "Nano ImageEdit",
@@ -94,9 +94,9 @@ const BUILD_MANIFEST: BuildEntry[] = [
     version: "1.0.5",
     platform: "Windows x64",
     releaseDate: "2026-03",
-    signing: "Authenticode (Win)",
-    shaPolicy: "Published per release on /verify",
-    vtPolicy: "VirusTotal permalink published within 24h of release.",
+    signing: "Not yet code-signed",
+    shaPolicy: "Published in the table above",
+    vtPolicy: "No VirusTotal permalink published yet; look the SHA-256 up yourself.",
   },
   {
     app: "Nano FaceSwap",
@@ -104,9 +104,9 @@ const BUILD_MANIFEST: BuildEntry[] = [
     version: "1.0.x",
     platform: "Windows x64",
     releaseDate: "2026-Q1",
-    signing: "Authenticode (Win)",
-    shaPolicy: "Published per release on /verify",
-    vtPolicy: "VirusTotal permalink published within 24h of release.",
+    signing: "Not yet code-signed",
+    shaPolicy: "Published in the table above",
+    vtPolicy: "No VirusTotal permalink published yet; look the SHA-256 up yourself.",
   },
   {
     app: "Nano FacialEdit",
@@ -114,9 +114,9 @@ const BUILD_MANIFEST: BuildEntry[] = [
     version: "1.0.x",
     platform: "Windows x64",
     releaseDate: "2026-Q1",
-    signing: "Authenticode (Win)",
-    shaPolicy: "Published per release on /verify",
-    vtPolicy: "VirusTotal permalink published within 24h of release.",
+    signing: "Not yet code-signed",
+    shaPolicy: "Published in the table above",
+    vtPolicy: "No VirusTotal permalink published yet; look the SHA-256 up yourself.",
   },
   {
     app: "Nano ImageTryon",
@@ -124,9 +124,9 @@ const BUILD_MANIFEST: BuildEntry[] = [
     version: "1.0.x",
     platform: "Windows x64",
     releaseDate: "2026-Q1",
-    signing: "Authenticode (Win)",
-    shaPolicy: "Published per release on /verify",
-    vtPolicy: "VirusTotal permalink published within 24h of release.",
+    signing: "Not yet code-signed",
+    shaPolicy: "Published in the table above",
+    vtPolicy: "No VirusTotal permalink published yet; look the SHA-256 up yourself.",
   },
 ];
 
@@ -330,7 +330,7 @@ export default function VerifyPage() {
           <p className="mb-4 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             This page is the auditable counterpart to our marketing surfaces. Every claim listed
             here is something a third party can check without taking our word for it: SHA-256
-            checksums on installers, code-signing fingerprints, VirusTotal scan links, a
+            checksums on installers, our code-signing status, VirusTotal lookup links, a
             step-by-step procedure to confirm offline execution at the network layer, and
             Hugging Face commit IDs for every model in the pipeline.
           </p>
@@ -353,8 +353,9 @@ export default function VerifyPage() {
           <ol className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             {[
               ["Honest status", "honest"],
+              ["Download checksums", "hashes"],
               ["Build manifest", "manifest"],
-              ["Code-signing & VirusTotal", "signing"],
+              ["Code-signing status & VirusTotal", "signing"],
               ["Verify offline yourself", "offline"],
               ["Model provenance (HF / GitHub)", "provenance"],
               ["What we do NOT yet have", "gaps"],
@@ -404,18 +405,23 @@ export default function VerifyPage() {
               ).
             </li>
             <li className="flex gap-2">
-              <CircleCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500" />
-              Code-signing posture is reproducible today (run{" "}
-              <code className="rounded bg-muted px-1 py-0.5 text-xs">signtool verify /pa /v</code>{" "}
-              on Windows or <code className="rounded bg-muted px-1 py-0.5 text-xs">codesign -dv --verbose</code> on macOS).
+              <CircleAlert className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-500" />
+              Our Windows installers are{" "}
+              <strong className="text-foreground">not yet Authenticode-signed</strong>, so Windows
+              SmartScreen or your antivirus may warn about them. See{" "}
+              <a href="#signing" className="text-fuchsia-500 underline-offset-4 hover:underline">
+                §2
+              </a>{" "}
+              for what to do, and use the checksums in{" "}
+              <a href="#hashes" className="text-fuchsia-500 underline-offset-4 hover:underline">
+                the table below
+              </a>{" "}
+              to confirm that what you downloaded is what we publish.
             </li>
             <li className="flex gap-2">
-              <CircleAlert className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-500" />
-              SHA-256 checksums and VirusTotal permalinks are{" "}
-              <strong className="text-foreground">scheduled</strong>, not yet historically
-              published. Starting with the next release of every product, the value will be
-              published in this page within 24 hours of release. Older releases will be
-              backfilled where the original artifact is still archived.
+              <CircleCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500" />
+              SHA-256 checksums of every download are published below, computed from the files we
+              serve. VirusTotal scan permalinks are not published yet.
             </li>
             <li className="flex gap-2">
               <CircleAlert className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-500" />
@@ -430,6 +436,69 @@ export default function VerifyPage() {
           </ul>
         </section>
 
+        {/* Download checksums */}
+        <section id="hashes" className="mb-12">
+          <h2 className="mb-3 flex items-center gap-2 text-2xl font-bold tracking-tight text-foreground">
+            <Fingerprint className="h-5 w-5 text-fuchsia-500" />
+            Download checksums
+          </h2>
+          <p className="mb-5 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+            SHA-256 of every file served from /download, computed on {DOWNLOAD_HASHES_CHECKED} from
+            the files themselves. The first hash is the file your browser downloads; the second is
+            the installer inside it, which is what Windows and your antivirus scan. Compute yours
+            with{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 text-xs">certutil -hashfile &lt;file&gt; SHA256</code>
+            . A different value means it is not the file we published: do not run it, and email{" "}
+            <a href="mailto:security@nanopocket.ai" className="text-emerald-500 underline-offset-4 hover:underline">
+              security@nanopocket.ai
+            </a>
+            .
+          </p>
+          <div className="overflow-x-auto rounded-2xl border border-border/60">
+            <table className="w-full min-w-[900px]">
+              <thead>
+                <tr className="bg-muted/40 text-left text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  <th className="px-4 py-3">File</th>
+                  <th className="px-4 py-3">Size</th>
+                  <th className="px-4 py-3">SHA-256</th>
+                </tr>
+              </thead>
+              <tbody>
+                {DOWNLOAD_HASHES.map((h, i) => (
+                  <tr key={h.file} className={`border-t border-border/40 ${i % 2 === 0 ? "bg-background/40" : "bg-muted/20"}`}>
+                    <td className="px-4 py-4 align-top text-sm text-foreground">
+                      <p className="font-semibold">{h.app} {h.version} ({h.platform})</p>
+                      <p className="mt-1 break-all font-mono text-xs text-muted-foreground">{h.file}</p>
+                      {h.installer && <p className="mt-1 break-all font-mono text-xs text-muted-foreground">inside: {h.installer}</p>}
+                    </td>
+                    <td className="px-4 py-4 align-top text-sm text-muted-foreground">{formatSize(h.size)}</td>
+                    <td className="px-4 py-4 align-top font-mono text-xs text-muted-foreground">
+                      <p className="break-all">
+                        {h.sha256}{" "}
+                        <a href={virusTotalUrl(h.sha256)} target="_blank" rel="noopener noreferrer" className="font-sans text-emerald-500 underline-offset-4 hover:underline">
+                          look up
+                        </a>
+                      </p>
+                      {h.installerSha256 && (
+                        <p className="mt-2 break-all">
+                          {h.installerSha256}{" "}
+                          <a href={virusTotalUrl(h.installerSha256)} target="_blank" rel="noopener noreferrer" className="font-sans text-emerald-500 underline-offset-4 hover:underline">
+                            look up
+                          </a>
+                        </p>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-3 max-w-3xl text-xs leading-relaxed text-muted-foreground">
+            &ldquo;Look up&rdquo; opens a VirusTotal search for that hash. It uploads nothing, and it shows a report
+            only if someone has already scanned the file.
+          </p>
+        </section>
+
         {/* Build manifest */}
         <section id="manifest" className="mb-12">
           <h2 className="mb-3 flex items-center gap-2 text-2xl font-bold tracking-tight text-foreground">
@@ -438,8 +507,7 @@ export default function VerifyPage() {
           </h2>
           <p className="mb-5 max-w-3xl text-sm leading-relaxed text-muted-foreground">
             Every shipping product, with the version it was last reviewed against, the platform
-            target, the signing model, and the policy under which checksums and VirusTotal
-            permalinks are published.
+            target, the signing status, and where the checksums are published.
           </p>
           <div className="overflow-x-auto rounded-2xl border border-border/60">
             <table className="w-full min-w-[860px]">
@@ -494,23 +562,41 @@ export default function VerifyPage() {
             Code-signing &amp; VirusTotal
           </h2>
           <p className="mb-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
-            We commit to the following posture for every public release:
+            What is true today, and what to do about it:
           </p>
           <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
             <li>
-              <strong className="text-foreground">Windows.</strong> Every installer is
-              Authenticode-signed. Verify with{" "}
-              <code className="rounded bg-muted px-1.5 py-0.5 text-xs">
-                signtool verify /pa /v &lt;installer.exe&gt;
-              </code>
-              ; the certificate&apos;s subject must match{" "}
-              <code className="rounded bg-muted px-1.5 py-0.5 text-xs">CN=NanoPocket</code>{" "}
-              (we will publish the exact subject line + thumbprint with the next release; please
-              treat any installer signed by a different subject as untrusted).
+              <strong className="text-foreground">Windows installers are not Authenticode-signed.</strong>{" "}
+              We checked every installer on {DOWNLOAD_HASHES_CHECKED}: none carries a signature (the
+              certificate table is empty). An unsigned installer from a new publisher has no
+              reputation with Microsoft, so SmartScreen may show &ldquo;Windows protected your PC&rdquo; and some
+              antivirus products may flag or quarantine it. We are working on obtaining a
+              code-signing certificate. When the installers are signed, this page will list the
+              certificate subject and thumbprint; until then, do not trust any claim, from us or
+              anyone, that they are.
             </li>
             <li>
-              <strong className="text-foreground">macOS.</strong> Every DMG is signed with the
-              NanoPocket Apple Developer ID and submitted to Apple notarisation. Verify with{" "}
+              <strong className="text-foreground">If your browser or antivirus blocks a download.</strong>{" "}
+              Check the file against its SHA-256 in the table above. If it matches, the file is the
+              one we published. You can then keep the download (in Chrome or Edge, open the
+              downloads list and choose Keep) and, if SmartScreen appears, choose More info, then
+              Run anyway. If you would rather not, you can report the false positive to your
+              antivirus vendor; for Microsoft Defender that is{" "}
+              <a
+                href="https://www.microsoft.com/en-us/wdsi/filesubmission"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-emerald-500 underline-offset-4 hover:underline"
+              >
+                the Microsoft file submission page
+              </a>
+              . A matching checksum shows the file is unchanged since we published it; it does not
+              prove the file is harmless, so use your own judgement.
+            </li>
+            <li>
+              <strong className="text-foreground">macOS.</strong> We have not published signing or
+              notarisation details for the macOS download here. You can check it yourself after
+              mounting the image with{" "}
               <code className="rounded bg-muted px-1.5 py-0.5 text-xs">
                 codesign -dv --verbose=4 NanoApp.app
               </code>{" "}
@@ -521,27 +607,12 @@ export default function VerifyPage() {
               .
             </li>
             <li>
-              <strong className="text-foreground">SHA-256.</strong> Compute with{" "}
-              <code className="rounded bg-muted px-1.5 py-0.5 text-xs">
-                certutil -hashfile installer.exe SHA256
-              </code>{" "}
-              (Windows) or{" "}
-              <code className="rounded bg-muted px-1.5 py-0.5 text-xs">
-                shasum -a 256 installer.dmg
-              </code>{" "}
-              (macOS). The expected value is published on this page within 24 hours of release.
-              Mismatch = the artifact is not the one we shipped; do not run it and please email{" "}
-              <a
-                href="mailto:security@nanopocket.ai"
-                className="text-emerald-500 underline-offset-4 hover:underline"
-              >
-                security@nanopocket.ai
-              </a>
-              .
+              <strong className="text-foreground">SHA-256.</strong> Published for every download in{" "}
+              <a href="#hashes" className="text-fuchsia-500 underline-offset-4 hover:underline">the table above</a>.
             </li>
             <li>
-              <strong className="text-foreground">VirusTotal.</strong> Every installer is uploaded
-              to{" "}
+              <strong className="text-foreground">VirusTotal.</strong> We have not published scan
+              links. The &ldquo;look up&rdquo; links above search{" "}
               <a
                 href="https://www.virustotal.com"
                 target="_blank"
@@ -549,9 +620,8 @@ export default function VerifyPage() {
                 className="text-emerald-500 underline-offset-4 hover:underline"
               >
                 virustotal.com
-              </a>
-              {" "}(70+ AV engines). The permalink is published on this page within 24 hours of
-              release. VirusTotal&apos;s verdict is third-party — we cannot influence it.
+              </a>{" "}
+              for each hash. VirusTotal&apos;s verdict is third-party; we cannot influence it.
             </li>
           </ul>
         </section>

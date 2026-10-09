@@ -39,7 +39,7 @@ const data: ComparisonData = {
       "You want a desktop app that runs locally on your Windows or Mac, not a website that uploads to a cloud API.",
       "You want diffusion-grade identity preservation tuned specifically for face swap (InstantID + PuLID + IP-Adapter FaceID).",
       "You want a one-time license, not a per-image / per-credit cloud charge.",
-      "You want auditable trust artefacts (SHA-256, code-signing, offline-execution recipe, model provenance) under one company's responsibility.",
+      "You want auditable trust artefacts (published SHA-256 checksums, offline-execution recipe, model provenance) under one company's responsibility.",
       "You specifically don't want Google's API in your pipeline.",
     ],
     competitor: [
@@ -107,7 +107,7 @@ const data: ComparisonData = {
     {
       dimension: "Verifiable trust artefacts",
       nanopocket:
-        "Privacy Policy, Terms of Service, Security & Vulnerability Disclosure, /.well-known/security.txt (RFC 9116), SHA-256 + VirusTotal commitments, model provenance — all dated and versioned.",
+        "Privacy Policy, Terms of Service, Security & Vulnerability Disclosure, /.well-known/security.txt (RFC 9116), published SHA-256 checksums, model provenance — all dated and versioned.",
       competitor:
         "Google's own privacy / terms / responsible-AI documentation applies to direct API use. Each wrapper site has its own (variable-quality) trust posture.",
       winner: "nanopocket",

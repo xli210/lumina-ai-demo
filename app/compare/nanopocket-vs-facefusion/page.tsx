@@ -66,7 +66,7 @@ const data: ComparisonData = {
     },
     {
       dimension: "Install friction",
-      nanopocket: "Download, install, activate. Signed and notarised installer.",
+      nanopocket: "Download, install, activate.",
       competitor:
         "Python environment + CUDA + model downloads + occasional dependency conflicts. Difficulty depends on the user's ML setup experience.",
       winner: "nanopocket",
@@ -89,7 +89,7 @@ const data: ComparisonData = {
     {
       dimension: "Vendor accountability",
       nanopocket:
-        "Security disclosure policy, support email, code-signing, SHA-256 / VirusTotal commitments.",
+        "Security disclosure policy, support email, published SHA-256 checksums.",
       competitor:
         "Community-best-effort. There is no SLA, no support contract, no signed installer; bug reports compete with everyone else's PRs.",
       winner: "nanopocket",
@@ -129,7 +129,7 @@ const data: ComparisonData = {
     nanopocket: {
       label: "Best paid desktop choice",
       detail:
-        "Stronger identity preservation, no Python setup, signed installers, vendor support, commercial licensing clarity. The right pick when the user's time is more valuable than the license fee.",
+        "Stronger identity preservation, no Python setup, vendor support, commercial licensing clarity. The right pick when the user's time is more valuable than the license fee.",
     },
     competitor: {
       label: "Best free open-source choice",

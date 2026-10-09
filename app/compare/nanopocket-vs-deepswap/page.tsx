@@ -36,7 +36,7 @@ const data: ComparisonData = {
       "You don't want every face you swap to be uploaded to a cloud service.",
       "You expect to use face swap regularly enough that a subscription becomes more expensive than a one-time license.",
       "You want diffusion-grade identity fidelity rather than a cloud GAN pipeline.",
-      "You want an auditable trust posture (SHA-256, VirusTotal, code-signing, offline-verification recipe).",
+      "You want an auditable trust posture (published SHA-256 checksums, offline-verification recipe).",
       "You have a Windows or Mac machine — install friction is acceptable.",
     ],
     competitor: [
@@ -97,7 +97,7 @@ const data: ComparisonData = {
     {
       dimension: "Verifiability of privacy claims",
       nanopocket:
-        "Local processing is verifiable with pktmon / Little Snitch. SHA-256 + VirusTotal scan commitments documented.",
+        "Local processing is verifiable with pktmon / Little Snitch. Published SHA-256 checksums.",
       competitor:
         "User must rely on the vendor's stated privacy policy — there is no way to verify the cloud's behaviour from the user side.",
       winner: "nanopocket",

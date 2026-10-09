@@ -101,7 +101,7 @@ const data: ComparisonData = {
     {
       dimension: "Trust posture",
       nanopocket:
-        "Auditable: /verify, /privacy, /security, /.well-known/security.txt with SHA-256 and VirusTotal commitments.",
+        "Auditable: /verify, /privacy, /security, /.well-known/security.txt with published SHA-256 checksums.",
       competitor:
         "Vendor-published privacy and terms; verification requires trusting cloud-side controls. (We do not have visibility into WaveSpeed's internal controls.)",
       winner: "nanopocket",

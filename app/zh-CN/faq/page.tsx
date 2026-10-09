@@ -159,7 +159,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "怎么验证 NanoPocket 的技术声明（隐私、模型版本等）？",
-    a: "/verify 页面列出可独立验证的内容：每次桌面版构建的 SHA-256、Authenticode 签名、VirusTotal 提交承诺；离线执行可重现性程序；流水线中每个模型在 Hugging Face 上的 commit ID。这意味着你不需要相信 NanoPocket 的话 — 自己可以核对每一个引用的开放权重模型版本。安全披露策略见 /security 与 RFC 9116 的 /.well-known/security.txt。",
+    a: "/verify 页面列出可独立验证的内容：每次桌面版下载文件的 SHA-256 校验和，以及我们代码签名状态的如实说明（目前 Windows 安装包尚未签名）；离线执行可重现性程序；流水线中每个模型在 Hugging Face 上的 commit ID。这意味着你不需要相信 NanoPocket 的话 — 自己可以核对每一个引用的开放权重模型版本。安全披露策略见 /security 与 RFC 9116 的 /.well-known/security.txt。",
   },
 ];
 

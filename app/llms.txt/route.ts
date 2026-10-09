@@ -92,7 +92,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/verify",
       "Independent verification",
-      "Auditable build manifest with SHA-256 + Authenticode + VirusTotal commitments, offline-execution reproducibility procedure, Hugging Face commit IDs for every model in the pipeline.",
+      "Auditable build manifest with a SHA-256 checksum for every download and an honest statement that the Windows installers are not yet code-signed, offline-execution reproducibility procedure, Hugging Face commit IDs for every model in the pipeline.",
     ),
     bullet(
       "/status",
@@ -184,7 +184,7 @@ function buildLlmsTxt(): string {
   const policies = section("Policies & legal", [
     bullet("/privacy", "Privacy Policy", "What is collected, why, retention timelines, GDPR/CCPA rights, online demo handling. Dated."),
     bullet("/terms", "Terms of Service", "License terms, billing, refunds, acceptable use, governing law. Dated."),
-    bullet("/security", "Security & Vulnerability Disclosure", "Coordinated disclosure timeline, scope, safe harbour, code-signing posture."),
+    bullet("/security", "Security & Vulnerability Disclosure", "Coordinated disclosure timeline, scope, safe harbour, code-signing status."),
     bullet("/.well-known/security.txt", "security.txt (RFC 9116)", "Machine-readable security contact and disclosure policy."),
     bullet("/community", "Community & independent coverage", "Live Discord stats and an honest, dated list of which third-party coverage exists today."),
   ]);

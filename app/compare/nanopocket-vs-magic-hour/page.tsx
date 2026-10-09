@@ -96,7 +96,7 @@ const data: ComparisonData = {
     {
       dimension: "Verifiability of trust claims",
       nanopocket:
-        "SHA-256 / VirusTotal commitments, code-signing, offline-execution recipe, model provenance.",
+        "Published SHA-256 checksums, offline-execution recipe, model provenance.",
       competitor:
         "Standard cloud-platform trust posture; users rely on the vendor's stated policy.",
       winner: "nanopocket",

@@ -216,9 +216,9 @@ interface SecurityNote {
 
 const SECURITY: SecurityNote[] = [
   {
-    title: "Code-signed installers",
+    title: "Installer signing and checksums",
     detail:
-      "Windows builds are Authenticode-signed; macOS builds are signed and notarised by Apple. Unsigned builds are not distributed.",
+      "Windows installers are not yet Authenticode-signed, so SmartScreen or antivirus may warn about them. SHA-256 checksums for every download are published on /verify.",
   },
   {
     title: "License activation",
@@ -437,7 +437,7 @@ const POLICY_DOCS: PolicyDoc[] = [
     href: "/security",
     label: "Security & Vulnerability Disclosure",
     description:
-      "How to report a vulnerability, coordinated-disclosure timeline, scope, safe-harbor, code-signing posture.",
+      "How to report a vulnerability, coordinated-disclosure timeline, scope, safe-harbor, code-signing status.",
     effective: "2026-05-29",
     version: "Last reviewed",
   },
@@ -453,7 +453,7 @@ const POLICY_DOCS: PolicyDoc[] = [
     href: "/verify",
     label: "Verify (auditable artifacts)",
     description:
-      "Build manifest with SHA-256 / VirusTotal commitments, an offline-execution reproducibility procedure (pktmon / Little Snitch), and Hugging Face commit IDs for every model in the pipeline.",
+      "Build manifest with SHA-256 checksums for every download, an offline-execution reproducibility procedure (pktmon / Little Snitch), and Hugging Face commit IDs for every model in the pipeline.",
     effective: "2026-05-29",
     version: "Last reviewed",
   },
@@ -490,18 +490,18 @@ const VERIFICATION_TRACKS: VerificationGap[] = [
     href: "/verify#offline",
   },
   {
-    label: "Code-signing posture",
-    status: "Reproducible today",
+    label: "Code-signing status",
+    status: "Honest gap",
     detail:
-      "signtool verify (Windows) or codesign / spctl (macOS) returns a verifiable Authenticode / Apple Developer ID signature.",
+      "Windows installers are not yet Authenticode-signed. SHA-256 checksums are published for every download on /verify#hashes.",
     href: "/verify#signing",
   },
   {
-    label: "SHA-256 + VirusTotal scans",
-    status: "Scheduled",
+    label: "SHA-256 checksums",
+    status: "Reproducible today",
     detail:
-      "Per-release SHA-256 hashes and VirusTotal permalinks will be published in /verify within 24 hours of every public release, starting with the next release of each app.",
-    href: "/verify#manifest",
+      "SHA-256 checksums of every download are published on /verify, with VirusTotal lookup links. We have not published VirusTotal scan permalinks.",
+    href: "/verify#hashes",
   },
   {
     label: "Independent press coverage",

@@ -93,7 +93,7 @@ const apps: AppInfo[] = [
     description:
       "Retouch, enhance, and transform facial features with AI. Supports face swap, expression editing, and portrait retouching — all running 100% locally on your GPU.",
     icon: ScanFace,
-    version: "1.0.1",
+    version: "1.0.2",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "Free",

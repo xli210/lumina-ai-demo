@@ -10,7 +10,7 @@ const LAST_REVIEWED = "2026-05-29";
 export const metadata: Metadata = {
   title: "Security & Vulnerability Disclosure — NanoPocket",
   description:
-    "How to report a security issue to NanoPocket, our coordinated-disclosure timeline, code-signing posture, and the standards we follow. Last reviewed 2026-05-29.",
+    "How to report a security issue to NanoPocket, our coordinated-disclosure timeline, code-signing status, and the standards we follow. Last reviewed 2026-05-29.",
   keywords: [
     "NanoPocket security",
     "NanoPocket vulnerability disclosure",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     title: "NanoPocket — Security & Vulnerability Disclosure",
     description:
-      "How to report a security issue, our coordinated-disclosure timeline, and code-signing posture.",
+      "How to report a security issue, our coordinated-disclosure timeline, and code-signing status.",
   },
 };
 
@@ -193,9 +193,10 @@ export default function SecurityPage() {
           </h2>
           <ul className="list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
             <li>
-              <strong className="text-foreground">Code signing.</strong> Windows builds are
-              Authenticode-signed; macOS builds are signed and notarised by Apple. Unsigned
-              installers are not distributed.
+              <strong className="text-foreground">Code signing.</strong> Our Windows installers are
+              not yet Authenticode-signed, so SmartScreen or antivirus may warn about them; we are
+              obtaining a certificate. Every download&apos;s SHA-256 is published on{" "}
+              <a href="/verify#hashes" className="text-foreground underline-offset-4 hover:underline">/verify</a>.
             </li>
             <li>
               <strong className="text-foreground">Update channel.</strong> Updates are fetched

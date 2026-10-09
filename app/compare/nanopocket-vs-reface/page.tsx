@@ -108,7 +108,7 @@ const data: ComparisonData = {
     {
       dimension: "Verifiability",
       nanopocket:
-        "Auditable trust posture: SHA-256 / VirusTotal commitments, code-signing, offline-execution recipe, model provenance.",
+        "Auditable trust posture: published SHA-256 checksums, offline-execution recipe, model provenance.",
       competitor:
         "Standard mobile-app trust posture — App Store review, App Store privacy labels.",
       winner: "even",

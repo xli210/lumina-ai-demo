@@ -300,7 +300,7 @@ export default async function RootLayout({
                   url: "https://nanopocket.ai/security",
                   dateModified: "2026-05-29",
                   description:
-                    "Coordinated disclosure timeline, scope, safe-harbor, code-signing posture; mirrors /.well-known/security.txt (RFC 9116).",
+                    "Coordinated disclosure timeline, scope, safe-harbor, code-signing status; mirrors /.well-known/security.txt (RFC 9116).",
                 },
                 {
                   "@type": "TechArticle",
@@ -309,7 +309,7 @@ export default async function RootLayout({
                   url: "https://nanopocket.ai/verify",
                   dateModified: "2026-05-29",
                   description:
-                    "Build manifest with SHA-256 / VirusTotal commitments, offline-execution reproducibility procedure, and Hugging Face commit IDs for every model in the pipeline.",
+                    "Build manifest with SHA-256 checksums for every download, offline-execution reproducibility procedure, and Hugging Face commit IDs for every model in the pipeline.",
                 },
                 {
                   "@type": "WebPage",

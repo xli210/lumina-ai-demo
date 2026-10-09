@@ -215,7 +215,7 @@ export default function Page() {
             >
               /verify
             </Link>{" "}
-            (SHA-256 + Authenticode + VirusTotal commitments, an offline-execution
+            (SHA-256 checksums for every download, our code-signing status, an offline-execution
             reproducibility procedure, and Hugging Face commit IDs for every model in our
             pipeline) and{" "}
             <Link

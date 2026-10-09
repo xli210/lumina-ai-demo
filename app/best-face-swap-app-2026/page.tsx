@@ -300,7 +300,7 @@ const METHODOLOGY = [
   {
     dim: "Verifiability",
     desc:
-      "Whether the tool publishes SHA-256 checksums, code-signing fingerprints, VirusTotal scans, model provenance, and a security-disclosure policy.",
+      "Whether the tool publishes SHA-256 checksums, model provenance, and a security-disclosure policy.",
   },
   {
     dim: "Failure transparency",
