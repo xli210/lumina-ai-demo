@@ -410,6 +410,12 @@ export default function ImageEditLanding() {
             <h2 className="mb-4 text-2xl font-bold tracking-tight text-foreground">Related tools</h2>
             <ul className="space-y-3 text-sm sm:text-base">
               <li>
+                <Link href="/facestudio-v" className={textLink}>
+                  Nano FaceStudio-V Online
+                </Link>
+                <span className="text-muted-foreground"> for swapping a face in a video (limited 3-day preview)</span>
+              </li>
+              <li>
                 <Link href="/face-studio" className={textLink}>
                   Nano FaceStudio Online
                 </Link>

@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Nano FaceStudio-V Online replaces one person's face or whole head in a video with a reference photo, and leaves everyone and everything else as filmed. Limited 3-day queued preview for registered NanoPocket users; official release coming soon.">
+<meta name="theme-color" content="#000000">
+<meta name="robots" content="noindex,nofollow">
+<link rel="canonical" href="https://nanopocket.ai/facestudio-v">
+<meta property="og:title" content="Nano FaceStudio-V Online: limited 3-day queued preview">
+<meta property="og:description" content="Nano FaceStudio-V Online replaces one person's face or whole head in a video with a reference photo, and leaves everyone and everything else as filmed. Limited 3-day queued preview for registered NanoPocket users; official release coming soon.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%233b82f6'/%3E%3Cstop offset='1' stop-color='%2360a5fa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ccircle cx='16' cy='16' r='6' fill='white'/%3E%3C/svg%3E">
+<title>Nano FaceStudio-V Online: video face swap, limited 3-day preview | NanoPocket</title>
+<style>
+/* One dark page in the same language as nanopocket.ai: black ground, DM Sans, tight bold headings, a blue gradient accent, translucent dark cards with a hairline border,
+   white pill buttons and a white top bar. Blue marks the person you choose; white marks everyone else. */
+:root{
+  --bg:#000; --fg:#fff; --soft:rgba(255,255,255,.85); --muted:#757c8a; --faint:#4b5260;
+  --card:rgba(10,10,10,.6); --line:rgba(255,255,255,.06); --line2:rgba(255,255,255,.14);
+  --blue:#3b82f6; --blue2:#60a5fa; --grad:linear-gradient(to right bottom,#3b82f6,#60a5fa);
+  --ok:#34d399; --radius:16px;
+  --font:"DM Sans","DM Sans Fallback",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.6 var(--font);overflow-x:hidden;padding-block:0 48px}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+img,video{max-width:100%}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--blue2);outline-offset:3px}
+.wrap{max-width:1200px;margin-inline:auto;padding-inline:clamp(16px,4vw,32px)}
+
+/* top bar: white, like the site */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:#fff;color:#0a0a0a;border-bottom:1px solid #e5e5e5}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.logo{display:flex;align-items:center;gap:9px;font:700 21px/1 var(--font);letter-spacing:-.4px;text-decoration:none;color:#0a0a0a}
+.logo i{width:22px;height:22px;border-radius:7px;background:var(--grad);display:block;position:relative}
+.logo i:after{content:"";position:absolute;inset:6px;border-radius:50%;background:#fff}
+.top nav{display:flex;gap:28px;font-size:14px;font-weight:500}
+.top nav a{text-decoration:none;color:#525252}.top nav a:hover{color:#000}
+.pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;border:0;font:500 14px/1 var(--font);padding:12px 20px;text-decoration:none;white-space:nowrap;transition:.18s}
+.pill.dark{background:#0a0a0a;color:#fff}.pill.dark:hover{background:#262626}
+.pill.white{background:#fff;color:#0a0a0a;font-size:15px;padding:14px 24px}.pill.white:hover{background:#e5e5e5}
+.pill.glass{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line2);font-size:15px;padding:14px 24px;backdrop-filter:blur(10px)}.pill.glass:hover{background:rgba(255,255,255,.16)}
+.pill.blue{background:var(--blue);color:#fff;font-size:15px;padding:14px 26px;box-shadow:0 10px 40px -12px rgba(59,130,246,.8)}.pill.blue:hover{background:#2f74e6}
+
+/* type */
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.03em;text-wrap:balance}
+h1{font-size:clamp(38px,6.4vw,72px);line-height:1.04;letter-spacing:-.035em}
+h2{font-size:clamp(30px,4.4vw,48px);line-height:1.1;letter-spacing:-.03em}
+.sub{color:var(--muted);font-size:clamp(16px,1.6vw,18px);max-width:60ch;margin:16px auto 0}
+.center{text-align:center}
+.kicker{display:inline-block;padding:6px 12px;border-radius:999px;border:1px solid var(--line2);background:rgba(255,255,255,.04);font:500 12px/1 var(--font);letter-spacing:.06em;color:var(--blue2);text-transform:uppercase;margin-bottom:18px}
+section{padding-block:clamp(56px,9vw,112px)}
+
+/* hero */
+.hero{text-align:center;padding-block:clamp(40px,7vw,84px) 24px;position:relative}
+.hero:before{content:"";position:absolute;inset:-120px 0 auto;height:520px;background:radial-gradient(60% 100% at 50% 0,rgba(59,130,246,.22),transparent 70%);pointer-events:none}
+.hero h1{max-width:15ch;margin-inline:auto;position:relative}
+.hero .sub{position:relative;color:var(--soft);opacity:.75}
+.cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:30px;position:relative}
+
+/* the formula: reference + original = result */
+.formula{display:grid;grid-template-columns:minmax(0,.72fr) auto minmax(0,2fr) auto minmax(0,2fr);gap:clamp(8px,1.6vw,20px);align-items:center;margin-top:clamp(36px,6vw,64px);position:relative}
+.op{font:500 clamp(24px,3vw,40px)/1 var(--font);color:var(--faint)}
+.tile{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line2);background:#050505;box-shadow:0 40px 100px -40px rgba(59,130,246,.35)}
+.tile.photo{aspect-ratio:3/4}
+.tile.clip{aspect-ratio:16/9}
+.tile img,.tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.tag{position:absolute;left:10px;top:10px;z-index:3;display:grid;gap:2px;padding:7px 10px;border-radius:10px;background:rgba(0,0,0,.62);backdrop-filter:blur(8px);border:1px solid var(--line2);text-align:left}
+.tag b{font:700 11px/1 var(--font);letter-spacing:.1em;text-transform:uppercase}
+.tag small{font:400 11px/1.25 var(--font);color:var(--soft);opacity:.7}
+.tag.after b{color:var(--blue2)}
+.match{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:22px;color:var(--muted);font-size:14px;position:relative}
+.match b{color:#fff;font-weight:700}
+.meter{position:relative;width:140px;height:6px;border-radius:6px;background:rgba(255,255,255,.1)}
+.meter i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--grad)}
+.meter u{position:absolute;top:-3px;bottom:-3px;width:2px;background:rgba(255,255,255,.55)}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:48px}
+.card{padding:28px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);box-shadow:0 8px 32px rgba(73,123,223,.04),inset 0 1px 0 rgba(255,255,255,.06)}
+.step .ic{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.step .sq{width:48px;height:48px;border-radius:12px;background:var(--grad);display:grid;place-items:center;box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}
+.step .sq svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.step .n{font:700 34px/1 var(--font);color:rgba(255,255,255,.12)}
+.step h3{font-size:20px;letter-spacing:-.02em;margin-bottom:8px}
+.step p{margin:0;color:var(--muted);font-size:15px}
+.step small{display:block;margin-top:14px;color:var(--blue2);font-size:13px}
+
+/* results gallery */
+.chips{display:flex;gap:8px;justify-content:center;margin:34px 0 28px;flex-wrap:wrap}
+.chip{padding:10px 18px;border-radius:999px;border:1px solid var(--line2);background:rgba(255,255,255,.04);font-size:14px;font-weight:500;color:var(--soft)}
+.chip[aria-pressed=true]{background:#fff;color:#000;border-color:#fff}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.grid.collapsed .case.extra{display:none}
+.case{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);overflow:hidden}
+.cmp{position:relative;aspect-ratio:16/9;background:#050505;cursor:ew-resize;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.cmp video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.cmp .va{clip-path:inset(0 0 0 var(--p,50%))}
+.cmp .hd{position:absolute;top:0;bottom:0;left:var(--p,50%);width:2px;margin-left:-1px;background:#fff;box-shadow:0 0 20px rgba(255,255,255,.5);pointer-events:none}
+.cmp .hd:after{content:"\2039  \203A";white-space:pre;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font:700 19px/1 var(--font)}
+.cmp .tag{top:10px}.cmp .tag.after{left:auto;right:10px;text-align:right}
+.refbox{position:absolute;left:10px;bottom:10px;z-index:3;display:flex;align-items:center;gap:10px;padding:6px 12px 6px 6px;border-radius:14px;background:rgba(0,0,0,.66);backdrop-filter:blur(8px);border:1px solid var(--line2);pointer-events:none}
+.refbox img{width:54px;height:54px;border-radius:9px;object-fit:cover;display:block}
+.refbox b{display:block;font:700 11px/1 var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--blue2)}
+.refbox small{display:block;font-size:11.5px;color:var(--soft);opacity:.75;margin-top:3px}
+.cap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px 16px}
+.cap b{display:block;font-size:16px;letter-spacing:-.01em}
+.cap>div:first-child>span{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.cap .match{margin:0;flex-direction:column;align-items:flex-end;gap:6px;font-size:12px;white-space:nowrap}
+.cap .meter{width:96px}
+.badge{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:6px;border:1px solid var(--line2);font:500 11px/1.5 var(--font);color:var(--blue2);vertical-align:2px}
+.note{margin:18px auto 0;max-width:70ch;text-align:center;font-size:13px;color:var(--muted)}
+
+/* choose who */
+.choose{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:20px;margin-top:44px;align-items:start}
+.stage{position:relative;border:1px solid var(--line2);border-radius:var(--radius);overflow:hidden;background:#000}
+.stage .ar{position:relative;aspect-ratio:16/9}
+.stage video,.stage canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.stage .cmp{position:absolute;inset:0;aspect-ratio:auto;background:transparent;z-index:3}
+.stage .cmp .va{position:absolute}
+.hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:4;padding:10px 16px;border-radius:999px;background:rgba(0,0,0,.78);border:1px solid var(--blue2);color:#fff;font-size:13.5px;font-weight:500;white-space:nowrap;animation:pulse 1.8s ease-in-out infinite;pointer-events:none}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(96,165,250,0),0 0 26px rgba(96,165,250,.5)}}
+.toast{position:absolute;left:50%;top:14px;transform:translateX(-50%);z-index:6;padding:10px 16px;border-radius:12px;background:rgba(0,0,0,.92);border:1px solid var(--line2);font-size:13px}
+.run{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:rgba(0,0,0,.84);backdrop-filter:blur(6px)}
+.run ol{list-style:none;margin:0;padding:0;display:grid;gap:9px;width:min(420px,86%)}
+.run li{display:grid;grid-template-columns:20px 1fr;gap:12px;align-items:center;font-size:13.5px;color:var(--faint);padding:10px 14px;border:1px solid var(--line);border-radius:12px}
+.run li i{width:12px;height:12px;border-radius:50%;border:2px solid var(--faint)}
+.run li.on{color:#fff;border-color:var(--blue2)}.run li.on i{border-color:var(--blue2);border-top-color:transparent;animation:spin .8s linear infinite}
+.run li.done{color:#fff}.run li.done i{background:var(--ok);border-color:var(--ok)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.run .rr{position:absolute;top:16px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;font-size:12.5px;color:var(--soft)}
+.run .rr img{width:46px;height:46px;border-radius:9px;object-fit:cover;border:2px solid var(--blue2)}
+.side{display:grid;gap:14px;min-width:0}
+.side .card{padding:18px}
+.refcard{display:grid;grid-template-columns:84px minmax(0,1fr);gap:14px;align-items:center}
+.refcard img{width:84px;height:84px;border-radius:12px;object-fit:cover;display:block;border:1px solid var(--line2)}
+.refcard h4{margin:0 0 4px;font:700 11px/1.2 var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--blue2)}
+.refcard p{margin:0;font-size:13px;color:var(--muted);line-height:1.45}
+.todo{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.todo li{padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:13.5px;color:var(--faint);line-height:1.4;display:grid;grid-template-columns:24px 1fr;gap:10px}
+.todo li b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--faint);font-size:12px;color:inherit}
+.todo li.on{color:#fff;border-color:var(--blue2);background:rgba(59,130,246,.08)}.todo li.on b{border-color:var(--blue2);color:var(--blue2)}
+.todo li.done{color:var(--soft)}.todo li.done b{background:var(--ok);border-color:var(--ok);color:#000}
+.again{margin-top:14px}
+
+/* features */
+.feat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:48px}
+.fc{display:grid;gap:10px;align-content:start}
+.fc .m{font:700 clamp(30px,3.2vw,40px)/1 var(--font);letter-spacing:-.03em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fc h3{font-size:18px;letter-spacing:-.015em}
+.fc p{margin:0;color:var(--muted);font-size:15px}
+.fc small{color:var(--faint);font-size:12.5px;line-height:1.5}
+.enh{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:28px;align-items:center;margin:44px 0 20px;padding:28px}
+.enh h3{font-size:clamp(22px,2.6vw,30px);line-height:1.15;margin:12px 0 12px}
+.enh p{margin:0 0 14px;color:var(--muted)}
+.enh small{color:var(--faint);font-size:12.5px}
+.enh-media .cmp{border-radius:14px;overflow:hidden}
+.engines{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:20px}
+.eng h3{font-size:26px;margin:12px 0 8px}
+.eng p{margin:0 0 16px;color:var(--muted)}
+.eng dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 18px;margin:0;font-size:14px}
+.eng dt{color:var(--faint);font-weight:500}
+.eng dd{margin:0}
+.eng.head{border-color:rgba(96,165,250,.4);background:linear-gradient(160deg,rgba(59,130,246,.12),var(--card) 60%)}
+
+/* limits */
+.limits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:44px}
+.limits h3{font-size:19px;margin-bottom:12px}
+.limits ul{margin:0;padding:0;list-style:none;display:grid;gap:10px;color:var(--muted);font-size:15px}
+.limits li{display:grid;grid-template-columns:18px 1fr;gap:10px}
+.limits li:before{content:"";width:8px;height:8px;border-radius:50%;margin-top:8px;background:var(--blue2)}
+.limits .no li:before{background:var(--faint)}
+.final{display:grid;justify-items:center;text-align:center;gap:22px;padding:64px 24px;border:1px solid var(--line2);border-radius:28px;background:radial-gradient(520px 220px at 50% 0,rgba(59,130,246,.25),transparent 70%),var(--card)}
+.final h2{max-width:16ch}
+footer{padding-top:30px;color:var(--faint);font-size:12.5px;line-height:1.6;max-width:100ch;margin-inline:auto}
+
+@media (max-width:980px){
+  .enh{grid-template-columns:1fr}
+  .top nav{display:none}
+  .formula{grid-template-columns:1fr;gap:10px;max-width:560px;margin-inline:auto}
+  .formula .op{text-align:center;line-height:1}.tile.photo{aspect-ratio:1/1;max-width:220px;margin-inline:auto;width:100%}
+  .steps,.feat,.limits,.engines{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .choose{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .refbox img{width:42px;height:42px}.cap{flex-wrap:wrap}.cap .match{align-items:flex-start}
+  .pill.white,.pill.glass{padding:13px 20px}
+  .refcard{grid-template-columns:64px minmax(0,1fr)}.refcard img{width:64px;height:64px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+.ribbon{position:relative;z-index:31;background:#000;color:#fff;font-size:13px;line-height:1.4}
+.ribbon .wrap{display:flex;align-items:center;justify-content:center;gap:10px 18px;flex-wrap:wrap;padding:9px 16px;text-align:center}
+.ribbon b{font-weight:700}
+.ribbon .tag{display:inline-flex;align-items:center;gap:7px;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.12);font-weight:600;letter-spacing:.02em}
+.ribbon .tag i{width:7px;height:7px;border-radius:50%;background:#60a5fa;box-shadow:0 0 0 0 rgba(96,165,250,.7);animation:rb 1.8s infinite}
+.ribbon a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.ribbon::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,transparent,#3b82f6 20%,#93c5fd 50%,#3b82f6 80%,transparent);box-shadow:0 0 12px 2px rgba(96,165,250,.75)}
+@keyframes rb{70%{box-shadow:0 0 0 7px rgba(96,165,250,0)}100%{box-shadow:0 0 0 0 rgba(96,165,250,0)}}
+@media (prefers-reduced-motion:reduce){.ribbon .tag i{animation:none}}
+</style>
+</head>
+<body>
+
+
+<div class="ribbon" role="note"><div class="wrap"><span class="tag"><i></i>Limited 3-day queued preview</span><span>Open to registered users until <b>October 13, 2026 (04:00 UTC)</b>.</span><span><b>Official release coming soon.</b></span><a href="https://nanopocket.ai/facestudio-v">About this preview</a></div></div>
+<header class="top"><div class="wrap">
+  <a class="logo" href="#top"><i></i>Nano FaceStudio-V Online</a>
+  <nav><a href="#results">Results</a><a href="#how">How it works</a><a href="#choose">Choose who</a><a href="#features">Features</a><a href="#limits">Limits</a></nav>
+  <a class="pill dark" href="#results">See results</a>
+</div></header>
+
+<main class="wrap" id="top">
+
+<!-- 1. what is this, in one sentence and one picture -->
+<div class="hero">
+  <span class="kicker">Video face swap</span>
+  <h1>Swap any face in a video.</h1>
+  <p class="sub">Give it a video and a photo of the face you want. It replaces one person, in every frame, and leaves everything else exactly as it was filmed.</p>
+  <div class="cta"><a class="pill white" href="#results">See real results</a><a class="pill glass" href="#how">How it works</a><a class="pill blue" id="liveBtn" href="#choose" hidden>Open the studio</a></div>
+
+  <div class="formula" id="formula">
+    <div class="tile photo"><img id="fRef" alt="Reference face"><span class="tag"><b>Reference face</b><small>a photo you upload</small></span></div>
+    <div class="op" aria-hidden="true">+</div>
+    <div class="tile clip"><video id="fOrig" muted loop playsinline preload="auto"></video><span class="tag"><b>Original video</b><small>the footage, untouched</small></span></div>
+    <div class="op" aria-hidden="true">=</div>
+    <div class="tile clip"><video id="fSwap" muted loop playsinline preload="auto"></video><span class="tag after"><b>Result</b><small>that person, replaced</small></span></div>
+  </div>
+  <div class="match" id="fMatch"></div>
+</div>
+
+<!-- 2. how it works -->
+<section id="how">
+  <div class="center"><h2>Three inputs. One result.</h2><p class="sub">No editing, no masks, no frame-by-frame work.</p></div>
+  <div class="steps">
+    <div class="card step"><div class="ic"><div class="sq"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg></div><span class="n">01</span></div><h3>Upload the video</h3><p>Any clip with a person in it. Up to 1080p, and the original sound is kept.</p><small>The video is analysed and every face is found and followed.</small></div>
+    <div class="card step"><div class="ic"><div class="sq"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4"/><path d="M4.5 20a7.5 7.5 0 0115 0"/></svg></div><span class="n">02</span></div><h3>Add the reference face</h3><p>A clear, front-facing photo of the face you want in the video. The sharper and more frontal it is, the closer the match.</p><small>You confirm you have the right to use that face.</small></div>
+    <div class="card step"><div class="ic"><div class="sq"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5l-1.8-4.7L5.5 9l4.7-1.3z"/><path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></div><span class="n">03</span></div><h3>Choose who, get the result</h3><p>Click the person to replace. Only that person changes, and detail is restored and upscaled to the size you pick.</p><small>Several people in the clip? You choose; it never guesses.</small></div>
+  </div>
+</section>
+
+<!-- 3. proof: many real cases -->
+<section id="results">
+  <div class="center"><span class="kicker">Real results</span><h2>See what it does to real footage.</h2><p class="sub">Every clip is a real render. Drag the divider: <b style="color:#fff">before</b> on the left, <b style="color:#fff">after</b> on the right. The small portrait is the reference face that was used.</p></div>
+  <div class="chips" id="chips" role="group" aria-label="Filter"><button class="chip" data-f="all" aria-pressed="true">All</button><button class="chip" data-f="face" aria-pressed="false">Face swap</button><button class="chip" data-f="head" aria-pressed="false">Head swap</button></div>
+  <div class="grid collapsed" id="grid"></div>
+  <div class="center" style="margin-top:22px"><button class="chip" id="more" style="padding:12px 24px">Show all examples</button></div>
+  <p class="note">Match = how close the result's face is to the reference photo, measured with the SFace face-recognition model (cosine similarity). The tick marks 0.36, the usual threshold for &ldquo;same person&rdquo;. Footage: Mixkit free stock; the faces are other stock models, used for testing only.</p>
+</section>
+
+<!-- 4. choose who: the one thing that makes it different, as a real interaction -->
+<section id="choose">
+  <div class="center"><span class="kicker">Try it</span><h2>Multiple people. You decide who changes.</h2><p class="sub">One real clip, three people. Click anyone: only that person is replaced, and the others, the street and the sound stay exactly as filmed. Each result was rendered from this same clip.</p></div>
+  <div class="choose">
+    <div>
+      <div class="stage" id="demo"><div class="ar" id="demoAr">
+        <video id="demoA" muted playsinline loop preload="auto"></video>
+        <video id="demoB" muted playsinline loop preload="auto" style="visibility:hidden"></video>
+        <canvas id="demoHud"></canvas>
+        <div class="cmp" id="cmp" hidden><div class="hd" id="cmpH"></div></div>
+        <span class="tag" id="labL" style="left:10px;top:10px;z-index:4" hidden><b>Before</b><small>original video</small></span>
+        <span class="tag after" id="labR" style="right:10px;top:10px;left:auto;z-index:4;text-align:right" hidden><b>After</b><small>reference face applied</small></span>
+        <div class="hint" id="hint">Click the person you want to replace</div>
+        <div class="run" id="run" hidden><div class="rr"><img id="rrImg" alt=""><span id="rrTxt"></span></div><ol id="runList"></ol></div>
+      </div></div>
+      <div class="again"><button class="pill glass" id="again" hidden>Choose someone else</button></div>
+    </div>
+    <aside class="side">
+      <div class="card"><div class="refcard"><img id="refImg" alt="Reference face"><div><h4>Reference face</h4><p id="refTxt">Click a person in the video and this photo&rsquo;s face replaces them.</p></div></div></div>
+      <ol class="todo" id="todo">
+        <li class="on" data-s="1"><b>1</b><span>Pick the person to replace in the video.</span></li>
+        <li data-s="2"><b>2</b><span>The reference face is applied to that person only.</span></li>
+        <li data-s="3"><b>3</b><span>Drag the divider to compare before and after.</span></li>
+      </ol>
+    </aside>
+  </div>
+</section>
+
+<!-- 5. why it holds up -->
+<section id="features">
+  <div class="center"><span class="kicker">What sets it apart</span><h2>Built for the shots where other swaps fall apart.</h2><p class="sub">Most tools swap whatever face they find. This one is built around choosing the person, following them through hard frames, and telling you the truth about what it did.</p></div>
+  <div class="card enh">
+    <div class="enh-text"><span class="kicker">Face enhancement</span><h3>Swapped faces come out smooth. We make them vivid.</h3>
+      <p>A swap on its own leaves faces over-smooth and a little waxy. Every result goes through a state-of-the-art diffusion model that rebuilds skin texture, eyes, teeth and hair edges, so the face looks alive instead of plastic. Then it is delivered at 1080p or 4K with the original sound.</p>
+      <small>Same frames, same swap. Left: the swap alone. Right: after diffusion face enhancement.</small></div>
+    <div class="enh-media" id="enh"></div>
+  </div>
+  <div class="feat">
+    <div class="card fc"><div class="m">1 of N</div><h3>Only the person you choose</h3><p>Click a face, draw a box, match a photo, or take the left one. Everyone else, the background and the sound stay as filmed.</p><small>Two-person test: the person left alone stayed at 0.99 similarity to their own original.</small></div>
+    <div class="card fc"><div class="m">99.6%</div><h3>Survives head turns</h3><p>Face swap eases back to the original when a head turns too far, instead of smearing. Head swap follows the head even when the face detector loses it.</p><small>Average share of the chosen person&rsquo;s frames that were swapped, 74 public clips.</small></div>
+    <div class="card fc"><div class="m">0</div><h3>Steady, never jumpy</h3><p>Landmarks are smoothed without lag and swap strength follows the head angle frame by frame, so the new face does not flicker or hop.</p><small>Blank frames in 74 swapped clips. Frame count, rate and size always match the input.</small></div>
+    <div class="card fc"><div class="m">0.65</div><h3>Looks like the reference</h3><p>The result&rsquo;s face moves from nothing like the reference to clearly like it. Front-facing references give the strongest match.</p><small>Mean similarity to the reference, 74 clips, against 0.08 before the swap (same person above 0.36).</small></div>
+    <div class="card fc"><div class="m">Diffusion</div><h3>Vivid faces, not plastic ones</h3><p>A diffusion model rebuilds skin, eyes and teeth after the swap, and delivers at 1080p or 4K with the original audio put back untouched.</p><small>Fast mode uses a lighter enhancer: seconds instead of minutes.</small></div>
+    <div class="card fc"><div class="m">Honest</div><h3>Says no instead of guessing</h3><p>Two equally prominent people: it shows the candidates and renders nothing. No usable face: it tells you why instead of producing a bad result.</p><small>About 1 in 20 public test clips had no usable face and was reported that way.</small></div>
+  </div>
+  <div class="engines">
+    <div class="card eng"><span class="kicker" style="margin:0">Face swap</span><h3>The identity changes. The rest stays.</h3><p>Keeps the original hair, head shape and expression. Best for dialogue, interviews and long clips.</p>
+      <dl><dt>Replaces</dt><dd>The face</dd><dt>Keeps</dt><dd>Hair, head shape, expression</dd><dt>Speed</dt><dd>Seconds for the swap, then restore and upscale</dd><dt>Best for</dt><dd>Most clips, up to minutes long</dd></dl></div>
+    <div class="card eng head"><span class="kicker" style="margin:0">Head swap</span><h3>The whole head changes.</h3><p>Hair, head shape and face all come from the reference. Best for new looks and short hero shots.</p>
+      <dl><dt>Replaces</dt><dd>Face, hair and head shape</dd><dt>Keeps</dt><dd>Body, clothes, background, everyone else</dd><dt>Speed</dt><dd>Minutes for a few seconds of video</dd><dt>Best for</dt><dd>Short clips, up to 12 s</dd></dl></div>
+  </div>
+</section>
+
+<!-- 6. boundaries: what it needs and what it will not do -->
+<section id="limits">
+  <div class="center"><span class="kicker">Good to know</span><h2>What it needs, and what it won&rsquo;t do.</h2><p class="sub">Face swapping needs permission, and it works best with the right inputs.</p></div>
+  <div class="limits">
+    <div class="card"><h3>For the best result</h3><ul class="ok"><li>A sharp, front-facing reference photo with the whole face visible</li><li>A face that is large enough in the video to see clearly</li><li>Faces that are not covered by hands, microphones or props</li><li>Even light: in heavy lens flare or strong backlight the face can be lost for a moment, and those frames stay as filmed</li><li>Short heads-up: head swap takes minutes, face swap takes seconds</li></ul></div>
+    <div class="card"><h3>What it will not do</h3><ul class="no"><li>Start without confirming you have the right to use the reference face</li><li>Guess when two people are equally prominent: you choose</li><li>Swap faces turned beyond the usable angle: those frames stay original and are counted in the report</li><li>Keep your files: uploads and results are deleted after 24 hours</li></ul></div>
+  </div>
+</section>
+
+<section><div class="final"><span class="kicker" style="margin:0">Your turn</span><h2>Bring a clip you have the right to change.</h2><div class="cta" style="margin:0"><a class="pill white" href="#results">See results again</a><a class="pill blue" id="liveBtn2" href="#choose" hidden>Open the studio</a></div></div>
+<footer><b>All examples on this page are AI-generated test renders.</b> Clips: Mixkit free stock footage (mixkit.co). The faces in the &ldquo;after&rdquo; renders and the reference photos belong to other stock models and were used only to test the product; do not publish swaps of real people without their permission. Figures were measured on 80 clips of a public talking-head dataset and are a first look, not a benchmark: no crowds, sports, masks or night footage beyond the clips shown.</footer></section>
+</main>
+
+<script>
+/* set this to the address of the live studio; leave it empty to hide the buttons */
+const STUDIO_URL = "/facestudio-v/launch";
+const DATA = {"hero":{"ref":"media/ref_bearded.jpg","orig":"media/blackman_orig.mp4","swap":"media/man_smile_swap.mp4","sim":0.639},"cases":[{"key":"man_smile","mode":"face","title":"Smiling man","sub":"Studio light, indoors","orig":"media/blackman_orig.mp4","swap":"media/man_smile_swap.mp4","poster":"media/man_smile_poster.jpg","ref":"media/ref_bearded.jpg","sim":0.639},{"key":"presenter","mode":"face","title":"Presenter","sub":"Wide shot: the face is small in the frame","orig":"media/presenter_orig.mp4","swap":"media/presenter_swap.mp4","poster":"media/presenter_poster.jpg","ref":"media/ref_brunette.jpg","sim":0.708},{"key":"h3_blackman","mode":"head","title":"A full head of hair","sub":"Head swap: the hair and head shape come from the reference","orig":"media/blackman_orig.mp4","swap":"media/h3_blackman_swap.mp4","poster":"media/h3_blackman_poster.jpg","ref":"media/ref_young.jpg","sim":0.732},{"key":"elder","mode":"face","title":"Older man","sub":"Grey hair, weathered skin, outdoors","orig":"media/elder_orig.mp4","swap":"media/elder_swap.mp4","poster":"media/elder_poster.jpg","ref":"media/ref_blackman.jpg","sim":0.631},{"key":"park","mode":"face","title":"Outdoors","sub":"Natural light, moving background","orig":"media/park_orig.mp4","swap":"media/park_swap.mp4","poster":"media/park_poster.jpg","ref":"media/ref_doctor.jpg","sim":0.726},{"key":"h3_park","mode":"head","title":"Straight to curly","sub":"Head swap: new hair, same scene","orig":"media/park_orig.mp4","swap":"media/h3_park_swap.mp4","poster":"media/h3_park_poster.jpg","ref":"media/ref_curly.jpg","sim":0.572},{"key":"cap","mode":"face","title":"Man in a cap","sub":"A beard and a cap close to the face","orig":"media/bearded_orig.mp4","swap":"media/cap_swap.mp4","poster":"media/cap_poster.jpg","ref":"media/ref_young.jpg","sim":0.625},{"key":"laugh","mode":"face","title":"Laughing","sub":"Big expressions, mouth wide open","orig":"media/young_orig.mp4","swap":"media/laugh_swap.mp4","poster":"media/laugh_poster.jpg","ref":"media/ref_bearded.jpg","sim":0.668},{"key":"trio_mid","mode":"face","title":"Group selfie: the one in the middle","sub":"Three people in frame, only one changes","orig":"media/trio_orig.mp4","swap":"media/trio_mid_swap.mp4","poster":"media/trio_mid_poster.jpg","ref":"media/ref_brunette.jpg","sim":0.79},{"key":"trio_left","mode":"face","title":"Group selfie: the one on the left","sub":"Same clip, a different person chosen","orig":"media/trio_orig.mp4","swap":"media/trio_left_swap.mp4","poster":"media/trio_left_poster.jpg","ref":"media/ref_blonde.jpg","sim":0.638},{"key":"trio_right","mode":"face","title":"Group selfie: the one on the right","sub":"Same clip, a different person chosen","orig":"media/trio_orig.mp4","swap":"media/trio_right_swap.mp4","poster":"media/trio_right_poster.jpg","ref":"media/ref_curly.jpg","sim":0.662},{"key":"h3_presenter","mode":"head","title":"Head swap, wide shot","sub":"The coat and the room are untouched","orig":"media/presenter_orig.mp4","swap":"media/h3_presenter_swap.mp4","poster":"media/h3_presenter_poster.jpg","ref":"media/ref_brunette.jpg","sim":0.687},{"key":"h3_blonde","mode":"head","title":"New hair, new head shape","sub":"Head swap: hair and head shape come with the face","orig":"media/blonde_orig.mp4","swap":"media/h3_blonde_swap.mp4","poster":"media/h3_blonde_poster.jpg","ref":"media/ref_curly.jpg","sim":0.701},{"key":"portrait","mode":"face","title":"Studio portrait","sub":"Even light, front-facing","orig":"media/blonde_orig.mp4","swap":"media/portrait_swap.mp4","poster":"media/portrait_poster.jpg","ref":"media/ref_brunette.jpg","sim":0.749}],"group":{"fps":24,"orig":"media/group_orig.mp4","tracks":[{"id":"t1","f0":0,"b":[[0.1885,0.1407,0.3631,0.5323],[0.1887,0.14,0.3635,0.533],[0.189,0.1393,0.3639,0.5336],[0.1906,0.1376,0.3639,0.5331],[0.1923,0.136,0.3639,0.5326],[0.1938,0.1346,0.3637,0.5307],[0.1952,0.1333,0.3636,0.5288],[0.1926,0.1335,0.3631,0.5254],[0.19,0.1337,0.3626,0.5221],[0.1901,0.1326,0.3619,0.5188],[0.1901,0.1315,0.3612,0.5155],[0.192,0.1264,0.3583,0.5132],[0.1938,0.1212,0.3554,0.511],[0.1905,0.1053,0.3553,0.5016],[0.1873,0.0893,0.3552,0.4922],[0.1827,0.0758,0.352,0.4881],[0.1781,0.0623,0.3488,0.4841],[0.1721,0.0656,0.3447,0.4701],[0.166,0.0689,0.3406,0.4561],[0.1626,0.0594,0.3387,0.4509],[0.1591,0.0498,0.3368,0.4456],[0.1502,0.0521,0.335,0.437],[0.1414,0.0544,0.3333,0.4283],[0.1382,0.0508,0.3319,0.4256],[0.135,0.0472,0.3305,0.4229],[0.1277,0.042,0.3267,0.4194],[0.1204,0.0369,0.3231,0.4157],[0.1154,0.0378,0.3201,0.414],[0.1104,0.0387,0.3171,0.4124],[0.1109,0.039,0.3166,0.4118],[0.1114,0.0393,0.316,0.4112],[0.1162,0.0383,0.3189,0.4074],[0.1209,0.0374,0.3218,0.4036],[0.1258,0.0361,0.3263,0.4021],[0.1307,0.0348,0.3308,0.4006],[0.1318,0.0313,0.3322,0.396],[0.1329,0.0277,0.3336,0.3913],[0.1325,0.0257,0.3318,0.3902],[0.1321,0.0237,0.3301,0.3891],[0.1316,0.0233,0.3296,0.389],[0.131,0.0229,0.3292,0.3889],[0.131,0.0234,0.3294,0.3904],[0.1309,0.0238,0.3297,0.3919],[0.1324,0.0273,0.3283,0.3943],[0.1339,0.0307,0.327,0.3968],[0.1369,0.032,0.3298,0.3961],[0.1399,0.0332,0.3326,0.3955],[0.1397,0.0283,0.3374,0.3898],[0.1396,0.0234,0.3423,0.3841],[0.1404,0.0188,0.344,0.3831],[0.1412,0.0142,0.3458,0.382],[0.1439,0.0151,0.3472,0.3828],[0.1467,0.016,0.3486,0.3836],[0.1513,0.019,0.3519,0.393],[0.1559,0.0219,0.3553,0.4023],[0.1594,0.0224,0.3557,0.3998],[0.1629,0.0229,0.3561,0.3973],[0.1668,0.0299,0.3587,0.403],[0.1706,0.0368,0.3612,0.4088],[0.1728,0.0329,0.3628,0.4103],[0.1751,0.0291,0.3645,0.4119],[0.1794,0.0254,0.3663,0.4126],[0.1839,0.0216,0.368,0.4133],[0.1879,0.0227,0.3692,0.4132],[0.192,0.0237,0.3704,0.4132],[0.1967,0.0233,0.371,0.4172],[0.2014,0.023,0.3718,0.4211],[0.2018,0.025,0.3734,0.4244],[0.2021,0.027,0.3751,0.4276],[0.2025,0.0274,0.3783,0.4293],[0.2029,0.0277,0.3814,0.4308],[0.2041,0.03,0.382,0.432],[0.2052,0.0323,0.3826,0.4333],[0.2057,0.0335,0.3836,0.4336],[0.2063,0.0347,0.3845,0.434],[0.2079,0.0388,0.3837,0.4375],[0.2096,0.0429,0.3829,0.441],[0.2128,0.0517,0.386,0.4497],[0.216,0.0604,0.3891,0.4584],[0.2177,0.0664,0.39,0.4638],[0.2193,0.0723,0.3909,0.4691],[0.223,0.0789,0.3922,0.4772],[0.2267,0.0855,0.3934,0.4853],[0.2294,0.0959,0.3949,0.4903],[0.2321,0.1064,0.3965,0.4953],[0.2328,0.1173,0.3978,0.4968],[0.2334,0.1282,0.3991,0.4983],[0.2345,0.1303,0.4003,0.4974],[0.2356,0.1324,0.4014,0.4966],[0.2367,0.1302,0.4028,0.4983],[0.2378,0.1279,0.4042,0.5001],[0.2409,0.1316,0.4048,0.5],[0.2441,0.1353,0.4054,0.4998],[0.2453,0.1329,0.4051,0.5012],[0.2465,0.1304,0.4049,0.5026],[0.2465,0.1304,0.4049,0.5026]],"n":96},{"id":"t2","f0":0,"b":[[0.439,0.1594,0.5758,0.5288],[0.4388,0.1633,0.5757,0.5356],[0.4387,0.1671,0.5757,0.5424],[0.4406,0.1713,0.5767,0.5438],[0.4426,0.1754,0.5778,0.5452],[0.4456,0.1819,0.5787,0.548],[0.4486,0.1884,0.5796,0.5508],[0.4493,0.1969,0.5798,0.5532],[0.45,0.2053,0.58,0.5555],[0.4492,0.2138,0.58,0.5707],[0.4484,0.2223,0.5799,0.5858],[0.4479,0.2269,0.5792,0.5888],[0.4473,0.2315,0.5784,0.5919],[0.4461,0.2371,0.5789,0.5981],[0.445,0.2427,0.5794,0.6044],[0.4439,0.2469,0.5788,0.6052],[0.4428,0.251,0.5782,0.6061],[0.4423,0.2525,0.5757,0.6059],[0.4418,0.2541,0.5733,0.6057],[0.4399,0.253,0.5731,0.6077],[0.438,0.252,0.573,0.6097],[0.4371,0.2531,0.5725,0.6095],[0.4362,0.2543,0.572,0.6093],[0.4355,0.2551,0.5718,0.6092],[0.4349,0.2559,0.5716,0.6091],[0.4339,0.2557,0.5698,0.6098],[0.433,0.2555,0.5681,0.6104],[0.4322,0.2577,0.5671,0.6138],[0.4314,0.2599,0.5662,0.6172],[0.431,0.2653,0.5654,0.6185],[0.4307,0.2707,0.5647,0.6198],[0.4306,0.278,0.5657,0.6177],[0.4305,0.2854,0.5667,0.6156],[0.4353,0.2837,0.5686,0.6182],[0.44,0.2819,0.5705,0.6208],[0.4413,0.2824,0.5722,0.6216],[0.4426,0.2829,0.574,0.6223],[0.4422,0.2866,0.5719,0.6242],[0.4417,0.2903,0.5699,0.626],[0.4399,0.2912,0.5688,0.6287],[0.4381,0.2921,0.5678,0.6313],[0.4336,0.2967,0.5668,0.629],[0.429,0.3013,0.5658,0.6267],[0.4288,0.3015,0.5656,0.6272],[0.4285,0.3016,0.5654,0.6278],[0.4292,0.2998,0.5666,0.6244],[0.4299,0.298,0.5677,0.6211],[0.4306,0.2971,0.5682,0.6201],[0.4313,0.2962,0.5686,0.6191],[0.4309,0.2899,0.5684,0.6154],[0.4305,0.2836,0.5683,0.6117],[0.4321,0.2846,0.5687,0.6099],[0.4337,0.2856,0.5691,0.608],[0.4375,0.2837,0.5702,0.6079],[0.4413,0.2819,0.5712,0.6077],[0.4423,0.2805,0.5729,0.61],[0.4434,0.2792,0.5747,0.6123],[0.4483,0.2733,0.578,0.6116],[0.4532,0.2675,0.5814,0.611],[0.4559,0.2626,0.5836,0.6075],[0.4586,0.2577,0.5858,0.6041],[0.4588,0.251,0.5898,0.6038],[0.4591,0.2443,0.5938,0.6036],[0.4604,0.2431,0.5949,0.5994],[0.4618,0.242,0.5959,0.5952],[0.462,0.2455,0.5971,0.5904],[0.4621,0.249,0.5982,0.5856],[0.462,0.2483,0.5979,0.5824],[0.4619,0.2475,0.5975,0.5792],[0.4616,0.2461,0.5964,0.5779],[0.4612,0.2446,0.5954,0.5765],[0.4623,0.2377,0.5939,0.5812],[0.4634,0.2309,0.5925,0.5859],[0.4615,0.2361,0.5889,0.5847],[0.4595,0.2413,0.5854,0.5836],[0.4587,0.2421,0.5834,0.583],[0.4579,0.243,0.5815,0.5825],[0.4561,0.246,0.5785,0.5854],[0.4542,0.2491,0.5755,0.5884],[0.4528,0.2478,0.5744,0.5871],[0.4514,0.2465,0.5734,0.5859],[0.4494,0.2485,0.571,0.5828],[0.4473,0.2506,0.5686,0.5797],[0.4477,0.2496,0.5694,0.5795],[0.4481,0.2486,0.5701,0.5792],[0.4488,0.251,0.5699,0.5782],[0.4495,0.2535,0.5696,0.5772],[0.4503,0.2539,0.5697,0.5771],[0.451,0.2542,0.5698,0.5769],[0.4516,0.2562,0.5706,0.5781],[0.4523,0.2583,0.5714,0.5792],[0.4561,0.2567,0.5726,0.5783],[0.4598,0.2552,0.5737,0.5773],[0.4606,0.2533,0.575,0.5766],[0.4613,0.2514,0.5764,0.5759],[0.4613,0.2514,0.5764,0.5759]],"n":96},{"id":"t3","f0":0,"b":[[0.6176,0.1748,0.7799,0.556],[0.6157,0.1779,0.7792,0.5574],[0.6138,0.1811,0.7785,0.5589],[0.6144,0.1824,0.779,0.5607],[0.6151,0.1837,0.7795,0.5624],[0.6156,0.1861,0.7791,0.5664],[0.6161,0.1885,0.7786,0.5703],[0.6164,0.195,0.779,0.5726],[0.6167,0.2015,0.7793,0.5749],[0.617,0.2111,0.7791,0.5762],[0.6173,0.2208,0.779,0.5775],[0.618,0.2244,0.7801,0.5774],[0.6188,0.2281,0.7813,0.5774],[0.62,0.2348,0.7814,0.5792],[0.6212,0.2416,0.7816,0.581],[0.6208,0.2403,0.7819,0.5839],[0.6204,0.2391,0.7822,0.5868],[0.6206,0.2376,0.7827,0.5893],[0.6208,0.2362,0.7832,0.5918],[0.6208,0.2364,0.7831,0.5944],[0.6207,0.2366,0.7831,0.5971],[0.6237,0.2381,0.784,0.5985],[0.6266,0.2395,0.785,0.6],[0.6262,0.2495,0.7872,0.6056],[0.6257,0.2596,0.7893,0.6112],[0.6239,0.2582,0.788,0.6122],[0.6221,0.2568,0.7866,0.6132],[0.6207,0.2495,0.7819,0.6092],[0.6193,0.2423,0.7772,0.6052],[0.6186,0.2407,0.7761,0.6047],[0.6179,0.2392,0.775,0.6041],[0.6179,0.2409,0.7759,0.6035],[0.618,0.2425,0.7767,0.6028],[0.6194,0.2425,0.7781,0.6019],[0.6209,0.2424,0.7795,0.6011],[0.62,0.2432,0.7795,0.6009],[0.6191,0.2439,0.7796,0.6008],[0.6182,0.2481,0.7774,0.6012],[0.6173,0.2524,0.7752,0.6015],[0.6173,0.2488,0.7749,0.6021],[0.6172,0.2452,0.7745,0.6027],[0.6167,0.2366,0.774,0.6034],[0.6162,0.228,0.7734,0.6041],[0.6179,0.237,0.7728,0.602],[0.6196,0.2461,0.7721,0.6],[0.6221,0.2414,0.7747,0.6007],[0.6245,0.2368,0.7772,0.6013],[0.6262,0.2378,0.7803,0.6015],[0.6279,0.2389,0.7833,0.6017],[0.6321,0.2413,0.7885,0.602],[0.6362,0.2436,0.7936,0.6022],[0.6374,0.2439,0.7983,0.6032],[0.6386,0.2441,0.803,0.6042],[0.6437,0.2401,0.812,0.6126],[0.6489,0.2362,0.8209,0.621],[0.6515,0.2332,0.8244,0.622],[0.6542,0.2301,0.8278,0.6229],[0.6579,0.2389,0.833,0.6234],[0.6615,0.2477,0.8381,0.6239],[0.6625,0.2512,0.8376,0.6266],[0.6635,0.2548,0.837,0.6293],[0.665,0.2586,0.8407,0.6421],[0.6666,0.2623,0.8443,0.6549],[0.6685,0.2621,0.8453,0.6609],[0.6704,0.2619,0.8462,0.6669],[0.6738,0.265,0.8467,0.6688],[0.6773,0.2682,0.8471,0.6707],[0.6791,0.2716,0.8463,0.6712],[0.681,0.275,0.8455,0.6716],[0.6832,0.2806,0.845,0.6707],[0.6854,0.2861,0.8445,0.6697],[0.685,0.2911,0.8419,0.6701],[0.6846,0.296,0.8392,0.6705],[0.6824,0.2963,0.8369,0.6735],[0.6803,0.2964,0.8347,0.6765],[0.6787,0.2971,0.8322,0.6783],[0.677,0.2978,0.8297,0.6801],[0.6755,0.3028,0.8302,0.6849],[0.674,0.3078,0.8307,0.6897],[0.6758,0.3059,0.8294,0.6822],[0.6776,0.304,0.828,0.6746],[0.6749,0.3096,0.8272,0.681],[0.6722,0.3153,0.8264,0.6874],[0.6728,0.3182,0.8262,0.6885],[0.6734,0.3211,0.8259,0.6895],[0.6733,0.3189,0.8258,0.6893],[0.6732,0.3167,0.8256,0.6891],[0.673,0.3152,0.8251,0.6894],[0.6727,0.3136,0.8246,0.6896],[0.6732,0.313,0.825,0.6897],[0.6736,0.3124,0.8255,0.6898],[0.6742,0.3107,0.8233,0.682],[0.6748,0.309,0.8211,0.6742],[0.6752,0.3067,0.82,0.6737],[0.6756,0.3044,0.8188,0.6732],[0.6756,0.3044,0.8188,0.6732]],"n":96}],"targets":{"t1":{"swap":"media/group_left_swap.mp4","ref":"media/gref_blonde.jpg","label":"the person on the left"},"t2":{"swap":"media/group_middle_swap.mp4","ref":"media/gref_brunette.jpg","label":"the person in the middle"},"t3":{"swap":"media/group_right_swap.mp4","ref":"media/gref_curly.jpg","label":"the person on the right"}},"first":"t1","names":{"t1":"person on the left","t2":"person in the middle","t3":"person on the right"}},"enh":{"orig":"media/enh_raw.mp4","swap":"media/enh_final.mp4","poster":"media/enh_poster.jpg"}};
+const $ = s => document.querySelector(s);
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+for (const id of ["liveBtn","liveBtn2"]) { const b = document.getElementById(id); if (STUDIO_URL) { b.href = STUDIO_URL; b.hidden = false; } }
+const fmt = v => v.toFixed(2);
+function meter(sim){const w=Math.max(0,Math.min(1,sim/1))*100;return '<div class="meter"><i style="width:'+w.toFixed(0)+'%"></i><u style="left:36.3%"></u></div>'}
+
+/* ---------- hero formula ---------- */
+(function(){
+  const h=DATA.hero,o=$("#fOrig"),s=$("#fSwap");
+  $("#fRef").src=h.ref;o.src=h.orig;s.src=h.swap;
+  const go=()=>{o.play().catch(()=>{});s.play().catch(()=>{})};
+  o.addEventListener("canplay",go,{once:true});
+  (function sync(){if(Math.abs(s.currentTime-o.currentTime)>.12&&!s.seeking)s.currentTime=o.currentTime;requestAnimationFrame(sync)})();
+  $("#fMatch").innerHTML='<span>The result looks like the reference:</span>'+meter(h.sim)+'<span><b>'+fmt(h.sim)+'</b> match <span style="opacity:.6">(same person above 0.36)</span></span>';
+})();
+
+/* ---------- results gallery: before / after with a draggable divider, videos load and play only while on screen ---------- */
+function cmpHTML(c,lb,la,sb,sa,ref){
+  return '<div class="cmp live" style="--p:50%"><video class="vo" muted loop playsinline preload="none" poster="'+c.poster+'" data-src="'+c.orig+'"></video><video class="va" muted loop playsinline preload="none" poster="'+c.poster+'" data-src="'+c.swap+'"></video><i class="hd"></i>'
+   +'<span class="tag"><b>'+lb+'</b><small>'+sb+'</small></span><span class="tag after"><b>'+la+'</b><small>'+sa+'</small></span>'
+   +(ref?'<div class="refbox"><img alt="" src="'+ref+'"><div><b>Reference face</b><small>photo used</small></div></div>':'')+'</div>'}
+const grid=$("#grid");
+const SHOWN=8;
+DATA.cases.forEach((c,idx)=>{
+  const el=document.createElement("article");el.className="case"+(idx>=SHOWN?" extra":"");el.dataset.mode=c.mode;
+  el.innerHTML=cmpHTML(c,"Before","After","original video","reference applied",c.ref)
+   +'<div class="cap"><div><b>'+c.title+'<span class="badge">'+(c.mode==="head"?"Head swap":"Face swap")+'</span></b><span>'+c.sub+'</span></div><div class="match"><span><b style="color:#fff">'+fmt(c.sim)+'</b> match</span>'+meter(c.sim)+'</div></div>';
+  grid.appendChild(el);
+});
+if(DATA.enh){$("#enh").innerHTML=cmpHTML(DATA.enh,"Swap only","Enhanced","before enhancement","diffusion enhanced",null)}
+function setP(cmp,x){const r=cmp.getBoundingClientRect(),p=Math.min(98,Math.max(2,(x-r.left)/r.width*100));cmp.style.setProperty("--p",p.toFixed(1)+"%")}
+document.querySelectorAll(".cmp.live").forEach(cmp=>{
+  let drag=false;
+  cmp.addEventListener("pointerdown",e=>{drag=true;cmp.setPointerCapture(e.pointerId);setP(cmp,e.clientX)});
+  cmp.addEventListener("pointermove",e=>{if(drag)setP(cmp,e.clientX)});
+  cmp.addEventListener("pointerup",()=>drag=false);
+  const vo=cmp.querySelector(".vo"),va=cmp.querySelector(".va");let live=false,loaded=false;
+  new IntersectionObserver(es=>es.forEach(en=>{
+    live=en.isIntersecting;
+    if(live&&!loaded){loaded=true;vo.src=vo.dataset.src;va.src=va.dataset.src}
+    if(live){vo.play().catch(()=>{});va.play().catch(()=>{})}else{vo.pause();va.pause()}
+  }),{rootMargin:"200px"}).observe(cmp);
+  (function sync(){if(live&&Math.abs(va.currentTime-vo.currentTime)>.12&&!va.seeking)va.currentTime=vo.currentTime;requestAnimationFrame(sync)})();
+});
+const more=$("#more");
+if(DATA.cases.length<=SHOWN){more.hidden=true;grid.classList.remove("collapsed")}
+more.textContent="Show all "+DATA.cases.length+" examples";
+more.onclick=()=>{grid.classList.remove("collapsed");more.hidden=true};
+document.querySelectorAll("#chips .chip").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("#chips .chip").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  if(b.dataset.f!=="all"){grid.classList.remove("collapsed");more.hidden=true}
+  document.querySelectorAll("#grid .case").forEach(c=>c.hidden=b.dataset.f!=="all"&&c.dataset.mode!==b.dataset.f);
+});
+
+/* ---------- choose who: a real two-person clip, either person can be picked ---------- */
+function fitCanvas(c){const r=c.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);if(c.width!==Math.round(r.width*d)||c.height!==Math.round(r.height*d)){c.width=Math.round(r.width*d);c.height=Math.round(r.height*d)}return d}
+function bracket(g,x0,y0,x1,y1,len,w,col){g.strokeStyle=col;g.lineWidth=w;g.lineCap="square";const l=Math.min(len,(x1-x0)*.3,(y1-y0)*.3);for(const[x,y,dx,dy]of[[x0,y0,1,1],[x1,y0,-1,1],[x0,y1,1,-1],[x1,y1,-1,-1]]){g.beginPath();g.moveTo(x+dx*l,y);g.lineTo(x,y);g.lineTo(x,y+dy*l);g.stroke()}}
+function chip(g,x,y,text,bg,fg,u){g.font="500 "+(12*u)+"px DM Sans, system-ui, sans-serif";const w=g.measureText(text).width+16*u,h=24*u;g.fillStyle=bg;g.beginPath();g.roundRect?g.roundRect(x,y-h,w,h,6*u):g.rect(x,y-h,w,h);g.fill();g.fillStyle=fg;g.textBaseline="middle";g.fillText(text,x+8*u,y-h/2+.5*u)}
+function boxAt(tr,f){const i=Math.min(tr.b.length-1,Math.max(0,f-tr.f0));return tr.b[i]}
+function trackAt(clip,x,y,t){const f=Math.floor(t*clip.fps+1e-6);let best=null,bd=9;for(const tr of clip.tracks){if(f<tr.f0||f>=tr.f0+tr.b.length)continue;const b=boxAt(tr,f);if(x>=b[0]&&x<=b[2]&&y>=b[1]&&y<=b[3]){const d=Math.hypot(x-(b[0]+b[2])/2,y-(b[1]+b[3])/2);if(d<bd){bd=d;best=tr}}}return best}
+const D=DATA.group,dA=$("#demoA"),dB=$("#demoB"),dHud=$("#demoHud"),cmp=$("#cmp"),cmpH=$("#cmpH"),hint=$("#hint"),run=$("#run"),runList=$("#runList"),again=$("#again");
+let phase=1,split=.5,hover=null,chosen=null,timers=[],lockT=0;
+function setStep(n){document.querySelectorAll("#todo li").forEach(s=>{const k=+s.dataset.s;s.classList.toggle("on",k===n);s.classList.toggle("done",k<n)})}
+function toast(m){const el=document.createElement("div");el.className="toast";el.textContent=m;$("#demoAr").appendChild(el);setTimeout(()=>el.remove(),3000)}
+function reset(){
+  timers.forEach(clearTimeout);timers=[];phase=1;chosen=null;lockT=0;hover=null;
+  dB.style.visibility="hidden";dB.style.clipPath="";cmp.hidden=true;$("#labL").hidden=$("#labR").hidden=true;run.hidden=true;again.hidden=true;hint.hidden=false;setStep(1);
+  $("#refImg").src=D.targets[D.first].ref;$("#refTxt").textContent="Click a person in the video and the reference face replaces them.";dA.play().catch(()=>{});
+}
+dA.src=D.orig;dA.addEventListener("canplay",()=>dA.play().catch(()=>{}),{once:true});reset();
+function pt(e){const r=dHud.getBoundingClientRect();return{x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height}}
+dHud.addEventListener("pointermove",e=>{if(phase!==1)return;const p=pt(e),h=trackAt(D,p.x,p.y,dA.currentTime);hover=h?h.id:null;dHud.style.cursor=h?"pointer":"default"});
+dHud.addEventListener("pointerleave",()=>hover=null);
+dHud.addEventListener("click",e=>{if(phase!==1)return;const p=pt(e),h=trackAt(D,p.x,p.y,dA.currentTime);if(!h)return;if(!D.targets[h.id]){toast("Pick one of the people in the clip");return}chosen=h.id;hint.hidden=true;phase=2;setStep(2);start()});
+function start(){
+  const t=D.targets[chosen];dB.src=t.swap;dB.load();$("#refImg").src=t.ref;$("#rrImg").src=t.ref;$("#rrTxt").textContent="reference face  >  "+t.label;
+  $("#refTxt").textContent="This photo's face is applied to "+t.label+" only.";
+  const st=[["Reading the video and the reference face",.9],["Following everyone through every frame",1.1],["Replacing "+t.label+" only",1.0],["Restoring detail and upscaling",1.3],["Putting the sound back",.6]];
+  runList.innerHTML=st.map(s=>'<li><i></i><span>'+s[0]+'</span></li>').join("");run.hidden=false;
+  let i=0;const lis=[...runList.children];
+  (function next(){if(i>0)lis[i-1].className="done";if(i>=lis.length){timers.push(setTimeout(reveal,350));return}lis[i].className="on";const d=reduce?200:st[i][1]*1000;i++;timers.push(setTimeout(next,d))})();
+}
+function reveal(){run.hidden=true;phase=3;setStep(3);dB.style.visibility="visible";cmp.hidden=false;$("#labL").hidden=$("#labR").hidden=false;again.hidden=false;split=.5;applySplit();dA.currentTime=0;dB.currentTime=0;dB.play().catch(()=>{});dA.play().catch(()=>{})}
+function applySplit(){dB.style.clipPath="inset(0 0 0 "+(split*100).toFixed(2)+"%)";cmpH.style.left=(split*100)+"%"}
+let drag2=false;cmp.addEventListener("pointerdown",e=>{drag2=true;cmp.setPointerCapture(e.pointerId);mv(e)});cmp.addEventListener("pointermove",e=>{if(drag2)mv(e)});cmp.addEventListener("pointerup",()=>drag2=false);
+function mv(e){const r=cmp.getBoundingClientRect();split=Math.min(.98,Math.max(.02,(e.clientX-r.left)/r.width));applySplit()}
+again.onclick=reset;
+function drawHud(){
+  const g=dHud.getContext("2d"),u=fitCanvas(dHud),W=dHud.width,H=dHud.height;g.clearRect(0,0,W,H);
+  const f=Math.floor(dA.currentTime*D.fps+1e-6);
+  for(const tr of D.tracks){
+    if(f<tr.f0||f>=tr.f0+tr.b.length)continue;
+    const b=boxAt(tr,f),x0=b[0]*W,y0=b[1]*H,x1=b[2]*W,y1=b[3]*H,isC=tr.id===chosen,hv=hover===tr.id&&phase===1;
+    if(phase===3)continue;
+    const col=isC?"#60a5fa":"#ffffff";g.save();
+    g.globalAlpha=isC?1:(phase===1?(hv?1:.8):.35);
+    if(isC){g.fillStyle="rgba(96,165,250,.14)";g.fillRect(x0,y0,x1-x0,y1-y0)}
+    if(hv){g.fillStyle="rgba(96,165,250,.14)";g.fillRect(x0,y0,x1-x0,y1-y0)}
+    bracket(g,x0,y0,x1,y1,22*u,(isC||hv?3:2)*u,hv?"#60a5fa":col);
+    const lab=isC?D.targets[tr.id].label+" \u00b7 replacing":(phase===1?(hv?"click to choose":D.names[tr.id]):D.names[tr.id]+" \u00b7 kept");
+    chip(g,x0,y0-6*u,lab,isC||hv?"#3b82f6":"rgba(0,0,0,.78)","#fff",u);g.restore();
+  }
+}
+(function loop(){
+  if(phase===3&&Math.abs(dB.currentTime-dA.currentTime)>.12&&!dB.seeking)dB.currentTime=dA.currentTime;
+  drawHud();requestAnimationFrame(loop);
+})();
+</script>
+
+</body>
+</html>

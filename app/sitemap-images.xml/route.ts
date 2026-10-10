@@ -163,6 +163,65 @@ const IMAGE_GROUPS: PageImageGroup[] = [
     ],
   },
   {
+    page: `${BASE}/facestudio-v`,
+    images: [
+      {
+        src: `${BASE}/images/facestudio-v/og-facestudio-v.jpg`,
+        title: "Nano FaceStudio-V Online: one person replaced in a three-person clip",
+        caption: "Frame from a three-person clip before and after the face of the person in the middle is replaced. AI-generated test render.",
+        license: LICENSE,
+      },
+      {
+        src: `${BASE}/images/facestudio-v/trio-before.jpg`,
+        title: "Nano FaceStudio-V Online: original frame, three people",
+        caption: "Original frame of a selfie clip of three friends, before any swap.",
+        license: LICENSE,
+      },
+      {
+        src: `${BASE}/images/facestudio-v/trio-after.jpg`,
+        title: "Nano FaceStudio-V Online: one of three people replaced",
+        caption: "The same frame after the face of the person in the middle is replaced; the other two are unchanged. AI-generated test render.",
+        license: LICENSE,
+      },
+      {
+        src: `${BASE}/images/facestudio-v/park-before.jpg`,
+        title: "Nano FaceStudio-V Online: original frame, outdoors",
+        caption: "Original frame of a woman in a park.",
+        license: LICENSE,
+      },
+      {
+        src: `${BASE}/images/facestudio-v/park-after.jpg`,
+        title: "Nano FaceStudio-V Online: face swap outdoors",
+        caption: "The same frame after a face swap; hair, head shape and expression are kept. AI-generated test render.",
+        license: LICENSE,
+      },
+      {
+        src: `${BASE}/images/facestudio-v/head-before.jpg`,
+        title: "Nano FaceStudio-V Online: original frame, head swap",
+        caption: "Original frame of a smiling man indoors.",
+        license: LICENSE,
+      },
+      {
+        src: `${BASE}/images/facestudio-v/head-after.jpg`,
+        title: "Nano FaceStudio-V Online: head swap",
+        caption: "The same frame after a head swap: new face, hair and head shape. AI-generated test render.",
+        license: LICENSE,
+      },
+      {
+        src: `${BASE}/images/facestudio-v/presenter-before.jpg`,
+        title: "Nano FaceStudio-V Online: original frame, wide shot",
+        caption: "Original frame of a presenter at a desk.",
+        license: LICENSE,
+      },
+      {
+        src: `${BASE}/images/facestudio-v/presenter-after.jpg`,
+        title: "Nano FaceStudio-V Online: face swap in a wide shot",
+        caption: "The same frame after a face swap; the coat and the room are untouched. AI-generated test render.",
+        license: LICENSE,
+      },
+    ],
+  },
+  {
     page: `${BASE}/`,
     images: [
       {

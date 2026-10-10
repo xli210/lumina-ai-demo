@@ -1,6 +1,7 @@
 import { updateSession } from '@/lib/supabase/middleware'
 import { LOCALES, DEFAULT_LOCALE } from '@/lib/i18n/locales'
 import { NextResponse, type NextRequest } from 'next/server'
+import { facestudioVIsOpen } from '@/lib/facestudio-v'
 import {
   DEVICE_COOKIE,
   DEVICE_COOKIE_MAX_AGE_S,
@@ -66,6 +67,15 @@ function isCacheablePublicPage(request: NextRequest): boolean {
 export async function middleware(request: NextRequest) {
   const indexNow = indexNowResponse(request.nextUrl.pathname)
   if (indexNow) return indexNow
+
+  // The Nano FaceStudio-V preview runs for three days. Outside that window
+  // nothing under /facestudio-v/ is served, whoever is signed in: send people to
+  // the public landing page, which says whether it has not opened yet or has
+  // ended. (A browser that already holds the studio's own cookie keeps its
+  // access there until that cookie expires: see app/facestudio-v/launch.)
+  if (request.nextUrl.pathname.startsWith('/facestudio-v/') && !facestudioVIsOpen()) {
+    return NextResponse.redirect(new URL('/facestudio-v', request.url))
+  }
 
   // Resolve the locale from the URL prefix and forward it to RSCs as a
   // custom request header. We deliberately don't use next-intl's middleware

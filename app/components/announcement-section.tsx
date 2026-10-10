@@ -24,6 +24,17 @@ import {
   IMAGEEDIT_CREDITS_PER_EDIT,
   IMAGEEDIT_NAME,
 } from "@/lib/imageedit";
+import {
+  FACESTUDIO_V_COMING_SOON,
+  FACESTUDIO_V_DEMO,
+  FACESTUDIO_V_ENDS_LABEL,
+  FACESTUDIO_V_LAUNCH,
+  FACESTUDIO_V_NAME,
+  FACESTUDIO_V_POINTS,
+  FACESTUDIO_V_TAG,
+  FACESTUDIO_V_TAGLINE,
+  facestudioVHasEnded,
+} from "@/lib/facestudio-v";
 
 /*
  * The homepage "try it" section.
@@ -135,7 +146,9 @@ function ProductCard({
   points,
   priceLine,
   cta,
+  closedLabel,
   learnMore,
+  highlight,
   children,
 }: {
   icon: typeof Wand2;
@@ -146,11 +159,25 @@ function ProductCard({
   points: string[];
   priceLine: string;
   cta: { href: string; label: string };
-  learnMore: { href: string; label: string };
+  /** When set, the button is replaced by this text (a time-limited product that has closed). */
+  closedLabel?: string;
+  /** `plain` renders an <a>, for a path that is a static file rather than a page. */
+  learnMore: { href: string; label: string; plain?: boolean };
+  /** A glowing line across the card and a line of text above the title. */
+  highlight?: string;
   children?: React.ReactNode;
 }) {
   return (
-    <div className="glass-strong flex h-full flex-col rounded-3xl border border-primary/10 p-6 sm:p-8">
+    <div className="glass-strong relative flex h-full flex-col rounded-3xl border border-primary/10 p-6 sm:p-8">
+      {highlight && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-8 top-0 h-[2px] rounded-full bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_14px_2px] shadow-primary/60"
+        />
+      )}
+      {highlight && (
+        <p className="mb-4 text-xs font-semibold tracking-wide text-primary">{highlight}</p>
+      )}
       <div className="mb-6 flex items-center justify-between">
         <Pill live={live}>{pill}</Pill>
         <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
@@ -170,19 +197,32 @@ function ProductCard({
       <div className="mt-auto pt-8">
         <p className="mb-4 text-xs text-muted-foreground">{priceLine}</p>
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-          <a
-            href={cta.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={primaryButton}
-          >
-            {cta.label}
-            <ArrowRight className="h-4 w-4" />
-          </a>
-          <Link href={learnMore.href} className={textLink}>
-            {learnMore.label}
-            <span aria-hidden>→</span>
-          </Link>
+          {closedLabel ? (
+            <span className="inline-flex items-center justify-center rounded-full border border-border px-6 py-3 text-sm font-medium text-muted-foreground">
+              {closedLabel}
+            </span>
+          ) : (
+            <a
+              href={cta.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={primaryButton}
+            >
+              {cta.label}
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          )}
+          {learnMore.plain ? (
+            <a href={learnMore.href} className={textLink}>
+              {learnMore.label}
+              <span aria-hidden>→</span>
+            </a>
+          ) : (
+            <Link href={learnMore.href} className={textLink}>
+              {learnMore.label}
+              <span aria-hidden>→</span>
+            </Link>
+          )}
         </div>
         {children}
       </div>
@@ -426,6 +466,10 @@ export function AnnouncementSection() {
     [refreshVotes]
   );
 
+  // The preview is time-boxed: the card turns into "ended" once the window closes.
+  const [fvEnded, setFvEnded] = useState(false);
+  useEffect(() => setFvEnded(facestudioVHasEnded()), []);
+
   return (
     <section id="announcement" className="relative scroll-mt-24 px-6 py-24">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -451,7 +495,25 @@ export function AnnouncementSection() {
           </Link>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <ProductCard
+            icon={Video}
+            pill={fvEnded ? "Preview ended" : FACESTUDIO_V_TAG}
+            live={!fvEnded}
+            highlight={FACESTUDIO_V_COMING_SOON}
+            title={FACESTUDIO_V_NAME}
+            lede={FACESTUDIO_V_TAGLINE}
+            points={FACESTUDIO_V_POINTS}
+            priceLine={
+              fvEnded
+                ? "The three-day preview has closed"
+                : `Sign in required · free for registered users · closes ${FACESTUDIO_V_ENDS_LABEL}`
+            }
+            cta={{ href: FACESTUDIO_V_LAUNCH, label: "Open the preview" }}
+            closedLabel={fvEnded ? "Preview ended" : undefined}
+            learnMore={{ href: FACESTUDIO_V_DEMO, label: "Learn more", plain: true }}
+          />
+
           <ProductCard
             icon={ScanFace}
             pill="Live"

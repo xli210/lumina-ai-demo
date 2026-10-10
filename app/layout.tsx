@@ -216,6 +216,11 @@ export default async function RootLayout({
                 itemListElement: [
                   {
                     "@type": "Offer",
+                    name: "Nano FaceStudio-V Online (limited 3-day preview)",
+                    url: "https://nanopocket.ai/facestudio-v",
+                  },
+                  {
+                    "@type": "Offer",
                     name: "Nano ImageEdit 2.0 Online",
                     url: "https://nanopocket.ai/image-edit",
                   },

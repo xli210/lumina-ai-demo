@@ -30,6 +30,16 @@ import {
 } from "@/lib/image-edit-facts";
 import { IMAGE_EDIT_EXAMPLES } from "@/lib/image-edit-examples";
 import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
+import {
+  FACESTUDIO_V_COMING_SOON,
+  FACESTUDIO_V_ENDS_LABEL,
+  FACESTUDIO_V_FAQ,
+  FACESTUDIO_V_NAME,
+  FACESTUDIO_V_POINTS,
+  FACESTUDIO_V_TAG,
+  FACESTUDIO_V_TAGLINE,
+  facestudioVHasEnded,
+} from "@/lib/facestudio-v";
 import { demoAvailabilityEn } from "@/lib/demo-availability";
 
 const BASE = "https://nanopocket.ai";
@@ -164,6 +174,25 @@ ${FACE_STUDIO_FAQ.map((f) => `### ${f.q}\n\n${f.a}`).join("\n\n")}
 Authoritative source: ${BASE}/face-studio. Facts verified ${FACTS_VERIFIED}.
 `;
 
+const FACESTUDIO_V_REFERENCE = `# ${FACESTUDIO_V_NAME} — Preview Reference
+
+URL: ${BASE}/facestudio-v
+
+${FACESTUDIO_V_NAME} is NanoPocket's video face swap, offered as a ${FACESTUDIO_V_TAG.toLowerCase()}. ${FACESTUDIO_V_TAGLINE} ${facestudioVHasEnded() ? "The three-day preview has ended." : `The preview is open to registered NanoPocket users until ${FACESTUDIO_V_ENDS_LABEL}; requests are queued.`} ${FACESTUDIO_V_COMING_SOON}.
+
+## What it does
+
+${FACESTUDIO_V_POINTS.map((p) => `- ${p}`).join("\n")}
+
+## Access
+
+The studio and the demo page require a free NanoPocket account; the public page above describes them. The examples are AI-generated test renders made from stock footage; the faces are other stock models'.
+
+## Questions and answers
+
+${FACESTUDIO_V_FAQ.map((f) => `### ${f.q}\n\n${f.a}`).join("\n\n")}
+`;
+
 const IMAGE_EDIT_REFERENCE = `# ${IMAGE_EDIT_NAME} — Capability Reference
 
 URL: ${BASE}/image-edit
@@ -280,6 +309,9 @@ function buildLlmsFullTxt(): string {
     `---`,
     ``,
     IMAGE_EDIT_REFERENCE,
+    `---`,
+    ``,
+    FACESTUDIO_V_REFERENCE,
     `---`,
     ``,
     PRICING_REFERENCE,

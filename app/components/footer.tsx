@@ -83,6 +83,12 @@ export function Footer() {
             AI Image Edit
           </Link>
           <Link
+            href="/facestudio-v"
+            className="text-xs font-semibold text-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            Video Face Swap (preview)
+          </Link>
+          <Link
             href="/status"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >

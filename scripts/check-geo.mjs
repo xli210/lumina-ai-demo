@@ -45,6 +45,8 @@ const URLS_TO_CHECK = [
   // Nano ImageEdit 2.0 Online's public page. Same trap as /face-studio: the
   // editor lives under the auth-gated /image-edit/ prefix, so a middleware
   // change that protects the bare path would hide the product from crawlers.
+  // Nano FaceStudio-V Online: the public page of the limited preview. The studio and demo are behind sign-in.
+  { path: "/facestudio-v", expectJsonLd: ["Event", "WebPage", "FAQPage", "HowTo", "BreadcrumbList"] },
   { path: "/image-edit", expectJsonLd: ["SoftwareApplication", "WebPage", "FAQPage", "HowTo", "BreadcrumbList"] },
   { path: "/blog/remove-objects-from-photos-with-ai", expectJsonLd: ["Article", "BreadcrumbList"] },
   { path: "/blog/replace-objects-in-photos-with-ai", expectJsonLd: ["Article", "BreadcrumbList"] },

@@ -157,3 +157,11 @@ body {
 .dark ::-webkit-scrollbar-thumb:hover {
   background: hsl(0, 0%, 30%);
 }
+
+
+/* What's new bar: a ticker that runs only when the announcements do not fit.
+   The track holds two copies of the items, so -50% is exactly one loop. */
+@keyframes whatsnew-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
