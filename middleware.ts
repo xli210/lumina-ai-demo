@@ -68,12 +68,12 @@ export async function middleware(request: NextRequest) {
   const indexNow = indexNowResponse(request.nextUrl.pathname)
   if (indexNow) return indexNow
 
-  // The Nano FaceStudio-V preview runs for three days. Outside that window
-  // nothing under /facestudio-v/ is served, whoever is signed in: send people to
-  // the public landing page, which says whether it has not opened yet or has
-  // ended. (A browser that already holds the studio's own cookie keeps its
-  // access there until that cookie expires: see app/facestudio-v/launch.)
-  if (request.nextUrl.pathname.startsWith('/facestudio-v/') && !facestudioVIsOpen()) {
+  // The Nano FaceStudio-V studio is open for three days. Outside that window the
+  // door (/facestudio-v/launch) is shut, whoever is signed in; the public page
+  // stays up and its button steps aside. (A browser that already holds the studio's
+  // own cookie keeps its access there until that cookie expires: see
+  // app/facestudio-v/launch.)
+  if (request.nextUrl.pathname.startsWith('/facestudio-v/launch') && !facestudioVIsOpen()) {
     return NextResponse.redirect(new URL('/facestudio-v', request.url))
   }
 

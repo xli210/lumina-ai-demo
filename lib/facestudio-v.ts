@@ -6,9 +6,10 @@
  *
  * The preview is a time-boxed experiment, not a launched product:
  *  - the studio runs on a GPU behind a tunnel and people queue for it;
- *  - the demo page (public/facestudio-v/demo/) is static results only;
- *  - after FACESTUDIO_V_ENDS_AT everything under /facestudio-v/ is closed by
- *    middleware, and the landing page says the preview has ended.
+ *  - the page at /facestudio-v (public/facestudio-v/index.html) is static results
+ *    only, public and indexable: it is what brings people in;
+ *  - after FACESTUDIO_V_ENDS_AT the door to the studio (/facestudio-v/launch) is
+ *    shut by middleware and the page's buttons step aside; the page stays up.
  *
  * To end it early, set ENDS_AT to a time in the past and deploy. The studio's
  * own address (it carries an access key) is never in this repo: it is read from
@@ -20,10 +21,12 @@
 
 export const FACESTUDIO_V_NAME = "Nano FaceStudio-V Online";
 export const FACESTUDIO_V_URL = "https://nanopocket.ai/facestudio-v";
+/** The public page: the demo, with its fourteen cases. No sign-in. */
+export const FACESTUDIO_V_PAGE = "/facestudio-v";
 /** The sign-in-gated front door to the studio. */
 export const FACESTUDIO_V_LAUNCH = "/facestudio-v/launch";
-/** The sign-in-gated demo page ("Learn more"): static results, no backend. */
-export const FACESTUDIO_V_DEMO = "/facestudio-v/demo/index.html";
+/** "Learn more": the public page (static results, no backend, no sign-in). */
+export const FACESTUDIO_V_DEMO = FACESTUDIO_V_PAGE;
 
 /** First day the preview is open, UTC. */
 export const FACESTUDIO_V_STARTS_AT = "2026-10-10T04:00:00Z";
@@ -63,7 +66,7 @@ export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
   },
   {
     q: "How long is the preview open, and how do I get in?",
-    a: `The preview is open for three days and closes on ${FACESTUDIO_V_ENDS_LABEL}. You need a free NanoPocket account: sign in, then open the studio from the card on the NanoPocket homepage or from this page. Requests are queued, so a clip may wait for its turn on the GPU.`,
+    a: `The preview is open for three days and closes on ${FACESTUDIO_V_ENDS_LABEL}. You need a free NanoPocket account: sign in, then open the studio from the card on the NanoPocket homepage or from the page at nanopocket.ai/facestudio-v. The page itself, with its examples, needs no sign-in. Requests are queued, so a clip may wait for its turn on the GPU.`,
   },
   {
     q: "Is it free?",
@@ -71,7 +74,7 @@ export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
   },
   {
     q: "Can I swap any face I like?",
-    a: "Only a face you have the right to use. The studio asks you to confirm that before it starts, and the examples on the demo page use stock-footage models and are labelled as AI-generated test renders. Do not publish swaps of real people without their permission.",
+    a: "Only a face you have the right to use. The studio asks you to confirm that before it starts, and the examples on the page use stock-footage models and are labelled as AI-generated test renders. Do not publish swaps of real people without their permission.",
   },
   {
     q: "What happens to my uploads?",

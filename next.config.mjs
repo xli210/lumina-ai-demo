@@ -30,6 +30,12 @@ const nextConfig = {
   },
   // Assistants and visitors guess /pricing; it 404'd. The price list is the
   // homepage section that the navbar and footer already link to.
+  // Nano FaceStudio-V Online's page is a static file in public/facestudio-v/; serve it at the clean
+  // address. Its videos and pictures are at /facestudio-v/media/. (Next does not map a folder to its
+  // index.html on its own.)
+  async rewrites() {
+    return [{ source: "/facestudio-v", destination: "/facestudio-v/index.html" }];
+  },
   async redirects() {
     return [
       { source: "/pricing", destination: "/#pricing", permanent: true },

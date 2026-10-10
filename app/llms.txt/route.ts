@@ -75,7 +75,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/facestudio-v",
       `${FACESTUDIO_V_NAME} — video face swap (${FACESTUDIO_V_TAG.toLowerCase()})`,
-      `${FACESTUDIO_V_TAGLINE} ${facestudioVHasEnded() ? "The three-day preview has ended." : `A three-day preview for registered NanoPocket users, closing ${FACESTUDIO_V_ENDS_LABEL}; requests are queued and it is free during the preview.`} ${FACESTUDIO_V_COMING_SOON}. The studio and the demo page require sign-in; this page describes them.`,
+      `${FACESTUDIO_V_TAGLINE} ${facestudioVHasEnded() ? "The three-day preview has ended." : `A three-day preview for registered NanoPocket users, closing ${FACESTUDIO_V_ENDS_LABEL}; requests are queued and it is free during the preview.`} ${FACESTUDIO_V_COMING_SOON}. The page and its fourteen example cases are public; opening the studio requires a free account.`,
     ),
     bullet(
       "/use-cases",

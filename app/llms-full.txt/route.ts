@@ -186,7 +186,7 @@ ${FACESTUDIO_V_POINTS.map((p) => `- ${p}`).join("\n")}
 
 ## Access
 
-The studio and the demo page require a free NanoPocket account; the public page above describes them. The examples are AI-generated test renders made from stock footage; the faces are other stock models'.
+The page above, with its fourteen example cases, is public. Opening the studio requires a free NanoPocket account. The examples are AI-generated test renders made from stock footage; the faces are other stock models'.
 
 ## Questions and answers
 

@@ -10,27 +10,14 @@ anywhere on your behalf.
 
 | Piece | Where | Who can see it |
 |---|---|---|
-| Landing page (SEO, FAQ, before/after frames, Event JSON-LD) | `/facestudio-v` (`app/facestudio-v/page.tsx`) | Everyone, indexable |
-| Sign-in gate to the live studio | `/facestudio-v/launch` (`app/facestudio-v/launch/page.tsx`) | Signed-in users, inside the window |
-| Demo page ("Learn more"): 14 cases as video | `/facestudio-v/demo/index.html` (`public/facestudio-v/demo/`, from `Matrix/demo_export/site`) | Signed-in users, inside the window |
+| The page: the owner's demo, 14 cases as video (`Matrix/demo_export/site`, unchanged apart from the name, absolute media paths, search/share tags and the studio button) | `/facestudio-v` (static file `public/facestudio-v/index.html`, served by a rewrite in `next.config.mjs`; media in `public/facestudio-v/media/`) | **Everyone, indexable.** This is the page that brings people in |
+| Sign-in door to the live studio | `/facestudio-v/launch` (`app/facestudio-v/launch/page.tsx`) | Signed-in users, inside the window |
 | Homepage card (leftmost column), What's new item | `app/components/announcement-section.tsx`, `whats-new-bar.tsx` | Everyone |
 
-Everything under `/facestudio-v/` (with the trailing slash) needs a session
-(`lib/supabase/middleware.ts`) and is closed outside the window by
-`middleware.ts`. Only `/facestudio-v` itself is public.
-
-## The window, and how to change it
-
-All in `lib/facestudio-v.ts`:
-
-- `FACESTUDIO_V_STARTS_AT` = 2026-10-10T04:00:00Z
-- `FACESTUDIO_V_ENDS_AT` = 2026-10-13T04:00:00Z (72 h)
-
-Outside it: the gated paths redirect to `/facestudio-v`, the page says "not open
-yet" or "ended", the homepage card and the What's new item turn into "ended".
-
-**To end it early or extend it:** change `ENDS_AT` (and `FACESTUDIO_V_ENDS_LABEL`)
-and push. To take it down at once, set `ENDS_AT` to a time in the past.
+Only `/facestudio-v/launch` needs a session (`lib/supabase/middleware.ts`) and is
+closed outside the window (`middleware.ts`). The page and its videos are public.
+After the window the page stays up and its "Open the studio" buttons hide
+themselves.
 
 ## The studio address (needs you)
 
@@ -75,19 +62,19 @@ What the pages already do about it: label every example as an AI-generated test
 render, say the faces are other stock models used only for testing, and carry the
 "do not publish swaps of real people without their permission" line. They cannot
 make the use licensed. If you want certainty, ask Mixkit, or replace the clips
-with footage you own or have releases for (`public/facestudio-v/demo/media/`,
-and the `DATA = {…}` line in `index.html`).
+with footage you own or have releases for (`public/facestudio-v/media/`,
+and the `DATA = {…}` line in `public/facestudio-v/index.html`).
 
 ## SEO / GEO
 
-- `/facestudio-v`: title, description, OG card (`public/images/facestudio-v/og-facestudio-v.jpg`),
-  Event (with start/end, free offer), WebPage, FAQPage, HowTo and BreadcrumbList JSON-LD.
-- In `sitemap.xml` (daily, 0.95), `sitemap-images.xml` (9 images), `llms.txt`,
+- `/facestudio-v` (the static page): title, description, canonical, OG/Twitter card
+  (`public/images/facestudio-v/og-facestudio-v.jpg`), Event (start/end, free offer),
+  WebPage and BreadcrumbList JSON-LD. No FAQPage markup: the page has no visible FAQ.
+- In `sitemap.xml` (daily, 0.95), `sitemap-images.xml` (6 images), `llms.txt`,
   `llms-full.txt`, the homepage offer catalogue, the footer, and links from
   `/face-studio` and `/image-edit`.
 - `scripts/check-geo.mjs` checks the page's title, description, canonical and JSON-LD.
-- The gated demo page is `noindex` and canonicalised to `/facestudio-v`, so the
-  public page is the one that can rank.
+- `/facestudio-v/index.html` is the same file; its canonical points at `/facestudio-v`.
 
 ## Launch kit (drafts only: check each community's rules, post from your own account)
 

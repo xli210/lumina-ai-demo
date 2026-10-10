@@ -70,10 +70,10 @@ export default async function FaceStudioVLaunch() {
         <h1 className="mb-3 text-2xl font-bold text-foreground">{FACESTUDIO_V_NAME} is being set up</h1>
         <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
           The studio is not reachable right now. Please try again in a few minutes. You can still look at
-          the results on the demo page.
+          the results on the preview page.
         </p>
-        <Link href="/facestudio-v/demo/index.html" className="text-sm font-medium text-primary underline-offset-4 hover:underline">
-          See the demo page
+        <Link href="/facestudio-v" className="text-sm font-medium text-primary underline-offset-4 hover:underline">
+          See the preview page
         </Link>
       </div>
     </main>

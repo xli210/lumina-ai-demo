@@ -507,7 +507,7 @@ export function AnnouncementSection() {
             priceLine={
               fvEnded
                 ? "The three-day preview has closed"
-                : `Sign in required · free for registered users · closes ${FACESTUDIO_V_ENDS_LABEL}`
+                : `Free for registered users · sign in to open the studio · closes ${FACESTUDIO_V_ENDS_LABEL}`
             }
             cta={{ href: FACESTUDIO_V_LAUNCH, label: "Open the preview" }}
             closedLabel={fvEnded ? "Preview ended" : undefined}
