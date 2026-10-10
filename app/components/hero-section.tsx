@@ -4,10 +4,12 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_LAUNCH, facestudioVHasEnded } from "@/lib/facestudio-v";
 import {
   ArrowRight,
   Download,
   Play,
+  Video,
 } from "lucide-react";
 
 interface HeroSlide {
@@ -17,9 +19,22 @@ interface HeroSlide {
   prompt: string;
   model: string;
   tag: string;
+  poster?: string;
+  /** Slide with its own left-aligned copy instead of the shared headline. */
+  feature?: "facestudio-v";
 }
 
 const demoSlides: HeroSlide[] = [
+  {
+    src: "/videos/hero-facestudio-v.mp4",
+    poster: "/videos/hero-facestudio-v-poster.jpg",
+    type: "video",
+    alt: "Nano FaceStudio-V Online: a scan line sweeps across a video and the woman's face is replaced with the reference face, everything else as filmed",
+    prompt: "Video face swap: one face replaced, the rest as filmed. AI-generated test render on stock footage",
+    model: FACESTUDIO_V_NAME,
+    tag: "Video Face Swap",
+    feature: "facestudio-v",
+  },
   {
     src: "/videos/hero-faceswap.mp4",
     type: "video",
@@ -68,8 +83,11 @@ const IMAGE_DURATION = 5000;
 export function HeroSection() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [vEnded, setVEnded] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  useEffect(() => setVEnded(facestudioVHasEnded()), []);
 
   const advance = useCallback(() => {
     setActiveSlide((s) => (s + 1) % demoSlides.length);
@@ -129,6 +147,8 @@ export function HeroSection() {
                 <video
                   ref={(el) => { videoRefs.current[i] = el; }}
                   src={slide.src}
+                  poster={slide.poster}
+                  preload={i === 0 ? "auto" : "metadata"}
                   muted
                   playsInline
                   onEnded={handleVideoEnd}
@@ -159,9 +179,50 @@ export function HeroSection() {
             </div>
           ))}
 
-          <div className="absolute inset-0 bg-black/40" />
+          <div
+            className="absolute inset-0 bg-black/40 transition-opacity duration-1000"
+            style={{ opacity: demoSlides[activeSlide].feature ? 0.1 : 1 }}
+          />
 
-          <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
+          {/* Left-aligned copy for the Nano FaceStudio-V Online clip: its left quarter is left empty for this. */}
+          <div
+            className="pointer-events-none absolute inset-0 flex items-center px-6 transition-opacity duration-1000 sm:px-10 lg:px-16"
+            style={{ opacity: activeSlide === 0 ? 1 : 0 }}
+            aria-hidden={activeSlide !== 0}
+          >
+            <div className="pointer-events-auto max-w-[46%] sm:max-w-[30%]">
+              <p className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-sky-300/40 bg-sky-300/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-widest text-sky-200 sm:mb-4 sm:text-xs">
+                <Video className="h-3 w-3" />
+                {vEnded ? "Preview ended · official release soon" : "Free 3-day preview"}
+              </p>
+              <p className="text-balance text-lg font-bold leading-tight tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl">
+                Swap one face in a video.
+                <span className="block text-sky-200">Leave the rest as filmed.</span>
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3">
+                {!vEnded && (
+                  <Link href={FACESTUDIO_V_LAUNCH} tabIndex={activeSlide === 0 ? 0 : -1}>
+                    <Button size="sm" className="gap-1.5 rounded-full bg-white px-4 text-black hover:bg-neutral-100 sm:px-6">
+                      Try it free
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                )}
+                <Link
+                  href={FACESTUDIO_V_PAGE}
+                  tabIndex={activeSlide === 0 ? 0 : -1}
+                  className="text-xs font-medium text-white/85 underline-offset-4 hover:text-white hover:underline sm:text-sm"
+                >
+                  See 14 examples
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="absolute inset-0 flex flex-col items-center justify-center px-6 transition-opacity duration-1000"
+            style={{ opacity: activeSlide === 0 ? 0 : 1, pointerEvents: activeSlide === 0 ? "none" : "auto" }}
+          >
             <h1 className="mb-6 text-balance text-center text-3xl font-bold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
               A whole AI studio, right in your pocket
             </h1>
