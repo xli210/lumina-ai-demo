@@ -1,5 +1,5 @@
 /**
- * Nano FaceStudio-V Online: the limited three-day queued video face swap
+ * Video FaceSwap Online: the limited three-day queued video face swap
  * preview. One source for the name, the window and the wording, so the
  * homepage card, the What's new bar, the landing page, llms.txt and the
  * middleware gate cannot disagree.
@@ -19,7 +19,7 @@
  * Safe to import from middleware, server and client code: plain data only.
  */
 
-export const FACESTUDIO_V_NAME = "Nano FaceStudio-V Online";
+export const FACESTUDIO_V_NAME = "Video FaceSwap Online";
 export const FACESTUDIO_V_URL = "https://nanopocket.ai/facestudio-v";
 /** The public page: the demo, with its fourteen cases. No sign-in. */
 export const FACESTUDIO_V_PAGE = "/facestudio-v";
@@ -61,7 +61,7 @@ export const FACESTUDIO_V_COMING_SOON = "Official release coming soon";
 
 export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
   {
-    q: "What is Nano FaceStudio-V Online?",
+    q: "What is Video FaceSwap Online?",
     a: `${FACESTUDIO_V_NAME} is a video face swap from NanoPocket. You give it a video and a photo of the face you want; it replaces one person in every frame and leaves everyone and everything else as it was filmed. It is available as a limited ${FACESTUDIO_V_TAG.toLowerCase()} for registered NanoPocket users; an official release is coming.`,
   },
   {

@@ -28,6 +28,7 @@ import { LocaleSwitcher } from "./locale-switcher";
 const PRIMARY = [
   { href: "/face-swap", label: "Free Face Swap" },
   { href: "/image-edit", label: "AI Image Edit" },
+  { href: "/facestudio-v", label: "Video Face Swap" },
 ];
 
 const SECONDARY = [
@@ -52,7 +53,7 @@ export function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
         <button
           type="button"
           aria-label="Open menu"
-          className="flex h-9 w-9 items-center justify-center rounded-lg text-black transition-colors hover:bg-neutral-100 md:hidden"
+          className="flex h-9 w-9 items-center justify-center rounded-lg text-black transition-colors hover:bg-neutral-100 lg:hidden"
         >
           <Menu className="h-5 w-5" />
         </button>

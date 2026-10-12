@@ -509,7 +509,7 @@ export function AnnouncementSection() {
                 ? "The three-day preview has closed"
                 : `Free for registered users · sign in to open the studio · closes ${FACESTUDIO_V_ENDS_LABEL}`
             }
-            cta={{ href: FACESTUDIO_V_LAUNCH, label: "Open the preview" }}
+            cta={{ href: FACESTUDIO_V_LAUNCH, label: "Try Video FaceSwap Online" }}
             closedLabel={fvEnded ? "Preview ended" : undefined}
             learnMore={{ href: FACESTUDIO_V_DEMO, label: "Learn more", plain: true }}
           />

@@ -29,7 +29,7 @@ const PROTECTED_PATH_PREFIXES = [
   // Nano ImageEdit 2.0 Online: same split. /image-edit (landing) is public,
   // /image-edit/ (launch route, console, its assets and samples) needs a session.
   '/image-edit/',
-  // Nano FaceStudio-V Online: the page at /facestudio-v and its media are public
+  // Video FaceSwap Online: the page at /facestudio-v and its media are public
   // (they are what search engines and visitors see); only the door to the live
   // studio needs a session. The three-day window is enforced in middleware.ts.
   // See lib/facestudio-v.ts.

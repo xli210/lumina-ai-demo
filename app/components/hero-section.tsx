@@ -29,7 +29,7 @@ const demoSlides: HeroSlide[] = [
     src: "/videos/hero-facestudio-v.mp4",
     poster: "/videos/hero-facestudio-v-poster.jpg",
     type: "video",
-    alt: "Nano FaceStudio-V Online: a scan line sweeps across a video and the woman's face is replaced with the reference face, everything else as filmed",
+    alt: "Video FaceSwap Online: a scan line sweeps across a video and the woman's face is replaced with the reference face, everything else as filmed",
     prompt: "Video face swap: one face replaced, the rest as filmed. AI-generated test render on stock footage",
     model: FACESTUDIO_V_NAME,
     tag: "Video Face Swap",
@@ -184,7 +184,7 @@ export function HeroSection() {
             style={{ opacity: demoSlides[activeSlide].feature ? 0.1 : 1 }}
           />
 
-          {/* Left-aligned copy for the Nano FaceStudio-V Online clip: its left quarter is left empty for this. */}
+          {/* Left-aligned copy for the Video FaceSwap Online clip: its left quarter is left empty for this. */}
           <div
             className="pointer-events-none absolute inset-0 flex items-center px-6 transition-opacity duration-1000 sm:px-10 lg:px-16"
             style={{ opacity: activeSlide === 0 ? 1 : 0 }}
@@ -203,7 +203,8 @@ export function HeroSection() {
                 {!vEnded && (
                   <Link href={FACESTUDIO_V_LAUNCH} tabIndex={activeSlide === 0 ? 0 : -1}>
                     <Button size="sm" className="gap-1.5 rounded-full bg-white px-4 text-black hover:bg-neutral-100 sm:px-6">
-                      Try it free
+                      <span className="sm:hidden">Try it free</span>
+                      <span className="hidden sm:inline">Try Video FaceSwap Online</span>
                       <ArrowRight className="h-4 w-4" />
                     </Button>
                   </Link>

@@ -411,7 +411,7 @@ export default function ImageEditLanding() {
             <ul className="space-y-3 text-sm sm:text-base">
               <li>
                 <Link href="/facestudio-v" className={textLink}>
-                  Nano FaceStudio-V Online
+                  Video FaceSwap Online
                 </Link>
                 <span className="text-muted-foreground"> for swapping a face in a video (limited 3-day preview)</span>
               </li>

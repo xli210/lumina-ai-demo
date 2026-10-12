@@ -68,7 +68,7 @@ const ITEMS: WhatsNewItem[] = [
 
 // Bumped each time the announcements change, so people who dismissed the
 // previous bar see the new ones. v3: Nano ImageEdit 2.0 Online launch.
-// v4: the Nano FaceStudio-V Online three-day preview.
+// v4: the Video FaceSwap Online three-day preview.
 const STORAGE_KEY = "nanopocket_whats_new_dismissed_v4";
 
 export function WhatsNewBar() {

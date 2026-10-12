@@ -167,37 +167,37 @@ const IMAGE_GROUPS: PageImageGroup[] = [
     images: [
       {
         src: `${BASE}/images/facestudio-v/og-facestudio-v.jpg`,
-        title: "Nano FaceStudio-V Online: a man in a denim shirt, before and after his face is replaced",
+        title: "Video FaceSwap Online: a man in a denim shirt, before and after his face is replaced",
         caption: "Frame from a studio-light clip before and after the face is replaced. AI-generated test render.",
         license: LICENSE,
       },
       {
         src: `${BASE}/facestudio-v/media/man_smile_poster.jpg`,
-        title: "Nano FaceStudio-V Online: face swap, smiling man",
+        title: "Video FaceSwap Online: face swap, smiling man",
         caption: "Result frame of a face swap on a smiling man in studio light. AI-generated test render.",
         license: LICENSE,
       },
       {
         src: `${BASE}/facestudio-v/media/park_poster.jpg`,
-        title: "Nano FaceStudio-V Online: face swap outdoors",
+        title: "Video FaceSwap Online: face swap outdoors",
         caption: "Result frame of a face swap on a woman in a park; hair, head shape and expression are kept. AI-generated test render.",
         license: LICENSE,
       },
       {
         src: `${BASE}/facestudio-v/media/h3_blackman_poster.jpg`,
-        title: "Nano FaceStudio-V Online: head swap",
+        title: "Video FaceSwap Online: head swap",
         caption: "Result frame of a head swap: new face, hair and head shape. AI-generated test render.",
         license: LICENSE,
       },
       {
         src: `${BASE}/facestudio-v/media/presenter_poster.jpg`,
-        title: "Nano FaceStudio-V Online: face swap in a wide shot",
+        title: "Video FaceSwap Online: face swap in a wide shot",
         caption: "Result frame of a face swap on a presenter at a desk; the coat and the room are untouched. AI-generated test render.",
         license: LICENSE,
       },
       {
         src: `${BASE}/facestudio-v/media/portrait_poster.jpg`,
-        title: "Nano FaceStudio-V Online: studio portrait",
+        title: "Video FaceSwap Online: studio portrait",
         caption: "Result frame of a face swap on a front-facing studio portrait. AI-generated test render.",
         license: LICENSE,
       },

@@ -12,7 +12,7 @@ export function Navbar() {
           <Wordmark className="h-5 w-auto text-black sm:h-6" />
         </Link>
 
-        <div className="hidden items-center gap-4 md:flex lg:gap-6 xl:gap-8">
+        <div className="hidden items-center gap-3 lg:flex lg:gap-6 xl:gap-8">
           <Link
             href="/face-swap"
             className="whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
@@ -26,38 +26,47 @@ export function Navbar() {
             AI Image Edit
           </Link>
           <Link
+            href="/facestudio-v"
+            className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
+          >
+            Video Face Swap
+            <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white lg:inline">
+              New
+            </span>
+          </Link>
+          <Link
             href="/#showcase-features"
-            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1440px]:inline"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1700px]:inline"
           >
             Showcase
           </Link>
           <Link
             href="/#demo"
-            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1440px]:inline"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1700px]:inline"
           >
             Demo
           </Link>
           <Link
             href="/#how-it-works"
-            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1440px]:inline"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1700px]:inline"
           >
             How It Works
           </Link>
           <Link
             href="/#pricing"
-            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black lg:inline"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1360px]:inline"
           >
             Apps
           </Link>
           <Link
             href="/#faq"
-            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1100px]:inline"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1360px]:inline"
           >
             FAQ
           </Link>
           <Link
             href="/download"
-            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[960px]:inline"
+            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1200px]:inline"
           >
             Download
           </Link>

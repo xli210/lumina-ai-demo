@@ -1,4 +1,4 @@
-# Nano FaceStudio-V Online: the three-day preview
+# Video FaceSwap Online: the three-day preview
 
 A limited, queued preview of a video face swap, open to registered users for
 72 hours. Not a launched product: the page says "official release coming soon".
