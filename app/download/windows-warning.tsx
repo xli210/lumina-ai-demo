@@ -3,8 +3,8 @@ import { ShieldAlert } from "lucide-react";
 
 /**
  * Said up front, because the first thing some people see is their browser or
- * antivirus blocking the file. The installers are not Authenticode-signed (see
- * lib/download-hashes.ts), which is what makes a new publisher's file look
+ * antivirus blocking the file. Most installers are not Authenticode-signed (see
+ * lib/download-hashes.ts: only the files in SIGNED_DOWNLOADS are), which is what makes a new publisher's file look
  * suspicious to SmartScreen and to heuristic antivirus engines.
  */
 export function WindowsWarning() {
@@ -16,9 +16,10 @@ export function WindowsWarning() {
           Did Windows, your browser or your antivirus block a download?
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Our Windows installers are not yet code-signed, so SmartScreen or antivirus software may
-          warn about them or quarantine them, even though nothing is wrong with the file. We are
-          getting a code-signing certificate to fix this. Until then:
+          Most of our Windows installers are not yet code-signed (Nano FaceSwap 1.0.6 is), so
+          SmartScreen or antivirus software may warn about them or quarantine them, even though
+          nothing is wrong with the file. We are signing them one at a time. For the ones not yet
+          signed:
         </p>
         <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed text-muted-foreground">
           <li>

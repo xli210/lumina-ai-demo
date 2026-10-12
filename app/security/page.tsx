@@ -193,9 +193,9 @@ export default function SecurityPage() {
           </h2>
           <ul className="list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
             <li>
-              <strong className="text-foreground">Code signing.</strong> Our Windows installers are
-              not yet Authenticode-signed, so SmartScreen or antivirus may warn about them; we are
-              obtaining a certificate. Every download&apos;s SHA-256 is published on{" "}
+              <strong className="text-foreground">Code signing.</strong> Most of our Windows installers
+              are not yet Authenticode-signed (Nano FaceSwap 1.0.6 is, by NanoPocket AI LLC), so
+              SmartScreen or antivirus may warn about them; we are signing them one at a time. Every download&apos;s SHA-256 is published on{" "}
               <a href="/verify#hashes" className="text-foreground underline-offset-4 hover:underline">/verify</a>.
             </li>
             <li>

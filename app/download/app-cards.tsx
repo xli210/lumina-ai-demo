@@ -116,7 +116,7 @@ const apps: AppInfo[] = [
     description:
       "Swap faces in photos and videos with realistic AI-powered results. Fast, private, and running 100% locally on your GPU.",
     icon: ArrowLeftRight,
-    version: "1.0.5",
+    version: "1.0.6",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "Free",
@@ -124,9 +124,9 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoFaceSwap_Release-1.0.5.zip",
-        downloadUrl: "/api/downloads/NanoFaceSwap_Release-1.0.5.zip",
-        size: "6.8 MB",
+        fileName: "NanoFaceSwap-1.0.6-release.exe",
+        downloadUrl: "/api/downloads/NanoFaceSwap-1.0.6-release.exe",
+        size: "7.3 MB",
       },
     ],
   },

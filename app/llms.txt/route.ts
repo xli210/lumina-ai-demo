@@ -105,7 +105,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/verify",
       "Independent verification",
-      "Auditable build manifest with a SHA-256 checksum for every download and an honest statement that the Windows installers are not yet code-signed, offline-execution reproducibility procedure, Hugging Face commit IDs for every model in the pipeline.",
+      "Auditable build manifest with a SHA-256 checksum for every download and an honest statement of code-signing status (Nano FaceSwap 1.0.6 is signed; the other Windows installers are not yet), offline-execution reproducibility procedure, Hugging Face commit IDs for every model in the pipeline.",
     ),
     bullet(
       "/status",

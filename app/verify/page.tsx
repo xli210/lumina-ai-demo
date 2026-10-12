@@ -13,7 +13,7 @@ import {
   ScanSearch,
   Terminal,
 } from "lucide-react";
-import { DOWNLOAD_HASHES, DOWNLOAD_HASHES_CHECKED, formatSize, virusTotalUrl } from "@/lib/download-hashes";
+import { DOWNLOAD_HASHES, DOWNLOAD_HASHES_CHECKED, SIGNED_DOWNLOADS, formatSize, virusTotalUrl } from "@/lib/download-hashes";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 
@@ -101,10 +101,10 @@ const BUILD_MANIFEST: BuildEntry[] = [
   {
     app: "Nano FaceSwap",
     slug: "nano-faceswap",
-    version: "1.0.x",
+    version: "1.0.6",
     platform: "Windows x64",
-    releaseDate: "2026-Q1",
-    signing: "Not yet code-signed",
+    releaseDate: "2026-10",
+    signing: "1.0.6: signed (NanoPocket AI LLC). 1.0.5 and earlier: not signed",
     shaPolicy: "Published in the table above",
     vtPolicy: "No VirusTotal permalink published yet; look the SHA-256 up yourself.",
   },
@@ -406,9 +406,9 @@ export default function VerifyPage() {
             </li>
             <li className="flex gap-2">
               <CircleAlert className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-500" />
-              Our Windows installers are{" "}
-              <strong className="text-foreground">not yet Authenticode-signed</strong>, so Windows
-              SmartScreen or your antivirus may warn about them. See{" "}
+              Most of our Windows installers are{" "}
+              <strong className="text-foreground">not yet Authenticode-signed</strong> (Nano FaceSwap
+              1.0.6 is), so Windows SmartScreen or your antivirus may warn about them. See{" "}
               <a href="#signing" className="text-fuchsia-500 underline-offset-4 hover:underline">
                 §2
               </a>{" "}
@@ -566,14 +566,26 @@ export default function VerifyPage() {
           </p>
           <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
             <li>
-              <strong className="text-foreground">Windows installers are not Authenticode-signed.</strong>{" "}
-              We checked every installer on {DOWNLOAD_HASHES_CHECKED}: none carries a signature (the
-              certificate table is empty). An unsigned installer from a new publisher has no
+              <strong className="text-foreground">One installer is signed; the others are not.</strong>{" "}
+              Nano FaceSwap 1.0.6 carries a valid Authenticode signature
+              {SIGNED_DOWNLOADS.map((d) => (
+                <span key={d.file}>
+                  {" "}(<code className="rounded bg-muted px-1 py-0.5 text-xs">{d.file}</code>: signer {d.subject}, issued by{" "}
+                  {d.issuer}, certificate thumbprint{" "}
+                  <code className="break-all rounded bg-muted px-1 py-0.5 text-xs">{d.thumbprint}</code>, timestamped by{" "}
+                  {d.timestampAuthority}, verified {d.verified}). To check it yourself, right-click
+                  the file, choose Properties, then Digital Signatures. The certificate is
+                  short-lived by design (Microsoft Trusted Signing issues it for days, not years);
+                  the timestamp is what keeps the signature valid after it expires
+                </span>
+              ))}
+              . We checked every other installer on {DOWNLOAD_HASHES_CHECKED} (and Nano FaceSwap
+              1.0.5 on 2026-10-11): none carries a signature (the certificate table is empty). An
+              unsigned installer from a new publisher has no
               reputation with Microsoft, so SmartScreen may show &ldquo;Windows protected your PC&rdquo; and some
-              antivirus products may flag or quarantine it. We are working on obtaining a
-              code-signing certificate. When the installers are signed, this page will list the
-              certificate subject and thumbprint; until then, do not trust any claim, from us or
-              anyone, that they are.
+              antivirus products may flag or quarantine it. We are signing our installers one at
+              a time; this page lists the signer and thumbprint of each one that is signed, and
+              until a file is listed here, do not trust any claim, from us or anyone, that it is.
             </li>
             <li>
               <strong className="text-foreground">If your browser or antivirus blocks a download.</strong>{" "}

@@ -35,6 +35,7 @@ const FILE_PRODUCT_MAP: Record<string, string> = {
   "NanoFacialEdit-1.0.2-release.zip": "nano-facialedit",
   "NanoFaceSwap-1.0.4-release.zip": "nano-faceswap",
   "NanoFaceSwap_Release-1.0.5.zip": "nano-faceswap",
+  "NanoFaceSwap-1.0.6-release.exe": "nano-faceswap",
   "NanoImageEnh-3.0.0-windows.zip": "nnanoimageenh",
   "NanoImageEnh-3.0.0-macos.zip": "nnanoimageenh",
   "NanoImageTryon-1.0.0-release.zip": "nano-image-tryon",

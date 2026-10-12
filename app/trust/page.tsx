@@ -218,7 +218,7 @@ const SECURITY: SecurityNote[] = [
   {
     title: "Installer signing and checksums",
     detail:
-      "Windows installers are not yet Authenticode-signed, so SmartScreen or antivirus may warn about them. SHA-256 checksums for every download are published on /verify.",
+      "Most Windows installers are not yet Authenticode-signed (Nano FaceSwap 1.0.6 is, by NanoPocket AI LLC), so SmartScreen or antivirus may warn about the others. SHA-256 checksums for every download are published on /verify.",
   },
   {
     title: "License activation",
@@ -493,7 +493,7 @@ const VERIFICATION_TRACKS: VerificationGap[] = [
     label: "Code-signing status",
     status: "Honest gap",
     detail:
-      "Windows installers are not yet Authenticode-signed. SHA-256 checksums are published for every download on /verify#hashes.",
+      "Partly signed: Nano FaceSwap 1.0.6 is Authenticode-signed (NanoPocket AI LLC); the other Windows installers are not yet. SHA-256 checksums are published for every download on /verify#hashes.",
     href: "/verify#signing",
   },
   {
@@ -549,7 +549,7 @@ const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     title: "Inswapper-class identity ceiling on Nano FaceSwap (legacy)",
-    product: "Nano FaceSwap 1.0.5",
+    product: "Nano FaceSwap 1.0.6",
     detail:
       "Identity is rendered at 128×128 then upscaled (same pipeline as Roop / FaceFusion / Rope). The diffusion-grade replacement is Nano FaceStudio Pro 1.0.",
     href: "/apps/nano-faceswap",

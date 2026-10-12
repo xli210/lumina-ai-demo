@@ -9,8 +9,9 @@
  * `sha256` is the file the browser downloads; `installerSha256` is the .exe or
  * .dmg inside it, which is what Windows, SmartScreen and antivirus scan.
  *
- * None of the Windows installers is Authenticode-signed (checked 2026-10-09: the
- * certificate table of every PE file is empty). The pages say so.
+ * Authenticode status (checked 2026-10-09 by reading each PE file's certificate table, and
+ * on 2026-10-11 for the two Nano FaceSwap files added then): only Nano FaceSwap 1.0.6 is
+ * signed, see SIGNED_DOWNLOADS. Every other Windows installer is unsigned. The pages say so.
  */
 
 export const DOWNLOAD_HASHES_CHECKED = "2026-10-09";
@@ -36,6 +37,16 @@ export const DOWNLOAD_HASHES: readonly DownloadHash[] = [
     sha256: "59d3903b5211e89d92336bf5a46e39486b10dd854eec1b993ab7e83504d13765",
     installer: "NanoFacialEdit_Release_1.0.2.exe",
     installerSha256: "494f8134f94386dc8b52fdec4f327172c4221a29eeb53610b857ac367b26f8d6",
+  },
+  {
+    app: "Nano FaceSwap",
+    version: "1.0.6",
+    platform: "Windows",
+    file: "NanoFaceSwap-1.0.6-release.exe",
+    size: 7691000,
+    sha256: "f7e8d6fa5bc54f18954f1e0bd352241fe8d5142bbfc4a92fac701eec149d1785",
+    installer: null,
+    installerSha256: null,
   },
   {
     app: "Nano FaceSwap",
@@ -126,6 +137,30 @@ export const DOWNLOAD_HASHES: readonly DownloadHash[] = [
     sha256: "fa9bcdba7e826080c5a9c4b23ad1052892d3f529d419de0ed8007eea7ab30012",
     installer: null,
     installerSha256: null,
+  },
+];
+
+/**
+ * Downloads whose Authenticode signature was verified (Get-AuthenticodeSignature: Valid,
+ * Microsoft RFC 3161 timestamp present) on the date given. Microsoft Trusted Signing issues
+ * short-lived certificates (about three days); the timestamp is what keeps a signature valid
+ * after its certificate expires.
+ */
+export const SIGNED_DOWNLOADS: readonly {
+  file: string;
+  subject: string;
+  issuer: string;
+  thumbprint: string;
+  timestampAuthority: string;
+  verified: string;
+}[] = [
+  {
+    file: "NanoFaceSwap-1.0.6-release.exe",
+    subject: "NanoPocket AI LLC (Austin, Texas, US)",
+    issuer: "Microsoft ID Verified CS AOC CA 04",
+    thumbprint: "9967287E9497219A1F1286B16799F2F51D74537E",
+    timestampAuthority: "Microsoft Public RSA Time Stamping Authority",
+    verified: "2026-10-11",
   },
 ];
 
