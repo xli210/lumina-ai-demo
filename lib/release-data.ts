@@ -203,9 +203,24 @@ export const appReleases: AppRelease[] = [
     gradient: "from-primary to-blue-400",
     releases: [
       {
+        version: "1.0.6",
+        date: "October 11, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "The installer is now code-signed (NanoPocket AI LLC), so Windows shows the publisher instead of an unknown one" },
+          { type: "improvement", text: "Now downloaded as a single .exe instead of a .zip" },
+        ],
+      },
+      {
+        version: "1.0.5",
+        date: "October 9, 2026",
+        changes: [
+          { type: "improvement", text: "Updated installer" },
+        ],
+      },
+      {
         version: "1.0.4",
         date: "March 25, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "Bug fixes and stability improvements" },
           { type: "improvement", text: "General performance optimizations" },
