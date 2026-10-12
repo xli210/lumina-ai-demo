@@ -42,12 +42,6 @@ export function Navbar() {
             Showcase
           </Link>
           <Link
-            href="/#demo"
-            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1700px]:inline"
-          >
-            Demo
-          </Link>
-          <Link
             href="/#how-it-works"
             className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1700px]:inline"
           >

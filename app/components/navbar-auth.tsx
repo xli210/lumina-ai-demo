@@ -76,7 +76,7 @@ export function NavbarAuth() {
 
   return (
     <div className="flex items-center gap-2 sm:gap-3">
-      <LocaleSwitcher variant="menu" className="hidden shrink-0 whitespace-nowrap sm:block" />
+      <LocaleSwitcher className="hidden shrink-0 whitespace-nowrap sm:flex" />
       {state === null ? (
         // Same footprint as the buttons, so nothing shifts when the session resolves.
         <div className="h-8 w-24" aria-hidden />
