@@ -34,6 +34,7 @@ export function Navbar() {
               New
             </span>
           </Link>
+          <span aria-hidden className="hidden h-4 w-px bg-neutral-200 min-[1200px]:block" />
           <Link
             href="/#showcase-features"
             className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1700px]:inline"

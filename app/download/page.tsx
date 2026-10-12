@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 import { Footer } from "../components/footer";
 import { DownloadHero } from "./download-hero";
 import { WindowsWarning } from "./windows-warning";
+import { NewVersionNotice } from "./new-version-notice";
 import { AppCards } from "./app-cards";
 import { ReleaseNotes } from "./release-notes";
 import { SystemRequirements } from "./system-requirements";
@@ -36,6 +37,7 @@ export default function DownloadPage() {
       />
       <Navbar />
       <DownloadHero />
+      <NewVersionNotice />
       <WindowsWarning />
       <AppCards />
       <SystemRequirements />
