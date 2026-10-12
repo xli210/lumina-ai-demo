@@ -207,15 +207,21 @@ export const appReleases: AppRelease[] = [
         date: "October 11, 2026",
         tag: "Latest",
         changes: [
-          { type: "improvement", text: "The installer is now code-signed (NanoPocket AI LLC), so Windows shows the publisher instead of an unknown one" },
-          { type: "improvement", text: "Now downloaded as a single .exe instead of a .zip" },
+          { type: "improvement", text: "Installer and all program files are now digitally signed (publisher: NanoPocket AI LLC), reducing antivirus false positives" },
+          { type: "improvement", text: "Desktop shortcut is created by default" },
         ],
       },
       {
         version: "1.0.5",
         date: "October 9, 2026",
         changes: [
-          { type: "improvement", text: "Updated installer" },
+          { type: "fix", text: "Fixed corrupted model files after an interrupted download" },
+          { type: "fix", text: "Fixed the model loading twice on first launch, which doubled memory use" },
+          { type: "improvement", text: "Setup now checks your GPU, driver version and free disk space before downloading" },
+          { type: "improvement", text: "Clear error messages when the GPU is unsupported or the driver is outdated" },
+          { type: "fix", text: "Fixed license verification issues on recent Windows 11 versions" },
+          { type: "improvement", text: "Default install location moved to AppData\Local\Programs to avoid OneDrive sync" },
+          { type: "improvement", text: "Cleaner uninstall" },
         ],
       },
       {
