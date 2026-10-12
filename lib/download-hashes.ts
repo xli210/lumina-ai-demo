@@ -39,6 +39,16 @@ export const DOWNLOAD_HASHES: readonly DownloadHash[] = [
   },
   {
     app: "Nano FaceSwap",
+    version: "1.0.5",
+    platform: "Windows",
+    file: "NanoFaceSwap_Release-1.0.5.zip",
+    size: 7089076,
+    sha256: "e5370d589bb681caf720444e28f571918127dce3ce5eb9ea139931992cd62785",
+    installer: "NanoFaceSwap_Release-1.0.5.exe",
+    installerSha256: "bf32cf9384c2d008d6ffa9d4ea7305207c79d787901112bd210c3573873e1eee",
+  },
+  {
+    app: "Nano FaceSwap",
     version: "1.0.4",
     platform: "Windows",
     file: "NanoFaceSwap-1.0.4-release.zip",

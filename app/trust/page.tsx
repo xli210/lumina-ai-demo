@@ -549,7 +549,7 @@ const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     title: "Inswapper-class identity ceiling on Nano FaceSwap (legacy)",
-    product: "Nano FaceSwap 1.0.4",
+    product: "Nano FaceSwap 1.0.5",
     detail:
       "Identity is rendered at 128×128 then upscaled (same pipeline as Roop / FaceFusion / Rope). The diffusion-grade replacement is Nano FaceStudio Pro 1.0.",
     href: "/apps/nano-faceswap",

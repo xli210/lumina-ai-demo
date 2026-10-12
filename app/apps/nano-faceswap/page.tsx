@@ -54,7 +54,7 @@ const data: ProductLandingData = {
     category: "Local Desktop Face Swap (Photos & Video)",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Windows 10/11 (NVIDIA CUDA)",
-    softwareVersion: "1.0.4",
+    softwareVersion: "1.0.5",
     releaseDate: "2026-01-12",
     description:
       "Nano FaceSwap — local Windows desktop face-swap for photos and video on a single NVIDIA GPU. Single-face and multi-face swap in one app. One-time license, no per-minute or per-frame fees, no cloud upload of source media. A local alternative to Roop, FaceFusion, Rope, DeepSwap, DeepFaceLab.",
@@ -91,7 +91,7 @@ const data: ProductLandingData = {
       notRecommendedFor: [
         "4K-grade single-portrait fidelity (use Nano FaceStudio Pro 1.0)",
         "Real-time webcam streaming (use Rope-Live)",
-        "Apple Silicon Macs (Windows + NVIDIA only in v1.0.4)",
+        "Apple Silicon Macs (Windows + NVIDIA only in v1.0.5)",
         "Any non-consensual likeness use — explicitly prohibited",
         "Sub-360p source media where landmarks are unreliable",
       ],
@@ -120,7 +120,7 @@ const data: ProductLandingData = {
       {
         title: "Apple Silicon is not supported",
         detail:
-          "v1.0.4 is Windows + NVIDIA CUDA only. Mac users can use Nano FaceStudio Online in the browser until the macOS build of Nano FaceStudio Pro 1.0 ships.",
+          "v1.0.5 is Windows + NVIDIA CUDA only. Mac users can use Nano FaceStudio Online in the browser until the macOS build of Nano FaceStudio Pro 1.0 ships.",
       },
       {
         title: "Group photos > 6 faces",
@@ -154,7 +154,7 @@ const data: ProductLandingData = {
   },
   hero: {
     eyebrow: "Desktop Face Swap",
-    versionChip: "v1.0.4",
+    versionChip: "v1.0.5",
     title: "Nano",
     titleAccent: "FaceSwap",
     lead: "Nano FaceSwap is a local Windows desktop face-swap application that swaps single or multiple faces in photos and videos on a single NVIDIA GPU, ships with a one-time license, charges no per-minute or per-frame fees, and never uploads source media to a server.",
@@ -265,7 +265,7 @@ const data: ProductLandingData = {
   faqs: [
     {
       q: "Will it run on my Windows laptop?",
-      a: "If the laptop has an NVIDIA discrete GPU (GTX 1660 / RTX 30 / 40 / 50 class) and runs Windows 10 or 11, yes. The pipeline runs on a single GPU; integrated graphics (Intel UHD, AMD Radeon Graphics) are not supported. Apple Silicon is not in v1.0.4.",
+      a: "If the laptop has an NVIDIA discrete GPU (GTX 1660 / RTX 30 / 40 / 50 class) and runs Windows 10 or 11, yes. The pipeline runs on a single GPU; integrated graphics (Intel UHD, AMD Radeon Graphics) are not supported. Apple Silicon is not in v1.0.5.",
     },
     {
       q: "Can I swap faces in a video, not just photos?",

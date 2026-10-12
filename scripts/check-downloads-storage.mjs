@@ -41,6 +41,7 @@ const EXPECTED = [
   "NanoVideoEnhance-1.0.5-release.zip",
   "NanoFacialEdit-1.0.2-release.zip",
   "NanoFaceSwap-1.0.4-release.zip",
+  "NanoFaceSwap_Release-1.0.5.zip",
   "NanoImageEnh-3.0.0-windows.zip",
   "NanoImageEnh-3.0.0-macos.zip",
   "NanoImageTryon-1.0.0-release.zip",
