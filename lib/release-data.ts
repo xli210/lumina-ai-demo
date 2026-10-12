@@ -220,7 +220,7 @@ export const appReleases: AppRelease[] = [
           { type: "improvement", text: "Setup now checks your GPU, driver version and free disk space before downloading" },
           { type: "improvement", text: "Clear error messages when the GPU is unsupported or the driver is outdated" },
           { type: "fix", text: "Fixed license verification issues on recent Windows 11 versions" },
-          { type: "improvement", text: "Default install location moved to AppData\Local\Programs to avoid OneDrive sync" },
+          { type: "improvement", text: "Default install location moved to AppData\\Local\\Programs to avoid OneDrive sync" },
           { type: "improvement", text: "Cleaner uninstall" },
         ],
       },
