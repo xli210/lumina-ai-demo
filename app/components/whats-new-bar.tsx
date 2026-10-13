@@ -20,12 +20,12 @@ interface WhatsNewItem {
 
 const ITEMS: WhatsNewItem[] = [
   {
-    id: "nano-facestudio-v-preview",
-    label: "3 DAYS",
+    id: "nano-facestudio-v-trial",
+    label: "1 WEEK",
     labelClassName: "bg-rose-100 text-rose-700 ring-rose-200",
     icon: Video,
     iconClassName: "text-rose-600",
-    text: `${FACESTUDIO_V_NAME} — video face swap · limited 3-day queued preview · official release coming soon`,
+    text: `${FACESTUDIO_V_NAME} — video face swap · 1-week queued trial · pay with credits · official release coming soon`,
     href: "/facestudio-v",
   },
   {
@@ -68,8 +68,8 @@ const ITEMS: WhatsNewItem[] = [
 
 // Bumped each time the announcements change, so people who dismissed the
 // previous bar see the new ones. v3: Nano ImageEdit 2.0 Online launch.
-// v4: the Video FaceSwap Online three-day preview.
-const STORAGE_KEY = "nanopocket_whats_new_dismissed_v4";
+// v5: the Video FaceSwap Online one-week trial (v4 was the three-day preview).
+const STORAGE_KEY = "nanopocket_whats_new_dismissed_v5";
 
 export function WhatsNewBar() {
   const [visible, setVisible] = useState(false);
@@ -137,7 +137,7 @@ export function WhatsNewBar() {
 
   const items = ITEMS.map((item) =>
     item.id === "nano-facestudio-v-preview" && previewEnded
-      ? { ...item, label: "ENDED", text: `${FACESTUDIO_V_NAME} preview has ended — official release coming soon` }
+      ? { ...item, label: "ENDED", text: `${FACESTUDIO_V_NAME} trial has ended — official release coming soon` }
       : item
   );
   const scrolling = overflowing && !reduceMotion;

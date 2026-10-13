@@ -178,7 +178,7 @@ const FACESTUDIO_V_REFERENCE = `# ${FACESTUDIO_V_NAME} — Preview Reference
 
 URL: ${BASE}/facestudio-v
 
-${FACESTUDIO_V_NAME} is NanoPocket's video face swap, offered as a ${FACESTUDIO_V_TAG.toLowerCase()}. ${FACESTUDIO_V_TAGLINE} ${facestudioVHasEnded() ? "The three-day preview has ended." : `The preview is open to registered NanoPocket users until ${FACESTUDIO_V_ENDS_LABEL}; requests are queued.`} ${FACESTUDIO_V_COMING_SOON}.
+${FACESTUDIO_V_NAME} is NanoPocket's video face swap, offered as a ${FACESTUDIO_V_TAG.toLowerCase()}. ${FACESTUDIO_V_TAGLINE} ${facestudioVHasEnded() ? "The one-week trial has ended." : `The trial is open to registered NanoPocket users until ${FACESTUDIO_V_ENDS_LABEL}; requests are queued, and each video is paid for in credits at a price shown before it starts.`} ${FACESTUDIO_V_COMING_SOON}.
 
 ## What it does
 

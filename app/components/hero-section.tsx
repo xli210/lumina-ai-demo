@@ -193,7 +193,7 @@ export function HeroSection() {
             <div className="pointer-events-auto max-w-[46%] sm:max-w-[30%]">
               <p className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-sky-300/40 bg-sky-300/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-widest text-sky-200 sm:mb-4 sm:text-xs">
                 <Video className="h-3 w-3" />
-                {vEnded ? "Preview ended · official release soon" : "Free 3-day preview"}
+                {vEnded ? "Trial ended · official release soon" : "1-week trial"}
               </p>
               <p className="text-balance text-lg font-bold leading-tight tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl">
                 Swap one face in a video.

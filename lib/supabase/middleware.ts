@@ -31,7 +31,7 @@ const PROTECTED_PATH_PREFIXES = [
   '/image-edit/',
   // Video FaceSwap Online: the page at /facestudio-v and its media are public
   // (they are what search engines and visitors see); only the door to the live
-  // studio needs a session. The three-day window is enforced in middleware.ts.
+  // studio needs a session. The trial window is enforced in middleware.ts.
   // See lib/facestudio-v.ts.
   '/facestudio-v/launch',
 ]

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
+import { signStudioToken, studioBillingReady } from "@/lib/facestudio-v-server";
 import {
   FACESTUDIO_V_LAUNCH,
   FACESTUDIO_V_NAME,
@@ -12,8 +13,8 @@ import {
 /**
  * /facestudio-v/launch
  *
- * The signed-in front door to the live studio of the limited Nano
- * FaceStudio-V Online preview.
+ * The signed-in front door to the live studio of the limited Video FaceSwap
+ * Online trial.
  *
  * The studio itself runs elsewhere, behind a tunnel, and opens with a private
  * link that carries an access key. That link is never in this repository (it is
@@ -58,9 +59,13 @@ export default async function FaceStudioVLaunch() {
     target = null;
   }
 
-  // Only ever send people to an https address we were configured with.
-  if (target && target.protocol === "https:") {
-    redirect(target.toString());
+  // Only ever send people to an https address we were configured with, and only
+  // once the studio is up and insisting on a price: without that, videos would be
+  // made without ever touching a balance.
+  if (target && target.protocol === "https:" && (await studioBillingReady())) {
+    // The studio page bills through our API. It cannot use our cookies, so it gets a
+    // short-lived signed token in the URL fragment (never sent to any server).
+    redirect(`${target.toString()}#t=${signStudioToken(user.id)}`);
   }
 
   console.error("[facestudio-v] FACESTUDIO_V_STUDIO_URL is missing or not an https address");

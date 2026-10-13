@@ -616,7 +616,7 @@ export default function FaceStudioLandingPage() {
             <ul className="mt-3 space-y-2 text-sm">
               <li>
                 <Link href="/facestudio-v" className={textLink}>Video FaceSwap Online</Link>
-                <span className="text-muted-foreground"> swaps a face in a video (limited 3-day preview)</span>
+                <span className="text-muted-foreground"> swaps a face in a video (limited 1-week trial)</span>
               </li>
               <li>
                 <Link href="/image-edit" className={textLink}>Nano ImageEdit 2.0 Online</Link>

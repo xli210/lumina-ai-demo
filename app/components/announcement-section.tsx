@@ -498,7 +498,7 @@ export function AnnouncementSection() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <ProductCard
             icon={Video}
-            pill={fvEnded ? "Preview ended" : FACESTUDIO_V_TAG}
+            pill={fvEnded ? "Trial ended" : FACESTUDIO_V_TAG}
             live={!fvEnded}
             highlight={FACESTUDIO_V_COMING_SOON}
             title={FACESTUDIO_V_NAME}
@@ -506,11 +506,11 @@ export function AnnouncementSection() {
             points={FACESTUDIO_V_POINTS}
             priceLine={
               fvEnded
-                ? "The three-day preview has closed"
-                : `Free for registered users · sign in to open the studio · closes ${FACESTUDIO_V_ENDS_LABEL}`
+                ? "The one-week trial has closed"
+                : `Paid in credits, priced before you start · new accounts start with free credits · closes ${FACESTUDIO_V_ENDS_LABEL}`
             }
             cta={{ href: FACESTUDIO_V_LAUNCH, label: "Try Video FaceSwap Online" }}
-            closedLabel={fvEnded ? "Preview ended" : undefined}
+            closedLabel={fvEnded ? "Trial ended" : undefined}
             learnMore={{ href: FACESTUDIO_V_DEMO, label: "Learn more", plain: true }}
           />
 

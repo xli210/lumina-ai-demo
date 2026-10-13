@@ -20,7 +20,7 @@ import {
  * Shown once per browser: marked as seen the moment it appears.
  */
 
-const SEEN_KEY = "nanopocket_fsv_notice_seen_v1";
+const SEEN_KEY = "nanopocket_fsv_notice_seen_v2";
 // Pages where it would be noise: the preview's own page, sign-in flows, admin.
 const QUIET_PREFIXES = ["/facestudio-v", "/auth", "/admin", "/checkout"];
 
@@ -74,11 +74,11 @@ export function FacestudioVNotice() {
       </button>
       <p className="mb-1 inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-widest text-sky-200">
         <Video className="h-3.5 w-3.5" />
-        Free 3-day preview
+        1-week trial
       </p>
       <p className="pr-6 text-sm font-semibold">{FACESTUDIO_V_NAME} is open</p>
       <p className="mt-1 text-sm text-white/75">
-        Swap one face in a video and keep the rest as filmed. Free for your account until{" "}
+        Swap one face in a video and keep the rest as filmed. Each video is paid in credits, priced before you start; open until{" "}
         {FACESTUDIO_V_ENDS_LABEL}.
       </p>
       <div className="mt-3 flex items-center gap-4">

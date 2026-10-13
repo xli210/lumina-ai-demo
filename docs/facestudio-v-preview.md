@@ -1,10 +1,63 @@
-# Video FaceSwap Online: the three-day preview
+# Video FaceSwap Online: the one-week trial (paid in credits)
 
-A limited, queued preview of a video face swap, open to registered users for
-72 hours. Not a launched product: the page says "official release coming soon".
+A limited, queued trial of a video face swap, open to registered users from
+2026-10-13 05:00 UTC to 2026-10-20 06:00 UTC (`lib/facestudio-v.ts`). It follows the
+free three-day preview of 2026-10-10 to 2026-10-13. Not a launched product: the page
+says "official release coming soon".
 
-Written 2026-10-10. Everything here is about the preview; nothing has been posted
-anywhere on your behalf.
+Nothing here has been posted anywhere on your behalf.
+
+## How billing works (since 2026-10-13)
+
+Each video costs credits. The studio prices it (`swap_pipelines/credits.py`, 100 credits =
+US$1, from the mode, output size, length and number of people) and reports, per job,
+whether to keep the charge or return it. It knows no balances. Our server holds the
+balance:
+
+```
+studio page (tunnel origin)                     nanopocket.ai
+  /api/quote            -> price + signed quote
+  show price + balance  <------------- GET  /api/facestudio-v/me
+  user confirms
+  reserve               -------------> POST /api/facestudio-v/hold   {credits}      (credit_hold)
+  /api/run + quote      -> job id
+  attach                -------------> POST /api/facestudio-v/job    {hold_id, job} (price must fit)
+  poll the job ...
+  finished / failed     -------------> POST /api/facestudio-v/settle {job}
+                                        server asks the studio for billing.status:
+                                        settled -> credit_capture, refunded -> credit_release
+```
+
+- **Who is calling.** The studio page cannot use our cookies, so `/facestudio-v/launch`
+  appends a signed token to the studio URL as a fragment (`#t=...`, never sent to a
+  server). It names one user and lives 3 hours (`lib/facestudio-v-token.ts`). The key is
+  derived from `SUPABASE_SERVICE_ROLE_KEY`; nothing new to configure.
+- **The page never decides.** `settle` reads the job's billing status from the studio
+  itself, server to server, and acts on that. A job priced above its reservation is
+  cancelled and the reservation returned.
+- **Failed, cancelled or abandoned = free.** A reservation is released, never charged.
+  Reservations left by a closed tab are settled the next time that user opens the studio
+  (and expire after 60 minutes regardless).
+- **Open videos per account:** 2. The studio also allows one task per IP.
+- The decisions are pure functions with tests:
+  `node --experimental-strip-types scripts/check-facestudio-v-billing.mjs` and
+  `scripts/check-facestudio-v-token.mjs`.
+
+**What this does not stop.** The studio cannot tell whether the page really reserved
+credits, and a visitor who copies the studio's access key from the address bar could call
+the studio directly and skip billing. Making that impossible needs the studio to require our
+token on `/api/run` (a shared secret on both sides). For a one-week trial this was judged
+acceptable; say so before widening it.
+
+### What you must set up
+
+1. **The studio** (`swap_pipelines`): start it with `STUDIO_BILLING=1`, a
+   `STUDIO_BILLING_SECRET` of your own, and (optional) `STUDIO_PARENT_ORIGIN=https://nanopocket.ai`.
+   `/api/health` then reports `billing.enabled: true`.
+2. **Vercel:** set `FACESTUDIO_V_STUDIO_URL` to the studio's current link, including `?key=...`
+   (a quick tunnel gets a new address on every restart; update it each time).
+3. Until both are true, `/facestudio-v/launch` shows "is being set up" instead of sending
+   anyone in: it only redirects when the studio answers `/api/health` with billing on.
 
 ## What is deployed
 
@@ -16,7 +69,7 @@ anywhere on your behalf.
 
 Only `/facestudio-v/launch` needs a session (`lib/supabase/middleware.ts`) and is
 closed outside the window (`middleware.ts`). The page and its videos are public.
-After the window the page stays up and its "Open the studio" buttons hide
+After the window the page stays up and its "Try Video FaceSwap Online" buttons hide
 themselves.
 
 ## The studio address (needs you)

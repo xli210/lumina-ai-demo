@@ -61,7 +61,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // Nano ImageEdit 2.0 Online landing page; the editor itself is auth-gated.
     { url: `${BASE}/image-edit`, lastModified: new Date("2026-10-05"), changeFrequency: "weekly", priority: 0.95 },
-    // Video FaceSwap Online: the public page of the three-day preview (its studio is behind sign-in).
+    // Video FaceSwap Online: the public page of the one-week trial (its studio is behind sign-in).
     { url: `${BASE}/facestudio-v`, lastModified: new Date("2026-10-10"), changeFrequency: "daily", priority: 0.95 },
     { url: `${BASE}/use-cases`, lastModified: new Date("2026-10-05"), changeFrequency: "monthly", priority: 0.8 },
     ...IMAGE_EDIT_USE_CASES.map((u) => ({ url: `${BASE}/use-cases/${u.slug}`, lastModified: new Date("2026-10-05"), changeFrequency: "monthly" as const, priority: 0.85 })),
