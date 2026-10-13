@@ -45,6 +45,15 @@ export function decideSettlement(reserved: number, job: StudioJob): SettlementDe
   return { action: "wait" };
 }
 
+/**
+ * Is a studio insisting on a quote? Its /api/health reports it as swap.billing.enabled
+ * (a public studio nests everything under `swap`); an older shape had it at the top.
+ */
+export function billingEnabledIn(health: unknown): boolean {
+  const h = (health ?? {}) as { billing?: { enabled?: unknown }; swap?: { billing?: { enabled?: unknown } } };
+  return h.swap?.billing?.enabled === true || h.billing?.enabled === true;
+}
+
 /** Does the price the studio put on a job fit what was reserved? */
 export function priceFits(reserved: number, job: StudioJob): boolean {
   return "found" in job && job.found && typeof job.billing?.credits === "number" && job.billing.credits <= reserved;

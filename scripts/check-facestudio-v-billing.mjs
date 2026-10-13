@@ -1,7 +1,7 @@
 // node --experimental-strip-types scripts/check-facestudio-v-billing.mjs
 // What happens to a reservation, for every thing the studio can say about its job.
 import assert from "node:assert/strict";
-import { decideSettlement, priceFits } from "../lib/facestudio-v-billing.ts";
+import { billingEnabledIn, decideSettlement, priceFits } from "../lib/facestudio-v-billing.ts";
 
 const job = (state, billing) => ({ found: true, state, billing });
 
@@ -44,4 +44,11 @@ assert.equal(priceFits(20, job("queued", { credits: 90, status: "held" })), fals
 assert.equal(priceFits(90, job("queued", null)), false, "no price reported: do not accept");
 assert.equal(priceFits(90, { found: false }), false);
 assert.equal(priceFits(90, { error: "x" }), false);
+// the studio's real /api/health shape (checked against the live studio on 2026-10-13)
+assert.equal(billingEnabledIn({ ok: true, public: true, swap: { billing: { enabled: true, credits_per_usd: 100, parent_origin: "" } } }), true);
+assert.equal(billingEnabledIn({ ok: true, public: true, swap: { billing: { enabled: false } } }), false, "billing off: nobody is sent in");
+assert.equal(billingEnabledIn({ ok: true, public: true, swap: {} }), false, "no billing field: not ready");
+assert.equal(billingEnabledIn({ billing: { enabled: true } }), true);
+assert.equal(billingEnabledIn(null), false);
+assert.equal(billingEnabledIn({ swap: { billing: { enabled: "true" } } }), false, "only a real true counts");
 console.log("facestudio-v billing: all checks passed");

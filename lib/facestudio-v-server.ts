@@ -8,7 +8,7 @@ import {
 } from "@/lib/credits-server";
 import { FACESTUDIO_V_SERVICE } from "@/lib/facestudio-v";
 import { bearerToken, signStudioToken, verifyStudioToken } from "@/lib/facestudio-v-token";
-import { decideSettlement, priceFits, type StudioBilling, type StudioJob } from "@/lib/facestudio-v-billing";
+import { billingEnabledIn, decideSettlement, priceFits, type StudioBilling, type StudioJob } from "@/lib/facestudio-v-billing";
 
 export { bearerToken, signStudioToken, verifyStudioToken };
 export type { StudioBilling, StudioJob };
@@ -107,8 +107,7 @@ export async function studioBillingReady(): Promise<boolean> {
   try {
     const r = await studioFetch(cfg, "/api/health");
     if (!r.ok) return false;
-    const j = (await r.json()) as { billing?: { enabled?: boolean } };
-    return j.billing?.enabled === true;
+    return billingEnabledIn(await r.json());
   } catch {
     return false;
   }
