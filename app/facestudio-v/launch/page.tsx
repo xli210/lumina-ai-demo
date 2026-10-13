@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
-import { signStudioToken, studioBillingReady } from "@/lib/facestudio-v-server";
+import { signStudioToken, studioConfig, studioStatus } from "@/lib/facestudio-v-server";
 import {
   FACESTUDIO_V_LAUNCH,
   FACESTUDIO_V_NAME,
@@ -51,24 +51,19 @@ export default async function FaceStudioVLaunch() {
     redirect("/facestudio-v");
   }
 
-  const studio = process.env.FACESTUDIO_V_STUDIO_URL?.trim();
-  let target: URL | null = null;
-  try {
-    target = studio ? new URL(studio) : null;
-  } catch {
-    target = null;
-  }
-
   // Only ever send people to an https address we were configured with, and only
   // once the studio is up and insisting on a price: without that, videos would be
   // made without ever touching a balance.
-  if (target && target.protocol === "https:" && (await studioBillingReady())) {
+  const status = await studioStatus();
+  const cfg = studioConfig();
+  if (status.ok && cfg) {
     // The studio page bills through our API. It cannot use our cookies, so it gets a
     // short-lived signed token in the URL fragment (never sent to any server).
-    redirect(`${target.toString()}#t=${signStudioToken(user.id)}`);
+    redirect(`${cfg.origin}/?key=${encodeURIComponent(cfg.key)}#t=${signStudioToken(user.id)}`);
   }
 
-  console.error("[facestudio-v] FACESTUDIO_V_STUDIO_URL is missing or not an https address");
+  const reason = status.ok ? "no_address" : status.reason;
+  console.error(`[facestudio-v] launch refused: ${reason}`);
   return (
     <main className="flex min-h-screen items-center justify-center px-6">
       <div className="max-w-md text-center">
@@ -77,6 +72,7 @@ export default async function FaceStudioVLaunch() {
           The studio is not reachable right now. Please try again in a few minutes. You can still look at
           the results on the preview page.
         </p>
+        <p className="mb-6 text-xs text-muted-foreground">Status code: {reason}</p>
         <Link href="/facestudio-v" className="text-sm font-medium text-primary underline-offset-4 hover:underline">
           See the preview page
         </Link>

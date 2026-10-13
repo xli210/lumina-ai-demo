@@ -45,6 +45,25 @@ export function decideSettlement(reserved: number, job: StudioJob): SettlementDe
   return { action: "wait" };
 }
 
+export type StudioAddress = { origin: string; key: string } | { problem: "not_configured" | "bad_address" };
+
+/**
+ * Read FACESTUDIO_V_STUDIO_URL. Tolerates what pasting into a dashboard tends to add
+ * (spaces, a newline, surrounding quotes). It must be https and carry ?key=.
+ */
+export function parseStudioAddress(raw: string | undefined | null): StudioAddress {
+  const t = (raw ?? "").trim().replace(/^["']+|["']+$/g, "").trim();
+  if (!t) return { problem: "not_configured" };
+  try {
+    const u = new URL(t);
+    const key = u.searchParams.get("key") ?? "";
+    if (u.protocol !== "https:" || !key) return { problem: "bad_address" };
+    return { origin: u.origin, key };
+  } catch {
+    return { problem: "bad_address" };
+  }
+}
+
 /**
  * Is a studio insisting on a quote? Its /api/health reports it as swap.billing.enabled
  * (a public studio nests everything under `swap`); an older shape had it at the top.

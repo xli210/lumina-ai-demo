@@ -1,7 +1,7 @@
 // node --experimental-strip-types scripts/check-facestudio-v-billing.mjs
 // What happens to a reservation, for every thing the studio can say about its job.
 import assert from "node:assert/strict";
-import { billingEnabledIn, decideSettlement, priceFits } from "../lib/facestudio-v-billing.ts";
+import { billingEnabledIn, decideSettlement, parseStudioAddress, priceFits } from "../lib/facestudio-v-billing.ts";
 
 const job = (state, billing) => ({ found: true, state, billing });
 
@@ -51,4 +51,16 @@ assert.equal(billingEnabledIn({ ok: true, public: true, swap: {} }), false, "no 
 assert.equal(billingEnabledIn({ billing: { enabled: true } }), true);
 assert.equal(billingEnabledIn(null), false);
 assert.equal(billingEnabledIn({ swap: { billing: { enabled: "true" } } }), false, "only a real true counts");
+// the address from Vercel: what pasting adds must not break it
+const good = { origin: "https://either-publication-findings-machines.trycloudflare.com", key: "abc123" };
+assert.deepEqual(parseStudioAddress("https://either-publication-findings-machines.trycloudflare.com/?key=abc123"), good);
+assert.deepEqual(parseStudioAddress("  https://either-publication-findings-machines.trycloudflare.com/?key=abc123\n"), good, "spaces and a newline");
+assert.deepEqual(parseStudioAddress('"https://either-publication-findings-machines.trycloudflare.com/?key=abc123"'), good, "surrounding quotes");
+assert.deepEqual(parseStudioAddress("https://either-publication-findings-machines.trycloudflare.com?key=abc123"), good, "no slash before the query");
+assert.deepEqual(parseStudioAddress("https://either-publication-findings-machines.trycloudflare.com/"), { problem: "bad_address" }, "no key");
+assert.deepEqual(parseStudioAddress("http://x.trycloudflare.com/?key=abc"), { problem: "bad_address" }, "not https");
+assert.deepEqual(parseStudioAddress("either-publication-findings-machines.trycloudflare.com/?key=abc"), { problem: "bad_address" }, "no scheme");
+assert.deepEqual(parseStudioAddress(""), { problem: "not_configured" });
+assert.deepEqual(parseStudioAddress(undefined), { problem: "not_configured" });
+assert.deepEqual(parseStudioAddress("   "), { problem: "not_configured" });
 console.log("facestudio-v billing: all checks passed");

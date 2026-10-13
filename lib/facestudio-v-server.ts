@@ -8,7 +8,7 @@ import {
 } from "@/lib/credits-server";
 import { FACESTUDIO_V_SERVICE } from "@/lib/facestudio-v";
 import { bearerToken, signStudioToken, verifyStudioToken } from "@/lib/facestudio-v-token";
-import { billingEnabledIn, decideSettlement, priceFits, type StudioBilling, type StudioJob } from "@/lib/facestudio-v-billing";
+import { billingEnabledIn, decideSettlement, parseStudioAddress, priceFits, type StudioBilling, type StudioJob } from "@/lib/facestudio-v-billing";
 
 export { bearerToken, signStudioToken, verifyStudioToken };
 export type { StudioBilling, StudioJob };
@@ -52,16 +52,8 @@ export interface StudioConfig {
 
 /** The studio's address and access key, from FACESTUDIO_V_STUDIO_URL (https only). */
 export function studioConfig(): StudioConfig | null {
-  const raw = process.env.FACESTUDIO_V_STUDIO_URL?.trim();
-  if (!raw) return null;
-  try {
-    const u = new URL(raw);
-    const key = u.searchParams.get("key") ?? "";
-    if (u.protocol !== "https:" || !key) return null;
-    return { origin: u.origin, key };
-  } catch {
-    return null;
-  }
+  const a = parseStudioAddress(process.env.FACESTUDIO_V_STUDIO_URL);
+  return "problem" in a ? null : a;
 }
 
 async function studioFetch(cfg: StudioConfig, path: string, init?: RequestInit): Promise<Response> {
@@ -100,16 +92,29 @@ export async function cancelStudioJob(jobId: string): Promise<void> {
   }
 }
 
-/** Is the studio up and insisting on a quote? The launch page checks this before it sends anyone in. */
-export async function studioBillingReady(): Promise<boolean> {
-  const cfg = studioConfig();
-  if (!cfg) return false;
+export type StudioStatus =
+  | { ok: true }
+  | { ok: false; reason: "not_configured" | "bad_address" | "unreachable" | "rejected" | "studio_error" | "billing_off" };
+
+/**
+ * Is the studio up and insisting on a quote? The launch page asks before it sends
+ * anyone in, and shows the reason code when the answer is no (it contains nothing secret).
+ */
+export async function studioStatus(): Promise<StudioStatus> {
+  const a = parseStudioAddress(process.env.FACESTUDIO_V_STUDIO_URL);
+  if ("problem" in a) return { ok: false, reason: a.problem };
+  let r: Response;
   try {
-    const r = await studioFetch(cfg, "/api/health");
-    if (!r.ok) return false;
-    return billingEnabledIn(await r.json());
+    r = await studioFetch(a, "/api/health");
   } catch {
-    return false;
+    return { ok: false, reason: "unreachable" };
+  }
+  if (r.status === 401 || r.status === 403) return { ok: false, reason: "rejected" };
+  if (!r.ok) return { ok: false, reason: "studio_error" };
+  try {
+    return billingEnabledIn(await r.json()) ? { ok: true } : { ok: false, reason: "billing_off" };
+  } catch {
+    return { ok: false, reason: "studio_error" };
   }
 }
 
