@@ -9,9 +9,10 @@
  * `sha256` is the file the browser downloads; `installerSha256` is the .exe or
  * .dmg inside it, which is what Windows, SmartScreen and antivirus scan.
  *
- * Authenticode status (checked 2026-10-09 by reading each PE file's certificate table, and
- * on 2026-10-11 for the two Nano FaceSwap files added then): only Nano FaceSwap 1.0.6 is
- * signed, see SIGNED_DOWNLOADS. Every other Windows installer is unsigned. The pages say so.
+ * Authenticode status (checked 2026-10-09 by reading each PE file's certificate table, on
+ * 2026-10-11 for the two Nano FaceSwap files added then, and on 2026-10-14 for the two added
+ * then): only the files in SIGNED_DOWNLOADS are signed. Every other Windows installer is
+ * unsigned. The pages say so, and build the list of names from SIGNED_DOWNLOADS.
  */
 
 export const DOWNLOAD_HASHES_CHECKED = "2026-10-09";
@@ -28,6 +29,16 @@ export interface DownloadHash {
 }
 
 export const DOWNLOAD_HASHES: readonly DownloadHash[] = [
+  {
+    app: "Nano FacialEdit",
+    version: "1.0.3",
+    platform: "Windows",
+    file: "NanoFacialEdit-1.0.3-release.exe",
+    size: 2980072,
+    sha256: "bd0c1f537a4276feed27a56094b3cbcaaef174c68b360774c53bf6d21059e727",
+    installer: null,
+    installerSha256: null,
+  },
   {
     app: "Nano FacialEdit",
     version: "1.0.2",
@@ -130,6 +141,16 @@ export const DOWNLOAD_HASHES: readonly DownloadHash[] = [
   },
   {
     app: "Nano FaceStudio Pro",
+    version: "1.0.2",
+    platform: "Windows",
+    file: "NanoFaceStudioPro-1.0.2-windows.exe",
+    size: 105372248,
+    sha256: "13f75d906305ef888b6368c585259af83c581cfbed62e6a27449fa2440aa03c4",
+    installer: null,
+    installerSha256: null,
+  },
+  {
+    app: "Nano FaceStudio Pro",
     version: "1.0.0",
     platform: "Windows",
     file: "NanoFaceStudioPro-1.0.0-windows.exe",
@@ -147,6 +168,8 @@ export const DOWNLOAD_HASHES: readonly DownloadHash[] = [
  * after its certificate expires.
  */
 export const SIGNED_DOWNLOADS: readonly {
+  app: string;
+  version: string;
   file: string;
   subject: string;
   issuer: string;
@@ -155,6 +178,28 @@ export const SIGNED_DOWNLOADS: readonly {
   verified: string;
 }[] = [
   {
+    app: "Nano FaceStudio Pro",
+    version: "1.0.2",
+    file: "NanoFaceStudioPro-1.0.2-windows.exe",
+    subject: "NanoPocket AI LLC (Austin, Texas, US)",
+    issuer: "Microsoft ID Verified CS AOC CA 04",
+    thumbprint: "9967287E9497219A1F1286B16799F2F51D74537E",
+    timestampAuthority: "Microsoft Public RSA Time Stamping Authority",
+    verified: "2026-10-14",
+  },
+  {
+    app: "Nano FacialEdit",
+    version: "1.0.3",
+    file: "NanoFacialEdit-1.0.3-release.exe",
+    subject: "NanoPocket AI LLC (Austin, Texas, US)",
+    issuer: "Microsoft ID Verified CS AOC CA 04",
+    thumbprint: "9967287E9497219A1F1286B16799F2F51D74537E",
+    timestampAuthority: "Microsoft Public RSA Time Stamping Authority",
+    verified: "2026-10-14",
+  },
+  {
+    app: "Nano FaceSwap",
+    version: "1.0.6",
     file: "NanoFaceSwap-1.0.6-release.exe",
     subject: "NanoPocket AI LLC (Austin, Texas, US)",
     issuer: "Microsoft ID Verified CS AOC CA 04",
@@ -163,6 +208,19 @@ export const SIGNED_DOWNLOADS: readonly {
     verified: "2026-10-11",
   },
 ];
+
+function joinNames(items: string[]): string {
+  if (items.length <= 1) return items.join("");
+  return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
+}
+
+/** "Nano FaceStudio Pro 1.0.2, Nano FacialEdit 1.0.3 and Nano FaceSwap 1.0.6": every signed download, for the pages to quote. */
+export const SIGNED_APPS_PHRASE = joinNames(SIGNED_DOWNLOADS.map((d) => `${d.app} ${d.version}`));
+
+/** "Three": how many installers are signed, in words. */
+export const SIGNED_COUNT_WORD =
+  ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"][SIGNED_DOWNLOADS.length] ??
+  String(SIGNED_DOWNLOADS.length);
 
 /** A VirusTotal lookup by hash. It searches existing reports and uploads nothing. */
 export const virusTotalUrl = (sha256: string) => `https://www.virustotal.com/gui/file/${sha256}`;

@@ -1,4 +1,4 @@
-import { ImagePlus, Video, Wand2, ScanFace, ArrowLeftRight, Shirt, Sparkles, type LucideIcon } from "lucide-react";
+import { ImagePlus, Video, Wand2, ScanFace, ArrowLeftRight, Palette, Shirt, Sparkles, type LucideIcon } from "lucide-react";
 
 export interface ReleaseChange {
   type: "feature" | "improvement" | "fix";
@@ -21,6 +21,37 @@ export interface AppRelease {
 }
 
 export const appReleases: AppRelease[] = [
+  {
+    app: "Nano FaceStudio Pro",
+    slug: "nano-facestudio-pro",
+    icon: Palette,
+    gradient: "from-primary to-blue-400",
+    releases: [
+      {
+        version: "1.0.2",
+        date: "October 12, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "Faster: the AI model now loads in the background as soon as the app opens, so the first face swap, upscale or head swap no longer waits about 30\u201340 seconds" },
+          { type: "improvement", text: "Result images save faster, and first-time setup downloads faster on most connections (4 connections per file)" },
+          { type: "improvement", text: "Old results (older than 7 days) and old log files are cleaned up automatically" },
+          { type: "improvement", text: "Tighter app security: app windows can only open the app\u2019s own pages" },
+        ],
+      },
+      {
+        version: "1.0.1",
+        date: "October 2026",
+        changes: [
+          { type: "improvement", text: "Installer and app are now code-signed by NanoPocket AI LLC, so antivirus warnings are reduced" },
+          { type: "fix", text: "Fixed setup getting stuck forever when the internet dropped during the download; every downloaded file is now verified before it is installed" },
+          { type: "improvement", text: "Checks your GPU, driver and free disk space before the large download, with a clear message if something is missing" },
+          { type: "improvement", text: "Your activation now survives Windows updates, renaming your PC and hardware changes, and offline use has a proper grace period instead of logging you out after one failed check" },
+          { type: "fix", text: "If the model files or your activation can\u2019t be read, the app repairs itself or asks for your key again; only one copy runs at a time and the AI engine always shuts down when you close the app" },
+          { type: "improvement", text: "Uninstalling removes everything; updating keeps all your data" },
+        ],
+      },
+    ],
+  },
   {
     app: "Nano ImageEdit",
     slug: "nano-imageedit",
@@ -166,9 +197,23 @@ export const appReleases: AppRelease[] = [
     gradient: "from-primary to-blue-400",
     releases: [
       {
+        version: "1.0.3",
+        date: "October 12, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "Installer and app are now code-signed by NanoPocket AI LLC, so antivirus warnings are reduced" },
+          { type: "improvement", text: "PCs without a supported NVIDIA GPU (RTX 50-series, older cards, outdated drivers) now run on the CPU automatically instead of showing a CUDA error" },
+          { type: "improvement", text: "New default install location, avoiding problems caused by OneDrive and Windows ransomware protection; existing installs stay where they are" },
+          { type: "improvement", text: "Downloads resume after a dropped connection and are verified before installing; free disk space is checked first, and a half-finished model download is no longer treated as complete" },
+          { type: "improvement", text: "Uninstalling now removes everything (about 5.5 GB used to be left behind); updating keeps your data" },
+          { type: "fix", text: "Phone photos are now shown the right way up" },
+          { type: "improvement", text: "Your activation now survives Windows updates, renaming your PC and hardware changes; licenses are re-checked online every 14 days, with up to 30 days of offline use" },
+          { type: "fix", text: "If the app can\u2019t start, it now shows the reason instead of closing silently" },
+        ],
+      },
+      {
         version: "1.0.2",
         date: "March 16, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "General stability and performance improvements" },
           { type: "fix", text: "Bug fixes and optimizations" },

@@ -51,7 +51,7 @@ const data: ProductLandingData = {
     category: "Local AI Portrait Retouch & Expression Editor",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Windows 10/11 (NVIDIA CUDA)",
-    softwareVersion: "1.0.2",
+    softwareVersion: "1.0.3",
     releaseDate: "2026-04-02",
     description:
       "Nano FacialEdit — local AI portrait editor for identity-preserving expression editing (open eyes, soften frown, lift smile) and skin retouching. Runs on a single NVIDIA GPU on Windows 10/11. Source portraits never uploaded. A local alternative to Facetune, Adobe Lightroom AI portrait, Topaz Photo AI, Codeformer, and GFPGAN.",
@@ -88,7 +88,7 @@ const data: ProductLandingData = {
         "Generative full-portrait composition (use Nano ImageEdit)",
         "Body / pose editing — restricted to head and face",
         "Ethically sensitive uses (impersonation, deepfake misuse)",
-        "Apple Silicon Macs (Windows + NVIDIA only in v1.0.2)",
+        "Apple Silicon Macs (Windows only in v1.0.3)",
         "Profile shots beyond ~70° yaw — landmarks unreliable",
       ],
     },
@@ -116,7 +116,7 @@ const data: ProductLandingData = {
       {
         title: "Apple Silicon not supported",
         detail:
-          "v1.0.2 is Windows + NVIDIA CUDA only. Metal port shares the codebase with Nano ImageEnh Pro 3.0 and is on the roadmap.",
+          "v1.0.3 is Windows only. It uses a supported NVIDIA GPU (CUDA) when it finds one and otherwise runs on the CPU, which is slower. Metal port shares the codebase with Nano ImageEnh Pro 3.0 and is on the roadmap.",
       },
       {
         title: "No body-pose editing",
@@ -152,7 +152,7 @@ const data: ProductLandingData = {
   },
   hero: {
     eyebrow: "AI Portrait Retouch",
-    versionChip: "v1.0.2",
+    versionChip: "v1.0.3",
     title: "Nano",
     titleAccent: "FacialEdit",
     lead: "Nano FacialEdit is a local desktop portrait editor that performs identity-preserving expression edits — open eyes, soften a frown, lift a smile — and skin retouching on a single NVIDIA GPU on Windows, with slider-driven control over each axis and zero portrait uploads.",

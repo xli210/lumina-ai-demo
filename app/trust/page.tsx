@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
+import { SIGNED_APPS_PHRASE } from "@/lib/download-hashes";
 
 const PAGE_URL = "https://nanopocket.ai/trust";
 const LAST_VERIFIED = "2026-05-29";
@@ -218,7 +219,7 @@ const SECURITY: SecurityNote[] = [
   {
     title: "Installer signing and checksums",
     detail:
-      "Most Windows installers are not yet Authenticode-signed (Nano FaceSwap 1.0.6 is, by NanoPocket AI LLC), so SmartScreen or antivirus may warn about the others. SHA-256 checksums for every download are published on /verify.",
+      `${SIGNED_APPS_PHRASE} are Authenticode-signed by NanoPocket AI LLC. Older versions and the other Windows installers are not yet, so SmartScreen or antivirus may warn about them. SHA-256 checksums for every download are published on /verify.`,
   },
   {
     title: "License activation",
@@ -493,7 +494,7 @@ const VERIFICATION_TRACKS: VerificationGap[] = [
     label: "Code-signing status",
     status: "Honest gap",
     detail:
-      "Partly signed: Nano FaceSwap 1.0.6 is Authenticode-signed (NanoPocket AI LLC); the other Windows installers are not yet. SHA-256 checksums are published for every download on /verify#hashes.",
+      `Partly signed: ${SIGNED_APPS_PHRASE} are Authenticode-signed (NanoPocket AI LLC); older versions and the other Windows installers are not yet. SHA-256 checksums are published for every download on /verify#hashes.`,
     href: "/verify#signing",
   },
   {

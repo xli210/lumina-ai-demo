@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ShieldAlert } from "lucide-react";
+import { SIGNED_APPS_PHRASE } from "@/lib/download-hashes";
 
 /**
  * Said up front, because the first thing some people see is their browser or
@@ -16,10 +17,10 @@ export function WindowsWarning() {
           Did Windows, your browser or your antivirus block a download?
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Most of our Windows installers are not yet code-signed (Nano FaceSwap 1.0.6 is), so
-          SmartScreen or antivirus software may warn about them or quarantine them, even though
-          nothing is wrong with the file. We are signing them one at a time. For the ones not yet
-          signed:
+          {SIGNED_APPS_PHRASE} are code-signed by NanoPocket AI LLC. Older versions and our other
+          Windows installers are not yet, so SmartScreen or antivirus software may warn about them
+          or quarantine them, even though nothing is wrong with the file. We are signing them one
+          at a time. For a file that is not yet signed:
         </p>
         <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed text-muted-foreground">
           <li>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, FileCheck2, Fingerprint, Lock, ShieldAlert } from "lucide-react";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
+import { SIGNED_APPS_PHRASE } from "@/lib/download-hashes";
 
 const PAGE_URL = "https://nanopocket.ai/security";
 const LAST_REVIEWED = "2026-05-29";
@@ -193,9 +194,10 @@ export default function SecurityPage() {
           </h2>
           <ul className="list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
             <li>
-              <strong className="text-foreground">Code signing.</strong> Most of our Windows installers
-              are not yet Authenticode-signed (Nano FaceSwap 1.0.6 is, by NanoPocket AI LLC), so
-              SmartScreen or antivirus may warn about them; we are signing them one at a time. Every download&apos;s SHA-256 is published on{" "}
+              <strong className="text-foreground">Code signing.</strong> Our newest Windows installers
+              ({SIGNED_APPS_PHRASE}) are Authenticode-signed by NanoPocket AI LLC. Older versions and
+              our other installers are not yet, so SmartScreen or antivirus may warn about them; we are
+              signing them one at a time. Every download&apos;s SHA-256 is published on{" "}
               <a href="/verify#hashes" className="text-foreground underline-offset-4 hover:underline">/verify</a>.
             </li>
             <li>

@@ -70,7 +70,7 @@ const apps: AppInfo[] = [
     description:
       "Face swap, mask edit, expression editing, face vivid restoration, 2×/3×/4× upscale, light adjust, and crop — one unified desktop studio, every model running on your GPU. Multi-face swap up to 16 faces per image using the diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID).",
     icon: Palette,
-    version: "1.0.0",
+    version: "1.0.2",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "New",
@@ -80,9 +80,9 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoFaceStudioPro-1.0.0-windows.exe",
-        downloadUrl: "/api/downloads/NanoFaceStudioPro-1.0.0-windows.exe",
-        size: "100.4 MB",
+        fileName: "NanoFaceStudioPro-1.0.2-windows.exe",
+        downloadUrl: "/api/downloads/NanoFaceStudioPro-1.0.2-windows.exe",
+        size: "100.5 MB",
       },
     ],
   },
@@ -94,7 +94,7 @@ const apps: AppInfo[] = [
     description:
       "Retouch, enhance, and transform facial features with AI. Supports face swap, expression editing, and portrait retouching — all running 100% locally on your GPU.",
     icon: ScanFace,
-    version: "1.0.2",
+    version: "1.0.3",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "Free",
@@ -102,9 +102,9 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoFacialEdit-1.0.2-release.zip",
-        downloadUrl: "/api/downloads/NanoFacialEdit-1.0.2-release.zip",
-        size: "2.2 MB",
+        fileName: "NanoFacialEdit-1.0.3-release.exe",
+        downloadUrl: "/api/downloads/NanoFacialEdit-1.0.3-release.exe",
+        size: "2.8 MB",
       },
     ],
   },

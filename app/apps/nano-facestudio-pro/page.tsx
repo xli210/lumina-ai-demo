@@ -74,7 +74,7 @@ const productJsonLd = {
   applicationCategory: "MultimediaApplication",
   operatingSystem:
     "Windows 10/11 (NVIDIA CUDA); macOS Apple Silicon (M2/M3/M4/M5, Metal)",
-  softwareVersion: "1.0",
+  softwareVersion: "1.0.2",
   datePublished: "2026-07-31",
   dateModified: "2026-07-09",
   additionalProperty: [

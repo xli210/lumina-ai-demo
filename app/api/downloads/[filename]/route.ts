@@ -33,6 +33,7 @@ const FILE_PRODUCT_MAP: Record<string, string> = {
   "NanoVideoGen-1.1.2-release.zip": "nano-videogen",
   "NanoVideoEnhance-1.0.5-release.zip": "nano-videoenhance",
   "NanoFacialEdit-1.0.2-release.zip": "nano-facialedit",
+  "NanoFacialEdit-1.0.3-release.exe": "nano-facialedit",
   "NanoFaceSwap-1.0.4-release.zip": "nano-faceswap",
   "NanoFaceSwap_Release-1.0.5.zip": "nano-faceswap",
   "NanoFaceSwap-1.0.6-release.exe": "nano-faceswap",
@@ -40,6 +41,7 @@ const FILE_PRODUCT_MAP: Record<string, string> = {
   "NanoImageEnh-3.0.0-macos.zip": "nnanoimageenh",
   "NanoImageTryon-1.0.0-release.zip": "nano-image-tryon",
   "NanoFaceStudioPro-1.0.0-windows.exe": "nano-facestudio-pro",
+  "NanoFaceStudioPro-1.0.2-windows.exe": "nano-facestudio-pro",
 };
 
 const ALLOWED_FILES = Object.keys(FILE_PRODUCT_MAP);

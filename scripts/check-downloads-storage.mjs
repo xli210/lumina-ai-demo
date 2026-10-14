@@ -40,6 +40,7 @@ const EXPECTED = [
   "NanoVideoGen-1.1.2-release.zip",
   "NanoVideoEnhance-1.0.5-release.zip",
   "NanoFacialEdit-1.0.2-release.zip",
+  "NanoFacialEdit-1.0.3-release.exe",
   "NanoFaceSwap-1.0.4-release.zip",
   "NanoFaceSwap_Release-1.0.5.zip",
   "NanoFaceSwap-1.0.6-release.exe",
@@ -47,6 +48,7 @@ const EXPECTED = [
   "NanoImageEnh-3.0.0-macos.zip",
   "NanoImageTryon-1.0.0-release.zip",
   "NanoFaceStudioPro-1.0.0-windows.exe",
+  "NanoFaceStudioPro-1.0.2-windows.exe",
 ];
 
 function stripQuotes(v) {
