@@ -14,6 +14,9 @@ interface LatestRow {
   checked_at: string;
 }
 
+/** How long a page waits for the status table before it shows "Status pending" instead. */
+const DB_TIMEOUT_MS = 2000;
+
 async function fetchLatest(demoId: DemoId): Promise<LatestRow | null> {
   let supabase;
   try {
@@ -26,7 +29,9 @@ async function fetchLatest(demoId: DemoId): Promise<LatestRow | null> {
     .select("status, checked_at")
     .eq("demo_id", demoId)
     .order("checked_at", { ascending: false })
-    .limit(1);
+    .limit(1)
+    // A slow database must never hold the page up: after this the badge just says "Status pending".
+    .abortSignal(AbortSignal.timeout(DB_TIMEOUT_MS));
   return (data?.[0] as LatestRow) ?? null;
 }
 

@@ -78,23 +78,27 @@ async function loadAll(): Promise<DemoSnapshot[]> {
             .select("status, http_status, latency_ms, error, checked_at")
             .eq("demo_id", d.id)
             .order("checked_at", { ascending: false })
-            .limit(1),
+            .limit(1)
+            .abortSignal(AbortSignal.timeout(4000)),
           supabase
             .from("demo_health_checks")
             .select("status")
             .eq("demo_id", d.id)
-            .gte("checked_at", since24h),
+            .gte("checked_at", since24h)
+            .abortSignal(AbortSignal.timeout(4000)),
           supabase
             .from("demo_health_checks")
             .select("status")
             .eq("demo_id", d.id)
-            .gte("checked_at", since7d),
+            .gte("checked_at", since7d)
+            .abortSignal(AbortSignal.timeout(4000)),
           supabase
             .from("demo_health_checks")
             .select("status, checked_at")
             .eq("demo_id", d.id)
             .order("checked_at", { ascending: false })
-            .limit(60),
+            .limit(60)
+            .abortSignal(AbortSignal.timeout(4000)),
         ]);
 
       const latest = latestRows?.[0];

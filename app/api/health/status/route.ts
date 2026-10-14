@@ -52,7 +52,8 @@ async function loadSnapshot(): Promise<DemoSnapshot[]> {
         .select("status, http_status, latency_ms, error, checked_at")
         .eq("demo_id", d.id)
         .order("checked_at", { ascending: false })
-        .limit(1);
+        .limit(1)
+            .abortSignal(AbortSignal.timeout(2500));
       const latest = latestRows?.[0];
 
       const { data: upRows } = await supabase
@@ -60,14 +61,16 @@ async function loadSnapshot(): Promise<DemoSnapshot[]> {
         .select("status", { count: "exact" })
         .eq("demo_id", d.id)
         .eq("status", "up")
-        .gte("checked_at", since);
+        .gte("checked_at", since)
+            .abortSignal(AbortSignal.timeout(2500));
       const upCount = (upRows as unknown as { length?: number })?.length ?? 0;
 
       const { data: allRows } = await supabase
         .from("demo_health_checks")
         .select("status", { count: "exact" })
         .eq("demo_id", d.id)
-        .gte("checked_at", since);
+        .gte("checked_at", since)
+            .abortSignal(AbortSignal.timeout(2500));
       const allCount = (allRows as unknown as { length?: number })?.length ?? 0;
 
       const uptime24h = allCount > 0 ? upCount / allCount : null;
