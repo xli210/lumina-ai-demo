@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 };
 
 // Refresh every 60s — checker runs every 5 min, so this is plenty fresh.
-export const revalidate = 60;
+export const revalidate = 300;
 
 interface DemoSnapshot {
   id: DemoId;

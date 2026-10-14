@@ -281,7 +281,7 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
                       <Icon className="h-5 w-5" />
                     </div>
                     {/* @ts-expect-error Async Server Component */}
-                    <DemoStatusBadge demoId={d.id} size="sm" />
+                    <DemoStatusBadge demoId={d.id} size="sm" hideWhenUnknown />
                   </div>
                   <h3 className="mb-2 text-lg font-bold text-foreground">
                     {d.name}

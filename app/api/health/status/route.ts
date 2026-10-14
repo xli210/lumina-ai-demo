@@ -8,7 +8,7 @@ const MONITORED = DEMOS.filter((d) => !isInternalDemo(d));
 export const runtime = "nodejs";
 // Cache the response at the edge for 60s — the writer runs every 5 min,
 // so anything fresher than 60s is wasted.
-export const revalidate = 60;
+export const revalidate = 300;
 
 interface DemoSnapshot {
   id: string;
@@ -98,7 +98,7 @@ export async function GET() {
     { demos: snapshot, generatedAt: new Date().toISOString() },
     {
       headers: {
-        "cache-control": "public, max-age=30, s-maxage=60, stale-while-revalidate=300",
+        "cache-control": "public, max-age=60, s-maxage=300, stale-while-revalidate=600",
       },
     },
   );

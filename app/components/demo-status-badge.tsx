@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { DemoId } from "@/lib/demos";
 
@@ -17,7 +18,7 @@ interface LatestRow {
 /** How long a page waits for the status table before it shows "Status pending" instead. */
 const DB_TIMEOUT_MS = 2000;
 
-async function fetchLatest(demoId: DemoId): Promise<LatestRow | null> {
+async function queryLatest(demoId: DemoId): Promise<LatestRow | null> {
   let supabase;
   try {
     supabase = createAdminClient();
@@ -34,6 +35,17 @@ async function fetchLatest(demoId: DemoId): Promise<LatestRow | null> {
     .abortSignal(AbortSignal.timeout(DB_TIMEOUT_MS));
   return (data?.[0] as LatestRow) ?? null;
 }
+
+/**
+ * One lookup per demo per ten minutes, shared by every page and every render, instead of one per render:
+ * the status is written every five minutes, so anything fresher is wasted, and a missing or slow table
+ * would otherwise be asked again on every page build (hundreds of failed requests a day).
+ */
+const fetchLatest = unstable_cache(
+  async (demoId: DemoId) => queryLatest(demoId),
+  ["demo-latest-health"],
+  { revalidate: 600 }
+);
 
 function timeAgo(iso: string): string {
   const d = Math.max(0, Date.now() - new Date(iso).getTime());

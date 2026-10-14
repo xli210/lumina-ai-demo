@@ -422,9 +422,12 @@ export function AnnouncementSection() {
 
   useEffect(() => {
     const supabase = createClient();
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setIsLoggedIn(!!user);
-      if (user) void refreshVotes();
+    // getSession() reads the stored session (and refreshes it only when it has expired); getUser() would
+    // send a request to the Auth server on every homepage view of every signed-in visitor. This flag only
+    // decides which buttons to show: every API route re-checks who the caller is on the server.
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsLoggedIn(!!session?.user);
+      if (session?.user) void refreshVotes();
     });
   }, [refreshVotes]);
 

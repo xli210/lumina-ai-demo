@@ -455,7 +455,7 @@ export default function FaceSwapPage() {
                     <div className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border ${a.chip}`}>
                       <Icon className="h-5 w-5" />
                     </div>
-                    <DemoStatusBadge demoId={d.id} size="sm" />
+                    <DemoStatusBadge demoId={d.id} size="sm" hideWhenUnknown />
                   </div>
                   <h3 className="mb-2 text-lg font-bold text-foreground">{d.name}</h3>
                   <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
