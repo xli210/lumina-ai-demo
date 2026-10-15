@@ -5,6 +5,9 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { ConfirmActionDialog } from "./confirm-action-dialog";
+import { AuditLogPanel } from "./audit-log-panel";
+import { canBecomeAdmin, describeAge } from "@/lib/admin-confirm";
 import {
   Users,
   Key,
@@ -21,6 +24,8 @@ import {
   Mail,
   Calendar,
   Activity,
+  AlertTriangle,
+  ScrollText,
 } from "lucide-react";
 
 interface UserProfile {
@@ -57,7 +62,22 @@ interface Activation {
   last_seen_at: string;
 }
 
-type Tab = "users" | "licenses";
+type Tab = "users" | "licenses" | "audit";
+
+/** What the confirmation dialog is asking about (see confirm-action-dialog.tsx). */
+type Pending =
+  | { kind: "role"; user: UserProfile; newRole: "admin" | "user" }
+  | { kind: "ban"; user: UserProfile; banned: boolean }
+  | { kind: "license"; license: License; revoke: boolean };
+
+/** What the database knows about an account that the profile row does not (admin_user_identity). */
+interface Identity {
+  email: string | null;
+  created_at: string;
+  last_sign_in_at: string | null;
+  provider: string | null;
+  email_confirmed: boolean;
+}
 
 const PAGE_SIZE = 20;
 
@@ -193,63 +213,200 @@ export function AdminDashboard() {
   useEffect(() => {
     if (tab === "users") {
       fetchUsers();
-    } else {
+    } else if (tab === "licenses") {
       fetchLicenses();
     }
   }, [tab, fetchUsers, fetchLicenses]);
 
-  // role and is_banned are no longer writable from the browser: migration 008
-  // narrowed the UPDATE grant on profiles to display_name/avatar_url, because
-  // the blanket grant let any user promote themselves to admin. Both fields
-  // now go through SECURITY DEFINER functions that re-check admin status
-  // server-side.
-  async function toggleBan(userId: string, currentlyBanned: boolean) {
-    const { error } = await supabase.rpc("admin_set_user_banned", {
-      p_user_id: userId,
-      p_banned: !currentlyBanned,
-    });
+  // Dangerous actions never run from a button press. A press opens a dialog that
+  // makes the admin type the account's email (or the license key) and wait a few
+  // seconds; the database functions (scripts/016_admin_guardrails.sql) then refuse
+  // anything that does not name its target, record it in the audit log, and
+  // rate-limit it. role and is_banned are not writable from the browser at all
+  // (migration 008), and licenses are revoked through admin_set_license_revoked.
+  const [pending, setPending] = useState<Pending | null>(null);
+  const [identity, setIdentity] = useState<Identity | null>(null);
+  const [identityLoading, setIdentityLoading] = useState(false);
+  const [identityError, setIdentityError] = useState<string | null>(null);
 
-    if (error) {
-      toast.error(error.message || "Failed to update user status");
-      return;
+  function closePending() {
+    setPending(null);
+    setIdentity(null);
+    setIdentityError(null);
+    setIdentityLoading(false);
+  }
+
+  async function openUserAction(p: Extract<Pending, { kind: "role" | "ban" }>) {
+    setPending(p);
+    setIdentity(null);
+    setIdentityError(null);
+    setIdentityLoading(true);
+    const { data, error } = await supabase.rpc("admin_user_identity", { p_user_id: p.user.id });
+    const row = Array.isArray(data) ? data[0] : data;
+    if (error || !row) {
+      setIdentityError(error?.message || "Could not load this account's details.");
+    } else {
+      setIdentity(row as Identity);
     }
+    setIdentityLoading(false);
+  }
 
-    toast.success(currentlyBanned ? "User unbanned" : "User banned");
+  /** Runs the pending action with what the admin typed. Returns an error message, or null on success. */
+  async function runPending(typed: string): Promise<string | null> {
+    if (!pending) return "Nothing to do.";
+    let res;
+    if (pending.kind === "role") {
+      res = await supabase.rpc("admin_set_user_role", {
+        p_user_id: pending.user.id,
+        p_role: pending.newRole,
+        p_confirm: typed,
+      });
+    } else if (pending.kind === "ban") {
+      res = await supabase.rpc("admin_set_user_banned", {
+        p_user_id: pending.user.id,
+        p_banned: pending.banned,
+        p_confirm: typed,
+      });
+    } else {
+      res = await supabase.rpc("admin_set_license_revoked", {
+        p_license_id: pending.license.id,
+        p_revoked: pending.revoke,
+        p_confirm: typed,
+      });
+    }
+    if (res.error) return res.error.message || "The change was refused.";
+
+    toast.success(
+      pending.kind === "role"
+        ? pending.newRole === "admin"
+          ? "Admin role granted"
+          : "Admin role removed"
+        : pending.kind === "ban"
+          ? pending.banned
+            ? "User banned"
+            : "User unbanned"
+          : pending.revoke
+            ? "License revoked"
+            : "License restored"
+    );
+    return null;
+  }
+
+  function afterAction() {
     fetchUsers();
     fetchStats();
+    if (tab === "licenses") fetchLicenses();
+    if (expandedUser) {
+      void supabase
+        .from("licenses")
+        .select("*")
+        .eq("user_id", expandedUser)
+        .then(({ data }) => setUserLicenses(data ?? []));
+    }
   }
 
-  async function toggleAdmin(userId: string, currentRole: string) {
-    const newRole = currentRole === "admin" ? "user" : "admin";
-    const { error } = await supabase.rpc("admin_set_user_role", {
-      p_user_id: userId,
-      p_role: newRole,
-    });
+  /** The words and facts the dialog shows for the pending action. */
+  function describePending() {
+    if (!pending) return null;
+    const nowMs = Date.now();
 
-    if (error) {
-      // The function refuses to let an admin demote themselves, which would
-      // otherwise be a one-click lockout for a single-admin project.
-      toast.error(error.message || "Failed to update user role");
-      return;
+    if (pending.kind === "license") {
+      const l = pending.license;
+      return {
+        title: pending.revoke ? "Revoke this license?" : "Restore this license?",
+        summary: pending.revoke
+          ? "The license is marked as revoked. Apps that check it will stop accepting it."
+          : "The license is marked as active again.",
+        consequences: undefined as string[] | undefined,
+        target: {
+          heading: l.license_key,
+          lines: [`Product: ${l.product_id}`, `Created ${formatDate(l.created_at)}`],
+        },
+        warning: null as string | null,
+        block: false,
+        expected: l.license_key as string | null,
+        expectedLabel: "license key",
+        confirmLabel: pending.revoke ? "Revoke license" : "Restore license",
+        tone: "danger" as const,
+      };
     }
 
-    toast.success(`User role changed to ${newRole}`);
-    fetchUsers();
-  }
+    const u = pending.user;
+    const email = identity ? (identity.email ?? u.id) : null;
+    const targetLines: string[] = [];
+    if (identity) {
+      targetLines.push(email ?? "");
+      targetLines.push(`Account is ${describeAge(identity.created_at, nowMs)} old (registered ${formatDate(identity.created_at)})`);
+      targetLines.push(
+        identity.last_sign_in_at
+          ? `Last signed in ${formatDate(identity.last_sign_in_at)}`
+          : "Has never signed in"
+      );
+      targetLines.push(`Signs in with: ${identity.provider ?? "unknown"}${identity.email_confirmed ? "" : " (email not confirmed)"}`);
+    }
+    targetLines.push(`Current role: ${u.role}${u.is_banned ? ", banned" : ""}${u.has_purchased ? ", has a license" : ""}`);
+    const target = { heading: u.display_name || "Unnamed", lines: targetLines.filter(Boolean) };
 
-  async function revokeLicense(licenseId: string, currentlyRevoked: boolean) {
-    const { error } = await supabase
-      .from("licenses")
-      .update({ is_revoked: !currentlyRevoked, updated_at: new Date().toISOString() })
-      .eq("id", licenseId);
-
-    if (error) {
-      toast.error("Failed to update license");
-      return;
+    if (pending.kind === "role" && pending.newRole === "admin") {
+      const eligible = identity
+        ? canBecomeAdmin(identity.created_at, identity.email_confirmed, nowMs)
+        : ({ ok: true } as const);
+      return {
+        title: `Make ${u.display_name || "this account"} an admin?`,
+        summary: "Admins have full control of the service. This is meant for the few people who run NanoPocket.",
+        consequences: [
+          "Opens this dashboard, the credits and licenses admin pages, and every private demo console (they spend the server's API credits).",
+          "Lets the account activate any product with one key (the super license).",
+          "Lets the account make other accounts admins.",
+        ],
+        target,
+        warning: identityError ?? (eligible.ok ? null : eligible.reason),
+        block: Boolean(identityError) || !eligible.ok,
+        expected: email,
+        expectedLabel: "account email",
+        confirmLabel: "Make admin",
+        tone: "danger" as const,
+      };
     }
 
-    toast.success(currentlyRevoked ? "License restored" : "License revoked");
-    fetchLicenses();
+    if (pending.kind === "role") {
+      return {
+        title: `Remove admin from ${u.display_name || "this account"}?`,
+        summary: "The account becomes an ordinary user.",
+        consequences: [
+          "Loses access to this dashboard and the private demo consoles.",
+          "Its licenses and credits are not touched.",
+        ],
+        target,
+        warning: identityError,
+        block: Boolean(identityError),
+        expected: email,
+        expectedLabel: "account email",
+        confirmLabel: "Remove admin",
+        tone: "caution" as const,
+      };
+    }
+
+    // ban / unban
+    const banning = pending.banned;
+    return {
+      title: banning ? `Ban ${u.display_name || "this account"}?` : `Unban ${u.display_name || "this account"}?`,
+      summary: banning
+        ? "The account is marked as banned."
+        : "The account is no longer marked as banned.",
+      consequences: banning
+        ? ["A banned account can no longer claim or activate licenses, or send feedback."]
+        : undefined,
+      target,
+      warning:
+        identityError ??
+        (banning && u.role === "admin" ? "An admin cannot be banned. Remove the admin role first." : null),
+      block: Boolean(identityError) || (banning && u.role === "admin"),
+      expected: email,
+      expectedLabel: "account email",
+      confirmLabel: banning ? "Ban account" : "Unban account",
+      tone: banning ? ("danger" as const) : ("caution" as const),
+    };
   }
 
   async function expandUser(userId: string) {
@@ -334,9 +491,21 @@ export function AdminDashboard() {
           <Key className="h-4 w-4" />
           Licenses
         </button>
+        <button
+          onClick={() => { setTab("audit"); setSearchQuery(""); }}
+          className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+            tab === "audit"
+              ? "bg-primary text-primary-foreground"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          <ScrollText className="h-4 w-4" />
+          Audit log
+        </button>
       </div>
 
       {/* Search */}
+      {tab !== "audit" && (
       <div className="relative">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
@@ -350,9 +519,12 @@ export function AdminDashboard() {
           className="pl-10 rounded-xl"
         />
       </div>
+      )}
 
       {/* Content */}
-      {loading ? (
+      {tab === "audit" ? (
+        <AuditLogPanel />
+      ) : loading ? (
         <div className="flex items-center justify-center py-12">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
@@ -410,50 +582,9 @@ export function AdminDashboard() {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2 shrink-0">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="gap-1.5 rounded-full bg-transparent text-xs"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleAdmin(u.id, u.role);
-                          }}
-                        >
-                          {u.role === "admin" ? (
-                            <>
-                              <ShieldOff className="h-3.5 w-3.5" />
-                              Demote
-                            </>
-                          ) : (
-                            <>
-                              <Shield className="h-3.5 w-3.5" />
-                              Promote
-                            </>
-                          )}
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant={u.is_banned ? "default" : "destructive"}
-                          className="gap-1.5 rounded-full text-xs"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleBan(u.id, u.is_banned);
-                          }}
-                        >
-                          {u.is_banned ? (
-                            <>
-                              <CheckCircle2 className="h-3.5 w-3.5" />
-                              Unban
-                            </>
-                          ) : (
-                            <>
-                              <Ban className="h-3.5 w-3.5" />
-                              Ban
-                            </>
-                          )}
-                        </Button>
-                      </div>
+                      <span className="shrink-0 text-xs text-muted-foreground">
+                        {expandedUser === u.id ? "Hide" : "Details"}
+                      </span>
                     </div>
                   </div>
 
@@ -509,6 +640,59 @@ export function AdminDashboard() {
                           ))}
                         </div>
                       )}
+
+                      {/* Danger zone: kept out of the row on purpose, one more step away from a stray tap */}
+                      <div className="mt-5 rounded-xl border border-red-500/30 bg-red-500/5 p-4">
+                        <h5 className="flex items-center gap-2 text-sm font-semibold text-red-400">
+                          <AlertTriangle className="h-4 w-4" />
+                          Danger zone
+                        </h5>
+                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                          These change what this account can do. Each one shows who it will affect, asks you to type
+                          the account&apos;s email and waits a few seconds before it can be confirmed. Every use is
+                          recorded in the audit log.
+                        </p>
+                        <div className="mt-3 flex flex-wrap gap-3">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="gap-1.5 rounded-full bg-transparent text-xs"
+                            onClick={() =>
+                              void openUserAction({ kind: "role", user: u, newRole: u.role === "admin" ? "user" : "admin" })
+                            }
+                          >
+                            {u.role === "admin" ? (
+                              <>
+                                <ShieldOff className="h-3.5 w-3.5" />
+                                Remove admin…
+                              </>
+                            ) : (
+                              <>
+                                <Shield className="h-3.5 w-3.5" />
+                                Make admin…
+                              </>
+                            )}
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="gap-1.5 rounded-full bg-transparent text-xs text-red-400"
+                            onClick={() => void openUserAction({ kind: "ban", user: u, banned: !u.is_banned })}
+                          >
+                            {u.is_banned ? (
+                              <>
+                                <CheckCircle2 className="h-3.5 w-3.5" />
+                                Unban…
+                              </>
+                            ) : (
+                              <>
+                                <Ban className="h-3.5 w-3.5" />
+                                Ban…
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -581,19 +765,19 @@ export function AdminDashboard() {
                     </div>
                     <Button
                       size="sm"
-                      variant={lic.is_revoked ? "default" : "destructive"}
-                      className="gap-1.5 rounded-full text-xs"
-                      onClick={() => revokeLicense(lic.id, lic.is_revoked)}
+                      variant="outline"
+                      className="gap-1.5 rounded-full bg-transparent text-xs"
+                      onClick={() => setPending({ kind: "license", license: lic, revoke: !lic.is_revoked })}
                     >
                       {lic.is_revoked ? (
                         <>
                           <CheckCircle2 className="h-3.5 w-3.5" />
-                          Restore
+                          Restore…
                         </>
                       ) : (
                         <>
                           <Ban className="h-3.5 w-3.5" />
-                          Revoke
+                          Revoke…
                         </>
                       )}
                     </Button>
@@ -631,6 +815,30 @@ export function AdminDashboard() {
           </div>
         </>
       )}
+      {(() => {
+        const d = describePending();
+        return (
+          <ConfirmActionDialog
+            open={pending !== null}
+            onOpenChange={(v) => {
+              if (!v) closePending();
+            }}
+            title={d?.title ?? ""}
+            summary={d?.summary ?? ""}
+            consequences={d?.consequences}
+            target={d?.target ?? null}
+            loadingTarget={identityLoading}
+            warning={d?.warning ?? null}
+            block={d?.block ?? false}
+            expected={d?.expected ?? null}
+            expectedLabel={d?.expectedLabel ?? "account email"}
+            confirmLabel={d?.confirmLabel ?? "Confirm"}
+            tone={d?.tone ?? "danger"}
+            onConfirm={runPending}
+            onDone={afterAction}
+          />
+        );
+      })()}
     </div>
   );
 }
