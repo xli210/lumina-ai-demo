@@ -415,6 +415,14 @@ GRANT EXECUTE ON FUNCTION public.admin_set_user_role(UUID, TEXT, TEXT) TO authen
 GRANT EXECUTE ON FUNCTION public.admin_set_user_banned(UUID, BOOLEAN, TEXT) TO authenticated;
 GRANT EXECUTE ON FUNCTION public.admin_set_license_revoked(UUID, BOOLEAN, TEXT) TO authenticated;
 
+-- Supabase gives every new function an explicit EXECUTE grant to anon, which
+-- REVOKE ... FROM PUBLIC does not remove. The admin check inside each function
+-- would refuse an anonymous caller anyway; this keeps them from reaching it.
+REVOKE EXECUTE ON FUNCTION public.admin_set_user_role(UUID, TEXT, TEXT) FROM anon;
+REVOKE EXECUTE ON FUNCTION public.admin_set_user_banned(UUID, BOOLEAN, TEXT) FROM anon;
+REVOKE EXECUTE ON FUNCTION public.admin_set_license_revoked(UUID, BOOLEAN, TEXT) FROM anon;
+REVOKE EXECUTE ON FUNCTION public.admin_user_identity(UUID) FROM anon;
+
 -- 008 meant to remove this and the column grants already make it unusable for
 -- profiles; drop it so the policy list says what is true.
 DROP POLICY IF EXISTS "admin_update_all_profiles" ON public.profiles;
