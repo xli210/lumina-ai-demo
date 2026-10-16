@@ -29,6 +29,7 @@ const SIGNED_URL_TTL_SECONDS = 300;
 // The filename doubles as the object key inside the Storage bucket.
 const FILE_PRODUCT_MAP: Record<string, string> = {
   "NanoImageEdit-1.0.5-release.zip": "nano-imageedit",
+  "NanoImageEdit-1.0.6-release.exe": "nano-imageedit",
   "NanoVideoGen-1.0.3-release.zip": "nano-videogen",
   "NanoVideoGen-1.1.2-release.zip": "nano-videogen",
   "NanoVideoEnhance-1.0.5-release.zip": "nano-videoenhance",
@@ -40,6 +41,7 @@ const FILE_PRODUCT_MAP: Record<string, string> = {
   "NanoImageEnh-3.0.0-windows.zip": "nnanoimageenh",
   "NanoImageEnh-3.0.0-macos.zip": "nnanoimageenh",
   "NanoImageTryon-1.0.0-release.zip": "nano-image-tryon",
+  "NanoImageTryon-1.0.1-release.exe": "nano-image-tryon",
   "NanoFaceStudioPro-1.0.0-windows.exe": "nano-facestudio-pro",
   "NanoFaceStudioPro-1.0.2-windows.exe": "nano-facestudio-pro",
 };

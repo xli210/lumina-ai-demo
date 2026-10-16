@@ -138,7 +138,7 @@ const apps: AppInfo[] = [
     description:
       "See how clothes look on you before you buy. AI-powered virtual try-on with photo-realistic results — running 100% locally on your GPU.",
     icon: Shirt,
-    version: "1.0.0",
+    version: "1.0.1",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "Free",
@@ -146,9 +146,9 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoImageTryon-1.0.0-release.zip",
-        downloadUrl: "/api/downloads/NanoImageTryon-1.0.0-release.zip",
-        size: "—",
+        fileName: "NanoImageTryon-1.0.1-release.exe",
+        downloadUrl: "/api/downloads/NanoImageTryon-1.0.1-release.exe",
+        size: "3.2 MB",
       },
     ],
   },
@@ -160,7 +160,7 @@ const apps: AppInfo[] = [
     description:
       "Generate and edit stunning images from text prompts with Nano ImageEdit. Supports text-to-image and image-to-image, running 100% locally on your GPU.",
     icon: ImagePlus,
-    version: "1.0.5",
+    version: "1.0.6",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "Pro",
@@ -168,9 +168,9 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoImageEdit-1.0.5-release.zip",
-        downloadUrl: "/api/downloads/NanoImageEdit-1.0.5-release.zip",
-        size: "2.4 MB",
+        fileName: "NanoImageEdit-1.0.6-release.exe",
+        downloadUrl: "/api/downloads/NanoImageEdit-1.0.6-release.exe",
+        size: "3.1 MB",
       },
     ],
   },

@@ -59,9 +59,24 @@ export const appReleases: AppRelease[] = [
     gradient: "from-primary to-blue-400",
     releases: [
       {
+        version: "1.0.6",
+        date: "October 14, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "improvement", text: "Code-signed installer, so antivirus warnings are reduced" },
+          { type: "improvement", text: "About 8 GB smaller download and about 16 GB less disk space" },
+          { type: "improvement", text: "Downloads resume after an interruption and are verified" },
+          { type: "improvement", text: "Much faster generation on graphics cards with 8\u201316 GB of memory" },
+          { type: "improvement", text: "Your first image is as fast as the rest" },
+          { type: "improvement", text: "Clear error messages instead of crashes" },
+          { type: "improvement", text: "Works with proxy and VPN tools turned on" },
+          { type: "fix", text: "Fixed offline license checks and trial licenses" },
+          { type: "improvement", text: "Uninstalling removes everything; updating keeps your data" },
+        ],
+      },
+      {
         version: "1.0.5",
         date: "March 19, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "Bug fixes and stability improvements" },
           { type: "improvement", text: "General performance optimizations" },
@@ -377,6 +392,21 @@ export const appReleases: AppRelease[] = [
     icon: Shirt,
     gradient: "from-primary to-blue-400",
     releases: [
+      {
+        version: "1.0.1",
+        date: "October 14, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "fix", text: "Fixed the app not opening on new installs" },
+          { type: "improvement", text: "Code-signed installer, so antivirus warnings are reduced" },
+          { type: "improvement", text: "1.9 GB smaller download; the app now works fully offline" },
+          { type: "improvement", text: "Downloads resume after an interruption and are verified" },
+          { type: "improvement", text: "Faster: the model stays loaded between try-ons" },
+          { type: "fix", text: "\u201cSegmentation-free mode\u201d and \u201cCancel\u201d now work" },
+          { type: "improvement", text: "Clear message on PCs without a supported NVIDIA graphics card" },
+          { type: "improvement", text: "Uninstalling removes everything; updating keeps your data" },
+        ],
+      },
       {
         version: "1.0.0",
         date: "March 16, 2026",

@@ -14,6 +14,8 @@ import { SIGNED_DOWNLOADS } from "@/lib/download-hashes";
 /** In the order they should be seen: the flagship first. */
 const FEATURED = [
   { slug: "nano-facestudio-pro", note: "Our flagship desktop studio" },
+  { slug: "nano-imageedit", note: "Local image generator and editor" },
+  { slug: "nano-imagetryon", note: "Local virtual try-on" },
   { slug: "nano-facialedit", note: "Free facial editing" },
   { slug: "nano-faceswap", note: "Free face swap" },
 ] as const;
@@ -36,13 +38,13 @@ export function NewVersionNotice() {
       <div className="mx-auto max-w-5xl rounded-2xl border border-sky-500/30 bg-sky-500/5 p-5 sm:p-6">
         <h2 className="flex items-center gap-2 text-base font-semibold text-foreground">
           <Sparkles className="h-4 w-4 text-sky-500" />
-          New versions are out: {cards.map((c) => c.name).join(", ")}
+          New versions are out for {cards.length} of our local apps
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           Here is what changed in the latest version of each:
         </p>
 
-        <div className="mt-4 grid gap-4 md:grid-cols-3">
+        <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {cards.map((c) => (
             <div key={c.slug} className="rounded-xl border border-border/60 bg-background/40 p-4">
               <p className="text-sm font-semibold text-foreground">
@@ -81,7 +83,11 @@ export function NewVersionNotice() {
 
         <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
           We are still updating our other local apps, one at a time, and we hope you enjoy what is
-          coming.
+          coming. The SHA-256 checksum and signing details of every download are on{" "}
+          <Link href="/verify" className="font-medium text-primary underline-offset-4 hover:underline">
+            /verify
+          </Link>
+          .
         </p>
       </div>
     </section>

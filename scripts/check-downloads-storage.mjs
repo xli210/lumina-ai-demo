@@ -37,6 +37,7 @@ const BUCKET = "product-downloads";
 /** Must stay in step with FILE_PRODUCT_MAP in the download route. */
 const EXPECTED = [
   "NanoImageEdit-1.0.5-release.zip",
+  "NanoImageEdit-1.0.6-release.exe",
   "NanoVideoGen-1.1.2-release.zip",
   "NanoVideoEnhance-1.0.5-release.zip",
   "NanoFacialEdit-1.0.2-release.zip",
@@ -47,6 +48,7 @@ const EXPECTED = [
   "NanoImageEnh-3.0.0-windows.zip",
   "NanoImageEnh-3.0.0-macos.zip",
   "NanoImageTryon-1.0.0-release.zip",
+  "NanoImageTryon-1.0.1-release.exe",
   "NanoFaceStudioPro-1.0.0-windows.exe",
   "NanoFaceStudioPro-1.0.2-windows.exe",
 ];

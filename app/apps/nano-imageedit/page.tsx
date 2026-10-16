@@ -53,7 +53,7 @@ const data: ProductLandingData = {
     category: "Local AI Image Generator & Editor",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Windows 10/11 (NVIDIA CUDA)",
-    softwareVersion: "1.0.5",
+    softwareVersion: "1.0.6",
     releaseDate: "2026-03-04",
     description:
       "Nano ImageEdit — local AI image generator and editor running the Flux.1 12-billion-parameter diffusion transformer on a single NVIDIA GPU. Text-to-image, image-to-image, reference conditioning. Streaming DiT path runs on GPUs with under 12 GB VRAM. A local alternative to Midjourney, DALL-E 3, Adobe Firefly, Leonardo.Ai, and ideogram.",
@@ -89,7 +89,7 @@ const data: ProductLandingData = {
       ],
       notRecommendedFor: [
         "Real-time interactive painting on the same canvas",
-        "Apple Silicon Macs (Windows + NVIDIA only in v1.0.5)",
+        "Apple Silicon Macs (Windows + NVIDIA only in v1.0.6)",
         "Bulk e-commerce upscaling — use Nano ImageEnh Pro 3.0",
         "Multi-character compositions with strict identity locks (use FacialEdit)",
         "Photoreal text rendering (Flux.1 still struggles with paragraphs)",
@@ -117,7 +117,7 @@ const data: ProductLandingData = {
           "Image-to-image with high strength may drift the subject's identity. For face-stable workflows, route the result through Nano FacialEdit's identity-preserving stack.",
       },
       {
-        title: "Apple Silicon is not supported in v1.0.5",
+        title: "Apple Silicon is not supported in v1.0.6",
         detail:
           "Current build is Windows + NVIDIA CUDA only. Metal support is on the roadmap.",
       },
@@ -154,7 +154,7 @@ const data: ProductLandingData = {
   },
   hero: {
     eyebrow: "AI Image Generation",
-    versionChip: "v1.0.5",
+    versionChip: "v1.0.6",
     title: "Nano",
     titleAccent: "ImageEdit",
     lead: "Nano ImageEdit is a local desktop image generator and editor that runs the Flux.1 diffusion transformer on a single NVIDIA GPU on Windows, supports text-to-image, image-to-image, and reference-image conditioning, and uses a streaming DiT path so cards with under 12 GB of VRAM can run the same 12-billion-parameter model.",
@@ -285,7 +285,7 @@ const data: ProductLandingData = {
     },
     {
       q: "Does it work on a Mac?",
-      a: "Not in v1.0.5. The current build is Windows 10/11 + NVIDIA CUDA. Apple Silicon support is on the roadmap.",
+      a: "Not in v1.0.6. The current build is Windows 10/11 + NVIDIA CUDA. Apple Silicon support is on the roadmap.",
     },
     {
       q: "Is there a browser version with nothing to install?",

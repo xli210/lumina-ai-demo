@@ -9,9 +9,9 @@
  * `sha256` is the file the browser downloads; `installerSha256` is the .exe or
  * .dmg inside it, which is what Windows, SmartScreen and antivirus scan.
  *
- * Authenticode status (checked 2026-10-09 by reading each PE file's certificate table, on
- * 2026-10-11 for the two Nano FaceSwap files added then, and on 2026-10-14 for the two added
- * then): only the files in SIGNED_DOWNLOADS are signed. Every other Windows installer is
+ * Authenticode status (checked 2026-10-09 by reading each PE file's certificate table, and
+ * again on 2026-10-11, 2026-10-14 and 2026-10-16 for the files added on those days): only the
+ * files in SIGNED_DOWNLOADS are signed. Every other Windows installer is
  * unsigned. The pages say so, and build the list of names from SIGNED_DOWNLOADS.
  */
 
@@ -81,6 +81,16 @@ export const DOWNLOAD_HASHES: readonly DownloadHash[] = [
   },
   {
     app: "Nano ImageEdit",
+    version: "1.0.6",
+    platform: "Windows",
+    file: "NanoImageEdit-1.0.6-release.exe",
+    size: 3268528,
+    sha256: "83ec360f29f9c02e3be5dc317b13273de456010f9b97cd0facf0f4cfac8b616a",
+    installer: null,
+    installerSha256: null,
+  },
+  {
+    app: "Nano ImageEdit",
     version: "1.0.5",
     platform: "Windows",
     file: "NanoImageEdit-1.0.5-release.zip",
@@ -88,6 +98,16 @@ export const DOWNLOAD_HASHES: readonly DownloadHash[] = [
     sha256: "98658bfb3df70b210211c432d6f23d95275837690ae80b31c0c36976d7506d08",
     installer: "NanoImageEdit_Release_1.0.5.exe",
     installerSha256: "351dde909469f0354e1c5b2f4333d453ea67cd5a1ff044d741a3b3914cd0cc2f",
+  },
+  {
+    app: "Nano ImageTryon",
+    version: "1.0.1",
+    platform: "Windows",
+    file: "NanoImageTryon-1.0.1-release.exe",
+    size: 3351496,
+    sha256: "ceab6ad173316fd5af848d33a12aa4e888a1ce2eb65c71e681cf6e2f3938a130",
+    installer: null,
+    installerSha256: null,
   },
   {
     app: "Nano ImageTryon",
@@ -206,6 +226,26 @@ export const SIGNED_DOWNLOADS: readonly {
     thumbprint: "9967287E9497219A1F1286B16799F2F51D74537E",
     timestampAuthority: "Microsoft Public RSA Time Stamping Authority",
     verified: "2026-10-11",
+  },
+  {
+    app: "Nano ImageTryon",
+    version: "1.0.1",
+    file: "NanoImageTryon-1.0.1-release.exe",
+    subject: "NanoPocket AI LLC (Austin, Texas, US)",
+    issuer: "Microsoft ID Verified CS EOC CA 03",
+    thumbprint: "DD19C5CF7BFB36AE9EE6154A77F1D7189270C2AC",
+    timestampAuthority: "Microsoft Public RSA Time Stamping Authority",
+    verified: "2026-10-16",
+  },
+  {
+    app: "Nano ImageEdit",
+    version: "1.0.6",
+    file: "NanoImageEdit-1.0.6-release.exe",
+    subject: "NanoPocket AI LLC (Austin, Texas, US)",
+    issuer: "Microsoft ID Verified CS EOC CA 03",
+    thumbprint: "DD19C5CF7BFB36AE9EE6154A77F1D7189270C2AC",
+    timestampAuthority: "Microsoft Public RSA Time Stamping Authority",
+    verified: "2026-10-16",
   },
 ];
 

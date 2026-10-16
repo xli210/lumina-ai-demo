@@ -51,7 +51,7 @@ const data: ProductLandingData = {
     category: "Local AI Virtual Try-On",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Windows 10/11 (NVIDIA CUDA)",
-    softwareVersion: "1.0.0",
+    softwareVersion: "1.0.1",
     releaseDate: "2026-04-30",
     description:
       "Nano ImageTryon — local AI virtual try-on for Windows 10/11. Transfers any garment from a reference photo (catalog shot, flat-lay, street photo) onto a target subject while preserving body shape, pose, and scene lighting. Runs on a single NVIDIA GPU. No personal photo uploaded. A local alternative to VITON-HD, Doji, OutfitAnyone, IDM-VTON, and CatVTON cloud demos.",
@@ -152,7 +152,7 @@ const data: ProductLandingData = {
   },
   hero: {
     eyebrow: "AI Virtual Try-On",
-    versionChip: "v1.0.0",
+    versionChip: "v1.0.1",
     title: "Nano",
     titleAccent: "ImageTryon",
     lead: "Nano ImageTryon is a local desktop virtual try-on application that transfers any garment from a reference photo onto a target subject on a single NVIDIA GPU on Windows, preserving body shape, pose, and scene lighting without uploading any personal photo to the cloud.",
