@@ -210,6 +210,7 @@
     output_upload_failed: "We made your image but couldn't save it. Please try again.",
     gpu_service_unreachable: TROUBLE,
     gpu_service_error: TROUBLE,
+    gateway_unavailable: "Face Studio is temporarily unavailable. Please try again in a few minutes.",
     internal_error: SERVER_FAULT,
     bad_worker_response: SERVER_FAULT,
     output_too_large: SERVER_FAULT,
@@ -609,7 +610,7 @@
       } catch (e) {
         // A worker that stopped mid-job lands on a healthy one next time:
         // retry once on our own before the user sees anything.
-        if (e.info && e.info.retryable && e.info.error_code !== "gpu_unavailable") {
+        if (e.info && e.info.retryable && e.info.error_code !== "gpu_unavailable" && e.info.error_code !== "gateway_unavailable") {
           await sleep(2000, signal);
           data = await runDetect(inputKey, signal);
         } else {
@@ -1116,7 +1117,10 @@
   }
 
   function showResult(jobId, elapsed) {
-    const url = API_BASE + `/result/${jobId}?t=${Date.now()}`;
+    // No cache-busting query: a job id is unique to one render, and the route sends
+    // "private, max-age=86400", so re-reading the image (reload, pan, compare) reuses
+    // the copy the browser already has instead of fetching ~20 MB again.
+    const url = API_BASE + `/result/${jobId}`;
     currentJobId = jobId;
     resultTime.textContent = `${elapsed.toFixed(1)}s`;
     resultSection.hidden = false;

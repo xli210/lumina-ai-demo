@@ -327,3 +327,27 @@ is what proves the GPU cannot be used by someone who cannot pay.
   `/private-demos/faceswap` and `/api/private-demos/faceswap/*` are untouched
   and still broken. Removing them is safe once `/face-studio` is confirmed
   working.
+
+## Where the result image travels (and why it must not go through Render)
+
+A result is a full-resolution PNG, up to ~4080x4080 and around 20 MB. On 2026-10-17
+Render suspended `facestudio-gateway` ("You've used the 5 GB of free bandwidth in your
+Hobby workspace"): every view of every result had been going R2 -> gateway -> Vercel ->
+browser, and Render bills outbound traffic. Uploads were never the problem (the browser
+PUTs straight to R2).
+
+Now `GET /api/facestudio/result/{jobId}` reads the image **straight from R2** with a
+short-lived signed address (`lib/facestudio-result.ts`, using the same `R2_DOWNLOADS_*`
+credentials the installer downloads use, bucket `video-api`, folder `facestudio/output`,
+override with `FACESTUDIO_OUTPUT_PREFIX`). R2 charges nothing for egress. The gateway is only
+the fallback (storage unconfigured, 404, error, or no answer in 8 s). The console no longer
+adds `?t=Date.now()`, so the browser reuses the image it already has.
+
+Consequences: results can be viewed even while the gateway is down or suspended; the
+gateway now only carries small JSON (a few KB per render). If a Render bill ever shows
+bandwidth again, look at `/v5/api/result` in its logs: it should be nearly silent.
+
+When the gateway answers with a web page (suspended, cold start) or a 5xx that is not its own
+error, `lib/facestudio-upstream.ts` turns it into `gateway_unavailable`, which the console
+words as "Face Studio is temporarily unavailable". Tests:
+`node --experimental-strip-types scripts/check-facestudio-result.mjs`.

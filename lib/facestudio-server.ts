@@ -2,8 +2,12 @@ import "server-only";
 
 import {
   FACESTUDIO_DEFAULT_BASE_URL,
+  isFaceStudioJobId,
   type FaceStudioMode,
 } from "@/lib/facestudio";
+import { fetchResultPreferStorage } from "@/lib/facestudio-result";
+import { normalizeUpstream } from "@/lib/facestudio-upstream";
+import { presignR2Get, r2DownloadsConfig } from "@/lib/r2-sign";
 
 /**
  * Server-side plumbing for the Nano FaceStudio Online gateway.
@@ -88,21 +92,11 @@ export async function callUpstream(
         : AbortSignal.timeout(init.timeoutMs),
   });
 
-  const text = await response.text();
-  let body: Record<string, unknown> = {};
-  if (text) {
-    try {
-      const parsed: unknown = JSON.parse(text);
-      body =
-        typeof parsed === "object" && parsed !== null && !Array.isArray(parsed)
-          ? (parsed as Record<string, unknown>)
-          : { detail: text.slice(0, 400) };
-    } catch {
-      // Render's edge serves an HTML error page during a cold start.
-      body = { detail: text.slice(0, 400) };
-    }
-  }
-  return { status: response.status, body };
+  // Render's edge serves an HTML page when the service is cold-starting or
+  // suspended. normalizeUpstream turns that (and any 5xx that is not the
+  // gateway's own error) into a message the console words for the user, rather
+  // than handing the page its markup.
+  return normalizeUpstream(response.status, await response.text());
 }
 
 /* -------------------------------------------------------------------------- */
@@ -212,9 +206,24 @@ export async function sendFeedback(params: {
  * buffering ~20 MB of image into the function's memory.
  */
 export async function fetchResult(jobId: string): Promise<Response> {
-  const { baseUrl, token } = upstream();
-  return fetch(`${baseUrl}/v5/api/result/${encodeURIComponent(jobId)}`, {
-    headers: { Authorization: `Bearer ${token}` },
-    cache: "no-store",
+  return fetchResultPreferStorage(jobId, {
+    // Straight from R2 with a short-lived signed address. R2 charges nothing for
+    // egress; sending the image through the gateway used Render's bandwidth and
+    // got the service suspended on 2026-10-17 (see lib/facestudio-result.ts).
+    storageUrl: (key) => {
+      const r2 = r2DownloadsConfig();
+      return r2 ? presignR2Get(r2, key, { expiresIn: 120 }) : null;
+    },
+    fetchFn: (url) => fetch(url, { cache: "no-store" }),
+    viaGateway: () => {
+      const { baseUrl, token } = upstream();
+      return fetch(`${baseUrl}/v5/api/result/${encodeURIComponent(jobId)}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        cache: "no-store",
+      });
+    },
+    // Must equal the gateway's S3_OUTPUT_PREFIX (render.yaml).
+    outputPrefix: process.env.FACESTUDIO_OUTPUT_PREFIX || "facestudio/output",
+    isValidJobId: isFaceStudioJobId,
   });
 }
