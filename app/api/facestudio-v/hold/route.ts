@@ -4,8 +4,10 @@ import {
   FSV_HOLD_TTL_SECONDS,
   FSV_MAX_CREDITS,
   FSV_MAX_OPEN,
+  hasEverPurchased,
   reconcileOpenHolds,
 } from "@/lib/facestudio-v-server";
+import { signEntitlement } from "@/lib/facestudio-v-entitlement";
 import { FACESTUDIO_V_SERVICE, facestudioVIsOpen } from "@/lib/facestudio-v";
 import { authenticate, preflight, readJson, reply } from "../_shared";
 
@@ -18,7 +20,7 @@ export function OPTIONS(request: Request) {
 }
 
 /**
- * POST /api/facestudio-v/hold  { credits }  ->  { hold_id, available }
+ * POST /api/facestudio-v/hold  { credits }  ->  { hold_id, available, entitlement }
  *
  * Reserve the studio's price before the studio page starts the job. Nothing is
  * charged yet: /settle charges or releases once the studio says how it went.
@@ -71,7 +73,16 @@ export async function POST(request: Request) {
         402
       );
     }
-    return reply(request, { hold_id: hold.hold_id, available: hold.available });
+    // Tells the studio whether to leave the NanoPocket mark off this video. If the
+    // lookup or the secret fails, no token goes out and the video is marked: the
+    // safe side to fail on, and it never stops a hold.
+    let entitlement: string | null = null;
+    try {
+      entitlement = signEntitlement(await hasEverPurchased(auth.userId));
+    } catch (err: unknown) {
+      console.error("[facestudio-v] entitlement failed:", err instanceof Error ? err.message : err);
+    }
+    return reply(request, { hold_id: hold.hold_id, available: hold.available, ...(entitlement ? { entitlement } : {}) });
   } catch (err: unknown) {
     console.error("[facestudio-v] hold failed:", err instanceof Error ? err.message : err);
     return reply(request, { error: "Could not reserve your credits. Nothing was charged." }, 500);
