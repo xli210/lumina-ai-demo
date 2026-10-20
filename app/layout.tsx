@@ -233,11 +233,6 @@ export default async function RootLayout({
                   },
                   {
                     "@type": "Offer",
-                    name: "Video FaceSwap Pro (online demo)",
-                    url: "https://nanopocket.ai/apps/nano-faceswap-pro/video",
-                  },
-                  {
-                    "@type": "Offer",
                     name: "Nano ImageEnh Pro 3.0",
                     url: "https://nanopocket.ai/apps/nano-imageenh-pro",
                   },

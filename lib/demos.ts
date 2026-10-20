@@ -83,7 +83,7 @@ export const DEMOS: DemoEntry[] = [
     landingPath: "/",
     pingPath: "/",
     password: "nanopocket-video",
-    productHref: "/apps/nano-faceswap-pro/video",
+    productHref: "/facestudio-v",
     maintenance: {
       since: "2026-09-28",
       note: "The tunnel this demo ran through has been retired. It is being moved onto our own GPU infrastructure, the same one Nano FaceStudio Online now runs on.",

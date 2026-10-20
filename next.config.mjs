@@ -43,6 +43,10 @@ const nextConfig = {
       // described Nano FaceStudio Online (browser) and Nano FaceStudio Pro
       // (desktop). Send old links and search results to the real pages.
       { source: "/apps/nano-faceswap-pro", destination: "/face-studio", permanent: true },
+      // The free "Video FaceSwap Pro" demo (its tunnel was retired on 2026-09-28) is replaced by
+      // Video FaceSwap Online 1.1.0, which is paid in credits. The old page still promised a free,
+      // watermark-free demo, and ChatGPT was sending people to it with that promise.
+      { source: "/apps/nano-faceswap-pro/video", destination: "/facestudio-v", permanent: true },
       {
         // The illustrated feature tour now lives on /face-studio itself.
         source: "/apps/nano-faceswap-pro/features",

@@ -120,11 +120,6 @@ function buildLlmsTxt(): string {
       "Local desktop face studio, and the full-featured counterpart of Nano FaceStudio Online: multi-face swap on a diffusion identity stack (InstantID, PuLID, IP-Adapter FaceID) plus mask edit, expression editing, Face Vivid, upscale, light adjust, and crop. 100% on the user's GPU. One-time license, no subscription. Available for Windows now; macOS to follow.",
     ),
     bullet(
-      "/apps/nano-faceswap-pro/video",
-      "Video FaceSwap Pro",
-      `Same identity stack as the photo product, extended to short video clips with temporal smoothing. ${demoStatusEn("video")}`,
-    ),
-    bullet(
       "/apps/nanoface-vivid",
       "NanoFace Vivid",
       `Identity-locked face-detail restorer. Fixes the over-smoothed plastic look left by Gemini 2.5 Flash Image (Nano Banana), Adobe Firefly, Roop, FaceFusion, and cloud face-swap services. ${demoStatusEn("vivid")} Integrated into Nano FaceStudio Pro 1.0 desktop soon.`,

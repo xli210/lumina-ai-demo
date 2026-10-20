@@ -69,7 +69,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogEntries,
     ...releaseNoteEntries,
     // 10 SEO product landings
-    { url: `${BASE}/apps/nano-faceswap-pro/video`, lastModified: new Date("2026-07-17"), changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE}/apps/nanoface-vivid`, lastModified: new Date("2026-06-02"), changeFrequency: "weekly", priority: 0.9 },
     ...(() => {
       const faceSwapLanguages = {

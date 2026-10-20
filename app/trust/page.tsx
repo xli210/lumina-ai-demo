@@ -89,9 +89,9 @@ const SYSTEM_REQS: SystemReq[] = [
     status: "Stable",
   },
   {
-    product: "Video FaceSwap Pro (online)",
-    href: "/apps/nano-faceswap-pro/video",
-    os: "Any modern browser, signed-in NanoPocket account",
+    product: "Video FaceSwap Online 1.1.0",
+    href: "/facestudio-v",
+    os: "Any modern browser, signed-in NanoPocket account, paid in credits",
     gpu: "Hosted GPU (no local hardware required)",
     vram: "—",
     status: "Stable",
@@ -557,10 +557,10 @@ const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     title: "Online demo capacity at peak hours",
-    product: "Video FaceSwap Pro (online)",
+    product: "Video FaceSwap Online 1.1.0",
     detail:
-      "Free demo queues lengthen during UTC 14-22. Most submissions clear in ≤2 min, but a 5-10 min wait is possible on busy weekends.",
-    href: "/apps/nano-faceswap-pro/video",
+      "Requests are queued on a single GPU, so a clip may wait for its turn. The price is shown before you start, and a video that fails is refunded.",
+    href: "/facestudio-v",
   },
   {
     title: "Hands and fine articulation on diffusion video",
