@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ensureSignupGrant, listCreditLedger } from "@/lib/credits-server";
 import { getFreeClaimOutcome } from "@/lib/free-claim";
+import Link from "next/link";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { CreditConsole } from "./credit-console";
@@ -61,6 +62,17 @@ export default async function CreditsPage() {
           </div>
         )}
         <CreditConsole account={account} initialLedger={ledger} />
+        <div className="mt-8 rounded-2xl border border-border bg-card/40 p-5">
+          <p className="text-sm font-semibold text-foreground">Prefer not to spend credits at all?</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Nano FaceSwap, Nano FacialEdit and Nano ImageTryon are free desktop apps that run on your own
+            GPU: your photos and videos stay on your computer, and there is no subscription. They need
+            Windows and an NVIDIA graphics card.
+          </p>
+          <Link href="/download" className="mt-3 inline-block text-sm font-medium text-primary underline-offset-4 hover:underline">
+            See the free apps
+          </Link>
+        </div>
       </div>
       <Footer />
     </main>

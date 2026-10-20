@@ -7,6 +7,7 @@ import { getMessages } from "next-intl/server";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { FacestudioVNotice } from "./components/facestudio-v-notice";
+import { LocalAppsNotice } from "./components/local-apps-notice";
 import { DEFAULT_LOCALE, isAppLocale, type AppLocale } from "@/lib/i18n/locales";
 import { demoAvailabilityEn } from "@/lib/demo-availability";
 
@@ -431,6 +432,7 @@ export default async function RootLayout({
             {children}
             <Toaster />
             <FacestudioVNotice />
+            <LocalAppsNotice />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
