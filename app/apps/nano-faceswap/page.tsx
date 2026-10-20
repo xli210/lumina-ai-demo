@@ -6,7 +6,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    "Nano FaceSwap — Local Desktop Face Swap for Windows NVIDIA GPUs",
+    "Nano FaceSwap — Local Face Swap for Windows (NVIDIA GPU)",
   description:
     "Nano FaceSwap is a local desktop face-swap app for Windows. It swaps single or multiple faces in photos and videos on a single NVIDIA GPU, with a one-time license, no per-minute fees, and no cloud upload of source media.",
   keywords: [

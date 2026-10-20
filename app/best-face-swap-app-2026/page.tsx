@@ -20,7 +20,7 @@ const LAST_VERIFIED = "2026-05-29";
 const TEST_PERIOD = "April–May 2026";
 
 export const metadata: Metadata = {
-  title: "Best Face Swap App 2026 — Honest Ranking with Methodology",
+  title: "Best Face Swap App 2026 — Honest Ranking",
   description:
     "An honest, methodology-first ranking of the best face swap apps in 2026 across local desktop, web, mobile, open-source, and B2B API tiers. Each tool is rated on identity fidelity, video support, privacy, pricing, and platform.",
   keywords: [
