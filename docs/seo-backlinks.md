@@ -49,3 +49,22 @@ Video FaceSwap Online 1.1.0:AI 视频换脸,只替换你选的那个人,其他�
 新增侧脸转头、手和手臂挡脸、低光侧面、手持晃动等困难镜头的前后对比。按积分计费,
 开始前显示价格,失败自动退款;从未充值的账号生成的视频会带移动水印。
 https://nanopocket.ai/facestudio-v
+
+## Nano ImageEdit 2.0 Online (added 2026-10-20)
+
+What can be said, and what cannot yet:
+
+- Can say: for Remove, Replace, Add, Text and Magic Edit, every pixel outside the edited area
+  is kept identical and the editor reports the share of the image that changed (lib/image-edit-facts.ts).
+  It runs in the browser on NanoPocket's GPUs, paid per edit in credits, no subscription.
+- Cannot say yet: that it beats Nano Banana, Flux or any named model (no side-by-side data in
+  the repo), or that the desktop Nano ImageEdit keeps pixels identical (it does not; it is a local
+  Flux.1 generator). A claim against a named model needs a reproducible test first: same photos and
+  prompts through both, then the share of pixels changed outside the edit.
+
+One-line: Edit a photo by describing the change, and every pixel outside the edit stays identical.
+
+Post: Most AI photo editors regenerate the whole picture. Ours keeps everything outside the edit
+identical for object edits (remove, replace, add, change text) and shows how much of the image
+changed, so you can check it yourself. Browser-based, paid per edit, no subscription:
+https://nanopocket.ai/image-edit

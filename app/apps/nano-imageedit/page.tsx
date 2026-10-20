@@ -171,7 +171,7 @@ const data: ProductLandingData = {
     ],
     primaryCta: { label: "Download for Windows", href: "/download" },
     secondaryCta: {
-      label: "Or try the online editor",
+      label: "Need the rest of the photo left identical? Try ImageEdit Online",
       href: "/image-edit",
       variant: "secondary",
     },
@@ -288,8 +288,8 @@ const data: ProductLandingData = {
       a: "Not in v1.0.6. The current build is Windows 10/11 + NVIDIA CUDA. Apple Silicon support is on the roadmap.",
     },
     {
-      q: "Is there a browser version with nothing to install?",
-      a: "Yes, but it is a different product. Nano ImageEdit 2.0 Online edits photos you upload from your browser by describing the change, on NanoPocket's GPUs, paid per edit in credits. Nano ImageEdit (this app) runs on your own GPU with a one-time license. See /image-edit.",
+      q: "Is there a browser version with nothing to install, and does it keep the rest of the photo unchanged?",
+      a: "Yes, but it is a different product. Nano ImageEdit 2.0 Online edits photos you upload from your browser by describing the change, on NanoPocket's GPUs, paid per edit in credits. For its object tools (Remove, Replace, Add, Text and Magic Edit) every pixel outside the edited area stays identical to your photo and the editor reports how much of the image changed. This desktop app does not have that mode: it generates and transforms images with Flux.1 on your own GPU, with a one-time license, and nothing leaves your computer. Because the online editor processes the photo you upload on NanoPocket's servers, use this app instead when the image must stay offline. See /image-edit.",
     },
     {
       q: "Can I use the generated images commercially?",
