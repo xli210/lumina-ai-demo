@@ -205,6 +205,29 @@ footer{padding-top:30px;color:var(--faint);font-size:12.5px;line-height:1.6;max-
   .refcard{grid-template-columns:64px minmax(0,1fr)}.refcard img{width:64px;height:64px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* 1.1.0: watermark notice and the hard-footage cases */
+.ver{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;background:var(--grad);color:#04101f;font:700 11px/1.6 var(--font);letter-spacing:.06em}
+.wm{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;margin:8px auto 0;max-width:920px;padding:18px 22px;border:1px solid rgba(96,165,250,.35);border-radius:var(--radius);background:linear-gradient(135deg,rgba(59,130,246,.14),rgba(10,10,10,.6))}
+.wm .wmi{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.08);display:grid;place-items:center;font:700 11px/1 var(--font);letter-spacing:.04em;color:var(--blue2)}
+.wm h3{margin:0 0 4px;font-size:17px}
+.wm p{margin:0;color:var(--soft);opacity:.8;font-size:14.5px}
+.xc .xgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:40px}
+.xc .xcard{display:flex;flex-direction:column;gap:12px;padding:16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card)}
+.xc .pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.xc .xt{position:relative;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:16/9;min-width:0}
+.xc .xt video{width:100%;height:100%;object-fit:cover;display:block}
+.xc .lab{position:absolute;left:8px;top:8px;font:700 11px/1 var(--font);letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:99px;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);color:#dfe5f3}
+.xc .xt.after .lab{background:var(--grad);color:#04101f}
+.xc .xref{position:absolute;right:8px;bottom:8px;width:54px;text-align:center}
+.xc .xref img{width:54px;height:54px;object-fit:cover;border-radius:50%;border:2px solid var(--blue2);display:block;background:#000}
+.xc .xref span{display:block;font:700 9.5px/1 var(--font);letter-spacing:.06em;text-transform:uppercase;margin-top:3px;color:#cfe0ff;text-shadow:0 1px 3px #000}
+.xc h3{margin:0;font-size:19px}
+.xc .xs{margin:0;color:var(--muted);font-size:14.5px;line-height:1.5}
+.xc .xtags{display:flex;flex-wrap:wrap;gap:6px}
+.xc .xtags i{font-style:normal;font-size:12px;color:#9fb6e8;border:1px solid #22304f;padding:3px 10px;border-radius:99px}
+@media (max-width:820px){.xc .xgrid{grid-template-columns:1fr}.wm{grid-template-columns:1fr}.wm .wmi{display:none}}
+@media (max-width:520px){.xc .pair{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -212,7 +235,7 @@ footer{padding-top:30px;color:var(--faint);font-size:12.5px;line-height:1.6;max-
 
 <header class="top"><div class="wrap">
   <a class="logo" href="/" title="Back to NanoPocket"><i></i>Video FaceSwap Online</a>
-  <nav><a href="/">&larr; NanoPocket home</a><a href="#results">Results</a><a href="#how">How it works</a><a href="#choose">Choose who</a><a href="#features">Features</a><a href="#limits">Limits</a></nav>
+  <nav><a href="/">&larr; NanoPocket home</a><a href="#results">Results</a><a href="#hard">Hard cases</a><a href="#how">How it works</a><a href="#choose">Choose who</a><a href="#features">Features</a><a href="#limits">Limits</a></nav>
   <a class="pill dark" href="#results">See results</a>
 </div></header>
 
@@ -220,7 +243,7 @@ footer{padding-top:30px;color:var(--faint);font-size:12.5px;line-height:1.6;max-
 
 <!-- 1. what is this, in one sentence and one picture -->
 <div class="hero">
-  <span class="kicker">Video face swap</span>
+  <span class="kicker">Video face swap<span class="ver">VERSION 1.1.0</span></span>
   <h1>Swap any face in a video.</h1>
   <p class="sub">Give it a video and a photo of the face you want. It replaces one person, in every frame, and leaves everything else exactly as it was filmed.</p>
   <div class="cta"><a class="pill white" href="#results">See real results</a><a class="pill glass" href="#how">How it works</a><a class="pill blue" id="liveBtn" href="#choose" hidden>Try Video FaceSwap Online</a></div>
@@ -233,6 +256,13 @@ footer{padding-top:30px;color:var(--faint);font-size:12.5px;line-height:1.6;max-
     <div class="tile clip"><video id="fSwap" muted loop playsinline preload="auto"></video><span class="tag after"><b>Result</b><small>that person, replaced</small></span></div>
   </div>
   <div class="match" id="fMatch"></div>
+</div>
+
+<!-- 1b. the watermark policy, stated before anyone starts -->
+<div class="wm" id="watermark" role="note">
+  <div class="wmi" aria-hidden="true">NP</div>
+  <div><h3>Top up credits to remove the watermark.</h3><p>Videos made on an account that has never topped up carry a slowly moving NanoPocket mark. Top up once and your new videos come out clean. Free sign-up credits and trials do not remove it.</p></div>
+  <a class="pill white" href="/credits">Top up credits</a>
 </div>
 
 <!-- 2. how it works -->
@@ -252,6 +282,64 @@ footer{padding-top:30px;color:var(--faint);font-size:12.5px;line-height:1.6;max-
   <div class="grid collapsed" id="grid"></div>
   <div class="center" style="margin-top:22px"><button class="chip" id="more" style="padding:12px 24px">Show all examples</button></div>
   <p class="note">Match = how close the result's face is to the reference photo, measured with the SFace face-recognition model (cosine similarity). The tick marks 0.36, the usual threshold for &ldquo;same person&rdquo;. Footage: Mixkit free stock; the faces are other stock models, used for testing only.</p>
+</section>
+
+<!-- 3b. new in 1.1.0: the hard footage -->
+<section id="hard" class="xc">
+  <div class="center"><span class="kicker">New in 1.1.0</span><h2>Hard footage. Steady faces.</h2><p class="sub">Turned all the way to the side, with a hand over the face, with an arm sweeping past. The same clips, before and after: the new face stays on the head, and whatever is in front stays in front.</p></div>
+  <div class="xgrid">
+      <article class="xcard">
+        <div class="pair" data-pair>
+          <div class="xt"><video src="/facestudio-v/media/xc/profile_turn_before.mp4" poster="/facestudio-v/media/xc/profile_turn_poster.jpg" muted loop playsinline preload="metadata"></video><span class="lab">Before</span></div>
+          <div class="xt after"><video src="/facestudio-v/media/xc/profile_turn_after.mp4" poster="/facestudio-v/media/xc/profile_turn_poster.jpg" muted loop playsinline preload="metadata"></video><span class="lab">After</span>
+            <div class="xref"><img src="/facestudio-v/media/xc/profile_turn_ref.jpg" alt="Reference face" loading="lazy"><span>Reference</span></div></div>
+        </div>
+        <h3>A full turn to profile</h3>
+        <p class="xs">The head turns ninety degrees and back. The new face holds at every angle, with no flicker as it turns.</p>
+        <div class="xtags"><i>90° profile</i><i>glasses</i><i>beard</i></div>
+      </article>
+      <article class="xcard">
+        <div class="pair" data-pair>
+          <div class="xt"><video src="/facestudio-v/media/xc/profile_back_before.mp4" poster="/facestudio-v/media/xc/profile_back_poster.jpg" muted loop playsinline preload="metadata"></video><span class="lab">Before</span></div>
+          <div class="xt after"><video src="/facestudio-v/media/xc/profile_back_after.mp4" poster="/facestudio-v/media/xc/profile_back_poster.jpg" muted loop playsinline preload="metadata"></video><span class="lab">After</span>
+            <div class="xref"><img src="/facestudio-v/media/xc/profile_back_ref.jpg" alt="Reference face" loading="lazy"><span>Reference</span></div></div>
+        </div>
+        <h3>Looking away, then back at the camera</h3>
+        <p class="xs">A side view in low light, then a turn to the lens. The face stays put on the head all the way.</p>
+        <div class="xtags"><i>side view</i><i>low light</i><i>turning</i></div>
+      </article>
+      <article class="xcard">
+        <div class="pair" data-pair>
+          <div class="xt"><video src="/facestudio-v/media/xc/hand_glasses_before.mp4" poster="/facestudio-v/media/xc/hand_glasses_poster.jpg" muted loop playsinline preload="metadata"></video><span class="lab">Before</span></div>
+          <div class="xt after"><video src="/facestudio-v/media/xc/hand_glasses_after.mp4" poster="/facestudio-v/media/xc/hand_glasses_poster.jpg" muted loop playsinline preload="metadata"></video><span class="lab">After</span>
+            <div class="xref"><img src="/facestudio-v/media/xc/hand_glasses_ref.jpg" alt="Reference face" loading="lazy"><span>Reference</span></div></div>
+        </div>
+        <h3>A hand over the face, glasses on</h3>
+        <p class="xs">The hand stays in front of the face, untouched. Only the part of the face you can see changes, and it is back in one piece the moment the hand leaves.</p>
+        <div class="xtags"><i>hand in front</i><i>glasses</i><i>close-up</i></div>
+      </article>
+      <article class="xcard">
+        <div class="pair" data-pair>
+          <div class="xt"><video src="/facestudio-v/media/xc/arm_across_before.mp4" poster="/facestudio-v/media/xc/arm_across_poster.jpg" muted loop playsinline preload="metadata"></video><span class="lab">Before</span></div>
+          <div class="xt after"><video src="/facestudio-v/media/xc/arm_across_after.mp4" poster="/facestudio-v/media/xc/arm_across_poster.jpg" muted loop playsinline preload="metadata"></video><span class="lab">After</span>
+            <div class="xref"><img src="/facestudio-v/media/xc/arm_across_ref.jpg" alt="Reference face" loading="lazy"><span>Reference</span></div></div>
+        </div>
+        <h3>An arm sweeps across the face</h3>
+        <p class="xs">Something moves in front of the face while the head turns and the camera shakes. It passes over the face and the face does not move.</p>
+        <div class="xtags"><i>moving occluder</i><i>handheld camera</i><i>outdoors</i></div>
+      </article>
+      <article class="xcard">
+        <div class="pair" data-pair>
+          <div class="xt"><video src="/facestudio-v/media/xc/head_back_hands_before.mp4" poster="/facestudio-v/media/xc/head_back_hands_poster.jpg" muted loop playsinline preload="metadata"></video><span class="lab">Before</span></div>
+          <div class="xt after"><video src="/facestudio-v/media/xc/head_back_hands_after.mp4" poster="/facestudio-v/media/xc/head_back_hands_poster.jpg" muted loop playsinline preload="metadata"></video><span class="lab">After</span>
+            <div class="xref"><img src="/facestudio-v/media/xc/head_back_hands_ref.jpg" alt="Reference face" loading="lazy"><span>Reference</span></div></div>
+        </div>
+        <h3>Laughing, hands in the hair</h3>
+        <p class="xs">Hands touch the face and the hair, and the head tilts with every laugh. The swap follows.</p>
+        <div class="xtags"><i>hands on the face</i><i>head tilts</i><i>expressions</i></div>
+      </article>
+  </div>
+  <p class="note">Footage and reference photos: Pexels (free to use). The faces swapped here belong to stock-photo models; only swap a face you have permission to use. Rendered in Fast mode without the watermark.</p>
 </section>
 
 <!-- 4. choose who: the one thing that makes it different, as a real interaction -->
@@ -434,5 +522,19 @@ function drawHud(){
 })();
 </script>
 
+<script>
+/* 1.1.0 hard cases: a Before/After pair plays together, and only while it is on screen */
+(function(){
+  var pairs=document.querySelectorAll('#hard [data-pair]');
+  if(!pairs.length||!('IntersectionObserver' in window))return;
+  pairs.forEach(function(p){
+    var v=p.querySelectorAll('video'),a=v[0],b=v[1];
+    a.addEventListener('timeupdate',function(){ if(Math.abs(a.currentTime-b.currentTime)>0.12){ b.currentTime=a.currentTime; } });
+    new IntersectionObserver(function(es){ es.forEach(function(e){
+      if(e.isIntersecting&&!matchMedia('(prefers-reduced-motion: reduce)').matches){ a.currentTime=0;b.currentTime=0;a.play().catch(function(){});b.play().catch(function(){}); } else { a.pause();b.pause(); }
+    }); },{threshold:.45}).observe(p);
+  });
+})();
+</script>
 </body>
 </html>

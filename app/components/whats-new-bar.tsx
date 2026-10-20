@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Sparkles, Video, ArrowRight, X, Palette, Wand2, ScanFace } from "lucide-react";
-import { FACESTUDIO_V_NAME, facestudioVHasEnded } from "@/lib/facestudio-v";
+import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION, facestudioVHasEnded } from "@/lib/facestudio-v";
 
 interface WhatsNewItem {
   id: string;
@@ -21,11 +21,11 @@ interface WhatsNewItem {
 const ITEMS: WhatsNewItem[] = [
   {
     id: "nano-facestudio-v-trial",
-    label: "1 WEEK",
+    label: "1.1.0",
     labelClassName: "bg-rose-100 text-rose-700 ring-rose-200",
     icon: Video,
     iconClassName: "text-rose-600",
-    text: `${FACESTUDIO_V_NAME} — video face swap · 1-week queued trial · pay with credits · official release coming soon`,
+    text: `${FACESTUDIO_V_NAME} ${FACESTUDIO_V_VERSION} — steadier faces on hard footage: profile turns, hands and arms in front of the face · 1-week queued trial · pay with credits`,
     href: "/facestudio-v",
   },
   {
@@ -69,7 +69,8 @@ const ITEMS: WhatsNewItem[] = [
 // Bumped each time the announcements change, so people who dismissed the
 // previous bar see the new ones. v3: Nano ImageEdit 2.0 Online launch.
 // v5: the Video FaceSwap Online one-week trial (v4 was the three-day preview).
-const STORAGE_KEY = "nanopocket_whats_new_dismissed_v5";
+// v6: Video FaceSwap Online 1.1.0.
+const STORAGE_KEY = "nanopocket_whats_new_dismissed_v6";
 
 export function WhatsNewBar() {
   const [visible, setVisible] = useState(false);

@@ -22,6 +22,8 @@
  */
 
 export const FACESTUDIO_V_NAME = "Video FaceSwap Online";
+/** 1.1.0: hard footage (profile turns, hands and arms in front of the face) and the watermark policy. */
+export const FACESTUDIO_V_VERSION = "1.1.0";
 export const FACESTUDIO_V_URL = "https://nanopocket.ai/facestudio-v";
 /** The public page: the demo, with its fourteen cases. No sign-in. */
 export const FACESTUDIO_V_PAGE = "/facestudio-v";
@@ -54,7 +56,7 @@ export const FACESTUDIO_V_TAG = "Limited 1-week queued trial";
 
 /** What it costs, in one sentence. The studio prices each video; the price is shown before you start. */
 export const FACESTUDIO_V_PRICE_LINE =
-  "Paid in credits: the price of each video is shown before you start, and a video that fails is refunded. New accounts start with free credits.";
+  "Paid in credits: the price of each video is shown before you start, and a video that fails is refunded. New accounts start with free credits. Videos from an account that has never topped up carry a moving NanoPocket watermark; one top-up removes it.";
 
 export const FACESTUDIO_V_TAGLINE =
   "Replace one person's face, or their whole head, in a video. Everyone else and the original sound stay as filmed.";
@@ -64,6 +66,7 @@ export const FACESTUDIO_V_POINTS = [
   "Pick which person changes in a multi-person clip",
   "The original sound is kept, and detail is restored after the swap",
   "Paid in credits: the price is shown before you start, and a failed video is refunded",
+  "Top up credits once to remove the watermark",
 ];
 
 export const FACESTUDIO_V_COMING_SOON = "Official release coming soon";
@@ -80,6 +83,10 @@ export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
   {
     q: "How much does it cost?",
     a: "Each video is paid for in NanoPocket credits (100 credits = US$1). The studio works out the price from the mode, the output size, the length of the clip and how many people are swapped, and shows it before you start. For example, a 10-second 1080p clip in Fast mode is about 20 credits; Best quality and Whole head cost more. If a video fails, is cancelled, or you leave the line, the credits are returned. New accounts start with free credits. Pricing for the official release has not been announced.",
+  },
+  {
+    q: "Why is there a watermark on my video, and how do I remove it?",
+    a: "Since October 18, 2026, a video made on an account that has never topped up credits carries a slowly moving, semi-transparent NanoPocket mark. Topping up credits once removes it from the videos you make afterwards. Free sign-up credits and trials do not count as a top-up, and a video that was already made keeps the mark it was made with.",
   },
   {
     q: "Can I swap any face I like?",
