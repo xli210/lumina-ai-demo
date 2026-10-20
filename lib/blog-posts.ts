@@ -1,4 +1,5 @@
 import { IMAGE_EDIT_GUIDE_POSTS } from "@/lib/blog-posts-image-edit";
+import { VIDEO_FACE_SWAP_GUIDE_POSTS } from "@/lib/blog-posts-video-face-swap";
 
 export interface BlogPost {
   slug: string;
@@ -16,6 +17,7 @@ export interface BlogPost {
 }
 
 export const BLOG_POSTS: BlogPost[] = [
+  ...VIDEO_FACE_SWAP_GUIDE_POSTS,
   ...IMAGE_EDIT_GUIDE_POSTS,
   {
     slug: "nanopocket-vs-runway",
