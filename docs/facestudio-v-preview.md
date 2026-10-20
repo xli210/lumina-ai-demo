@@ -1,9 +1,10 @@
-# Video FaceSwap Online: the one-week trial (paid in credits)
+# Video FaceSwap Online 1.1.0: official release (paid in credits)
 
-A limited, queued trial of a video face swap, open to registered users from
-2026-10-13 05:00 UTC to 2026-10-20 06:00 UTC (`lib/facestudio-v.ts`). It follows the
-free three-day preview of 2026-10-10 to 2026-10-13. Not a launched product: the page
-says "official release coming soon".
+A queued video face swap, open to registered users since 2026-10-20 as the official
+release, version 1.1.0 (`lib/facestudio-v.ts`). It ran first as a free three-day preview
+(2026-10-10 to 13) and then as a one-week trial (2026-10-13 to 20). There is no end date
+now; `facestudioVIsOpen()` is the single switch. Videos from an account that has never
+bought credits carry a moving watermark (see "Watermark" below).
 
 Nothing here has been posted anywhere on your behalf.
 
@@ -153,3 +154,12 @@ ask for feedback on where it fails (fast motion, occlusion, side profiles), not 
 On "chart rankings": none of this can promise a placement. What helps is a
 specific, honest post, a real reason to try it before Oct 13, and answering
 every comment within the hour while the preview runs.
+
+## Watermark (since 2026-10-18)
+
+The studio marks every video unless the hold answer carries a signed `entitlement` saying the
+person has bought credits (`lib/facestudio-v-entitlement.ts`, secret `STUDIO_PARTNER_SECRET`,
+shared with the studio's server only). "Bought" means a `purchase` row in `credit_ledger`:
+signup credits, trials, promos and admin adjustments do not count. No secret, or a failed
+lookup, sends no token: the video is marked and the hold still works. Check:
+`node --experimental-strip-types scripts/check-facestudio-v-entitlement.mjs`.

@@ -4,7 +4,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_LAUNCH, facestudioVHasEnded } from "@/lib/facestudio-v";
+import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_LAUNCH, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
 import {
   ArrowRight,
   Download,
@@ -83,11 +83,9 @@ const IMAGE_DURATION = 5000;
 export function HeroSection() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [vEnded, setVEnded] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
-  useEffect(() => setVEnded(facestudioVHasEnded()), []);
 
   const advance = useCallback(() => {
     setActiveSlide((s) => (s + 1) % demoSlides.length);
@@ -193,17 +191,17 @@ export function HeroSection() {
             <div className="pointer-events-auto max-w-[46%] sm:max-w-[30%]">
               <p className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-sky-300/40 bg-sky-300/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-widest text-sky-200 sm:mb-4 sm:text-xs">
                 <Video className="h-3 w-3" />
-                {vEnded ? "Trial ended · official release soon" : "1-week trial"}
+                {`Version ${FACESTUDIO_V_VERSION} · now released`}
               </p>
               <p className="text-balance text-lg font-bold leading-tight tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl">
                 Swap one face in a video.
                 <span className="block text-sky-200">Leave the rest as filmed.</span>
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3">
-                {!vEnded && (
+                {(
                   <Link href={FACESTUDIO_V_LAUNCH} tabIndex={activeSlide === 0 ? 0 : -1}>
                     <Button size="sm" className="gap-1.5 rounded-full bg-white px-4 text-black hover:bg-neutral-100 sm:px-6">
-                      <span className="sm:hidden">Try it free</span>
+                      <span className="sm:hidden">Try it now</span>
                       <span className="hidden sm:inline">Try Video FaceSwap Online</span>
                       <ArrowRight className="h-4 w-4" />
                     </Button>

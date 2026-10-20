@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   if ("response" in auth) return auth.response;
 
   if (!facestudioVIsOpen()) {
-    return reply(request, { error: "The Video FaceSwap Online trial is closed." }, 403);
+    return reply(request, { error: "Video FaceSwap Online is not open right now." }, 403);
   }
   const body = await readJson(request);
   const credits = body?.credits;

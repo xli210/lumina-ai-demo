@@ -1,28 +1,28 @@
 /**
- * Video FaceSwap Online: the limited one-week queued video face swap
- * trial. One source for the name, the window and the wording, so the
+ * Video FaceSwap Online: NanoPocket's queued video face swap, officially
+ * released as version 1.1.0 (it ran as a three-day preview and a one-week trial
+ * first). One source for the name, the wording and the on/off switch, so the
  * homepage card, the What's new bar, the landing page, llms.txt and the
  * middleware gate cannot disagree.
  *
- * The trial is a time-boxed experiment, not a launched product. Each video is
- * paid for in NanoPocket credits (the studio prices it, our server holds and
- * settles it: app/api/facestudio-v/*):
+ * Each video is paid for in NanoPocket credits (the studio prices it, our server
+ * holds and settles it: app/api/facestudio-v/*):
  *  - the studio runs on a GPU behind a tunnel and people queue for it;
  *  - the page at /facestudio-v (public/facestudio-v/index.html) is static results
  *    only, public and indexable: it is what brings people in;
- *  - after FACESTUDIO_V_ENDS_AT the door to the studio (/facestudio-v/launch) is
- *    shut by middleware and the page's buttons step aside; the page stays up.
+ *  - the door to the studio (/facestudio-v/launch) is shut by middleware only
+ *    before FACESTUDIO_V_STARTS_AT, or if the studio is not reachable.
  *
- * To end it early, set ENDS_AT to a time in the past and deploy. The studio's
- * own address (it carries an access key) is never in this repo: it is read from
- * the FACESTUDIO_V_STUDIO_URL environment variable on the server, in
- * app/facestudio-v/launch/page.tsx.
+ * To close the studio again, add an end time and make facestudioVIsOpen() check
+ * it. The studio's own address (it carries an access key) is never in this repo:
+ * it is read from the FACESTUDIO_V_STUDIO_URL environment variable on the server,
+ * in app/facestudio-v/launch/page.tsx.
  *
  * Safe to import from middleware, server and client code: plain data only.
  */
 
 export const FACESTUDIO_V_NAME = "Video FaceSwap Online";
-/** 1.1.0: hard footage (profile turns, hands and arms in front of the face) and the watermark policy. */
+/** 1.1.0, the official release: hard footage (profile turns, hands and arms in front of the face) and the watermark policy. */
 export const FACESTUDIO_V_VERSION = "1.1.0";
 export const FACESTUDIO_V_URL = "https://nanopocket.ai/facestudio-v";
 /** The public page: the demo, with its fourteen cases. No sign-in. */
@@ -35,24 +35,18 @@ export const FACESTUDIO_V_DEMO = FACESTUDIO_V_PAGE;
 /** The credit service name: holds for this product are recorded under it. */
 export const FACESTUDIO_V_SERVICE = "facestudio-v";
 
-/** First day of the one-week trial, UTC (the three-day preview ran 2026-10-10 to 2026-10-13). */
+/** The studio opened to the public on this day, UTC (preview 2026-10-10 to 13, one-week trial 2026-10-13 to 20). */
 export const FACESTUDIO_V_STARTS_AT = "2026-10-13T05:00:00Z";
-/** One week (7 days) after the start. After this the trial is closed. */
-export const FACESTUDIO_V_ENDS_AT = "2026-10-20T06:00:00Z";
+/** The official release (version 1.1.0) went live on this day, UTC. */
+export const FACESTUDIO_V_RELEASED_AT = "2026-10-20T06:00:00Z";
 
-/** The first announcement date and the last day, for pages and structured data. */
-export const FACESTUDIO_V_ENDS_LABEL = "October 20, 2026 (06:00 UTC)";
-
+/** Open from the first day, with no end date. */
 export function facestudioVIsOpen(now: number = Date.now()): boolean {
-  return now >= Date.parse(FACESTUDIO_V_STARTS_AT) && now < Date.parse(FACESTUDIO_V_ENDS_AT);
+  return now >= Date.parse(FACESTUDIO_V_STARTS_AT);
 }
 
-export function facestudioVHasEnded(now: number = Date.now()): boolean {
-  return now >= Date.parse(FACESTUDIO_V_ENDS_AT);
-}
-
-/** "Limited 1-week queued trial": the label used everywhere. */
-export const FACESTUDIO_V_TAG = "Limited 1-week queued trial";
+/** The label used everywhere. */
+export const FACESTUDIO_V_TAG = "Official release";
 
 /** What it costs, in one sentence. The studio prices each video; the price is shown before you start. */
 export const FACESTUDIO_V_PRICE_LINE =
@@ -69,20 +63,18 @@ export const FACESTUDIO_V_POINTS = [
   "Top up credits once to remove the watermark",
 ];
 
-export const FACESTUDIO_V_COMING_SOON = "Official release coming soon";
-
 export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
   {
     q: "What is Video FaceSwap Online?",
-    a: `${FACESTUDIO_V_NAME} is a video face swap from NanoPocket. You give it a video and a photo of the face you want; it replaces one person in every frame and leaves everyone and everything else as it was filmed. It is available as a ${FACESTUDIO_V_TAG.toLowerCase()} for registered NanoPocket users, paid for in credits; an official release is coming.`,
+    a: `${FACESTUDIO_V_NAME} is a video face swap from NanoPocket. You give it a video and a photo of the face you want; it replaces one person in every frame and leaves everyone and everything else as it was filmed. Version ${FACESTUDIO_V_VERSION} is the official release: it is available to registered NanoPocket users and paid for in credits.`,
   },
   {
-    q: "How long is the trial open, and how do I get in?",
-    a: `The trial is open for one week and closes on ${FACESTUDIO_V_ENDS_LABEL}. You need a free NanoPocket account: sign in, then open the studio from the card on the NanoPocket homepage or from the page at nanopocket.ai/facestudio-v. The page itself, with its examples, needs no sign-in. Requests are queued, so a clip may wait for its turn on the GPU.`,
+    q: "How do I get in?",
+    a: "You need a free NanoPocket account: sign in, then open the studio from the card on the NanoPocket homepage or from the page at nanopocket.ai/facestudio-v. The page itself, with its examples, needs no sign-in. Requests are queued, so a clip may wait for its turn on the GPU.",
   },
   {
     q: "How much does it cost?",
-    a: "Each video is paid for in NanoPocket credits (100 credits = US$1). The studio works out the price from the mode, the output size, the length of the clip and how many people are swapped, and shows it before you start. For example, a 10-second 1080p clip in Fast mode is about 20 credits; Best quality and Whole head cost more. If a video fails, is cancelled, or you leave the line, the credits are returned. New accounts start with free credits. Pricing for the official release has not been announced.",
+    a: "Each video is paid for in NanoPocket credits (100 credits = US$1). The studio works out the price from the mode, the output size, the length of the clip and how many people are swapped, and shows it before you start. For example, a 10-second 1080p clip in Fast mode is about 20 credits; Best quality and Whole head cost more. If a video fails, is cancelled, or you leave the line, the credits are returned. New accounts start with free credits.",
   },
   {
     q: "Why is there a watermark on my video, and how do I remove it?",

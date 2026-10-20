@@ -68,7 +68,7 @@ export async function middleware(request: NextRequest) {
   const indexNow = indexNowResponse(request.nextUrl.pathname)
   if (indexNow) return indexNow
 
-  // The Nano FaceStudio-V studio is open for three days. Outside that window the
+  // Video FaceSwap Online's studio: whenever facestudioVIsOpen() is false the
   // door (/facestudio-v/launch) is shut, whoever is signed in; the public page
   // stays up and its button steps aside. (A browser that already holds the studio's
   // own cookie keeps its access there until that cookie expires: see

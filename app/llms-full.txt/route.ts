@@ -31,14 +31,12 @@ import {
 import { IMAGE_EDIT_EXAMPLES } from "@/lib/image-edit-examples";
 import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
 import {
-  FACESTUDIO_V_COMING_SOON,
-  FACESTUDIO_V_ENDS_LABEL,
   FACESTUDIO_V_FAQ,
   FACESTUDIO_V_NAME,
   FACESTUDIO_V_POINTS,
   FACESTUDIO_V_TAG,
   FACESTUDIO_V_TAGLINE,
-  facestudioVHasEnded,
+  FACESTUDIO_V_VERSION,
 } from "@/lib/facestudio-v";
 import { demoAvailabilityEn } from "@/lib/demo-availability";
 
@@ -178,7 +176,7 @@ const FACESTUDIO_V_REFERENCE = `# ${FACESTUDIO_V_NAME} — Preview Reference
 
 URL: ${BASE}/facestudio-v
 
-${FACESTUDIO_V_NAME} is NanoPocket's video face swap, offered as a ${FACESTUDIO_V_TAG.toLowerCase()}. ${FACESTUDIO_V_TAGLINE} ${facestudioVHasEnded() ? "The one-week trial has ended." : `The trial is open to registered NanoPocket users until ${FACESTUDIO_V_ENDS_LABEL}; requests are queued, and each video is paid for in credits at a price shown before it starts.`} ${FACESTUDIO_V_COMING_SOON}.
+${FACESTUDIO_V_NAME} is NanoPocket's video face swap, version ${FACESTUDIO_V_VERSION} (${FACESTUDIO_V_TAG.toLowerCase()}). ${FACESTUDIO_V_TAGLINE} It is open to registered NanoPocket users; requests are queued, and each video is paid for in credits at a price shown before it starts. Videos from an account that has never topped up credits carry a moving NanoPocket watermark; one top-up removes it.
 
 ## What it does
 

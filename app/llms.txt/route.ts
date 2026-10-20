@@ -18,12 +18,10 @@ import {
 } from "@/lib/image-edit-facts";
 import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
 import {
-  FACESTUDIO_V_COMING_SOON,
-  FACESTUDIO_V_ENDS_LABEL,
   FACESTUDIO_V_NAME,
   FACESTUDIO_V_TAG,
   FACESTUDIO_V_TAGLINE,
-  facestudioVHasEnded,
+  FACESTUDIO_V_VERSION,
 } from "@/lib/facestudio-v";
 import { SIGNED_APPS_PHRASE } from "@/lib/download-hashes";
 
@@ -75,8 +73,8 @@ function buildLlmsTxt(): string {
     ),
     bullet(
       "/facestudio-v",
-      `${FACESTUDIO_V_NAME} — video face swap (${FACESTUDIO_V_TAG.toLowerCase()})`,
-      `${FACESTUDIO_V_TAGLINE} ${facestudioVHasEnded() ? "The one-week trial has ended." : `A one-week trial for registered NanoPocket users, closing ${FACESTUDIO_V_ENDS_LABEL}; requests are queued, and each video is paid for in credits at a price shown before it starts.`} ${FACESTUDIO_V_COMING_SOON}. The page and its fourteen example cases are public; opening the studio requires a free account.`,
+      `${FACESTUDIO_V_NAME} — video face swap, version ${FACESTUDIO_V_VERSION} (${FACESTUDIO_V_TAG.toLowerCase()})`,
+      `${FACESTUDIO_V_TAGLINE} Open to registered NanoPocket users; requests are queued, and each video is paid for in credits at a price shown before it starts. A video from an account that has never topped up carries a moving watermark. The page and its fourteen example cases are public; opening the studio requires a free account.`,
     ),
     bullet(
       "/use-cases",

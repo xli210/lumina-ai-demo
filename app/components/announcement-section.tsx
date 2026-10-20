@@ -25,15 +25,13 @@ import {
   IMAGEEDIT_NAME,
 } from "@/lib/imageedit";
 import {
-  FACESTUDIO_V_COMING_SOON,
   FACESTUDIO_V_DEMO,
-  FACESTUDIO_V_ENDS_LABEL,
   FACESTUDIO_V_LAUNCH,
   FACESTUDIO_V_NAME,
   FACESTUDIO_V_POINTS,
   FACESTUDIO_V_TAG,
   FACESTUDIO_V_TAGLINE,
-  facestudioVHasEnded,
+  FACESTUDIO_V_VERSION,
 } from "@/lib/facestudio-v";
 
 /*
@@ -469,10 +467,6 @@ export function AnnouncementSection() {
     [refreshVotes]
   );
 
-  // The preview is time-boxed: the card turns into "ended" once the window closes.
-  const [fvEnded, setFvEnded] = useState(false);
-  useEffect(() => setFvEnded(facestudioVHasEnded()), []);
-
   return (
     <section id="announcement" className="relative scroll-mt-24 px-6 py-24">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -501,19 +495,14 @@ export function AnnouncementSection() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <ProductCard
             icon={Video}
-            pill={fvEnded ? "Trial ended" : FACESTUDIO_V_TAG}
-            live={!fvEnded}
-            highlight={FACESTUDIO_V_COMING_SOON}
+            pill={FACESTUDIO_V_TAG}
+            live
+            highlight={`Version ${FACESTUDIO_V_VERSION}`}
             title={FACESTUDIO_V_NAME}
             lede={FACESTUDIO_V_TAGLINE}
             points={FACESTUDIO_V_POINTS}
-            priceLine={
-              fvEnded
-                ? "The one-week trial has closed"
-                : `Paid in credits, priced before you start · new accounts start with free credits · closes ${FACESTUDIO_V_ENDS_LABEL}`
-            }
+            priceLine="Paid in credits, priced before you start · new accounts start with free credits · top up once to remove the watermark"
             cta={{ href: FACESTUDIO_V_LAUNCH, label: "Try Video FaceSwap Online" }}
-            closedLabel={fvEnded ? "Trial ended" : undefined}
             learnMore={{ href: FACESTUDIO_V_DEMO, label: "Learn more", plain: true }}
           />
 

@@ -413,7 +413,7 @@ export default function ImageEditLanding() {
                 <Link href="/facestudio-v" className={textLink}>
                   Video FaceSwap Online
                 </Link>
-                <span className="text-muted-foreground"> for swapping a face in a video (limited 1-week trial)</span>
+                <span className="text-muted-foreground"> for swapping a face in a video (version 1.1.0)</span>
               </li>
               <li>
                 <Link href="/face-studio" className={textLink}>

@@ -217,7 +217,7 @@ export default async function RootLayout({
                 itemListElement: [
                   {
                     "@type": "Offer",
-                    name: "Video FaceSwap Online (limited 1-week trial)",
+                    name: "Video FaceSwap Online 1.1.0",
                     url: "https://nanopocket.ai/facestudio-v",
                   },
                   {

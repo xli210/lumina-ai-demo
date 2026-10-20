@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Sparkles, Video, ArrowRight, X, Palette, Wand2, ScanFace } from "lucide-react";
-import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION, facestudioVHasEnded } from "@/lib/facestudio-v";
+import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
 
 interface WhatsNewItem {
   id: string;
@@ -21,11 +21,11 @@ interface WhatsNewItem {
 const ITEMS: WhatsNewItem[] = [
   {
     id: "nano-facestudio-v-trial",
-    label: "1.1.0",
+    label: "RELEASE",
     labelClassName: "bg-rose-100 text-rose-700 ring-rose-200",
     icon: Video,
     iconClassName: "text-rose-600",
-    text: `${FACESTUDIO_V_NAME} ${FACESTUDIO_V_VERSION} — steadier faces on hard footage: profile turns, hands and arms in front of the face · 1-week queued trial · pay with credits`,
+    text: `${FACESTUDIO_V_NAME} ${FACESTUDIO_V_VERSION} — steadier faces on hard footage: profile turns, hands and arms in front of the face · official release · pay with credits`,
     href: "/facestudio-v",
   },
   {
@@ -70,11 +70,11 @@ const ITEMS: WhatsNewItem[] = [
 // previous bar see the new ones. v3: Nano ImageEdit 2.0 Online launch.
 // v5: the Video FaceSwap Online one-week trial (v4 was the three-day preview).
 // v6: Video FaceSwap Online 1.1.0.
-const STORAGE_KEY = "nanopocket_whats_new_dismissed_v6";
+// v7: Video FaceSwap Online 1.1.0 is the official release (the trial is over).
+const STORAGE_KEY = "nanopocket_whats_new_dismissed_v7";
 
 export function WhatsNewBar() {
   const [visible, setVisible] = useState(false);
-  const [previewEnded, setPreviewEnded] = useState(false);
   // When the announcements are wider than the bar they scroll by themselves;
   // otherwise they sit still. Reduced-motion users scroll by hand instead.
   const frameRef = useRef<HTMLDivElement>(null);
@@ -83,7 +83,6 @@ export function WhatsNewBar() {
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
-    setPreviewEnded(facestudioVHasEnded());
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReduceMotion(mq.matches);
     const onChange = () => setReduceMotion(mq.matches);
@@ -109,7 +108,7 @@ export function WhatsNewBar() {
     const ro = new ResizeObserver(measure);
     ro.observe(frame);
     return () => ro.disconnect();
-  }, [visible, previewEnded]);
+  }, [visible]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -136,11 +135,7 @@ export function WhatsNewBar() {
 
   if (!visible) return null;
 
-  const items = ITEMS.map((item) =>
-    item.id === "nano-facestudio-v-preview" && previewEnded
-      ? { ...item, label: "ENDED", text: `${FACESTUDIO_V_NAME} trial has ended — official release coming soon` }
-      : item
-  );
+  const items = ITEMS;
   const scrolling = overflowing && !reduceMotion;
   // A second copy lets the loop run without a jump.
   const shown = scrolling ? [...items, ...items] : items;
