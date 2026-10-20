@@ -173,10 +173,10 @@
   },
   "Home": {
     "metadata": {
-      "title": "NanoPocket — Free Online AI Face Swap + Local AI Creative Suite",
-      "description": "Free online AI face swap that runs in your browser — Nano FaceStudio Online and the demos at /face-swap, no install, no subscription. Plus a full local AI creative suite (Flux.1, LTX-2.3) for users who want to run everything on their own GPU.",
-      "ogTitle": "NanoPocket — Free Online AI Face Swap + Local Creative Suite",
-      "ogDescription": "Free in-browser face swap (no install, no subscription) plus a fully-local AI suite for users who want to run everything on their own GPU. Powered by InstantID + PuLID + IP-Adapter FaceID, Flux.1, and LTX-2.3."
+      "title": "NanoPocket — Local AI Face Swap, Face Edit & Try-On",
+      "description": "Local AI face swap, face editing and virtual try-on for Windows. Your photos and videos stay on your computer, with no subscription: free apps or a one-time license. Free online demos too.",
+      "ogTitle": "NanoPocket — Local AI Face Swap, Face Edit & Try-On",
+      "ogDescription": "AI face swap, face editing and virtual try-on that run on your own GPU: your files stay on your computer and there is no subscription. Free apps or a one-time license, plus free in-browser demos."
     },
     "hero": {
       "kicker": "Free online + optional local desktop",

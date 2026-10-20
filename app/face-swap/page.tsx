@@ -555,6 +555,40 @@ export default function FaceSwapPage() {
         </div>
       </section>
 
+      {/* The local apps: what the browser demos are not */}
+      <section id="local" className="border-t border-border/60 bg-muted/20 px-6 py-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            Prefer to keep it private? Run it on your own PC.
+          </h2>
+          <p className="mb-8 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+            The same kind of models, packaged as desktop apps for Windows with an NVIDIA GPU. They run
+            on your machine, so your photos and videos stay on your computer, and there is no
+            subscription or per-render fee to keep paying.
+          </p>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {[
+              { href: "/apps/nano-faceswap", name: "Nano FaceSwap", tag: "Free", body: "Local face swap for photos and videos, single or multiple faces. No cloud upload of your source media." },
+              { href: "/apps/nano-facialedit", name: "Nano FacialEdit", tag: "Free", body: "Local portrait editor: identity-preserving expression editing and retouching, run offline on your GPU." },
+              { href: "/apps/nano-imagetryon", name: "Nano ImageTryon", tag: "Free", body: "Local virtual try-on: put a garment from a reference photo on a subject, keeping body shape, pose and lighting." },
+              { href: "/apps/nano-facestudio-pro", name: "Nano FaceStudio Pro", tag: "One-time license", body: "Face swap, expression editing, upscaling and more in one local desktop app. Pay once; no subscription." },
+            ].map((a) => (
+              <Link
+                key={a.href}
+                href={a.href}
+                className="rounded-2xl border border-border/60 bg-background/60 p-5 transition-colors hover:border-foreground/30"
+              >
+                <div className="mb-2 flex items-center justify-between gap-3">
+                  <h3 className="text-base font-semibold text-foreground">{a.name}</h3>
+                  <span className="rounded-full border border-border/60 px-2.5 py-0.5 text-xs text-muted-foreground">{a.tag}</span>
+                </div>
+                <p className="text-sm leading-relaxed text-muted-foreground">{a.body}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Browser-first comparison */}
       <section className="px-6 py-16">
         <div className="mx-auto max-w-6xl">

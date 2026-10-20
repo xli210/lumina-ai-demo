@@ -55,7 +55,7 @@ if (process.env.NEXT_PUBLIC_PINTEREST_SITE_VERIFICATION) {
 export const metadata: Metadata = {
   metadataBase: new URL("https://nanopocket.ai"),
   title: {
-    default: "NanoPocket — Free Online AI Face Swap + Local AI Creative Suite",
+    default: "NanoPocket — Local AI Face Swap, Face Edit & Try-On",
     template: "%s | NanoPocket",
   },
   verification: {
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     other: verificationOther,
   },
   description:
-    "Free online AI face swap that runs in your browser — Nano FaceStudio Online and the demos at /face-swap, no install, no subscription. Plus a full local AI creative suite (Flux.1, LTX-2.3) for users who want to run everything on their own GPU.",
+    "Local AI face swap, face editing and virtual try-on for Windows. Your photos and videos stay on your computer, with no subscription: free apps or a one-time license. Free online demos too.",
   keywords: [
     "NanoPocket", "local AI", "generative AI", "offline AI",
     "Runway alternative", "ComfyUI alternative", "Flux local app", "Flux.1 local",
@@ -94,8 +94,8 @@ export const metadata: Metadata = {
     "Akool alternative", "HeyGen face swap alternative", "Reface alternative", "DeepBrain alternative",
   ],
   openGraph: {
-    title: "NanoPocket — Free Online AI Face Swap + Local Creative Suite",
-    description: "Free in-browser face swap (no install, no subscription) plus a fully-local AI suite for users who want to run everything on their own GPU. Powered by InstantID + PuLID + IP-Adapter FaceID, Flux.1, and LTX-2.3.",
+    title: "NanoPocket — Local AI Face Swap, Face Edit & Try-On",
+    description: "AI face swap, face editing and virtual try-on that run on your own GPU: your files stay on your computer and there is no subscription. Free apps or a one-time license, plus free in-browser demos.",
     url: "https://nanopocket.ai",
     siteName: "NanoPocket",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket — Local AI Creative Suite" }],
@@ -104,8 +104,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NanoPocket — Free Online AI Face Swap + Local Creative Suite",
-    description: "Free in-browser AI face swap (no install) plus a fully-local AI suite for users who want everything on their own GPU.",
+    title: "NanoPocket — Local AI Face Swap, Face Edit & Try-On",
+    description: "AI face swap, face editing and virtual try-on that run on your own GPU: your files stay on your computer and there is no subscription. Free apps or a one-time license, plus free in-browser demos.",
     images: ["/og-image.jpg"],
   },
   alternates: { canonical: "/" },
