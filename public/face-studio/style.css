@@ -1171,14 +1171,29 @@ main {
 }
 .v5-retry:hover { background: rgba(255, 255, 255, 0.12); }
 
-/* Shown above a render that carries the NanoPocket.ai watermark (free accounts). */
-.result-watermark {
-  margin: 0 0 14px;
-  padding: 10px 14px;
-  border: 1px solid rgba(96, 165, 250, 0.35);
-  border-radius: 10px;
-  background: rgba(59, 130, 246, 0.1);
-  font-size: 13.5px;
-  line-height: 1.5;
+/* Free accounts: the NanoPocket.ai watermark, said loudly and with a way out. */
+.wm-banner {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 18px;
+  padding: 12px 20px;
+  background: linear-gradient(90deg, #b45309, #d97706 50%, #b45309);
+  color: #fff; font-size: 15px; line-height: 1.4; text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
-.result-watermark a { color: #60a5fa; text-decoration: underline; text-underline-offset: 3px; }
+.wm-banner strong { font-weight: 700; }
+.wm-callout {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px;
+  margin: 18px auto 0; max-width: 760px; padding: 16px 20px;
+  border: 1.5px solid #f59e0b; border-radius: 14px;
+  background: rgba(245, 158, 11, 0.14);
+  color: #fff; font-size: 15px; line-height: 1.5;
+}
+.wm-callout p { margin: 0; flex: 1 1 320px; }
+.wm-callout strong { color: #fbbf24; }
+.wm-callout-result { margin: 0 0 16px; max-width: none; }
+.wm-btn {
+  display: inline-block; flex: 0 0 auto; padding: 10px 20px; border-radius: 999px;
+  background: #fff; color: #111 !important; font-weight: 700; font-size: 14px;
+  text-decoration: none; white-space: nowrap;
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
+}
+.wm-btn:hover { background: #fde68a; }

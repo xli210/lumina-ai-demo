@@ -91,6 +91,7 @@
   const resultTime = document.getElementById("result-time");
   const resultWatermark = document.getElementById("result-watermark");
   const genWatermark = document.getElementById("gen-watermark");
+  const wmBanner = document.getElementById("wm-banner");
   const btnDownload = document.getElementById("btn-download");
 
   // Feedback widget refs
@@ -152,7 +153,9 @@
       const data = await res.json();
       setCredits(data.available);
       // Say so before the render, not only after: free accounts get a watermark.
-      if (genWatermark) genWatermark.hidden = data.watermark_applies !== true;
+      const wm = data.watermark_applies === true;
+      if (genWatermark) genWatermark.hidden = !wm;
+      if (wmBanner) wmBanner.hidden = !wm;
     } catch {
       // A missing balance only costs us the pill; the server still enforces.
     }

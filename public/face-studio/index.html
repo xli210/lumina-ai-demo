@@ -35,6 +35,15 @@
     </div>
   </header>
 
+  <!-- Free accounts: said before they start, not only after. Shown from /api/credits/balance. -->
+  <div class="wm-banner" id="wm-banner" role="note" hidden>
+    <span class="wm-banner-text">
+      <strong>Free account: your results carry a NanoPocket.ai watermark.</strong>
+      Top up credits once and it is removed for good.
+    </span>
+    <a class="wm-btn" href="/credits" target="_blank" rel="noopener">Remove the watermark</a>
+  </div>
+
   <main>
 
     <!-- ── Step 1: Upload body image ── -->
@@ -151,10 +160,11 @@
           </span>
         </button>
         <p class="action-hint" id="action-hint">Upload a reference for at least one face to enable Generate.</p>
-        <p class="result-watermark gen-watermark" id="gen-watermark" hidden>
-          <strong>Free account:</strong> your result will carry a NanoPocket.ai watermark.
-          <a href="/credits" target="_blank" rel="noopener">Top up credits once</a> and it is removed for good.
-        </p>
+        <div class="wm-callout" id="gen-watermark" hidden>
+          <p><strong>This render will carry a NanoPocket.ai watermark</strong>, because this account has never topped up credits.
+          One top-up removes it for good.</p>
+          <a class="wm-btn" href="/credits" target="_blank" rel="noopener">Top up to remove it</a>
+        </div>
       </div>
     </section>
 
@@ -173,11 +183,12 @@
     <!-- ── Result Section: Before/After slider ── -->
     <section class="result-section" id="result-section" hidden>
       <div class="result-card">
-        <p class="result-watermark" id="result-watermark" hidden>
-          <strong>This image carries the NanoPocket.ai watermark</strong> because this account has never topped up credits.
-          <a href="/credits" target="_blank" rel="noopener">Top up once to remove it</a>: new renders come out clean.
-          Free credits do not count as a top-up, and images already made keep their watermark.
-        </p>
+        <div class="wm-callout wm-callout-result" id="result-watermark" hidden>
+          <p><strong>This image carries the NanoPocket.ai watermark.</strong>
+          Top up credits once and your next renders come out clean. Free credits do not count as a top-up,
+          and images already made keep their watermark.</p>
+          <a class="wm-btn" href="/credits" target="_blank" rel="noopener">Top up to remove it</a>
+        </div>
         <div class="result-header">
           <h2>Result</h2>
           <div class="result-actions">
