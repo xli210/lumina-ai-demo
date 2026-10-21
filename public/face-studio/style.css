@@ -1197,3 +1197,6 @@ main {
   box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
 }
 .wm-btn:hover { background: #fde68a; }
+/* `display:flex` above would otherwise override the hidden attribute and show these to everyone. */
+.wm-banner[hidden],
+.wm-callout[hidden] { display: none !important; }
