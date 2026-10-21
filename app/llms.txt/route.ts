@@ -77,6 +77,11 @@ function buildLlmsTxt(): string {
       `${FACESTUDIO_V_TAGLINE} Open to registered NanoPocket users; requests are queued, and each video is paid for in credits at a price shown before it starts. A video from an account that has never topped up carries a moving watermark. The page and its fourteen example cases are public; opening the studio requires a free account.`,
     ),
     bullet(
+      "/zh-CN/guides",
+      "中文指南 (Chinese guides)",
+      "Four Chinese guides for video face swap: how to do it step by step, how to choose a tool, why swaps break on hands in front of the face and profile turns, and local versus online face swap. Each pairs with an English guide of the same slug under /blog.",
+    ),
+    bullet(
       "/pricing",
       "NanoPocket pricing",
       "What everything costs, from the code that charges it: online tools paid per use in credits (100 credits = $1; face swap from $0.10 a face, photo edit $0.30, video priced before it starts), credit packs, free credits and the watermark rule, free desktop apps and one-time licences. No subscription.",

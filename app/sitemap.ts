@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { BLOG_POSTS } from "@/lib/blog-posts";
+import { ZH_GUIDES, zhGuideFor } from "@/lib/zh-guides";
 import { appReleases } from "@/lib/release-data";
 import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
 
@@ -21,7 +22,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(post.date),
     changeFrequency: "monthly" as const,
     priority: 0.7,
+    // A guide with a Chinese counterpart points at it, and the counterpart points back.
+    ...(zhGuideFor(post.slug)
+      ? { alternates: { languages: { en: `${BASE}/blog/${post.slug}`, "zh-CN": `${BASE}/zh-CN/guides/${post.slug}` } } }
+      : {}),
   }));
+  const zhGuideEntries = [
+    { url: `${BASE}/zh-CN/guides`, lastModified: new Date("2026-10-21"), changeFrequency: "weekly" as const, priority: 0.8 },
+    ...ZH_GUIDES.map((g) => ({
+      url: `${BASE}/zh-CN/guides/${g.slug}`,
+      lastModified: new Date(g.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+      alternates: { languages: { en: `${BASE}/blog/${g.slug}`, "zh-CN": `${BASE}/zh-CN/guides/${g.slug}` } },
+    })),
+  ];
 
   const releaseNoteEntries = appReleases.map((app) => ({
     url: `${BASE}/release-notes/${app.slug}`,
@@ -69,6 +84,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...IMAGE_EDIT_USE_CASES.map((u) => ({ url: `${BASE}/use-cases/${u.slug}`, lastModified: new Date("2026-10-05"), changeFrequency: "monthly" as const, priority: 0.85 })),
     { url: `${BASE}/blog`, lastModified: new Date("2026-03-19"), changeFrequency: "weekly", priority: 0.8 },
     ...blogEntries,
+    ...zhGuideEntries,
     ...releaseNoteEntries,
     // 10 SEO product landings
     { url: `${BASE}/apps/nanoface-vivid`, lastModified: new Date("2026-06-02"), changeFrequency: "weekly", priority: 0.9 },

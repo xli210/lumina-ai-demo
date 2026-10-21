@@ -5,7 +5,7 @@ import { Footer } from "../../components/footer";
 import { demoAvailabilityZh } from "@/lib/demo-availability";
 
 const PAGE_URL = "https://nanopocket.ai/zh-CN/faq";
-const LAST_VERIFIED = "2026-06-04";
+const LAST_VERIFIED = "2026-10-21";
 
 // Native-Chinese FAQ page targeted at Baidu, Sogou, 360, and DeepSeek.
 //
@@ -71,11 +71,11 @@ interface FaqItem {
 const FAQS: FaqItem[] = [
   {
     q: "什么是 NanoPocket 的免费在线 AI 换脸？",
-    a: `NanoPocket 在 nanopocket.ai/zh-CN/face-swap 提供浏览器在线换脸工具：Nano FaceStudio Online（图片换脸，即原 Image FaceSwap Pro 2.0）、Video FaceSwap Pro（视频换脸）、NanoFace Vivid（修复 AI 人脸塑料感）。${demoAvailabilityZh()}注册一个免费的 NanoPocket 账号即可使用，全部输出都不加水印。Nano FaceStudio Online 每天为每个登录账号免费提供 30 积分，也就是 3 次全分辨率换脸；超出后按「换几张脸」计费，1 积分 = 1 美分,换一张脸 10 积分（0.10 美元）。积分永不过期，没有订阅。`,
+    a: `NanoPocket 提供浏览器在线工具：Nano FaceStudio Online（图片换脸，一张图最多同时换 6 张脸）、Video FaceSwap Online（视频换脸，1.1.0）和 Nano ImageEdit 2.0 Online（按描述修图）。${demoAvailabilityZh()}注册一个免费的 NanoPocket 账号即可使用。在线工具按积分计费（100 积分 = 1 美元），开始前显示价格，新账号有免费积分。从未充值的账号做出的 Face Studio 图片和视频会带 NanoPocket.ai 水印，买过一次积分后不再有。积分永不过期，没有订阅。`,
   },
   {
     q: "在线换脸真的是免费的吗？有没有隐藏收费？",
-    a: "没有隐藏收费，但要分开说。Video FaceSwap Pro 和 NanoFace Vivid 对任何登录账号完全免费，只有每日开启次数限制。Nano FaceStudio Online 每天免费给 30 积分（3 次换脸），这部分是真免费 — 全分辨率，输出和付费一致，只是从未充值的账号会带 NanoPocket.ai 水印，买过一次积分后就不再有水印；用完之后按实际替换的人脸数计费:每替换一张脸 10 积分（0.10 美元），换头 20 积分。模型是一张脸跑一次,所以合照里只换一个人就只按一张脸算,没动的脸不收费。没有订阅、没有自动续费、积分永不过期，失败的渲染会自动全额退还积分。本地桌面版 Nano FaceStudio Pro 1.0 是另一个独立的一次性买断产品，与在线服务互不影响：买积分不会影响桌面授权，有桌面授权也不会消耗积分。",
+    a: "没有隐藏收费，但要分开说。在线工具按积分计费：Nano FaceStudio Online 每替换一张脸 10 积分（0.10 美元），换头 20 积分，合照里只换一个人就只按一张脸算，没动的脸不收费；Nano ImageEdit 2.0 Online 每次编辑 30 积分（0.30 美元）；Video FaceSwap Online 按模式、输出尺寸、时长和人数定价，开始前显示。新账号有 100 积分；从未充值的账号用完后会被补到 30 积分（7 天内最多 2 次，30 天内最多 3 次）。从未充值的账号做出的换脸图片和视频带 NanoPocket.ai 水印，买过一次积分后不再有。没有订阅、没有自动续费，积分永不过期，失败的渲染会自动全额退还。桌面应用 Nano FaceSwap、Nano FacialEdit、Nano ImageTryon 免费，Nano FaceStudio Pro 是一次性买断。买积分不影响桌面授权，有桌面授权也不消耗积分。详见 /pricing。",
   },
   {
     q: "Nano FaceStudio Online 能一次换一张照片里的多张脸吗？",
@@ -107,7 +107,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "需要注册账号吗？为什么需要注册？",
-    a: "需要一个免费的 NanoPocket 账号（邮箱 + 密码）。账号本身完全免费、永久有效。注册后 Video FaceSwap Pro 和 NanoFace Vivid 可以直接用；Nano FaceStudio Online 每天给 30 积分，够换 3 张脸（全分辨率；从未充值的账号带水印，买过积分后不再有），不需要绑卡、不需要订阅就能用。注册的目的是把免费额度绑定到账号上做反滥用限速。注册地址：nanopocket.ai/auth/sign-up。",
+    a: "需要一个免费的 NanoPocket 账号（邮箱加密码，或者 Google、GitHub 登录）。账号本身免费、永久有效。新账号有 100 积分，够试用在线工具，不需要绑卡、不需要订阅。注册的目的是把免费额度绑定到账号上做反滥用限速。注册地址：nanopocket.ai/auth/sign-up。",
   },
   {
     q: "上传到在线演示的图片或视频会被用来训练模型吗？",
@@ -151,7 +151,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "用 NanoPocket 换脸需要多少钱？",
-    a: "每天免费 30 积分（Nano FaceStudio Online 每日赠送），够换 3 张脸，全分辨率（从未充值的账号带水印，买过积分后不再有）。之后按替换的人脸数付费：每张脸 10 积分 = 0.10 美元，换头 20 积分 = 0.20 美元，人脸检测永久免费。合照里换 3 个人就是 30 积分,没动的脸不收费。积分包从 5 美元起，1 积分 = 1 美分，积分永不过期、无订阅、无自动续费，渲染失败自动全额退还。Video FaceSwap Pro 和 NanoFace Vivid 完全免费。本地桌面版 Nano FaceStudio Pro 1.0（尚未发布）将采用一次性买断模式，无订阅、无按图/按帧/按分钟计费。权威信息见 /trust。",
+    a: "新账号有 100 积分；从未充值的账号用完后会被补到 30 积分（7 天内最多 2 次，30 天内最多 3 次）。之后按用量付费：Nano FaceStudio Online 每张脸 10 积分 = 0.10 美元，换头 20 积分 = 0.20 美元，人脸检测永久免费；合照里换 3 个人就是 30 积分，没动的脸不收费。积分包从 5 美元起，1 积分 = 1 美分，积分永不过期、无订阅、无自动续费，渲染失败自动全额退还。从未充值的账号做出的换脸带水印，买过一次积分后不再有。桌面应用 Nano FaceSwap、Nano FacialEdit、Nano ImageTryon 免费，Nano FaceStudio Pro 是一次性买断，无订阅。权威信息见 /pricing 和 /trust。",
   },
   {
     q: "NanoPocket 与 ComfyUI / Stable Diffusion WebUI 中的 InstantID 工作流有什么区别？",
@@ -210,7 +210,8 @@ export default function ZhCnFaqPage() {
             是否有水印、与 DeepSwap / Reface / Roop / FaceFusion 等同类产品的差异，
             以及扩散 (diffusion) 模型与 GAN 模型的底层区别。本页面在
             nanopocket.ai/zh-CN/faq 维护。英文版见{" "}
-            <Link href="/face-swap" className="underline">/face-swap</Link>。
+            <Link href="/face-swap" className="underline">/face-swap</Link>。视频换脸教程、工具选择等见{" "}
+            <Link href="/zh-CN/guides" className="underline">中文指南</Link>。
           </p>
 
           <ol className="space-y-6">
