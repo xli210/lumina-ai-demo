@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { ensureSignupGrant } from "@/lib/credits-server";
+import { watermarkEnabled } from "@/lib/facestudio-watermark";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -38,6 +39,9 @@ export async function GET() {
       available: account.available,
       lifetime_purchased: account.lifetime_purchased,
       lifetime_spent: account.lifetime_spent,
+      // Only a hint for the Face Studio console to warn before a render. The render
+      // route decides the real thing from the purchase record, never from this.
+      watermark_applies: watermarkEnabled() && account.lifetime_purchased === 0,
     });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";
