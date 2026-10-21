@@ -2,10 +2,13 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ensureSignupGrant, listCreditLedger } from "@/lib/credits-server";
 import { getFreeClaimOutcome } from "@/lib/free-claim";
+import { getStripe } from "@/lib/stripe";
+import { findCreditPack } from "@/lib/credit-packs";
 import Link from "next/link";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { CreditConsole } from "./credit-console";
+import { TrackPurchase } from "./track-purchase";
 
 export const dynamic = "force-dynamic";
 
@@ -15,7 +18,33 @@ export const dynamic = "force-dynamic";
  * Credits pay for hosted cloud AI services only. Desktop app licenses stay
  * one-time and perpetual — see docs/credit-system.md §1 for that split.
  */
-export default async function CreditsPage() {
+/**
+ * The Stripe checkout that just finished, as far as it can be trusted for analytics:
+ * the session must be paid, be a credit top-up, and belong to this user. Anything
+ * else (no session id, someone else's session, a Stripe error) reports nothing.
+ */
+async function paidCheckout(sessionId: string | undefined, userId: string) {
+  if (!sessionId || !/^cs_[A-Za-z0-9_]+$/.test(sessionId)) return null;
+  try {
+    const session = await getStripe().checkout.sessions.retrieve(sessionId);
+    if (session.payment_status !== "paid") return null;
+    if (session.metadata?.kind !== "credit_topup") return null;
+    if (session.metadata?.supabase_user_id !== userId) return null;
+    const pack = findCreditPack(session.metadata?.pack_id);
+    const intent =
+      typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id;
+    if (!pack || !intent || session.amount_total == null) return null;
+    return { transactionId: intent, valueUsd: session.amount_total / 100, packId: pack.id, packName: pack.name };
+  } catch {
+    return null;
+  }
+}
+
+export default async function CreditsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ session_id?: string }>;
+}) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -37,9 +66,11 @@ export default async function CreditsPage() {
     claim === "blocked_ip" || claim === "blocked_device"
       ? claim
       : null;
+  const purchase = await paidCheckout((await searchParams).session_id, user.id);
 
   return (
     <main className="relative min-h-screen">
+      {purchase && <TrackPurchase {...purchase} />}
       <Navbar />
       <div className="mx-auto max-w-4xl px-6 pt-28 pb-16">
         <div className="mb-8">

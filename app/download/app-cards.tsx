@@ -1,5 +1,6 @@
 "use client";
 
+import { trackEvent } from "@/lib/analytics";
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -320,6 +321,13 @@ export function AppCards() {
         return;
       }
 
+      trackEvent("generate_lead", {
+        lead_source: "license_claim",
+        product_id: appId,
+        is_trial: data.is_trial ?? false,
+        currency: "USD",
+        value: 0,
+      });
       setLicenseData((prev) => ({
         ...prev,
         [appId]: {

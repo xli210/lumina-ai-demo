@@ -18,6 +18,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { startCreditCheckoutSession } from "../actions/credits";
+import { trackEvent } from "@/lib/analytics";
 import {
   CREDIT_PACKS,
   bonusPercent,
@@ -293,7 +294,21 @@ export function CreditConsole({
   const fetchClientSecret = useCallback(async () => {
     if (!selectedPack) throw new Error("No pack selected");
     try {
-      return await startCreditCheckoutSession(selectedPack.id);
+      const secret = await startCreditCheckoutSession(selectedPack.id);
+      trackEvent("begin_checkout", {
+        currency: "USD",
+        value: selectedPack.priceInCents / 100,
+        items: [
+          {
+            item_id: selectedPack.id,
+            item_name: `${selectedPack.name} credit pack`,
+            item_category: "credits",
+            price: selectedPack.priceInCents / 100,
+            quantity: 1,
+          },
+        ],
+      });
+      return secret;
     } catch (err) {
       const message =
         err instanceof Error ? err.message : "Could not start checkout";
