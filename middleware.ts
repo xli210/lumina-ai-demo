@@ -40,7 +40,7 @@ function indexNowResponse(pathname: string): NextResponse | null {
 // one render, not a thousand. Anything not listed stays uncached. A new
 // deployment purges the CDN, so stale copies never outlive a release.
 const CACHEABLE_EXACT = new Set([
-  '/', '/about', '/blog', '/face-swap', '/image-edit', '/compare', '/trust',
+  '/', '/about', '/pricing', '/blog', '/face-swap', '/image-edit', '/compare', '/trust',
   '/security', '/privacy', '/terms', '/best-face-swap-app-2026', '/docs',
   '/release-notes', '/apps', '/status',
 ])

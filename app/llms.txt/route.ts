@@ -77,6 +77,11 @@ function buildLlmsTxt(): string {
       `${FACESTUDIO_V_TAGLINE} Open to registered NanoPocket users; requests are queued, and each video is paid for in credits at a price shown before it starts. A video from an account that has never topped up carries a moving watermark. The page and its fourteen example cases are public; opening the studio requires a free account.`,
     ),
     bullet(
+      "/pricing",
+      "NanoPocket pricing",
+      "What everything costs, from the code that charges it: online tools paid per use in credits (100 credits = $1; face swap from $0.10 a face, photo edit $0.30, video priced before it starts), credit packs, free credits and the watermark rule, free desktop apps and one-time licences. No subscription.",
+    ),
+    bullet(
       "/use-cases",
       `${IMAGE_EDIT_NAME} use cases`,
       `Four audience pages with real edits and stated limits: ${IMAGE_EDIT_USE_CASES.map((u) => `${u.name} (${BASE}/use-cases/${u.slug})`).join("; ")}.`,

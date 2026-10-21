@@ -41,6 +41,12 @@ export function Footer() {
             Apps
           </Link>
           <Link
+            href="/pricing"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            Pricing
+          </Link>
+          <Link
             href="/#faq"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >

@@ -28,8 +28,6 @@ const nextConfig = {
   outputFileTracingExcludes: {
     "*": ["./downloads-private/**/*"],
   },
-  // Assistants and visitors guess /pricing; it 404'd. The price list is the
-  // homepage section that the navbar and footer already link to.
   // Nano FaceStudio-V Online's page is a static file in public/facestudio-v/; serve it at the clean
   // address. Its videos and pictures are at /facestudio-v/media/. (Next does not map a folder to its
   // index.html on its own.)
@@ -38,7 +36,6 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      { source: "/pricing", destination: "/#pricing", permanent: true },
       // "Nano FaceSwap Pro 2.0" never shipped as a desktop product; its pages
       // described Nano FaceStudio Online (browser) and Nano FaceStudio Pro
       // (desktop). Send old links and search results to the real pages.
