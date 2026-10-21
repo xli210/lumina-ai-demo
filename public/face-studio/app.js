@@ -89,6 +89,7 @@
 
   const resultSection = document.getElementById("result-section");
   const resultTime = document.getElementById("result-time");
+  const resultWatermark = document.getElementById("result-watermark");
   const btnDownload = document.getElementById("btn-download");
 
   // Feedback widget refs
@@ -1076,7 +1077,7 @@
         if (data.status === "done") {
           clearInterval(polling);
           polling = null;
-          showResult(jobId, data.elapsed_seconds || 0);
+          showResult(jobId, data.elapsed_seconds || 0, data.watermarked === true);
           setProcessing(false);
         } else if (data.status === "error") {
           clearInterval(polling);
@@ -1116,13 +1117,15 @@
     }, 700);
   }
 
-  function showResult(jobId, elapsed) {
+  function showResult(jobId, elapsed, watermarked) {
     // No cache-busting query: a job id is unique to one render, and the route sends
     // "private, max-age=86400", so re-reading the image (reload, pan, compare) reuses
     // the copy the browser already has instead of fetching ~20 MB again.
     const url = API_BASE + `/result/${jobId}`;
     currentJobId = jobId;
     resultTime.textContent = `${elapsed.toFixed(1)}s`;
+    // The worker says so when it put the NanoPocket.ai mark on this render.
+    if (resultWatermark) resultWatermark.hidden = !watermarked;
     resultSection.hidden = false;
     progressBar.style.width = "100%";
     resetFeedback();

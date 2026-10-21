@@ -53,7 +53,7 @@ from botocore.exceptions import ClientError
 from fastapi import APIRouter, Depends, FastAPI, HTTPException
 from fastapi.responses import JSONResponse, Response
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, StrictBool
 
 
 def _load_dotenv(path: str) -> None:
@@ -307,6 +307,12 @@ class GenerateRequest(BaseModel):
     # face index (as a string) -> storage key of that face's reference photo
     refs: dict[str, str] = Field(default_factory=dict)
     preserve_classes_map: dict[str, list[int]] = Field(default_factory=dict)
+    # Whether the render must carry the NanoPocket.ai watermark. The Vercel app
+    # decides it from its own records (has this account ever bought credits?)
+    # and always sends a real true/false; the browser never reaches this field.
+    # None means the caller did not say, and nothing is forwarded (the worker
+    # then renders exactly as it did before the option existed).
+    watermark: StrictBool | None = None
 
 
 class FeedbackRequest(BaseModel):
@@ -480,13 +486,20 @@ def v5_generate(body: GenerateRequest):
         for index, key in body.refs.items()
     }
 
+    options: dict = (
+        {"preserve_classes_map": body.preserve_classes_map}
+        if body.mode == "face_swap" else {}
+    )
+    if body.watermark is not None:
+        # Both modes. The worker burns the mark in before it encodes the PNG and
+        # reports `watermarked: true`; a worker that does not know the option
+        # ignores it, which is how the caller notices (see v5_status).
+        options["watermark"] = body.watermark
+
     job = runpod("POST", "/run", {"input": {
         "api_version": API_VERSION, "action": "generate", "mode": body.mode,
         "body_image": input_url(det), "refs": refs,
-        "options": (
-            {"preserve_classes_map": body.preserve_classes_map}
-            if body.mode == "face_swap" else {}
-        ),
+        "options": options,
     }})
     _modes[job["id"]] = body.mode
     return {"job_id": job["id"]}
@@ -506,8 +519,13 @@ def v5_status(job_id: str):
     if status in ("COMPLETED", "FAILED", "TIMED_OUT", "CANCELLED"):
         result = read_job(st)
         if result.get("ok"):
-            return {"status": "done", "state": "done", "ok": True, "progress_pct": 1.0,
+            done = {"status": "done", "state": "done", "ok": True, "progress_pct": 1.0,
                     "elapsed_seconds": round(elapsed, 1)}
+            if result.get("watermarked") is True:
+                # Only ever present when a mark was applied. The Vercel app
+                # refuses a render it asked to have marked that lacks this.
+                done["watermarked"] = True
+            return done
         _log_failure(job_id, result)
         public = _public(result)
         return {"status": "error", "state": "error", **public,

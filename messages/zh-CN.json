@@ -2,7 +2,7 @@
   "FaceSwap": {
     "metadata": {
       "title": "免费在线 AI 换脸 — 无需安装、无需订阅",
-      "description": "免费的在线 AI 换脸工具，直接在浏览器里运行。无需安装，无需订阅，无需本地 GPU。Nano FaceStudio Online 可在一张照片里同时替换多张人脸，全分辨率、无水印，每个已登录账号都有免费渲染额度。注册一个免费账号，登录一次就能开始换脸。",
+      "description": "免费的在线 AI 换脸工具，直接在浏览器里运行。无需安装，无需订阅，无需本地 GPU。Nano FaceStudio Online 可在一张照片里同时替换多张人脸，全分辨率，每个已登录账号都有免费渲染额度（首次充值前带水印）。注册一个免费账号，登录一次就能开始换脸。",
       "ogTitle": "免费在线 AI 换脸 — 浏览器里直接运行",
       "ogDescription": "扩散级 (diffusion) 换脸，全部在浏览器里运行。免费渲染、无需安装、无需订阅。"
     },
@@ -194,7 +194,7 @@
       "items": [
         {
           "title": "免费在线换脸，纯浏览器。",
-          "body": "Nano FaceStudio Online 可以在一张照片里替换多张人脸，全分辨率、无水印，并提供免费渲染额度；/face-swap 上还有更多扩散级 (diffusion) 演示。无需安装、无需订阅、本地不需要 GPU。"
+          "body": "Nano FaceStudio Online 可以在一张照片里替换多张人脸，全分辨率，并提供免费渲染额度（首次充值前带水印）；/face-swap 上还有更多扩散级 (diffusion) 演示。无需安装、无需订阅、本地不需要 GPU。"
         },
         {
           "title": "扩散 (diffusion) 身份特征栈。",

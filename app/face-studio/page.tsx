@@ -43,7 +43,7 @@ const abs = (path: string) => `https://nanopocket.ai${path}`;
 
 // The site template appends " | NanoPocket", so this stays short.
 const TITLE = "Nano FaceStudio Online: Multi-Face Swap That Keeps Hair & Hands";
-const DESCRIPTION = `Swap up to ${FACESTUDIO_MAX_FACES} faces in one photo, or a whole head, and keep the hair, hands, glasses and jewellery that cross the face. Full resolution, no watermark. ${usd(
+const DESCRIPTION = `Swap up to ${FACESTUDIO_MAX_FACES} faces in one photo, or a whole head, and keep the hair, hands, glasses and jewellery that cross the face. Full resolution; a top-up removes the watermark. ${usd(
   FACE_SWAP_USD,
 )} per face, ${FREE_ALLOWANCE_SHORT}, no subscription.`;
 
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     "face swap keep glasses",
     "face swap occlusion",
     "full resolution face swap",
-    "face swap no watermark",
+    "remove face swap watermark",
     "pay per face swap",
     "face swap no subscription",
     "ai face swap online",
@@ -92,7 +92,7 @@ const softwareJsonLd = {
   applicationSubCategory: "AI face swap",
   operatingSystem: "Any (web browser)",
   url: PAGE_URL,
-  description: `Hosted AI face swap that replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo, or an entire head, at source resolution with no watermark, with per-face control over which original regions survive the swap.`,
+  description: `Hosted AI face swap that replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo, or an entire head, at source resolution (watermarked until an account has bought credits once), with per-face control over which original regions survive the swap.`,
   featureList: DIFFERENTIATORS.map((d) => d.title),
   image: abs(FACE_STUDIO_OG.src),
   screenshot: SHOWCASE_IMAGES.map(({ image }) => abs(image.src)),
@@ -118,7 +118,7 @@ const softwareJsonLd = {
       name: "Free allowance",
       price: "0",
       priceCurrency: "USD",
-      description: `A signed-in account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low (${FREE_TOPUP_FREQUENCY} for an account that has never bought credits), which is ${FREE_RENDERS_PER_TOPUP} full-resolution unwatermarked face swaps. Face detection is always free.`,
+      description: `A signed-in account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low (${FREE_TOPUP_FREQUENCY} for an account that has never bought credits), which is ${FREE_RENDERS_PER_TOPUP} full-resolution face swaps, watermarked until the account has bought credits once. Face detection is always free.`,
       url: PAGE_URL,
     },
   ],
@@ -263,7 +263,7 @@ function Chapter({
 export default function FaceStudioLandingPage() {
   const stats = [
     { value: String(FACESTUDIO_MAX_FACES), label: "faces in one photo" },
-    { value: "4080 px", label: "output, no watermark" },
+    { value: "4080 px", label: "output, watermark gone after a top-up" },
     { value: usd(FACE_SWAP_USD), label: "per face swapped" },
     { value: String(FREE_RENDERS_PER_TOPUP), label: `free swaps, topped up ${FREE_TOPUP_FREQUENCY}` },
   ];
@@ -296,8 +296,8 @@ export default function FaceStudioLandingPage() {
             </h1>
             <p className="mt-6 max-w-xl text-pretty text-base text-white/70 sm:text-lg">
               Replace up to {FACESTUDIO_MAX_FACES} faces in one photo, or a whole head, and choose what stays from the
-              original: the hair across an eye, a hand on a cheek, glasses, a nose ring. Back at full resolution, with no
-              watermark.
+              original: the hair across an eye, a hand on a cheek, glasses, a nose ring. Back at full resolution. Free accounts carry a
+              small NanoPocket.ai watermark that one top-up removes.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <Link
@@ -491,8 +491,8 @@ export default function FaceStudioLandingPage() {
         index="05"
         kicker="Full resolution"
         title="What goes in at 4K comes out at 4K."
-        body="Results come back at the size you uploaded, up to 4080×4080, as PNG with no watermark, on the free allowance too. Close-ups keep their skin texture, freckles and fine hair."
-        points={["Same size out as in", "No watermark at any tier", "Photo metadata, including GPS, is removed in your browser before upload"]}
+        body="Results come back at the size you uploaded, up to 4080×4080, as PNG. Renders from an account that has never bought credits carry a NanoPocket.ai watermark; once you have bought credits, even once, they never do. Close-ups keep their skin texture, freckles and fine hair."
+        points={["Same size out as in", "One top-up removes the watermark", "Photo metadata, including GPS, is removed in your browser before upload"]}
       >
         <div className="grid grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] items-start gap-4">
           <Shot image={SHOWCASE.resolution.reference} caption="Reference" />
@@ -538,7 +538,7 @@ export default function FaceStudioLandingPage() {
         <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl bg-neutral-950 text-white">
           <div className="grid gap-px bg-white/10 md:grid-cols-3">
             {[
-              { name: "Free allowance", price: "$0", note: `Topped up to ${FREE_TOPUP_CREDITS} credits when you run low, ${FREE_TOPUP_FREQUENCY}: ${FREE_RENDERS_PER_TOPUP} face swaps at full resolution, no watermark. Accounts that have bought credits are topped up whenever they run low.` },
+              { name: "Free allowance", price: "$0", note: `Topped up to ${FREE_TOPUP_CREDITS} credits when you run low, ${FREE_TOPUP_FREQUENCY}: ${FREE_RENDERS_PER_TOPUP} face swaps at full resolution, with a NanoPocket.ai watermark until you have bought credits once. Accounts that have bought credits are topped up whenever they run low.` },
               { name: "Face swap", price: usd(FACE_SWAP_USD), note: `${FACE_SWAP_CREDITS} credits per face you replace. Faces you leave alone are free.` },
               { name: "Head swap", price: usd(HEAD_SWAP_USD), note: `${HEAD_SWAP_CREDITS} credits, one head per render.` },
             ].map((p) => (

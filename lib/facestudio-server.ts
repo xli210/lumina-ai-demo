@@ -168,6 +168,12 @@ export async function startGenerate(params: {
   /** face index (as a string) -> storage key of that face's reference photo */
   refs: Record<string, string>;
   preserveClasses: Record<string, number[]>;
+  /**
+   * Whether the render must carry the NanoPocket.ai mark. Decided here from the
+   * database (lib/facestudio-watermark.ts), never from the browser, and sent
+   * explicitly as true or false. Left out entirely while the rollout flag is off.
+   */
+  watermark?: boolean;
 }): Promise<UpstreamResult> {
   return callUpstream("/v5/api/generate", {
     method: "POST",
@@ -176,6 +182,7 @@ export async function startGenerate(params: {
       mode: params.mode,
       refs: params.refs,
       preserve_classes_map: params.preserveClasses,
+      ...(typeof params.watermark === "boolean" ? { watermark: params.watermark } : {}),
     },
     timeoutMs: 30_000,
   });

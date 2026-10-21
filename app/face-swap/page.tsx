@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     // The layout template appends " | NanoPocket"; the brand is not repeated here.
     "Free Online AI Face Swap — No Install, No Subscription",
   description:
-    `Free online AI face swap that runs in your browser. No install, no subscription, no GPU required. Nano FaceStudio Online swaps up to ${FACESTUDIO_MAX_FACES} faces in one photo at full resolution with no watermark, with a free allowance of renders. Sign in once with a free account and start swapping.`,
+    `Free online AI face swap that runs in your browser. No install, no subscription, no GPU required. Nano FaceStudio Online swaps up to ${FACESTUDIO_MAX_FACES} faces in one photo at full resolution with a free allowance of renders (a small watermark until your first top-up). Sign in once with a free account and start swapping.`,
   keywords: [
     "free online face swap",
     "ai face swap online",
@@ -90,7 +90,7 @@ const ONLINE_DEMO_COPY: OnlineDemoCopy[] = [
       `Up to ${FACESTUDIO_MAX_FACES} faces per photo, each with its own reference — most tools do one`,
       "Keep the original hair, hands and glasses that cross a face, per face — everywhere else they get painted over",
       "Whole-head swap for when a face-only result reads as a mask",
-      `Full source resolution, up to 4080×4080, no watermark on any tier`,
+      `Full source resolution, up to 4080×4080; one top-up removes the watermark`,
       `${FREE_ALLOWANCE_SHORT}, then ${usd(FACE_SWAP_USD)} each — no subscription, credits never expire`,
     ],
     Icon: ImageIcon,
@@ -201,7 +201,7 @@ const COMPARE_ROWS: CompareRow[] = [
 const FAQS = [
   {
     q: "Is the online face swap really free?",
-    a: `Free to start. Video FaceSwap Pro and NanoFace Vivid are free for any signed-in NanoPocket account with a daily open quota. Nano FaceStudio Online, the photo face swap, gives every signed-in account ${FREE_ALLOWANCE_SHORT} at full resolution with no watermark — identical output to a paid render — and face detection is always free. Past that it is ${usd(
+    a: `Free to start. Video FaceSwap Pro and NanoFace Vivid are free for any signed-in NanoPocket account with a daily open quota. Nano FaceStudio Online, the photo face swap, gives every signed-in account ${FREE_ALLOWANCE_SHORT} at full resolution — the same output as a paid render apart from a small NanoPocket.ai watermark, which one top-up removes — and face detection is always free. Past that it is ${usd(
       FACE_SWAP_USD
     )} per face replaced — one pass runs per face, so faces you leave alone are free — prepaid in credits that never expire, with no subscription and no auto-renewal. A render that fails is refunded in full automatically. Nano FaceStudio Pro 1.0, the local desktop version, is a separate, optional, one-time-purchase product; buying credits does not affect a desktop license and owning one does not consume credits.`,
   },
@@ -219,7 +219,7 @@ const FAQS = [
   },
   {
     q: "What resolution do the results come out at, and is there a watermark?",
-    a: "Nano FaceStudio Online returns results at the source resolution, up to 4080×4080, as PNG of around 20 MB, with no watermark on any tier — including the free allowance. Reface's free tier is 720p watermarked and Akool's is 720p watermarked; most free and mid tiers elsewhere cap at 720p or 1080p. Uploads are accepted up to 40 MB because the photo goes straight to object storage rather than through a web server.",
+    a: "Nano FaceStudio Online returns results at the source resolution, up to 4080×4080, as PNG of around 20 MB. Renders from an account that has never bought credits carry a tiled NanoPocket.ai watermark; once you have bought credits, even once, they never do. Reface's free tier is 720p watermarked and Akool's is 720p watermarked; most free and mid tiers elsewhere cap at 720p or 1080p. Uploads are accepted up to 40 MB because the photo goes straight to object storage rather than through a web server.",
   },
   {
     q: "Do I need a GPU on my machine?",
@@ -346,7 +346,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 3,
       name: "Upload and swap",
-      text: "Drop in the target photo or video and a reference face. The diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) produces the swap in a few seconds. Download the result. There is no watermark and no subscription, and Nano FaceStudio Online includes a free allowance of renders.",
+      text: "Drop in the target photo or video and a reference face. The diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) produces the swap in a few seconds. Download the result. There is no subscription, and Nano FaceStudio Online includes a free allowance of renders (watermarked until you have bought credits once).",
     },
   ],
 };

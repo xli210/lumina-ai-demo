@@ -9,7 +9,7 @@ import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
  *   token = base64url({"p":1|0,"e":<unix seconds>,"n":"<random>"}) + "." + hex(HMAC-SHA256(secret, thatText))[:32]
  *
  * "Bought" means a purchase. Signup credits, trials, promos and admin
- * adjustments do not count (see hasEverPurchased in facestudio-v-server.ts).
+ * adjustments do not count (see hasEverPurchased in credits-server.ts).
  */
 
 /** Long enough for the page to start the video, not worth keeping. */

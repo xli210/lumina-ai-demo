@@ -56,7 +56,7 @@ const FACESTUDIO_POINTS = [
   `Up to ${FACESTUDIO_MAX_FACES} faces in one photo`,
   "Whole-head swap",
   "Keep hair, hands and glasses",
-  "Full resolution, no watermark",
+  "Full resolution; one top-up removes the watermark",
 ];
 
 const IMAGEEDIT_POINTS = [

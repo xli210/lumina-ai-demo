@@ -219,6 +219,8 @@ export interface CreditHoldRecord {
   service: string;
   job_ref: string | null;
   created_at: string;
+  /** What was recorded when the hold was made (price version, watermark, ...). Only findHoldByJobRef fills it. */
+  estimate?: Record<string, unknown>;
 }
 
 /**
@@ -252,7 +254,7 @@ export async function findHoldByJobRef(
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("credit_holds")
-    .select("id, user_id, amount, status, service, job_ref, created_at")
+    .select("id, user_id, amount, status, service, job_ref, created_at, estimate")
     .eq("service", service)
     .eq("job_ref", jobRef)
     .maybeSingle();
@@ -266,6 +268,7 @@ export async function findHoldByJobRef(
     throw new Error(`Hold ${str(row, "id") ?? "?"} has an unknown status`);
   }
 
+  const rawEstimate = row.get("estimate");
   return {
     id: str(row, "id") ?? "",
     user_id: str(row, "user_id") ?? "",
@@ -274,7 +277,29 @@ export async function findHoldByJobRef(
     service: str(row, "service") ?? "",
     job_ref: str(row, "job_ref") ?? null,
     created_at: str(row, "created_at") ?? "",
+    estimate:
+      typeof rawEstimate === "object" && rawEstimate !== null && !Array.isArray(rawEstimate)
+        ? (rawEstimate as Record<string, unknown>)
+        : {},
   };
+}
+
+/**
+ * Has this person ever bought credits? Only a `purchase` counts: signup grants,
+ * free top-ups, promos and admin adjustments do not. A volume bonus is always
+ * attached to a purchase, so it needs no check of its own. Used by the
+ * watermark policies of both Face Studio Online and Video FaceSwap Online.
+ */
+export async function hasEverPurchased(userId: string): Promise<boolean> {
+  const supabase = createAdminClient();
+  const { data, error } = await supabase
+    .from("credit_ledger")
+    .select("id")
+    .eq("user_id", userId)
+    .eq("kind", "purchase")
+    .limit(1);
+  if (error) throw new Error(`Failed to read purchases: ${error.message}`);
+  return (data?.length ?? 0) > 0;
 }
 
 /* ------------------------------------------------------------------ */

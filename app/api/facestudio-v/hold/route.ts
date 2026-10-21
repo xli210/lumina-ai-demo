@@ -1,10 +1,9 @@
-import { countOpenHolds, holdCredits, releaseExpiredHolds } from "@/lib/credits-server";
+import { countOpenHolds, hasEverPurchased, holdCredits, releaseExpiredHolds } from "@/lib/credits-server";
 import { provisionCredits } from "@/lib/facestudio-gate";
 import {
   FSV_HOLD_TTL_SECONDS,
   FSV_MAX_CREDITS,
   FSV_MAX_OPEN,
-  hasEverPurchased,
   reconcileOpenHolds,
 } from "@/lib/facestudio-v-server";
 import { signEntitlement } from "@/lib/facestudio-v-entitlement";

@@ -3,6 +3,7 @@ import { NextRequest } from "next/server";
 import { privateJson, requireJobOwner } from "@/lib/facestudio-gate";
 import { getJobStatus, upstreamString } from "@/lib/facestudio-server";
 import { captureHold, getCreditAccount, releaseHold } from "@/lib/credits-server";
+import { WATERMARK_MISSING_BODY, owesMissingWatermark } from "@/lib/facestudio-watermark";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -48,6 +49,25 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
 
   const status = upstreamString(upstream.body, "status");
   const settled = hold.status !== "open";
+
+  // A render that was owed the NanoPocket.ai mark and came back without it
+  // (the job landed on an old worker image) must not be handed over, or billed.
+  // Treated as a failed render: credits returned, the user is told to retry.
+  if (status === "done" && owesMissingWatermark(hold.estimate?.watermark, upstream.body)) {
+    console.error("[facestudio] watermark requested but missing:", jobId);
+    if (!settled) {
+      try {
+        await releaseHold(hold.id, "watermark_missing");
+      } catch (err: unknown) {
+        console.error("[facestudio] release after missing watermark failed:", err instanceof Error ? err.message : err);
+      }
+    }
+    const account = await getCreditAccount(userId);
+    return privateJson(
+      { ...WATERMARK_MISSING_BODY, credits_charged: 0, balance: account.balance, available: account.available },
+      200
+    );
+  }
 
   if (status === "done") {
     let charged = settled ? 0 : hold.amount;

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { privateJson, requireJobOwner } from "@/lib/facestudio-gate";
-import { fetchResult } from "@/lib/facestudio-server";
+import { fetchResult, getJobStatus } from "@/lib/facestudio-server";
+import { upstreamWatermarked } from "@/lib/facestudio-watermark";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -28,6 +29,29 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
 
   const gate = await requireJobOwner(jobId);
   if (!gate.ok) return gate.response;
+
+  // A render owed the NanoPocket.ai mark is served only once the worker has
+  // said it applied one. This route reads the image straight from storage, so
+  // without this check an old worker's unmarked result could be fetched by
+  // calling it directly before the status route had seen the mismatch.
+  //
+  // A settled hold needs no second look: the status route only settles a render
+  // after it has seen `watermarked: true`. A released or expired hold is a
+  // failed render, with no image to serve.
+  if (gate.hold.estimate?.watermark === true && gate.hold.status !== "captured") {
+    if (gate.hold.status !== "open") {
+      return privateJson({ detail: "That result is not ready yet." }, 404);
+    }
+    try {
+      const st = await getJobStatus(jobId);
+      if (!upstreamWatermarked(st.body)) {
+        return privateJson({ detail: "That result is not ready yet." }, 404);
+      }
+    } catch (err: unknown) {
+      console.error("[facestudio] watermark check failed:", err instanceof Error ? err.message : err);
+      return privateJson({ detail: "Could not fetch the result." }, 502);
+    }
+  }
 
   let upstream: Response;
   try {

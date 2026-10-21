@@ -119,7 +119,7 @@ export default async function DemoUnavailablePage({ searchParams }: PageProps) {
                       <p className="font-semibold text-foreground">{alt.name}</p>
                       <p className="mt-0.5 text-sm text-muted-foreground">
                         {alt.id === "image"
-                          ? `Photo face swap on our own GPUs — up to six faces at once, full resolution, no watermark. ${FREE_ALLOWANCE_SHORT}.`
+                          ? `Photo face swap on our own GPUs — up to six faces at once, full resolution; one top-up removes the watermark. ${FREE_ALLOWANCE_SHORT}.`
                           : "Live now."}
                       </p>
                     </div>

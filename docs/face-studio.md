@@ -351,3 +351,41 @@ When the gateway answers with a web page (suspended, cold start) or a 5xx that i
 error, `lib/facestudio-upstream.ts` turns it into `gateway_unavailable`, which the console
 words as "Face Studio is temporarily unavailable". Tests:
 `node --experimental-strip-types scripts/check-facestudio-result.mjs`.
+
+## Watermark for accounts that never bought credits (2026-10-21)
+
+Policy: a render from an account that has never bought credits carries a tiled
+`NanoPocket.ai` mark; one purchase of credits removes it for good, whatever the balance later is.
+Free credits (signup, free top-ups, promos, admin adjustments) do not count. It applies to
+`generate` only (face swap and head swap); `detect` makes no image.
+
+Who does what:
+
+- The GPU worker (RunPod endpoint `face-studio-v5`, image `ghcr.io/yunanwu2168/face-studio-v5:20261021-1`
+  or later) burns the mark in before it encodes the PNG when `options.watermark` is true, and returns
+  `watermarked: true`. No unmarked copy of a free render exists in R2. A failed mark fails the job.
+- `facestudio-gateway/server.py` takes `watermark: true|false` (strict booleans only) on
+  `POST /v5/api/generate`, forwards it as `options.watermark` for both modes, and puts
+  `watermarked: true` on a finished job's status. Left out when the caller does not send it.
+- `app/api/facestudio/generate` decides it from our own records (`hasEverPurchased`, a `purchase` row in
+  `credit_ledger`), never from the request body, records it on the hold (`estimate.watermark`) and
+  sends it explicitly. A failed purchase lookup marks the render.
+- `app/api/facestudio/status/[jobId]` treats a render that was owed a mark and lacks `watermarked: true`
+  as a failed render: hold released (`watermark_missing`), nothing charged, the user told to retry.
+  `app/api/facestudio/result/[jobId]` will not serve such a render either, because results are read
+  straight from R2 and would otherwise be reachable before the status route had seen the mismatch.
+- The console (`public/face-studio/app.js`) shows a note with a link to `/credits` when the status
+  says `watermarked: true`.
+
+Rollout order (the gateway is deployed by hand on Render, a push to `release` does not do it):
+
+1. Deploy the gateway from the commit that contains `watermark` in `server.py`.
+2. Set `FACESTUDIO_WATERMARK=1` on Vercel and redeploy. Until then the Next app sends nothing and
+   checks nothing, which is the behaviour from before.
+
+Roll back: unset `FACESTUDIO_WATERMARK` and redeploy (nothing is sent, nothing is checked). The worker
+needs no change; to return it to the old image the maintainer runs `rollout.py set
+ghcr.io/yunanwu2168/face-studio-v5:20261007-1` and drains the worker.
+
+Checks: `node --experimental-strip-types scripts/check-facestudio-watermark.mjs` (the rule and the
+checks) and `python facestudio-gateway/test_watermark.py` (the gateway, with RunPod faked).

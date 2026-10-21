@@ -9,9 +9,11 @@ import {
 import {
   attachJobToHold,
   countOpenHolds,
+  hasEverPurchased,
   holdCredits,
   releaseHold,
 } from "@/lib/credits-server";
+import { needsWatermark, watermarkEnabled } from "@/lib/facestudio-watermark";
 import {
   FACESTUDIO_HOLD_TTL_SECONDS,
   FACESTUDIO_MAX_FACES,
@@ -204,6 +206,22 @@ export async function POST(req: NextRequest) {
     return privateJson({ detail: "Could not start the render." }, 500);
   }
 
+  // Whether this render carries the NanoPocket.ai mark: decided from our own
+  // records (has this account ever bought credits?), never from the request
+  // body, which is not read for it. Off until FACESTUDIO_WATERMARK=1 is set,
+  // and only after the gateway that forwards the option is deployed.
+  let watermark: boolean | undefined;
+  if (watermarkEnabled()) {
+    let purchased: boolean | null = null;
+    try {
+      purchased = await hasEverPurchased(userId);
+    } catch (err: unknown) {
+      // A failed lookup marks the render: the safe side to fail on.
+      console.error("[facestudio] purchase lookup failed:", err instanceof Error ? err.message : err);
+    }
+    watermark = needsWatermark(purchased);
+  }
+
   // Reserve first. A failure to afford the render stops here, before any GPU
   // time is spent, and tells the user exactly how many credits short they are.
   let hold;
@@ -220,6 +238,9 @@ export async function POST(req: NextRequest) {
         // Bumped whenever the pricing formula changes, so historical holds
         // stay interpretable when the rate no longer matches today's.
         price_version: 2,
+        // Kept on the hold so the status and result routes can refuse a render
+        // that was owed a mark and came back without one.
+        ...(watermark === undefined ? {} : { watermark }),
       },
     });
   } catch (err: unknown) {
@@ -272,6 +293,7 @@ export async function POST(req: NextRequest) {
       mode: parsed.mode,
       refs: parsed.refs,
       preserveClasses: parsed.preserveClasses,
+      watermark,
     });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";

@@ -114,7 +114,7 @@ export const DIFFERENTIATORS: readonly Differentiator[] = [
   {
     title: "Full-resolution output",
     claim:
-      "Results are returned at the source resolution, up to 4080×4080 and around 20 MB of PNG, with no downscale and no watermark at any tier.",
+      "Results are returned at the source resolution, up to 4080×4080 and around 20 MB of PNG, with no downscale. Renders from an account that has never bought credits carry a tiled NanoPocket.ai watermark; one purchase of credits removes it for good.",
     contrast:
       "Free and mid tiers elsewhere cap at 720p or 1080p and watermark the output; Reface's free tier is 720p watermarked, Akool's is 720p watermarked.",
   },
@@ -288,7 +288,7 @@ export const FACE_STUDIO_FAQ: readonly FactQA[] = [
   },
   {
     q: "Is there a free tier for Nano FaceStudio Online?",
-    a: `Yes. A signed-in NanoPocket account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low, which is ${FREE_RENDERS_PER_TOPUP} single-face swaps at full resolution with no watermark, or one render replacing ${FREE_RENDERS_PER_TOPUP} faces at once. An account that has never bought credits is topped up ${FREE_TOPUP_RULE}; one that has bought credits is topped up whenever it runs low. Face detection is always free. The top-up goes up to ${FREE_TOPUP_CREDITS} rather than adding to it, so it does not accumulate.`,
+    a: `Yes. A signed-in NanoPocket account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low, which is ${FREE_RENDERS_PER_TOPUP} single-face swaps at full resolution (watermarked until the account has bought credits once), or one render replacing ${FREE_RENDERS_PER_TOPUP} faces at once. An account that has never bought credits is topped up ${FREE_TOPUP_RULE}; one that has bought credits is topped up whenever it runs low. Face detection is always free. The top-up goes up to ${FREE_TOPUP_CREDITS} rather than adding to it, so it does not accumulate.`,
   },
   {
     q: "Can Nano FaceStudio Online swap more than one face in a photo?",
@@ -300,7 +300,7 @@ export const FACE_STUDIO_FAQ: readonly FactQA[] = [
   },
   {
     q: "What resolution does Nano FaceStudio Online output?",
-    a: "Results are returned at the source resolution, up to 4080×4080, as PNG of around 20 MB, with no watermark at any tier including the free allowance. Competing free and mid tiers commonly cap at 720p or 1080p and watermark output.",
+    a: "Results are returned at the source resolution, up to 4080×4080, as PNG of around 20 MB. Renders from an account that has never bought credits, including the free allowance, carry a tiled NanoPocket.ai watermark; once you have bought credits, even once, they never do. Competing free and mid tiers commonly cap at 720p or 1080p and watermark output.",
   },
   {
     q: "Does Nano FaceStudio Online charge for a render that fails?",
@@ -348,6 +348,6 @@ export const FACE_STUDIO_STEPS: readonly { name: string; text: string }[] = [
   },
   {
     name: "Compare and download",
-    text: "The result loads into a synced before/after viewer at full resolution. A brush tool paints back any region of the original. Download is unwatermarked and unlimited.",
+    text: "The result loads into a synced before/after viewer at full resolution. A brush tool paints back any region of the original. Download is unlimited, and unwatermarked once you have bought credits.",
   },
 ];

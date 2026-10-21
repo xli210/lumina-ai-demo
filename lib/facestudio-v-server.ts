@@ -233,20 +233,3 @@ export async function attachStudioJob(
   if (!attached) return { ok: false, reason: "That job is already attached to another reservation.", status: 409 };
   return { ok: true };
 }
-
-/**
- * Has this person ever bought credits? Only a purchase counts: signup credits,
- * trials, promos and admin adjustments do not (the studio's watermark policy).
- * A volume bonus is always attached to a purchase, so it needs no check of its own.
- */
-export async function hasEverPurchased(userId: string): Promise<boolean> {
-  const supabase = createAdminClient();
-  const { data, error } = await supabase
-    .from("credit_ledger")
-    .select("id")
-    .eq("user_id", userId)
-    .eq("kind", "purchase")
-    .limit(1);
-  if (error) throw new Error(`Failed to read purchases: ${error.message}`);
-  return (data?.length ?? 0) > 0;
-}
