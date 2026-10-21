@@ -152,6 +152,7 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: [
       "https://nanopocket.ai/sitemap.xml",
       "https://nanopocket.ai/sitemap-images.xml",
+      "https://nanopocket.ai/sitemap-videos.xml",
     ],
     host: "https://nanopocket.ai",
   };
