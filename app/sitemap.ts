@@ -78,6 +78,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/image-edit`, lastModified: new Date("2026-10-05"), changeFrequency: "weekly", priority: 0.95 },
     // Video FaceSwap Online 1.1.0: the public page of the release (its studio is behind sign-in).
     { url: `${BASE}/facestudio-v`, lastModified: new Date("2026-10-20"), changeFrequency: "daily", priority: 0.95 },
+    // The catalogue of desktop apps and the index of release notes: the parents of the per-app pages.
+    { url: `${BASE}/apps`, lastModified: new Date("2026-10-21"), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE}/release-notes`, lastModified: new Date("2026-10-21"), changeFrequency: "weekly", priority: 0.7 },
     // What everything costs: read from the code that charges it, so it is always current.
     { url: `${BASE}/pricing`, lastModified: new Date("2026-10-21"), changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE}/use-cases`, lastModified: new Date("2026-10-05"), changeFrequency: "monthly", priority: 0.8 },

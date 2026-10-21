@@ -48,7 +48,7 @@ export function Navbar() {
             How It Works
           </Link>
           <Link
-            href="/#pricing"
+            href="/apps"
             className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1360px]:inline"
           >
             Apps

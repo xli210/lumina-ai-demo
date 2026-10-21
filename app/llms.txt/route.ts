@@ -77,6 +77,11 @@ function buildLlmsTxt(): string {
       `${FACESTUDIO_V_TAGLINE} Open to registered NanoPocket users; requests are queued, and each video is paid for in credits at a price shown before it starts. A video from an account that has never topped up carries a moving watermark. The page and its fourteen example cases are public; opening the studio requires a free account.`,
     ),
     bullet(
+      "/apps",
+      "NanoPocket desktop apps",
+      "The catalogue of every desktop app with its price, latest version and release notes: free Nano FaceSwap, Nano FacialEdit and Nano ImageTryon, and the one-time-licence Pro apps. All run on your own NVIDIA GPU on Windows. Release notes for all apps are at /release-notes.",
+    ),
+    bullet(
       "/zh-CN/guides",
       "中文指南 (Chinese guides)",
       "Four Chinese guides for video face swap: how to do it step by step, how to choose a tool, why swaps break on hands in front of the face and profile turns, and local versus online face swap. Each pairs with an English guide of the same slug under /blog.",

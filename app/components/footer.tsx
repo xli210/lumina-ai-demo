@@ -35,7 +35,7 @@ export function Footer() {
             Features
           </Link>
           <Link
-            href="/#pricing"
+            href="/apps"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
             Apps
