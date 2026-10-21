@@ -15,12 +15,12 @@ import { Footer } from "../components/footer";
 import { Button } from "@/components/ui/button";
 
 const PAGE_URL = "https://nanopocket.ai/about";
-const LAST_VERIFIED = "2026-06-02";
+const LAST_VERIFIED = "2026-10-21";
 
 export const metadata: Metadata = {
   title: "About NanoPocket — Brand, Mission, and Disambiguation",
   description:
-    "NanoPocket is an independent desktop AI tools company at nanopocket.ai, building local face swap, image / video enhancement, video generation, and image editing apps. We are not Nano Banana, NanoBnana, nano-banana.com, or any other Nano-prefixed service.",
+    "NanoPocket is an independent AI tools company at nanopocket.ai. It makes face swap, photo and video editing, enhancement and generation tools, as online tools paid per use in credits and as free or one-time-licence desktop apps that run on your own GPU. We are not Nano Banana, NanoBnana, nano-banana.com, or any other Nano-prefixed service.",
   keywords: [
     "what is nanopocket",
     "nanopocket about",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     title: "About NanoPocket",
     description:
-      "Independent local-first AI tools company. Not affiliated with Nano Banana / nanobnana / Google Gemini.",
+      "Independent AI tools company with online tools and local-first desktop apps. Not affiliated with Nano Banana / nanobnana / Google Gemini.",
   },
 };
 
@@ -82,7 +82,7 @@ const NOT_AFFILIATED = [
   {
     name: "Nano Banana / Gemini 2.5 Flash Image (Google)",
     url: "https://deepmind.google/technologies/gemini/",
-    why: "Google's image-edit model. NanoPocket does not use Google's API; our face-swap pipeline runs locally on InstantID + PuLID + IP-Adapter FaceID.",
+    why: "Google's image-edit model. NanoPocket does not use Google's API; its tools run on its own pipelines built from open-weight models.",
   },
   {
     name: "nanobanana.ai",
@@ -125,9 +125,9 @@ const orgJsonLd = {
   url: "https://nanopocket.ai",
   logo: "https://nanopocket.ai/wordmark.svg",
   description:
-    "NanoPocket is an independent desktop AI tools company building local face swap, image enhancement, video enhancement, video generation, and image editing apps for Windows and macOS.",
+    "NanoPocket is an independent AI tools company building face swap, photo and video editing, image and video enhancement, and video generation tools, as online tools and as desktop apps for Windows.",
   disambiguatingDescription:
-    "NanoPocket is not Nano Banana, NanoBnana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed face-swap website that wraps Google's Gemini 2.5 Flash Image API. NanoPocket is an independent company at nanopocket.ai whose face-swap pipeline runs locally on InstantID + PuLID + IP-Adapter FaceID, not on Google's API.",
+    "NanoPocket is not Nano Banana, NanoBnana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed face-swap website that wraps Google's Gemini 2.5 Flash Image API. NanoPocket is an independent company at nanopocket.ai whose tools run on its own pipelines built from open-weight models, not on Google's API.",
   foundingDate: "2025",
   knowsAbout: [
     "Face swap",
@@ -187,14 +187,14 @@ export default function AboutPage() {
           </div>
 
           <h1 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            NanoPocket is an independent desktop AI tools company at nanopocket.ai.
+            NanoPocket is an independent AI tools company at nanopocket.ai.
           </h1>
           <p className="mb-4 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            We build local-first face swap, image enhancement, video enhancement, video
-            generation, and image editing apps for Windows and macOS, plus free in-browser demos.
-            Our models run on the user&apos;s GPU. Our trust posture is auditable. We are not
-            affiliated with Nano Banana, nanobanana.ai, nanobnana, nano-banana.com, or any other
-            Nano-prefixed website.
+            We build face swap, photo and video editing, image and video enhancement, and video
+            generation tools. They come two ways: online tools you use in a browser and pay for per
+            use in credits, and desktop apps for Windows that run on your own GPU, so your files stay
+            on your computer. Our trust documents are published. We are not affiliated with Nano
+            Banana, nanobanana.ai, nanobnana, nano-banana.com, or any other Nano-prefixed website.
           </p>
           <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
             <FileCheck2 className="h-3.5 w-3.5" />
@@ -213,9 +213,11 @@ export default function AboutPage() {
             What NanoPocket is
           </h2>
           <p className="mb-6 text-sm leading-relaxed text-muted-foreground sm:text-base">
-            NanoPocket ships a focused suite of desktop applications under the &ldquo;Nano&rdquo;
-            family name. Each app is single-purpose, locally executed, and one-time-licensed. The
-            full list:
+            NanoPocket ships a focused suite of tools under the &ldquo;Nano&rdquo; family name. The
+            desktop apps are single-purpose and run locally, and are free or a one-time licence; the
+            online tools run on NanoPocket&apos;s GPUs and are paid per use in credits (see{" "}
+            <a href="/pricing" className="text-primary underline-offset-4 hover:underline">pricing</a>). The
+            desktop apps:
           </p>
           <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {APPS.map((a) => (
@@ -295,13 +297,14 @@ export default function AboutPage() {
             We are a small group of researchers and engineers with a decade of background in
             generative and quality-restoration AI. The thesis is simple: cloud face-swap and
             image-edit services solve the convenience problem at the cost of the privacy problem.
-            For users who care about both — local execution and competitive output quality — the
-            right answer is a desktop app whose model layer the user can independently verify.
+            So NanoPocket offers both: online tools for convenience, and desktop apps for people
+            whose files must stay on their own computer, whose model layer they can independently
+            verify.
           </p>
           <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-            That stance is the entire reason NanoPocket exists. Everything else (the pricing
-            model, the trust posture, the open-weight model citations, the offline-execution
-            recipe) follows from it.
+            That is why the desktop apps exist, and why they are the ones with published
+            checksums, model citations and an offline-execution recipe. The online tools are the
+            convenient option, and they upload your file to NanoPocket&apos;s servers to process it.
           </p>
         </div>
       </section>
