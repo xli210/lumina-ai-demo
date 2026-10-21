@@ -149,7 +149,13 @@ function Reconciliation({ recon }: { recon: StripeReconcileResult }) {
   }
 
   const paid = recon.succeeded.length;
-  const missing = recon.undelivered.length;
+  // Credit packs are judged on whether the credits arrived, never on a license
+  // (they do not make one); app purchases on whether a license exists.
+  const missingLicenses = recon.undelivered.filter((p) => p.kind === "license").length;
+  const missingCredits = recon.undelivered.filter((p) => p.kind === "credits").length;
+  const missing = missingLicenses;
+  const creditPaid = recon.succeeded.filter((p) => p.kind === "credits").length;
+  const licensePaid = paid - creditPaid;
   const older = recon.predates_database.length;
   const since = recon.database_since
     ? new Date(recon.database_since).toLocaleDateString("en-US", {
@@ -191,21 +197,27 @@ function Reconciliation({ recon }: { recon: StripeReconcileResult }) {
     );
   }
 
-  if (missing === 0) {
-    const matchable = paid - older;
+  if (missingLicenses === 0 && missingCredits === 0) {
+    const matchable = licensePaid - older;
     return (
       <div className="glass flex items-start gap-3 rounded-2xl border border-emerald-500/30 p-6">
         <CircleCheck className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
         <div className="space-y-2 text-sm">
           <p className="text-base font-semibold text-foreground">
-            Every payment this database could have served has a license
+            Every payment this database could have served was delivered
           </p>
           <p className="text-muted-foreground">
             {fmtMoney(recon.gross_amount)} collected across {fmtCount(paid)}{" "}
             payment{paid === 1 ? "" : "s"} in the {recon.mode} account.{" "}
-            {fmtCount(matchable)} of them fall inside this database&rsquo;s
-            lifetime, and all {matchable === 1 ? "of it is" : "are"} matched
-            to a license key.
+            {creditPaid > 0 && (
+              <>
+                {fmtCount(creditPaid)} {creditPaid === 1 ? "was a credit purchase" : "were credit purchases"},
+                each matched to its credit grant (credit packs do not make a license).{" "}
+              </>
+            )}
+            {fmtCount(matchable)} {matchable === 1 ? "was an app purchase" : "were app purchases"}{" "}
+            inside this database&rsquo;s lifetime, and all{" "}
+            {matchable === 1 ? "of it is" : "are"} matched to a license key.
           </p>
           {olderNote}
         </div>
@@ -218,21 +230,32 @@ function Reconciliation({ recon }: { recon: StripeReconcileResult }) {
       <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-red-500" />
       <div className="space-y-3 text-sm">
         <p className="text-base font-semibold text-foreground">
-          {fmtCount(missing)} paid customer{missing === 1 ? "" : "s"} never
-          received a license
+          {missingLicenses > 0 &&
+            `${fmtCount(missingLicenses)} paid customer${missingLicenses === 1 ? "" : "s"} never received a license`}
+          {missingLicenses > 0 && missingCredits > 0 && " · "}
+          {missingCredits > 0 &&
+            `${fmtCount(missingCredits)} credit purchase${missingCredits === 1 ? "" : "s"} never credited`}
         </p>
-        <p className="text-muted-foreground">
-          Stripe collected {fmtCount(paid)} payment
-          {paid === 1 ? "" : "s"} totalling {fmtMoney(recon.gross_amount)} in
-          the {recon.mode} account, but only{" "}
-          {fmtCount(paid - missing - older)} produced a license row. The
-          webhook writes{" "}
-          <code className="rounded bg-muted px-1 py-0.5 text-xs">
-            stripe_payment_intent_id
-          </code>{" "}
-          and is the only thing that does, so a missing one means the delivery
-          never reached the app.
-        </p>
+        {missingLicenses > 0 && (
+          <p className="text-muted-foreground">
+            Stripe collected {fmtCount(licensePaid)} app payment
+            {licensePaid === 1 ? "" : "s"} in the {recon.mode} account, but
+            only {fmtCount(licensePaid - missingLicenses - older)} produced a
+            license row. The webhook writes{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">
+              stripe_payment_intent_id
+            </code>{" "}
+            and is the only thing that does, so a missing one means the delivery
+            never reached the app.
+          </p>
+        )}
+        {missingCredits > 0 && (
+          <p className="text-muted-foreground">
+            A credit pack is delivered as a <code className="rounded bg-muted px-1 py-0.5 text-xs">purchase</code>{" "}
+            entry in the credit ledger, not as a license. These payments have no
+            such entry, so the credits never reached the account.
+          </p>
+        )}
         {recon.events_recorded === 0 && (
           <p className="text-muted-foreground">
             The{" "}
@@ -299,7 +322,7 @@ function UndeliveredTable({ rows }: { rows: ReconciledPayment[] }) {
                 )}
               </td>
               <td className="px-5 py-3 text-muted-foreground">
-                {p.product_id ?? "—"}
+                {p.kind === "credits" ? "Credit pack (not credited)" : (p.product_id ?? "—")}
               </td>
               <td className="px-5 py-3 text-right font-semibold tabular-nums text-foreground">
                 {fmtMoney(p.amount)}
@@ -704,7 +727,7 @@ function Dashboard({
             accent
           />
           <Metric
-            label="Delivered a license"
+            label="Delivered (license or credits)"
             value={
               stripe
                 ? fmtCount(
@@ -721,7 +744,7 @@ function Dashboard({
                   ? `${fmtCount(stripe.undelivered.length)} customers still owed`
                   : stripe.predates_database.length > 0
                     ? `${fmtCount(stripe.predates_database.length)} older than this database, unmatchable`
-                    : "every payment matched to a license"
+                    : "every payment matched to its license or credit grant"
             }
           />
           <Metric
@@ -963,7 +986,7 @@ export default async function AdminLicensesPage() {
           {recon.configured && recon.undelivered.length > 0 && (
             <Section
               title="Paid but never delivered"
-              note="Money Stripe collected that produced no license. Resending the webhook delivery fixes each one; the handler is idempotent."
+              note="Money Stripe collected that produced no license (app purchases) or no credit grant (credit packs). Resending the webhook delivery fixes each one; the handler is idempotent."
             >
               <UndeliveredTable rows={recon.undelivered} />
             </Section>

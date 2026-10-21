@@ -3,6 +3,8 @@ import "server-only";
 import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { stripePaymentKey } from "@/lib/credits";
+import { classifyDelivery, type PaymentKind } from "@/lib/stripe-reconcile-classify";
 
 /**
  * Reconciles what Stripe collected against what the licenses table delivered.
@@ -38,6 +40,14 @@ export interface ReconciledPayment {
   supabase_user_id: string | null;
   /** The license this payment produced, if the webhook ever ran. */
   license_key: string | null;
+  /**
+   * What this payment was owed: a license (app purchase) or credits (credit pack).
+   * A credit pack never makes a license, so it is judged on the ledger instead.
+   */
+  kind: PaymentKind;
+  /** Credits the ledger granted for this payment, for a credit pack. */
+  credits_granted: number | null;
+  /** Whether the owed thing arrived: the license row, or the credit grant. */
   delivered: boolean;
 }
 
@@ -55,8 +65,9 @@ export interface StripeReconciliation {
   /** Succeeded payments only. Stripe is the ledger of record. */
   succeeded: ReconciledPayment[];
   /**
-   * Payments made after this database existed that produced no license.
-   * Each one is a customer owed software.
+   * Payments made after this database existed whose delivery never arrived:
+   * no license for an app purchase, no credit grant for a credit pack.
+   * Each one is a customer owed something.
    */
   undelivered: ReconciledPayment[];
   /**
@@ -210,9 +221,29 @@ export async function reconcileStripe(): Promise<StripeReconcileResult> {
     }
   }
 
+  // Credit packs are delivered as a `purchase` entry in the credit ledger,
+  // keyed on the payment intent, not as a license.
+  const creditsByIntent = new Map<string, number>();
+  if (ids.length > 0) {
+    const keyToIntent = new Map(ids.map((id) => [stripePaymentKey(id), id]));
+    const { data } = await admin
+      .from("credit_ledger")
+      .select("idempotency_key, amount")
+      .eq("kind", "purchase")
+      .in("idempotency_key", [...keyToIntent.keys()]);
+    for (const row of data ?? []) {
+      const intent = keyToIntent.get(String(row.idempotency_key));
+      if (intent) creditsByIntent.set(intent, Number(row.amount));
+    }
+  }
+
   const succeeded: ReconciledPayment[] = succeededIntents.map((pi) => {
     const session = sessions.get(pi.id);
-    const licenseKey = licenseByIntent.get(pi.id) ?? null;
+    const delivery = classifyDelivery({
+      metadataKind: session?.metadata?.kind,
+      licenseKey: licenseByIntent.get(pi.id) ?? null,
+      creditsGranted: creditsByIntent.get(pi.id) ?? null,
+    });
 
     return {
       payment_intent_id: pi.id,
@@ -226,8 +257,10 @@ export async function reconcileStripe(): Promise<StripeReconcileResult> {
         null,
       product_id: session?.metadata?.product_id ?? null,
       supabase_user_id: session?.metadata?.supabase_user_id ?? null,
-      license_key: licenseKey,
-      delivered: licenseKey !== null,
+      license_key: delivery.licenseKey,
+      kind: delivery.kind,
+      credits_granted: delivery.creditsGranted,
+      delivered: delivery.delivered,
     };
   });
 
