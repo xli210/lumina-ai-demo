@@ -40,8 +40,13 @@ export interface ReconciledPayment {
   supabase_user_id: string | null;
   /** The license this payment produced, if the webhook ever ran. */
   license_key: string | null;
-  /**
-   * What this payment was owed: a license (app purchase) or credits (credit pack).
+  /** The credit pack bought, for a credit purchase. */
+  pack_id: string | null;
+  /** Stripe's fee on the payment in cents, or null when Stripe did not return it. */
+  fee: number | null;
+  /** Refunded so far, in cents. */
+  refunded: number;
+  /** What this payment was owed: a license (app purchase) or credits (credit pack).
    * A credit pack never makes a license, so it is judged on the ledger instead.
    */
   kind: PaymentKind;
@@ -174,13 +179,28 @@ export async function reconcileStripe(): Promise<StripeReconcileResult> {
 
   const intents: Stripe.PaymentIntent[] = [];
   let truncated = false;
-  try {
-    for await (const pi of stripe.paymentIntents.list({ limit: 100 })) {
+  // Ask for the charge and its balance transaction too, which is where Stripe's fee and the
+  // refunded amount live. A key that may not read balance transactions makes that request
+  // fail, so it falls back to the plain list and the fees show as unavailable.
+  const listIntents = async (expand: boolean) => {
+    intents.length = 0;
+    truncated = false;
+    for await (const pi of stripe.paymentIntents.list({
+      limit: 100,
+      ...(expand ? { expand: ["data.latest_charge.balance_transaction"] } : {}),
+    })) {
       if (intents.length >= PAYMENT_LIMIT) {
         truncated = true;
         break;
       }
       intents.push(pi);
+    }
+  };
+  try {
+    try {
+      await listIntents(true);
+    } catch {
+      await listIntents(false);
     }
   } catch (err) {
     return {
@@ -245,6 +265,12 @@ export async function reconcileStripe(): Promise<StripeReconcileResult> {
       creditsGranted: creditsByIntent.get(pi.id) ?? null,
     });
 
+    const charge = typeof pi.latest_charge === "object" && pi.latest_charge !== null ? pi.latest_charge : null;
+    const balance =
+      charge && typeof charge.balance_transaction === "object" && charge.balance_transaction !== null
+        ? charge.balance_transaction
+        : null;
+
     return {
       payment_intent_id: pi.id,
       amount: pi.amount,
@@ -257,6 +283,9 @@ export async function reconcileStripe(): Promise<StripeReconcileResult> {
         null,
       product_id: session?.metadata?.product_id ?? null,
       supabase_user_id: session?.metadata?.supabase_user_id ?? null,
+      pack_id: session?.metadata?.pack_id ?? null,
+      fee: balance ? balance.fee : null,
+      refunded: charge?.amount_refunded ?? 0,
       license_key: delivery.licenseKey,
       kind: delivery.kind,
       credits_granted: delivery.creditsGranted,

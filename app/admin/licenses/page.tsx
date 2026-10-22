@@ -28,6 +28,9 @@ import {
   type EnrichedProductRow,
   type LicenseSummary,
 } from "@/lib/license-analytics";
+import { summarizeRevenue, type SourceTotals } from "@/lib/stripe-reconcile-classify";
+import { PRODUCTS } from "@/lib/products";
+import { CREDIT_PACKS } from "@/lib/credit-packs";
 
 /**
  * /admin/licenses — which licenses are actually sales.
@@ -640,6 +643,137 @@ function TrialTable({ summary }: { summary: LicenseSummary }) {
   );
 }
 
+/**
+ * Where the money came from: credit purchases (online tools, bought on /credits) against
+ * desktop-app licence purchases, each with what was collected, refunded, taken by Stripe
+ * and what is left. Net is before GPU, hosting and every other cost, and credits are
+ * counted when they are bought, not when they are spent.
+ */
+function RevenueBySource({ recon }: { recon: StripeReconcileResult }) {
+  if (!recon.configured) return null;
+  const r = summarizeRevenue(recon.succeeded);
+  const productName = (id: string) => PRODUCTS.find((p) => p.id === id)?.name ?? id;
+  const packName = (id: string) => CREDIT_PACKS.find((p) => p.id === id)?.name ?? id;
+  const feeCell = (t: SourceTotals) =>
+    t.count === 0 ? "—" : `${fmtMoney(t.fees)}${t.feesComplete ? "" : " + some unavailable"}`;
+  const th = "px-4 py-3 text-left font-semibold text-foreground";
+  const thr = "px-4 py-3 text-right font-semibold text-foreground";
+  const td = "px-4 py-3 text-muted-foreground";
+  const tdr = "px-4 py-3 text-right tabular-nums text-muted-foreground";
+
+  const row = (label: string, sub: string, t: SourceTotals, strong?: boolean) => (
+    <tr className={`border-b border-border last:border-0 ${strong ? "bg-muted/20 font-semibold text-foreground" : ""}`}>
+      <td className={strong ? "px-4 py-3" : td}>
+        {label}
+        <span className="mt-0.5 block text-xs font-normal text-muted-foreground">{sub}</span>
+      </td>
+      <td className={tdr}>{fmtCount(t.count)}</td>
+      <td className={tdr}>{fmtMoney(t.gross)}</td>
+      <td className={tdr}>{t.refunded > 0 ? `\u2212${fmtMoney(t.refunded)}` : "$0.00"}</td>
+      <td className={tdr}>{feeCell(t)}</td>
+      <td className={`${tdr} ${strong ? "text-foreground" : "font-semibold text-foreground"}`}>{fmtMoney(t.net)}</td>
+    </tr>
+  );
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Metric
+          label="Credit purchases"
+          value={fmtMoney(r.credits.gross)}
+          sub={`${fmtCount(r.credits.count)} payment${r.credits.count === 1 ? "" : "s"} · ${fmtMoney(r.credits.net)} net · online tools`}
+          accent
+        />
+        <Metric
+          label="Desktop app licences"
+          value={fmtMoney(r.license.gross)}
+          sub={`${fmtCount(r.license.count)} payment${r.license.count === 1 ? "" : "s"} · ${fmtMoney(r.license.net)} net · local apps`}
+        />
+        <Metric
+          label="Everything Stripe collected"
+          value={fmtMoney(r.total.gross)}
+          sub={`${fmtCount(r.total.count)} payments · ${fmtMoney(r.total.net)} net`}
+        />
+      </div>
+
+      <div className="glass overflow-x-auto rounded-2xl">
+        <table className="w-full min-w-[760px] text-sm">
+          <thead>
+            <tr className="border-b border-border">
+              <th className={th}>Source</th>
+              <th className={thr}>Payments</th>
+              <th className={thr}>Collected</th>
+              <th className={thr}>Refunded</th>
+              <th className={thr}>Stripe fees</th>
+              <th className={thr}>Net kept</th>
+            </tr>
+          </thead>
+          <tbody>
+            {row("Credit purchases", `${fmtCount(r.credits.creditsGranted)} credits granted, including bonus`, r.credits)}
+            {row("Desktop app licences", "one-time licence purchases", r.license)}
+            {row("Total", "", r.total, true)}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div className="glass overflow-x-auto rounded-2xl">
+          <table className="w-full min-w-[420px] text-sm">
+            <thead>
+              <tr className="border-b border-border">
+                <th className={th}>Credit pack</th>
+                <th className={thr}>Sold</th>
+                <th className={thr}>Collected</th>
+                <th className={thr}>Credits</th>
+              </tr>
+            </thead>
+            <tbody>
+              {r.byPack.length === 0 ? (
+                <tr><td className={td} colSpan={4}>No credit packs sold yet.</td></tr>
+              ) : (
+                r.byPack.map((x) => (
+                  <tr key={x.id} className="border-b border-border last:border-0">
+                    <td className={td}>{packName(x.id)}</td>
+                    <td className={tdr}>{fmtCount(x.count)}</td>
+                    <td className={tdr}>{fmtMoney(x.gross)}</td>
+                    <td className={tdr}>{fmtCount(x.creditsGranted)}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+        <div className="glass overflow-x-auto rounded-2xl">
+          <table className="w-full min-w-[420px] text-sm">
+            <thead>
+              <tr className="border-b border-border">
+                <th className={th}>App licence</th>
+                <th className={thr}>Sold</th>
+                <th className={thr}>Collected</th>
+                <th className={thr}>Net kept</th>
+              </tr>
+            </thead>
+            <tbody>
+              {r.byProduct.length === 0 ? (
+                <tr><td className={td} colSpan={4}>No app licences sold yet.</td></tr>
+              ) : (
+                r.byProduct.map((x) => (
+                  <tr key={x.id} className="border-b border-border last:border-0">
+                    <td className={td}>{productName(x.id)}</td>
+                    <td className={tdr}>{fmtCount(x.count)}</td>
+                    <td className={tdr}>{fmtMoney(x.gross)}</td>
+                    <td className={tdr}>{fmtMoney(x.net)}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /** Licenses issued per month, with the paid portion overlaid. */
 function MonthlyBars({ summary }: { summary: LicenseSummary }) {
   const rows = summary.monthly;
@@ -757,12 +891,21 @@ function Dashboard({
             sub="rows in stripe_events — zero means none ever arrived"
           />
           <Metric
-            label="Revenue at list price"
+            label="Licences at list price"
             value={fmtMoney(revenue)}
-            sub="from licenses, for comparison — diverges if deliveries failed"
+            sub="app licences only, from the licenses table. Credit purchases are in the section below"
           />
         </div>
       </Section>
+
+      {stripe && (
+        <Section
+          title="Where the money came from"
+          note="Credit purchases (credit packs bought on /credits, spent in the online tools) against desktop app licences, from Stripe. Net kept is what is left after refunds and Stripe's fees, before GPU, hosting and every other cost. Credits are counted when bought, not when spent."
+        >
+          <RevenueBySource recon={stripe} />
+        </Section>
+      )}
 
       {stripe && (
         <Section
