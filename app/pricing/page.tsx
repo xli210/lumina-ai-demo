@@ -31,8 +31,8 @@ const PAGE_URL = "https://nanopocket.ai/pricing";
 const FACE = FACESTUDIO_PRICE_PER_FACE.face_swap;
 const HEAD = FACESTUDIO_PRICE_PER_FACE.head_swap;
 
-const TITLE = "NanoPocket Pricing: Free Apps, Pay-per-Use Credits, No Subscription";
-const DESCRIPTION = `What NanoPocket costs. Free desktop apps, online tools paid per use in credits (100 credits = $1): face swap from $${(FACE / 100).toFixed(2)} a face, photo edit $${(IMAGE_EDIT_PRICE_CREDITS / 100).toFixed(2)}, video priced before you start. One-time licences for the Pro desktop apps. No subscription.`;
+const TITLE = "Pricing: Free Apps, Pay-per-Use Credits";
+const DESCRIPTION = `Free desktop apps, online tools paid per use in credits (100 credits = $1), one-time Pro licences. Face swap from $${(FACE / 100).toFixed(2)} a face, photo edit $${(IMAGE_EDIT_PRICE_CREDITS / 100).toFixed(2)}. No subscription.`;
 
 export const metadata: Metadata = {
   title: TITLE,

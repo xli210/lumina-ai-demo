@@ -16,9 +16,9 @@ import { IMAGE_EDIT_NAME } from "@/lib/image-edit-facts";
  * is read from lib/products.ts and lib/release-data.ts, so it cannot drift from the apps.
  */
 
-const TITLE = "NanoPocket Apps: Free and Pro Desktop AI Apps for Windows";
+const TITLE = "Free and Pro Desktop AI Apps for Windows";
 const DESCRIPTION =
-  "Every NanoPocket desktop app in one place: free face swap, portrait editing and virtual try-on, and Pro apps for image generation, upscaling, video enhancement and video generation. Each runs on your own NVIDIA GPU. Price, latest version and release notes for each.";
+  "Every NanoPocket desktop app with its price and latest version: free face swap, portrait editing and virtual try-on, plus Pro image and video apps. Runs on your own NVIDIA GPU.";
 
 export const metadata: Metadata = {
   title: TITLE,

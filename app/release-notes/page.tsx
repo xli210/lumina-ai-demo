@@ -12,9 +12,9 @@ import { appReleases } from "@/lib/release-data";
  * lib/release-data.ts, the same data the per-app pages and the download notice use.
  */
 
-const TITLE = "NanoPocket Release Notes: What Changed in Every App";
+const TITLE = "Release Notes: What Changed in Every App";
 const DESCRIPTION =
-  "The latest version of every NanoPocket desktop app and what changed in it, with links to each app's full release notes: face swap, portrait editing, virtual try-on, image generation, upscaling, video enhancement and video generation.";
+  "The latest version of every NanoPocket desktop app and what changed in it, with links to each app's full release notes.";
 
 export const metadata: Metadata = {
   title: TITLE,

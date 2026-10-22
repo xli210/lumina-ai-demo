@@ -42,7 +42,7 @@ const CONSOLE_URL = "/face-studio/launch";
 const abs = (path: string) => `https://nanopocket.ai${path}`;
 
 // The site template appends " | NanoPocket", so this stays short.
-const TITLE = "Nano FaceStudio Online: Multi-Face Swap That Keeps Hair & Hands";
+const TITLE = "Nano FaceStudio: Face Swap That Keeps Hair & Hands";
 const DESCRIPTION = `Swap up to ${FACESTUDIO_MAX_FACES} faces in one photo, or a whole head, and keep the hair, hands, glasses and jewellery that cross the face. Full resolution; a top-up removes the watermark. ${usd(
   FACE_SWAP_USD,
 )} per face, ${FREE_ALLOWANCE_SHORT}, no subscription.`;

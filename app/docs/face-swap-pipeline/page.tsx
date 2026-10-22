@@ -24,7 +24,7 @@ const LAST_VERIFIED = "2026-06-04";
 
 export const metadata: Metadata = {
   title:
-    "Face Swap Pipeline — Technical Reference | NanoPocket",
+    "Face Swap Pipeline — Technical Reference",
   description:
     "Technical reference for NanoPocket's face-swap pipeline: a diffusion identity stack composing InstantID, PuLID, and IP-Adapter FaceID on a Flux base. Primary-source citations, dated, methodology-first.",
   keywords: [
