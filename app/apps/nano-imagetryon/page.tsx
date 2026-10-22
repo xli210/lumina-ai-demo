@@ -26,6 +26,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/apps/nano-imagetryon" },
   openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     title: "Nano ImageTryon — Local AI Virtual Try-On",
     description:
       "Garment transfer from any reference photo with body and pose preservation. Local NVIDIA GPU, no cloud upload.",

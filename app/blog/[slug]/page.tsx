@@ -47,13 +47,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
               },
             ],
           }
-        : {}),
+        : { images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }] }),
     },
     twitter: {
-      card: post.image ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title: post.title,
       description: post.description,
-      ...(post.image ? { images: [post.image.src] } : {}),
+      images: [post.image?.src ?? "/og-image.jpg"],
     },
   };
 }

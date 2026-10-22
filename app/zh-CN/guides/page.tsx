@@ -13,7 +13,8 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/zh-CN/guides", languages: { en: "https://nanopocket.ai/blog", "zh-CN": "https://nanopocket.ai/zh-CN/guides" } },
-  openGraph: { type: "website", url: "https://nanopocket.ai/zh-CN/guides", title: TITLE, description: DESCRIPTION, locale: "zh_CN" },
+  openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }], type: "website", url: "https://nanopocket.ai/zh-CN/guides", title: TITLE, description: DESCRIPTION, locale: "zh_CN" },
 };
 
 export default function ZhGuidesIndex() {

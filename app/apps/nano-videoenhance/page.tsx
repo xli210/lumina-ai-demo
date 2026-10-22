@@ -25,6 +25,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/apps/nano-videoenhance" },
   openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     title: "Nano VideoEnhance — Local AI Video Upscaler",
     description:
       "Local AI video upscaler running on a single NVIDIA GPU. No per-minute fees, no cloud upload, side-by-side compare view.",

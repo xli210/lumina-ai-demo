@@ -26,6 +26,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/apps/nano-facialedit" },
   openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     title: "Nano FacialEdit — Local AI Portrait Retouch & Expression Editor",
     description:
       "Identity-preserving expression editing and skin retouch on a single NVIDIA GPU. Local-only, no cloud upload.",

@@ -27,6 +27,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/compare/nanopocket-vs-nano-banana" },
   openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     type: "article",
     url: PAGE_URL,
     title: "NanoPocket vs Nano Banana: two different products",

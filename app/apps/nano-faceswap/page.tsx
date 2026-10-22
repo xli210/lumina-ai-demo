@@ -29,6 +29,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/apps/nano-faceswap" },
   openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     title: "Nano FaceSwap — Local Desktop Face Swap",
     description:
       "Local desktop face-swap for Windows NVIDIA GPUs. One-time license, no per-minute fees, no cloud upload.",

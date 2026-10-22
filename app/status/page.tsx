@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     `Live uptime status for NanoPocket's online face-swap demos, updated every 5 minutes from an independent GitHub Actions runner. ${demoAvailabilityEn()}`,
   alternates: { canonical: "/status" },
   openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     type: "website",
     url: "https://nanopocket.ai/status",
     title: "NanoPocket Demo Status",

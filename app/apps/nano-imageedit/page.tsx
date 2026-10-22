@@ -28,6 +28,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/apps/nano-imageedit" },
   openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     title: "Nano ImageEdit — Local Flux.1 Image Generator",
     description:
       "Local text-to-image and image-to-image with Flux.1 on a single NVIDIA GPU. Streaming DiT for under-12 GB VRAM cards.",

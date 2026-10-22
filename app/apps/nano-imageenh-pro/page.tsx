@@ -25,6 +25,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/apps/nano-imageenh-pro" },
   openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     title: "Nano ImageEnh Pro 3.0 — Local AI Image Upscaler",
     description:
       "Local AI image upscaling and enhancement for Windows and Apple Silicon. Batch folders, crop, AI background matting — all on the user's GPU.",

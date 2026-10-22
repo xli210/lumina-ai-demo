@@ -38,7 +38,8 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/pricing" },
-  openGraph: { type: "website", url: PAGE_URL, title: TITLE, description: DESCRIPTION },
+  openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }], type: "website", url: PAGE_URL, title: TITLE, description: DESCRIPTION },
 };
 
 const money = (cents: number) => (cents % 100 === 0 ? `$${cents / 100}` : `$${(cents / 100).toFixed(2)}`);

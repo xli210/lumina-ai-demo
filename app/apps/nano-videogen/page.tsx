@@ -28,6 +28,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/apps/nano-videogen" },
   openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     title: "Nano VideoGen — Local AI Video Generator (LTX-2.3)",
     description:
       "Local text-to-video and image-to-video on a single NVIDIA GPU. LTX-2.3 model, camera-control LoRAs, keyframe interpolation, 2× spatial upscaler.",

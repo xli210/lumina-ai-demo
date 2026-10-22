@@ -35,6 +35,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/best-face-swap-app-2026" },
   openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     type: "article",
     url: PAGE_URL,
     title: "Best Face Swap App 2026 — methodology-first ranking",

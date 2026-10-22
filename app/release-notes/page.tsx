@@ -20,7 +20,8 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/release-notes" },
-  openGraph: { type: "website", url: "https://nanopocket.ai/release-notes", title: TITLE, description: DESCRIPTION },
+  openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }], type: "website", url: "https://nanopocket.ai/release-notes", title: TITLE, description: DESCRIPTION },
 };
 
 const HIGHLIGHTS = 3;

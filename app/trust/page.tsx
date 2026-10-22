@@ -48,6 +48,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/trust" },
   openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     type: "website",
     url: PAGE_URL,
     title: "NanoPocket — Trust & Transparency",

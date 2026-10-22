@@ -36,6 +36,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/apps/nano-faceswap-pro" },
   openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     title: "Nano FaceSwap Pro 2.0 — Free Online Diffusion Face Swap",
     description:
       "Diffusion face swap with free online demo and 100% local desktop pipeline. Built on InstantID, PuLID, and IP-Adapter FaceID research. A private alternative to Roop, FaceFusion, Rope, DeepSwap, and Akool.",
