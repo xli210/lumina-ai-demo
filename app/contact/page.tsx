@@ -10,6 +10,7 @@ import { Mail, Headset, Building2, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
+import { ContactForm } from "./contact-form";
 
 export default function ContactPage() {
   return (
@@ -76,6 +77,10 @@ export default function ContactPage() {
                 </a>
               </Button>
             </div>
+          </div>
+
+          <div className="mt-6">
+            <ContactForm />
           </div>
         </div>
       </div>

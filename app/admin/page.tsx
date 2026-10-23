@@ -60,6 +60,13 @@ export default async function AdminPage() {
               <MessageSquare className="h-4 w-4" />
               Demo Feedback
             </Link>
+            <Link
+              href="/admin/messages"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors"
+            >
+              <MessageSquare className="h-4 w-4" />
+              Messages
+            </Link>
           </div>
         </div>
         <AdminDashboard />
