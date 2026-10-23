@@ -9,6 +9,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { FacestudioVNotice } from "./components/facestudio-v-notice";
 import { LocalAppsNotice } from "./components/local-apps-notice";
 import { AnalyticsEvents } from "./components/analytics-events";
+import { FeedbackButton } from "./components/feedback-button";
 import { DEFAULT_LOCALE, isAppLocale, type AppLocale } from "@/lib/i18n/locales";
 import { demoAvailabilityEn } from "@/lib/demo-availability";
 
@@ -431,6 +432,7 @@ export default async function RootLayout({
             <FacestudioVNotice />
             <LocalAppsNotice />
             <AnalyticsEvents />
+            <FeedbackButton />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

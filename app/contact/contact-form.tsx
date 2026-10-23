@@ -17,7 +17,7 @@ const KINDS = [
 
 const MAX = 4000;
 
-export function ContactForm() {
+export function ContactForm({ page, compact = false }: { page?: string; compact?: boolean }) {
   const [kind, setKind] = useState("feature");
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
@@ -43,7 +43,7 @@ export function ContactForm() {
           email,
           other_contact: other,
           website,
-          page: document.referrer ? new URL(document.referrer).pathname : "",
+          page: page ?? (document.referrer ? new URL(document.referrer).pathname : ""),
         }),
       });
       const data = await res.json().catch(() => ({}));
@@ -61,7 +61,7 @@ export function ContactForm() {
 
   if (done) {
     return (
-      <div className="rounded-2xl glass p-8 text-center sm:p-10">
+      <div className={compact ? "p-6 text-center" : "rounded-2xl glass p-8 text-center sm:p-10"}>
         <CheckCircle2 className="mx-auto mb-4 h-10 w-10 text-primary" />
         <h2 className="mb-2 text-xl font-bold text-foreground">Thank you, we got it.</h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
@@ -73,7 +73,7 @@ export function ContactForm() {
 
   const label = "mb-1.5 block text-sm font-medium text-foreground";
   return (
-    <form onSubmit={submit} className="rounded-2xl glass p-8 sm:p-10" noValidate>
+    <form onSubmit={submit} className={compact ? "p-1" : "rounded-2xl glass p-8 sm:p-10"} noValidate>
       <h2 className="mb-1 text-xl font-bold text-foreground">Tell us what to build or fix</h2>
       <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
         Ideas, problems and requests go straight to the people who build the product. Leave your contact so we can follow up.
