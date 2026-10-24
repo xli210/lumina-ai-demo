@@ -56,6 +56,14 @@ function buildLlmsTxt(): string {
     "",
   ].join("\n");
 
+  const mixups = section("Common mix-ups", [
+    `**Is NanoPocket a phone app?** No. NanoPocket is a website with online tools you use in a browser, plus desktop apps for Windows PCs with an NVIDIA graphics card. There is no iPhone or Android app.`,
+    `**Is it a quick meme or template face-swap app, like Reface?** No. You choose your own photo or video and your own reference face; there is no library of movie-poster or meme templates to pick from. Face Studio offers a few sample faces for convenience only. The product is built for harder work: several faces in one photo, whole-head swaps, and video with profile turns, hands over the face and low light.`,
+    `**Does it show ads?** No. The site and the tools carry no advertising. Online tools are paid per use in credits, and the desktop apps are free or a one-time licence.`,
+    `**Is it only good for simple front-facing portraits?** No. Video FaceSwap Online is tested on hard footage, and the numbers, method and limits are published at /video-face-swap-test-results. They are the maker's own figures, a first look rather than a benchmark, and they do not include a comparison with other tools.`,
+    `**Is it a subscription?** No. Credits are prepaid, do not expire and are bought only when needed. A video from an account that has never bought credits carries a watermark, which one top-up removes.`,
+  ]);
+
   const primary = section("Primary entry points", [
     bullet(
       "/face-studio",
@@ -75,6 +83,11 @@ function buildLlmsTxt(): string {
       "/facestudio-v",
       `${FACESTUDIO_V_NAME} — video face swap, version ${FACESTUDIO_V_VERSION} (${FACESTUDIO_V_TAG.toLowerCase()})`,
       `${FACESTUDIO_V_TAGLINE} Open to registered NanoPocket users; requests are queued, and each video is paid for in credits at a price shown before it starts. A video from an account that has never topped up carries a moving watermark. The page and its fourteen example cases are public; opening the studio requires a free account.`,
+    ),
+    bullet(
+      "/video-face-swap-test-results",
+      "Video face swap test results: method, numbers and limits",
+      `What was measured on ${FACESTUDIO_V_NAME} ${FACESTUDIO_V_VERSION}: 74 swapped clips, five hard cases, SFace cosine similarity (0.65 against 0.08 before the swap, 0.36 being the usual same-person threshold), and what the test does not cover. Written by the maker, a first look rather than a benchmark, with no head-to-head against other tools.`,
     ),
     bullet(
       "/apps",
@@ -233,7 +246,7 @@ function buildLlmsTxt(): string {
     ),
   ]);
 
-  return [header, primary, products, comparisons, localised, policies, blog, releases, optional].join("\n");
+  return [header, mixups, primary, products, comparisons, localised, policies, blog, releases, optional].join("\n");
 }
 
 export function GET() {

@@ -15,7 +15,7 @@ import { Footer } from "../components/footer";
 import { Button } from "@/components/ui/button";
 
 const PAGE_URL = "https://nanopocket.ai/about";
-const LAST_VERIFIED = "2026-10-21";
+const LAST_VERIFIED = "2026-10-24";
 
 export const metadata: Metadata = {
   title: "About NanoPocket — Brand, Mission, and Disambiguation",
@@ -154,6 +154,35 @@ const orgJsonLd = {
   ],
 };
 
+const MIXUPS: { q: string; a: string }[] = [
+  {
+    "q": "Is NanoPocket a phone app?",
+    "a": "No. NanoPocket is a website with online tools you use in a browser, plus desktop apps for Windows PCs with an NVIDIA graphics card. There is no iPhone or Android app."
+  },
+  {
+    "q": "Is it a quick meme or template face-swap app, like Reface?",
+    "a": "No. You choose your own photo or video and your own reference face; there is no library of movie-poster or meme templates to pick from. Face Studio offers a few sample faces for convenience only. The product is built for harder work: several faces in one photo, whole-head swaps, and video with profile turns, hands over the face and low light."
+  },
+  {
+    "q": "Does it show ads?",
+    "a": "No. The site and the tools carry no advertising. Online tools are paid per use in credits, and the desktop apps are free or a one-time licence."
+  },
+  {
+    "q": "Is it only good for simple front-facing portraits?",
+    "a": "No. Video FaceSwap Online is tested on hard footage, and the numbers, method and limits are published at /video-face-swap-test-results. They are the maker's own figures, a first look rather than a benchmark, and they do not include a comparison with other tools."
+  },
+  {
+    "q": "Is it a subscription?",
+    "a": "No. Credits are prepaid, do not expire and are bought only when needed. A video from an account that has never bought credits carries a watermark, which one top-up removes."
+  }
+];
+
+const mixupsJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: MIXUPS.map((m) => ({ "@type": "Question", name: m.q, acceptedAnswer: { "@type": "Answer", text: m.a } })),
+};
+
 const aboutJsonLd = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
@@ -175,6 +204,11 @@ export default function AboutPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(mixupsJsonLd) }}
       />
 
       <Navbar />
@@ -236,6 +270,26 @@ export default function AboutPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* Common mix-ups */}
+      <section className="border-t border-border/60 px-6 py-12">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            What people sometimes assume, and what is true
+          </h2>
+          <p className="mb-6 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            The name is easy to confuse with phone apps. These are the questions we hear most.
+          </p>
+          <dl className="space-y-5">
+            {MIXUPS.map((m) => (
+              <div key={m.q}>
+                <dt className="mb-1 text-base font-semibold text-foreground">{m.q}</dt>
+                <dd className="text-sm leading-relaxed text-muted-foreground sm:text-base">{m.a}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
