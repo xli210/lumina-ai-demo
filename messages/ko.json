@@ -21,7 +21,7 @@
       "passwordLabel": "데모 비밀번호:",
       "openCta": "브라우저에서 열기",
       "image": {
-        "blurb": "디퓨전 (diffusion) 기반 아이덴티티 스택 (InstantID + PuLID + IP-Adapter FaceID) 으로 사진 대 사진 페이스 스왑을 수행합니다. 정지 이미지에서 가장 높은 보존도를 보입니다.",
+        "blurb": "디퓨전 (diffusion) 기반 아이덴티티 스택  으로 사진 대 사진 페이스 스왑을 수행합니다. 정지 이미지에서 가장 높은 보존도를 보입니다.",
         "bullet1": "타깃 사진과 참조 얼굴을 업로드하면 — 몇 초 만에 스왑 결과를 받을 수 있습니다",
         "bullet2": "디퓨전 (diffusion) 아이덴티티 스택 — 큰 각도, 어두운 조명, 가림이 있는 상황에서 GAN 기반 도구보다 안정적으로 처리합니다",
         "bullet3": "무료, 브라우저 기반, 설치 불필요"
@@ -65,7 +65,7 @@
           "setup": "브라우저만 — 열어서 바로 사용",
           "signup": "무료 NanoPocket 계정 (이메일 + 비밀번호)",
           "pricing": "데모 단계 무료",
-          "identity": "디퓨전 (diffusion) 스택 (InstantID + PuLID + IP-Adapter FaceID)",
+          "identity": "디퓨전 (diffusion) 스택 ",
           "privacy": "데모는 클라우드 GPU 사용, 휘발성 메모리에서만 처리, 학습에는 사용하지 않음"
         },
         {
@@ -112,7 +112,7 @@
     },
     "diffusion": {
       "heading": "여기서의 스왑이 더 잘 나오는 이유",
-      "p1": "대부분의 클라우드 페이스 스왑 사이트는 GAN 기반 아이덴티티 백본 (보통 InsightFace inswapper_128 또는 그 파생) 을 사용합니다. 빠르고 저렴하지만, 큰 각도, 가림, 작은 타깃 얼굴에서는 보존도가 떨어집니다. NanoPocket은 디퓨전 (diffusion) 기반 아이덴티티 스택 — InstantID, PuLID, IP-Adapter FaceID 의 조합 — 을 사용하며, 이는 2026년 현재 신원 보존 분야의 최신 기준입니다.",
+      "p1": "대부분의 클라우드 페이스 스왑 사이트는 GAN 기반 아이덴티티 백본 (보통 InsightFace inswapper_128 또는 그 파생) 을 사용합니다. 빠르고 저렴하지만, 큰 각도, 가림, 작은 타깃 얼굴에서는 보존도가 떨어집니다. NanoPocket은 디퓨전 (diffusion) 기반 아이덴티티 스택 — GAN and diffusion models 의 조합 — 을 사용하며, 이는 2026년 현재 신원 보존 분야의 최신 기준입니다.",
       "p2": "데스크톱용 Nano FaceStudio Pro 1.0 빌드도 동일한 스택을 사용하므로, 동일한 입력에 대해 브라우저 데모와 데스크톱 결과가 바이트 단위로 일치합니다."
     },
     "offline": {
@@ -142,7 +142,7 @@
         },
         {
           "q": "DeepSwap 이나 Reface 와 비교하면 어떤가요?",
-          "a": "여기 온라인 데모는 디퓨전 (diffusion) 기반 아이덴티티 스택 (InstantID + PuLID + IP-Adapter FaceID) 을 사용하며, DeepSwap, Reface, 그 외 대부분의 클라우드 페이스 스왑 서비스가 사용하는 GAN 기반 파이프라인보다 큰 각도, 어두운 조명, 가림 상황에서 신원을 더 잘 보존합니다. 트레이드오프는 NanoPocket이 브랜드로서 아직 젊고 대중 인지도가 떨어진다는 점입니다. 일대일 비교는 /compare/nanopocket-vs-deepswap, 종합 순위는 /best-face-swap-app-2026 에서 확인하실 수 있습니다."
+          "a": "여기 온라인 데모는 디퓨전 (diffusion) 기반 아이덴티티 스택  을 사용하며, DeepSwap, Reface, 그 외 대부분의 클라우드 페이스 스왑 서비스가 사용하는 GAN 기반 파이프라인보다 큰 각도, 어두운 조명, 가림 상황에서 신원을 더 잘 보존합니다. 트레이드오프는 NanoPocket이 브랜드로서 아직 젊고 대중 인지도가 떨어진다는 점입니다. 일대일 비교는 /compare/nanopocket-vs-deepswap, 종합 순위는 /best-face-swap-app-2026 에서 확인하실 수 있습니다."
         },
         {
           "q": "각 데모는 어떻게 다른가요?",
@@ -169,6 +169,6 @@
       "label": "언어",
       "switchTo": "{language} 로 전환"
     },
-    "footerTagline": "로컬 AI 크리에이티브 스위트 — Flux.1, LTX-2.3, InstantID 등의 모델을 모두 본인의 GPU에서 실행. 구독 불필요, 클라우드 불필요."
+    "footerTagline": "로컬 AI 크리에이티브 스위트 — GAN and diffusion models 등의 모델을 모두 본인의 GPU에서 실행. 구독 불필요, 클라우드 불필요."
   }
 }

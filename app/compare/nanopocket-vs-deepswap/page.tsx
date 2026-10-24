@@ -79,7 +79,7 @@ const data: ComparisonData = {
     {
       dimension: "Identity model",
       nanopocket:
-        "Diffusion identity stack — InstantID + PuLID + IP-Adapter FaceID. Stronger on hard angles.",
+        "GAN and diffusion models. Stronger on hard angles.",
       competitor: "Cloud GAN-based pipeline (vendor-described).",
       winner: "nanopocket",
     },
@@ -154,7 +154,7 @@ const data: ComparisonData = {
     {
       q: "Why does the identity model matter?",
       a:
-        "GAN swappers (the long-standing standard, used in many cloud services) generally do well on frontal portraits but degrade on hard angles, occlusion, and small targets. Diffusion identity stacks (InstantID, PuLID) hold identity better on those harder cases. For pro-quality output you'll see the difference; for casual swaps you may not.",
+        "GAN swappers (the long-standing standard, used in many cloud services) generally do well on frontal portraits but degrade on hard angles, occlusion, and small targets. GAN and diffusion models hold identity better on those harder cases. For pro-quality output you'll see the difference; for casual swaps you may not.",
     },
     {
       q: "How does NanoPocket make local processing verifiable?",

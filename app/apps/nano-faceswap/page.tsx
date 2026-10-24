@@ -74,13 +74,13 @@ const data: ProductLandingData = {
       { name: "Data handling", value: "100% local; no upload of source media" },
       { name: "Network requirement", value: "Only for license activation" },
       { name: "License model", value: "One-time, machine-bound; no per-minute or per-frame fees" },
-      { name: "Pro upgrade", value: "Nano FaceStudio Pro 1.0 — diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID)" },
+      { name: "Pro upgrade", value: "Nano FaceStudio Pro 1.0 — GAN and diffusion models" },
     ],
   },
   documentation: {
     lastVerified: "2026-05-29",
     methodology:
-      "Identity transfer fidelity is reported as ArcFace cosine similarity between the swap output and the reference identity, measured on the in-house FS-Eval-100 photo set and FS-Vid-Eval-30 video set. Per-photo and per-frame wall-clock measured on RTX 4060 (8 GB VRAM, fp16) and RTX 4070 (12 GB VRAM, fp16) on Windows 11 23H2 driver 553.62.",
+      "Identity transfer fidelity is reported as face-recognition cosine similarity between the swap output and the reference identity, measured on the in-house FS-Eval-100 photo set and FS-Vid-Eval-30 video set. Per-photo and per-frame wall-clock measured on RTX 4060 (8 GB VRAM, fp16) and RTX 4070 (12 GB VRAM, fp16) on Windows 11 23H2 driver 553.62.",
     scope: {
       bestFor: [
         "Hobbyists and creators wanting a one-click Windows installer",
@@ -253,7 +253,7 @@ const data: ProductLandingData = {
       index: "06",
       eyebrow: "Path to Nano FaceStudio Pro",
       title: "The diffusion upgrade is Nano FaceStudio Pro 1.0.",
-      lead: "Nano FaceSwap (this app) ships the inswapper-class identity swap. Nano FaceStudio Pro 1.0 ships a diffusion identity stack (InstantID, PuLID, IP-Adapter FaceID) with multi-face swap, mask edit, identity-preserving expression editing, Face Vivid, upscale, light adjust, and crop in one app.",
+      lead: "Nano FaceSwap (this app) ships a GAN-class identity swap. Nano FaceStudio Pro 1.0 ships GAN and diffusion models with multi-face swap, mask edit, identity-preserving expression editing, Face Vivid, upscale, light adjust, and crop in one app.",
       bullets: [
         "Nano FaceStudio Pro 1.0 adds a diffusion identity stack",
         "Nano FaceStudio Pro 1.0 adds multi-face swap with per-region protection",

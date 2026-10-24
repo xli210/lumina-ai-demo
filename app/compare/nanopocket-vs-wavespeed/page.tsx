@@ -31,11 +31,11 @@ const data: ComparisonData = {
   competitorUrl: "https://wavespeed.ai",
   lastVerified: "2026-06-03",
   tldr:
-    "WaveSpeed AI is a broad cloud-AI suite where face swap is one of many tools (image gen, video gen, upscaling, etc.) — convenient if you already use a single AI hub for multiple workflows. NanoPocket is a specialised face-swap product with a free in-browser demo, a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID), and an optional fully-local desktop release. Pick WaveSpeed if you want one suite for everything; pick NanoPocket if you specifically want the strongest free in-browser face swap and the option to go zero-cloud later.",
+    "WaveSpeed AI is a broad cloud-AI suite where face swap is one of many tools (image gen, video gen, upscaling, etc.) — convenient if you already use a single AI hub for multiple workflows. NanoPocket is a specialised face-swap product with a free in-browser demo, GAN and diffusion models, and an optional fully-local desktop release. Pick WaveSpeed if you want one suite for everything; pick NanoPocket if you specifically want the strongest free in-browser face swap and the option to go zero-cloud later.",
   pickIf: {
     nanopocket: [
       "You specifically want the strongest free in-browser face swap, not face swap as one feature in a broader AI suite.",
-      "You want a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) instead of a multi-model cloud pipeline tuned across many use cases.",
+      "You want GAN and diffusion models instead of a multi-model cloud pipeline tuned across many use cases.",
       "You want the option to move to fully-local desktop processing later, without changing tools.",
       "You don't want your face-swap usage gated by a credit pack or a subscription on the free tier.",
       "You want auditable trust artefacts (/verify, /privacy, /security, /.well-known/security.txt) tied to the face-swap product specifically.",
@@ -67,7 +67,7 @@ const data: ComparisonData = {
     {
       dimension: "Identity model",
       nanopocket:
-        "Diffusion identity stack — InstantID + PuLID + IP-Adapter FaceID. Tuned specifically for identity preservation.",
+        "GAN and diffusion models. Tuned specifically for identity preservation.",
       competitor:
         "Cloud multi-model AI suite (vendor-described). Face swap exposed as one workflow inside a generalist pipeline.",
       winner: "nanopocket",
@@ -143,7 +143,7 @@ const data: ComparisonData = {
     {
       q: "Does WaveSpeed AI use a diffusion identity stack?",
       a:
-        "WaveSpeed AI describes its face-swap as part of a broader multi-model cloud pipeline rather than a specialised diffusion identity stack. NanoPocket runs InstantID + PuLID + IP-Adapter FaceID, which is the current state of the art for identity preservation in 2026.",
+        "WaveSpeed AI describes its face-swap as part of a broader multi-model cloud pipeline rather than a specialised diffusion identity stack. NanoPocket runs GAN and diffusion models, which is the current state of the art for identity preservation in 2026.",
     },
     {
       q: "Can I do everything on WaveSpeed without paying?",

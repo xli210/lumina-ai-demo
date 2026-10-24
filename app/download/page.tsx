@@ -3,7 +3,7 @@ import { Navbar } from "../components/navbar";
 
 export const metadata: Metadata = {
   title: "Download AI Tools — Local Alternative to Runway, ComfyUI & Flux",
-  description: "Download NanoPocket AI tools — run Flux.1, LTX-2.3, and more locally on your GPU. Image generation, video creation, face swap, enhancement. No subscription, no cloud.",
+  description: "Download NanoPocket AI tools — run GAN and diffusion models locally on your GPU. Image generation, video creation, face swap, enhancement. No subscription, no cloud.",
   alternates: { canonical: "/download" },
 };
 import { Footer } from "../components/footer";
@@ -16,9 +16,9 @@ import { SystemRequirements } from "./system-requirements";
 const softwareData = {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "SoftwareApplication", name: "Nano FaceStudio Pro", operatingSystem: "Windows 10/11 (NVIDIA CUDA); macOS Apple Silicon coming ~1 week", applicationCategory: "MultimediaApplication", softwareVersion: "1.0.2", offers: { "@type": "Offer", price: "49.90", priceCurrency: "USD", availability: "https://schema.org/InStock", priceValidUntil: "2026-10-31", url: "https://nanopocket.ai/apps/nano-facestudio-pro" }, description: "AI Face Studio — 7 tools in one local desktop app: face swap (up to 16 faces), mask edit, expression editing, face vivid, 2×/3×/4× upscale, light adjust, crop. Diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). Launch price $49.90 (regular $69.90 after 2026-10-31)." },
-    { "@type": "SoftwareApplication", name: "Nano ImageEdit", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "19.90", priceCurrency: "USD" }, description: "AI image generation — local alternative to Midjourney and Flux. Run Flux.1 on your GPU." },
-    { "@type": "SoftwareApplication", name: "Nano VideoGen", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "29.90", priceCurrency: "USD" }, description: "AI video generation — local alternative to Runway. Run LTX-2.3 on your GPU." },
+    { "@type": "SoftwareApplication", name: "Nano FaceStudio Pro", operatingSystem: "Windows 10/11 (NVIDIA CUDA); macOS Apple Silicon coming ~1 week", applicationCategory: "MultimediaApplication", softwareVersion: "1.0.2", offers: { "@type": "Offer", price: "49.90", priceCurrency: "USD", availability: "https://schema.org/InStock", priceValidUntil: "2026-10-31", url: "https://nanopocket.ai/apps/nano-facestudio-pro" }, description: "AI Face Studio — 7 tools in one local desktop app: face swap (up to 16 faces), mask edit, expression editing, face vivid, 2×/3×/4× upscale, light adjust, crop. GAN and diffusion models. Launch price $49.90 (regular $69.90 after 2026-10-31)." },
+    { "@type": "SoftwareApplication", name: "Nano ImageEdit", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "19.90", priceCurrency: "USD" }, description: "AI image generation — local alternative to Midjourney and Flux. Run GAN and diffusion models on your GPU." },
+    { "@type": "SoftwareApplication", name: "Nano VideoGen", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "29.90", priceCurrency: "USD" }, description: "AI video generation — local alternative to Runway. Run GAN and diffusion models on your GPU." },
     { "@type": "SoftwareApplication", name: "Nano VideoEnhance", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "19.90", priceCurrency: "USD" }, description: "AI video enhancement — local alternative to Topaz Video AI." },
     { "@type": "SoftwareApplication", name: "Nano ImageEnh", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "29.90", priceCurrency: "USD" }, description: "AI image upscaling and enhancement — local alternative to Topaz Photo AI." },
     { "@type": "SoftwareApplication", name: "Nano FacialEdit", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }, description: "AI facial editing and retouching — runs 100% locally on your GPU." },

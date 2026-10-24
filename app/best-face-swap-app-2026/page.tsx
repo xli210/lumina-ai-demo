@@ -72,12 +72,12 @@ const TOOLS: Tool[] = [
     platform: "Browser-first (Nano FaceStudio Online, no install) + optional desktop edition (Nano FaceStudio Pro 1.0: Windows now, macOS to follow)",
     pricing: "Free renders online, then credits per face; one-time desktop license, no subscription",
     identityModel:
-      "Diffusion-based identity stack — InstantID + PuLID + IP-Adapter FaceID (stronger identity preservation than GAN-only swappers like inswapper_128)",
+      "Diffusion-based identity stack — GAN and diffusion models (stronger identity preservation than GAN-only swappers like inswapper_128)",
     videoSupport: "Video FaceSwap Pro (online demo, currently offline) covers temporal-consistent swap on uploaded clips; the local Nano FaceSwap (legacy) app also swaps video. Nano FaceStudio Pro 1.0 is a photo studio",
     privacyPosture: "Cloud (free online demo) / Local (optional desktop)",
     strengths: [
       "Free in-browser demo at /face-swap — no install, no GPU on the user's device, no subscription",
-      "Diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) — better fidelity than GAN baselines used by most cloud face-swap services",
+      "GAN and diffusion models — better fidelity than GAN baselines used by most cloud face-swap services",
       "Three single-purpose demos (image, video, NanoFace Vivid post-processor) — not a generic AI suite",
       "Optional desktop edition for users who want zero-cloud processing on their own GPU",
       "Auditable trust posture: /verify, /privacy, /security, /.well-known/security.txt",
@@ -277,7 +277,7 @@ const METHODOLOGY = [
   {
     dim: "Identity fidelity",
     desc:
-      "Same source / target pair fed to each tool, evaluated on identity-embedding distance vs the reference face (lower = better). Diffusion identity stacks (InstantID, PuLID) currently lead this metric.",
+      "Same source / target pair fed to each tool, evaluated on identity-embedding distance vs the reference face (lower = better). GAN and diffusion models currently lead this metric.",
   },
   {
     dim: "Video support",
@@ -344,7 +344,7 @@ const FAQS = [
   {
     q: "How accurate is identity preservation in 2026?",
     a:
-      "Diffusion identity stacks (InstantID, PuLID, IP-Adapter FaceID) are currently strongest on hard cases (extreme angles, partial occlusion, small targets). GAN baselines like InsightFace inswapper_128 — used by FaceFusion, Roop, Rope — remain very fast and competitive on frontal portraits but lag on harder cases.",
+      "GAN and diffusion models are currently strongest on hard cases (extreme angles, partial occlusion, small targets). GAN baselines like InsightFace inswapper_128 — used by FaceFusion, Roop, Rope — remain very fast and competitive on frontal portraits but lag on harder cases.",
   },
   {
     q: "What is the best face swap app for video?",

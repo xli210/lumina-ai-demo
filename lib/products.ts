@@ -133,7 +133,7 @@ export const PRODUCTS: Product[] = [
     features: [
       "7-tool bundle: swap, mask, expression, vivid, upscale, light, crop",
       "Multi-face swap up to 16 faces per image",
-      "Diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID)",
+      "GAN and diffusion models",
       "2×, 3×, 4× full-image upscale",
       "Face Vivid: de-plasticize AI-smoothed skin",
       "Runs 100% locally on NVIDIA CUDA or Apple Silicon Metal",

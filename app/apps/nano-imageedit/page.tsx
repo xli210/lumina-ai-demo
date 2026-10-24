@@ -6,14 +6,12 @@ import {
 
 export const metadata: Metadata = {
   title:
-    "Nano ImageEdit — Local Flux.1 Image Generator, Local Midjourney Alternative",
+    "Nano ImageEdit — Local GAN and diffusion models Image Generator, Local Midjourney Alternative",
   description:
-    "Nano ImageEdit is a local desktop image generator and editor running Flux.1 on a single NVIDIA GPU. Text-to-image, image-to-image, and reference conditioning ship in one app, with a streaming DiT path for GPUs with under 12 GB of VRAM.",
+    "Nano ImageEdit is a local desktop image generator and editor running GAN and diffusion models on a single NVIDIA GPU. Text-to-image, image-to-image, and reference conditioning ship in one app, with a streaming DiT path for GPUs with under 12 GB of VRAM.",
   keywords: [
     "Nano ImageEdit",
     "local Midjourney alternative",
-    "Flux.1 desktop",
-    "Flux.1 local",
     "local AI image generator",
     "text to image local",
     "image to image local",
@@ -29,17 +27,17 @@ export const metadata: Metadata = {
   alternates: { canonical: "/apps/nano-imageedit" },
   openGraph: {
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
-    title: "Nano ImageEdit — Local Flux.1 Image Generator",
+    title: "Nano ImageEdit — Local GAN and diffusion models Image Generator",
     description:
-      "Local text-to-image and image-to-image with Flux.1 on a single NVIDIA GPU. Streaming DiT for under-12 GB VRAM cards.",
+      "Local text-to-image and image-to-image with GAN and diffusion models on a single NVIDIA GPU. Streaming DiT for under-12 GB VRAM cards.",
     type: "website",
     url: "https://nanopocket.ai/apps/nano-imageedit",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nano ImageEdit — Local Flux.1 Image Generator",
+    title: "Nano ImageEdit — Local GAN and diffusion models Image Generator",
     description:
-      "Local Flux.1 image generation on a single NVIDIA GPU. No subscription, no cloud upload.",
+      "Local GAN and diffusion models image generation on a single NVIDIA GPU. No subscription, no cloud upload.",
   },
 };
 
@@ -57,7 +55,7 @@ const data: ProductLandingData = {
     softwareVersion: "1.0.6",
     releaseDate: "2026-03-04",
     description:
-      "Nano ImageEdit — local AI image generator and editor running the Flux.1 12-billion-parameter diffusion transformer on a single NVIDIA GPU. Text-to-image, image-to-image, reference conditioning. Streaming DiT path runs on GPUs with under 12 GB VRAM. A local alternative to Midjourney, DALL-E 3, Adobe Firefly, Leonardo.Ai, and ideogram.",
+      "Nano ImageEdit — local AI image generator and editor running a diffusion transformer on a single NVIDIA GPU. Text-to-image, image-to-image, reference conditioning. Streaming DiT path runs on GPUs with under 12 GB VRAM. A local alternative to Midjourney, DALL-E 3, Adobe Firefly, Leonardo.Ai, and ideogram.",
     offer: {
       price: "0.00",
       priceCurrency: "USD",
@@ -65,7 +63,7 @@ const data: ProductLandingData = {
       priceValidUntil: "2027-12-31",
     },
     additionalProperties: [
-      { name: "Backbone model", value: "Flux.1 diffusion transformer (12B parameters, open weights)" },
+      { name: "Backbone model", value: "GAN and diffusion models diffusion transformer (12B parameters, open weights)" },
       { name: "Generation modes", value: "Text-to-image, image-to-image, reference-image conditioning" },
       { name: "Streaming DiT", value: "Memory-streaming Diffusion Transformer for sub-12 GB GPUs" },
       { name: "GPU runtime", value: "Single NVIDIA GPU (CUDA), Windows 10/11" },
@@ -93,14 +91,14 @@ const data: ProductLandingData = {
         "Apple Silicon Macs (Windows + NVIDIA only in v1.0.6)",
         "Bulk e-commerce upscaling — use Nano ImageEnh Pro 3.0",
         "Multi-character compositions with strict identity locks (use FacialEdit)",
-        "Photoreal text rendering (Flux.1 still struggles with paragraphs)",
+        "Photoreal text rendering (the model still struggles with paragraphs)",
       ],
     },
     limitations: [
       {
         title: "Text inside images",
         detail:
-          "Flux.1 renders short captions reasonably well but degrades on paragraphs or stylised typography. Add text in post (Photoshop / Figma) for production-quality typography.",
+          "The model renders short captions reasonably well but degrades on paragraphs or stylised typography. Add text in post (Photoshop / Figma) for production-quality typography.",
       },
       {
         title: "Sub-12 GB VRAM throughput",
@@ -110,7 +108,7 @@ const data: ProductLandingData = {
       {
         title: "Hands and fine anatomy",
         detail:
-          "Like other open-weight diffusion models, Flux.1 still produces occasional finger-count and joint errors. Use img2img inpaint for hand fixes, or generate hands separately and composite.",
+          "Like other open-weight diffusion models, it still produces occasional finger-count and joint errors. Use img2img inpaint for hand fixes, or generate hands separately and composite.",
       },
       {
         title: "Identity preservation across edits",
@@ -158,7 +156,7 @@ const data: ProductLandingData = {
     versionChip: "v1.0.6",
     title: "Nano",
     titleAccent: "ImageEdit",
-    lead: "Nano ImageEdit is a local desktop image generator and editor that runs the Flux.1 diffusion transformer on a single NVIDIA GPU on Windows, supports text-to-image, image-to-image, and reference-image conditioning, and uses a streaming DiT path so cards with under 12 GB of VRAM can run the same 12-billion-parameter model.",
+    lead: "Nano ImageEdit is a local desktop image generator and editor that runs a diffusion transformer on a single NVIDIA GPU on Windows, supports text-to-image, image-to-image, and reference-image conditioning, and uses a streaming DiT path so cards with under 12 GB of VRAM can run the same 12-billion-parameter model.",
     parameters: [
       { value: "Flux.1", label: "12B-parameter diffusion transformer" },
       {
@@ -186,16 +184,16 @@ const data: ProductLandingData = {
   sections: [
     {
       index: "01",
-      eyebrow: "Flux.1 backbone",
+      eyebrow: "GAN and diffusion models backbone",
       title: "12 billion parameters, on the user's GPU.",
-      lead: "Nano ImageEdit runs the Flux.1 diffusion transformer (12 billion parameters) on a single local NVIDIA GPU rather than routing prompts to OpenAI, Midjourney, Adobe Firefly, or Leonardo's cloud endpoints, so prompts, references, and outputs stay on the local disk.",
+      lead: "Nano ImageEdit runs a diffusion transformer (12 billion parameters) on a single local NVIDIA GPU rather than routing prompts to OpenAI, Midjourney, Adobe Firefly, or Leonardo's cloud endpoints, so prompts, references, and outputs stay on the local disk.",
       bullets: [
-        "Flux.1 — 12 B-parameter diffusion transformer",
+        "Open-weight diffusion transformer",
         "On-device inference, no remote endpoint",
         "Prompts and references never uploaded",
         "Output rights retained 100% by the user",
       ],
-      hint: "Flux.1 · open weights",
+      hint: "GAN and diffusion models · open weights",
     },
     {
       index: "02",
@@ -226,12 +224,12 @@ const data: ProductLandingData = {
     {
       index: "04",
       eyebrow: "Streaming DiT",
-      title: "Run Flux.1 on a 12 GB GPU.",
+      title: "Run GAN and diffusion models on a 12 GB GPU.",
       lead: "The streaming DiT path streams attention layers between disk, system RAM, and VRAM during inference, enabling cards with under 12 GB of VRAM (RTX 3060 / 4060 / 5060 class) to run a model that otherwise targets larger memory footprints.",
       bullets: [
         "Streams attention layers across the memory hierarchy",
         "Runs on RTX 3060 / 4060 / 5060 class cards",
-        "Same Flux.1 weights as larger GPUs",
+        "Same model weights as larger GPUs",
         "Single in-app toggle, no manual quantisation",
       ],
       hint: "<12 GB VRAM · single toggle",
@@ -257,7 +255,7 @@ const data: ProductLandingData = {
       bullets: [
         "Local inference on a single license",
         "No per-image or per-seat charges",
-        "Same Flux.1 model on every supported GPU",
+        "Same models on every supported GPU",
         "No remote prompt logging",
       ],
       hint: "vs Midjourney · vs Firefly · vs Leonardo",
@@ -265,7 +263,7 @@ const data: ProductLandingData = {
   ],
   faqs: [
     {
-      q: "Will Flux.1 actually run on my GPU?",
+      q: "Will GAN and diffusion models actually run on my GPU?",
       a: "If the GPU has at least 12 GB of VRAM (RTX 3060 / 4060 / 5060 class or better), yes. Below that, the streaming DiT path still loads the model in chunks; smaller cards generate at lower resolution and lower throughput. Cards with more VRAM run the same model faster.",
     },
     {
@@ -299,7 +297,7 @@ const data: ProductLandingData = {
   ],
   closing: {
     title: "Install Nano ImageEdit.",
-    body: "Flux.1 image generation on your local GPU, with text-to-image, image-to-image, and a streaming DiT path for under-12 GB VRAM cards. No subscription, no cloud generation.",
+    body: "GAN and diffusion models image generation on your local GPU, with text-to-image, image-to-image, and a streaming DiT path for under-12 GB VRAM cards. No subscription, no cloud generation.",
     primaryCta: { label: "Download for Windows", href: "/download" },
     secondaryCta: {
       label: "Read the release notes",

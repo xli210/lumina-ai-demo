@@ -154,7 +154,7 @@ export default async function DemoLimitPage({ searchParams }: PageProps) {
             <p className="mb-6 max-w-3xl text-sm leading-relaxed text-white/70 sm:text-base">
               The daily quota only exists because the online demos share
               NanoPocket-hosted GPUs. Nano FaceStudio Pro is the same identity
-              stack (InstantID + PuLID + IP-Adapter FaceID) plus six other
+              stack  plus six other
               tools — face swap, mask edit, expression editing, face vivid,
               2×/3×/4× upscale, light adjust, precision crop — bundled into
               one desktop app that runs 100% on your machine. No queue, no

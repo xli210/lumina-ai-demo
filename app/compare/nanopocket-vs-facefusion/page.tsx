@@ -59,11 +59,11 @@ const data: ComparisonData = {
     {
       dimension: "Identity model",
       nanopocket:
-        "Diffusion stack — InstantID + PuLID + IP-Adapter FaceID. Stronger on hard angles, occlusion, and small targets.",
+        "Diffusion stack — GAN and diffusion models. Stronger on hard angles, occlusion, and small targets.",
       competitor:
         "InsightFace inswapper_128 GAN — fast and battle-tested on frontal portraits, weaker on hard cases. Same backbone as Roop / Rope / Reactor.",
       winner: "nanopocket",
-      source: "Identity-model comparison referenced from InstantID, PuLID, and InsightFace model cards.",
+      source: "Identity-model comparison referenced from the open-weight model cards.",
     },
     {
       dimension: "Install friction",
@@ -82,7 +82,7 @@ const data: ComparisonData = {
     {
       dimension: "Code transparency",
       nanopocket:
-        "Closed application code; the model layer (InstantID, PuLID, IP-Adapter, etc.) is open and documented on /verify with upstream Hugging Face / GitHub links.",
+        "Closed application code; the model layer (GAN and diffusion models, etc.) is open and documented on /verify with upstream Hugging Face / GitHub links.",
       competitor:
         "Fully open code, fully readable. The user can audit every line of the swap pipeline.",
       winner: "competitor",
@@ -147,7 +147,7 @@ const data: ComparisonData = {
     {
       q: "Why is diffusion better than GAN for face swap?",
       a:
-        "Diffusion identity stacks like InstantID and PuLID condition the diffusion process on a face embedding, which lets the model preserve identity across pose, lighting, and occlusion changes more reliably than a GAN that learned a fixed swap mapping. The cost is more compute. NanoPocket prioritises fidelity; FaceFusion prioritises portability and speed.",
+        "Diffusion identity stacks like GAN and diffusion models condition the diffusion process on a face embedding, which lets the model preserve identity across pose, lighting, and occlusion changes more reliably than a GAN that learned a fixed swap mapping. The cost is more compute. NanoPocket prioritises fidelity; FaceFusion prioritises portability and speed.",
     },
     {
       q: "Can I run NanoPocket from the command line?",
@@ -157,7 +157,7 @@ const data: ComparisonData = {
     {
       q: "Are the underlying NanoPocket models open?",
       a:
-        "Yes. The model layer is documented on /verify with upstream Hugging Face / GitHub links for InstantID, PuLID, IP-Adapter FaceID, and others. The application code (UI, license server, update channel) is closed.",
+        "Yes. The model layer is documented on /verify with upstream Hugging Face / GitHub links for each model. The application code (UI, license server, update channel) is closed.",
     },
     {
       q: "If I'm a researcher, which should I use?",

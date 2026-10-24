@@ -76,7 +76,7 @@ const data: ProductLandingData = {
   documentation: {
     lastVerified: "2026-05-29",
     methodology:
-      "Identity preservation is reported as ArcFace cosine similarity between the original and edited portrait, averaged over the in-house FacialEdit-Eval-150 set (150 portraits, balanced for age, ethnicity, lighting, and expression starting point). Per-portrait wall-clock measured on RTX 4070 (12 GB VRAM, fp16, Windows 11 23H2 driver 553.62), single subject, per-axis edit slider full-range traversal.",
+      "Identity preservation is reported as face-recognition cosine similarity between the original and edited portrait, averaged over the in-house FacialEdit-Eval-150 set (150 portraits, balanced for age, ethnicity, lighting, and expression starting point). Per-portrait wall-clock measured on RTX 4070 (12 GB VRAM, fp16, Windows 11 23H2 driver 553.62), single subject, per-axis edit slider full-range traversal.",
     scope: {
       bestFor: [
         "Editorial / e-commerce portrait retouch on tight deadlines",

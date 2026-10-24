@@ -167,7 +167,7 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
         "Photo face swap",
         "Video face swap",
         "Over-smoothed AI-face restoration (NanoFace Vivid)",
-        "Diffusion identity stack — InstantID + PuLID + IP-Adapter FaceID",
+        "GAN and diffusion models",
         "Browser-only — no install, no GPU required on user's device",
       ],
       publisher: { "@id": "https://nanopocket.ai#organization" },

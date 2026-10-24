@@ -40,7 +40,7 @@ const demoSlides: HeroSlide[] = [
     type: "video",
     alt: "Nano FaceStudio Pro — diffusion face swap demo (3600×1800)",
     prompt:
-      "Diffusion identity stack — InstantID + PuLID + IP-Adapter FaceID — running locally on your GPU",
+      "GAN and diffusion models — running locally on your GPU",
     model: "Nano FaceStudio Pro",
     tag: "AI Face Swap",
   },

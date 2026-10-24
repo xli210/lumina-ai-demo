@@ -28,7 +28,7 @@ const features: Feature[] = [
   {
     id: "videogen",
     title: "Video Generation",
-    subtitle: "Create cinematic videos with LTX-2.3 — locally on your GPU",
+    subtitle: "Create cinematic videos with GAN and diffusion models — locally on your GPU",
     type: "video",
     hint: "AI-generated video playing",
     downloadId: "nano-videogen",
@@ -82,7 +82,7 @@ const features: Feature[] = [
   {
     id: "edit",
     title: "Image Edit",
-    subtitle: "Generate images with Flux.1 — local Midjourney alternative",
+    subtitle: "Generate images with GAN and diffusion models — local Midjourney alternative",
     type: "grid",
     hint: "Hover to see prompt variations",
     downloadId: "nano-imageedit",

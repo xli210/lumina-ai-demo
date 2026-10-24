@@ -16,15 +16,12 @@ export const metadata: Metadata = {
   title:
     "Nano FaceSwap Pro 2.0 — Free Online Diffusion Face Swap, 100% Local Desktop",
   description:
-    "Nano FaceSwap Pro 2.0 is a diffusion-based face swap with a free online demo and a 100% local desktop pipeline. Built on InstantID, PuLID, and IP-Adapter FaceID research; preserves accessories, runs at full input resolution, and ships with a virtual identity library.",
+    "Nano FaceSwap Pro 2.0 is a diffusion-based face swap with a free online demo and a 100% local desktop pipeline. Built on GAN and diffusion models; preserves accessories, runs at full input resolution, and ships with a virtual identity library.",
   keywords: [
     "Nano FaceSwap Pro 2.0",
     "free online face swap",
     "diffusion face swap",
     "local face swap",
-    "InstantID face swap",
-    "PuLID face swap",
-    "IP-Adapter FaceID",
     "Roop alternative",
     "FaceFusion alternative",
     "Rope alternative",
@@ -39,7 +36,7 @@ export const metadata: Metadata = {
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     title: "Nano FaceSwap Pro 2.0 — Free Online Diffusion Face Swap",
     description:
-      "Diffusion face swap with free online demo and 100% local desktop pipeline. Built on InstantID, PuLID, and IP-Adapter FaceID research. A private alternative to Roop, FaceFusion, Rope, DeepSwap, and Akool.",
+      "Diffusion face swap with free online demo and 100% local desktop pipeline. Built on GAN and diffusion models. A private alternative to Roop, FaceFusion, Rope, DeepSwap, and Akool.",
     type: "website",
     url: "https://nanopocket.ai/apps/nano-faceswap-pro",
   },
@@ -66,7 +63,7 @@ const data: ProductLandingData = {
     softwareVersion: "2.0",
     releaseDate: "2026-05-14",
     description:
-      "Nano FaceSwap Pro 2.0 — diffusion-based AI face swap with a free online demo and a 100% local desktop pipeline. Built on InstantID, PuLID, and IP-Adapter FaceID research. A private alternative to Roop, FaceFusion, Rope, DeepSwap, Akool, and HeyGen.",
+      "Nano FaceSwap Pro 2.0 — diffusion-based AI face swap with a free online demo and a 100% local desktop pipeline. Built on GAN and diffusion models. A private alternative to Roop, FaceFusion, Rope, DeepSwap, Akool, and HeyGen.",
     offer: {
       price: "0.00",
       priceCurrency: "USD",
@@ -74,7 +71,7 @@ const data: ProductLandingData = {
       priceValidUntil: "2027-12-31",
     },
     additionalProperties: [
-      { name: "Identity model", value: "InstantID + PuLID + IP-Adapter FaceID diffusion stack" },
+      { name: "Identity model", value: "GAN and diffusion models diffusion stack" },
       { name: "Maximum output resolution", value: "Up to 4K (input-preserving)" },
       { name: "Modes", value: "Face-only swap, Full-head swap" },
       { name: "Mask control", value: "Per-region toggles (hair, clothing, apparel, accessories)" },
@@ -90,7 +87,7 @@ const data: ProductLandingData = {
   documentation: {
     lastVerified: "2026-05-29",
     methodology:
-      "Identity-similarity is reported as ArcFace cosine similarity between the swap output and the reference identity, averaged over the in-house FS-Eval-200 set (200 paired faces, balanced for gender, ethnicity, and lighting). Resolution claims measured on RTX 4070 Ti (12 GB VRAM, fp16) and Apple M3 Pro (18 GB unified memory). Latencies exclude file I/O.",
+      "Identity-similarity is reported as face-recognition cosine similarity between the swap output and the reference identity, averaged over the in-house FS-Eval-200 set (200 paired faces, balanced for gender, ethnicity, and lighting). Resolution claims measured on RTX 4070 Ti (12 GB VRAM, fp16) and Apple M3 Pro (18 GB unified memory). Latencies exclude file I/O.",
     scope: {
       bestFor: [
         "Photographers needing 4K-grade single-portrait face swap",
@@ -180,7 +177,7 @@ const data: ProductLandingData = {
     parameters: [
       { value: "Up to 4K", label: "Output keeps the input resolution" },
       {
-        value: "InstantID + PuLID",
+        value: "GAN and diffusion models",
         label: "Diffusion identity stack (with IP-Adapter FaceID)",
       },
       {
@@ -210,12 +207,12 @@ const data: ProductLandingData = {
       index: "01",
       eyebrow: "Diffusion identity stack",
       title: "A diffusion pipeline, not an inswapper_128 GAN.",
-      lead: "The identity head is a diffusion model trained on top of InstantID, PuLID, IP-Adapter FaceID, and PhotoMaker research, which produces native high-resolution output and preserves skin texture without the 128-pixel bottleneck used by Roop, FaceFusion, Rope, and Reactor.",
+      lead: "The identity head is a diffusion model trained on top of GAN and diffusion models research, which produces native high-resolution output and preserves skin texture without the 128-pixel bottleneck used by Roop, FaceFusion, Rope, and Reactor.",
       bullets: [
         "Native high-resolution diffusion output — no 128×128 upsample step",
         "Identity preservation across lighting and exposure changes",
         "Skin texture, pores, and specular highlights kept intact",
-        "Built on published research (InstantID, PuLID, IP-Adapter FaceID, PhotoMaker)",
+        "Built on published research ",
       ],
       hint: "Diffusion identity head · 1024+ pixel native",
     },
@@ -290,7 +287,7 @@ const data: ProductLandingData = {
     },
     {
       q: "How is this different from Roop, FaceFusion, or Rope?",
-      a: "Roop, Roop-Unleashed, FaceFusion, Rope, Rope-Live, Reactor, and Deep-Live-Cam all wrap the InsightFace inswapper_128 GAN, which renders identity at 128×128 and then upscales. Nano FaceSwap Pro 2.0 uses a native high-resolution diffusion identity stack (InstantID, PuLID, IP-Adapter FaceID), so identity is rendered at the input resolution and skin detail is preserved without an upscaling step.",
+      a: "Roop, Roop-Unleashed, FaceFusion, Rope, Rope-Live, Reactor, and Deep-Live-Cam all wrap the InsightFace inswapper_128 GAN, which renders identity at 128×128 and then upscales. Nano FaceSwap Pro 2.0 uses native high-resolution GAN and diffusion models, so identity is rendered at the input resolution and skin detail is preserved without an upscaling step.",
     },
     {
       q: "Will my photos get uploaded to your server?",

@@ -6,15 +6,14 @@ import {
 
 export const metadata: Metadata = {
   title:
-    "Nano VideoGen — Local AI Video Generator (LTX-2.3) for Windows NVIDIA GPUs",
+    "Nano VideoGen — Local AI Video Generator  for Windows NVIDIA GPUs",
   description:
-    "Nano VideoGen is a local desktop AI video generator built on the LTX-2.3 model. It produces text-to-video and image-to-video outputs on a single NVIDIA GPU with as little as 12 GB VRAM, includes camera-control LoRAs, keyframe interpolation, and a 2× spatial upscaler.",
+    "Nano VideoGen is a local desktop AI video generator built on GAN and diffusion models. It produces text-to-video and image-to-video outputs on a single NVIDIA GPU with as little as 12 GB VRAM, includes camera-control LoRAs, keyframe interpolation, and a 2× spatial upscaler.",
   keywords: [
     "Nano VideoGen",
     "local AI video generator",
     "text to video AI",
     "image to video AI",
-    "LTX-2.3",
     "LTX video model",
     "AI video generator NVIDIA",
     "Sora alternative",
@@ -29,15 +28,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/apps/nano-videogen" },
   openGraph: {
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
-    title: "Nano VideoGen — Local AI Video Generator (LTX-2.3)",
+    title: "Nano VideoGen — Local AI Video Generator ",
     description:
-      "Local text-to-video and image-to-video on a single NVIDIA GPU. LTX-2.3 model, camera-control LoRAs, keyframe interpolation, 2× spatial upscaler.",
+      "Local text-to-video and image-to-video on a single NVIDIA GPU. GAN and diffusion models, camera-control LoRAs, keyframe interpolation, 2× spatial upscaler.",
     type: "website",
     url: "https://nanopocket.ai/apps/nano-videogen",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nano VideoGen — Local AI Video Generator (LTX-2.3)",
+    title: "Nano VideoGen — Local AI Video Generator ",
     description:
       "Local text-to-video and image-to-video on a single NVIDIA GPU. Camera-control LoRAs included.",
   },
@@ -57,7 +56,7 @@ const data: ProductLandingData = {
     softwareVersion: "1.1.2",
     releaseDate: "2026-02-26",
     description:
-      "Nano VideoGen — local AI video generator built on the LTX-2.3 open-weight model for Windows 10/11 with NVIDIA CUDA. Text-to-video and image-to-video on a single GPU from 12 GB VRAM. Camera-control LoRAs (dolly, jib, pan, static), two-image keyframe interpolation, and a 2× spatial upscaler. A local alternative to Sora, Runway Gen-3, Kling, Pika, and Luma Dream Machine.",
+      "Nano VideoGen — local AI video generator built on an open-weight video diffusion model for Windows 10/11 with NVIDIA CUDA. Text-to-video and image-to-video on a single GPU from 12 GB VRAM. Camera-control LoRAs (dolly, jib, pan, static), two-image keyframe interpolation, and a 2× spatial upscaler. A local alternative to Sora, Runway Gen-3, Kling, Pika, and Luma Dream Machine.",
     offer: {
       price: "0.00",
       priceCurrency: "USD",
@@ -65,7 +64,7 @@ const data: ProductLandingData = {
       priceValidUntil: "2027-12-31",
     },
     additionalProperties: [
-      { name: "Backbone model", value: "LTX-2.3 (open-weight video diffusion)" },
+      { name: "Backbone model", value: "GAN and diffusion models (open-weight video diffusion)" },
       { name: "Inputs", value: "Text-to-video, image-to-video, two-image keyframe" },
       { name: "Camera LoRAs", value: "Dolly, jib, pan, static" },
       { name: "Spatial upscaler", value: "2× post-generation" },
@@ -160,7 +159,7 @@ const data: ProductLandingData = {
     versionChip: "v1.1.2",
     title: "Nano",
     titleAccent: "VideoGen",
-    lead: "Nano VideoGen is a local AI video generator built on the LTX-2.3 model that produces text-to-video and image-to-video clips on a single NVIDIA GPU with as little as 12 GB VRAM, supports keyframe interpolation between two reference images, and exposes camera-control LoRAs (dolly, jib, pan, static).",
+    lead: "Nano VideoGen is a local AI video generator built on GAN and diffusion models that produces text-to-video and image-to-video clips on a single NVIDIA GPU with as little as 12 GB VRAM, supports keyframe interpolation between two reference images, and exposes camera-control LoRAs (dolly, jib, pan, static).",
     parameters: [
       { value: "LTX-2.3", label: "Open-source video diffusion model" },
       { value: "12 GB VRAM", label: "Streaming DiT for limited-memory GPUs" },
@@ -182,16 +181,16 @@ const data: ProductLandingData = {
   sections: [
     {
       index: "01",
-      eyebrow: "LTX-2.3 backbone",
+      eyebrow: "GAN and diffusion models backbone",
       title: "Open-weight diffusion video, locally.",
-      lead: "Nano VideoGen runs the LTX-2.3 video diffusion model on the user's GPU instead of routing prompts to a cloud endpoint, so generation cost is the cost of compute the user already owns and prompts and reference images stay on the local disk.",
+      lead: "Nano VideoGen runs the GAN and diffusion models video diffusion model on the user's GPU instead of routing prompts to a cloud endpoint, so generation cost is the cost of compute the user already owns and prompts and reference images stay on the local disk.",
       bullets: [
-        "Open-weight LTX-2.3 video diffusion model",
+        "Open-weight video diffusion model",
         "On-device inference — no remote endpoint",
         "Prompts and reference images never uploaded",
         "No per-second or per-clip charges",
       ],
-      hint: "LTX-2.3 · open weights",
+      hint: "GAN and diffusion models · open weights",
     },
     {
       index: "02",
@@ -291,7 +290,7 @@ const data: ProductLandingData = {
   ],
   closing: {
     title: "Install Nano VideoGen.",
-    body: "LTX-2.3 video diffusion on your local GPU, with camera-control LoRAs, two-image keyframe morph, and a 2× spatial upscaler. No per-second cloud fee.",
+    body: "GAN and diffusion models video diffusion on your local GPU, with camera-control LoRAs, two-image keyframe morph, and a 2× spatial upscaler. No per-second cloud fee.",
     primaryCta: { label: "Download for Windows", href: "/download" },
     secondaryCta: {
       label: "Read the release notes",

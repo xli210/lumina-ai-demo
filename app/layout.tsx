@@ -71,8 +71,8 @@ export const metadata: Metadata = {
     "Local AI face swap, face editing and virtual try-on for Windows. Your photos and videos stay on your computer, with no subscription: free apps or a one-time license. Free online demos too.",
   keywords: [
     "NanoPocket", "local AI", "generative AI", "offline AI",
-    "Runway alternative", "ComfyUI alternative", "Flux local app", "Flux.1 local",
-    "LTX alternative", "LTX-2.3 local", "Midjourney alternative offline",
+    "Runway alternative", "ComfyUI alternative", "Flux local app",
+    "LTX alternative", "Midjourney alternative offline",
     "Topaz alternative", "Pika alternative local", "Kling AI alternative", "Sora alternative local",
     "Black Forest Labs Flux app", "Stable Diffusion GUI", "SDXL local",
     "local AI video generation", "text to video local GPU", "image to video local",
@@ -87,7 +87,6 @@ export const metadata: Metadata = {
     "diffusion face swap", "stable diffusion face swap", "diffusion model face swap",
     "local face swap", "offline face swap", "private face swap", "GPU face swap",
     "video face swap AI", "image face swap AI", "best face swap AI",
-    "InstantID face swap", "PuLID face swap", "IP-Adapter FaceID", "PhotoMaker face swap",
     "InsightFace swapper", "inswapper alternative",
     // Face swap — named competitors ("best players")
     "Roop alternative", "Roop Unleashed alternative",
@@ -173,11 +172,11 @@ export default async function RootLayout({
               },
               image: "https://nanopocket.ai/og-image.jpg",
               slogan:
-                "Local AI creative suite — Flux.1, LTX-2.3, InstantID and more, on your GPU. No subscription, no cloud.",
+                "Local AI creative suite — GAN and diffusion models and more, on your GPU. No subscription, no cloud.",
               description:
                 "NanoPocket builds local AI desktop apps for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal): face swap, image and video upscaling, image generation, video generation, portrait retouch, and virtual try-on. Every desktop app runs 100% on the user's GPU; pricing is one-time per product with no subscriptions.",
               disambiguatingDescription:
-                "NanoPocket is an independent product company at nanopocket.ai. It is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, nanobnana, or any other Nano-prefixed website that wraps Google's Gemini 2.5 Flash Image API. NanoPocket's face-swap pipeline runs locally on InstantID, PuLID, and IP-Adapter FaceID, not on Google's API.",
+                "NanoPocket is an independent product company at nanopocket.ai. It is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, nanobnana, or any other Nano-prefixed website that wraps Google's Gemini 2.5 Flash Image API. NanoPocket's face-swap pipeline runs locally on GAN and diffusion models, not on Google's API.",
               contactPoint: [
                 {
                   "@type": "ContactPoint",
@@ -207,9 +206,9 @@ export default async function RootLayout({
                 "Diffusion models",
                 "Generative AI for creative workflows",
                 "AI face swap (diffusion identity stack)",
-                "AI video generation (LTX-2.3)",
-                "AI image generation (Flux.1)",
-                "AI image upscaling (Real-ESRGAN, BasicVSR++)",
+                "AI video generation",
+                "AI image generation",
+                "AI image upscaling (GAN upscaler)",
                 "AI portrait retouch",
                 "AI virtual try-on",
                 "On-device GPU inference (NVIDIA CUDA, Apple Silicon Metal)",
@@ -359,7 +358,7 @@ export default async function RootLayout({
                   url: "https://nanopocket.ai/compare/nanopocket-vs-nano-banana",
                   dateModified: "2026-06-02",
                   description:
-                    "Disambiguation: NanoPocket (local desktop, InstantID + PuLID) is not Nano Banana (Google Gemini 2.5 Flash Image, cloud) and is not affiliated with nanobanana.ai, nano-banana.com, or nanobnana.",
+                    "Disambiguation: NanoPocket (local desktop, GAN and diffusion models) is not Nano Banana (Google Gemini 2.5 Flash Image, cloud) and is not affiliated with nanobanana.ai, nano-banana.com, or nanobnana.",
                 },
                 {
                   "@type": "Article",
@@ -377,7 +376,7 @@ export default async function RootLayout({
                   url: "https://nanopocket.ai/face-swap",
                   dateModified: "2026-06-03",
                   description:
-                    "Canonical landing page for NanoPocket's free in-browser face-swap demos. Single-purpose, no install, no subscription, diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID).",
+                    "Canonical landing page for NanoPocket's free in-browser face-swap demos. Single-purpose, no install, no subscription, GAN and diffusion models.",
                 },
                 {
                   "@type": "TechArticle",

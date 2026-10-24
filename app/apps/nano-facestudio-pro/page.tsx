@@ -81,7 +81,7 @@ const productJsonLd = {
     { "@type": "PropertyValue", name: "Launch price", value: `USD ${PROMO_PRICE} (promotional)` },
     { "@type": "PropertyValue", name: "Regular price", value: `USD ${REGULAR_PRICE} after ${PROMO_VALID_UNTIL}` },
     { "@type": "PropertyValue", name: "Bundled capabilities", value: "7 tools: face swap, mask edit, expression edit, face vivid, upscale, light adjust, crop" },
-    { "@type": "PropertyValue", name: "Face swap engine", value: "Diffusion identity stack — InstantID + PuLID + IP-Adapter FaceID" },
+    { "@type": "PropertyValue", name: "Face swap engine", value: "GAN and diffusion models" },
     { "@type": "PropertyValue", name: "Multi-face swap", value: "Up to 16 detected faces per image; per-face targeting or one-click swap-all" },
     { "@type": "PropertyValue", name: "Upscale factors", value: "2×, 3×, 4× (input-preserving; native resolution output)" },
     { "@type": "PropertyValue", name: "Windows GPU support", value: "NVIDIA CUDA, 8 GB VRAM minimum" },
@@ -591,7 +591,7 @@ export default function NanoFaceStudioProPage() {
             <Shot
               src={`${IMG}/upscale.png`}
               alt="Nano FaceStudio Pro — full image upscale with 2×/3×/4× factor selector"
-              caption="Real-ESRGAN-lineage upscaler on NVIDIA CUDA or Apple Silicon Metal."
+              caption="GAN-based upscaler on NVIDIA CUDA or Apple Silicon Metal."
               className="[&_.rounded-3xl]:bg-neutral-100"
             />
           </div>
@@ -697,7 +697,7 @@ export default function NanoFaceStudioProPage() {
 
           <dl className="mt-16 grid grid-cols-1 gap-x-16 gap-y-10 md:grid-cols-2">
             {[
-              ["Face swap engine", "Diffusion identity stack — InstantID + PuLID + IP-Adapter FaceID"],
+              ["Face swap engine", "GAN and diffusion models"],
               ["Multi-face", "Up to 16 detected faces per image; per-face or one-click swap-all"],
               ["Upscale factors", "2×, 3×, 4× (input-preserving; native resolution output)"],
               ["Face vivid", "Identity-locked restoration; removes over-smoothed / plastic-skin artefacts"],

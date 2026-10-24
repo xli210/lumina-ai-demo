@@ -45,7 +45,7 @@ const APPS = [
     label: "Nano FaceStudio Pro 1.0",
     url: "/apps/nano-facestudio-pro",
     detail:
-      "Local face studio: multi-face swap on a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID), mask edit, expression editing, Face Vivid, upscale, light adjust, crop.",
+      "Local face studio: multi-face swap on GAN and diffusion models, mask edit, expression editing, Face Vivid, upscale, light adjust, crop.",
   },
   {
     label: "Nano ImageEnh Pro 3.0",
@@ -60,12 +60,12 @@ const APPS = [
   {
     label: "Nano VideoGen",
     url: "/apps/nano-videogen",
-    detail: "Video generation built on LTX-Video.",
+    detail: "Local video generation on an open-weight diffusion model.",
   },
   {
     label: "Nano ImageEdit",
     url: "/apps/nano-imageedit",
-    detail: "Image editing built on FLUX.1-dev.",
+    detail: "Local image editing on an open-weight diffusion model.",
   },
   {
     label: "Nano FacialEdit",
@@ -133,12 +133,12 @@ const orgJsonLd = {
   knowsAbout: [
     "Face swap",
     "Diffusion models",
-    "InstantID",
-    "PuLID",
-    "IP-Adapter FaceID",
-    "Real-ESRGAN",
-    "LTX-Video",
-    "FLUX.1",
+    "GAN and diffusion models",
+    "GAN and diffusion models",
+    "GAN and diffusion models",
+    "GAN upscaler",
+
+    "GAN and diffusion models",
     "Local-first AI",
     "Desktop AI applications",
     "Privacy-preserving AI",

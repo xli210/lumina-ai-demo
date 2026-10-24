@@ -58,12 +58,12 @@ const data: ComparisonData = {
     {
       dimension: "Identity model",
       nanopocket:
-        "Diffusion stack — InstantID + PuLID + IP-Adapter FaceID; stronger on hard angles and occlusion.",
+        "Diffusion stack — GAN and diffusion models; stronger on hard angles and occlusion.",
       competitor:
         "Mobile-tuned GAN pipeline; very fast on frontal portraits, weaker on hard cases.",
       winner: "nanopocket",
       source:
-        "Diffusion identity preservation referenced from InstantID and PuLID model cards on Hugging Face / GitHub.",
+        "Diffusion identity preservation referenced from GAN and diffusion models cards on Hugging Face / GitHub.",
     },
     {
       dimension: "Video face swap",
@@ -142,7 +142,7 @@ const data: ComparisonData = {
     {
       q: "Why is identity fidelity better with diffusion than with Reface's GAN?",
       a:
-        "Diffusion identity stacks like InstantID and PuLID condition the diffusion process on a face embedding, which lets the model preserve identity across pose and lighting changes that GAN swappers struggle with. The downside is they're heavier — they need a desktop GPU, which is why NanoPocket is desktop-first.",
+        "Diffusion identity stacks like GAN and diffusion models condition the diffusion process on a face embedding, which lets the model preserve identity across pose and lighting changes that GAN swappers struggle with. The downside is they're heavier — they need a desktop GPU, which is why NanoPocket is desktop-first.",
     },
     {
       q: "Can I be sure my uploaded face stays on my machine with NanoPocket?",

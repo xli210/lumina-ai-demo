@@ -85,7 +85,7 @@ interface OnlineDemoCopy {
 const ONLINE_DEMO_COPY: OnlineDemoCopy[] = [
   {
     id: "image",
-    blurb: `Nano FaceStudio Online: photo face swap on a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). Up to ${FACESTUDIO_MAX_FACES} faces in one pass, whole-head mode, and per-face control over what survives the swap.`,
+    blurb: `Nano FaceStudio Online: photo face swap on GAN and diffusion models. Up to ${FACESTUDIO_MAX_FACES} faces in one pass, whole-head mode, and per-face control over what survives the swap.`,
     bullets: [
       `Up to ${FACESTUDIO_MAX_FACES} faces per photo, each with its own reference — most tools do one`,
       "Keep the original hair, hands and glasses that cross a face, per face — everywhere else they get painted over",
@@ -152,7 +152,7 @@ const COMPARE_ROWS: CompareRow[] = [
     setup: "Browser only — open and go",
     signup: "Free NanoPocket account (email + password)",
     pricing: "Free for the demo tier",
-    identity: "Diffusion stack (InstantID + PuLID + IP-Adapter FaceID)",
+    identity: "Diffusion stack",
     privacy: "Cloud GPU for the demo, volatile only, not used for training",
     highlight: true,
   },
@@ -231,7 +231,7 @@ const FAQS = [
   },
   {
     q: "How does this compare to DeepSwap or Reface?",
-    a: "The online demos here use a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID), which preserves identity better on hard angles, low light, and occlusion than the GAN-based pipelines that DeepSwap, Reface, and most cloud face-swap services use. The trade-off is that NanoPocket is younger as a brand and has less mass-market name recognition. See the side-by-side at /compare/nanopocket-vs-deepswap and the full ranking at /best-face-swap-app-2026.",
+    a: "The online demos here use GAN and diffusion models, which preserves identity better on hard angles, low light, and occlusion than the GAN-based pipelines that DeepSwap, Reface, and most cloud face-swap services use. The trade-off is that NanoPocket is younger as a brand and has less mass-market name recognition. See the side-by-side at /compare/nanopocket-vs-deepswap and the full ranking at /best-face-swap-app-2026.",
   },
   {
     q: "What is the difference between the demos?",
@@ -271,7 +271,7 @@ const webPageJsonLd = {
   url: PAGE_URL,
   name: "Free Online AI Face Swap — NanoPocket",
   description:
-    `Free online AI face swap, runs in any browser, no install, no subscription. Diffusion-grade face swap powered by InstantID + PuLID + IP-Adapter FaceID. ${demoAvailabilityEn()}`,
+    `Free online AI face swap, runs in any browser, no install, no subscription. Diffusion-grade face swap powered by GAN and diffusion models. ${demoAvailabilityEn()}`,
   inLanguage: "en",
   isAccessibleForFree: true,
   dateModified: LAST_VERIFIED,
@@ -290,7 +290,7 @@ const webPageJsonLd = {
       "Photo face swap",
       "Video face swap",
       "Over-smoothed AI-face restoration (NanoFace Vivid)",
-      "Diffusion identity stack — InstantID + PuLID + IP-Adapter FaceID",
+      "GAN and diffusion models",
       "Browser-only — no install, no GPU required on user's device",
     ],
     publisher: { "@id": "https://nanopocket.ai#organization" },
@@ -346,7 +346,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 3,
       name: "Upload and swap",
-      text: "Drop in the target photo or video and a reference face. The diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID) produces the swap in a few seconds. Download the result. There is no subscription, and Nano FaceStudio Online includes a free allowance of renders (watermarked until you have bought credits once).",
+      text: "Drop in the target photo or video and a reference face. Our GAN and diffusion models produce the swap in a few seconds. Download the result. There is no subscription, and Nano FaceStudio Online includes a free allowance of renders (watermarked until you have bought credits once).",
     },
   ],
 };
@@ -659,8 +659,8 @@ export default function FaceSwapPage() {
             Most cloud face-swap sites use a GAN identity backbone (typically
             InsightFace inswapper_128 or a derivative). It is fast and cheap
             but loses fidelity on hard angles, occlusion, and small target
-            faces. NanoPocket runs a diffusion identity stack — InstantID,
-            PuLID, and IP-Adapter FaceID combined — which is the current
+            faces. NanoPocket runs GAN and diffusion models,
+            GAN and diffusion models combined — which is the current
             state of the art for identity preservation in 2026.
           </p>
           <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">

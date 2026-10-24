@@ -356,7 +356,7 @@ The online studio is where we run our heaviest pipeline, including head swap and
 
 ## One limit worth knowing
 
-The online photo editor that keeps every pixel outside an edit identical, [Nano ImageEdit 2.0 Online](/image-edit), is a browser product. The desktop Nano ImageEdit is a different app, a local Flux.1 image generator, and does not have that mode.
+The online photo editor that keeps every pixel outside an edit identical, [Nano ImageEdit 2.0 Online](/image-edit), is a browser product. The desktop Nano ImageEdit is a different app, a local GAN and diffusion models image generator, and does not have that mode.
 
 ## Related
 

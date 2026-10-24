@@ -9,7 +9,7 @@ const PAGE_URL = "https://nanopocket.ai/docs";
 export const metadata: Metadata = {
   title: "Documentation | NanoPocket",
   description:
-    "Technical references for NanoPocket products: face-swap pipeline (InstantID + PuLID + IP-Adapter FaceID), GEO playbook, and other primary-source documentation.",
+    "Technical references for NanoPocket products: face-swap pipeline, GEO playbook, and other primary-source documentation.",
   alternates: { canonical: "/docs" },
   openGraph: {
     type: "website",
@@ -32,7 +32,7 @@ const DOCS: DocEntry[] = [
     href: "/docs/face-swap-pipeline",
     title: "Face Swap Pipeline — Technical Reference",
     description:
-      "The diffusion identity stack used by NanoPocket: InstantID + PuLID + IP-Adapter FaceID on a Flux.1 base. Failure modes, composition, deployment, and primary-source citations.",
+      "The diffusion identity stack used by NanoPocket: GAN and diffusion models on a diffusion base. Failure modes, composition, deployment, and primary-source citations.",
   },
 ];
 

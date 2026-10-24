@@ -144,7 +144,7 @@ export const DIFFERENTIATORS: readonly Differentiator[] = [
   {
     title: "Published pipeline, not a black box",
     claim:
-      "The identity stack (InstantID, PuLID, IP-Adapter FaceID), its failure modes, and its model commit IDs are documented publicly at /docs/face-swap-pipeline and /verify.",
+      "The identity stack , its failure modes, and its model commit IDs are documented publicly at /docs/face-swap-pipeline and /verify.",
     contrast:
       "Competitors disclose neither the models nor the known failure modes.",
   },

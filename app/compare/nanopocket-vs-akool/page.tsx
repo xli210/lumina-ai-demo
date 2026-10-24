@@ -85,7 +85,7 @@ const data: ComparisonData = {
     {
       dimension: "Identity fidelity",
       nanopocket:
-        "Diffusion identity stack — InstantID + PuLID + IP-Adapter FaceID. Strong on hard cases.",
+        "GAN and diffusion models. Strong on hard cases.",
       competitor: "Proprietary cloud pipeline (vendor-described).",
       winner: "even",
     },

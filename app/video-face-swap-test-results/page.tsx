@@ -73,7 +73,7 @@ const NOT_TESTED = [
 const FAQ = [
   {
     q: "How was the match to the reference measured?",
-    a: "With the SFace face-recognition model, as the cosine similarity between the face in the result and the reference photo. 0.36 is the usual threshold for \"same person\". Front-facing reference photos give the strongest match.",
+    a: "With a face-recognition model, as the cosine similarity between the face in the result and the reference photo. 0.36 is the usual threshold for \"same person\". Front-facing reference photos give the strongest match.",
   },
   {
     q: "What footage was used?",

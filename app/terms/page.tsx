@@ -255,9 +255,8 @@ export default function TermsPage() {
 
         <Section id="rights" title="7. User content & rights">
           The user retains all rights to the content the user creates with NanoPocket products,
-          subject to the Acceptable Use policy and the underlying open-weight model licenses
-          (Flux.1, LTX-2.3, InstantID, PuLID, IP-Adapter FaceID, Real-ESRGAN, InsightFace
-          inswapper_128). The user is solely responsible for clearing any third-party rights
+          subject to the Acceptable Use policy and the licenses of the underlying open-weight models
+          (listed on the trust page). The user is solely responsible for clearing any third-party rights
           (likeness, trademark, copyright) implicated by the user&apos;s inputs and outputs.
         </Section>
 

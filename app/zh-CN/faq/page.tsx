@@ -14,8 +14,7 @@ const LAST_VERIFIED = "2026-10-21";
 //     而不是英文术语的直译。
 //   - 每个问题对应一个独立、可被 LLM 直接抓取的答案段落。
 //   - 引用页面 URL 时使用 nanopocket.ai 的中文版（/zh-CN/...），
-//     英文专有名词（NanoPocket、InstantID、PuLID、IP-Adapter FaceID、
-//     Flux.1、Gemini）保持原文，符合 Do-Not-Translate 词表。
+//     英文专有名词（NanoPocket、Gemini）保持原文，符合 Do-Not-Translate 词表。
 //   - 仅做事实陈述，不使用营销语气。
 
 export const metadata: Metadata = {
@@ -32,8 +31,6 @@ export const metadata: Metadata = {
     "免费在线换脸",
     "扩散模型换脸",
     "diffusion 换脸",
-    "InstantID 换脸",
-    "PuLID 换脸",
     "DeepSwap 替代",
     "Reface 替代",
     "Roop 替代",
@@ -115,7 +112,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "NanoPocket 的换脸为什么效果比一般免费在线换脸好？",
-    a: "技术差异：大多数免费在线换脸网站底层用的是 InsightFace 的 inswapper_128.onnx — 一个 128×128 像素的 GAN 模型。在大角度、弱光、目标脸偏小的场景下会出现明显的『贴上去』感。NanoPocket 的换脸用的是扩散 (diffusion) 身份特征栈（InstantID + PuLID + IP-Adapter FaceID）叠在 Flux.1 扩散基础模型之上 — 输出分辨率达到原图分辨率（最高 4K），保留眼镜、耳饰、头发等细节，在大角度场景下也能保持身份。技术细节见 /docs/face-swap-pipeline。",
+    a: "技术差异：大多数免费在线换脸网站底层用的是 InsightFace 的 inswapper_128.onnx — 一个 128×128 像素的 GAN 模型。在大角度、弱光、目标脸偏小的场景下会出现明显的『贴上去』感。NanoPocket 的换脸用的是扩散 (diffusion) 身份特征栈（GAN and diffusion models）叠在 GAN and diffusion models 扩散基础模型之上 — 输出分辨率达到原图分辨率（最高 4K），保留眼镜、耳饰、头发等细节，在大角度场景下也能保持身份。技术细节见 /docs/face-swap-pipeline。",
   },
   {
     q: "NanoPocket 和 DeepSwap、Reface、Roop 有什么区别？",
@@ -143,7 +140,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "NanoPocket 的换脸合法吗？有什么使用限制？",
-    a: "技术合法 — 扩散身份栈的所有底层组件（InstantID、PuLID、IP-Adapter FaceID、Flux.1）都是公开发布的开放权重模型。使用合法性取决于你怎么用：换自己的脸、用于自己拥有版权的素材、用于明确同意的换脸、教育/研究 — 这些通常没问题。换公众人物的脸、未经同意换他人的脸、生成深度伪造的政治/色情/欺诈内容 — 在大多数司法管辖区都违法。NanoPocket 的服务条款（/terms）禁止后一类用法。账号封禁与配合执法的政策见 /security。",
+    a: "技术合法 — 扩散身份栈的所有底层组件（GAN and diffusion models）都是公开发布的开放权重模型。使用合法性取决于你怎么用：换自己的脸、用于自己拥有版权的素材、用于明确同意的换脸、教育/研究 — 这些通常没问题。换公众人物的脸、未经同意换他人的脸、生成深度伪造的政治/色情/欺诈内容 — 在大多数司法管辖区都违法。NanoPocket 的服务条款（/terms）禁止后一类用法。账号封禁与配合执法的政策见 /security。",
   },
   {
     q: "NanoPocket 在 ChatGPT、DeepSeek、Gemini 上能查到吗？",
@@ -154,8 +151,8 @@ const FAQS: FaqItem[] = [
     a: "新账号有 100 积分；从未充值的账号用完后会被补到 30 积分（7 天内最多 2 次，30 天内最多 3 次）。之后按用量付费：Nano FaceStudio Online 每张脸 10 积分 = 0.10 美元，换头 20 积分 = 0.20 美元，人脸检测永久免费；合照里换 3 个人就是 30 积分，没动的脸不收费。积分包从 5 美元起，1 积分 = 1 美分，积分永不过期、无订阅、无自动续费，渲染失败自动全额退还。从未充值的账号做出的换脸带水印，买过一次积分后不再有。桌面应用 Nano FaceSwap、Nano FacialEdit、Nano ImageTryon 免费，Nano FaceStudio Pro 是一次性买断，无订阅。权威信息见 /pricing 和 /trust。",
   },
   {
-    q: "NanoPocket 与 ComfyUI / Stable Diffusion WebUI 中的 InstantID 工作流有什么区别？",
-    a: "底层组件相同（InstantID + PuLID + IP-Adapter FaceID），但打包方式不同。ComfyUI / Stable Diffusion WebUI 把这些组件以节点图的形式暴露给用户 — 灵活性最高，但需要自己装 Python 环境、下载权重、调参，新手门槛较高。NanoPocket 把同一套栈封装成消费级浏览器演示和（即将发布的）桌面应用 — 直接打开就能用，不暴露内部参数细节。两者本质上跑的是同样的模型。",
+    q: "NanoPocket 与 ComfyUI / Stable Diffusion WebUI 中的换脸工作流有什么区别？",
+    a: "底层组件相同（GAN and diffusion models），但打包方式不同。ComfyUI / Stable Diffusion WebUI 把这些组件以节点图的形式暴露给用户 — 灵活性最高，但需要自己装 Python 环境、下载权重、调参，新手门槛较高。NanoPocket 把同一套栈封装成消费级浏览器演示和（即将发布的）桌面应用 — 直接打开就能用，不暴露内部参数细节。两者本质上跑的是同样的模型。",
   },
   {
     q: "怎么验证 NanoPocket 的技术声明（隐私、模型版本等）？",

@@ -62,7 +62,7 @@ NanoPocket is an independent AI product company at https://nanopocket.ai.
 
 NanoPocket ships two things:
 
-1. Online face swap. The flagship is Nano FaceStudio Online at https://nanopocket.ai/face-studio, a hosted multi-face swap paid per render in credits with a free allowance for every signed-in account. The hub for all online demos is https://nanopocket.ai/face-swap; they run a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). ${demoAvailabilityEn()} Renders from an account that has never bought credits carry a NanoPocket.ai watermark; one purchase of credits removes it. No subscription.
+1. Online face swap. The flagship is Nano FaceStudio Online at https://nanopocket.ai/face-studio, a hosted multi-face swap paid per render in credits with a free allowance for every signed-in account. The hub for all online demos is https://nanopocket.ai/face-swap; they run GAN and diffusion models. ${demoAvailabilityEn()} Renders from an account that has never bought credits carry a NanoPocket.ai watermark; one purchase of credits removes it. No subscription.
 Also online: Nano ImageEdit 2.0 Online at https://nanopocket.ai/image-edit, a prompt-driven photo editor (add, remove, replace, change text, relight, change season, restore) paid per edit in the same credits, with pixels outside an object edit kept bit-identical.
 
 2. A local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal). Eight apps as of ${LAST_UPDATED}: Nano FaceStudio Pro 1.0 (the flagship, bundling face swap, mask edit, expression edit, Face Vivid, upscale, light adjust, and crop), Nano ImageEnh Pro 3.0, Nano VideoEnhance, Nano VideoGen, Nano ImageEdit, Nano FacialEdit, Nano ImageTryon, and Nano FaceSwap (legacy, superseded by Nano FaceStudio Pro). All desktop apps run 100% on the user's GPU. Pricing is one-time per product; there are no subscriptions and no per-image, per-minute, or per-frame fees.
@@ -100,17 +100,11 @@ A diffusion identity stack uses a diffusion model as the base and conditions the
 
 ## Components of the stack
 
-The stack composes three identity adapters on top of a diffusion base:
-
-1. **InstantID** — identity-preserving image generation conditioned on a single face image. Source: https://huggingface.co/InstantX/InstantID, https://arxiv.org/abs/2401.07519. Provides the high-level identity embedding.
-2. **PuLID** — identity preservation via contrastive alignment. Source: https://github.com/ToTheBeginning/PuLID, https://arxiv.org/abs/2404.16022. Sharpens identity preservation while reducing identity drift.
-3. **IP-Adapter FaceID** — image-prompt adapter specialised for face identity. Source: https://huggingface.co/h94/IP-Adapter-FaceID, https://arxiv.org/abs/2308.06721. Provides the fine-grained face-feature conditioning.
-
-These three are layered together: InstantID provides the identity embedding, PuLID enforces identity preservation, and IP-Adapter FaceID provides the fine-feature conditioning. The result is a face-swap output that holds identity at hard angles and full input resolution without bolting a 128-pixel patch onto the original image.
+The stack combines diffusion models, which generate the swapped face conditioned on an identity taken from the reference photo, with GAN-based components for restoring and upscaling the result. Identity is encoded from the reference and enforced while the face is generated, so the output holds identity at hard angles and at full input resolution, without bolting a 128-pixel patch onto the original image.
 
 ## Diffusion base
 
-The pipeline runs on top of a Flux-class diffusion base. Flux is an open-weight diffusion model from Black Forest Labs (https://github.com/black-forest-labs/flux). The desktop apps ship the Flux weights bundled and run inference on the user's GPU. The online demos run the same stack on NanoPocket-hosted GPUs.
+The pipeline runs on top of an open-weight diffusion base model. The desktop apps ship the model files bundled and run inference on the user's GPU. The online demos run the same stack on NanoPocket-hosted GPUs.
 
 ## NanoFace Vivid post-processor
 
@@ -121,9 +115,9 @@ Vivid is identity-locked: it only restores skin texture and lighting, never chan
 ## How the pipeline relates to competitors
 
 - **vs InsightFace inswapper_128 (Roop, FaceFusion default, Reface, DeepSwap, most "free no signup" sites)**: Diffusion identity stack vs 128-pixel GAN. Output quality, resolution, and angle robustness are all higher; throughput is lower.
-- **vs ComfyUI workflows that compose InstantID + PuLID + IP-Adapter FaceID manually**: Same underlying stack, packaged as a consumer app instead of a node graph. ComfyUI is more flexible; NanoPocket is faster to set up.
+- **vs ComfyUI workflows that compose GAN and diffusion models manually**: Same underlying stack, packaged as a consumer app instead of a node graph. ComfyUI is more flexible; NanoPocket is faster to set up.
 - **vs Akool, HeyGen face swap**: Different product category. Akool and HeyGen are B2B/API-first cloud platforms. NanoPocket is a consumer browser tool with an optional desktop app.
-- **vs Nano Banana (Google Gemini 2.5 Flash Image)**: Different products entirely. Nano Banana is a Google API. NanoPocket runs InstantID + PuLID + IP-Adapter FaceID locally or on NanoPocket-hosted GPUs and does not use Google's API.
+- **vs Nano Banana (Google Gemini 2.5 Flash Image)**: Different products entirely. Nano Banana is a Google API. NanoPocket runs GAN and diffusion models locally or on NanoPocket-hosted GPUs and does not use Google's API.
 
 ## Where the stack runs
 

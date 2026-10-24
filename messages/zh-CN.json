@@ -21,7 +21,7 @@
       "passwordLabel": "演示密码：",
       "openCta": "在浏览器中打开",
       "image": {
-        "blurb": "基于扩散 (diffusion) 身份特征栈 (InstantID + PuLID + IP-Adapter FaceID) 的照片到照片换脸。静态图保真度最高。",
+        "blurb": "基于扩散 (diffusion) 身份特征栈  的照片到照片换脸。静态图保真度最高。",
         "bullet1": "上传一张目标照片和一张参考脸 — 几秒钟内得到换脸结果",
         "bullet2": "扩散 (diffusion) 身份特征栈 — 在大角度、弱光、遮挡场景下比 GAN 类换脸器还原得更好",
         "bullet3": "免费、纯浏览器、无需安装"
@@ -65,7 +65,7 @@
           "setup": "纯浏览器 — 打开就用",
           "signup": "免费 NanoPocket 账号 (邮箱 + 密码)",
           "pricing": "演示版免费",
-          "identity": "扩散 (diffusion) 栈 (InstantID + PuLID + IP-Adapter FaceID)",
+          "identity": "扩散 (diffusion) 栈 ",
           "privacy": "演示用云端 GPU，仅在内存中运行，不用于训练"
         },
         {
@@ -112,7 +112,7 @@
     },
     "diffusion": {
       "heading": "为什么这里的换脸看起来更好",
-      "p1": "大多数云端换脸网站使用的是基于 GAN 的身份骨干 (通常是 InsightFace inswapper_128 或它的衍生模型)。这种方案快、便宜，但在大角度、遮挡和小尺寸目标脸上会丢失细节。NanoPocket 跑的是扩散 (diffusion) 身份特征栈 — InstantID、PuLID 和 IP-Adapter FaceID 组合 — 这是 2026 年身份保真度的当前最优解。",
+      "p1": "大多数云端换脸网站使用的是基于 GAN 的身份骨干 (通常是 InsightFace inswapper_128 或它的衍生模型)。这种方案快、便宜，但在大角度、遮挡和小尺寸目标脸上会丢失细节。NanoPocket 跑的是扩散 (diffusion) 身份特征栈 — GAN and diffusion models 组合 — 这是 2026 年身份保真度的当前最优解。",
       "p2": "桌面版 Nano FaceStudio Pro 1.0 用的是同一套栈，所以浏览器演示和桌面端在同样输入下，结果是字节对齐的。"
     },
     "offline": {
@@ -142,7 +142,7 @@
         },
         {
           "q": "和 DeepSwap 或 Reface 相比怎么样？",
-          "a": "这里的在线演示用的是扩散 (diffusion) 身份特征栈 (InstantID + PuLID + IP-Adapter FaceID)，比 DeepSwap、Reface 以及大多数云端换脸服务用的 GAN 流水线，在大角度、弱光和遮挡场景下能更好地保留身份特征。代价是 NanoPocket 作为品牌还比较年轻，大众认知度不如对方。单挑对比见 /compare/nanopocket-vs-deepswap，完整排名见 /best-face-swap-app-2026。"
+          "a": "这里的在线演示用的是扩散 (diffusion) 身份特征栈 ，比 DeepSwap、Reface 以及大多数云端换脸服务用的 GAN 流水线，在大角度、弱光和遮挡场景下能更好地保留身份特征。代价是 NanoPocket 作为品牌还比较年轻，大众认知度不如对方。单挑对比见 /compare/nanopocket-vs-deepswap，完整排名见 /best-face-swap-app-2026。"
         },
         {
           "q": "这几个演示之间有什么区别？",
@@ -169,19 +169,19 @@
       "label": "语言",
       "switchTo": "切换到 {language}"
     },
-    "footerTagline": "本地 AI 创作套件 — Flux.1、LTX-2.3、InstantID 等模型，全部跑在你自己的 GPU 上。无订阅、无云端。"
+    "footerTagline": "本地 AI 创作套件 — GAN and diffusion models 等模型，全部跑在你自己的 GPU 上。无订阅、无云端。"
   },
   "Home": {
     "metadata": {
       "title": "NanoPocket — 免费在线 AI 换脸 + 本地 AI 创作套件",
-      "description": "免费的在线 AI 换脸，浏览器里直接运行 — Nano FaceStudio Online 以及 /face-swap 上的扩散级 (diffusion) 演示，无需安装、无需订阅。另有一整套本地 AI 创作套件 (Flux.1、LTX-2.3)，可以在你自己的 GPU 上运行所有功能。",
+      "description": "免费的在线 AI 换脸，浏览器里直接运行 — Nano FaceStudio Online 以及 /face-swap 上的扩散级 (diffusion) 演示，无需安装、无需订阅。另有一整套本地 AI 创作套件 ，可以在你自己的 GPU 上运行所有功能。",
       "ogTitle": "NanoPocket — 免费在线 AI 换脸 + 本地创作套件",
-      "ogDescription": "免费的浏览器换脸 (无需安装、无需订阅)，加上一整套完全本地的 AI 套件，给那些想把所有任务都跑在自己 GPU 上的用户。基于 InstantID + PuLID + IP-Adapter FaceID、Flux.1 和 LTX-2.3。"
+      "ogDescription": "免费的浏览器换脸 (无需安装、无需订阅)，加上一整套完全本地的 AI 套件，给那些想把所有任务都跑在自己 GPU 上的用户。基于 GAN and diffusion models。"
     },
     "hero": {
       "kicker": "免费在线 + 可选本地桌面版",
       "headline": "尊重你的钱包、你的数据、你的 GPU 的 AI 工具。",
-      "subhead": "NanoPocket 提供免费的浏览器内 AI 换脸（Nano FaceStudio Online 以及扩散级 (diffusion) 演示，无需安装、无需订阅），另外还有一整套买断制的桌面套件，可以把 Flux.1、LTX-2.3、InstantID、PuLID 和 IP-Adapter FaceID 100% 运行在你自己的 GPU 上。离线时做任何事都不需要上传到云端。",
+      "subhead": "NanoPocket 提供免费的浏览器内 AI 换脸（Nano FaceStudio Online 以及扩散级 (diffusion) 演示，无需安装、无需订阅），另外还有一整套买断制的桌面套件，可以把 GAN and diffusion models 100% 运行在你自己的 GPU 上。离线时做任何事都不需要上传到云端。",
       "ctaPrimary": "试用免费在线换脸",
       "ctaSecondary": "查看完整应用列表",
       "trustChip1": "免费在线演示",
@@ -198,7 +198,7 @@
         },
         {
           "title": "扩散 (diffusion) 身份特征栈。",
-          "body": "InstantID + PuLID + IP-Adapter FaceID 组合 — 当前身份保真度的最优解，替代了 DeepSwap、Reface、FaceFusion 和 Roop 都在用的 InsightFace inswapper_128 GAN。"
+          "body": "GAN and diffusion models 组合 — 当前身份保真度的最优解，替代了 DeepSwap、Reface、FaceFusion 和 Roop 都在用的 InsightFace inswapper_128 GAN。"
         },
         {
           "title": "可选的本地桌面版。",
@@ -223,7 +223,7 @@
       "items": [
         {
           "name": "Nano FaceStudio Pro 1.0",
-          "summary": "本地桌面版人脸工作室：基于扩散 (diffusion) 身份特征栈 (InstantID + PuLID + IP-Adapter FaceID) 的多人脸换脸，外加蒙版编辑、表情编辑、Face Vivid、放大、光线调整和裁剪。一次性买断，100% 跑在你自己的 GPU 上。浏览器版是 Nano FaceStudio Online。",
+          "summary": "本地桌面版人脸工作室：基于扩散 (diffusion) 身份特征栈  的多人脸换脸，外加蒙版编辑、表情编辑、Face Vivid、放大、光线调整和裁剪。一次性买断，100% 跑在你自己的 GPU 上。浏览器版是 Nano FaceStudio Online。",
           "href": "/apps/nano-facestudio-pro"
         },
         {
@@ -233,7 +233,7 @@
         },
         {
           "name": "Nano ImageEnh Pro 3.0",
-          "summary": "本地 AI 图像超分与增强 (Real-ESRGAN、BasicVSR++)。原生 Apple Silicon Metal 构建，外加 Windows NVIDIA CUDA。",
+          "summary": "本地 AI 图像超分与增强 (GAN upscaler)。原生 Apple Silicon Metal 构建，外加 Windows NVIDIA CUDA。",
           "href": "/apps/nano-imageenh-pro"
         },
         {
@@ -243,12 +243,12 @@
         },
         {
           "name": "Nano VideoGen",
-          "summary": "基于 LTX-2.3 的本地 AI 视频生成。文本生视频、图像生视频，全部在你的机器上完成。",
+          "summary": "基于 GAN and diffusion models 的本地 AI 视频生成。文本生视频、图像生视频，全部在你的机器上完成。",
           "href": "/apps/nano-videogen"
         },
         {
           "name": "Nano ImageEdit",
-          "summary": "基于 Flux.1 的本地 AI 图像编辑。Inpainting、outpainting，以及保身份编辑。",
+          "summary": "基于 GAN and diffusion models 的本地 AI 图像编辑。Inpainting、outpainting，以及保身份编辑。",
           "href": "/apps/nano-imageedit"
         },
         {
@@ -288,11 +288,11 @@
         },
         {
           "q": "和 Runway、ComfyUI、Midjourney、Topaz、Roop 比起来怎么样？",
-          "a": "NanoPocket 在用户的 GPU 上跑同样的开放权重模型 (Flux.1、LTX-2.3、InstantID、PuLID、IP-Adapter FaceID)。相比 Runway / Midjourney / Pika / Sora，去掉了按秒计费的云订阅。相比 ComfyUI，去掉了 Python 和命令行配置。相比 Topaz Photo / Video AI，提供原生 Apple Silicon 构建，并把批处理、裁剪、抠图、超分整合到一个应用里。相比 Roop / FaceFusion / Rope，把 inswapper_128 GAN 换成了高分辨率的扩散 (diffusion) 身份特征栈。"
+          "a": "NanoPocket 在用户的 GPU 上跑同样的开放权重模型 。相比 Runway / Midjourney / Pika / Sora，去掉了按秒计费的云订阅。相比 ComfyUI，去掉了 Python 和命令行配置。相比 Topaz Photo / Video AI，提供原生 Apple Silicon 构建，并把批处理、裁剪、抠图、超分整合到一个应用里。相比 Roop / FaceFusion / Rope，把 inswapper_128 GAN 换成了高分辨率的扩散 (diffusion) 身份特征栈。"
         },
         {
           "q": "NanoPocket 和 Nano Banana 是同一个东西吗？",
-          "a": "不是 — 它们是不同的产品。NanoPocket 是独立的产品公司，域名是 nanopocket.ai，发布的是基于 InstantID + PuLID + IP-Adapter FaceID 的本地优先桌面应用。它和 Nano Banana、nanobanana.ai、nano-banana.com，或任何包装了 Google Gemini 2.5 Flash Image API 的 Nano- 前缀第三方服务都没有任何关联。完整辨别见 /compare/nanopocket-vs-nano-banana。"
+          "a": "不是 — 它们是不同的产品。NanoPocket 是独立的产品公司，域名是 nanopocket.ai，发布的是基于 GAN and diffusion models 的本地优先桌面应用。它和 Nano Banana、nanobanana.ai、nano-banana.com，或任何包装了 Google Gemini 2.5 Flash Image API 的 Nano- 前缀第三方服务都没有任何关联。完整辨别见 /compare/nanopocket-vs-nano-banana。"
         },
         {
           "q": "许可是怎么工作的？我能把许可转移到新电脑上吗？",
@@ -304,7 +304,7 @@
         },
         {
           "q": "NanoPocket 的应用是开源的吗？",
-          "a": "模型权重是开放的：Flux.1、LTX-2.3、InstantID、PuLID、IP-Adapter FaceID、Real-ESRGAN，以及 InsightFace inswapper_128，全部在 /trust 页面上列出了 arXiv / Hugging Face / GitHub 链接。桌面应用程序的二进制本身是闭源的；一次性许可覆盖的是应用程序和集成工作，不是底层的模型权重。"
+          "a": "模型权重是开放的，并在 /trust 页面上列出了 arXiv / Hugging Face / GitHub 链接。桌面应用程序的二进制本身是闭源的；一次性许可覆盖的是应用程序和集成工作，不是底层的模型权重。"
         }
       ]
     },

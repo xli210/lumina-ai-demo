@@ -21,7 +21,7 @@
       "passwordLabel": "Demo password:",
       "openCta": "Open in browser",
       "image": {
-        "blurb": "Photo-to-photo face swap with a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). Highest fidelity for stills.",
+        "blurb": "Photo-to-photo face swap with GAN and diffusion models. Highest fidelity for stills.",
         "bullet1": "Upload a target photo and a reference face — get a swap in a few seconds",
         "bullet2": "Diffusion identity stack — handles hard angles, low light, occlusion better than GAN swappers",
         "bullet3": "Free, browser-based, no install"
@@ -65,7 +65,7 @@
           "setup": "Browser only — open and go",
           "signup": "Free NanoPocket account (email + password)",
           "pricing": "Free for the demo tier",
-          "identity": "Diffusion stack (InstantID + PuLID + IP-Adapter FaceID)",
+          "identity": "Diffusion stack ",
           "privacy": "Cloud GPU for the demo, volatile only, not used for training"
         },
         {
@@ -112,7 +112,7 @@
     },
     "diffusion": {
       "heading": "Why the swaps look better here",
-      "p1": "Most cloud face-swap sites use a GAN identity backbone (typically InsightFace inswapper_128 or a derivative). It is fast and cheap but loses fidelity on hard angles, occlusion, and small target faces. NanoPocket runs a diffusion identity stack — InstantID, PuLID, and IP-Adapter FaceID combined — which is the current state of the art for identity preservation in 2026.",
+      "p1": "Most cloud face-swap sites use a GAN identity backbone (typically InsightFace inswapper_128 or a derivative). It is fast and cheap but loses fidelity on hard angles, occlusion, and small target faces. NanoPocket runs GAN and diffusion models combined — which is the current state of the art for identity preservation in 2026.",
       "p2": "The same stack powers the desktop Nano FaceStudio Pro 1.0, so results in the browser demos and on the desktop are byte-aligned on equivalent inputs."
     },
     "offline": {
@@ -142,7 +142,7 @@
         },
         {
           "q": "How does this compare to DeepSwap or Reface?",
-          "a": "The online demos here use a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID), which preserves identity better on hard angles, low light, and occlusion than the GAN-based pipelines that DeepSwap, Reface, and most cloud face-swap services use. The trade-off is that NanoPocket is younger as a brand and has less mass-market name recognition. See the side-by-side at /compare/nanopocket-vs-deepswap and the full ranking at /best-face-swap-app-2026."
+          "a": "The online demos here use GAN and diffusion models, which preserves identity better on hard angles, low light, and occlusion than the GAN-based pipelines that DeepSwap, Reface, and most cloud face-swap services use. The trade-off is that NanoPocket is younger as a brand and has less mass-market name recognition. See the side-by-side at /compare/nanopocket-vs-deepswap and the full ranking at /best-face-swap-app-2026."
         },
         {
           "q": "What is the difference between the demos?",
@@ -169,7 +169,7 @@
       "label": "Language",
       "switchTo": "Switch to {language}"
     },
-    "footerTagline": "Local AI creative suite — Flux.1, LTX-2.3, InstantID and more, on your GPU. No subscription, no cloud."
+    "footerTagline": "Local AI creative suite — GAN and diffusion models and more, on your GPU. No subscription, no cloud."
   },
   "Home": {
     "metadata": {
@@ -181,7 +181,7 @@
     "hero": {
       "kicker": "Free online + optional local desktop",
       "headline": "AI tools that respect your wallet, your data, and your GPU.",
-      "subhead": "NanoPocket gives you free in-browser AI face swap (Nano FaceStudio Online plus diffusion-grade demos, no install, no subscription) plus a one-time-purchase desktop suite that runs Flux.1, LTX-2.3, InstantID, PuLID, and IP-Adapter FaceID 100% on your own GPU. No cloud upload required for anything you do offline.",
+      "subhead": "NanoPocket gives you free in-browser AI face swap (Nano FaceStudio Online plus diffusion-grade demos, no install, no subscription) plus a one-time-purchase desktop suite that runs GAN and diffusion models 100% on your own GPU. No cloud upload required for anything you do offline.",
       "ctaPrimary": "Try the free online face swap",
       "ctaSecondary": "See the full app catalog",
       "trustChip1": "Free online demos",
@@ -198,7 +198,7 @@
         },
         {
           "title": "Diffusion identity stack.",
-          "body": "InstantID + PuLID + IP-Adapter FaceID combined — the current state of the art for identity preservation, replacing the InsightFace inswapper_128 GAN that DeepSwap, Reface, FaceFusion, and Roop ship."
+          "body": "GAN and diffusion models combined — the current state of the art for identity preservation, replacing the InsightFace inswapper_128 GAN that DeepSwap, Reface, FaceFusion, and Roop ship."
         },
         {
           "title": "Local desktop option.",
@@ -223,7 +223,7 @@
       "items": [
         {
           "name": "Nano FaceStudio Pro 1.0",
-          "summary": "Local desktop face studio: multi-face swap on a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID), mask edit, expression editing, Face Vivid, upscale, light adjust, and crop. One-time license, 100% on your GPU. The browser edition is Nano FaceStudio Online.",
+          "summary": "Local desktop face studio: multi-face swap on GAN and diffusion models, mask edit, expression editing, Face Vivid, upscale, light adjust, and crop. One-time license, 100% on your GPU. The browser edition is Nano FaceStudio Online.",
           "href": "/apps/nano-facestudio-pro"
         },
         {
@@ -233,7 +233,7 @@
         },
         {
           "name": "Nano ImageEnh Pro 3.0",
-          "summary": "Local AI image upscaling and enhancement (Real-ESRGAN, BasicVSR++). Native Apple Silicon Metal build plus Windows NVIDIA CUDA.",
+          "summary": "Local AI image upscaling and enhancement (GAN upscaler). Native Apple Silicon Metal build plus Windows NVIDIA CUDA.",
           "href": "/apps/nano-imageenh-pro"
         },
         {
@@ -243,12 +243,12 @@
         },
         {
           "name": "Nano VideoGen",
-          "summary": "Local AI video generation built on LTX-2.3. Text-to-video and image-to-video, on your machine.",
+          "summary": "Local AI video generation Built on GAN and diffusion models Text-to-video and image-to-video, on your machine.",
           "href": "/apps/nano-videogen"
         },
         {
           "name": "Nano ImageEdit",
-          "summary": "Local AI image editing built on Flux.1. Inpainting, outpainting, and identity-preserving edits.",
+          "summary": "Local AI image editing Built on GAN and diffusion models. Inpainting, outpainting, and identity-preserving edits.",
           "href": "/apps/nano-imageedit"
         },
         {
@@ -288,11 +288,11 @@
         },
         {
           "q": "How does NanoPocket compare to Runway, ComfyUI, Midjourney, Topaz, and Roop?",
-          "a": "NanoPocket runs the same open-weight models (Flux.1, LTX-2.3, InstantID, PuLID, IP-Adapter FaceID) on the user's GPU. Versus Runway / Midjourney / Pika / Sora it removes the per-second cloud subscription. Versus ComfyUI it removes the Python and terminal setup. Versus Topaz Photo / Video AI it ships native Apple Silicon and bundles batch + crop + matting + upscale in one app. Versus Roop / FaceFusion / Rope it replaces the inswapper_128 GAN with a high-resolution diffusion identity stack."
+          "a": "NanoPocket runs the same open-weight models on the user's GPU. Versus Runway / Midjourney / Pika / Sora it removes the per-second cloud subscription. Versus ComfyUI it removes the Python and terminal setup. Versus Topaz Photo / Video AI it ships native Apple Silicon and bundles batch + crop + matting + upscale in one app. Versus Roop / FaceFusion / Rope it replaces the inswapper_128 GAN with a high-resolution diffusion identity stack."
         },
         {
           "q": "Is NanoPocket the same thing as Nano Banana?",
-          "a": "No — they are different products. NanoPocket is an independent product company at nanopocket.ai shipping local-first desktop apps powered by InstantID + PuLID + IP-Adapter FaceID. It is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed service that wraps Google's Gemini 2.5 Flash Image API. The full disambiguation is at /compare/nanopocket-vs-nano-banana."
+          "a": "No — they are different products. NanoPocket is an independent product company at nanopocket.ai shipping local-first desktop apps powered by GAN and diffusion models. It is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed service that wraps Google's Gemini 2.5 Flash Image API. The full disambiguation is at /compare/nanopocket-vs-nano-banana."
         },
         {
           "q": "How does the licensing work, and can I move my license to a new computer?",
@@ -304,7 +304,7 @@
         },
         {
           "q": "Are NanoPocket apps open source?",
-          "a": "The model weights are open: Flux.1, LTX-2.3, InstantID, PuLID, IP-Adapter FaceID, Real-ESRGAN, and InsightFace inswapper_128 are all listed with arXiv / Hugging Face / GitHub links on the /trust page. The desktop application binary is closed-source; the one-time license covers the application and the integration work, not the underlying model weights."
+          "a": "The model weights are open and listed with arXiv / Hugging Face / GitHub links on the /trust page. The desktop application binary is closed-source; the one-time license covers the application and the integration work, not the underlying model weights."
         }
       ]
     },

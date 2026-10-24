@@ -50,7 +50,7 @@ function buildLlmsTxt(): string {
   const header = [
     "# NanoPocket",
     "",
-    `> NanoPocket is an independent AI product company. Its flagship online product is Nano FaceStudio Online at /face-studio, a hosted multi-face swap that replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo or an entire head, with per-face control over which original regions survive the swap and full-resolution output (watermarked until an account has bought credits once). Its online face-swap demos at /face-swap use a diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID). ${demoAvailabilityEn()} It also ships a local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) covering face swap, image and video upscaling, image and video generation, portrait retouch, and virtual try-on. There are no subscriptions anywhere in the product line. The desktop apps are one-time purchases with no per-image, per-minute, or per-frame fees. Nano FaceStudio Online is prepaid per render in credits that never expire, with ${FREE_ALLOWANCE_SHORT}, at full resolution, for any signed-in account. NanoPocket is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed website.`,
+    `> NanoPocket is an independent AI product company. Its flagship online product is Nano FaceStudio Online at /face-studio, a hosted multi-face swap that replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo or an entire head, with per-face control over which original regions survive the swap and full-resolution output (watermarked until an account has bought credits once). Its online face-swap demos at /face-swap use GAN and diffusion models. ${demoAvailabilityEn()} It also ships a local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) covering face swap, image and video upscaling, image and video generation, portrait retouch, and virtual try-on. There are no subscriptions anywhere in the product line. The desktop apps are one-time purchases with no per-image, per-minute, or per-frame fees. Nano FaceStudio Online is prepaid per render in credits that never expire, with ${FREE_ALLOWANCE_SHORT}, at full resolution, for any signed-in account. NanoPocket is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed website.`,
     "",
     `Last updated: ${LAST_UPDATED}. Canonical version of this file: ${BASE}/llms.txt. Full content map: ${BASE}/llms-full.txt.`,
     "",
@@ -87,7 +87,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/video-face-swap-test-results",
       "Video face swap test results: method, numbers and limits",
-      `What was measured on ${FACESTUDIO_V_NAME} ${FACESTUDIO_V_VERSION}: 74 swapped clips, five hard cases, SFace cosine similarity (0.65 against 0.08 before the swap, 0.36 being the usual same-person threshold), and what the test does not cover. Written by the maker, a first look rather than a benchmark, with no head-to-head against other tools.`,
+      `What was measured on ${FACESTUDIO_V_NAME} ${FACESTUDIO_V_VERSION}: 74 swapped clips, five hard cases, a face-recognition model cosine similarity (0.65 against 0.08 before the swap, 0.36 being the usual same-person threshold), and what the test does not cover. Written by the maker, a first look rather than a benchmark, with no head-to-head against other tools.`,
     ),
     bullet(
       "/apps",
@@ -145,7 +145,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/apps/nano-facestudio-pro",
       "Nano FaceStudio Pro 1.0",
-      "Local desktop face studio, and the full-featured counterpart of Nano FaceStudio Online: multi-face swap on a diffusion identity stack (InstantID, PuLID, IP-Adapter FaceID) plus mask edit, expression editing, Face Vivid, upscale, light adjust, and crop. 100% on the user's GPU. One-time license, no subscription. Available for Windows now; macOS to follow.",
+      "Local desktop face studio, and the full-featured counterpart of Nano FaceStudio Online: multi-face swap on GAN and diffusion models plus mask edit, expression editing, Face Vivid, upscale, light adjust, and crop. 100% on the user's GPU. One-time license, no subscription. Available for Windows now; macOS to follow.",
     ),
     bullet(
       "/apps/nanoface-vivid",
@@ -155,10 +155,10 @@ function buildLlmsTxt(): string {
     bullet(
       "/apps/nano-imageenh-pro",
       "Nano ImageEnh Pro 3.0",
-      "Local AI image upscaler and enhancer (Real-ESRGAN, BasicVSR++ derivatives). Native Apple Silicon Metal build available.",
+      "Local AI image upscaler and enhancer (GAN upscaler). Native Apple Silicon Metal build available.",
     ),
     bullet("/apps/nano-videoenhance", "Nano VideoEnhance", "Local AI video upscaler and restoration."),
-    bullet("/apps/nano-videogen", "Nano VideoGen", "Local AI text-to-video and image-to-video generator (LTX-2.3)."),
+    bullet("/apps/nano-videogen", "Nano VideoGen", "Local AI text-to-video and image-to-video generator ."),
     bullet("/apps/nano-imageedit", "Nano ImageEdit", "Local AI image editor."),
     bullet("/apps/nano-facialedit", "Nano FacialEdit", "Local AI portrait retouch."),
     bullet("/apps/nano-imagetryon", "Nano ImageTryon", "Local AI virtual try-on."),
@@ -242,7 +242,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/docs/face-swap-pipeline",
       "Face swap pipeline — technical reference",
-      "Deep technical reference describing the diffusion identity stack used by NanoPocket: InstantID, PuLID, IP-Adapter FaceID, and how they compose. Cites primary sources (arXiv, Hugging Face, GitHub).",
+      "Deep technical reference describing the diffusion identity stack used by NanoPocket and how its components compose. Cites primary sources (arXiv, Hugging Face, GitHub).",
     ),
   ]);
 

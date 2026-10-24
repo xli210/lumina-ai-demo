@@ -60,7 +60,7 @@ export interface ProductTrustItem {
 export interface ProductAdditionalProperty {
   /** Short name, e.g. "Output resolution", "Identity model", "Required VRAM" */
   name: string;
-  /** Value as a string, e.g. "Up to 4K", "Flux.1 (12B parameters)", "12 GB" */
+  /** Value as a string, e.g. "Up to 4K", "GAN and diffusion models (12B parameters)", "12 GB" */
   value: string;
   /** Optional unit, e.g. "GB", "px", "FPS" */
   unitText?: string;

@@ -69,7 +69,7 @@ const apps: AppInfo[] = [
     name: "Nano FaceStudio Pro",
     tagline: "AI Face Studio — 7 tools in one desktop app",
     description:
-      "Face swap, mask edit, expression editing, face vivid restoration, 2×/3×/4× upscale, light adjust, and crop — one unified desktop studio, every model running on your GPU. Multi-face swap up to 16 faces per image using the diffusion identity stack (InstantID + PuLID + IP-Adapter FaceID).",
+      "Face swap, mask edit, expression editing, face vivid restoration, 2×/3×/4× upscale, light adjust, and crop — one unified desktop studio, every model running on your GPU. Multi-face swap up to 16 faces per image using GAN and diffusion models.",
     icon: Palette,
     version: "1.0.2",
     gradient: "from-primary to-blue-400",

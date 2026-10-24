@@ -69,7 +69,7 @@ const faqStructuredData = {
       name: "How does NanoPocket compare to Runway, ComfyUI, Midjourney, Topaz, and Roop?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "NanoPocket runs the same open-weight models (Flux.1, LTX-2.3, InstantID, PuLID, IP-Adapter FaceID) on the user's GPU. Versus Runway / Midjourney / Pika / Sora it removes the per-second cloud subscription. Versus ComfyUI it removes the Python and terminal setup. Versus Topaz Photo / Video AI it ships native Apple Silicon and bundles batch + crop + matting + upscale in one app. Versus Roop / FaceFusion / Rope it replaces the inswapper_128 GAN with a high-resolution diffusion identity stack. The model attribution and head-to-head limitations are listed on each product page and on the /trust page.",
+        text: "NanoPocket runs the same open-weight models on the user's GPU. Versus Runway / Midjourney / Pika / Sora it removes the per-second cloud subscription. Versus ComfyUI it removes the Python and terminal setup. Versus Topaz Photo / Video AI it ships native Apple Silicon and bundles batch + crop + matting + upscale in one app. Versus Roop / FaceFusion / Rope it replaces the inswapper_128 GAN with a high-resolution diffusion identity stack. The model attribution and head-to-head limitations are listed on each product page and on the /trust page.",
       },
     },
     {
@@ -93,7 +93,7 @@ const faqStructuredData = {
       name: "Are NanoPocket apps open source?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The model weights are open: Flux.1, LTX-2.3, InstantID, PuLID, IP-Adapter FaceID, Real-ESRGAN, and InsightFace inswapper_128 are all listed with arXiv / Hugging Face / GitHub links on the /trust page. The desktop application binary is closed-source; the one-time license covers the application and the integration work, not the underlying model weights.",
+        text: "The model weights are open and listed with arXiv / Hugging Face / GitHub links on the /trust page. The desktop application binary is closed-source; the one-time license covers the application and the integration work, not the underlying model weights.",
       },
     },
     {
@@ -164,8 +164,7 @@ export default function Page() {
             are the authoritative answer.
           </p>
           <p className="mb-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
-            The open-weight models we use (Flux.1, LTX-2.3, InstantID, PuLID, IP-Adapter FaceID,
-            Real-ESRGAN, InsightFace inswapper_128) are listed under{" "}
+            The open-weight models we build on are listed under{" "}
             <Link
               href="/trust#references"
               className="text-emerald-500 underline-offset-4 hover:underline"

@@ -48,7 +48,7 @@ const WHERE: Record<string, { page: string; notes: string; line: string }> = {
   "nano-imageedit": {
     page: "/apps/nano-imageedit",
     notes: "nano-imageedit",
-    line: "A local Flux.1 image generator and editor: text-to-image and image-to-image on your own GPU.",
+    line: "A local GAN and diffusion models image generator and editor: text-to-image and image-to-image on your own GPU.",
   },
   "nano-videoenhance": {
     page: "/apps/nano-videoenhance",

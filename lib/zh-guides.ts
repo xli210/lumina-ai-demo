@@ -302,7 +302,7 @@ export const ZH_GUIDES: ZhGuide[] = [
 
 ## 还要知道一点
 
-能让编辑区域以外的每个像素都保持一致的在线照片编辑器 [Nano ImageEdit 2.0 Online](/image-edit) 是浏览器产品。桌面版 Nano ImageEdit 是另一个应用,是本地的 Flux.1 图像生成器,没有这个模式。
+能让编辑区域以外的每个像素都保持一致的在线照片编辑器 [Nano ImageEdit 2.0 Online](/image-edit) 是浏览器产品。桌面版 Nano ImageEdit 是另一个应用,是本地的 GAN and diffusion models 图像生成器,没有这个模式。
 
 ## 相关文章
 
