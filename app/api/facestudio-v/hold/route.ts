@@ -7,7 +7,7 @@ import {
   reconcileOpenHolds,
 } from "@/lib/facestudio-v-server";
 import { signEntitlement } from "@/lib/facestudio-v-entitlement";
-import { FACESTUDIO_V_SERVICE, facestudioVIsOpen } from "@/lib/facestudio-v";
+import { FACESTUDIO_V_MODES, FACESTUDIO_V_SERVICE, facestudioVIsOpen } from "@/lib/facestudio-v";
 import { authenticate, preflight, readJson, reply } from "../_shared";
 
 export const dynamic = "force-dynamic";
@@ -58,7 +58,9 @@ export async function POST(request: Request) {
       amount: credits,
       service: FACESTUDIO_V_SERVICE,
       ttlSeconds: FSV_HOLD_TTL_SECONDS,
-      estimate: { credits },
+      // Which studio mode this was, so reliability can be read per mode. Optional and
+      // checked against the known list: an unknown value is dropped, never stored.
+      estimate: { credits, ...(typeof body?.mode === "string" && Object.prototype.hasOwnProperty.call(FACESTUDIO_V_MODES, body.mode) ? { mode: body.mode } : {}) },
     });
     if (!hold.ok || !hold.hold_id) {
       return reply(

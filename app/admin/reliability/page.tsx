@@ -271,7 +271,7 @@ export default async function ReliabilityPage({ searchParams }: { searchParams: 
             <Failures rows={rows} />
 
             <p className="mt-10 text-xs text-muted-foreground">
-              Read from the credit holds, so it covers renders that were paid for in credits. Video FaceSwap Online does not record a mode on the hold, so its modes are not split here. An
+              Read from the credit holds, so it covers renders that were paid for in credits. Video FaceSwap Online records its mode only on renders started after this was added; earlier ones show as &ldquo;Mode not recorded&rdquo;. An
               &ldquo;expired&rdquo; render was never settled by the page, so it may have finished or failed; it is not counted either way. Generated {new Date().toLocaleString("en-US", { timeZone: "UTC" })} UTC.
             </p>
           </>

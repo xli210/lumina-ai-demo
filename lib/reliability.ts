@@ -63,8 +63,21 @@ export function modeOf(h: Pick<HoldRow, "service" | "estimate">): string {
     const t = typeof e.tool === "string" ? e.tool : "";
     return t ? t.charAt(0).toUpperCase() + t.slice(1) : "Unknown tool";
   }
-  return "All modes (not recorded per render)";
+  if (h.service === "facestudio-v") {
+    const m = typeof e.mode === "string" ? e.mode : "";
+    return VIDEO_MODE_LABELS[m] ?? "Mode not recorded";
+  }
+  return "All modes";
 }
+
+/** Mirror of FACESTUDIO_V_MODES (kept here so this file stays free of app imports). */
+const VIDEO_MODE_LABELS: Record<string, string> = {
+  fast: "Fast",
+  quality: "Best quality",
+  head: "Whole head",
+  enhance_fast: "Fast enhance",
+  enhance_best: "Best-quality enhance",
+};
 
 export interface Tally {
   total: number;

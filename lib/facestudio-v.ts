@@ -35,6 +35,15 @@ export const FACESTUDIO_V_DEMO = FACESTUDIO_V_PAGE;
 /** The credit service name: holds for this product are recorded under it. */
 export const FACESTUDIO_V_SERVICE = "facestudio-v";
 
+/** The modes the studio page can send with a reservation, and what each is called to people. */
+export const FACESTUDIO_V_MODES: Record<string, string> = {
+  fast: "Fast",
+  quality: "Best quality",
+  head: "Whole head",
+  enhance_fast: "Fast enhance",
+  enhance_best: "Best-quality enhance",
+};
+
 /** The studio opened to the public on this day, UTC (preview 2026-10-10 to 13, one-week trial 2026-10-13 to 20). */
 export const FACESTUDIO_V_STARTS_AT = "2026-10-13T05:00:00Z";
 /** The official release (version 1.1.0) went live on this day, UTC. */
