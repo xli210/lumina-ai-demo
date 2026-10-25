@@ -10,7 +10,10 @@ import {
   getCreditDaily,
   getCreditSummary,
   getCreditTopUsers,
+  getRecentOrders,
+  type RecentOrder,
 } from "@/lib/credits-server";
+import { findCreditPack } from "@/lib/credit-packs";
 import {
   fmtCredits,
   fmtPercent,
@@ -191,6 +194,93 @@ function Breakdown({
   );
 }
 
+function RecentOrders({ orders }: { orders: RecentOrder[] }) {
+  if (orders.length === 0) {
+    return <p className="text-sm text-muted-foreground">No credit purchases yet.</p>;
+  }
+
+  return (
+    <div className="glass overflow-x-auto rounded-2xl">
+      <table className="w-full min-w-[900px] text-sm">
+        <thead>
+          <tr className="border-b border-border text-left">
+            <th className="px-5 py-3 font-semibold text-foreground">When (UTC)</th>
+            <th className="px-5 py-3 font-semibold text-foreground">Account</th>
+            <th className="px-5 py-3 font-semibold text-foreground">Pack</th>
+            <th className="px-5 py-3 text-right font-semibold text-foreground">Paid</th>
+            <th className="px-5 py-3 text-right font-semibold text-foreground">Credits</th>
+            <th className="px-5 py-3 font-semibold text-foreground">Status</th>
+            <th className="px-5 py-3 font-semibold text-foreground">Stripe</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((o) => {
+            const pack = findCreditPack(o.pack_id);
+            const refunded = o.reversed_credits > 0;
+            return (
+              <tr key={o.ledger_id} className="border-b border-border last:border-0">
+                <td className="whitespace-nowrap px-5 py-3 tabular-nums text-muted-foreground">
+                  {new Date(o.created_at).toLocaleString("en-US", {
+                    timeZone: "UTC",
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                  })}
+                </td>
+                <td className="px-5 py-3">
+                  <span className="text-foreground">
+                    {o.email ?? o.display_name ?? (
+                      <span className="italic text-muted-foreground">deleted account</span>
+                    )}
+                  </span>
+                  <span className="mt-0.5 block font-mono text-[11px] text-muted-foreground">
+                    {o.user_id.slice(0, 8)}
+                  </span>
+                </td>
+                <td className="px-5 py-3 text-foreground">{pack?.name ?? o.pack_id}</td>
+                <td className="px-5 py-3 text-right tabular-nums text-foreground">
+                  {o.paid_cents > 0 ? `$${(o.paid_cents / 100).toFixed(2)}` : "—"}
+                </td>
+                <td className="px-5 py-3 text-right tabular-nums text-muted-foreground">
+                  {fmtCredits(o.credits)}
+                  {o.bonus_credits > 0 && <span className="text-xs"> +{fmtCredits(o.bonus_credits)} bonus</span>}
+                </td>
+                <td className="px-5 py-3">
+                  {refunded ? (
+                    <span className="rounded-full bg-rose-500/10 px-2 py-0.5 text-xs font-semibold text-rose-500">
+                      Reversed {fmtCredits(o.reversed_credits)}
+                    </span>
+                  ) : (
+                    <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-semibold text-emerald-500">
+                      Credits delivered
+                    </span>
+                  )}
+                </td>
+                <td className="px-5 py-3">
+                  {o.payment_intent_id ? (
+                    <a
+                      href={`https://dashboard.stripe.com/payments/${o.payment_intent_id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-[11px] text-primary underline-offset-4 hover:underline"
+                    >
+                      {o.payment_intent_id.slice(0, 14)}…
+                    </a>
+                  ) : (
+                    <span className="text-muted-foreground">—</span>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 function TopUsers({ users }: { users: CreditTopUser[] }) {
   if (users.length === 0) {
     return <p className="text-sm text-muted-foreground">No credit accounts yet.</p>;
@@ -266,10 +356,12 @@ function Dashboard({
   summary,
   daily,
   users,
+  orders,
 }: {
   summary: CreditSummary;
   daily: CreditDailyRow[];
   users: CreditTopUser[];
+  orders: RecentOrder[];
 }) {
   const all = summary.all_time;
   const win = summary.window;
@@ -307,6 +399,13 @@ function Dashboard({
             sub={`of ${fmtCredits(summary.users.with_account)} accounts`}
           />
         </div>
+      </Section>
+
+      <Section
+        title="Recent orders"
+        note="The ten latest credit purchases: who bought, which pack, what the card was charged and the free bonus that came with it. Open the Stripe link for fees and the receipt."
+      >
+        <RecentOrders orders={orders} />
       </Section>
 
       <Section
@@ -509,6 +608,7 @@ export default async function AdminCreditsPage() {
   let summary: CreditSummary | null = null;
   let daily: CreditDailyRow[] = [];
   let users: CreditTopUser[] = [];
+  let orders: RecentOrder[] = [];
   let failure: string | null = null;
 
   try {
@@ -520,6 +620,12 @@ export default async function AdminCreditsPage() {
   } catch (err: unknown) {
     failure = err instanceof Error ? err.message : "Unknown error";
     console.error("[admin/credits] analytics failed:", failure);
+  }
+  // The orders table is extra detail: if it cannot load, the rest of the page still should.
+  try {
+    orders = await getRecentOrders(10);
+  } catch (err: unknown) {
+    console.error("[admin/credits] recent orders failed:", err instanceof Error ? err.message : err);
   }
 
   return (
@@ -562,7 +668,7 @@ export default async function AdminCreditsPage() {
             </div>
           </div>
         ) : (
-          <Dashboard summary={summary} daily={daily} users={users} />
+          <Dashboard summary={summary} daily={daily} users={users} orders={orders} />
         )}
       </div>
       <Footer />

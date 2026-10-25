@@ -741,6 +741,102 @@ export async function getCreditTopUsers(
 }
 
 /* ------------------------------------------------------------------ */
+/* Recent orders (admin)                                               */
+/* ------------------------------------------------------------------ */
+
+export interface RecentOrder {
+  ledger_id: number;
+  created_at: string;
+  user_id: string;
+  email: string | null;
+  display_name: string | null;
+  pack_id: string;
+  /** What the card was charged, in USD cents (0 when the reference has none). */
+  paid_cents: number;
+  credits: number;
+  bonus_credits: number;
+  payment_intent_id: string | null;
+  /** Credits clawed back by a refund or chargeback against this payment. */
+  reversed_credits: number;
+}
+
+/**
+ * The latest credit purchases, newest first, with the account, the pack, what was
+ * charged, the free bonus that came with it, and whether the money has since gone back.
+ * Service-role read: call it only from a page that has already checked for an admin.
+ */
+export async function getRecentOrders(limit = 10): Promise<RecentOrder[]> {
+  const supabase = createAdminClient();
+  const { data: rows, error } = await supabase
+    .from("credit_ledger")
+    .select("id, user_id, amount, reference, created_at")
+    .eq("kind", "purchase")
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  if (error) throw new Error(`Failed to read recent orders: ${error.message}`);
+  const orders = rows ?? [];
+  if (orders.length === 0) return [];
+
+  const intents = orders
+    .map((r) => (r.reference as { payment_intent_id?: string } | null)?.payment_intent_id)
+    .filter((x): x is string => typeof x === "string" && x.length > 0);
+
+  const bonusByIntent = new Map<string, number>();
+  const reversedByIntent = new Map<string, number>();
+  if (intents.length > 0) {
+    const { data: bonuses } = await supabase
+      .from("credit_ledger")
+      .select("amount, idempotency_key")
+      .in("idempotency_key", intents.map((pi) => `stripe:${pi}:bonus`));
+    for (const b of bonuses ?? []) {
+      bonusByIntent.set(String(b.idempotency_key).replace(/^stripe:/, "").replace(/:bonus$/, ""), Number(b.amount));
+    }
+    const { data: reversals } = await supabase
+      .from("credit_ledger")
+      .select("amount, idempotency_key")
+      .eq("kind", "reversal")
+      .like("idempotency_key", "stripe:%:reversal:%")
+      .order("created_at", { ascending: false })
+      .limit(500);
+    for (const r of reversals ?? []) {
+      const pi = String(r.idempotency_key).split(":")[1];
+      if (pi) reversedByIntent.set(pi, (reversedByIntent.get(pi) ?? 0) + Math.abs(Number(r.amount)));
+    }
+  }
+
+  const userIds = Array.from(new Set(orders.map((r) => r.user_id as string)));
+  const who = new Map<string, { email: string | null; display_name: string | null }>();
+  await Promise.all(
+    userIds.map(async (id) => {
+      const [{ data: u }, { data: p }] = await Promise.all([
+        supabase.auth.admin.getUserById(id),
+        supabase.from("profiles").select("display_name").eq("id", id).maybeSingle(),
+      ]);
+      who.set(id, { email: u?.user?.email ?? null, display_name: (p?.display_name as string | null) ?? null });
+    })
+  );
+
+  return orders.map((r) => {
+    const ref = (r.reference ?? {}) as { pack_id?: string; amount_total?: number; payment_intent_id?: string };
+    const pi = ref.payment_intent_id ?? null;
+    const w = who.get(r.user_id as string);
+    return {
+      ledger_id: Number(r.id),
+      created_at: r.created_at as string,
+      user_id: r.user_id as string,
+      email: w?.email ?? null,
+      display_name: w?.display_name ?? null,
+      pack_id: ref.pack_id ?? "unknown",
+      paid_cents: Number(ref.amount_total ?? 0),
+      credits: Number(r.amount),
+      bonus_credits: pi ? bonusByIntent.get(pi) ?? 0 : 0,
+      payment_intent_id: pi,
+      reversed_credits: pi ? reversedByIntent.get(pi) ?? 0 : 0,
+    };
+  });
+}
+
+/* ------------------------------------------------------------------ */
 /* Stripe webhook de-duplication                                       */
 /* ------------------------------------------------------------------ */
 
