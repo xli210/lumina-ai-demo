@@ -26,13 +26,19 @@ export function Navbar() {
             AI Image Edit
           </Link>
           <Link
-            href="/facestudio-v"
+            href="/headswap-pro"
             className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
           >
-            Video Face Swap
+            HeadSwap Pro
             <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white lg:inline">
               New
             </span>
+          </Link>
+          <Link
+            href="/facestudio-v"
+            className="whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
+          >
+            Video Face Swap
           </Link>
           <span aria-hidden className="hidden h-4 w-px bg-neutral-200 min-[1200px]:block" />
           <Link

@@ -222,6 +222,15 @@ export function HeroSection() {
             className="absolute inset-0 flex flex-col items-center justify-center px-6 transition-opacity duration-1000"
             style={{ opacity: activeSlide === 0 ? 0 : 1, pointerEvents: activeSlide === 0 ? "none" : "auto" }}
           >
+            <Link
+              href="/headswap-pro"
+              tabIndex={activeSlide === 0 ? -1 : 0}
+              className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs font-medium text-white backdrop-blur-sm transition hover:bg-white/20 sm:text-sm"
+            >
+              <span className="rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide">New</span>
+              Nano HeadSwap Pro: put any head in any photo
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
             <h1 className="mb-6 text-balance text-center text-3xl font-bold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
               A whole AI studio, right in your pocket
             </h1>

@@ -8,6 +8,7 @@ import { PRODUCTS } from "@/lib/products";
 import { appReleases } from "@/lib/release-data";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
 import { IMAGE_EDIT_NAME } from "@/lib/image-edit-facts";
+import { HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 
 /**
  * The catalogue of every desktop app, with its price, latest version and release notes.
@@ -176,6 +177,7 @@ export default function AppsIndex() {
             servers, and they are paid per use in credits.
           </p>
           <ul className="space-y-2 text-sm text-muted-foreground">
+            <li><Link href="/headswap-pro" className={textLink}>{HEADSWAP_PRO_NAME}</Link> (new): swap the whole head in a portrait or a group photo, up to four variations at a time.</li>
             <li><Link href="/face-studio" className={textLink}>Nano FaceStudio Online</Link>: photo face swap and head swap, up to six faces.</li>
             <li><Link href="/facestudio-v" className={textLink}>{FACESTUDIO_V_NAME} {FACESTUDIO_V_VERSION}</Link>: video face swap that changes only the person you choose.</li>
             <li><Link href="/image-edit" className={textLink}>{IMAGE_EDIT_NAME}</Link>: edit a photo by describing the change, with every pixel outside the edit kept identical.</li>

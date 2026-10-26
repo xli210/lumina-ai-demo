@@ -14,6 +14,7 @@ import {
 } from "@/lib/facestudio";
 import { IMAGE_EDIT_NAME, IMAGE_EDIT_PRICE_CREDITS, IMAGE_EDIT_PRICE_USD_TEXT } from "@/lib/image-edit-facts";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
+import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 
 /**
  * One page that states what NanoPocket costs. Every figure is read from the code
@@ -165,6 +166,13 @@ export default function PricingPage() {
                     Face swap {FACE} credits (${(FACE / 100).toFixed(2)}) per face; head swap {HEAD} credits (${(HEAD / 100).toFixed(2)}).
                   </td>
                   <td className={td}>Up to {FACESTUDIO_MAX_FACES} faces in one photo. Face detection is free. Priced per face replaced, so faces you leave alone cost nothing.</td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className={td}><Link href="/headswap-pro" className={textLink}>{HEADSWAP_PRO_NAME}</Link></td>
+                  <td className={td}>
+                    {HEADSWAP_PRO_CREDITS_PER_IMAGE} credits (${(HEADSWAP_PRO_CREDITS_PER_IMAGE / 100).toFixed(2)}) per image delivered.
+                  </td>
+                  <td className={td}>Swaps the whole head: face, hair and head shape. Up to {HEADSWAP_PRO_MAX_VARIATIONS} variations a run; each costs the same, and a failed swap costs nothing.</td>
                 </tr>
                 <tr className="border-b border-border">
                   <td className={td}><Link href="/facestudio-v" className={textLink}>{FACESTUDIO_V_NAME} {FACESTUDIO_V_VERSION}</Link></td>

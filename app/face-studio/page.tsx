@@ -299,6 +299,13 @@ export default function FaceStudioLandingPage() {
               original: the hair across an eye, a hand on a cheek, glasses, a nose ring. Back at full resolution. Free accounts carry a
               small NanoPocket.ai watermark that one top-up removes.
             </p>
+            <p className="mt-4 text-sm text-white/70">
+              New for whole-head swaps:{" "}
+              <Link href="/headswap-pro" className="font-medium text-white underline underline-offset-4 hover:text-white/90">
+                Nano HeadSwap Pro
+              </Link>
+              , our next-generation head swap.
+            </p>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <Link
                 href={CONSOLE_URL}
