@@ -39,6 +39,14 @@ The same id travels to the worker (input.request_id) and into its logs and R2 re
 or refused jobs, page errors) are also kept as JSON records in R2 under HS_LOG_PREFIX (default headswap/logs/gateway)
 and in memory for /api/admin/logs.
 
+Direct uploads (added by NanoPocket): the browser sends the photo and the new head straight to R2, not through this server, so
+Render never carries (or holds in memory) the image bytes. POST /api/upload-url {"kind": "photo"|"head", "content_type", "size"}
+returns {"key", "url"}: a presigned PUT for one object, valid HS_UPLOAD_TTL seconds and for exactly the declared size. The page
+PUTs the file to it, then sends the key to /api/photo (form field "key") or /api/swap (form field "head_key"). Only keys this
+server issued are accepted (it keeps a register), so a client cannot point it at other objects in the bucket. The bucket needs a
+CORS rule that allows PUT from the site (the same one Face Studio uses). With HS_TICKET_REQUIRED=1 file uploads through this
+server are refused unless HS_ALLOW_FILE_UPLOADS=1.
+
 Photos and heads go to R2 (HS_INPUT_PREFIX) and reach the worker as short-lived presigned links, so request bodies to
 RunPod stay tiny whatever the photo size. Detection and swaps are RunPod async jobs polled by the page through this
 server, so no request here waits through a GPU cold start (proxies such as Cloudflare cut requests at ~100 s).
@@ -81,6 +89,10 @@ ENTITLEMENT_SECRET = os.environ.get("HS_ENTITLEMENT_SECRET", "")
 WATERMARK_MODE = os.environ.get("HS_WATERMARK_MODE", "credits").strip().lower()
 ADMIN_KEY = os.environ.get("HS_ADMIN_KEY", "")
 TICKET_REQUIRED = os.environ.get("HS_TICKET_REQUIRED", "0").strip() == "1"
+ALLOW_FILE_UPLOADS = (not TICKET_REQUIRED) or os.environ.get("HS_ALLOW_FILE_UPLOADS", "0").strip() == "1"
+UPLOADS_PER_HOUR = int(os.environ.get("HS_UPLOADS_PER_HOUR", 120))
+UPLOAD_TTL = int(os.environ.get("HS_UPLOAD_TTL", 600))     # how long a presigned upload link works
+UPLOAD_TYPES = ("image/jpeg", "image/png", "image/webp")
 MODEL_ID = os.environ.get("HS_MODEL_ID", "headswap-pro")
 LINK_TTL = 2 * 3600        # how long the worker may take to fetch an input
 assert WATERMARK_MODE in ("credits", "always", "never"), f"HS_WATERMARK_MODE must be credits/always/never"
@@ -90,6 +102,7 @@ session = requests.Session()
 session.headers.update({"Authorization": f"Bearer {RUNPOD_KEY}", "Content-Type": "application/json"})
 
 PHOTOS = {}        # photo id -> {"key", "job", "t", "faces", "width", "height", "default_face", "error", "rid", "uid"}
+UPLOADS = {}       # object key -> {"uid", "kind", "t", "size"}: what this server has issued an upload link for
 USED_TICKETS = {}  # reservation id -> time it was used (a ticket pays for one swap)
 JOBS = {}          # RunPod job id -> {"t", "n", "photo", "watermark", "uid", "rid", "done"}
 LOCK = threading.Lock()
@@ -276,6 +289,8 @@ def gc():
             PHOTOS.pop(pid, None)
         for jid in [j for j, v in JOBS.items() if now - v["t"] > 24 * 3600]:
             JOBS.pop(jid, None)
+        for k in [k for k, v in UPLOADS.items() if now - v["t"] > PHOTO_TTL]:
+            UPLOADS.pop(k, None)
         for hid in [h for h, t in USED_TICKETS.items() if now - t > 24 * 3600]:
             USED_TICKETS.pop(hid, None)
 
@@ -283,6 +298,27 @@ def gc():
 def put_input(data: bytes, name: str) -> str:
     key = f"{INPUT_PREFIX}/{time.strftime('%Y%m%d')}/{uuid.uuid4().hex}_{name}"
     s3.put_object(Bucket=BUCKET, Key=key, Body=data, ContentType="application/octet-stream")
+    return key
+
+
+def uploaded_key(key, kind: str, uid):
+    """Check that `key` is an upload this server issued a link for (of this kind, for this user) and that it arrived whole."""
+    rec = UPLOADS.get(key) if isinstance(key, str) else None
+    if rec is None or rec["kind"] != kind:
+        raise HTTPException(400, "This upload has expired. Please choose the file again.")
+    if rec.get("uid") and uid and rec["uid"] != uid:
+        raise HTTPException(403, "That upload belongs to someone else.")
+    try:
+        size = s3.head_object(Bucket=BUCKET, Key=key)["ContentLength"]
+    except Exception:  # noqa: BLE001  (not there: the browser never finished the PUT)
+        raise HTTPException(400, "The upload did not finish. Please choose the file again.")
+    if size > MAX_UPLOAD or size < 1:
+        try:
+            s3.delete_object(Bucket=BUCKET, Key=key)
+        except Exception:  # noqa: BLE001
+            pass
+        UPLOADS.pop(key, None)
+        raise HTTPException(413, f"The file is over {MAX_UPLOAD >> 20} MB.")
     return key
 
 
@@ -379,7 +415,7 @@ def health():
     except Exception:  # noqa: BLE001
         h = None
     return {"status": "ready", "endpoint": ENDPOINT, "runpod": h, "photos": len(PHOTOS), "jobs": len(JOBS),
-            "watermark_mode": WATERMARK_MODE, "entitlement_secret_set": bool(ENTITLEMENT_SECRET), "ticket_required": TICKET_REQUIRED, "model": MODEL_ID}
+            "watermark_mode": WATERMARK_MODE, "entitlement_secret_set": bool(ENTITLEMENT_SECRET), "ticket_required": TICKET_REQUIRED, "file_uploads": ALLOW_FILE_UPLOADS, "model": MODEL_ID}
 
 
 @app.post("/api/warm")
@@ -401,20 +437,61 @@ def get_entitlement(request: Request):
     return {"watermark": wm, "reason": reason}
 
 
+@app.post("/api/upload-url")
+async def upload_url(request: Request):
+    """A presigned PUT for one image, so the browser uploads straight to R2 and this server never touches the bytes."""
+    uid = entitlement(request)[2]
+    _ctx.uid = uid
+    if TICKET_REQUIRED and not uid:
+        raise HTTPException(401, "Sign in to NanoPocket.ai to upload a photo.")
+    limit(request, "upload", UPLOADS_PER_HOUR)
+    try:
+        body = await request.json()
+    except Exception:  # noqa: BLE001
+        raise HTTPException(400, "Expected JSON.")
+    body = body if isinstance(body, dict) else {}
+    kind, ctype, size = body.get("kind"), body.get("content_type"), body.get("size")
+    if kind not in ("photo", "head"):
+        raise HTTPException(400, "kind must be photo or head.")
+    if ctype not in UPLOAD_TYPES:
+        raise HTTPException(400, "Unsupported image type. Use a JPEG, PNG or WebP.")
+    if not isinstance(size, int) or isinstance(size, bool) or size < 1:
+        raise HTTPException(400, "size must be the file size in bytes.")
+    if size > MAX_UPLOAD:
+        raise HTTPException(413, f"The {kind} is over {MAX_UPLOAD >> 20} MB.")
+    gc()
+    key = f"{INPUT_PREFIX}/{time.strftime('%Y%m%d')}/{uuid.uuid4().hex}_{kind}"
+    url = s3.generate_presigned_url("put_object", Params={"Bucket": BUCKET, "Key": key, "ContentType": ctype, "ContentLength": size},
+                                    ExpiresIn=UPLOAD_TTL)
+    with LOCK:
+        UPLOADS[key] = {"uid": uid, "kind": kind, "t": time.time(), "size": size}
+    jlog("upload_url_issued", kind=kind, bytes=size)
+    return {"key": key, "url": url, "headers": {"Content-Type": ctype}, "expires_in": UPLOAD_TTL}
+
+
 @app.post("/api/photo")
-async def photo(request: Request, file: UploadFile = File(...)):
+async def photo(request: Request, file: UploadFile | None = File(None), key: str | None = Form(None)):
     _ctx.uid = entitlement(request)[2]
     if TICKET_REQUIRED and not _ctx.uid:        # detection runs on a GPU: only signed-in accounts (a valid token from the site)
         raise HTTPException(401, "Sign in to NanoPocket.ai to upload a photo.")
     limit(request, "photo", PHOTOS_PER_HOUR)
     gc()
-    data = await read_upload(file, "photo")
-    key = put_input(data, "photo")
+    if key:
+        key = uploaded_key(key, "photo", _ctx.uid)
+        size, name = UPLOADS[key]["size"], "direct"
+    else:
+        if file is None:
+            raise HTTPException(400, "Send the photo with an upload link (key) or as a file.")
+        if not ALLOW_FILE_UPLOADS:
+            raise HTTPException(400, "Please reload the page: photos are uploaded directly now.")
+        data = await read_upload(file, "photo")
+        key = put_input(data, "photo")
+        size, name = len(data), (file.filename or "")[:80]
     jid = rp_run({"action": "detect", "photo": link(key)})
     pid = uuid.uuid4().hex
     with LOCK:
         PHOTOS[pid] = {"key": key, "job": jid, "t": time.time(), "faces": None, "rid": _ctx.rid, "uid": _ctx.uid}
-    jlog("photo_submitted", photo=pid, job=jid, bytes=len(data), filename=(file.filename or "")[:80])
+    jlog("photo_submitted", photo=pid, job=jid, bytes=size, filename=name)
     return {"id": pid, "status": "detecting"}
 
 
@@ -464,7 +541,7 @@ def photo_view(pid, st):
 
 @app.post("/api/swap")
 async def swap(request: Request, photo_id: str = Form(...), face: int = Form(0), variations: int = Form(1),
-               seed: int = Form(-1), head: UploadFile = File(...)):
+               seed: int = Form(-1), head: UploadFile | None = File(None), head_key: str | None = Form(None)):
     wm, reason, uid = entitlement(request)
     ticket = None
     if TICKET_REQUIRED:
@@ -494,15 +571,24 @@ async def swap(request: Request, photo_id: str = Form(...), face: int = Form(0),
             if str(ticket["hold"]) in USED_TICKETS:
                 raise HTTPException(409, "This swap was already started.")
             USED_TICKETS[str(ticket["hold"])] = time.time()
-    data = await read_upload(head, "head photo")
-    head_key = put_input(data, "head")
+    if head_key:
+        head_key = uploaded_key(head_key, "head", uid)
+        head_bytes = UPLOADS[head_key]["size"]
+    else:
+        if head is None:
+            raise HTTPException(400, "Send the new head with an upload link (head_key) or as a file.")
+        if not ALLOW_FILE_UPLOADS:
+            raise HTTPException(400, "Please reload the page: photos are uploaded directly now.")
+        data = await read_upload(head, "head photo")
+        head_key = put_input(data, "head")
+        head_bytes = len(data)
     jid = rp_run({"action": "swap", "photo": link(st["key"]), "head": link(head_key), "face": face,
                   "variations": n, "seed": seed, "watermark": wm})
     with LOCK:
         JOBS[jid] = {"t": time.time(), "n": n, "photo": photo_id, "watermark": wm, "uid": uid, "rid": _ctx.rid,
                      "done": False, "last": None, "hold": (str(ticket["hold"]) if ticket else None)}
     jlog("swap_submitted", job=jid, photo=photo_id, face=face, faces=len(st["faces"]), variations=n, seed=seed,
-         watermark=wm, watermark_reason=reason, head_bytes=len(data), model=MODEL_ID, hold=(str(ticket["hold"]) if ticket else None))
+         watermark=wm, watermark_reason=reason, head_bytes=head_bytes, model=MODEL_ID, hold=(str(ticket["hold"]) if ticket else None))
     return {"job": jid, "watermark": wm, "model": MODEL_ID, "variations": n}
 
 

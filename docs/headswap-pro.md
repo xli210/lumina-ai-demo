@@ -20,6 +20,11 @@ headswap-gateway/app.py  (Render, one instance)  ──►  RunPod GPU (already 
   limit), so the gateway is what enforces payment: with `HS_TICKET_REQUIRED=1` a swap needs a ticket that only this
   site can sign, and only after credits are reserved. A ticket pays for one swap and at most the images reserved.
 - Photo upload needs a valid sign-in token too (detection runs on a GPU).
+- Images do not pass through Render: the page asks the gateway for a presigned R2 link (`POST /api/upload-url`), PUTs the file
+  to R2 itself, and sends only the key. The gateway only accepts keys it issued (a register), checks the object arrived and is
+  within 25 MB, and refuses file bytes while `HS_TICKET_REQUIRED=1`. This needs the same R2 CORS rule as Face Studio (PUT from
+  https://nanopocket.ai, header content-type), see docs/face-studio.md. Same arrangement as Face Studio, so Render's bandwidth
+  and memory are not used for images.
 - Watermark: the same rule as Face Studio. `paid` = has ever bought credits (`hasEverPurchased`). It is signed into the
   ticket, so editing the page cannot remove it. `HS_WATERMARK_MODE=never` is the emergency switch (gateway env).
 - Settlement never trusts the page: `/api/headswap/settle` asks the gateway for the job and charges
@@ -64,5 +69,5 @@ headswap-gateway/app.py  (Render, one instance)  ──►  RunPod GPU (already 
 
 ## Tests
 
-`headswap-gateway/test_ticket.py` (13 checks on the ticket rules, no network; needs fastapi, httpx, boto3, requests,
+`headswap-gateway/test_ticket.py` (27 checks on the ticket rules and the direct-upload flow, no network; needs fastapi, httpx, boto3, requests,
 python-multipart). The website side has no automated test yet: the token and ticket format is the one the gateway test builds.

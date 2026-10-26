@@ -405,6 +405,18 @@ async function settle(hold) {
     await sleep(1500);
   }
 }
+// Files go straight to storage with a one-time link from the gateway, so the server in between never carries the image.
+async function uploadFile(file, kind) {
+  const ct = ["image/jpeg", "image/png", "image/webp"].includes(file.type) ? file.type : null;
+  if (!ct) throw new ApiError("Please use a JPEG, PNG or WebP image.", 400, null);
+  const u = await api("/api/upload-url", { method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ kind, content_type: ct, size: file.size }) });
+  let r;
+  try { r = await fetch(u.url, { method: "PUT", headers: u.headers, body: file }); }
+  catch (e) { report("upload put", e, { kind, bytes: file.size }); throw new ApiError("The upload could not reach our storage. Check your connection and try again.", 0, null); }
+  if (!r.ok) { report("upload put " + r.status, new Error("R2 answered " + r.status), { kind, bytes: file.size }); throw new ApiError(`The upload failed (${r.status}). Please try again.`, r.status, null); }
+  return u.key;
+}
 function showError(msg, rid) {
   const box = $("errorBox");
   box.innerHTML = escapeHtml(msg) + (rid ? `<span class="ref">Reference: <code>${escapeHtml(rid)}</code> — include it if you contact support.</span>` : "");
@@ -461,7 +473,11 @@ async function onPhoto(file) {
   setStatus("Finding people…");
   const token = (S.photoToken = {});      // a newer upload makes this one's polling stop
   try {
-    const fd = new FormData(); fd.append("file", file);
+    setStatus("Uploading…");
+    const key = await uploadFile(file, "photo");
+    if (token !== S.photoToken) return;
+    setStatus("Finding people…");
+    const fd = new FormData(); fd.append("key", key);
     const { id } = await api("/api/photo", { method: "POST", body: fd });
     let d;
     for (;;) {                             // detection runs on the GPU: poll until it is done
@@ -507,7 +523,9 @@ function drawFaces(frame) {
 }
 
 function onHead(file) {
-  S.head = file; clearError();
+  S.head = file; S.headKey = null; clearError();
+  uploadFile(file, "head").then((k) => { if (S.head === file) { S.headKey = k; update(); } })
+    .catch((err) => { if (S.head === file) { S.head = null; S.headKey = null; $("headDrop").classList.remove("filled"); $("headDrop").querySelectorAll("img,.remove-btn").forEach((n) => n.remove()); $("headEmpty").hidden = false; update(); showError(err.message, err.requestId); } });
   const drop = $("headDrop");
   drop.classList.add("filled");
   drop.querySelectorAll("img,.remove-btn").forEach((n) => n.remove());
@@ -528,7 +546,7 @@ $("seg").addEventListener("click", (e) => {
 });
 
 function update() {
-  const ready = S.photo && S.photo.faces.length && S.face !== null && S.head && !S.job;
+  const ready = S.photo && S.photo.faces.length && S.face !== null && S.head && S.headKey && !S.job;
   const go = $("go");
   go.disabled = !ready && !S.job;
   go.classList.toggle("processing", !!S.job);
@@ -536,7 +554,7 @@ function update() {
   $("hint").textContent = S.job ? "This usually takes 30–40 s per variation; after a quiet period the GPU needs about a minute to start."
     : !S.photo ? "Upload a photo and a new head to enable Swap."
     : !S.photo.faces.length ? "No face was found in the photo."
-    : !S.head ? "Upload the new head to enable Swap." : "Ready.";
+    : !S.head ? "Upload the new head to enable Swap." : !S.headKey ? "Uploading the new head…" : "Ready.";
 }
 
 // ---------- run
@@ -553,7 +571,7 @@ $("go").onclick = async () => {
     S.hold = hold.hold_id; showCredits(hold.available);
     showProgress("Starting…", 0);
     const fd = new FormData();
-    fd.append("photo_id", S.photo.id); fd.append("face", S.face); fd.append("variations", S.n); fd.append("head", S.head);
+    fd.append("photo_id", S.photo.id); fd.append("face", S.face); fd.append("variations", S.n); fd.append("head_key", S.headKey);
     const { job } = await api("/api/swap", { method: "POST", body: fd, headers: { "X-HS-Ticket": hold.ticket } });
     S.job = job; update();
     // tie the reservation to the job; without it the swap could not be charged, so try hard
