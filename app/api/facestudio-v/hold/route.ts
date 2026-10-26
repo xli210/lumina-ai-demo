@@ -5,6 +5,7 @@ import {
   FSV_MAX_CREDITS,
   FSV_MAX_OPEN,
   reconcileOpenHolds,
+  settleStaleHolds,
 } from "@/lib/facestudio-v-server";
 import { signEntitlement } from "@/lib/facestudio-v-entitlement";
 import { FACESTUDIO_V_MODES, FACESTUDIO_V_SERVICE, facestudioVIsOpen } from "@/lib/facestudio-v";
@@ -41,6 +42,9 @@ export async function POST(request: Request) {
   try {
     // Free whatever this user left hanging (a closed tab) before counting and charging.
     await reconcileOpenHolds(auth.userId);
+    // Charge what was made for people who closed the page while it was being made, BEFORE the
+    // sweep returns whatever has expired (it cannot tell a made video from one that never ran).
+    await settleStaleHolds(10).catch(() => 0);
     await releaseExpiredHolds(20).catch(() => 0);
     await provisionCredits(auth.userId);
 

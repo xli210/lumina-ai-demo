@@ -12,7 +12,8 @@ export interface StudioBilling {
 }
 
 export type StudioJob =
-  | { found: true; state: string; billing: StudioBilling | null }
+  /** keptUntil: until when (unix seconds) the studio keeps the finished video; null or absent when there is none to download. */
+  | { found: true; state: string; billing: StudioBilling | null; keptUntil?: number | null }
   | { found: false }
   | { error: string };
 

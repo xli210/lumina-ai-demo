@@ -34,8 +34,12 @@ export type { StudioBilling, StudioJob };
  * itself (with the key, server to server) what the job's billing status is.
  */
 
-/** A reservation covers waiting in line (up to ~30 min) and rendering (~5 min), with room to spare. */
-export const FSV_HOLD_TTL_SECONDS = 60 * 60;
+/**
+ * A reservation covers waiting in line and rendering: a minute of Best quality takes up to an hour and the studio
+ * gives a render 90 minutes, so 3 hours with room to spare. It used to be one hour, and the expiry sweep then
+ * returned the credits of videos that were made. settleStaleHolds still settles what it can before anything expires.
+ */
+export const FSV_HOLD_TTL_SECONDS = 3 * 60 * 60;
 /** Videos one account can have in line or rendering at once. */
 export const FSV_MAX_OPEN = 2;
 /** Largest price one hold may ask for. The studio's own caps keep real prices far below it. */
@@ -74,8 +78,13 @@ export async function fetchStudioJob(jobId: string): Promise<StudioJob> {
     const r = await studioFetch(cfg, `/api/jobs/${jobId}`);
     if (r.status === 404) return { found: false };
     if (!r.ok) return { error: `The studio answered ${r.status}.` };
-    const j = (await r.json()) as { state?: string; billing?: StudioBilling };
-    return { found: true, state: String(j.state ?? ""), billing: j.billing ?? null };
+    const j = (await r.json()) as { state?: string; billing?: StudioBilling; kept_until?: number | null };
+    return {
+      found: true,
+      state: String(j.state ?? ""),
+      billing: j.billing ?? null,
+      keptUntil: typeof j.kept_until === "number" ? j.kept_until : null,
+    };
   } catch {
     return { error: "The studio did not answer." };
   }
@@ -208,6 +217,96 @@ export async function reconcileOpenHolds(userId: string): Promise<void> {
       await releaseHold(h.id, "no_job_started");
     }
   }
+}
+
+/**
+ * Settle the oldest open reservations of everyone that have a job, by asking the
+ * studio how each went. The page settles its own job when it sees the end, but
+ * the person may have closed it while the video was being made (the studio makes
+ * it anyway and keeps it 24 hours): without this, nothing would charge for that
+ * video and the expiry sweep would return the credits. Called before that sweep.
+ * A hold the studio cannot be asked about stays open (settleHold says "unreachable").
+ */
+export async function settleStaleHolds(limit = 10): Promise<number> {
+  const supabase = createAdminClient();
+  const { data, error } = await supabase
+    .from("credit_holds")
+    .select("id, user_id, amount, status, service, job_ref, created_at")
+    .eq("service", FACESTUDIO_V_SERVICE)
+    .eq("status", "open")
+    .not("job_ref", "is", null)
+    .lt("created_at", new Date(Date.now() - 3 * 60 * 1000).toISOString())
+    .order("created_at", { ascending: true })
+    .limit(limit);
+  if (error) throw new Error(`Failed to list open holds: ${error.message}`);
+  let settled = 0;
+  for (const h of (data ?? []) as CreditHoldRecord[]) {
+    try {
+      const o = await settleHold(h);
+      if (o.status === "settled" || o.status === "refunded") settled += 1;
+    } catch (err: unknown) {
+      console.error("[facestudio-v] settling a stale hold failed:", err instanceof Error ? err.message : err);
+    }
+  }
+  return settled;
+}
+
+/** One video on "My videos". */
+export interface MyVideo {
+  job: string;
+  createdAt: string;
+  mode: string | null;
+  credits: number;
+  /** The reservation: open (being made), captured (charged), released or expired (returned). */
+  hold: CreditHoldRecord["status"];
+  /** What the studio says: done, running, error, cancelled; "gone" when it no longer knows the job; "unknown" when it could not be asked. */
+  state: string;
+  /** Until when (unix seconds) the video can be downloaded; null when there is none. */
+  keptUntil: number | null;
+}
+
+/**
+ * This user's videos of the last two days (a video is kept 24 hours after it is
+ * made; the reservation can be older than that). Open reservations are settled
+ * first, so the list says what was charged.
+ */
+export async function videosOf(userId: string, limit = 30): Promise<MyVideo[]> {
+  const supabase = createAdminClient();
+  const { data, error } = await supabase
+    .from("credit_holds")
+    .select("id, user_id, amount, status, service, job_ref, created_at, estimate")
+    .eq("service", FACESTUDIO_V_SERVICE)
+    .eq("user_id", userId)
+    .not("job_ref", "is", null)
+    .gt("created_at", new Date(Date.now() - 48 * 3600 * 1000).toISOString())
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  if (error) throw new Error(`Failed to list videos: ${error.message}`);
+  const holds = (data ?? []) as CreditHoldRecord[];
+  for (const h of holds) {
+    if (h.status !== "open") continue;
+    try {
+      const o = await settleHold(h);
+      if (o.status === "settled") h.status = "captured";
+      else if (o.status === "refunded") h.status = "released";
+    } catch (err: unknown) {
+      console.error("[facestudio-v] settling for My videos failed:", err instanceof Error ? err.message : err);
+    }
+  }
+  const jobs = await Promise.all(holds.map((h) => fetchStudioJob(h.job_ref as string)));
+  return holds.map((h, i) => {
+    const j = jobs[i];
+    const mode = typeof h.estimate?.mode === "string" ? (h.estimate.mode as string) : null;
+    return {
+      job: h.job_ref as string,
+      createdAt: h.created_at,
+      mode,
+      credits: h.amount,
+      hold: h.status,
+      state: "error" in j ? "unknown" : j.found ? j.state : "gone",
+      keptUntil: "found" in j && j.found ? j.keptUntil ?? null : null,
+    };
+  });
 }
 
 /**
