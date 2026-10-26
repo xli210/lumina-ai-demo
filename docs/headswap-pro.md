@@ -1,0 +1,68 @@
+# Nano HeadSwap Pro: how it is wired and how to release it
+
+Source: the worker maintainers' hand-off (`headswap_pro_web_handoff.zip`, 2026-10-25). Model id `headswap-pro`
+(the older one is `headswap-std`). Public name: **Nano HeadSwap Pro** (one constant, `HEADSWAP_PRO_NAME` in
+`lib/headswap-pro.ts`); poster line "Starring you."
+
+## Parts
+
+```
+browser  /headswap-pro/index.html  (public/, the hand-off page with the credit flow added)
+   │  1. POST /api/headswap/hold   reserve credits, get a signed ticket          ┐
+   │  2. POST <gateway>/api/swap   with X-HS-Ticket (the gateway refuses without) │ this site (Next.js)
+   │  3. POST /api/headswap/job    tie the reservation to the gateway's job       │
+   │  4. POST /api/headswap/settle charge what was delivered, or give it all back ┘
+   ▼
+headswap-gateway/app.py  (Render, one instance)  ──►  RunPod GPU (already live)  ──►  Cloudflare R2
+```
+
+- The page talks to the gateway directly for photo upload and swap (uploads are up to 25 MB, over Vercel's request
+  limit), so the gateway is what enforces payment: with `HS_TICKET_REQUIRED=1` a swap needs a ticket that only this
+  site can sign, and only after credits are reserved. A ticket pays for one swap and at most the images reserved.
+- Photo upload needs a valid sign-in token too (detection runs on a GPU).
+- Watermark: the same rule as Face Studio. `paid` = has ever bought credits (`hasEverPurchased`). It is signed into the
+  ticket, so editing the page cannot remove it. `HS_WATERMARK_MODE=never` is the emergency switch (gateway env).
+- Settlement never trusts the page: `/api/headswap/settle` asks the gateway for the job and charges
+  `20 credits x billable_images`, capped at what was reserved. A failed job, or one owed a watermark that came back without
+  it, is released. A swap whose tab was closed is settled the next time the account reserves credits.
+- Price: `HEADSWAP_PRO_CREDITS_PER_IMAGE = 20` ($0.20). GPU cost measured by the maintainers is $0.011 to $0.04 an image.
+  It is the same as one head swap in Face Studio; change the constant to reprice.
+
+## Secrets (come from the GPU maintainer, never committed)
+
+| Where | Variable | Notes |
+|---|---|---|
+| Render (gateway) | `RUNPOD_API_KEY`, `R2_ENDPOINT`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | |
+| Render (gateway) | `HS_ENTITLEMENT_SECRET` | **same value as on Vercel** |
+| Render (gateway) | `HS_ADMIN_KEY` | for `/api/admin/logs` |
+| Render (gateway) | `HS_TICKET_REQUIRED=1`, `HS_WATERMARK_MODE=credits`, `HS_CORS_ORIGINS=https://nanopocket.ai` | already in `render.yaml` |
+| Vercel | `HS_ENTITLEMENT_SECRET` | same as the gateway |
+| Vercel | `HEADSWAP_GATEWAY_URL` | `https://<the Render service>.onrender.com` |
+| Vercel | `HEADSWAP_PRO=1` | the last switch; unset = the page says "Opening soon" and nothing can start |
+
+## Release order
+
+1. Create the Render web service from `headswap-gateway/` (Blueprint: `render.yaml`; plan with one always-on instance, never
+   more than one: photos and jobs live in memory). Fill the secrets. Render does not redeploy on push; deploy by hand.
+2. Open `<gateway>/api/health`: expect `"status": "ready"`, `"entitlement_secret_set": true`, `"ticket_required": true`.
+3. Set `HS_ENTITLEMENT_SECRET` and `HEADSWAP_GATEWAY_URL` on Vercel, redeploy, then set `HEADSWAP_PRO=1` and redeploy.
+4. Walk the acceptance list below with a free account and a paying account.
+5. After it works: add `/headswap-pro` to `app/sitemap.ts`, `app/llms.txt/route.ts` and the apps/nav links, and record the name in memory.
+
+## Acceptance list
+
+- [ ] Not signed in: the page asks to sign in; uploading a photo is refused (401); pressing Swap cannot start anything.
+- [ ] Free account: notice "free version", the result carries the NanoPocket.ai watermark, the balance drops by 20 per image.
+- [ ] Account that has bought credits: no notice, clean result.
+- [ ] Delete or edit the `X-HS-Entitlement` / `X-HS-Ticket` headers in dev tools: no swap, or still watermarked.
+- [ ] Two variations cost 40, four cost 80; a failed job costs nothing; reloading during a swap does not charge twice.
+- [ ] Close the tab mid-swap, wait for it to finish, press Swap again: the first one was charged, then the new one starts.
+- [ ] Not enough credits: 402 with a "Buy credits" message, and the button does not start anything.
+- [ ] Group photo: pick another person; a photo with no face: "No face found".
+- [ ] Phone layout.
+- [ ] `/admin/reliability` lists "Nano HeadSwap Pro" with its renders and failures.
+
+## Tests
+
+`headswap-gateway/test_ticket.py` (13 checks on the ticket rules, no network; needs fastapi, httpx, boto3, requests,
+python-multipart). The website side has no automated test yet: the token and ticket format is the one the gateway test builds.

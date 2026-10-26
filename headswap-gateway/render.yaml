@@ -1,0 +1,35 @@
+# Render blueprint for the HeadSwap Pro (headswap-pro) gateway. Root directory of the service = this headswap-gateway/ folder.
+# Secrets (sync: false) are filled in on the Render dashboard, never committed.
+services:
+  - type: web
+    name: headswap-gateway
+    runtime: python
+    plan: starter            # one always-on instance: state (photos, jobs) is in memory
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: RUNPOD_API_KEY
+        sync: false
+      - key: RUNPOD_ENDPOINT_ID
+        value: "0yecvjeuqqfoyo"
+      - key: R2_ENDPOINT
+        sync: false
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: R2_BUCKET
+        value: "video-api"
+      - key: HS_CORS_ORIGINS
+        value: "https://nanopocket.ai"
+      - key: HS_ENTITLEMENT_SECRET     # same value as on the site's backend (signs X-HS-Entitlement)
+        sync: false
+      - key: HS_WATERMARK_MODE
+        value: "credits"
+      - key: HS_TICKET_REQUIRED        # a swap needs the site's signed ticket (credits reserved first)
+        value: "1"
+      - key: HS_ADMIN_KEY              # for GET /api/admin/logs
+        sync: false

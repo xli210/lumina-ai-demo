@@ -45,6 +45,7 @@ export const SERVICE_LABELS: Record<string, string> = {
   facestudio: "Nano FaceStudio Online",
   "facestudio-v": "Video FaceSwap Online",
   imageedit: "Image Edit Online",
+  "headswap-pro": "Nano HeadSwap Pro",
 };
 
 const MODE_LABELS: Record<string, string> = {
@@ -189,5 +190,6 @@ export const REASON_LABELS: Record<string, string> = {
   studio_error: "Studio reported an error",
   studio_refunded: "Studio refunded the job",
   studio_job_missing: "Studio no longer knew the job",
+  gateway_job_missing: "Gateway no longer knew the job",
   unknown: "No reason recorded",
 };
