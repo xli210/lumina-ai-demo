@@ -24,6 +24,7 @@ import {
   FACESTUDIO_V_VERSION,
 } from "@/lib/facestudio-v";
 import { SIGNED_APPS_PHRASE } from "@/lib/download-hashes";
+import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS } from "@/lib/headswap-pro";
 
 const BASE = "https://nanopocket.ai";
 const LAST_UPDATED = new Date().toISOString().slice(0, 10);
@@ -73,6 +74,11 @@ function buildLlmsTxt(): string {
       )} per face replaced and ${usd(
         HEAD_SWAP_USD
       )} per head swap after that. Credits never expire, there is no subscription, and a failed render is refunded in full automatically. Photos are re-encoded in the browser before upload, which strips EXIF and GPS metadata on the device.`,
+    ),
+    bullet(
+      "/headswap-pro",
+      "Nano HeadSwap Pro: swap the whole head in a portrait or group photo (live)",
+      `Hosted head swap for photos. Upload a photo and a new head: face, hair and head shape come from the new head, and the body, pose, scene and everyone else stay as they were. In a group photo, click the person to swap. Up to ${HEADSWAP_PRO_MAX_VARIATIONS} variations per run, a portrait takes about 40 seconds, results keep the photo's resolution. ${HEADSWAP_PRO_CREDITS_PER_IMAGE} credits per delivered image, a failed swap costs nothing, new accounts get free credits, results from an account that has never bought credits carry a NanoPocket.ai watermark.`,
     ),
     bullet(
       "/image-edit",
