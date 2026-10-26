@@ -17,13 +17,13 @@ export function Navbar() {
             href="/face-swap"
             className="whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
           >
-            Free Face Swap
+            Photo Face Swap
           </Link>
           <Link
             href="/headswap-pro"
             className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
           >
-            HeadSwap Pro
+            Photo Head Swap
             <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white lg:inline">
               New
             </span>

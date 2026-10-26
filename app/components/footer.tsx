@@ -80,7 +80,7 @@ export function Footer() {
             href="/face-swap"
             className="text-xs font-semibold text-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Free Face Swap
+            Photo Face Swap
           </Link>
           <Link
             href="/image-edit"
@@ -92,7 +92,7 @@ export function Footer() {
             href="/headswap-pro"
             className="text-xs font-semibold text-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            HeadSwap Pro
+            Photo Head Swap
           </Link>
           <Link
             href="/facestudio-v"
