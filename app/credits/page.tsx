@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ensureSignupGrant, listCreditLedger } from "@/lib/credits-server";
@@ -9,6 +10,8 @@ import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { CreditConsole } from "./credit-console";
 import { TrackPurchase } from "./track-purchase";
+
+export const metadata: Metadata = { robots: { index: false, follow: true } };
 
 export const dynamic = "force-dynamic";
 

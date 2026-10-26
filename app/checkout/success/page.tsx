@@ -1,8 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, Download, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "../../components/navbar";
 import { Footer } from "../../components/footer";
+
+export const metadata: Metadata = { robots: { index: false, follow: true } };
 
 export default function CheckoutSuccessPage() {
   return (

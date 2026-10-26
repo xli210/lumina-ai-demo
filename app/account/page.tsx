@@ -1,9 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { AccountProfile } from "./account-profile";
+
+export const metadata: Metadata = { robots: { index: false, follow: true } };
 
 export default async function AccountPage() {
   const supabase = await createClient();

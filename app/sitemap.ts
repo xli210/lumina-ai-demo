@@ -171,8 +171,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/terms`, lastModified: new Date("2026-05-29"), changeFrequency: "yearly", priority: 0.7 },
     { url: `${BASE}/security`, lastModified: new Date("2026-05-29"), changeFrequency: "yearly", priority: 0.7 },
     { url: `${BASE}/contact`, lastModified: new Date("2026-03-19"), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${BASE}/checkout`, lastModified: new Date("2026-03-19"), changeFrequency: "monthly", priority: 0.5 },
-    { url: `${BASE}/auth/login`, lastModified: new Date("2026-03-11"), changeFrequency: "monthly", priority: 0.4 },
     { url: `${BASE}/auth/sign-up`, lastModified: new Date("2026-03-11"), changeFrequency: "monthly", priority: 0.4 },
   ];
 }

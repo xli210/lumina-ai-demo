@@ -110,7 +110,6 @@ export const metadata: Metadata = {
     description: "AI face swap, face editing and virtual try-on that run on your own GPU: your files stay on your computer and there is no subscription. Free apps or a one-time license, plus free in-browser demos.",
     images: ["/og-image.jpg"],
   },
-  alternates: { canonical: "/" },
 };
 
 export const viewport: Viewport = {
