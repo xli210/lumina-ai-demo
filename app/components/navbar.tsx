@@ -20,12 +20,6 @@ export function Navbar() {
             Free Face Swap
           </Link>
           <Link
-            href="/image-edit"
-            className="whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
-          >
-            AI Image Edit
-          </Link>
-          <Link
             href="/headswap-pro"
             className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
           >
