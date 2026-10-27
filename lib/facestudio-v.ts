@@ -86,6 +86,10 @@ export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
     a: "Each video is paid for in NanoPocket credits (100 credits = US$1). The studio works out the price from the mode, the output size, the length of the clip and how many people are swapped, and shows it before you start. For example, a 10-second 1080p clip in Fast mode is about 20 credits; Best quality and Whole head cost more. If a video fails, is cancelled, or you leave the line, the credits are returned. New accounts start with free credits.",
   },
   {
+    q: "How long can my clip be?",
+    a: "Up to 60 seconds in Fast and Best quality, and up to 12 seconds in Whole head. Our GPU capacity is limited, so an account that has never topped up credits works on clips of up to 20 seconds (Whole head: 4 seconds), and its videos wait behind those of accounts that have. Topping up credits once gives the full lengths and a place at the front of the line. The studio checks the length when you upload and tells you before you pay.",
+  },
+  {
     q: "Why is there a watermark on my video, and how do I remove it?",
     a: "Since October 18, 2026, a video made on an account that has never topped up credits carries a slowly moving, semi-transparent NanoPocket mark. Topping up credits once removes it from the videos you make afterwards. Free sign-up credits and trials do not count as a top-up, and a video that was already made keeps the mark it was made with.",
   },
