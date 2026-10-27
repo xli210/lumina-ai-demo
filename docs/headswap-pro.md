@@ -98,3 +98,9 @@ The YouTube film itself does contain them. If legal clears the posters, the othe
 The first slide of the home page carousel plays `public/headswap-pro/hero-posters.mp4`: 10 s cut from the launch film (the *Us* poster swap, then the *Star Wars: The Last Jedi*
 multi-face poster swap), silent, 30 fps. Two files: `hero-posters.mp4` (1920 wide, crf 25, 3.3 MB, for screens 900 px and wider) and `hero-posters-sm.mp4` (1280 wide, crf 27, for phones); the poster is 1920 wide. The owner asked for the film-poster swap in the home hero. It contains real film posters, so the legal note above applies
 to it. To go back to a poster-free hero, point the slide in `app/components/hero-section.tsx` at `compare/ex2_v2.webp` (an image slide) or at `teaser.mp4`.
+
+### Group and steep-angle examples (second set, 2026-10-27)
+
+`public/headswap-pro/compare/grp1_*` (five friends, the middle man swapped) and `grp2_*` (a huddle photographed from below, the man in the red shirt swapped), both with
+`grp_face.webp` as the new head. The source file `ex2_multi_body.webp` was stored turned 180 degrees from its output; the page copy is turned back so the slider lines up
+(checked: rotated, it matches the output outside the face to within 1.4 of 255 mean difference). The earlier head swap took one face per photo, so these pairs have no "earlier" result.

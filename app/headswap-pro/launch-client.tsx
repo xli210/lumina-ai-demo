@@ -125,17 +125,21 @@ export interface CompareItem {
   note: string;
   ratio: string; // CSS aspect-ratio, e.g. "3 / 2"
   original: string;
-  earlier: string;
+  /** The earlier head swap's result. Missing when it could not do this photo at all. */
+  earlier?: string;
   pro: string;
   face: string;
+  /** CSS object-position for the small picture of the new head. */
+  facePosition?: string;
 }
 
 type Base = "original" | "earlier";
 
 export function Compare({ item }: { item: CompareItem }) {
-  const [base, setBase] = useState<Base>("earlier");
+  const [chosen, setBase] = useState<Base>("earlier");
   const [pos, setPos] = useState(50);
-  const left = base === "earlier" ? item.earlier : item.original;
+  const base: Base = item.earlier ? chosen : "original";
+  const left = base === "earlier" && item.earlier ? item.earlier : item.original;
   const tab = (b: Base, label: string) => (
     <button
       key={b}
@@ -150,13 +154,17 @@ export function Compare({ item }: { item: CompareItem }) {
   return (
     <figure>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <div className="inline-flex rounded-full border border-white/15 bg-white/5 p-1" role="group" aria-label="Compare HeadSwap Pro with">
-          {tab("earlier", "vs earlier head swap")}
-          {tab("original", "vs original photo")}
-        </div>
+        {item.earlier ? (
+          <div className="inline-flex rounded-full border border-white/15 bg-white/5 p-1" role="group" aria-label="Compare HeadSwap Pro with">
+            {tab("earlier", "vs earlier head swap")}
+            {tab("original", "vs original photo")}
+          </div>
+        ) : (
+          <span className="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-white/70">Original photo vs HeadSwap Pro</span>
+        )}
         <div className="flex items-center gap-3 text-xs text-white/60">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={item.face} alt="The new head used" width={56} height={56} loading="lazy" decoding="async" className="h-10 w-14 rounded-md border border-white/15 object-cover" />
+          <img src={item.face} alt="The new head used" width={56} height={56} loading="lazy" decoding="async" style={{ objectPosition: item.facePosition ?? "center" }} className="h-10 w-14 rounded-md border border-white/15 object-cover" />
           <span>the new head</span>
         </div>
       </div>

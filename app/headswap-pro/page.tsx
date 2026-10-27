@@ -70,6 +70,30 @@ const EXAMPLES: CompareItem[] = [
   },
 ];
 
+// The two group photos from the worker team's newer set. The earlier head swap took one face per photo, so there is no "earlier" result.
+const GROUP_EXAMPLES: CompareItem[] = [
+  {
+    id: "five-friends",
+    title: "Five friends laughing. One new head.",
+    note: "The man in the middle gets the new head, hair included. The other four are not touched: same faces, same hair, same suits and ties, same trees behind them.",
+    ratio: "3 / 2",
+    original: "/headswap-pro/compare/grp1_body.webp",
+    pro: "/headswap-pro/compare/grp1_pro.webp",
+    face: "/headswap-pro/compare/grp_face.webp",
+    facePosition: "50% 25%",
+  },
+  {
+    id: "huddle",
+    title: "A huddle, seen from below",
+    note: "A low camera looking straight up at five heads, every one at a steep angle. The man in the red shirt gets the new head in the same tilt and the same grin, and the four people around him stay exactly as shot.",
+    ratio: "3 / 2",
+    original: "/headswap-pro/compare/grp2_body.webp",
+    pro: "/headswap-pro/compare/grp2_pro.webp",
+    face: "/headswap-pro/compare/grp_face.webp",
+    facePosition: "50% 25%",
+  },
+];
+
 const STEPS = [
   { n: "01", title: "Bring the scene", body: "Upload the photo you want to change. People are found automatically. In a group shot, click the one to recast." },
   { n: "02", title: "Cast the lead", body: "Upload the new head: a clear, front-facing photo works best. Its face and its hairstyle come along." },
@@ -78,7 +102,8 @@ const STEPS = [
 
 const FACTS = [
   { k: "The whole head", v: "Face, hair and head shape all come from the new head, not just the face." },
-  { k: "Group photos", v: "Click one person. Everyone else, and the whole scene, stay exactly as they are. Our earlier head swap took one face per photo." },
+  { k: "Pick one head in a crowd", v: "Click the person to recast. Everyone else, and the whole scene, stay exactly as they are. Our earlier head swap took one face per photo." },
+  { k: "Any angle", v: "The new head is rebuilt in the pose of the head it replaces: turned to the side, tilted back, even seen from below." },
   { k: "Several takes", v: `Ask for up to ${HEADSWAP_PRO_MAX_VARIATIONS} variations in one go and pick the best.` },
   { k: "Full size", v: "The result keeps your photo's resolution. Drop in a big image, get a big image back." },
 ];
@@ -226,6 +251,28 @@ export default function HeadSwapProPage() {
               <p className="text-xs text-white/50">{FILM_URL.replace("https://", "")} · 53 seconds</p>
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      {/* 3b. Picking one head in a crowd, and steep angles */}
+      <section className="border-t border-white/10 px-6 py-28 sm:py-40">
+        <div className="mx-auto max-w-5xl">
+          <Reveal>
+            <p className="mb-5 text-center text-[11px] font-medium uppercase tracking-[0.5em] text-white/55">New in HeadSwap Pro</p>
+            <h2 className="text-balance text-center text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
+              Pick one head in a crowd. <span className="text-white/45">Even from below.</span>
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-base leading-relaxed text-white/60 sm:text-lg">
+              Our earlier head swap took one face per photo. HeadSwap Pro finds everyone in the photo, you click the one to change, and only that head changes. The same new head is used in both photos below.
+            </p>
+          </Reveal>
+          <div className="mt-16 space-y-24">
+            {GROUP_EXAMPLES.map((ex) => (
+              <Reveal key={ex.id}>
+                <Compare item={ex} />
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
