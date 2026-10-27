@@ -87,7 +87,7 @@ export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
   },
   {
     q: "How long can my clip be?",
-    a: "Up to 60 seconds in Fast and Best quality, and up to 12 seconds in Whole head. Our GPU capacity is limited, so an account that has never topped up credits works on clips of up to 20 seconds (Whole head: 4 seconds), and its videos wait behind those of accounts that have. Topping up credits once gives the full lengths and a place at the front of the line. Limits count a clip by its frames, at 30 frames per second at most: a 60 fps clip counts as twice as long as it plays. The studio checks the length when you upload and tells you before you pay.",
+    a: "Up to 60 seconds in Fast and Best quality, and up to 12 seconds in Whole head. Our GPU capacity is limited, so an account that has never topped up credits makes videos of up to 5 seconds in any mode, and its videos wait behind those of accounts that have. Topping up credits once gives the full lengths and a place at the front of the line. Limits count a clip by its frames, at 30 frames per second at most: a 60 fps clip counts as twice as long as it plays. The studio checks the length when you upload and tells you before you pay.",
   },
   {
     q: "Why is there a watermark on my video, and how do I remove it?",
