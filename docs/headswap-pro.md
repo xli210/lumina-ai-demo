@@ -71,3 +71,23 @@ headswap-gateway/app.py  (Render, one instance)  ──►  RunPod GPU (already 
 
 `headswap-gateway/test_ticket.py` (27 checks on the ticket rules and the direct-upload flow, no network; needs fastapi, httpx, boto3, requests,
 python-multipart). The website side has no automated test yet: the token and ticket format is the one the gateway test builds.
+
+## Launch page (`/headswap-pro`) and its media
+
+Laid out like a product keynote; the weight budget is the constraint because the launch film is long (53 s, 300 MB at 1080p60).
+
+- The film is **not** hosted here. It is a picture and a play button (`FilmFacade`); YouTube (`youtube-nocookie.com`, id in `page.tsx`)
+  is contacted only when someone presses play.
+- The opening loop `public/headswap-pro/teaser.mp4` is the film's first 8.5 s (title card and "One face."), 960x540, silent, 250 KB. It starts only after the
+  page has loaded, never with Save-Data or 2G, never with reduced motion, and pauses off screen. The poster (`teaser-poster.webp`, 16 KB) is what loads first.
+- Compare images are lazy WebP in `public/headswap-pro/compare/` (668 KB for both examples). No animation library, no web font.
+- Regenerate the clips and images with the ffmpeg and PIL commands in the session that built them (source: `headswap_pro_launch_1080p60.mp4`,
+  `headswap-pro-compare.zip`); keep the teaser under 9 s and 500 KB.
+
+### Not shown on purpose: film posters
+
+The worker team's comparison pack and the launch film use real film posters (*Us*, *Klara and the Sun*, *Star Wars: The Last Jedi*, *Drive*), with the
+actors' likenesses in the originals. Their own checklist says that is a legal risk on a public marketing page. So the page uses only the two examples
+without posters (a mirror selfie and an editorial studio shot), and the teaser stops before the first poster appears (the film has none before 0:10).
+The YouTube film itself does contain them. If legal clears the posters, the other two examples (`ex1`, `ex4`) can be added to `EXAMPLES` in
+`app/headswap-pro/page.tsx`; their images are in the original zip, not in this repository.

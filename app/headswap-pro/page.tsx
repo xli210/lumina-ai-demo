@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import {
@@ -9,43 +10,75 @@ import {
   HEADSWAP_PRO_TAGLINE,
 } from "@/lib/headswap-pro";
 import { unavailableReason } from "@/lib/headswap-pro-server";
+import { Compare, FilmFacade, Reveal, TeaserVideo, type CompareItem } from "./launch-client";
 
 /**
- * The launch page for Nano HeadSwap Pro. The tool itself is the static page at /headswap-pro/index.html
- * (the same arrangement as Face Studio); this page is the poster that sends people to it. Until the gateway is
- * deployed and HEADSWAP_PRO=1 is set, the button says "opening soon" instead of linking to a tool that cannot run.
+ * The launch page for Nano HeadSwap Pro, laid out like a product keynote: a full-screen opening, a few big
+ * statements, the launch film, side-by-side proof, then the plain facts and the price.
+ *
+ * Weight is the design constraint, because the launch film is long: the film itself is a picture and a button
+ * until someone presses play (YouTube is not contacted before that), the opening loop is a 250 KB silent clip that
+ * starts only after the page is done loading and never on slow or data-saving connections, the compare images
+ * are lazy-loaded WebP, and there is no animation library or web font.
+ *
+ * The tool itself is the static page at /headswap-pro/index.html. Until the gateway is deployed and HEADSWAP_PRO=1
+ * is set, the button says "opening soon" instead of linking to a tool that cannot run.
  */
 
 const URL_ = "https://nanopocket.ai/headswap-pro";
 const TITLE = `${HEADSWAP_PRO_NAME}: Put Any Head in Any Photo`;
 const DESCRIPTION =
   "Swap the whole head in a portrait or a group photo: face, hair and head shape come from the new head, and the body, the pose and everyone else stay exactly as they were. Up to 4 variations at a time.";
+const FILM_ID = "qy2w3wVwZq0";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/headswap-pro" },
   openGraph: {
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: HEADSWAP_PRO_NAME }],
+    images: [{ url: "/headswap-pro/og.jpg", width: 1200, height: 630, alt: `${HEADSWAP_PRO_NAME}: ${HEADSWAP_PRO_TAGLINE}` }],
     type: "website",
     url: URL_,
     title: TITLE,
     description: DESCRIPTION,
   },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/headswap-pro/og.jpg"] },
 };
 
-export const dynamic = "force-dynamic";
+// Two of the four examples in the worker team's comparison. The other two use real film posters and are not shown (see docs/headswap-pro.md).
+const EXAMPLES: CompareItem[] = [
+  {
+    id: "occlusion",
+    title: "A mirror, two fingers on the cheek, a blurred shoulder in front",
+    note: "The head is swapped and nothing else: the reflection, the hand on the face and the foreground all stay as shot.",
+    ratio: "3 / 2",
+    original: "/headswap-pro/compare/ex2_body.webp",
+    earlier: "/headswap-pro/compare/ex2_v1.webp",
+    pro: "/headswap-pro/compare/ex2_v2.webp",
+    face: "/headswap-pro/compare/ex2_face.webp",
+  },
+  {
+    id: "studio",
+    title: "An editorial shot with a film camera, a braided strap and art-directed makeup",
+    note: "For studio and product work the styling has to survive the swap. Hands and strap stay in front of the face, and the makeup and gaze stay with the original photo.",
+    ratio: "3 / 4",
+    original: "/headswap-pro/compare/ex3_body.webp",
+    earlier: "/headswap-pro/compare/ex3_v1.webp",
+    pro: "/headswap-pro/compare/ex3_v2.webp",
+    face: "/headswap-pro/compare/ex3_face.webp",
+  },
+];
 
 const STEPS = [
   { n: "01", title: "Bring the scene", body: "Upload the photo you want to change. People are found automatically. In a group shot, click the one to recast." },
   { n: "02", title: "Cast the lead", body: "Upload the new head: a clear, front-facing photo works best. Its face and its hairstyle come along." },
-  { n: "03", title: "Roll", body: `Choose 1 to ${HEADSWAP_PRO_MAX_VARIATIONS} variations and press Swap. A portrait takes about half a minute for each variation. Drag the slider to compare before and after.` },
+  { n: "03", title: "Roll", body: `Choose 1 to ${HEADSWAP_PRO_MAX_VARIATIONS} variations and press Swap. A portrait takes about 40 seconds. Drag the slider to compare before and after.` },
 ];
 
 const FACTS = [
   { k: "The whole head", v: "Face, hair and head shape all come from the new head, not just the face." },
-  { k: "Group photos", v: "Click one person. Everyone else, and the whole scene, stay exactly as they are." },
-  { k: "Several takes", v: `Ask for up to ${HEADSWAP_PRO_MAX_VARIATIONS} variations in one go and pick the best. The first is ready while the others render.` },
+  { k: "Group photos", v: "Click one person. Everyone else, and the whole scene, stay exactly as they are. Our earlier head swap took one face per photo." },
+  { k: "Several takes", v: `Ask for up to ${HEADSWAP_PRO_MAX_VARIATIONS} variations in one go and pick the best.` },
   { k: "Full size", v: "The result keeps your photo's resolution. Drop in a big image, get a big image back." },
 ];
 
@@ -96,6 +129,16 @@ const jsonLd = [
   },
 ];
 
+function Cta({ open, className = "" }: { open: boolean; className?: string }) {
+  return open ? (
+    <a href="/headswap-pro/index.html" className={`inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-semibold uppercase tracking-widest text-black transition hover:bg-white/90 ${className}`}>
+      Step on set <ArrowRight className="h-4 w-4" />
+    </a>
+  ) : (
+    <span className={`inline-flex rounded-full border border-white/25 px-8 py-3.5 text-sm font-semibold uppercase tracking-widest text-white/70 ${className}`}>Opening soon</span>
+  );
+}
+
 export default function HeadSwapProPage() {
   const open = unavailableReason() === null;
   return (
@@ -105,42 +148,96 @@ export default function HeadSwapProPage() {
       ))}
       <Navbar />
 
-      {/* The poster */}
-      <section className="relative overflow-hidden px-6 pb-24 pt-36 text-center sm:pt-44">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(120,160,255,0.28),transparent_60%),radial-gradient(ellipse_at_50%_100%,rgba(255,170,90,0.18),transparent_55%)]" />
-        <div className="relative mx-auto max-w-4xl">
-          <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.5em] text-white/60">A NanoPocket original</p>
-          <h1 className="text-balance text-5xl font-extrabold uppercase leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">
-            Head<span className="text-white/40">Swap</span> Pro
+      {/* 1. The opening */}
+      <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-6 text-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/headswap-pro/teaser-poster.webp" alt="" fetchPriority="high" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+        <TeaserVideo src="/headswap-pro/teaser.mp4" poster="/headswap-pro/teaser-poster.webp" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black" />
+        <div className="relative mx-auto max-w-5xl pt-24">
+          <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.5em] text-white/65">A NanoPocket original</p>
+          <h1 className="text-balance text-6xl font-extrabold uppercase leading-[0.92] tracking-tight sm:text-8xl lg:text-9xl">
+            Head<span className="text-white/45">Swap</span> Pro
           </h1>
-          <p className="mt-6 text-2xl font-light tracking-[0.35em] text-white/90 sm:text-3xl">
-            {HEADSWAP_PRO_TAGLINE.toUpperCase()}
+          <p className="mt-8 text-2xl font-light tracking-[0.4em] text-white/90 sm:text-3xl">{HEADSWAP_PRO_TAGLINE.toUpperCase()}</p>
+          <p className="mx-auto mt-8 max-w-xl text-pretty text-base leading-relaxed text-white/75 sm:text-lg">
+            Put any head in any photo, portrait or group shot. The new face, the new hair, the same scene.
           </p>
-          <p className="mx-auto mt-8 max-w-2xl text-pretty text-base leading-relaxed text-white/70 sm:text-lg">
-            Put any head on any photo, portrait or group shot. The new face, the new hair, the same scene.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            {open ? (
-              <a href="/headswap-pro/index.html" className="rounded-full bg-white px-8 py-3.5 text-sm font-semibold uppercase tracking-widest text-black transition hover:bg-white/90">
-                Step on set
-              </a>
-            ) : (
-              <span className="rounded-full border border-white/25 px-8 py-3.5 text-sm font-semibold uppercase tracking-widest text-white/70">
-                Opening soon
-              </span>
-            )}
-            <Link href={open ? "/credits" : "/contact"} className="text-sm text-white/70 underline-offset-4 hover:text-white hover:underline">
-              {open ? "See credit packs" : "Tell us you want in"}
-            </Link>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            <Cta open={open} />
+            <a href="#film" className="text-sm text-white/75 underline-offset-4 hover:text-white hover:underline">Watch the film</a>
           </div>
-          <p className="mt-6 text-xs tracking-wide text-white/45">
+          <p className="mt-6 text-xs tracking-wide text-white/50">
             {HEADSWAP_PRO_CREDITS_PER_IMAGE} credits an image · new accounts get free credits · a failed swap costs nothing
           </p>
         </div>
       </section>
 
-      {/* How it works */}
-      <section className="border-t border-white/10 px-6 py-20">
+      {/* 2. The statements */}
+      <section className="px-6 py-28 sm:py-40">
+        <div className="mx-auto max-w-4xl space-y-10 text-center sm:space-y-14">
+          <Reveal>
+            <h2 className="text-balance text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">One new head.<br /><span className="text-white/45">Any photo.</span></h2>
+          </Reveal>
+          <Reveal delay={120}>
+            <p className="mx-auto max-w-2xl text-pretty text-lg leading-relaxed text-white/65 sm:text-2xl">
+              Not just the face: the hair and the shape of the head come with it. And everything you did not ask to change stays exactly as it was.
+            </p>
+          </Reveal>
+          <Reveal delay={200}>
+            <p className="text-sm uppercase tracking-[0.35em] text-white/45">Portraits · group shots · mirror selfies · studio work</p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 3. The film */}
+      <section id="film" className="px-6 pb-28 sm:pb-40">
+        <div className="mx-auto max-w-5xl">
+          <Reveal>
+            <p className="mb-6 text-center text-[11px] font-medium uppercase tracking-[0.5em] text-white/55">The film</p>
+            <FilmFacade id={FILM_ID} poster="/headswap-pro/film-poster.webp" title={`${HEADSWAP_PRO_NAME}: the launch film`} />
+            <p className="mt-4 text-center text-sm text-white/50">
+              Fifty-three seconds. <a href={`https://youtu.be/${FILM_ID}`} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-white">Watch it on YouTube</a>.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 4. The proof */}
+      <section className="border-t border-white/10 px-6 py-28 sm:py-40">
+        <div className="mx-auto max-w-5xl">
+          <Reveal>
+            <h2 className="text-balance text-center text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
+              Same photos. <span className="text-white/45">Better heads.</span>
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-base leading-relaxed text-white/60 sm:text-lg">
+              Each result is a single run with default settings and no retouching. Drag the slider, and switch between our earlier head swap and the original photo.
+            </p>
+          </Reveal>
+          <div className="mt-16 space-y-24">
+            {EXAMPLES.map((ex) => (
+              <Reveal key={ex.id}>
+                <Compare item={ex} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. The facts */}
+      <section className="border-t border-white/10 px-6 py-24">
+        <div className="mx-auto grid max-w-5xl gap-12 sm:grid-cols-2">
+          {FACTS.map((f, i) => (
+            <Reveal key={f.k} delay={i * 80}>
+              <h3 className="text-base font-semibold uppercase tracking-widest text-white">{f.k}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/65">{f.v}</p>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* 6. How it works */}
+      <section className="border-t border-white/10 px-6 py-24">
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-12 text-center text-sm font-medium uppercase tracking-[0.4em] text-white/60">Three steps to the premiere</h2>
           <ol className="grid gap-8 md:grid-cols-3">
@@ -155,19 +252,23 @@ export default function HeadSwapProPage() {
         </div>
       </section>
 
-      {/* What it does */}
-      <section className="border-t border-white/10 px-6 py-20">
-        <div className="mx-auto grid max-w-5xl gap-10 sm:grid-cols-2">
-          {FACTS.map((f) => (
-            <div key={f.k}>
-              <h3 className="text-base font-semibold uppercase tracking-widest text-white">{f.k}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/65">{f.v}</p>
-            </div>
-          ))}
-        </div>
+      {/* 7. The close */}
+      <section className="border-t border-white/10 px-6 py-28 text-center sm:py-36">
+        <Reveal>
+          <h2 className="text-balance text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl">{HEADSWAP_PRO_TAGLINE}</h2>
+          <p className="mx-auto mt-5 max-w-lg text-base text-white/60">
+            {HEADSWAP_PRO_CREDITS_PER_IMAGE} credits (${(HEADSWAP_PRO_CREDITS_PER_IMAGE / 100).toFixed(2)}) an image. New accounts get free credits, and a swap that fails costs nothing.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            <Cta open={open} />
+            <Link href={open ? "/credits" : "/contact"} className="text-sm text-white/70 underline-offset-4 hover:text-white hover:underline">
+              {open ? "See credit packs" : "Tell us you want in"}
+            </Link>
+          </div>
+        </Reveal>
       </section>
 
-      {/* Questions */}
+      {/* 8. Questions */}
       <section className="border-t border-white/10 px-6 py-20">
         <div className="mx-auto max-w-3xl">
           <h2 className="mb-10 text-center text-sm font-medium uppercase tracking-[0.4em] text-white/60">Before you roll</h2>
