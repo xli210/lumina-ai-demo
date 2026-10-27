@@ -194,11 +194,6 @@ export function HeroSection() {
             className="absolute inset-0 bg-black/40 transition-opacity duration-1000"
             style={{ opacity: feature ? 0.1 : 1 }}
           />
-          <div
-            aria-hidden
-            className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent transition-opacity duration-1000"
-            style={{ opacity: feature === "headswap-pro" ? 1 : 0 }}
-          />
 
           {/* Left-aligned copy for the Video FaceSwap Online clip: its left quarter is left empty for this. */}
           <div
@@ -236,20 +231,20 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* HeadSwap Pro: the launch film plays full width, so the call to action sits in a bar along the bottom. */}
+          {/* HeadSwap Pro: the launch film plays full width, so the call to action is a small card in the top-left corner, where it is on screen whatever the window height. */}
           <div
-            className="pointer-events-none absolute inset-x-0 bottom-10 flex justify-center px-4 transition-opacity duration-1000 sm:bottom-14"
+            className="pointer-events-none absolute left-3 top-3 flex max-w-[calc(100%-1.5rem)] transition-opacity duration-1000 sm:left-8 sm:top-8"
             style={{ opacity: feature === "headswap-pro" ? 1 : 0 }}
             aria-hidden={feature !== "headswap-pro"}
           >
-            <div className="pointer-events-auto flex max-w-full flex-wrap items-center justify-center gap-x-5 gap-y-2 rounded-2xl border border-white/20 bg-black/45 px-4 py-3 backdrop-blur-md sm:rounded-full sm:px-6">
+            <div className="pointer-events-auto flex max-w-full flex-col items-start gap-2.5 rounded-2xl border border-white/20 bg-black/55 px-4 py-3 backdrop-blur-md sm:px-5 sm:py-4">
               <p className="inline-flex items-center gap-2 text-sm font-semibold text-white sm:text-base">
                 <span className="inline-flex items-center gap-1 rounded-full bg-sky-500 px-2 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide">
                   <UserRoundCog className="h-3 w-3" />
                   New
                 </span>
                 {HEADSWAP_PRO_NAME}
-                <span className="hidden font-normal text-white/75 sm:inline">· {HEADSWAP_PRO_TAGLINE}</span>
+                <span className="font-normal text-white/75">· {HEADSWAP_PRO_TAGLINE}</span>
               </p>
               <div className="flex items-center gap-4">
                 <Link href="/headswap-pro/index.html" tabIndex={feature === "headswap-pro" ? 0 : -1}>
