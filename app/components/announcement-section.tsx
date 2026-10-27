@@ -10,6 +10,7 @@ import {
   ScanFace,
   Wand2,
   Video,
+  UserRoundCog,
 } from "lucide-react";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
@@ -20,6 +21,7 @@ import {
 } from "@/lib/demos";
 import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
 import { FACE_SWAP_CREDITS } from "@/lib/face-studio-facts";
+import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 import {
   IMAGEEDIT_CREDITS_PER_EDIT,
   IMAGEEDIT_NAME,
@@ -56,6 +58,13 @@ const FACESTUDIO_POINTS = [
   `Up to ${FACESTUDIO_MAX_FACES} faces in one photo`,
   "Whole-head swap",
   "Keep hair, hands and glasses",
+  "Full resolution; one top-up removes the watermark",
+];
+
+const HEADSWAP_PRO_POINTS = [
+  "The whole head: face, hair and head shape",
+  "Group photos: click the one person to swap",
+  `Up to ${HEADSWAP_PRO_MAX_VARIATIONS} variations in one run`,
   "Full resolution; one top-up removes the watermark",
 ];
 
@@ -483,8 +492,8 @@ export function AnnouncementSection() {
             Start creating in your browser.
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
-            Face swap and photo editing on NanoPocket&apos;s GPUs. No install,
-            no subscription, and free credits to get you started.
+            Face swap, head swap, video and photo editing on NanoPocket&apos;s GPUs.
+            No install, no subscription, and free credits to get you started.
           </p>
           <Link href="/docs/face-swap-pipeline" className={`mt-4 ${textLink}`}>
             How our diffusion face-swap pipeline works
@@ -492,7 +501,20 @@ export function AnnouncementSection() {
           </Link>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2">
+          <ProductCard
+            icon={UserRoundCog}
+            pill="New"
+            live
+            highlight="Next-generation head swap"
+            title={HEADSWAP_PRO_NAME}
+            lede="Put any head in any photo, portrait or group shot. The new face and hair, the same scene."
+            points={HEADSWAP_PRO_POINTS}
+            priceLine={`${HEADSWAP_PRO_CREDITS_PER_IMAGE} credits per image · new accounts start with free credits · a failed swap costs nothing`}
+            cta={{ href: "/headswap-pro/index.html", label: "Try Nano HeadSwap Pro" }}
+            learnMore={{ href: "/headswap-pro", label: "Learn more" }}
+          />
+
           <ProductCard
             icon={Video}
             pill={FACESTUDIO_V_TAG}
@@ -526,7 +548,8 @@ export function AnnouncementSection() {
 
           <ProductCard
             icon={Wand2}
-            pill="New"
+            pill="Live"
+            live
             title={IMAGEEDIT_NAME}
             lede="Describe the change and get your photo back at full resolution. Add, remove, replace, restyle or restore."
             points={IMAGEEDIT_POINTS}

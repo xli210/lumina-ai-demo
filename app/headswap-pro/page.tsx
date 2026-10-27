@@ -17,7 +17,7 @@ import { Compare, FilmFacade, Reveal, TeaserVideo, type CompareItem } from "./la
  * statements, the launch film, side-by-side proof, then the plain facts and the price.
  *
  * Weight is the design constraint, because the launch film is long: the film itself is a picture and a button
- * until someone presses play (YouTube is not contacted before that), the opening loop is a 250 KB silent clip that
+ * until someone presses play (YouTube is not contacted before that), the opening loop is a 700 KB silent clip that
  * starts only after the page is done loading and never on slow or data-saving connections, the compare images
  * are lazy-loaded WebP, and there is no animation library or web font.
  *
@@ -30,6 +30,7 @@ const TITLE = `${HEADSWAP_PRO_NAME}: Put Any Head in Any Photo`;
 const DESCRIPTION =
   "Swap the whole head in a portrait or a group photo: face, hair and head shape come from the new head, and the body, the pose and everyone else stay exactly as they were. Up to 4 variations at a time.";
 const FILM_ID = "qy2w3wVwZq0";
+const FILM_URL = `https://youtu.be/${FILM_ID}`;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -129,6 +130,15 @@ const jsonLd = [
   },
 ];
 
+function YouTubeMark() {
+  return (
+    <svg width="20" height="14" viewBox="0 0 28 20" aria-hidden="true" className="shrink-0">
+      <rect width="28" height="20" rx="5" fill="#ff0033" />
+      <path d="M11 6l7 4-7 4z" fill="#fff" />
+    </svg>
+  );
+}
+
 function Cta({ open, className = "" }: { open: boolean; className?: string }) {
   return open ? (
     <a href="/headswap-pro/index.html" className={`inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-semibold uppercase tracking-widest text-black transition hover:bg-white/90 ${className}`}>
@@ -149,11 +159,8 @@ export default function HeadSwapProPage() {
       <Navbar />
 
       {/* 1. The opening */}
-      <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-6 text-center">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/headswap-pro/teaser-poster.webp" alt="" fetchPriority="high" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
-        <TeaserVideo src="/headswap-pro/teaser.mp4" poster="/headswap-pro/teaser-poster.webp" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black" />
+      <section className="relative flex min-h-[78svh] items-center justify-center overflow-hidden px-6 pb-16 text-center">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(120,160,255,0.22),transparent_60%)]" />
         <div className="relative mx-auto max-w-5xl pt-24">
           <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.5em] text-white/65">A NanoPocket original</p>
           <h1 className="text-balance text-6xl font-extrabold uppercase leading-[0.92] tracking-tight sm:text-8xl lg:text-9xl">
@@ -165,11 +172,22 @@ export default function HeadSwapProPage() {
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
             <Cta open={open} />
-            <a href="#film" className="text-sm text-white/75 underline-offset-4 hover:text-white hover:underline">Watch the film</a>
+            <a href={FILM_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-white/80 underline-offset-4 hover:text-white hover:underline">
+              <YouTubeMark /> Watch the film on YouTube
+            </a>
           </div>
           <p className="mt-6 text-xs tracking-wide text-white/50">
             {HEADSWAP_PRO_CREDITS_PER_IMAGE} credits an image · new accounts get free credits · a failed swap costs nothing
           </p>
+        </div>
+      </section>
+
+      {/* 1b. The film's own pictures, clear, in a frame under the headline */}
+      <section className="px-6 pb-24 sm:pb-32">
+        <div className="relative mx-auto aspect-video max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-neutral-950 shadow-[0_30px_120px_-30px_rgba(120,160,255,0.35)]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/headswap-pro/teaser-poster.webp" alt="A still from the HeadSwap Pro launch film: a studio portrait before and after the swap" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+          <TeaserVideo src="/headswap-pro/teaser.mp4" poster="/headswap-pro/teaser-poster.webp" />
         </div>
       </section>
 
@@ -196,9 +214,17 @@ export default function HeadSwapProPage() {
           <Reveal>
             <p className="mb-6 text-center text-[11px] font-medium uppercase tracking-[0.5em] text-white/55">The film</p>
             <FilmFacade id={FILM_ID} poster="/headswap-pro/film-poster.webp" title={`${HEADSWAP_PRO_NAME}: the launch film`} />
-            <p className="mt-4 text-center text-sm text-white/50">
-              Fifty-three seconds. <a href={`https://youtu.be/${FILM_ID}`} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-white">Watch it on YouTube</a>.
-            </p>
+            <div className="mt-6 flex flex-col items-center gap-2">
+              <a
+                href={FILM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 rounded-full border border-white/25 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/20"
+              >
+                <YouTubeMark /> Watch on YouTube
+              </a>
+              <p className="text-xs text-white/50">{FILM_URL.replace("https://", "")} · 53 seconds</p>
+            </div>
           </Reveal>
         </div>
       </section>

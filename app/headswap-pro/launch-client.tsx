@@ -6,7 +6,7 @@ import { Play } from "lucide-react";
 /**
  * The interactive parts of the HeadSwap Pro launch page. Everything here is built so the page stays light:
  *  - Reveal: text fades in as it scrolls into view (a CSS transition, no animation library).
- *  - TeaserVideo: a 250 KB silent loop that starts only after the page has loaded, never on a slow or data-saving
+ *  - TeaserVideo: a 700 KB silent loop that starts only after the page has loaded, never on a slow or data-saving
  *    connection, never for people who asked for reduced motion, and pauses when it is off screen.
  *  - FilmFacade: the full launch film is a picture and a button; YouTube is not contacted until someone presses play.
  *  - Compare: a before/after slider over two lazy-loaded images (an invisible range input, so it works by mouse,
