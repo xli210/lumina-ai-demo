@@ -92,3 +92,9 @@ actors' likenesses in the originals. Their own checklist says that is a legal ri
 without posters (a mirror selfie and an editorial studio shot), and the teaser stops before the first poster appears (the film has none before 0:10).
 The YouTube film itself does contain them. If legal clears the posters, the other two examples (`ex1`, `ex4`) can be added to `EXAMPLES` in
 `app/headswap-pro/page.tsx`; their images are in the original zip, not in this repository.
+
+### Film posters on the home page (decided by the owner)
+
+The first slide of the home page carousel plays `public/headswap-pro/hero-posters.mp4`: 10 s cut from the launch film (the *Us* poster swap, then the *Star Wars: The Last Jedi*
+multi-face poster swap), silent, 960 wide, about 1 MB. The owner asked for the film-poster swap in the home hero. It contains real film posters, so the legal note above applies
+to it. To go back to a poster-free hero, point the slide in `app/components/hero-section.tsx` at `compare/ex2_v2.webp` (an image slide) or at `teaser.mp4`.

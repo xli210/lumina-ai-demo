@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_LAUNCH, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
-import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_NAME, HEADSWAP_PRO_TAGLINE } from "@/lib/headswap-pro";
+import { HEADSWAP_PRO_NAME, HEADSWAP_PRO_TAGLINE } from "@/lib/headswap-pro";
 import {
   ArrowRight,
   Download,
@@ -28,10 +28,11 @@ interface HeroSlide {
 
 const demoSlides: HeroSlide[] = [
   {
-    src: "/headswap-pro/compare/ex2_v2.webp",
-    type: "image",
-    alt: "Nano HeadSwap Pro: a woman at a bathroom mirror, two fingers on her cheek, with a new head swapped in and the reflection, hand and foreground left as shot",
-    prompt: "Whole-head swap: the new face and hair, the same scene. Result of a single run, no retouching",
+    src: "/headswap-pro/hero-posters.mp4",
+    poster: "/headswap-pro/hero-posters-poster.webp",
+    type: "video",
+    alt: "Nano HeadSwap Pro launch film: one face is placed into film posters, one person and then several faces in the same poster",
+    prompt: "HeadSwap Pro: one face, any poster. From the launch film",
     model: HEADSWAP_PRO_NAME,
     tag: "Photo Head Swap",
     feature: "headswap-pro",
@@ -195,7 +196,7 @@ export function HeroSection() {
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/30 to-transparent transition-opacity duration-1000"
+            className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent transition-opacity duration-1000"
             style={{ opacity: feature === "headswap-pro" ? 1 : 0 }}
           />
 
@@ -235,29 +236,25 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Left-aligned copy for the HeadSwap Pro slide: the left third of the picture is out of focus on purpose. */}
+          {/* HeadSwap Pro: the launch film plays full width, so the call to action sits in a bar along the bottom. */}
           <div
-            className="pointer-events-none absolute inset-0 flex items-center px-6 transition-opacity duration-1000 sm:px-10 lg:px-16"
+            className="pointer-events-none absolute inset-x-0 bottom-10 flex justify-center px-4 transition-opacity duration-1000 sm:bottom-14"
             style={{ opacity: feature === "headswap-pro" ? 1 : 0 }}
             aria-hidden={feature !== "headswap-pro"}
           >
-            <div className="pointer-events-auto max-w-[62%] sm:max-w-[38%]">
-              <p className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-sky-300/40 bg-sky-300/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-widest text-sky-200 sm:mb-4 sm:text-xs">
-                <UserRoundCog className="h-3 w-3" />
-                New
+            <div className="pointer-events-auto flex max-w-full flex-wrap items-center justify-center gap-x-5 gap-y-2 rounded-2xl border border-white/20 bg-black/45 px-4 py-3 backdrop-blur-md sm:rounded-full sm:px-6">
+              <p className="inline-flex items-center gap-2 text-sm font-semibold text-white sm:text-base">
+                <span className="inline-flex items-center gap-1 rounded-full bg-sky-500 px-2 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide">
+                  <UserRoundCog className="h-3 w-3" />
+                  New
+                </span>
+                {HEADSWAP_PRO_NAME}
+                <span className="hidden font-normal text-white/75 sm:inline">· {HEADSWAP_PRO_TAGLINE}</span>
               </p>
-              <p className="text-balance text-xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
-                Put any head in any photo.
-                <span className="block text-sky-200">{HEADSWAP_PRO_TAGLINE}</span>
-              </p>
-              <p className="mt-2 hidden text-sm text-white/80 sm:block">
-                {HEADSWAP_PRO_NAME}: the new face and hair, the same scene. {HEADSWAP_PRO_CREDITS_PER_IMAGE} credits an image.
-              </p>
-              <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3">
+              <div className="flex items-center gap-4">
                 <Link href="/headswap-pro/index.html" tabIndex={feature === "headswap-pro" ? 0 : -1}>
-                  <Button size="sm" className="gap-1.5 rounded-full bg-white px-4 text-black hover:bg-neutral-100 sm:px-6">
-                    <span className="sm:hidden">Try it now</span>
-                    <span className="hidden sm:inline">Try Nano HeadSwap Pro</span>
+                  <Button size="sm" className="gap-1.5 rounded-full bg-white px-4 text-black hover:bg-neutral-100 sm:px-5">
+                    Try it now
                     <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
@@ -266,7 +263,7 @@ export function HeroSection() {
                   tabIndex={feature === "headswap-pro" ? 0 : -1}
                   className="text-xs font-medium text-white/85 underline-offset-4 hover:text-white hover:underline sm:text-sm"
                 >
-                  See how it works
+                  See the film and examples
                 </Link>
               </div>
             </div>
