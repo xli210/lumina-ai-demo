@@ -5,10 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_LAUNCH, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
+import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_NAME, HEADSWAP_PRO_TAGLINE } from "@/lib/headswap-pro";
 import {
   ArrowRight,
   Download,
   Play,
+  UserRoundCog,
   Video,
 } from "lucide-react";
 
@@ -21,10 +23,19 @@ interface HeroSlide {
   tag: string;
   poster?: string;
   /** Slide with its own left-aligned copy instead of the shared headline. */
-  feature?: "facestudio-v";
+  feature?: "facestudio-v" | "headswap-pro";
 }
 
 const demoSlides: HeroSlide[] = [
+  {
+    src: "/headswap-pro/compare/ex2_v2.webp",
+    type: "image",
+    alt: "Nano HeadSwap Pro: a woman at a bathroom mirror, two fingers on her cheek, with a new head swapped in and the reflection, hand and foreground left as shot",
+    prompt: "Whole-head swap: the new face and hair, the same scene. Result of a single run, no retouching",
+    model: HEADSWAP_PRO_NAME,
+    tag: "Photo Head Swap",
+    feature: "headswap-pro",
+  },
   {
     src: "/videos/hero-facestudio-v.mp4",
     poster: "/videos/hero-facestudio-v-poster.jpg",
@@ -85,6 +96,7 @@ export function HeroSection() {
   const [progress, setProgress] = useState(0);
   const heroRef = useRef<HTMLElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const feature = demoSlides[activeSlide].feature;
 
 
   const advance = useCallback(() => {
@@ -179,14 +191,19 @@ export function HeroSection() {
 
           <div
             className="absolute inset-0 bg-black/40 transition-opacity duration-1000"
-            style={{ opacity: demoSlides[activeSlide].feature ? 0.1 : 1 }}
+            style={{ opacity: feature ? 0.1 : 1 }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/30 to-transparent transition-opacity duration-1000"
+            style={{ opacity: feature === "headswap-pro" ? 1 : 0 }}
           />
 
           {/* Left-aligned copy for the Video FaceSwap Online clip: its left quarter is left empty for this. */}
           <div
             className="pointer-events-none absolute inset-0 flex items-center px-6 transition-opacity duration-1000 sm:px-10 lg:px-16"
-            style={{ opacity: activeSlide === 0 ? 1 : 0 }}
-            aria-hidden={activeSlide !== 0}
+            style={{ opacity: feature === "facestudio-v" ? 1 : 0 }}
+            aria-hidden={feature !== "facestudio-v"}
           >
             <div className="pointer-events-auto max-w-[46%] sm:max-w-[30%]">
               <p className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-sky-300/40 bg-sky-300/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-widest text-sky-200 sm:mb-4 sm:text-xs">
@@ -199,7 +216,7 @@ export function HeroSection() {
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3">
                 {(
-                  <Link href={FACESTUDIO_V_LAUNCH} tabIndex={activeSlide === 0 ? 0 : -1}>
+                  <Link href={FACESTUDIO_V_LAUNCH} tabIndex={feature === "facestudio-v" ? 0 : -1}>
                     <Button size="sm" className="gap-1.5 rounded-full bg-white px-4 text-black hover:bg-neutral-100 sm:px-6">
                       <span className="sm:hidden">Try it now</span>
                       <span className="hidden sm:inline">Try Video FaceSwap Online</span>
@@ -209,7 +226,7 @@ export function HeroSection() {
                 )}
                 <Link
                   href={FACESTUDIO_V_PAGE}
-                  tabIndex={activeSlide === 0 ? 0 : -1}
+                  tabIndex={feature === "facestudio-v" ? 0 : -1}
                   className="text-xs font-medium text-white/85 underline-offset-4 hover:text-white hover:underline sm:text-sm"
                 >
                   See 14 examples
@@ -218,19 +235,47 @@ export function HeroSection() {
             </div>
           </div>
 
+          {/* Left-aligned copy for the HeadSwap Pro slide: the left third of the picture is out of focus on purpose. */}
+          <div
+            className="pointer-events-none absolute inset-0 flex items-center px-6 transition-opacity duration-1000 sm:px-10 lg:px-16"
+            style={{ opacity: feature === "headswap-pro" ? 1 : 0 }}
+            aria-hidden={feature !== "headswap-pro"}
+          >
+            <div className="pointer-events-auto max-w-[62%] sm:max-w-[38%]">
+              <p className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-sky-300/40 bg-sky-300/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-widest text-sky-200 sm:mb-4 sm:text-xs">
+                <UserRoundCog className="h-3 w-3" />
+                New
+              </p>
+              <p className="text-balance text-xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
+                Put any head in any photo.
+                <span className="block text-sky-200">{HEADSWAP_PRO_TAGLINE}</span>
+              </p>
+              <p className="mt-2 hidden text-sm text-white/80 sm:block">
+                {HEADSWAP_PRO_NAME}: the new face and hair, the same scene. {HEADSWAP_PRO_CREDITS_PER_IMAGE} credits an image.
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3">
+                <Link href="/headswap-pro/index.html" tabIndex={feature === "headswap-pro" ? 0 : -1}>
+                  <Button size="sm" className="gap-1.5 rounded-full bg-white px-4 text-black hover:bg-neutral-100 sm:px-6">
+                    <span className="sm:hidden">Try it now</span>
+                    <span className="hidden sm:inline">Try Nano HeadSwap Pro</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link
+                  href="/headswap-pro"
+                  tabIndex={feature === "headswap-pro" ? 0 : -1}
+                  className="text-xs font-medium text-white/85 underline-offset-4 hover:text-white hover:underline sm:text-sm"
+                >
+                  See how it works
+                </Link>
+              </div>
+            </div>
+          </div>
+
           <div
             className="absolute inset-0 flex flex-col items-center justify-center px-6 transition-opacity duration-1000"
-            style={{ opacity: activeSlide === 0 ? 0 : 1, pointerEvents: activeSlide === 0 ? "none" : "auto" }}
+            style={{ opacity: feature ? 0 : 1, pointerEvents: feature ? "none" : "auto" }}
           >
-            <Link
-              href="/headswap-pro"
-              tabIndex={activeSlide === 0 ? -1 : 0}
-              className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs font-medium text-white backdrop-blur-sm transition hover:bg-white/20 sm:text-sm"
-            >
-              <span className="rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide">New</span>
-              Nano HeadSwap Pro: put any head in any photo
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
             <h1 className="mb-6 text-balance text-center text-3xl font-bold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
               A whole AI studio, right in your pocket
             </h1>
