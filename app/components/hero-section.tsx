@@ -16,6 +16,8 @@ import {
 
 interface HeroSlide {
   src: string;
+  /** A lighter file for phones and narrow windows. Slides that have one get their `src` set after the page loads. */
+  srcSmall?: string;
   type: "image" | "video";
   alt: string;
   prompt: string;
@@ -29,6 +31,7 @@ interface HeroSlide {
 const demoSlides: HeroSlide[] = [
   {
     src: "/headswap-pro/hero-posters.mp4",
+    srcSmall: "/headswap-pro/hero-posters-sm.mp4",
     poster: "/headswap-pro/hero-posters-poster.webp",
     type: "video",
     alt: "Nano HeadSwap Pro launch film: one face is placed into film posters, one person and then several faces in the same poster",
@@ -99,6 +102,17 @@ export function HeroSection() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const feature = demoSlides[activeSlide].feature;
 
+  // Pick the file for this screen before the first play: phones get the lighter one.
+  useEffect(() => {
+    const narrow = window.matchMedia("(max-width: 899px)").matches;
+    demoSlides.forEach((slide, i) => {
+      const v = videoRefs.current[i];
+      if (!v || !slide.srcSmall) return;
+      v.src = narrow ? slide.srcSmall : slide.src;
+      v.load();
+    });
+  }, []);
+
 
   const advance = useCallback(() => {
     setActiveSlide((s) => (s + 1) % demoSlides.length);
@@ -157,7 +171,7 @@ export function HeroSection() {
               {slide.type === "video" ? (
                 <video
                   ref={(el) => { videoRefs.current[i] = el; }}
-                  src={slide.src}
+                  src={slide.srcSmall ? undefined : slide.src}
                   poster={slide.poster}
                   preload={i === 0 ? "auto" : "metadata"}
                   muted
