@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { login, signInWithGoogle, signInWithGitHub } from "../actions";
+import { login, signInWithEmailLink, signInWithGoogle, signInWithGitHub } from "../actions";
 import { Wordmark } from "@/app/components/wordmark";
 import { safeNext } from "@/lib/auth-next";
 
@@ -28,6 +28,16 @@ function LoginForm() {
       await login(formData);
     } catch {
       // Server action redirects — expected
+    }
+    setLoading(false);
+  }
+
+  async function handleEmailLink(formData: FormData) {
+    setLoading(true);
+    try {
+      await signInWithEmailLink(formData);
+    } catch {
+      // Server action redirects
     }
     setLoading(false);
   }
@@ -207,6 +217,16 @@ function LoginForm() {
               ) : (
                 "Sign In"
               )}
+            </Button>
+            <Button
+              type="submit"
+              formAction={handleEmailLink}
+              formNoValidate
+              variant="ghost"
+              className="-mt-2 rounded-xl text-muted-foreground"
+              disabled={loading || !!oauthLoading}
+            >
+              Or email me a sign-in link, no password
             </Button>
           </form>
 

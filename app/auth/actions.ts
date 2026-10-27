@@ -105,6 +105,38 @@ export async function login(formData: FormData) {
 }
 
 // ──────────────────────────────────────────────────────────────────
+// Email link (no password): signs in an existing account, or creates one
+// ──────────────────────────────────────────────────────────────────
+export async function signInWithEmailLink(formData: FormData) {
+  const supabase = await createClient();
+  const email = (formData.get("email") as string)?.trim();
+
+  if (!email) {
+    redirect("/auth/login?error=Enter+your+email+address+first");
+  }
+
+  const siteUrl = await getSiteUrl();
+  await rememberNext(formData.get("next"));
+
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: `${siteUrl}/auth/callback`,
+      shouldCreateUser: true,
+    },
+  });
+
+  if (error) {
+    redirect(`/auth/login?error=${encodeURIComponent(friendlyError(error.message))}`);
+  }
+
+  redirect(
+    "/auth/login?message=" +
+      encodeURIComponent("Check your email. We sent you a link that signs you in. Open it in this same browser.")
+  );
+}
+
+// ──────────────────────────────────────────────────────────────────
 // Email / Password Sign-Up
 // ──────────────────────────────────────────────────────────────────
 export async function signup(formData: FormData) {
