@@ -78,7 +78,7 @@ Laid out like a product keynote; the weight budget is the constraint because the
 
 - The film is **not** hosted here. It is a picture and a play button (`FilmFacade`); YouTube (`youtube-nocookie.com`, id in `page.tsx`)
   is contacted only when someone presses play.
-- The opening loop `public/headswap-pro/teaser.mp4` is the film's first 8.5 s (title card and "One face."), 960x540, silent, 250 KB. It starts only after the
+- The opening loop `public/headswap-pro/teaser.mp4` is seconds 1.2 to 8.2 of the film (before the first poster, which appears at about 8.7 s), blurred and darkened so its baked-in captions do not fight the headline, 960x540, silent, 70 KB. It starts only after the
   page has loaded, never with Save-Data or 2G, never with reduced motion, and pauses off screen. The poster (`teaser-poster.webp`, 16 KB) is what loads first.
 - Compare images are lazy WebP in `public/headswap-pro/compare/` (668 KB for both examples). No animation library, no web font.
 - Regenerate the clips and images with the ffmpeg and PIL commands in the session that built them (source: `headswap_pro_launch_1080p60.mp4`,
