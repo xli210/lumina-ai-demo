@@ -21,13 +21,15 @@ const PROMO_VALID_UNTIL = "2026-10-31";
 const CANONICAL = "https://nanopocket.ai/apps/nano-facestudio-pro";
 
 export const metadata: Metadata = {
-  title:
-    "Nano FaceStudio Pro 1.0 — Local AI Face Studio: Swap, Mask, Expression, Vivid, Upscale",
+  // Leads with "local face swap": people search for it, and this is our current desktop face swap.
+  title: { absolute: "Local Face Swap App for Windows, Offline | Nano FaceStudio Pro" },
   description:
-    "Nano FaceStudio Pro 1.0 is a unified local desktop AI face studio that bundles seven capabilities — multi-face swap with per-region protection, brush-level mask edit, identity-preserving expression editing, face-vivid restoration, 2×/3×/4× upscale, auto light adjust, and precision crop — with every model running on the user's GPU.",
+    "Local face swap that runs offline on your own NVIDIA GPU, with a one-time license and no uploads. Nano FaceStudio Pro 1.0 is a unified local desktop AI face studio that bundles seven capabilities — multi-face swap with per-region protection, brush-level mask edit, identity-preserving expression editing, face-vivid restoration, 2×/3×/4× upscale, auto light adjust, and precision crop — with every model running on the user's GPU.",
   keywords: [
     "Nano FaceStudio Pro",
     "Nano FaceStudio Pro 1.0",
+    "local face swap",
+    "offline face swap",
     "local AI face studio",
     "AI face swap desktop app",
     "facial expression editor",
@@ -311,7 +313,8 @@ export default function NanoFaceStudioProPage() {
           </h1>
 
           <p className="mx-auto mt-8 max-w-3xl text-balance text-lg leading-relaxed text-white/70 sm:text-xl md:text-2xl">
-            Seven capabilities. One desktop app. Every model runs on your GPU.
+            Local face swap and face editing, offline on your own GPU.
+            Seven capabilities. One desktop app.
             Face swap, mask edit, expression editing, face vivid, upscale, light
             adjust, and crop — designed to finish a portrait without ever
             leaving the machine.

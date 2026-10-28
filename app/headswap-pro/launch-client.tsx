@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Play } from "lucide-react";
+import type { CompareLabels } from "./copy";
 
 /**
  * The interactive parts of the HeadSwap Pro launch page. Everything here is built so the page stays light:
@@ -92,7 +93,7 @@ export function TeaserVideo({ src, poster }: { src: string; poster: string }) {
   );
 }
 
-export function FilmFacade({ id, poster, title }: { id: string; poster: string; title: string }) {
+export function FilmFacade({ id, poster, title, badge, playLabel }: { id: string; poster: string; title: string; badge: string; playLabel: string }) {
   const [on, setOn] = useState(false);
   return (
     <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl">
@@ -105,14 +106,14 @@ export function FilmFacade({ id, poster, title }: { id: string; poster: string; 
           allowFullScreen
         />
       ) : (
-        <button type="button" onClick={() => setOn(true)} aria-label={`Play: ${title}`} className="group absolute inset-0 block h-full w-full">
+        <button type="button" onClick={() => setOn(true)} aria-label={`${playLabel}: ${title}`} className="group absolute inset-0 block h-full w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={poster} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.02]" />
           <span className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
           <span className="absolute left-1/2 top-1/2 inline-flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white backdrop-blur transition group-hover:scale-110 group-hover:bg-white/25">
             <Play className="ml-1 h-8 w-8" fill="currentColor" />
           </span>
-          <span className="absolute bottom-4 left-5 text-xs font-medium uppercase tracking-[0.3em] text-white/80">The launch film · 0:53</span>
+          <span className="absolute bottom-4 left-5 text-xs font-medium uppercase tracking-[0.3em] text-white/80">{badge}</span>
         </button>
       )}
     </div>
@@ -135,7 +136,8 @@ export interface CompareItem {
 
 type Base = "original" | "earlier";
 
-export function Compare({ item }: { item: CompareItem }) {
+export function Compare({ item, labels: L }: { item: CompareItem; labels: CompareLabels }) {
+  const fill = (s: string) => s.replace("{title}", item.title);
   const [chosen, setBase] = useState<Base>("earlier");
   const [pos, setPos] = useState(50);
   const base: Base = item.earlier ? chosen : "original";
@@ -155,28 +157,28 @@ export function Compare({ item }: { item: CompareItem }) {
     <figure>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         {item.earlier ? (
-          <div className="inline-flex rounded-full border border-white/15 bg-white/5 p-1" role="group" aria-label="Compare HeadSwap Pro with">
-            {tab("earlier", "vs earlier head swap")}
-            {tab("original", "vs original photo")}
+          <div className="inline-flex rounded-full border border-white/15 bg-white/5 p-1" role="group" aria-label={L.groupLabel}>
+            {tab("earlier", L.vsEarlier)}
+            {tab("original", L.vsOriginal)}
           </div>
         ) : (
-          <span className="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-white/70">Original photo vs HeadSwap Pro</span>
+          <span className="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-white/70">{L.originalVsPro}</span>
         )}
         <div className="flex items-center gap-3 text-xs text-white/60">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={item.face} alt="The new head used" width={56} height={56} loading="lazy" decoding="async" style={{ objectPosition: item.facePosition ?? "center" }} className="h-10 w-14 rounded-md border border-white/15 object-cover" />
-          <span>the new head</span>
+          <img src={item.face} alt={L.newHeadAlt} width={56} height={56} loading="lazy" decoding="async" style={{ objectPosition: item.facePosition ?? "center" }} className="h-10 w-14 rounded-md border border-white/15 object-cover" />
+          <span>{L.newHead}</span>
         </div>
       </div>
       <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-neutral-900 select-none" style={{ aspectRatio: item.ratio }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={item.pro} alt={`${item.title}: result with HeadSwap Pro`} loading="lazy" decoding="async" draggable={false} className="absolute inset-0 h-full w-full object-cover" />
+        <img src={item.pro} alt={fill(L.resultAlt)} loading="lazy" decoding="async" draggable={false} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={left} alt={base === "earlier" ? `${item.title}: result of the earlier head swap` : `${item.title}: the original photo`} loading="lazy" decoding="async" draggable={false} className="h-full w-full object-cover" />
+          <img src={left} alt={fill(base === "earlier" ? L.earlierAlt : L.originalAlt)} loading="lazy" decoding="async" draggable={false} className="h-full w-full object-cover" />
         </div>
         <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1 text-[11px] font-medium uppercase tracking-widest text-white backdrop-blur">
-          {base === "earlier" ? "Earlier" : "Original"}
+          {base === "earlier" ? L.earlierTag : L.originalTag}
         </span>
         <span className="pointer-events-none absolute right-3 top-3 rounded-full bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-black">Pro</span>
         <div className="pointer-events-none absolute inset-y-0 w-px bg-white/90 shadow-[0_0_12px_rgba(255,255,255,0.6)]" style={{ left: `${pos}%` }} />
@@ -193,7 +195,7 @@ export function Compare({ item }: { item: CompareItem }) {
           max={100}
           value={pos}
           onChange={(e) => setPos(Number(e.target.value))}
-          aria-label={`Compare ${base === "earlier" ? "the earlier head swap" : "the original"} with HeadSwap Pro`}
+          aria-label={base === "earlier" ? L.sliderEarlier : L.sliderOriginal}
           className="absolute inset-0 h-full w-full cursor-ew-resize opacity-0"
         />
       </div>

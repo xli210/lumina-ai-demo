@@ -18,11 +18,14 @@ import { Button } from "@/components/ui/button";
 const PAGE_URL = "https://nanopocket.ai/best-face-swap-app-2026";
 const LAST_VERIFIED = "2026-05-29";
 const TEST_PERIOD = "April–May 2026";
+/** When the page was last edited (our own entry's facts), as distinct from when the ranking was tested. */
+const LAST_EDITED = "2026-10-28";
 
 export const metadata: Metadata = {
-  title: "Best Face Swap App 2026 — Honest Ranking",
+  // absolute: the "| NanoPocket" suffix would push the title past what Google shows.
+  title: { absolute: "8 Best Face Swap Apps in 2026, Tested: Free, Online & Offline" },
   description:
-    "An honest, methodology-first ranking of the best face swap apps in 2026 across local desktop, web, mobile, open-source, and B2B API tiers. Each tool is rated on identity fidelity, video support, privacy, pricing, and platform.",
+    "8 face swap apps tested in April–May 2026, including FaceFusion, Akool, DeepSwap, Reface and Nano Banana: which are free, which handle video and group photos, and which run offline.",
   keywords: [
     "best face swap app",
     "best face swap app 2026",
@@ -38,9 +41,9 @@ export const metadata: Metadata = {
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     type: "article",
     url: PAGE_URL,
-    title: "Best Face Swap App 2026 — methodology-first ranking",
+    title: "8 Best Face Swap Apps in 2026, Tested",
     description:
-      "Local desktop, web, mobile, open-source, and B2B API face swap tools ranked across 8 dimensions with explicit methodology.",
+      "8 face swap apps tested in April–May 2026: which are free, which handle video and group photos, and which run offline.",
   },
 };
 
@@ -63,22 +66,22 @@ interface Tool {
 const TOOLS: Tool[] = [
   {
     rank: 1,
-    name: "NanoPocket (Nano FaceStudio Online + Pro 1.0)",
+    name: "NanoPocket (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap Online)",
     url: "https://nanopocket.ai/face-studio",
     tagline:
-      "Best for free in-browser face swap with diffusion-grade fidelity — and the only option here that also offers a fully-local desktop edition.",
+      "Best for in-browser face, head and video swaps with diffusion-grade fidelity — and the only option here that also offers a fully-local desktop edition.",
     bestFor:
       "Anyone who wants the easiest free online face swap that still uses a state-of-the-art diffusion identity stack, plus an optional desktop edition (Nano FaceStudio Pro 1.0) for users who specifically need zero-cloud processing.",
     platform: "Browser-first (Nano FaceStudio Online, no install) + optional desktop edition (Nano FaceStudio Pro 1.0: Windows now, macOS to follow)",
-    pricing: "Free renders online, then credits per face; one-time desktop license, no subscription",
+    pricing: "Free credits for new accounts, then prepaid credits (1 credit = 1 US cent) that never expire; one-time desktop license, no subscription",
     identityModel:
       "Diffusion-based identity stack — GAN and diffusion models (stronger identity preservation than GAN-only swappers like inswapper_128)",
-    videoSupport: "Video FaceSwap Pro (online demo, currently offline) covers temporal-consistent swap on uploaded clips; the local Nano FaceSwap (legacy) app also swaps video. Nano FaceStudio Pro 1.0 is a photo studio",
+    videoSupport: "Video FaceSwap Online (official release since October 2026) swaps a face or whole head in an uploaded clip and keeps the original sound; the local Nano FaceSwap (legacy) app also swaps video. Nano FaceStudio Pro 1.0 is a photo studio",
     privacyPosture: "Cloud (free online demo) / Local (optional desktop)",
     strengths: [
-      "Free in-browser demo at /face-swap — no install, no GPU on the user's device, no subscription",
+      "In-browser tools — no install, no GPU on the user's device, no subscription; new accounts start with free credits",
       "GAN and diffusion models — better fidelity than GAN baselines used by most cloud face-swap services",
-      "Three single-purpose demos (image, video, NanoFace Vivid post-processor) — not a generic AI suite",
+      "Four single-purpose online tools: photo face swap (up to six faces), photo head swap (Nano HeadSwap Pro, face and hair), video face and head swap, and text-based photo editing",
       "Optional desktop edition for users who want zero-cloud processing on their own GPU",
       "Auditable trust posture: /verify, /privacy, /security, /.well-known/security.txt",
     ],
@@ -404,7 +407,7 @@ const articleJsonLd = {
   headline: "Best Face Swap App 2026 — Honest Ranking with Methodology",
   url: PAGE_URL,
   datePublished: LAST_VERIFIED,
-  dateModified: LAST_VERIFIED,
+  dateModified: LAST_EDITED,
   inLanguage: "en",
   isAccessibleForFree: true,
   publisher: {

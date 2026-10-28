@@ -13,6 +13,8 @@ import { HowItWorksSection } from "./components/how-it-works-section";
 import { TestimonialsSection } from "./components/testimonials-section";
 import { PricingSection } from "./components/pricing-section";
 import { FAQSection } from "./components/faq-section";
+import { HOME_FAQS } from "./components/faq-data";
+import { AT_A_GLANCE_JSON_LD, AtAGlanceSection } from "./components/at-a-glance-section";
 import { CTASection } from "./components/cta-section";
 import { Footer } from "./components/footer";
 
@@ -28,83 +30,15 @@ export const metadata: Metadata = {
   },
 };
 
+// Built from the same list the visible FAQ renders, so the structured data always matches the page.
 const faqStructuredData = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "Are there any hidden charges or recurring fees with NanoPocket?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "No. Desktop licenses are one-time and machine-bound, with no per-image, per-minute, per-frame, or per-render fees. Online demos (Nano FaceStudio Online and Video FaceSwap Pro) are free for every signed-in NanoPocket account. There is no auto-renewal, no yearly subscription, and no usage meter. Pricing terms are documented on the /trust page.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Is NanoPocket really private — does my data leave my computer?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "On the desktop apps, no. Every photo, video, prompt, and reference stays on the user's local disk; the model runs entirely on the user's GPU. Only a license-activation handshake (license key + hashed machine ID) leaves the machine. On the online demos, the source file is sent to a NanoPocket-hosted GPU only for the duration of the swap or generation, processed in volatile memory, and not used to train any model. Full privacy summary is on the /trust page.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Which NanoPocket products are stable today, and which are coming soon?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Stable today: Nano ImageEnh Pro 3.0, Nano VideoEnhance, Nano VideoGen, Nano ImageEdit, Nano FacialEdit, Nano ImageTryon, Nano FaceSwap (legacy desktop), and Nano FaceStudio Pro 1.0 (Windows now, macOS to follow), plus the Nano FaceStudio Online and Video FaceSwap Pro online demos. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap. The status table on the /trust page is the authoritative source.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What GPU and operating system do I need?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Desktop apps run on Windows 10/11 with an NVIDIA CUDA GPU (8 GB VRAM minimum, 12 GB for VideoGen). Nano ImageEnh Pro 3.0 also ships a native Apple Silicon (M2/M3/M4/M5) build with Metal acceleration. Other Mac apps are on the roadmap. Online demos run in any modern browser on any OS.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "How does NanoPocket compare to Runway, ComfyUI, Midjourney, Topaz, and Roop?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "NanoPocket runs the same open-weight models on the user's GPU. Versus Runway / Midjourney / Pika / Sora it removes the per-second cloud subscription. Versus ComfyUI it removes the Python and terminal setup. Versus Topaz Photo / Video AI it ships native Apple Silicon and bundles batch + crop + matting + upscale in one app. Versus Roop / FaceFusion / Rope it replaces the inswapper_128 GAN with a high-resolution diffusion identity stack. The model attribution and head-to-head limitations are listed on each product page and on the /trust page.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "How does the licensing work, and can I move my license to a new computer?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Each license key activates on one machine. Free products give a permanent free license. Paid products include a 7-day free trial without a credit card; after the trial, a one-time license is available. License keys can be deactivated from the current machine and reactivated on a new machine; force-takeover (once per 30 days) covers the case where the old machine is lost.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What is the refund policy?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Every paid app ships with a 7-day free trial without a credit card, which is the canonical evaluation window. Because of the full trial, purchases are non-refundable after activation. Free apps do not require a refund flow. Tax handling (VAT/GST/sales tax) is performed by Stripe at checkout based on the buyer's region.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Are NanoPocket apps open source?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "The model weights are open and listed with arXiv / Hugging Face / GitHub links on the /trust page. The desktop application binary is closed-source; the one-time license covers the application and the integration work, not the underlying model weights.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Are updates free forever?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes for minor and patch releases (e.g. 1.0.4 → 1.0.5). Major version upgrades (e.g. 3.0 → 4.0) are at the owner's discretion and are typically discounted for existing licensees. Patch updates ship over HTTPS with a signed manifest; users can opt out of automatic updates.",
-      },
-    },
-  ],
+  mainEntity: HOME_FAQS.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
 };
 
 export default function Page() {
@@ -114,10 +48,15 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(AT_A_GLANCE_JSON_LD) }}
+      />
       <Navbar />
       <WhatsNewBar />
       <HeroSection />
       <AnnouncementSection />
+      <AtAGlanceSection />
       <DemoSection />
       <FeatureShowcase />
       <ShowcaseSection />
