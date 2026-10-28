@@ -9,6 +9,7 @@ export interface FacestudioVVideo {
   contentUrl: string;
   thumbnailUrl: string;
   durationSeconds: number;
+  /** ISO 8601 with a timezone: Google flags a bare date as missing one. */
   uploadDate: string;
 }
 
@@ -20,7 +21,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/xc/profile_turn_after.mp4",
     "thumbnailUrl": "/facestudio-v/media/xc/profile_turn_poster.jpg",
     "durationSeconds": 12.0,
-    "uploadDate": "2026-10-20"
+    "uploadDate": "2026-10-20T00:00:00+00:00"
   },
   {
     "key": "profile_back",
@@ -29,7 +30,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/xc/profile_back_after.mp4",
     "thumbnailUrl": "/facestudio-v/media/xc/profile_back_poster.jpg",
     "durationSeconds": 12.0,
-    "uploadDate": "2026-10-20"
+    "uploadDate": "2026-10-20T00:00:00+00:00"
   },
   {
     "key": "hand_glasses",
@@ -38,7 +39,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/xc/hand_glasses_after.mp4",
     "thumbnailUrl": "/facestudio-v/media/xc/hand_glasses_poster.jpg",
     "durationSeconds": 8.0,
-    "uploadDate": "2026-10-20"
+    "uploadDate": "2026-10-20T00:00:00+00:00"
   },
   {
     "key": "arm_across",
@@ -47,7 +48,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/xc/arm_across_after.mp4",
     "thumbnailUrl": "/facestudio-v/media/xc/arm_across_poster.jpg",
     "durationSeconds": 10.2,
-    "uploadDate": "2026-10-20"
+    "uploadDate": "2026-10-20T00:00:00+00:00"
   },
   {
     "key": "head_back_hands",
@@ -56,7 +57,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/xc/head_back_hands_after.mp4",
     "thumbnailUrl": "/facestudio-v/media/xc/head_back_hands_poster.jpg",
     "durationSeconds": 10.4,
-    "uploadDate": "2026-10-20"
+    "uploadDate": "2026-10-20T00:00:00+00:00"
   },
   {
     "key": "man_smile",
@@ -65,7 +66,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/man_smile_swap.mp4",
     "thumbnailUrl": "/facestudio-v/media/man_smile_poster.jpg",
     "durationSeconds": 4.0,
-    "uploadDate": "2026-10-13"
+    "uploadDate": "2026-10-13T00:00:00+00:00"
   },
   {
     "key": "presenter",
@@ -74,7 +75,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/presenter_swap.mp4",
     "thumbnailUrl": "/facestudio-v/media/presenter_poster.jpg",
     "durationSeconds": 4.0,
-    "uploadDate": "2026-10-13"
+    "uploadDate": "2026-10-13T00:00:00+00:00"
   },
   {
     "key": "h3_blackman",
@@ -83,7 +84,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/h3_blackman_swap.mp4",
     "thumbnailUrl": "/facestudio-v/media/h3_blackman_poster.jpg",
     "durationSeconds": 4.0,
-    "uploadDate": "2026-10-13"
+    "uploadDate": "2026-10-13T00:00:00+00:00"
   },
   {
     "key": "elder",
@@ -92,7 +93,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/elder_swap.mp4",
     "thumbnailUrl": "/facestudio-v/media/elder_poster.jpg",
     "durationSeconds": 4.0,
-    "uploadDate": "2026-10-13"
+    "uploadDate": "2026-10-13T00:00:00+00:00"
   },
   {
     "key": "park",
@@ -101,7 +102,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/park_swap.mp4",
     "thumbnailUrl": "/facestudio-v/media/park_poster.jpg",
     "durationSeconds": 4.0,
-    "uploadDate": "2026-10-13"
+    "uploadDate": "2026-10-13T00:00:00+00:00"
   },
   {
     "key": "h3_park",
@@ -110,7 +111,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/h3_park_swap.mp4",
     "thumbnailUrl": "/facestudio-v/media/h3_park_poster.jpg",
     "durationSeconds": 4.0,
-    "uploadDate": "2026-10-13"
+    "uploadDate": "2026-10-13T00:00:00+00:00"
   },
   {
     "key": "cap",
@@ -119,7 +120,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/cap_swap.mp4",
     "thumbnailUrl": "/facestudio-v/media/cap_poster.jpg",
     "durationSeconds": 4.0,
-    "uploadDate": "2026-10-13"
+    "uploadDate": "2026-10-13T00:00:00+00:00"
   },
   {
     "key": "laugh",
@@ -128,7 +129,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/laugh_swap.mp4",
     "thumbnailUrl": "/facestudio-v/media/laugh_poster.jpg",
     "durationSeconds": 4.0,
-    "uploadDate": "2026-10-13"
+    "uploadDate": "2026-10-13T00:00:00+00:00"
   },
   {
     "key": "trio_mid",
@@ -137,7 +138,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/trio_mid_swap.mp4",
     "thumbnailUrl": "/facestudio-v/media/trio_mid_poster.jpg",
     "durationSeconds": 4.0,
-    "uploadDate": "2026-10-13"
+    "uploadDate": "2026-10-13T00:00:00+00:00"
   },
   {
     "key": "trio_left",
@@ -146,7 +147,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/trio_left_swap.mp4",
     "thumbnailUrl": "/facestudio-v/media/trio_left_poster.jpg",
     "durationSeconds": 4.0,
-    "uploadDate": "2026-10-13"
+    "uploadDate": "2026-10-13T00:00:00+00:00"
   },
   {
     "key": "trio_right",
@@ -155,7 +156,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/trio_right_swap.mp4",
     "thumbnailUrl": "/facestudio-v/media/trio_right_poster.jpg",
     "durationSeconds": 4.0,
-    "uploadDate": "2026-10-13"
+    "uploadDate": "2026-10-13T00:00:00+00:00"
   },
   {
     "key": "h3_presenter",
@@ -164,7 +165,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/h3_presenter_swap.mp4",
     "thumbnailUrl": "/facestudio-v/media/h3_presenter_poster.jpg",
     "durationSeconds": 4.0,
-    "uploadDate": "2026-10-13"
+    "uploadDate": "2026-10-13T00:00:00+00:00"
   },
   {
     "key": "h3_blonde",
@@ -173,7 +174,7 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/h3_blonde_swap.mp4",
     "thumbnailUrl": "/facestudio-v/media/h3_blonde_poster.jpg",
     "durationSeconds": 4.0,
-    "uploadDate": "2026-10-13"
+    "uploadDate": "2026-10-13T00:00:00+00:00"
   },
   {
     "key": "portrait",
@@ -182,6 +183,6 @@ export const FACESTUDIO_V_VIDEOS: readonly FacestudioVVideo[] = [
     "contentUrl": "/facestudio-v/media/portrait_swap.mp4",
     "thumbnailUrl": "/facestudio-v/media/portrait_poster.jpg",
     "durationSeconds": 4.0,
-    "uploadDate": "2026-10-13"
+    "uploadDate": "2026-10-13T00:00:00+00:00"
   }
 ];
