@@ -25,7 +25,7 @@ const cta = {
   label: `Open ${FACESTUDIO_V_NAME}`,
 };
 
-const COST = `Each video is paid for in credits. The studio works out the price from the mode, the output size, the length of the clip and how many people are swapped, and shows it before you start. A 10-second 1080p clip in Fast mode is about 20 credits, roughly US$0.20.`;
+const COST = `Each video is paid for in credits. The studio works out the price from the mode, the output size, the length of the clip and how many people are swapped, and shows it before you start. A 10-second 1080p clip in Fast mode is about 20 credits.`;
 
 const WATERMARK = `Videos made on an account that has never topped up credits carry a slowly moving NanoPocket mark. Topping up once removes it from the videos you make afterwards; free sign-up credits do not count.`;
 
