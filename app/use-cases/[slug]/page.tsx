@@ -10,7 +10,6 @@ import { BLOG_POSTS } from "@/lib/blog-posts";
 import {
   IMAGE_EDIT_NAME,
   IMAGE_EDIT_PRICE_CREDITS,
-  IMAGE_EDIT_PRICE_USD_TEXT,
   IMAGE_EDIT_TOOLS,
   IMAGE_EDIT_URL,
 } from "@/lib/image-edit-facts";
@@ -146,7 +145,7 @@ export default async function UseCasePage({ params }: Props) {
             </a>
           </div>
           <p className="mt-5 text-xs text-muted-foreground">
-            {IMAGE_EDIT_PRICE_CREDITS} credits ({IMAGE_EDIT_PRICE_USD_TEXT}) per edit · free credits for new accounts ·
+            {IMAGE_EDIT_PRICE_CREDITS} credits per edit · free credits for new accounts ·
             failed edits refunded · no subscription
           </p>
         </div>
@@ -313,8 +312,8 @@ export default async function UseCasePage({ params }: Props) {
         <div className="glass-strong mx-auto max-w-3xl rounded-3xl border border-primary/10 p-8 text-center sm:p-10">
           <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Try it on your own photo.</h2>
           <p className="mx-auto mb-6 max-w-xl text-sm text-muted-foreground sm:text-base">
-            Sign in, drop in a photo and describe the change. {IMAGE_EDIT_PRICE_CREDITS} credits (
-            {IMAGE_EDIT_PRICE_USD_TEXT}) per edit; an edit that fails costs nothing.
+            Sign in, drop in a photo and describe the change. {IMAGE_EDIT_PRICE_CREDITS} credits
+            per edit; an edit that fails costs nothing.
           </p>
           <Link href={LAUNCH} className={primaryButton}>
             Open the editor <ArrowRight className="h-4 w-4" />

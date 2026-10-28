@@ -20,8 +20,6 @@ import {
   IMAGE_EDIT_MAX_SIDE,
   IMAGE_EDIT_MAX_UPLOAD_MB,
   IMAGE_EDIT_PRICE_CREDITS,
-  IMAGE_EDIT_PRICE_USD,
-  IMAGE_EDIT_PRICE_USD_TEXT,
   IMAGE_EDIT_WARM_SECONDS,
 } from "@/lib/image-edit-facts";
 
@@ -48,14 +46,14 @@ export interface UseCase {
   guideSlugs: string[];
 }
 
-const usd = (edits: number) => `$${(IMAGE_EDIT_PRICE_USD * edits).toFixed(2)}`;
+const credits = (edits: number) => `${IMAGE_EDIT_PRICE_CREDITS * edits} credits`;
 
 export const IMAGE_EDIT_USE_CASES: readonly UseCase[] = [
   {
     slug: "real-estate-photos",
     name: "Real estate photos",
     title: "AI Photo Editing for Real Estate Listings",
-    description: `Remove parked cars and clutter from listing photos, or turn a daylight exterior into a twilight shot. Only what you describe changes, and the editor reports how much did. ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per edit, no subscription.`,
+    description: `Remove parked cars and clutter from listing photos, or turn a daylight exterior into a twilight shot. Only what you describe changes, and the editor reports how much did. ${IMAGE_EDIT_PRICE_CREDITS} credits per edit, no subscription.`,
     eyebrow: "For agents and property photographers",
     h1: "Clean up listing photos without reshooting.",
     intro: [
@@ -65,7 +63,7 @@ export const IMAGE_EDIT_USE_CASES: readonly UseCase[] = [
     whoFor: "Remove cars and clutter, make a twilight exterior",
     why: [
       "Remove edits only the object you name. Every pixel outside the edited area is kept identical, and the editor confirms it and reports the share of the image that changed (4.15% in the street example below).",
-      `It is paid per edit, with no subscription: ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}). A listing of 25 photos with one edit each is ${usd(25)}, plus ${IMAGE_EDIT_PRICE_USD_TEXT} for every retry or variation.`,
+      `It is paid per edit, with no subscription: ${IMAGE_EDIT_PRICE_CREDITS} credits. A listing of 25 photos with one edit each is ${credits(25)}, plus ${IMAGE_EDIT_PRICE_CREDITS} credits for every retry or variation.`,
       `Output is a lossless PNG at the size you upload, up to ${IMAGE_EDIT_MAX_SIDE} px on the long side, which covers listing-site and print-brochure sizes.`,
     ],
     exampleIds: ["houses-remove-car", "houses-dusk"],
@@ -98,7 +96,7 @@ export const IMAGE_EDIT_USE_CASES: readonly UseCase[] = [
       },
       {
         q: "What does it cost for a whole listing?",
-        a: `${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per finished edit, so 25 photos with one edit each is ${usd(25)}. Retries and variations count as edits. A failed or cancelled edit is refunded automatically.`,
+        a: `${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit, so 25 photos with one edit each is ${credits(25)}. Retries and variations count as edits. A failed or cancelled edit is refunded automatically.`,
       },
     ],
     guideSlugs: ["remove-objects-from-photos-with-ai"],
@@ -107,7 +105,7 @@ export const IMAGE_EDIT_USE_CASES: readonly UseCase[] = [
     slug: "old-family-photos",
     name: "Old family photos",
     title: "Restore and Colorize Old Family Photos With AI",
-    description: `Repair faded, scratched or black-and-white family photos and add natural colour, in your browser. Honest about what changes: Restore works on the whole photo. ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per photo, no subscription.`,
+    description: `Repair faded, scratched or black-and-white family photos and add natural colour, in your browser. Honest about what changes: Restore works on the whole photo. ${IMAGE_EDIT_PRICE_CREDITS} credits per photo, no subscription.`,
     eyebrow: "For family historians and genealogists",
     h1: "Bring an old family photo back, and check it before you share it.",
     intro: [
@@ -117,7 +115,7 @@ export const IMAGE_EDIT_USE_CASES: readonly UseCase[] = [
     whoFor: "Colorize and repair faded or damaged prints",
     why: [
       "You describe the result in plain words and see it in under a minute, instead of learning a retouching package for one photo.",
-      `It is paid per photo with no subscription: ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}), and credits never expire, which suits a project you come back to a few photos at a time.`,
+      `It is paid per photo with no subscription: ${IMAGE_EDIT_PRICE_CREDITS} credits, and credits never expire, which suits a project you come back to a few photos at a time.`,
       "Compare and Before views let you flip between your scan and the result, so you decide whether it still looks like the person.",
     ],
     exampleIds: ["restore-sepia"],
@@ -150,7 +148,7 @@ export const IMAGE_EDIT_USE_CASES: readonly UseCase[] = [
       },
       {
         q: "How much does it cost?",
-        a: `${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per finished edit, with prepaid credits that never expire. Each variation counts as an edit. A failed or cancelled edit is refunded.`,
+        a: `${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit, with prepaid credits that never expire. Each variation counts as an edit. A failed or cancelled edit is refunded.`,
       },
     ],
     guideSlugs: ["restore-and-colorize-old-photos-with-ai"],
@@ -159,7 +157,7 @@ export const IMAGE_EDIT_USE_CASES: readonly UseCase[] = [
     slug: "signs-menus-and-posters",
     name: "Signs, menus and posters",
     title: "Change Text in Images With AI: Signs and Posters",
-    description: `Change the words on a sign, label, menu or poster photo and keep the original lettering style, in your browser. The rest of the image stays identical. ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per edit.`,
+    description: `Change the words on a sign, label, menu or poster photo and keep the original lettering style, in your browser. The rest of the image stays identical. ${IMAGE_EDIT_PRICE_CREDITS} credits per edit.`,
     eyebrow: "For small businesses and marketers",
     h1: "Change the words in a photo and keep everything else.",
     intro: [
@@ -170,7 +168,7 @@ export const IMAGE_EDIT_USE_CASES: readonly UseCase[] = [
     why: [
       "It keeps the look of the existing lettering instead of pasting a new font over it.",
       "Replace swaps a whole object for another in the same place and light, so you can change the dish on a menu photo or the item on a shelf without a reshoot.",
-      `It is paid per edit with no subscription: ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}), and a failed edit is refunded.`,
+      `It is paid per edit with no subscription: ${IMAGE_EDIT_PRICE_CREDITS} credits, and a failed edit is refunded.`,
     ],
     exampleIds: ["text-barber", "replace-fruit"],
     toolIds: ["change-text", "replace-objects", "magic-edit"],
@@ -211,7 +209,7 @@ export const IMAGE_EDIT_USE_CASES: readonly UseCase[] = [
     slug: "travel-and-street-photos",
     name: "Travel and street photos",
     title: "Remove Cars and Clutter From Travel Photos With AI",
-    description: `Take parked cars and other distractions out of travel and street photos, or change the season or the light. Object edits keep the rest of the shot identical. ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per edit.`,
+    description: `Take parked cars and other distractions out of travel and street photos, or change the season or the light. Object edits keep the rest of the shot identical. ${IMAGE_EDIT_PRICE_CREDITS} credits per edit.`,
     eyebrow: "For photographers, travel bloggers and creators",
     h1: "Fix the one thing that spoils the shot.",
     intro: [
@@ -222,7 +220,7 @@ export const IMAGE_EDIT_USE_CASES: readonly UseCase[] = [
     why: [
       "Remove changes only what you name and tells you how much of the image moved: 4.84% and 4.15% in the two street examples below.",
       "Season and Light & Style restyle a whole photo in one instruction, so one shot can serve for more than one post.",
-      `Output is a lossless PNG at your upload size, up to ${IMAGE_EDIT_MAX_SIDE} px on the long side, at ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per edit.`,
+      `Output is a lossless PNG at your upload size, up to ${IMAGE_EDIT_MAX_SIDE} px on the long side, at ${IMAGE_EDIT_PRICE_CREDITS} credits per edit.`,
     ],
     exampleIds: ["remove-cars", "houses-remove-car", "season-lake"],
     toolIds: ["remove-objects", "change-season", "light-and-style"],

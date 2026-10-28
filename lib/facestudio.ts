@@ -12,7 +12,6 @@
  * Reference: facestudio_handoff/README_INTEGRATION.md
  */
 
-import { CREDITS_PER_USD } from "@/lib/credits";
 
 export const FACESTUDIO_DEFAULT_BASE_URL =
   "https://facestudio-gateway.onrender.com";
@@ -265,11 +264,11 @@ export interface FaceStudioInsufficientCredits {
 /* Display helpers                                                             */
 /* -------------------------------------------------------------------------- */
 
-/** `30 credits ($0.30)` — the price of an actual render, for the button. */
+/** `30 credits` — the price of an actual render, for the button. */
 export function describePrice(
   mode: FaceStudioMode,
   faceCount: number
 ): string {
   const credits = creditsForJob(mode, faceCount);
-  return `${credits} credits ($${(credits / CREDITS_PER_USD).toFixed(2)})`;
+  return `${credits} credits`;
 }

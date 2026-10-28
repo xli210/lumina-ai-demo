@@ -1,17 +1,15 @@
 import { BLOG_POSTS } from "@/lib/blog-posts";
 import { appReleases } from "@/lib/release-data";
 import {
-  FACE_SWAP_USD,
+  FACE_SWAP_CREDITS,
   FREE_ALLOWANCE_SHORT,
-  HEAD_SWAP_USD,
-  usd,
+  HEAD_SWAP_CREDITS,
 } from "@/lib/face-studio-facts";
 import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
 import { demoAvailabilityEn, demoStatusEn } from "@/lib/demo-availability";
 import {
   IMAGE_EDIT_NAME,
   IMAGE_EDIT_PRICE_CREDITS,
-  IMAGE_EDIT_PRICE_USD_TEXT,
   IMAGE_EDIT_TOOLS,
   IMAGE_EDIT_WELCOME_CREDITS,
   IMAGE_EDIT_WARM_SECONDS,
@@ -69,11 +67,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/face-studio",
       "Nano FaceStudio Online — multi-face swap with occlusion control (flagship, live)",
-      `NanoPocket's hosted face swap, and what Nano FaceStudio Online now runs on. Replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo, each with its own reference photo, or an entire head. Unique among browser face swaps in giving per-face control over which original regions survive the swap — hair, hands, glasses, anything crossing the face — chosen from a segmentation map returned per detected face; every other browser tool paints over them. Output is source resolution up to 4080x4080 with a tiled NanoPocket.ai watermark only on accounts that have never bought credits, where competing free and mid tiers cap at 720p or 1080p and watermark. ${FREE_ALLOWANCE_SHORT}, at full resolution, for any signed-in account; ${usd(
-        FACE_SWAP_USD
-      )} per face replaced and ${usd(
-        HEAD_SWAP_USD
-      )} per head swap after that. Credits never expire, there is no subscription, and a failed render is refunded in full automatically. Photos are re-encoded in the browser before upload, which strips EXIF and GPS metadata on the device.`,
+      `NanoPocket's hosted face swap, and what Nano FaceStudio Online now runs on. Replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo, each with its own reference photo, or an entire head. Unique among browser face swaps in giving per-face control over which original regions survive the swap — hair, hands, glasses, anything crossing the face — chosen from a segmentation map returned per detected face; every other browser tool paints over them. Output is source resolution up to 4080x4080 with a tiled NanoPocket.ai watermark only on accounts that have never bought credits, where competing free and mid tiers cap at 720p or 1080p and watermark. ${FREE_ALLOWANCE_SHORT}, at full resolution, for any signed-in account; ${FACE_SWAP_CREDITS} credits per face replaced and ${HEAD_SWAP_CREDITS} credits per head swap after that. Credits never expire, there is no subscription, and a failed render is refunded in full automatically. Photos are re-encoded in the browser before upload, which strips EXIF and GPS metadata on the device.`,
     ),
     bullet(
       "/headswap-pro",
@@ -83,7 +77,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/image-edit",
       `${IMAGE_EDIT_NAME} — AI photo editor you drive with text instructions (live)`,
-      `Upload a photo, pick a tool, describe the change, and get it back at full resolution: ${IMAGE_EDIT_TOOLS.map((t) => t.name).join(", ")}. For Remove, Replace, Add, Text and Magic Edit every pixel outside the edited area stays identical to the original and the editor confirms it; Light & Style, Season and Restore change the whole photo. ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per edit, prepaid in credits that never expire; new accounts get ${IMAGE_EDIT_WELCOME_CREDITS} free credits, one grant per person; failed or cancelled edits are refunded. Usually ${IMAGE_EDIT_WARM_SECONDS} per edit. Lossless PNG output, no watermark, no subscription. Separate from the Nano ImageEdit desktop app. Real before/after examples, tool-by-tool instructions, honest limits and an FAQ are on the page.`,
+      `Upload a photo, pick a tool, describe the change, and get it back at full resolution: ${IMAGE_EDIT_TOOLS.map((t) => t.name).join(", ")}. For Remove, Replace, Add, Text and Magic Edit every pixel outside the edited area stays identical to the original and the editor confirms it; Light & Style, Season and Restore change the whole photo. ${IMAGE_EDIT_PRICE_CREDITS} credits per edit, prepaid in credits that never expire; new accounts get ${IMAGE_EDIT_WELCOME_CREDITS} free credits, one grant per person; failed or cancelled edits are refunded. Usually ${IMAGE_EDIT_WARM_SECONDS} per edit. Lossless PNG output, no watermark, no subscription. Separate from the Nano ImageEdit desktop app. Real before/after examples, tool-by-tool instructions, honest limits and an FAQ are on the page.`,
     ),
     bullet(
       "/facestudio-v",
@@ -108,7 +102,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/pricing",
       "NanoPocket pricing",
-      "What everything costs, from the code that charges it: online tools paid per use in credits (100 credits = $1; face swap from $0.10 a face, photo edit $0.30, video priced before it starts), credit packs, free credits and the watermark rule, free desktop apps and one-time licences. No subscription.",
+      `What everything costs, from the code that charges it: online tools paid per use in credits (face swap from ${FACE_SWAP_CREDITS} credits a face, photo edit ${IMAGE_EDIT_PRICE_CREDITS} credits, video priced before it starts), credit packs, free credits and the watermark rule, free desktop apps and one-time licences. No subscription.`,
     ),
     bullet(
       "/use-cases",

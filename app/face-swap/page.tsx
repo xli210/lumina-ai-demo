@@ -26,9 +26,8 @@ import { DemoQuotaWidget } from "./quota-widget";
 import { DEMO_DAILY_LIMIT } from "@/lib/demo-quota";
 import {
   DIFFERENTIATORS,
-  FACE_SWAP_USD,
+  FACE_SWAP_CREDITS,
   FREE_ALLOWANCE_SHORT,
-  usd,
 } from "@/lib/face-studio-facts";
 import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
 import { demoAvailabilityEn } from "@/lib/demo-availability";
@@ -91,7 +90,7 @@ const ONLINE_DEMO_COPY: OnlineDemoCopy[] = [
       "Keep the original hair, hands and glasses that cross a face, per face — everywhere else they get painted over",
       "Whole-head swap for when a face-only result reads as a mask",
       `Full source resolution, up to 4080×4080; one top-up removes the watermark`,
-      `${FREE_ALLOWANCE_SHORT}, then ${usd(FACE_SWAP_USD)} each — no subscription, credits never expire`,
+      `${FREE_ALLOWANCE_SHORT}, then ${FACE_SWAP_CREDITS} credits a face — no subscription, credits never expire`,
     ],
     Icon: ImageIcon,
     accent: "violet",
@@ -201,9 +200,7 @@ const COMPARE_ROWS: CompareRow[] = [
 const FAQS = [
   {
     q: "Is the online face swap really free?",
-    a: `Free to start. Video FaceSwap Pro and NanoFace Vivid are free for any signed-in NanoPocket account with a daily open quota. Nano FaceStudio Online, the photo face swap, gives every signed-in account ${FREE_ALLOWANCE_SHORT} at full resolution — the same output as a paid render apart from a small NanoPocket.ai watermark, which one top-up removes — and face detection is always free. Past that it is ${usd(
-      FACE_SWAP_USD
-    )} per face replaced — one pass runs per face, so faces you leave alone are free — prepaid in credits that never expire, with no subscription and no auto-renewal. A render that fails is refunded in full automatically. Nano FaceStudio Pro 1.0, the local desktop version, is a separate, optional, one-time-purchase product; buying credits does not affect a desktop license and owning one does not consume credits.`,
+    a: `Free to start. Nano FaceStudio Online, the photo face swap, gives every signed-in account ${FREE_ALLOWANCE_SHORT} at full resolution — the same output as a paid render apart from a small NanoPocket.ai watermark, which one top-up removes — and face detection is always free. Past that it is ${FACE_SWAP_CREDITS} credits per face replaced — one pass runs per face, so faces you leave alone are free — prepaid in credits that never expire, with no subscription and no auto-renewal. A render that fails is refunded in full automatically. Nano FaceStudio Pro 1.0, the local desktop version, is a separate, optional, one-time-purchase product; buying credits does not affect a desktop license and owning one does not consume credits.`,
   },
   {
     q: "Do I need an account?",

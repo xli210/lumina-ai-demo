@@ -61,7 +61,7 @@ export const FREE_RENDERS_PER_TOPUP = Math.floor(
 /** \"3 free swaps, topped up at most three times a month\": one phrase for every page, so it follows the rule. */
 export const FREE_ALLOWANCE_SHORT = `${FREE_RENDERS_PER_TOPUP} free swaps, topped up ${FREE_TOPUP_FREQUENCY}`;
 
-/** Rendered as `$0.10` — two decimals, because these are cents-precise. */
+/** Rendered as `$0.10`. Used only where we compare with rivals' dollar prices; everywhere else prices are in credits. */
 export function usd(amount: number): string {
   return `$${amount.toFixed(2)}`;
 }
@@ -272,19 +272,15 @@ export interface FactQA {
 export const FACE_STUDIO_FAQ: readonly FactQA[] = [
   {
     q: "How much does Nano FaceStudio Online cost per image?",
-    a: `Pricing is per swapped face, not per photo. A face swap costs ${FACE_SWAP_CREDITS} credits per face and a head swap ${HEAD_SWAP_CREDITS} credits. One credit is one US cent, so swapping one face is ${usd(
-      FACE_SWAP_USD
-    )} and swapping three faces in a group photo is ${usd(
-      FACE_SWAP_USD * 3
-    )}. Faces you leave alone are free. This is per face because the model runs one pass per face, so a group photo is genuinely several times the work — a flat per-photo price would overcharge portraits to subsidise crowds. Credit packs start at $5 and never expire. There is no subscription and no auto-renewal.`,
+    a: `Pricing is per swapped face, not per photo. A face swap costs ${FACE_SWAP_CREDITS} credits per face and a head swap ${HEAD_SWAP_CREDITS} credits, so swapping three faces in a group photo is ${
+      FACE_SWAP_CREDITS * 3
+    } credits. Faces you leave alone are free. This is per face because the model runs one pass per face, so a group photo is genuinely several times the work — a flat per-photo price would overcharge portraits to subsidise crowds. Credits never expire. There is no subscription and no auto-renewal.`,
   },
   {
     q: "Does Nano FaceStudio Online charge more for a group photo?",
-    a: `Only for the faces actually replaced. Detection finds every face for free, and you attach a reference photo to each one you want swapped; the price is ${FACE_SWAP_CREDITS} credits times the number of references. Swapping one person out of a crowd of six costs ${usd(
-      FACE_SWAP_USD
-    )}, the same as a portrait. Swapping all six costs ${usd(
-      FACE_SWAP_USD * 6
-    )} — and it is still one upload, one render, and one wait.`,
+    a: `Only for the faces actually replaced. Detection finds every face for free, and you attach a reference photo to each one you want swapped; the price is ${FACE_SWAP_CREDITS} credits times the number of references. Swapping one person out of a crowd of six costs ${FACE_SWAP_CREDITS} credits, the same as a portrait. Swapping all six costs ${
+      FACE_SWAP_CREDITS * 6
+    } credits — and it is still one upload, one render, and one wait.`,
   },
   {
     q: "Is there a free tier for Nano FaceStudio Online?",

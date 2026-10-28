@@ -14,8 +14,6 @@ import {
   IMAGE_EDIT_LIMITS,
   IMAGE_EDIT_NAME,
   IMAGE_EDIT_PRICE_CREDITS,
-  IMAGE_EDIT_PRICE_USD,
-  IMAGE_EDIT_PRICE_USD_TEXT,
   IMAGE_EDIT_STEPS,
   IMAGE_EDIT_TOOLS,
   IMAGE_EDIT_URL,
@@ -38,7 +36,7 @@ import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
 const LAUNCH = "/image-edit/launch";
 // The site template appends " | NanoPocket", so keep this short enough to survive it (~60 characters shown in results).
 const TITLE = `${IMAGE_EDIT_NAME}: AI Photo Editor by Prompt`;
-const DESCRIPTION = `Remove, replace or add objects, change text on signs, relight, change the season or restore old photos by describing the edit. Full-resolution PNG, the rest of the photo stays identical. ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per edit, no subscription.`;
+const DESCRIPTION = `Remove, replace or add objects, change text on signs, relight, change the season or restore old photos by describing the edit. Full-resolution PNG, the rest of the photo stays identical. ${IMAGE_EDIT_PRICE_CREDITS} credits per edit, no subscription.`;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -93,10 +91,11 @@ const softwareJsonLd = {
   offers: [
     {
       "@type": "Offer",
-      name: "Per edit",
-      price: IMAGE_EDIT_PRICE_USD.toFixed(2),
+      // Free to start with the welcome credits; the per-edit price is given in credits only.
+      name: "Free to start",
+      price: "0",
       priceCurrency: "USD",
-      description: `${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit, prepaid in credits that never expire. Failed and cancelled edits are refunded.`,
+      description: `New accounts get free credits. Then ${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit, prepaid in credits that never expire. Failed and cancelled edits are refunded.`,
       url: IMAGE_EDIT_URL,
     },
   ],
@@ -135,7 +134,6 @@ const howToJsonLd = {
   description:
     "Add a photo, choose a tool, describe the edit in plain words, and download the full-resolution result.",
   totalTime: "PT2M",
-  estimatedCost: { "@type": "MonetaryAmount", currency: "USD", value: IMAGE_EDIT_PRICE_USD.toFixed(2) },
   supply: [{ "@type": "HowToSupply", name: "A photo" }],
   tool: [{ "@type": "HowToTool", name: "A modern web browser" }],
   step: IMAGE_EDIT_STEPS.map((s, i) => ({
@@ -209,7 +207,7 @@ export default function ImageEditLanding() {
             </a>
           </div>
           <p className="mt-5 text-xs text-muted-foreground">
-            {IMAGE_EDIT_PRICE_CREDITS} credits ({IMAGE_EDIT_PRICE_USD_TEXT}) per edit · free credits for new accounts · failed
+            {IMAGE_EDIT_PRICE_CREDITS} credits per edit · free credits for new accounts · failed
             edits refunded · no subscription
           </p>
         </div>
@@ -446,7 +444,7 @@ export default function ImageEditLanding() {
           </h2>
           <p className="mx-auto mb-6 max-w-xl text-sm text-muted-foreground sm:text-base">
             Sign in, drop in a photo and describe the change. {IMAGE_EDIT_PRICE_CREDITS} credits
-            ({IMAGE_EDIT_PRICE_USD_TEXT}) per edit; an edit that fails costs nothing.
+            per edit; an edit that fails costs nothing.
           </p>
           <Link href={LAUNCH} className={primaryButton}>
             Open the editor <ArrowRight className="h-4 w-4" />

@@ -8,7 +8,6 @@ import {
   FREE_ALLOWANCE_SHORT,
   FREE_RENDERS_PER_TOPUP,
   HEAD_SWAP_CREDITS,
-  HEAD_SWAP_USD,
   PERFORMANCE,
   RIVALS,
   usd,
@@ -145,11 +144,11 @@ Render times are for a 4000-pixel source on a warm NVIDIA A40. The first render 
 
 ## Price
 
-- Face swap: ${FACE_SWAP_CREDITS} credits (${usd(FACE_SWAP_USD)}) per FACE replaced, not per image. The model runs one diffusion pass per face, so a render costs this rate times the number of reference photos supplied; faces left alone are free. Swapping one person out of a group of six costs the same as a portrait.
-- Head swap: ${HEAD_SWAP_CREDITS} credits (${usd(HEAD_SWAP_USD)}), priced at twice a face swap because it costs about twice as much GPU time. Head swap operates on exactly one face.
+- Face swap: ${FACE_SWAP_CREDITS} credits per FACE replaced, not per image. The model runs one diffusion pass per face, so a render costs this rate times the number of reference photos supplied; faces left alone are free. Swapping one person out of a group of six costs the same as a portrait.
+- Head swap: ${HEAD_SWAP_CREDITS} credits, priced at twice a face swap because it costs about twice as much GPU time. Head swap operates on exactly one face.
 - Face detection: free, never billed.
 - Free allowance: a signed-in account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low, which is ${FREE_RENDERS_PER_TOPUP} face swaps at full resolution, watermarked until the account has bought credits once. An account that has never bought credits is topped up ${FREE_TOPUP_RULE}; one that has bought credits is topped up whenever it runs low. The top-up goes up to ${FREE_TOPUP_CREDITS} rather than adding to it, so it does not accumulate across idle days.
-- One credit is one US cent. Credit packs start at $5. Credits never expire. There is no subscription and no auto-renewal.
+- Credits never expire. There is no subscription and no auto-renewal.
 - A render that fails is refunded in full automatically, because credits are reserved before the GPU starts rather than debited on submission.
 
 ## How it compares on price, September 2026
@@ -236,7 +235,7 @@ ${demoAvailabilityEn()} Video FaceSwap Pro and NanoFace Vivid, when online, are 
 
 ## Nano FaceStudio Online (hosted, prepaid)
 
-Prepaid per render in credits, with a free allowance. Face swap ${FACE_SWAP_CREDITS} credits (${usd(FACE_SWAP_USD)}), head swap ${HEAD_SWAP_CREDITS} credits (${usd(HEAD_SWAP_USD)}), detection free. A signed-in account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low (${FREE_TOPUP_FREQUENCY} for an account that has never bought credits), which is ${FREE_RENDERS_PER_TOPUP} full-resolution face swaps, watermarked until the account has bought credits once. Credits never expire, there is no subscription, and failed renders are refunded automatically. Full detail: ${BASE}/face-studio.
+Prepaid per render in credits, with a free allowance. Face swap ${FACE_SWAP_CREDITS} credits, head swap ${HEAD_SWAP_CREDITS} credits, detection free. A signed-in account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low (${FREE_TOPUP_FREQUENCY} for an account that has never bought credits), which is ${FREE_RENDERS_PER_TOPUP} full-resolution face swaps, watermarked until the account has bought credits once. Credits never expire, there is no subscription, and failed renders are refunded automatically. Full detail: ${BASE}/face-studio.
 
 ## Desktop apps
 

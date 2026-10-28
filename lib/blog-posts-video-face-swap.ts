@@ -25,7 +25,7 @@ const cta = {
   label: `Open ${FACESTUDIO_V_NAME}`,
 };
 
-const COST = `Each video is paid for in credits (100 credits = US$1). The studio works out the price from the mode, the output size, the length of the clip and how many people are swapped, and shows it before you start. A 10-second 1080p clip in Fast mode is about 20 credits, roughly US$0.20.`;
+const COST = `Each video is paid for in credits. The studio works out the price from the mode, the output size, the length of the clip and how many people are swapped, and shows it before you start. A 10-second 1080p clip in Fast mode is about 20 credits, roughly US$0.20.`;
 
 const WATERMARK = `Videos made on an account that has never topped up credits carry a slowly moving NanoPocket mark. Topping up once removes it from the videos you make afterwards; free sign-up credits do not count.`;
 
@@ -341,7 +341,7 @@ With an online tool your file is uploaded, processed on someone else's machine, 
 
 ## Cost
 
-A subscription charges you whether or not you swap anything this month. Credits charge per result: on our online video studio a 10-second 1080p clip in Fast mode is about 20 credits, roughly US$0.20, shown before you start, and refunded if it fails. A local app has no per-result cost at all once it is installed, but you need the hardware: a suitable NVIDIA graphics card is the real price of going local.
+A subscription charges you whether or not you swap anything this month. Credits charge per result: on our online video studio a 10-second 1080p clip in Fast mode is about 20 credits, shown before you start, and refunded if it fails. A local app has no per-result cost at all once it is installed, but you need the hardware: a suitable NVIDIA graphics card is the real price of going local.
 
 ## Quality and convenience
 

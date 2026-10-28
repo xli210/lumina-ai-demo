@@ -12,7 +12,7 @@ import {
   FREE_TOPUP_CREDITS,
   FREE_TOPUP_RULE,
 } from "@/lib/facestudio";
-import { IMAGE_EDIT_NAME, IMAGE_EDIT_PRICE_CREDITS, IMAGE_EDIT_PRICE_USD_TEXT } from "@/lib/image-edit-facts";
+import { IMAGE_EDIT_NAME, IMAGE_EDIT_PRICE_CREDITS } from "@/lib/image-edit-facts";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 
@@ -33,7 +33,7 @@ const FACE = FACESTUDIO_PRICE_PER_FACE.face_swap;
 const HEAD = FACESTUDIO_PRICE_PER_FACE.head_swap;
 
 const TITLE = "Pricing: Free Apps, Pay-per-Use Credits";
-const DESCRIPTION = `Free desktop apps, online tools paid per use in credits (100 credits = $1), one-time Pro licences. Face swap from $${(FACE / 100).toFixed(2)} a face, photo edit $${(IMAGE_EDIT_PRICE_CREDITS / 100).toFixed(2)}. No subscription.`;
+const DESCRIPTION = `Free desktop apps, online tools paid per use in credits, one-time Pro licences. Face swap from ${FACE} credits a face, photo edit ${IMAGE_EDIT_PRICE_CREDITS} credits. No subscription.`;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -163,25 +163,25 @@ export default function PricingPage() {
                 <tr className="border-b border-border">
                   <td className={td}><Link href="/face-studio" className={textLink}>Nano FaceStudio Online</Link></td>
                   <td className={td}>
-                    Face swap {FACE} credits (${(FACE / 100).toFixed(2)}) per face; head swap {HEAD} credits (${(HEAD / 100).toFixed(2)}).
+                    Face swap {FACE} credits per face; head swap {HEAD} credits.
                   </td>
                   <td className={td}>Up to {FACESTUDIO_MAX_FACES} faces in one photo. Face detection is free. Priced per face replaced, so faces you leave alone cost nothing.</td>
                 </tr>
                 <tr className="border-b border-border">
                   <td className={td}><Link href="/headswap-pro" className={textLink}>{HEADSWAP_PRO_NAME}</Link></td>
                   <td className={td}>
-                    {HEADSWAP_PRO_CREDITS_PER_IMAGE} credits (${(HEADSWAP_PRO_CREDITS_PER_IMAGE / 100).toFixed(2)}) per image delivered.
+                    {HEADSWAP_PRO_CREDITS_PER_IMAGE} credits per image delivered.
                   </td>
                   <td className={td}>Swaps the whole head: face, hair and head shape. Up to {HEADSWAP_PRO_MAX_VARIATIONS} variations a run; each costs the same, and a failed swap costs nothing.</td>
                 </tr>
                 <tr className="border-b border-border">
                   <td className={td}><Link href="/facestudio-v" className={textLink}>{FACESTUDIO_V_NAME} {FACESTUDIO_V_VERSION}</Link></td>
                   <td className={td}>Priced per video from the mode, output size, clip length and number of people, and shown before you start.</td>
-                  <td className={td}>A 10-second 1080p clip in Fast mode is about 20 credits (about $0.20). Requests are queued.</td>
+                  <td className={td}>A 10-second 1080p clip in Fast mode is about 20 credits. Requests are queued.</td>
                 </tr>
                 <tr>
                   <td className={td}><Link href="/image-edit" className={textLink}>{IMAGE_EDIT_NAME}</Link></td>
-                  <td className={td}>{IMAGE_EDIT_PRICE_CREDITS} credits ({IMAGE_EDIT_PRICE_USD_TEXT}) per edit.</td>
+                  <td className={td}>{IMAGE_EDIT_PRICE_CREDITS} credits per edit.</td>
                   <td className={td}>Lossless PNG, no watermark. For the object tools every pixel outside the edit stays identical.</td>
                 </tr>
               </tbody>

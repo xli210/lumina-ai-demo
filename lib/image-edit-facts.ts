@@ -161,7 +161,7 @@ export interface ImageEditFact {
 /** The short, quotable table near the top of the page. */
 export const IMAGE_EDIT_KEY_FACTS: readonly ImageEditFact[] = [
   { label: "What it is", value: "A browser photo editor you drive with text instructions" },
-  { label: "Price", value: `${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per finished edit; each variation is one edit` },
+  { label: "Price", value: `${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit; each variation is one edit` },
   { label: "Free credits", value: `New accounts start with ${IMAGE_EDIT_WELCOME_CREDITS} credits, one grant per person` },
   { label: "Failed or cancelled edits", value: "Refunded in full, automatically" },
   { label: "Subscription", value: "None. Credits never expire" },
@@ -194,7 +194,7 @@ export const IMAGE_EDIT_FAQ: readonly ImageEditFaq[] = [
   },
   {
     q: `How much does ${IMAGE_EDIT_NAME} cost?`,
-    a: `${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per finished edit, paid with prepaid credits that never expire. Each variation counts as a separate edit. New accounts start with ${IMAGE_EDIT_WELCOME_CREDITS} free credits, one grant per person. An edit that fails or that you cancel is refunded in full. There is no subscription.`,
+    a: `${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit, paid with prepaid credits that never expire. Each variation counts as a separate edit. New accounts start with ${IMAGE_EDIT_WELCOME_CREDITS} free credits, one grant per person. An edit that fails or that you cancel is refunded in full. There is no subscription.`,
   },
   {
     q: "Does it change parts of the photo I did not ask to edit?",

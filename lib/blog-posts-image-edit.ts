@@ -4,7 +4,6 @@ import {
   IMAGE_EDIT_MAX_SIDE,
   IMAGE_EDIT_NAME,
   IMAGE_EDIT_PRICE_CREDITS,
-  IMAGE_EDIT_PRICE_USD_TEXT,
   IMAGE_EDIT_WARM_SECONDS,
 } from "@/lib/image-edit-facts";
 
@@ -24,12 +23,12 @@ const IMG = "/images/image-edit";
 
 const cta = {
   title: `Try it on your own photo`,
-  body: `${IMAGE_EDIT_NAME} costs ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per edit, and an edit that fails is refunded. New accounts get free credits.`,
+  body: `${IMAGE_EDIT_NAME} costs ${IMAGE_EDIT_PRICE_CREDITS} credits per edit, and an edit that fails is refunded. New accounts get free credits.`,
   href: "/image-edit",
   label: "Open Nano ImageEdit 2.0 Online",
 };
 
-const common = `Prices and times on this page are those of ${IMAGE_EDIT_NAME} on the day it was written: ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per finished edit, usually ${IMAGE_EDIT_WARM_SECONDS}, with the first edit after a quiet period taking ${IMAGE_EDIT_COLD_START}.`;
+const common = `Prices and times on this page are those of ${IMAGE_EDIT_NAME} on the day it was written: ${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit, usually ${IMAGE_EDIT_WARM_SECONDS}, with the first edit after a quiet period taking ${IMAGE_EDIT_COLD_START}.`;
 
 export const IMAGE_EDIT_GUIDE_POSTS: BlogPost[] = [
   {
@@ -82,7 +81,7 @@ The second version removed one car. The editor reported that 4.84% of the image 
 ## What to expect
 
 - **Speed:** ${IMAGE_EDIT_WARM_SECONDS} per edit. ${IMAGE_EDIT_COLD_START} for the first one after a quiet period, because a GPU is started on demand.
-- **Cost:** ${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}). If the edit fails or you cancel it, the credits are returned.
+- **Cost:** ${IMAGE_EDIT_PRICE_CREDITS} credits. If the edit fails or you cancel it, the credits are returned.
 - **Output:** a lossless PNG at the size you uploaded, with no watermark.
 
 ## When to ask for variations
@@ -148,7 +147,7 @@ The lesson applies to any replacement: if an object has a part that is easy to m
 
 ## What it costs
 
-${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per finished edit. A failed or cancelled edit is refunded in full.
+${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit. A failed or cancelled edit is refunded in full.
 
 ## Related guides
 
@@ -209,7 +208,7 @@ One thing to look at: the original sign mixes two letter styles, a script for "L
 
 ## Cost and limits
 
-${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per finished edit; refunded if it fails. It edits text in still photos. It is not a tool for forging documents, and you should only edit images you have the right to change.
+${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit; refunded if it fails. It edits text in still photos. It is not a tool for forging documents, and you should only edit images you have the right to change.
 
 ## Related guides
 
@@ -270,7 +269,7 @@ A black-and-white photograph does not record colour. The model chooses colours t
 
 ## Cost
 
-${IMAGE_EDIT_PRICE_CREDITS} credits (${IMAGE_EDIT_PRICE_USD_TEXT}) per finished edit; refunded if it fails or you cancel.
+${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit; refunded if it fails or you cancel.
 
 ## Related guides
 
