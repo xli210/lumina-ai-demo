@@ -25,10 +25,12 @@ import { LocaleSwitcher } from "./locale-switcher";
  * page behind it.
  */
 
+// Same tools and order as the desktop bar, plus AI Image Edit, which the desktop bar has no room for.
 const PRIMARY = [
-  { href: "/face-swap", label: "Free Face Swap" },
+  { href: "/face-swap", label: "Photo Face Swap" },
+  { href: "/headswap-pro", label: "Photo Head Swap", isNew: true },
+  { href: "/facestudio-v", label: "Video Face Swap", isNew: true },
   { href: "/image-edit", label: "AI Image Edit" },
-  { href: "/facestudio-v", label: "Video Face Swap" },
 ];
 
 const SECONDARY = [
@@ -74,9 +76,14 @@ export function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
                 key={l.href}
                 href={l.href}
                 onClick={close}
-                className={`${row} font-semibold text-black`}
+                className={`${row} flex items-center gap-2 font-semibold text-black`}
               >
                 {l.label}
+                {l.isNew && (
+                  <span className="rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white">
+                    New
+                  </span>
+                )}
               </Link>
             ))}
           </div>
