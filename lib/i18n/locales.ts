@@ -52,6 +52,46 @@ export function localizedPath(locale: AppLocale, path: string): string {
 }
 
 /**
+ * The pages that exist in each language, keyed by their English path. Most pages are English only, so the
+ * language switcher must not invent `/<locale><path>` for them: those addresses 404, and every page linking to
+ * them taught crawlers hundreds of dead URLs. Add a page here when its translation ships.
+ */
+const TRANSLATED_PAGES: Record<string, readonly AppLocale[]> = {
+  "/": ["zh-CN"],
+  "/face-swap": ["zh-CN", "ja", "ko"],
+  "/headswap-pro": ["zh-CN", "ja"],
+};
+
+/** Where a language's visitors land when the current page has no translation in it. */
+const LOCALE_LANDING: Record<AppLocale, string> = {
+  en: "/",
+  "zh-CN": "/zh-CN",
+  ja: "/ja/face-swap",
+  ko: "/ko/face-swap",
+};
+
+/** Translated pages whose English counterpart is not at the same path. */
+const ENGLISH_COUNTERPART: Array<[RegExp, string]> = [
+  [/^\/guides(\/.*)?$/, "/blog"],
+  [/^\/faq$/, "/face-swap"],
+];
+
+/**
+ * The address of the current page in `target`, or that language's landing page when the page has no
+ * translation in it. `path` is the current path without its locale prefix; `from` is the current locale.
+ */
+export function localeSwitchHref(target: AppLocale, path: string, from: AppLocale): string {
+  if (target === from) return from === DEFAULT_LOCALE ? path : `/${from}${path === "/" ? "" : path}`;
+  if (target === DEFAULT_LOCALE) {
+    if (TRANSLATED_PAGES[path]?.includes(from)) return path;
+    const match = ENGLISH_COUNTERPART.find(([re]) => re.test(path));
+    return match ? match[1] : LOCALE_LANDING.en;
+  }
+  if (TRANSLATED_PAGES[path]?.includes(target)) return `/${target}${path === "/" ? "" : path}`;
+  return LOCALE_LANDING[target];
+}
+
+/**
  * For a page that has been translated into one or more non-default locales,
  * produce the metadata.alternates.languages map (used to emit hreflang tags).
  *

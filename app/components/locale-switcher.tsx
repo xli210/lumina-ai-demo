@@ -3,11 +3,12 @@
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { Globe } from "lucide-react";
-import { LOCALES, LOCALE_LABELS, type AppLocale } from "@/lib/i18n/locales";
+import { LOCALES, LOCALE_LABELS, localeSwitchHref, type AppLocale } from "@/lib/i18n/locales";
 
 /**
  * Inline locale switcher. Reads the current pathname, strips any leading
- * locale prefix, and rebuilds links pointing at every supported locale.
+ * locale prefix, and links each language to this page's translation, or to
+ * that language's landing page when this page has none (localeSwitchHref).
  *
  * Conventions:
  *  - English (default locale) lives at unprefixed paths (e.g. `/face-swap`).
@@ -36,7 +37,7 @@ export function LocaleSwitcher({ className = "" }: { className?: string }) {
     <div className={`flex items-center gap-1 text-xs ${className}`}>
       <Globe className="h-3.5 w-3.5 text-neutral-400" aria-hidden="true" />
       {LOCALES.map((loc, i) => {
-        const href = loc === "en" ? pathWithoutLocale : `/${loc}${pathWithoutLocale === "/" ? "" : pathWithoutLocale}`;
+        const href = localeSwitchHref(loc, pathWithoutLocale, currentLocale);
         const isCurrent = loc === currentLocale;
         return (
           <span key={loc} className="flex items-center gap-1">
