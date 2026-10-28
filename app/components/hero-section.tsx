@@ -30,6 +30,16 @@ interface HeroSlide {
 
 const demoSlides: HeroSlide[] = [
   {
+    src: "/videos/hero-facestudio-v.mp4",
+    poster: "/videos/hero-facestudio-v-poster.jpg",
+    type: "video",
+    alt: "Video FaceSwap Online: a scan line sweeps across a video and the woman's face is replaced with the reference face, everything else as filmed",
+    prompt: "Video face swap: one face replaced, the rest as filmed. AI-generated test render on stock footage",
+    model: FACESTUDIO_V_NAME,
+    tag: "Video Face Swap",
+    feature: "facestudio-v",
+  },
+  {
     src: "/headswap-pro/hero-posters.mp4",
     srcSmall: "/headswap-pro/hero-posters-sm.mp4",
     poster: "/headswap-pro/hero-posters-poster.webp",
@@ -39,16 +49,6 @@ const demoSlides: HeroSlide[] = [
     model: HEADSWAP_PRO_NAME,
     tag: "Photo Head Swap",
     feature: "headswap-pro",
-  },
-  {
-    src: "/videos/hero-facestudio-v.mp4",
-    poster: "/videos/hero-facestudio-v-poster.jpg",
-    type: "video",
-    alt: "Video FaceSwap Online: a scan line sweeps across a video and the woman's face is replaced with the reference face, everything else as filmed",
-    prompt: "Video face swap: one face replaced, the rest as filmed. AI-generated test render on stock footage",
-    model: FACESTUDIO_V_NAME,
-    tag: "Video Face Swap",
-    feature: "facestudio-v",
   },
   {
     src: "/videos/hero-faceswap.mp4",
@@ -209,20 +209,21 @@ export function HeroSection() {
             style={{ opacity: feature ? 0.1 : 1 }}
           />
 
-          {/* Left-aligned copy for the Video FaceSwap Online clip: its left quarter is left empty for this. */}
+          {/* Left-aligned copy for the Video FaceSwap Online clip, the first slide: its left quarter is left empty for this. On phones it keeps only the badge, the first line and the button. */}
           <div
             className="pointer-events-none absolute inset-0 flex items-center px-6 transition-opacity duration-1000 sm:px-10 lg:px-16"
             style={{ opacity: feature === "facestudio-v" ? 1 : 0 }}
             aria-hidden={feature !== "facestudio-v"}
           >
-            <div className="pointer-events-auto max-w-[46%] sm:max-w-[30%]">
+            <div className="pointer-events-auto max-w-[52%] sm:max-w-[30%]">
               <p className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-sky-300/40 bg-sky-300/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-widest text-sky-200 sm:mb-4 sm:text-xs">
                 <Video className="h-3 w-3" />
-                {`Version ${FACESTUDIO_V_VERSION} · now released`}
+                New
+                <span className="hidden sm:inline">{`· Version ${FACESTUDIO_V_VERSION}`}</span>
               </p>
-              <p className="text-balance text-lg font-bold leading-tight tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl">
+              <p className="text-balance text-base font-bold leading-tight tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl">
                 Swap one face in a video.
-                <span className="block text-sky-200">Leave the rest as filmed.</span>
+                <span className="hidden text-sky-200 sm:block">Leave the rest as filmed.</span>
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3">
                 {(
