@@ -73,7 +73,7 @@ const TOOLS: Tool[] = [
     bestFor:
       "Anyone who wants the easiest free online face swap that still uses a state-of-the-art diffusion identity stack, plus an optional desktop edition (Nano FaceStudio Pro 1.0) for users who specifically need zero-cloud processing.",
     platform: "Browser-first (Nano FaceStudio Online, no install) + optional desktop edition (Nano FaceStudio Pro 1.0: Windows now, macOS to follow)",
-    pricing: "Free credits for new accounts, then prepaid credits (1 credit = 1 US cent) that never expire; one-time desktop license, no subscription",
+    pricing: "Free credits for new accounts, then prepaid credits that never expire; one-time desktop license, no subscription",
     identityModel:
       "Diffusion-based identity stack — GAN and diffusion models (stronger identity preservation than GAN-only swappers like inswapper_128)",
     videoSupport: "Video FaceSwap Online (official release since October 2026) swaps a face or whole head in an uploaded clip and keeps the original sound; the local Nano FaceSwap (legacy) app also swaps video. Nano FaceStudio Pro 1.0 is a photo studio",

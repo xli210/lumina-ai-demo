@@ -13,8 +13,6 @@ export type HsLocale = "en" | "zh-CN" | "ja";
 export const HS_LOCALES: readonly HsLocale[] = ["en", "zh-CN", "ja"];
 export const HS_TRANSLATED: readonly HsLocale[] = ["zh-CN", "ja"];
 
-const USD = `$${(CREDITS / 100).toFixed(2)}`;
-
 /** Strings the before/after slider shows. "{title}" is replaced with the example's title. */
 export interface CompareLabels {
   vsEarlier: string;
@@ -126,14 +124,14 @@ const en: HsCopy = {
     { title: "Cast the lead", body: "Upload the new head: a clear, front-facing photo works best. Its face and its hairstyle come along." },
     { title: "Roll", body: `Choose 1 to ${MAX} variations and press Swap. A portrait takes about 40 seconds. Drag the slider to compare before and after.` },
   ],
-  closeBody: `${CREDITS} credits (${USD}) an image. New accounts get free credits, and a swap that fails costs nothing.`,
+  closeBody: `${CREDITS} credits an image. New accounts get free credits, and a swap that fails costs nothing.`,
   packsLink: "See credit packs",
   wantInLink: "Tell us you want in",
   faqHeading: "Before you roll",
   faq: [
     {
       q: "What does it cost?",
-      a: `${CREDITS} credits per image (${USD}). Four variations cost four times as much. The price is shown on the button before you press it, and a swap that fails costs nothing. New accounts get free credits.`,
+      a: `${CREDITS} credits per image. Four variations cost four times as much. The price is shown on the button before you press it, and a swap that fails costs nothing. New accounts get free credits.`,
     },
     {
       q: "Is there a watermark?",
@@ -235,14 +233,14 @@ const zhCN: HsCopy = {
     { title: "选定主角", body: "上传新头的照片:清晰的正脸照效果最好。脸和发型会一起换过去。" },
     { title: "开拍", body: `选择 1 到 ${MAX} 个结果,点击 Swap。一张人像大约 40 秒。拖动滑块对比换头前后。` },
   ],
-  closeBody: `每张 ${CREDITS} 积分(${USD})。新用户送免费积分,换头失败不扣费。`,
+  closeBody: `每张 ${CREDITS} 积分。新用户送免费积分,换头失败不扣费。`,
   packsLink: "查看积分套餐",
   wantInLink: "告诉我们你想用",
   faqHeading: "开拍之前",
   faq: [
     {
       q: "多少钱?",
-      a: `每张 ${CREDITS} 积分(${USD})。生成 4 个结果就是 4 倍价格。按下按钮之前,按钮上就会显示价格;换头失败不扣费。新用户送免费积分。`,
+      a: `每张 ${CREDITS} 积分。生成 4 个结果就是 4 倍价格。按下按钮之前,按钮上就会显示价格;换头失败不扣费。新用户送免费积分。`,
     },
     {
       q: "有水印吗?",
@@ -344,14 +342,14 @@ const ja: HsCopy = {
     { title: "主役を決める", body: "新しい頭の写真をアップロード。正面を向いたはっきりした写真が最適です。顔と髪型が一緒に移ります。" },
     { title: "撮影開始", body: `1〜${MAX}パターンを選んで Swap を押すだけ。ポートレート1枚で約40秒。スライダーで前と後を比べられます。` },
   ],
-  closeBody: `1枚 ${CREDITS} クレジット(${USD})。新規アカウントには無料クレジット付きで、失敗したスワップは無料です。`,
+  closeBody: `1枚 ${CREDITS} クレジット。新規アカウントには無料クレジット付きで、失敗したスワップは無料です。`,
   packsLink: "クレジットパックを見る",
   wantInLink: "使いたいと伝える",
   faqHeading: "撮影の前に",
   faq: [
     {
       q: "料金はいくらですか?",
-      a: `1枚 ${CREDITS} クレジット(${USD})。4パターンなら4倍です。料金はボタンを押す前にボタン上に表示され、失敗したスワップは無料です。新規アカウントには無料クレジットが付きます。`,
+      a: `1枚 ${CREDITS} クレジット。4パターンなら4倍です。料金はボタンを押す前にボタン上に表示され、失敗したスワップは無料です。新規アカウントには無料クレジットが付きます。`,
     },
     {
       q: "透かしは入りますか?",

@@ -418,7 +418,9 @@ export default async function RootLayout({
             }),
           }}
         />
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        {/* Only Common goes to the browser: no client component reads the page namespaces, and sending them
+            put every page's text, in this locale, into the HTML of every page. */}
+        <NextIntlClientProvider locale={locale} messages={{ Common: messages.Common }}>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"

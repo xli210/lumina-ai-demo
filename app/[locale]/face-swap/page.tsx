@@ -2,24 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
-  CheckCircle2,
   Clock,
-  ExternalLink,
   FileCheck2,
   Globe,
-  ImageIcon,
   Info,
   ShieldCheck,
   Sparkles,
-  Video,
-  Wand2,
 } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Navbar } from "../../components/navbar";
 import { Footer } from "../../components/footer";
 import { Button } from "@/components/ui/button";
-import { DemoStatusBadge } from "../../components/demo-status-badge";
-import { DEMOS, demoRedirectPath, type DemoId } from "@/lib/demos";
+import { OnlineToolCards } from "../online-tools";
 import {
   hreflangAlternates,
   isAppLocale,
@@ -29,7 +23,7 @@ import { notFound } from "next/navigation";
 
 const BASE_URL = "https://nanopocket.ai";
 const PATH = "/face-swap";
-const LAST_VERIFIED = "2026-06-03";
+const LAST_VERIFIED = "2026-10-28";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -65,40 +59,6 @@ export async function generateMetadata({
   };
 }
 
-interface DemoCardConfig {
-  id: DemoId;
-  Icon: React.ComponentType<{ className?: string }>;
-  accent: "violet" | "sky" | "rose";
-  copyKey: "image" | "video" | "vivid";
-}
-
-const DEMO_CARDS: DemoCardConfig[] = [
-  { id: "image", Icon: ImageIcon, accent: "violet", copyKey: "image" },
-  { id: "video", Icon: Video, accent: "sky", copyKey: "video" },
-  { id: "vivid", Icon: Wand2, accent: "rose", copyKey: "vivid" },
-];
-
-const accentClasses: Record<
-  DemoCardConfig["accent"],
-  { ring: string; chip: string; cta: string }
-> = {
-  violet: {
-    ring: "ring-violet-500/30",
-    chip: "border-violet-500/30 bg-violet-500/10 text-violet-500",
-    cta: "bg-violet-500 hover:bg-violet-400",
-  },
-  sky: {
-    ring: "ring-sky-500/30",
-    chip: "border-sky-500/30 bg-sky-500/10 text-sky-500",
-    cta: "bg-sky-500 hover:bg-sky-400",
-  },
-  rose: {
-    ring: "ring-rose-500/30",
-    chip: "border-rose-500/30 bg-rose-500/10 text-rose-500",
-    cta: "bg-rose-500 hover:bg-rose-400",
-  },
-};
-
 interface CompareRow {
   tool: string;
   setup: string;
@@ -120,24 +80,6 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
 
   const t = await getTranslations({ locale, namespace: "FaceSwap" });
 
-  const onlineDemos = DEMO_CARDS.map((card) => {
-    const demo = DEMOS.find((d) => d.id === card.id)!;
-    return {
-      ...card,
-      name: demo.name,
-      // Same-origin wrapper — 302-redirects to the tunnel after auth + quota
-      // gate. See /api/demos/open and lib/demo-quota.ts.
-      href: demoRedirectPath(card.id),
-      password: demo.password ?? undefined,
-      blurb: t(`demos.${card.copyKey}.blurb`),
-      bullets: [
-        t(`demos.${card.copyKey}.bullet1`),
-        t(`demos.${card.copyKey}.bullet2`),
-        t(`demos.${card.copyKey}.bullet3`),
-      ],
-    };
-  });
-
   const compareRows = t.raw("compare.rows") as CompareRow[];
   const faqs = t.raw("faq.items") as FaqItem[];
   const canonical = `${BASE_URL}/${locale}${PATH}`;
@@ -156,17 +98,16 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
     about: {
       "@type": "SoftwareApplication",
       "@id": `${BASE_URL}${PATH}#app`,
-      name: "NanoPocket Face Swap (online demos)",
+      name: "NanoPocket online face swap tools",
       applicationCategory: "MultimediaApplication",
       applicationSubCategory: "Face swap",
       operatingSystem: "Browser (any modern OS)",
       browserRequirements: "Modern browser; WebGL not required",
-      softwareVersion: "1.0",
-      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       featureList: [
-        "Photo face swap",
-        "Video face swap",
-        "Over-smoothed AI-face restoration (NanoFace Vivid)",
+        "Photo face swap, up to six faces in one photo",
+        "Photo head swap (Nano HeadSwap Pro)",
+        "Video face and head swap (Video FaceSwap Online)",
+        "Photo editing by text (Nano ImageEdit 2.0 Online)",
         "GAN and diffusion models",
         "Browser-only — no install, no GPU required on user's device",
       ],
@@ -233,13 +174,9 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
               size="lg"
               className="rounded-full bg-foreground text-background"
             >
-              <a
-                href={onlineDemos[0].href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t("hero.ctaPrimary")} <ExternalLink className="ml-2 h-4 w-4" />
-              </a>
+              <Link href="/face-studio">
+                {t("hero.ctaPrimary")} <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
             </Button>
             <Button
               asChild
@@ -255,75 +192,10 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Online demos */}
+      {/* The online tools */}
       <section className="px-6 pb-12">
         <div className="mx-auto max-w-6xl">
-          <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            {t("demos.heading")}
-          </h2>
-          <p className="mb-8 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            {t("demos.intro")}
-          </p>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {onlineDemos.map((d) => {
-              const a = accentClasses[d.accent];
-              const Icon = d.Icon;
-              return (
-                <div
-                  key={d.id}
-                  className={`flex flex-col rounded-2xl border border-border/60 bg-background/60 p-6 ring-1 ${a.ring}`}
-                >
-                  <div className="mb-4 flex items-start justify-between gap-2">
-                    <div
-                      className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border ${a.chip}`}
-                    >
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    {/* @ts-expect-error Async Server Component */}
-                    <DemoStatusBadge demoId={d.id} size="sm" hideWhenUnknown />
-                  </div>
-                  <h3 className="mb-2 text-lg font-bold text-foreground">
-                    {d.name}
-                  </h3>
-                  <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
-                    {d.blurb}
-                  </p>
-                  <ul className="mb-5 space-y-2 text-sm text-muted-foreground">
-                    {d.bullets.map((b) => (
-                      <li key={b} className="flex gap-2">
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {d.password ? (
-                    <p className="mb-4 text-xs text-muted-foreground">
-                      {t("demos.passwordLabel")}{" "}
-                      <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-foreground">
-                        {d.password}
-                      </code>
-                    </p>
-                  ) : null}
-                  <div className="mt-auto">
-                    <Button
-                      asChild
-                      className={`w-full rounded-full text-white ${a.cta}`}
-                    >
-                      <a
-                        href={d.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {t("demos.openCta")}{" "}
-                        <ExternalLink className="ml-2 h-4 w-4" />
-                      </a>
-                    </Button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <OnlineToolCards locale={locale} />
         </div>
       </section>
 
@@ -518,12 +390,6 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
               {t("disclosure.youngerBrandBody", {
                 lastVerified: LAST_VERIFIED,
               })}
-            </li>
-            <li>
-              <strong className="text-foreground">
-                {t("disclosure.tunnelledTitle")}
-              </strong>{" "}
-              {t("disclosure.tunnelledBody")}
             </li>
           </ul>
         </div>

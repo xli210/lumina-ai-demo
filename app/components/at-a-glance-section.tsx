@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { CREDITS_PER_USD, SIGNUP_GRANT_CREDITS } from "@/lib/credits";
+import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACE_STUDIO_NAME, FACE_STUDIO_URL, FACE_SWAP_CREDITS, HEAD_SWAP_CREDITS } from "@/lib/face-studio-facts";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE } from "@/lib/facestudio-v";
@@ -12,20 +12,20 @@ import { IMAGEEDIT_CREDITS_PER_EDIT, IMAGEEDIT_NAME } from "@/lib/imageedit";
  * most plainly, so every number here comes from the same constants the product pages and billing use.
  */
 
-const cents = (credits: number) => `$${(credits / CREDITS_PER_USD).toFixed(2)}`;
+// Prices are given in credits only, by the owner's choice.
 
 const TOOLS = [
   {
     name: FACE_STUDIO_NAME,
     href: FACE_STUDIO_URL,
     what: "Photo face swap. Swaps up to six faces in one photo; you choose who gets which face.",
-    price: `${FACE_SWAP_CREDITS} credits (${cents(FACE_SWAP_CREDITS)}) per face; head swap ${HEAD_SWAP_CREDITS} credits`,
+    price: `${FACE_SWAP_CREDITS} credits per face; head swap ${HEAD_SWAP_CREDITS} credits`,
   },
   {
     name: HEADSWAP_PRO_NAME,
     href: "/headswap-pro",
     what: "Photo head swap. Puts a whole new head, face and hair, into a photo. Pick one person in a group photo; works at steep angles.",
-    price: `${HEADSWAP_PRO_CREDITS_PER_IMAGE} credits (${cents(HEADSWAP_PRO_CREDITS_PER_IMAGE)}) per image`,
+    price: `${HEADSWAP_PRO_CREDITS_PER_IMAGE} credits per image`,
   },
   {
     name: FACESTUDIO_V_NAME,
@@ -37,12 +37,12 @@ const TOOLS = [
     name: IMAGEEDIT_NAME,
     href: "/image-edit",
     what: "Photo editing by text. Describe the change, such as removing an object or changing the background.",
-    price: `${IMAGEEDIT_CREDITS_PER_EDIT} credits (${cents(IMAGEEDIT_CREDITS_PER_EDIT)}) per edit`,
+    price: `${IMAGEEDIT_CREDITS_PER_EDIT} credits per edit`,
   },
 ] as const;
 
 const FACTS = [
-  `One credit is one US cent. New accounts get ${SIGNUP_GRANT_CREDITS} free credits, one grant per person.`,
+  `New accounts get ${SIGNUP_GRANT_CREDITS} free credits, one grant per person.`,
   "No subscription. Credits are prepaid and never expire. A job that fails is refunded in full.",
   "Face, head and video swaps from an account that has never bought credits carry a NanoPocket watermark; one purchase removes it. Image edits have no watermark.",
   "The online tools run in any modern browser. Nothing to install and no GPU needed.",

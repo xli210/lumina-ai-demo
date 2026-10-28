@@ -62,6 +62,11 @@ const TRANSLATED_PAGES: Record<string, readonly AppLocale[]> = {
   "/headswap-pro": ["zh-CN", "ja"],
 };
 
+/** This page's address in `locale` if it has been translated, else its English address. */
+export function translatedOrEnglish(path: string, locale: AppLocale): string {
+  return locale !== DEFAULT_LOCALE && TRANSLATED_PAGES[path]?.includes(locale) ? `/${locale}${path === "/" ? "" : path}` : path;
+}
+
 /** Where a language's visitors land when the current page has no translation in it. */
 const LOCALE_LANDING: Record<AppLocale, string> = {
   en: "/",

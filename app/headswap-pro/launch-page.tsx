@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
-import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
+import { HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 import { unavailableReason } from "@/lib/headswap-pro-server";
 import { hreflangAlternates } from "@/lib/i18n/locales";
 import { Compare, FilmFacade, Reveal, TeaserVideo, type CompareItem } from "./launch-client";
@@ -65,7 +65,6 @@ function Cta({ open, label, soon, className = "" }: { open: boolean; label: stri
 export function HeadSwapLaunchPage({ locale }: { locale: HsLocale }) {
   const c = HS_COPY[locale];
   const open = unavailableReason() === null;
-  const usd = `$${(HEADSWAP_PRO_CREDITS_PER_IMAGE / 100).toFixed(2)}`;
 
   // Two of the four examples in the worker team's comparison. The other two use real film posters and are not shown (see docs/headswap-pro.md).
   const examples: CompareItem[] = [
@@ -122,12 +121,6 @@ export function HeadSwapLaunchPage({ locale }: { locale: HsLocale }) {
       applicationCategory: "MultimediaApplication",
       operatingSystem: "Any (web browser)",
       publisher: { "@type": "Organization", name: "NanoPocket", url: BASE },
-      offers: {
-        "@type": "Offer",
-        price: (HEADSWAP_PRO_CREDITS_PER_IMAGE / 100).toFixed(2),
-        priceCurrency: "USD",
-        description: "Per image, paid in credits. New accounts get free credits.",
-      },
     },
     {
       "@context": "https://schema.org",
