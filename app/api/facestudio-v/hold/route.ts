@@ -7,6 +7,7 @@ import {
   reconcileOpenHolds,
   settleStaleHolds,
 } from "@/lib/facestudio-v-server";
+import { settleStaleHolds as settleStaleHeadswapHolds } from "@/lib/headswap-pro-server";
 import { signEntitlement } from "@/lib/facestudio-v-entitlement";
 import { FACESTUDIO_V_MODES, FACESTUDIO_V_SERVICE, facestudioVIsOpen } from "@/lib/facestudio-v";
 import { suggestPack, suggestionSentence, topUpPath } from "@/lib/credit-packs";
@@ -46,6 +47,7 @@ export async function POST(request: Request) {
     // Charge what was made for people who closed the page while it was being made, BEFORE the
     // sweep returns whatever has expired (it cannot tell a made video from one that never ran).
     await settleStaleHolds(10).catch(() => 0);
+    await settleStaleHeadswapHolds(10).catch(() => 0);          // (the sweep below frees every service's expired holds: HeadSwap Pro's too, made or not)
     await releaseExpiredHolds(20).catch(() => 0);
     await provisionCredits(auth.userId);
 

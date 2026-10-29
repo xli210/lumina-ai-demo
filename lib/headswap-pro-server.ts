@@ -170,3 +170,33 @@ export async function reconcileOpenHolds(userId: string): Promise<void> {
   if (error) throw new Error(`Failed to list open holds: ${error.message}`);
   for (const h of (data ?? []) as CreditHoldRecord[]) await settleHold(h);
 }
+
+/**
+ * Settle the oldest open HeadSwap Pro reservations of everyone, by asking the gateway how each
+ * job went. The page settles its own swap when it sees the end, but the person may have closed it
+ * while the swap ran: without this, nothing charges for a swap that was made and the expiry sweep
+ * (`releaseExpiredHolds`, which cannot tell a made swap from one that never ran) returns the credits.
+ * Called before that sweep. A hold the gateway cannot be asked about stays open.
+ */
+export async function settleStaleHolds(limit = 10): Promise<number> {
+  const { data, error } = await createAdminClient()
+    .from("credit_holds")
+    .select("id, user_id, amount, status, service, job_ref, created_at, estimate")
+    .eq("service", HEADSWAP_PRO_SERVICE)
+    .eq("status", "open")
+    .not("job_ref", "is", null)
+    .lt("created_at", new Date(Date.now() - 3 * 60 * 1000).toISOString())
+    .order("created_at", { ascending: true })
+    .limit(limit);
+  if (error) throw new Error(`Failed to list open holds: ${error.message}`);
+  let settled = 0;
+  for (const h of (data ?? []) as CreditHoldRecord[]) {
+    try {
+      const o = await settleHold(h);
+      if (o.status === "settled" || o.status === "refunded") settled += 1;
+    } catch (err: unknown) {
+      console.error("[headswap] settling a stale hold failed:", err instanceof Error ? err.message : err);
+    }
+  }
+  return settled;
+}
