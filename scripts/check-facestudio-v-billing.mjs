@@ -20,7 +20,8 @@ assert.deepEqual(decideSettlement(90, job("done", { status: "settled", charge: 1
 
 // failed, cancelled, left the line: nothing is charged
 assert.deepEqual(decideSettlement(90, job("error", { credits: 90, status: "refunded", refund: 90 })), { action: "release", reason: "studio_refunded" });
-assert.deepEqual(decideSettlement(90, job("cancelled", { credits: 90, status: "refunded", refund: 90 })), { action: "release", reason: "studio_refunded" });
+// the person cancelled it: refunded as well, but not counted as a failure on our side
+assert.deepEqual(decideSettlement(90, job("cancelled", { credits: 90, status: "refunded", refund: 90 })), { action: "release", reason: "studio_cancelled" });
 // a job with no billing block that ended badly is also free
 assert.deepEqual(decideSettlement(90, job("error", null)), { action: "release", reason: "studio_error" });
 assert.deepEqual(decideSettlement(90, job("cancelled", null)), { action: "release", reason: "studio_cancelled" });

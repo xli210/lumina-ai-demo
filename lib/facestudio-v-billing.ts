@@ -39,7 +39,8 @@ export function decideSettlement(reserved: number, job: StudioJob): SettlementDe
     const asked = Number.isFinite(b.charge) ? (b.charge as number) : Number.isFinite(b.credits) ? (b.credits as number) : reserved;
     return { action: "capture", amount: Math.max(0, Math.min(Math.floor(asked), reserved)) };
   }
-  if (b?.status === "refunded") return { action: "release", reason: "studio_refunded" };
+  // A video the person cancelled is refunded by the studio too: it is theirs, not a failure on our side (the reliability page counts "studio_refunded" as ours).
+  if (b?.status === "refunded") return { action: "release", reason: job.state === "cancelled" ? "studio_cancelled" : "studio_refunded" };
   if (!b && (job.state === "error" || job.state === "cancelled")) {
     return { action: "release", reason: `studio_${job.state}` };
   }
