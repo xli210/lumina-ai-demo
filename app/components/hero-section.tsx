@@ -304,7 +304,7 @@ export function HeroSection() {
             className="absolute inset-0 flex flex-col items-center justify-center px-6 transition-opacity duration-1000"
             style={{ opacity: feature ? 0 : 1, pointerEvents: feature ? "none" : "auto" }}
           >
-            <h1 className="mb-6 text-balance text-center text-3xl font-bold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+            <h1 className="mb-4 text-balance sm:mb-6 text-center text-3xl font-bold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
               A whole AI studio, right in your pocket
             </h1>
             <p className="mb-7 hidden max-w-2xl text-balance text-center text-sm text-white/85 sm:block sm:text-base md:text-lg">
@@ -322,7 +322,8 @@ export function HeroSection() {
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
-              <Link href="/image-edit">
+              {/* Phones keep one button: the video is about 211 px tall there, and a second one sat on the slide dots. */}
+              <Link href="/image-edit" className="hidden sm:inline-flex">
                 <Button
                   variant="outline"
                   size="lg"
