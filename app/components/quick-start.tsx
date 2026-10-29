@@ -11,9 +11,10 @@ import { FACESTUDIO_V_LAUNCH, FACESTUDIO_V_NAME } from "@/lib/facestudio-v";
 import { HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 
 /**
- * The quick way into every tool, bottom right, for everyone. It opens by itself once per visit (per
- * browser tab session), a few seconds in, and closes to a small "Tools" button that stays on screen,
- * so on a phone the tools are always one tap away without the panel covering the page each time.
+ * The quick way into every tool, bottom right, for everyone. For signed-in visitors it opens by itself
+ * once per visit (per browser tab session), a few seconds in; signed-out visitors see only the small
+ * "Tools" button until they tap it. Closed, it stays as that button, so on a phone the tools are
+ * always one tap away without the panel covering the page each time.
  *
  * Signed-out visitors are asked to sign up first: the two new tools need an account, so their links go
  * through sign-up and come back to the tool. The older tools' links go to their pages, which are open
@@ -100,7 +101,9 @@ export function QuickStart() {
   }, []);
 
   useEffect(() => {
-    if (quiet || signedIn === null) return;
+    // Signed-out visitors only get the button: on 10/29 the panel opening by itself over the first
+    // screen coincided with sign-ups halving, so a new visitor sees the page first.
+    if (quiet || !signedIn) return;
     const timer = setTimeout(() => {
       if (!claimAutoOpen()) return;
       setOpen(true);
