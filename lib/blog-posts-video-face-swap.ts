@@ -83,7 +83,7 @@ If you are unsure, start with face swap: it is faster and cheaper, and it keeps 
 
 ${COST}
 
-If a video fails, is cancelled, or you leave the line, the credits are returned. Requests are queued on a GPU, so a clip may wait for its turn.
+If a video fails, or you cancel it while it is still waiting, the credits are returned; once it has started being made it can no longer be cancelled. Requests are queued on a GPU, so a clip may wait for its turn.
 
 ${WATERMARK}
 

@@ -83,7 +83,7 @@ export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
   },
   {
     q: "How much does it cost?",
-    a: "Each video is paid for in NanoPocket credits. The studio works out the price from the mode, the output size, the length of the clip and how many people are swapped, and shows it before you start. For example, a 10-second 1080p clip in Fast mode is about 20 credits; Best quality and Whole head cost more, and 4K costs twice what 1080p does. If a video fails, is cancelled, or you leave the line, the credits are returned. New accounts start with free credits.",
+    a: "Each video is paid for in NanoPocket credits. The studio works out the price from the mode, the output size, the length of the clip and how many people are swapped, and shows it before you start. For example, a 10-second 1080p clip in Fast mode is about 20 credits; Best quality and Whole head cost more, and 4K costs twice what 1080p does. If a video fails, or you cancel it while it is still waiting, the credits are returned; once it has started being made it can no longer be cancelled. New accounts start with free credits.",
   },
   {
     q: "How long can my clip be?",
