@@ -6,7 +6,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { NewToolsNotice } from "./components/new-tools-notice";
+import { QuickStart } from "./components/quick-start";
 import { LocalAppsNotice } from "./components/local-apps-notice";
 import { AnalyticsEvents } from "./components/analytics-events";
 import { FeedbackButton } from "./components/feedback-button";
@@ -429,7 +429,7 @@ export default async function RootLayout({
           >
             {children}
             <Toaster />
-            <NewToolsNotice />
+            <QuickStart />
             <LocalAppsNotice />
             <AnalyticsEvents />
             <FeedbackButton />
