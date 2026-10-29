@@ -20,6 +20,13 @@ import {
   isUnderMaintenance,
 } from "@/lib/demos";
 import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
+import { LaunchPriceCountdown } from "./launch-price-countdown";
+import {
+  FACESTUDIO_PRO_LAUNCH_ENDS_LABEL,
+  FACESTUDIO_PRO_LAUNCH_PRICE_CENTS,
+  FACESTUDIO_PRO_REGULAR_PRICE_CENTS,
+  facestudioProLaunchPriceOn,
+} from "@/lib/products";
 import { FACE_SWAP_CREDITS } from "@/lib/face-studio-facts";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 import {
@@ -239,6 +246,7 @@ function ProductCard({
 
 /** The paid desktop bundle: one wide card under the two online products. */
 function ProSpotlight() {
+  const launch = facestudioProLaunchPriceOn();
   return (
     <div className="glass-strong rounded-3xl border border-primary/10 p-6 sm:p-8 md:p-10">
       <div className="grid gap-8 md:grid-cols-[1.3fr_1fr] md:items-center md:gap-12">
@@ -269,14 +277,23 @@ function ProSpotlight() {
         <div className="md:border-l md:border-border md:pl-12">
           <div className="mb-1 flex items-baseline gap-2">
             <span className="text-5xl font-bold tracking-tight text-foreground">
-              $49.90
+              ${((launch ? FACESTUDIO_PRO_LAUNCH_PRICE_CENTS : FACESTUDIO_PRO_REGULAR_PRICE_CENTS) / 100).toFixed(2)}
             </span>
-            <span className="text-lg text-muted-foreground line-through">
-              $69.90
-            </span>
+            {launch && (
+              <span className="text-lg text-muted-foreground line-through">
+                ${(FACESTUDIO_PRO_REGULAR_PRICE_CENTS / 100).toFixed(2)}
+              </span>
+            )}
           </div>
           <p className="mb-6 text-xs text-muted-foreground">
-            Launch price through 2026-10-31 · one-time · macOS to follow
+            {launch ? (
+              <>
+                Launch price ends {FACESTUDIO_PRO_LAUNCH_ENDS_LABEL}
+                <LaunchPriceCountdown prefix=" · " /> · one-time · macOS to follow
+              </>
+            ) : (
+              "One-time · macOS to follow"
+            )}
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link href="/download#nano-facestudio-pro" className={primaryButton}>

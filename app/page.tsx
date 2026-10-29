@@ -18,6 +18,9 @@ import { AT_A_GLANCE_JSON_LD, AtAGlanceSection } from "./components/at-a-glance-
 import { CTASection } from "./components/cta-section";
 import { Footer } from "./components/footer";
 
+/** Re-rendered every 10 minutes, so the Nano FaceStudio Pro launch price leaves the page soon after it ends. */
+export const revalidate = 600;
+
 /**
  * Page-level metadata override that adds hreflang alternates pointing at the
  * Chinese homepage. Title, description, and OG tags all inherit from the

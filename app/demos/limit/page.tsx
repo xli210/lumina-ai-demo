@@ -19,6 +19,12 @@ import {
   DEMO_DAILY_LIMIT,
   hoursUntilNextUtcMidnight,
 } from "@/lib/demo-quota";
+import {
+  FACESTUDIO_PRO_LAUNCH_ENDS_LABEL,
+  FACESTUDIO_PRO_LAUNCH_PRICE_CENTS,
+  FACESTUDIO_PRO_REGULAR_PRICE_CENTS,
+  facestudioProLaunchPriceOn,
+} from "@/lib/products";
 
 export const dynamic = "force-dynamic";
 
@@ -80,6 +86,8 @@ const KIND_COPY: Record<Kind, KindCopy> = {
 };
 
 export default async function DemoLimitPage({ searchParams }: PageProps) {
+  const launch = facestudioProLaunchPriceOn();
+  const proPrice = launch ? FACESTUDIO_PRO_LAUNCH_PRICE_CENTS : FACESTUDIO_PRO_REGULAR_PRICE_CENTS;
   const { kind: kindParam } = await searchParams;
   const kind = normalizeKind(kindParam);
   const copy = KIND_COPY[kind];
@@ -162,10 +170,12 @@ export default async function DemoLimitPage({ searchParams }: PageProps) {
             </p>
 
             <div className="mb-6 flex flex-wrap items-baseline gap-3">
-              <span className="text-4xl font-bold sm:text-5xl">$49.90</span>
-              <span className="text-lg text-white/50 line-through">$69.90</span>
+              <span className="text-4xl font-bold sm:text-5xl">${(proPrice / 100).toFixed(2)}</span>
+              {launch && (
+                <span className="text-lg text-white/50 line-through">${(FACESTUDIO_PRO_REGULAR_PRICE_CENTS / 100).toFixed(2)}</span>
+              )}
               <span className="rounded-full border border-emerald-400/40 bg-emerald-500/15 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-emerald-200">
-                Launch promo · one-time
+                {launch ? `Launch price until ${FACESTUDIO_PRO_LAUNCH_ENDS_LABEL} · one-time` : "One-time"}
               </span>
             </div>
 

@@ -25,8 +25,8 @@ import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS, HEADSWAP_P
 
 const UPDATED = "2026-10-21";
 
-/** Re-rendered hourly, so a launch price stops being described as one when its date passes. */
-export const revalidate = 3600;
+/** Re-rendered every 10 minutes, so a launch price stops being described as one soon after it ends. */
+export const revalidate = 600;
 const PAGE_URL = "https://nanopocket.ai/pricing";
 
 const FACE = FACESTUDIO_PRICE_PER_FACE.face_swap;
@@ -267,8 +267,7 @@ export default function PricingPage() {
                       {p.priceInCents === 0 ? "Free licence" : `${money(p.priceInCents)}, one-time`}
                       {p.originalPriceInCents &&
                       p.originalPriceInCents > p.priceInCents &&
-                      p.promoValidUntil &&
-                      Date.now() <= Date.parse(`${p.promoValidUntil}T23:59:59Z`)
+                      p.promoValidUntil
                         ? ` (list ${money(p.originalPriceInCents)}; launch price until ${p.promoValidUntil})`
                         : ""}
                     </td>

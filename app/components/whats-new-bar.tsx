@@ -4,6 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Sparkles, Video, ArrowRight, X, Palette, Wand2, ScanFace } from "lucide-react";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
+import {
+  FACESTUDIO_PRO_LAUNCH_ENDS_LABEL,
+  FACESTUDIO_PRO_LAUNCH_PRICE_CENTS,
+  FACESTUDIO_PRO_REGULAR_PRICE_CENTS,
+  facestudioProLaunchTimeLeft,
+} from "@/lib/products";
 
 interface WhatsNewItem {
   id: string;
@@ -38,15 +44,6 @@ const ITEMS: WhatsNewItem[] = [
     href: "/image-edit",
   },
   {
-    id: "nano-facestudio-pro-1-launch",
-    label: "LAUNCH",
-    labelClassName: "bg-emerald-100 text-emerald-700 ring-emerald-200",
-    icon: Palette,
-    iconClassName: "text-emerald-600",
-    text: "Nano FaceStudio Pro 1.0 — available now for Windows · macOS in ~1 week · $49.90 launch (was $69.90)",
-    href: "/apps/nano-facestudio-pro",
-  },
-  {
     id: "nano-facestudio-online-live",
     label: "LIVE",
     labelClassName: "bg-purple-100 text-purple-700 ring-purple-200",
@@ -71,7 +68,45 @@ const ITEMS: WhatsNewItem[] = [
 // v5: the Video FaceSwap Online one-week trial (v4 was the three-day preview).
 // v6: Video FaceSwap Online 1.1.0.
 // v7: Video FaceSwap Online 1.1.0 is the official release (the trial is over).
-const STORAGE_KEY = "nanopocket_whats_new_dismissed_v7";
+// v8: the last days of the Nano FaceStudio Pro launch price.
+const STORAGE_KEY = "nanopocket_whats_new_dismissed_v8";
+
+const dollars = (cents: number) => `$${(cents / 100).toFixed(2)}`;
+
+/**
+ * Nano FaceStudio Pro's item, read from the clock: leads the bar with the time left while the launch
+ * price runs, then sits in the usual place with the regular price. The bar only renders after mount,
+ * so this is always the viewer's own clock.
+ */
+function facestudioProItem(): { item: WhatsNewItem; first: boolean } {
+  const left = facestudioProLaunchTimeLeft();
+  const base = {
+    id: "nano-facestudio-pro-1",
+    icon: Palette,
+    iconClassName: "text-emerald-600",
+    href: "/apps/nano-facestudio-pro",
+  };
+  if (left) {
+    return {
+      first: true,
+      item: {
+        ...base,
+        label: "LAST DAYS",
+        labelClassName: "bg-amber-100 text-amber-800 ring-amber-200",
+        text: `Nano FaceStudio Pro launch price ${dollars(FACESTUDIO_PRO_LAUNCH_PRICE_CENTS)} ends ${FACESTUDIO_PRO_LAUNCH_ENDS_LABEL} · ${left} · ${dollars(FACESTUDIO_PRO_REGULAR_PRICE_CENTS)} from Nov 1`,
+      },
+    };
+  }
+  return {
+    first: false,
+    item: {
+      ...base,
+      label: "PRO",
+      labelClassName: "bg-emerald-100 text-emerald-700 ring-emerald-200",
+      text: `Nano FaceStudio Pro 1.0 — seven face tools in one local app · Windows · macOS to follow · ${dollars(FACESTUDIO_PRO_REGULAR_PRICE_CENTS)} one-time`,
+    },
+  };
+}
 
 export function WhatsNewBar() {
   const [visible, setVisible] = useState(false);
@@ -97,7 +132,7 @@ export function WhatsNewBar() {
     const measure = () => {
       // Width of the first copy of the items (the track may hold a second copy
       // for the loop), so the answer does not depend on whether it is scrolling.
-      const kids = Array.from(track.children).slice(0, ITEMS.length) as HTMLElement[];
+      const kids = Array.from(track.children).slice(0, ITEMS.length + 1) as HTMLElement[];
       if (kids.length === 0) return;
       const first = kids[0];
       const last = kids[kids.length - 1];
@@ -135,7 +170,8 @@ export function WhatsNewBar() {
 
   if (!visible) return null;
 
-  const items = ITEMS;
+  const pro = facestudioProItem();
+  const items = pro.first ? [pro.item, ...ITEMS] : [...ITEMS.slice(0, 2), pro.item, ...ITEMS.slice(2)];
   const scrolling = overflowing && !reduceMotion;
   // A second copy lets the loop run without a jump.
   const shown = scrolling ? [...items, ...items] : items;

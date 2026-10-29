@@ -3,6 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
+import { LaunchPriceCountdown } from "@/app/components/launch-price-countdown";
+import {
+  FACESTUDIO_PRO_LAUNCH_ENDS_LABEL,
+  FACESTUDIO_PRO_LAUNCH_PRICE_CENTS,
+  FACESTUDIO_PRO_REGULAR_PRICE_CENTS,
+  facestudioProLaunchPriceOn,
+} from "@/lib/products";
 
 /**
  * Nano FaceStudio Pro 1.0 — product introduction.
@@ -15,9 +22,12 @@ import { Footer } from "@/app/components/footer";
  *   - FAQPage
  */
 
-const PROMO_PRICE = "49.90";
-const REGULAR_PRICE = "69.90";
+const PROMO_PRICE = (FACESTUDIO_PRO_LAUNCH_PRICE_CENTS / 100).toFixed(2);
+const REGULAR_PRICE = (FACESTUDIO_PRO_REGULAR_PRICE_CENTS / 100).toFixed(2);
 const PROMO_VALID_UNTIL = "2026-10-31";
+
+/** Re-rendered every 10 minutes, so the launch offer leaves the page soon after it ends. */
+export const revalidate = 600;
 const CANONICAL = "https://nanopocket.ai/apps/nano-facestudio-pro";
 
 export const metadata: Metadata = {
@@ -60,7 +70,7 @@ export const metadata: Metadata = {
   },
 };
 
-const productJsonLd = {
+const productJsonLd = (launch: boolean) => ({
   "@context": "https://schema.org",
   "@type": ["Product", "SoftwareApplication"],
   "@id": `${CANONICAL}#product`,
@@ -80,8 +90,12 @@ const productJsonLd = {
   datePublished: "2026-07-31",
   dateModified: "2026-07-09",
   additionalProperty: [
-    { "@type": "PropertyValue", name: "Launch price", value: `USD ${PROMO_PRICE} (promotional)` },
-    { "@type": "PropertyValue", name: "Regular price", value: `USD ${REGULAR_PRICE} after ${PROMO_VALID_UNTIL}` },
+    ...(launch
+      ? [
+          { "@type": "PropertyValue", name: "Launch price", value: `USD ${PROMO_PRICE} (promotional)` },
+          { "@type": "PropertyValue", name: "Regular price", value: `USD ${REGULAR_PRICE} after ${PROMO_VALID_UNTIL}` },
+        ]
+      : []),
     { "@type": "PropertyValue", name: "Bundled capabilities", value: "7 tools: face swap, mask edit, expression edit, face vivid, upscale, light adjust, crop" },
     { "@type": "PropertyValue", name: "Face swap engine", value: "GAN and diffusion models" },
     { "@type": "PropertyValue", name: "Multi-face swap", value: "Up to 16 detected faces per image; per-face targeting or one-click swap-all" },
@@ -93,28 +107,25 @@ const productJsonLd = {
   ],
   offers: {
     "@type": "Offer",
-    price: PROMO_PRICE,
+    price: launch ? PROMO_PRICE : REGULAR_PRICE,
     priceCurrency: "USD",
     availability: "https://schema.org/InStock",
-    priceValidUntil: PROMO_VALID_UNTIL,
+    ...(launch ? { priceValidUntil: PROMO_VALID_UNTIL } : {}),
     url: CANONICAL,
     seller: { "@type": "Organization", name: "NanoPocket" },
     priceSpecification: {
       "@type": "PriceSpecification",
-      price: PROMO_PRICE,
+      price: launch ? PROMO_PRICE : REGULAR_PRICE,
       priceCurrency: "USD",
       valueAddedTaxIncluded: false,
     },
-    // eligibleTransactionVolume documents the promotional discount from
-    // regular price → launch price so LLMs and rich-result parsers can
-    // reason about the strike-through in the page UI.
     eligibleQuantity: { "@type": "QuantitativeValue", value: 1 },
   },
-  // additionalProperty already documents "Regular price: USD 69.90 after
-  // 2026-10-31" so the promo relationship is discoverable in structured data.
-};
+  // While the launch price runs, additionalProperty states the regular price and the date it
+  // returns, so the promo relationship is discoverable in structured data.
+});
 
-const faqs: { q: string; a: string }[] = [
+const faqs = (launch: boolean): { q: string; a: string }[] => [
   {
     q: "How is Nano FaceStudio Pro different from Nano FaceStudio Online?",
     a: "Nano FaceStudio Online is the browser edition: it swaps faces and whole heads, billed per face in prepaid credits with a free allowance, on NanoPocket-hosted GPUs. Nano FaceStudio Pro is the local desktop edition, a one-time license that runs 100% on your own GPU with no per-image fee, and it is the broader studio: multi-face swap with per-region protection, mask edit, expression editing, face vivid restoration, full-image upscale, auto light adjust, and precision crop in one unified desktop UI. Both use the same diffusion identity stack.",
@@ -123,10 +134,15 @@ const faqs: { q: string; a: string }[] = [
     q: "What are the seven bundled tools?",
     a: "Face Swap (auto multi-face detection with per-region preservation), Mask Edit (brush-level restoration), Facial Expression Edit (slider control plus learn-from-reference), Face Vivid (de-plasticize AI-smoothed skin), Full Image Upscale (2×, 3×, 4×), Light Adjust (auto brightness / contrast / saturation), and Crop (aspect-ratio presets).",
   },
-  {
-    q: "What is the launch price and how long does the promotion run?",
-    a: `The 1.0 launch price is USD $${PROMO_PRICE}. After the promotion ends on ${PROMO_VALID_UNTIL} the regular price is USD $${REGULAR_PRICE}. The license is one-time and machine-bound — no subscription, no per-image fee. Users who purchase during the promotion window keep their license at the promotional price permanently.`,
-  },
+  launch
+    ? {
+        q: "What is the launch price and how long does the promotion run?",
+        a: `The 1.0 launch price is USD $${PROMO_PRICE}, until ${FACESTUDIO_PRO_LAUNCH_ENDS_LABEL}. From then on the regular price is USD $${REGULAR_PRICE}. The license is one-time and machine-bound — no subscription, no per-image fee. A license bought at the launch price is yours to keep; nothing more is charged when the price changes.`,
+      }
+    : {
+        q: "How much does it cost?",
+        a: `USD $${REGULAR_PRICE}, one time. The license is machine-bound — no subscription, no per-image fee. The 1.0 launch price of USD $${PROMO_PRICE} ended on ${PROMO_VALID_UNTIL}; licenses bought then are unaffected.`,
+      },
   {
     q: "Do my photos get uploaded to your server?",
     a: "No. Every model — swap, mask, expression, vivid, upscale, light, crop — runs on the user's GPU. Source photos are never uploaded and never retained server-side. The only network traffic is a one-time license-activation handshake.",
@@ -149,15 +165,15 @@ const faqs: { q: string; a: string }[] = [
   },
 ];
 
-const faqJsonLd = {
+const faqJsonLd = (launch: boolean) => ({
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: faqs.map((f) => ({
+  mainEntity: faqs(launch).map((f) => ({
     "@type": "Question",
     name: f.q,
     acceptedAnswer: { "@type": "Answer", text: f.a },
   })),
-};
+});
 
 const articleJsonLd = {
   "@context": "https://schema.org",
@@ -265,11 +281,12 @@ function Shot({
 }
 
 export default function NanoFaceStudioProPage() {
+  const launch = facestudioProLaunchPriceOn();
   return (
     <main className="relative overflow-hidden bg-black text-white">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd(launch)) }}
       />
       <script
         type="application/ld+json"
@@ -277,7 +294,7 @@ export default function NanoFaceStudioProPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(launch)) }}
       />
       <Navbar />
 
@@ -303,7 +320,7 @@ export default function NanoFaceStudioProPage() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300/70 opacity-60" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-300" />
             </span>
-            <span>Available now for Windows · macOS in ~1 week</span>
+            <span>Available now for Windows · macOS to follow</span>
           </p>
 
           <h1 className="text-balance text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
@@ -320,27 +337,34 @@ export default function NanoFaceStudioProPage() {
             leaving the machine.
           </p>
 
-          {/* Prominent launch-promo pricing block. Struck-through regular
-              price sits above the big launch price so the discount is the
-              first thing eyes land on. */}
+          {/* Pricing block. While the launch price runs, the regular price
+              sits struck through beside it with the real end time; after
+              that, just the price. */}
           <div className="mx-auto mt-10 inline-flex flex-col items-center gap-1">
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-200">
-              Limited-time launch offer · through {PROMO_VALID_UNTIL}
-            </div>
+            {launch && (
+              <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-200">
+                Launch price ends {FACESTUDIO_PRO_LAUNCH_ENDS_LABEL}
+                <LaunchPriceCountdown prefix="· " />
+              </div>
+            )}
             <div className="mt-3 flex items-end justify-center gap-3">
-              <span className="text-2xl font-medium text-white/40 line-through decoration-white/40 sm:text-3xl">
-                ${REGULAR_PRICE}
-              </span>
+              {launch && (
+                <span className="text-2xl font-medium text-white/40 line-through decoration-white/40 sm:text-3xl">
+                  ${REGULAR_PRICE}
+                </span>
+              )}
               <span className="text-5xl font-semibold leading-none tracking-tight text-white sm:text-6xl">
-                ${PROMO_PRICE}
+                ${launch ? PROMO_PRICE : REGULAR_PRICE}
               </span>
               <span className="pb-1 text-xs uppercase tracking-[0.18em] text-white/50 sm:text-sm">
                 one-time · Windows + macOS
               </span>
             </div>
-            <p className="mt-2 text-[11px] uppercase tracking-[0.2em] text-emerald-300/80">
-              Save ${(Number(REGULAR_PRICE) - Number(PROMO_PRICE)).toFixed(2)} · lock in the launch price for good
-            </p>
+            {launch && (
+              <p className="mt-2 text-[11px] uppercase tracking-[0.2em] text-emerald-300/80">
+                Save ${(Number(REGULAR_PRICE) - Number(PROMO_PRICE)).toFixed(2)} · ${REGULAR_PRICE} from Nov 1
+              </p>
+            )}
           </div>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -708,7 +732,7 @@ export default function NanoFaceStudioProPage() {
               ["macOS GPU", "Apple Silicon Metal · Native arm64 for M2, M3, M4, M5 · no Rosetta"],
               ["Data handling", "100% local · no upload · no server-side retention · no training on user photos"],
               ["Network", "One-time license activation only"],
-              ["License", `USD $${PROMO_PRICE} launch · USD $${REGULAR_PRICE} after ${PROMO_VALID_UNTIL} · one-time · machine-bound · covers Windows + macOS`],
+              ["License", `${launch ? `USD $${PROMO_PRICE} launch until ${FACESTUDIO_PRO_LAUNCH_ENDS_LABEL} · then ` : ""}USD $${REGULAR_PRICE} · one-time · machine-bound · covers Windows + macOS`],
               ["UI runtime", "Electron desktop shell"],
             ].map(([term, def]) => (
               <div key={term as string} className="border-t border-neutral-200 pt-6">
@@ -732,7 +756,7 @@ export default function NanoFaceStudioProPage() {
           <BigHeadline>Frequently asked.</BigHeadline>
 
           <div className="mt-16 space-y-3">
-            {faqs.map((f) => (
+            {faqs(launch).map((f) => (
               <details
                 key={f.q}
                 className="group rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-5 transition-colors open:border-white/25 open:bg-white/[0.04]"
@@ -793,8 +817,15 @@ export default function NanoFaceStudioProPage() {
           </div>
 
           <p className="mt-10 text-[11px] uppercase tracking-[0.22em] text-white/40">
-            <span className="text-white/40 line-through">${REGULAR_PRICE}</span>{" "}
-            → <span className="text-white/80">${PROMO_PRICE}</span> launch · one-time license · Windows now · macOS in ~1 week
+            {launch ? (
+              <>
+                <span className="text-white/40 line-through">${REGULAR_PRICE}</span>{" "}
+                → <span className="text-white/80">${PROMO_PRICE}</span> launch, until {FACESTUDIO_PRO_LAUNCH_ENDS_LABEL}
+              </>
+            ) : (
+              <span className="text-white/80">${REGULAR_PRICE}</span>
+            )}{" "}
+            · one-time license · Windows now · macOS to follow
           </p>
         </div>
       </section>

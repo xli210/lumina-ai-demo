@@ -486,7 +486,7 @@ export function AppCards() {
                       product.originalPriceInCents > price &&
                       product.promoValidUntil && (
                         <p className="mt-1 text-xs font-medium text-amber-500">
-                          Launch promo · through {product.promoValidUntil}
+                          Launch price through {product.promoValidUntil} · then {formatPrice(product.originalPriceInCents)}
                         </p>
                       )}
                   </div>

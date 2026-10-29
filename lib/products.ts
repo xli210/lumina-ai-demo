@@ -23,6 +23,32 @@ export interface Product {
   masterKeyEnv: string
 }
 
+/**
+ * Nano FaceStudio Pro's launch price runs to the end of 31 October 2026, Pacific time (still PDT,
+ * UTC-7, that night), and the regular price applies from that instant. A real deadline: it is the
+ * date the site has promised since launch, and the price does go up then.
+ */
+export const FACESTUDIO_PRO_LAUNCH_PRICE_CENTS = 4990
+export const FACESTUDIO_PRO_REGULAR_PRICE_CENTS = 6990
+export const FACESTUDIO_PRO_LAUNCH_ENDS_AT = Date.parse("2026-11-01T07:00:00Z")
+/** The deadline as the copy states it. */
+export const FACESTUDIO_PRO_LAUNCH_ENDS_LABEL = "Oct 31, 11:59 pm PT"
+
+export function facestudioProLaunchPriceOn(now: number = Date.now()): boolean {
+  return now < FACESTUDIO_PRO_LAUNCH_ENDS_AT
+}
+
+/** "2 days left", "5 hours left"; null once the launch price has ended. */
+export function facestudioProLaunchTimeLeft(now: number = Date.now()): string | null {
+  const ms = FACESTUDIO_PRO_LAUNCH_ENDS_AT - now
+  if (ms <= 0) return null
+  const hours = Math.ceil(ms / 3_600_000)
+  if (hours <= 1) return "under an hour left"
+  if (hours <= 24) return `${hours} hours left`
+  const days = Math.floor(ms / 86_400_000)
+  return `${days} day${days === 1 ? "" : "s"} left`
+}
+
 export const PRODUCTS: Product[] = [
   {
     id: "nano-facialedit",
@@ -125,9 +151,17 @@ export const PRODUCTS: Product[] = [
     name: "Nano FaceStudio Pro",
     description:
       "AI Face Studio — Face swap, mask edit, expression editing, face vivid, upscale, light adjust, and crop in one local desktop app running 100% on your GPU. Free browser demos at /face-swap preview the swap + vivid capabilities.",
-    priceInCents: 4990,
-    originalPriceInCents: 6990,
-    promoValidUntil: "2026-10-31",
+    // Read at the moment of use, so checkout charges the regular price from the instant the launch
+    // price ends, and every page that shows the price drops the offer when it next renders.
+    get priceInCents() {
+      return facestudioProLaunchPriceOn() ? FACESTUDIO_PRO_LAUNCH_PRICE_CENTS : FACESTUDIO_PRO_REGULAR_PRICE_CENTS
+    },
+    get originalPriceInCents() {
+      return facestudioProLaunchPriceOn() ? FACESTUDIO_PRO_REGULAR_PRICE_CENTS : undefined
+    },
+    get promoValidUntil() {
+      return facestudioProLaunchPriceOn() ? "2026-10-31" : undefined
+    },
     // No trial — the free online demos at /face-swap (Nano FaceStudio Online +
     // NanoFace Vivid) act as the preview. This product is paid-only.
     features: [
