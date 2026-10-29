@@ -544,7 +544,7 @@ export function CreditConsole({
                   {formatPackPrice(selectedPack)} for another {selectedPack.name} pack and add{" "}
                   {formatCredits(autoRechargeCredits(selectedPack))} ({AUTO_RECHARGE_EXTRA_BONUS_PERCENT}% extra). At most{" "}
                   {AUTO_RECHARGE_MAX_PER_DAY} a day and {AUTO_RECHARGE_MAX_PER_MONTH} in 30 days. I can turn it off at
-                  any time on this page. See the{" "}
+                  any time on this page. Card payments only. See the{" "}
                   <a href="/terms#billing" target="_blank" rel="noreferrer" className="underline underline-offset-2">
                     terms
                   </a>

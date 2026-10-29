@@ -132,7 +132,14 @@ export async function startCreditCheckoutSession(
     customer: customerId,
     return_url: `${origin}/credits?session_id={CHECKOUT_SESSION_ID}`,
     line_items: [buildLineItem(pack)],
-    ...(autoRecharge ? { payment_intent_data: { setup_future_usage: "off_session" as const } } : {}),
+    // Cards only (wallets such as Apple Pay count): a bank debit settles days later, which an
+    // automatic top-up cannot wait for, and some methods cannot be charged without the person.
+    ...(autoRecharge
+      ? {
+          payment_method_types: ["card" as const],
+          payment_intent_data: { setup_future_usage: "off_session" as const },
+        }
+      : {}),
     metadata: {
       // The webhook dispatches on this. Absent it, a session is treated as
       // the legacy one-time app purchase.

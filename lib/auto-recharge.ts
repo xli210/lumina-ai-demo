@@ -296,6 +296,10 @@ export async function maybeAutoRecharge(userId: string, available: number): Prom
     if (pi.status === "succeeded") {
       await creditAutoRecharge(pi);
       console.log(`[auto-recharge] ${userId} topped up ${pack.id} (${pi.id})`);
+    } else if (pi.status === "processing") {
+      // Still settling: leave the attempt pending and the setting on. The payment_intent.succeeded
+      // webhook credits it, or payment_failed turns the setting off.
+      console.log(`[auto-recharge] ${userId} charge ${pi.id} is processing`);
     } else {
       // requires_action and the like: off-session cannot ask the person, so stop.
       await settleAttempt(attemptId, "failed", { paymentIntentId: pi.id, failureCode: pi.status });
