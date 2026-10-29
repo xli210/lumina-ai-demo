@@ -958,6 +958,19 @@
     updateGenButton();
   }
 
+  // Confirming the right to use the faces is remembered in this browser, so it is asked once.
+  const RIGHTS_KEY = "nanopocket_face_rights_ok";
+  const rightsOk = document.getElementById("rights-ok");
+  try {
+    rightsOk.checked = localStorage.getItem(RIGHTS_KEY) === "1";
+  } catch (_) {}
+  rightsOk.addEventListener("change", () => {
+    try {
+      localStorage.setItem(RIGHTS_KEY, rightsOk.checked ? "1" : "0");
+    } catch (_) {}
+    updateGenButton();
+  });
+
   // ── Generate button state ──
   function updateGenButton() {
     const selectedCount = refFiles.filter(Boolean).length;
@@ -966,7 +979,9 @@
     // let the server be the one to refuse, rather than blocking on our own
     // failed request.
     const affordable = creditsAvailable === null || creditsAvailable >= price;
-    const ready = bodyFile && detectionId && selectedCount > 0 && affordable;
+    // Read from the page rather than the constant above, so this is safe however early it is first called.
+    const rightsChecked = Boolean(document.getElementById("rights-ok")?.checked);
+    const ready = bodyFile && detectionId && selectedCount > 0 && affordable && rightsChecked;
     btnGenerate.disabled = !ready;
 
     const perFace = PRICES[selectedMode] || PRICES.face_swap;
@@ -993,6 +1008,8 @@
           { needsTopUp: true }
         )
       );
+    } else if (!rightsChecked) {
+      actionHint.textContent = "Confirm you have the right to use these faces to enable Generate.";
     } else if (selectedMode === "head_swap") {
       actionHint.textContent = `Ready: head swap (whole-head replacement, slower). ${cost}`;
     } else {

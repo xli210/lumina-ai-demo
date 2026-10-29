@@ -5,13 +5,13 @@ import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 
 const PAGE_URL = "https://nanopocket.ai/terms";
-const EFFECTIVE_DATE = "2026-05-29";
-const POLICY_VERSION = "1.0";
+const EFFECTIVE_DATE = "2026-10-29";
+const POLICY_VERSION = "1.1";
 
 export const metadata: Metadata = {
   title: "Terms of Service — NanoPocket",
   description:
-    "NanoPocket Terms of Service — license terms, billing, refund policy, acceptable-use policy, warranty disclaimer, governing law. Effective 2026-05-29, version 1.0.",
+    "NanoPocket Terms of Service — license terms, billing, refund policy, acceptable-use policy, warranty disclaimer, governing law. Effective 2026-10-29, version 1.1.",
   keywords: [
     "NanoPocket terms of service",
     "NanoPocket EULA",
@@ -228,6 +228,11 @@ export default function TermsPage() {
             <li>
               Generate or distribute child sexual abuse material (CSAM). Violations are reported
               to NCMEC and law-enforcement bodies in the relevant jurisdiction.
+            </li>
+            <li>
+              Upload or transform the face or likeness of a real person without the right to do so:
+              it must be the user&apos;s own, or the person (or, for a minor, a parent or guardian)
+              must have agreed. The online tools ask the user to confirm this before they run.
             </li>
             <li>
               Create non-consensual intimate imagery (NCII) of any real person.

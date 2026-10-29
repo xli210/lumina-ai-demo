@@ -550,8 +550,13 @@ async function generate() {
   };
   await submit(body, v, t, TOOLS[t].name);
 }
+// Confirming the right to edit the photo is remembered in this browser, so it is asked once.
+const RIGHTS_KEY = "nanopocket_face_rights_ok";
+try { $("rightsOk").checked = localStorage.getItem(RIGHTS_KEY) === "1"; } catch (_) { /* unchecked */ }
+$("rightsOk").addEventListener("change", () => { try { localStorage.setItem(RIGHTS_KEY, $("rightsOk").checked ? "1" : "0"); } catch (_) { /* asked again next time */ } });
 async function submit(body, parent, tool, baseTitle) {
   if (parent.status !== "done") { toast("Pick a finished version to edit from.", "err"); return; }
+  if (!$("rightsOk").checked) { toast("Tick the box to confirm you have the right to edit this photo.", "err"); $("rightsOk").focus(); return; }
   body = { ...body, src: parent.image.id, src_key: parent.image.key };
   $("genBtn").disabled = true;
   try {

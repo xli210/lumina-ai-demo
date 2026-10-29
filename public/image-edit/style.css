@@ -163,7 +163,7 @@ details .field:first-of-type { margin-top: 12px; }
 .prompt-box { display: flex; gap: 12px; align-items: stretch; background: #0f1219; border: 1px solid var(--line2); border-radius: 14px; padding: 8px 8px 8px 14px; transition: .15s; }
 .prompt-box:focus-within { border-color: #8b6cff; box-shadow: 0 0 0 3px #8b6cff2e; }
 .prompt-box textarea { border: none; background: none; box-shadow: none !important; padding: 6px 0; resize: none; font-size: 14px; max-height: 110px; overflow-y: auto; }
-.prompt-actions { display: flex; align-items: center; gap: 12px; }
+.prompt-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .var { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
 
 /* ---------- history */

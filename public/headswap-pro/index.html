@@ -276,6 +276,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
       </div>
     </div>
     <div class="action-section">
+      <label style="display:flex;gap:8px;align-items:flex-start;margin:0 auto 14px;max-width:520px;font-size:13px;line-height:1.45;text-align:left;opacity:.85;cursor:pointer"><input type="checkbox" id="rightsOk" style="margin-top:2px;flex-shrink:0;width:16px;height:16px;cursor:pointer"><span>I have the right to use the faces in these photos: they are my own, or the people in them have agreed. <a href="/terms#aup" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">Acceptable use</a></span></label>
       <button class="btn-generate" id="go" disabled><span id="goLabel">Swap head</span></button>
       <p class="action-hint" id="hint">Upload a photo and a new head to enable Swap.</p>
       <p class="action-hint" id="credits"></p>
@@ -547,8 +548,13 @@ $("seg").addEventListener("click", (e) => {
   update();
 });
 
+// Confirming the right to use the faces is remembered in this browser, so it is asked once.
+const RIGHTS_KEY = "nanopocket_face_rights_ok";
+try { $("rightsOk").checked = localStorage.getItem(RIGHTS_KEY) === "1"; } catch (e) {}
+$("rightsOk").onchange = () => { try { localStorage.setItem(RIGHTS_KEY, $("rightsOk").checked ? "1" : "0"); } catch (e) {} update(); };
+
 function update() {
-  const ready = S.photo && S.photo.faces.length && S.face !== null && S.head && S.headKey && !S.job;
+  const ready = S.photo && S.photo.faces.length && S.face !== null && S.head && S.headKey && !S.job && $("rightsOk").checked;
   const go = $("go");
   go.disabled = !ready && !S.job;
   go.classList.toggle("processing", !!S.job);
@@ -556,7 +562,8 @@ function update() {
   $("hint").textContent = S.job ? "This usually takes 30–40 s per variation; after a quiet period the GPU needs about a minute to start."
     : !S.photo ? "Upload a photo and a new head to enable Swap."
     : !S.photo.faces.length ? "No face was found in the photo."
-    : !S.head ? "Upload the new head to enable Swap." : !S.headKey ? "Uploading the new head…" : "Ready.";
+    : !S.head ? "Upload the new head to enable Swap." : !S.headKey ? "Uploading the new head…"
+    : !$("rightsOk").checked ? "Confirm you have the right to use these faces to enable Swap." : "Ready.";
 }
 
 // ---------- run
