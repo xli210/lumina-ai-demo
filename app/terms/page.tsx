@@ -3,10 +3,11 @@ import Link from "next/link";
 import { ArrowLeft, FileCheck2, ScrollText } from "lucide-react";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
+import { TERMS_EFFECTIVE_DATE, TERMS_VERSION } from "@/lib/terms-version";
 
 const PAGE_URL = "https://nanopocket.ai/terms";
-const EFFECTIVE_DATE = "2026-10-29";
-const POLICY_VERSION = "1.1";
+const EFFECTIVE_DATE = TERMS_EFFECTIVE_DATE;
+const POLICY_VERSION = TERMS_VERSION;
 
 export const metadata: Metadata = {
   title: "Terms of Service — NanoPocket",
@@ -183,6 +184,23 @@ export default function TermsPage() {
               <strong className="text-foreground">One-time license.</strong> Paid licenses are
               one-time purchases. There is no recurring fee, no auto-renewal, no per-image charge,
               no per-minute charge, and no per-frame charge.
+            </li>
+            <li>
+              <strong className="text-foreground">Auto top-up (optional).</strong> Credits are
+              prepaid and nothing is charged automatically unless you turn on auto top-up by
+              ticking its box when you buy a credit pack. Doing so lets us keep the card you pay
+              with and, when your available balance drops below 20% of that pack&apos;s credits,
+              charge it for another pack of the same size and add the credits, with 2% of the
+              pack&apos;s price in extra credits on every automatic top-up. We charge at most once
+              in any 24 hours and three times in any 30 days, Stripe emails a receipt each time,
+              and the setting is shown on your{" "}
+              <Link href="/credits" className="text-indigo-500 underline-offset-4 hover:underline">
+                credits page
+              </Link>
+              . You can turn it off there at any time; that applies to charges after you do. It
+              also turns itself off if a charge is declined, your bank asks you to confirm a
+              payment, or a payment is disputed. Credits bought this way are credits like any
+              others: they do not expire, and the refund policy below applies to them.
             </li>
             <li>
               <strong className="text-foreground">Currency &amp; tax.</strong> Prices are quoted

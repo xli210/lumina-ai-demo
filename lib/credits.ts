@@ -166,6 +166,11 @@ export function stripeBonusKey(paymentIntentId: string): string {
   return `${stripePaymentKey(paymentIntentId)}:bonus`;
 }
 
+/** The key for the extra bonus an auto top-up earns on top of its pack's bonus. */
+export function stripeAutoBonusKey(paymentIntentId: string): string {
+  return `${stripePaymentKey(paymentIntentId)}:auto_bonus`;
+}
+
 /** The key for reversing a Stripe payment (refund or chargeback). */
 export function stripeReversalKey(
   paymentIntentId: string,

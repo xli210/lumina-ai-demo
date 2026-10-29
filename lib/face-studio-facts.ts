@@ -129,7 +129,7 @@ export const DIFFERENTIATORS: readonly Differentiator[] = [
   {
     title: "Credits never expire",
     claim:
-      "A credit bought today is spendable in a year. There is no subscription, no auto-renewal, and no monthly reset.",
+      "A credit bought today is spendable in a year. There is no subscription and no monthly reset, and nothing is charged automatically unless you turn on the optional auto top-up.",
     contrast:
       "Akool and deepswap.ai both void unused credits at the end of each billing month.",
   },
@@ -304,7 +304,7 @@ export const FACE_STUDIO_FAQ: readonly FactQA[] = [
   },
   {
     q: "Do Nano FaceStudio Online credits expire?",
-    a: "No. Credits do not expire and there is no subscription or auto-renewal. Akool and deepswap.ai both void unused credits at the end of each billing month; NanoPocket does not.",
+    a: "No. Credits do not expire and there is no subscription; nothing is charged automatically unless you turn on the optional auto top-up. Akool and deepswap.ai both void unused credits at the end of each billing month; NanoPocket does not.",
   },
   {
     q: "Does Nano FaceStudio Online upload my photo's location data?",

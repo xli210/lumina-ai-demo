@@ -40,6 +40,15 @@ advertising a page that does not exist is its own problem:
 Credit packs are one-time purchases, not subscriptions, so the "no
 subscription" promise holds for both halves of the product line.
 
+**Auto top-up** is the one exception to "nothing is charged automatically", and it is
+opt-in: a box at checkout, off by default, that saves the card and buys the same pack again
+when the available balance falls below 20% of the pack's credits, with 2% of the pack's price
+in extra credits on each automatic top-up. Code: `lib/auto-recharge.ts`, migration
+`scripts/018_create_auto_recharge.sql`, hooked into `captureHold`. Limits: one charge per 24
+hours and three per 30 days; a decline, a bank confirmation request or a dispute turns it off.
+Public copy that used to say "no auto-renewal" about credits now says nothing is charged
+automatically unless the owner turns this on.
+
 ---
 
 ## 2. The model

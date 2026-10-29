@@ -148,7 +148,7 @@ Render times are for a 4000-pixel source on a warm NVIDIA A40. The first render 
 - Head swap: ${HEAD_SWAP_CREDITS} credits, priced at twice a face swap because it costs about twice as much GPU time. Head swap operates on exactly one face.
 - Face detection: free, never billed.
 - Free allowance: a signed-in account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low, which is ${FREE_RENDERS_PER_TOPUP} face swaps at full resolution, watermarked until the account has bought credits once. An account that has never bought credits is topped up ${FREE_TOPUP_RULE}; one that has bought credits is topped up whenever it runs low. The top-up goes up to ${FREE_TOPUP_CREDITS} rather than adding to it, so it does not accumulate across idle days.
-- Credits never expire. There is no subscription and no auto-renewal.
+- Credits never expire. There is no subscription. Nothing is charged automatically unless the account owner turns on the optional auto top-up, which buys the same pack again when the balance runs low and adds 2% extra credits.
 - A render that fails is refunded in full automatically, because credits are reserved before the GPU starts rather than debited on submission.
 
 ## How it compares on price, September 2026

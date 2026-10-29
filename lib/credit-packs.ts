@@ -77,6 +77,43 @@ export function bonusPercent(pack: CreditPack): number {
   return Math.round((pack.bonusCredits / baseCredits(pack)) * 100);
 }
 
+/* -------------------------------------------------------------------------- */
+/* Auto top-up                                                                 */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Auto top-up is an opt-in: the same pack is bought again when the balance runs low. The reward for
+ * turning it on is a little more bonus on every auto top-up: this many percentage points of the
+ * pack's price, on top of the pack's own bonus. It is not given at sign-up for the feature, so
+ * switching it on and straight off earns nothing.
+ */
+export const AUTO_RECHARGE_EXTRA_BONUS_PERCENT = 2;
+
+/** It buys again when the available balance falls below this share of the pack's credits. */
+export const AUTO_RECHARGE_THRESHOLD_SHARE = 0.2;
+
+/** At most this many auto top-ups in 24 hours and in 30 days. Enforced in migration 018. */
+export const AUTO_RECHARGE_MAX_PER_DAY = 1;
+export const AUTO_RECHARGE_MAX_PER_MONTH = 3;
+
+/** The extra credits an auto top-up of this pack adds. */
+export function autoRechargeExtraBonus(pack: CreditPack): number {
+  return Math.round((baseCredits(pack) * AUTO_RECHARGE_EXTRA_BONUS_PERCENT) / 100);
+}
+
+/** Everything an auto top-up of this pack lands in the balance. */
+export function autoRechargeCredits(pack: CreditPack): number {
+  return totalCredits(pack) + autoRechargeExtraBonus(pack);
+}
+
+/** The balance below which an auto top-up of this pack is bought, in credits. */
+export function autoRechargeThreshold(pack: CreditPack): number {
+  return Math.round(totalCredits(pack) * AUTO_RECHARGE_THRESHOLD_SHARE);
+}
+
+/** The highest threshold of any pack: a balance at or above it never needs a look at the database. */
+export const AUTO_RECHARGE_MAX_THRESHOLD = Math.max(...CREDIT_PACKS.map(autoRechargeThreshold));
+
 /** Price rendered for a card header, e.g. `$20`. */
 export function formatPackPrice(pack: CreditPack): string {
   return `$${(pack.priceInCents / CREDITS_PER_USD).toFixed(0)}`;

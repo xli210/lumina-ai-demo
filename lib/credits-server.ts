@@ -610,13 +610,23 @@ export async function captureHold(params: {
   if (error) throw new Error(`credit_capture failed: ${error.message}`);
 
   const row = asFields(data);
-  return {
+  const result = {
     ...toAccountState(row),
     ok: flag(row, "ok"),
     applied: flag(row, "applied"),
     charged: num(row, "charged"),
     ledger_id: num(row, "ledger_id"),
   };
+
+  // Every job that costs credits ends here, so this is where a low balance is noticed. Only a
+  // capture that actually took credits can have lowered it; a replay cannot. Imported when needed
+  // because lib/auto-recharge.ts grants credits through this file.
+  if (result.ok && result.applied && result.user_id) {
+    const { maybeAutoRecharge } = await import("@/lib/auto-recharge");
+    await maybeAutoRecharge(result.user_id, result.available);
+  }
+
+  return result;
 }
 
 /**

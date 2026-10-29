@@ -6,6 +6,8 @@ import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { disableAutoRecharge } from "@/lib/auto-recharge";
+import { TERMS_VERSION } from "@/lib/terms-version";
 import {
   findCreditPack,
   formatPackPrice,
@@ -93,9 +95,14 @@ function buildLineItem(
  *
  * Unlike the one-time app purchase, this refuses anonymous checkout: there
  * is no way to deliver credits to someone with no account to hold them.
+ *
+ * `autoRecharge` is the person's tick of the auto top-up box. It asks Stripe to keep the card for
+ * later charges and records, in the metadata the webhook reads, that they agreed and to which
+ * version of the terms. Nothing is switched on until the payment has been made.
  */
 export async function startCreditCheckoutSession(
-  packId: string
+  packId: string,
+  autoRecharge = false
 ): Promise<string> {
   const pack = findCreditPack(packId);
   if (!pack) {
@@ -125,6 +132,7 @@ export async function startCreditCheckoutSession(
     customer: customerId,
     return_url: `${origin}/credits?session_id={CHECKOUT_SESSION_ID}`,
     line_items: [buildLineItem(pack)],
+    ...(autoRecharge ? { payment_intent_data: { setup_future_usage: "off_session" as const } } : {}),
     metadata: {
       // The webhook dispatches on this. Absent it, a session is treated as
       // the legacy one-time app purchase.
@@ -133,6 +141,13 @@ export async function startCreditCheckoutSession(
       supabase_user_id: user.id,
       base_credits: String(pack.priceInCents),
       bonus_credits: String(pack.bonusCredits),
+      ...(autoRecharge
+        ? {
+            auto_recharge: "1",
+            auto_consent_at: new Date().toISOString(),
+            auto_terms_version: TERMS_VERSION,
+          }
+        : {}),
     },
   });
 
@@ -141,4 +156,14 @@ export async function startCreditCheckoutSession(
   }
 
   return session.client_secret;
+}
+
+/** Turn auto top-up off for the signed-in person. The saved card stays with Stripe but is no longer used. */
+export async function turnOffAutoRecharge(): Promise<void> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error("Please sign in first");
+  await disableAutoRecharge(user.id, "user");
 }

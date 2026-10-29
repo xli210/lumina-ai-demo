@@ -9,6 +9,13 @@ import {
   grantCredits,
 } from "@/lib/credits-server";
 import { stripeBonusKey, stripePaymentKey } from "@/lib/credits";
+import { findCreditPack } from "@/lib/credit-packs";
+import {
+  creditAutoRecharge,
+  disableAutoRechargeForCustomer,
+  enableAutoRecharge,
+  failAutoRecharge,
+} from "@/lib/auto-recharge";
 import crypto from "crypto";
 
 /** Postgres unique-violation. Here it means "someone already did this". */
@@ -133,6 +140,51 @@ async function handleCreditTopup(
     `[Webhook] Top-up ${packId}: ${base}+${bonus} credits for ${userId}` +
       (purchase.applied ? "" : " (replay, no change)")
   );
+
+  // The box for auto top-up was ticked: now that the money has arrived, switch it on with the
+  // card this payment used. Done after the credits, and a failure here asks Stripe to retry,
+  // which re-runs the (idempotent) grants above.
+  if (session.metadata?.auto_recharge === "1") {
+    await enableAutoRechargeFor(session, paymentIntentId, userId, packId);
+  }
+}
+
+async function enableAutoRechargeFor(
+  session: Stripe.Checkout.Session,
+  paymentIntentId: string,
+  userId: string,
+  packId: string
+): Promise<void> {
+  if (!findCreditPack(packId)) {
+    console.warn(`[Webhook] Auto top-up for unknown pack ${packId}; not enabled`);
+    return;
+  }
+  const pi = await getStripe().paymentIntents.retrieve(paymentIntentId);
+  const paymentMethodId =
+    typeof pi.payment_method === "string" ? pi.payment_method : (pi.payment_method?.id ?? null);
+  // Without this the card was not kept for later charges (a payment method that cannot be reused).
+  if (!paymentMethodId || pi.setup_future_usage !== "off_session") {
+    console.warn(`[Webhook] Auto top-up ticked on ${session.id} but the card was not saved; not enabled`);
+    return;
+  }
+  await enableAutoRecharge({
+    userId,
+    packId,
+    paymentMethodId,
+    consentedAt: session.metadata?.auto_consent_at ?? new Date().toISOString(),
+    termsVersion: session.metadata?.auto_terms_version ?? "unknown",
+  });
+  console.log(`[Webhook] Auto top-up on for ${userId}: ${packId}`);
+}
+
+/** A dispute on any payment from a customer turns their auto top-up off. */
+async function handleDispute(dispute: Stripe.Dispute): Promise<void> {
+  const intentId =
+    typeof dispute.payment_intent === "string" ? dispute.payment_intent : (dispute.payment_intent?.id ?? null);
+  if (!intentId) return;
+  const pi = await getStripe().paymentIntents.retrieve(intentId);
+  const customerId = typeof pi.customer === "string" ? pi.customer : (pi.customer?.id ?? null);
+  if (customerId) await disableAutoRechargeForCustomer(customerId);
 }
 
 /**
@@ -381,6 +433,14 @@ export async function POST(req: NextRequest) {
       event.type === "checkout.session.async_payment_succeeded"
     ) {
       await handleCheckoutCompleted(event.data.object);
+    } else if (event.type === "payment_intent.succeeded") {
+      // Only auto top-ups carry the metadata that makes this do anything; a checkout's own payment
+      // is credited by its session above.
+      await creditAutoRecharge(event.data.object);
+    } else if (event.type === "payment_intent.payment_failed") {
+      await failAutoRecharge(event.data.object);
+    } else if (event.type === "charge.dispute.created") {
+      await handleDispute(event.data.object);
     }
     await completeStripeEvent(event.id);
   } catch (err: unknown) {

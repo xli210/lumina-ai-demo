@@ -5,6 +5,7 @@ import { ensureSignupGrant, listCreditLedger } from "@/lib/credits-server";
 import { getFreeClaimOutcome } from "@/lib/free-claim";
 import { getStripe } from "@/lib/stripe";
 import { findCreditPack } from "@/lib/credit-packs";
+import { getAutoRecharge } from "@/lib/auto-recharge";
 import Link from "next/link";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
@@ -69,6 +70,14 @@ export default async function CreditsPage({
     claim === "blocked_ip" || claim === "blocked_device"
       ? claim
       : null;
+  // The auto top-up setting. If it cannot be read (migration 018 not run yet) the feature is not offered.
+  let autoRecharge: Awaited<ReturnType<typeof getAutoRecharge>> = null;
+  let autoRechargeReady = true;
+  try {
+    autoRecharge = await getAutoRecharge(user.id);
+  } catch {
+    autoRechargeReady = false;
+  }
   const params = await searchParams;
   const purchase = await paidCheckout(params.session_id, user.id);
   // Set by a tool's "not enough credits" link: the pack its message recommended.
@@ -98,7 +107,13 @@ export default async function CreditsPage({
             </p>
           </div>
         )}
-        <CreditConsole account={account} initialLedger={ledger} recommendedPackId={recommended} />
+        <CreditConsole
+          account={account}
+          initialLedger={ledger}
+          recommendedPackId={recommended}
+          autoRecharge={autoRecharge}
+          autoRechargeReady={autoRechargeReady}
+        />
         <div className="mt-8 rounded-2xl border border-border bg-card/40 p-5">
           <p className="text-sm font-semibold text-foreground">Prefer not to spend credits at all?</p>
           <p className="mt-1 text-sm text-muted-foreground">

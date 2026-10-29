@@ -7,7 +7,7 @@ import {
   EmbeddedCheckoutProvider,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { AlertTriangle, Coins, Loader2, Lock, Sparkles } from "lucide-react";
+import { AlertTriangle, Coins, Loader2, Lock, RefreshCw, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -17,11 +17,17 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { startCreditCheckoutSession } from "../actions/credits";
+import { startCreditCheckoutSession, turnOffAutoRecharge } from "../actions/credits";
 import { trackEvent } from "@/lib/analytics";
 import {
+  AUTO_RECHARGE_EXTRA_BONUS_PERCENT,
+  AUTO_RECHARGE_MAX_PER_DAY,
+  AUTO_RECHARGE_MAX_PER_MONTH,
   CREDIT_PACKS,
+  autoRechargeCredits,
+  autoRechargeThreshold,
   bonusPercent,
+  findCreditPack,
   formatPackPrice,
   totalCredits,
   type CreditPack,
@@ -51,8 +57,92 @@ const KIND_LABELS = new Map<string, string>([
   ["admin_adjust", "Manual adjustment"],
 ]);
 
-function labelForKind(kind: string): string {
-  return KIND_LABELS.get(kind) ?? kind;
+function labelFor(entry: CreditLedgerEntry): string {
+  if (entry.reference.source === "stripe_auto_recharge") {
+    return entry.kind === "bonus" ? "Auto top-up bonus" : "Auto top-up";
+  }
+  return KIND_LABELS.get(entry.kind) ?? entry.kind;
+}
+
+/** What the server knows about the person's auto top-up setting. */
+export interface AutoRechargeView {
+  packId: string;
+  enabled: boolean;
+  disabledReason: string | null;
+}
+
+/** Why an auto top-up that was switched off by us, rather than by the person, was switched off. */
+const PAUSED_REASONS = new Map<string, string>([
+  ["card_declined", "your card was declined"],
+  ["authentication_required", "your bank asked you to confirm the payment"],
+  ["dispute", "a payment was disputed"],
+  ["no_payment_method", "there is no saved card"],
+  ["other", "the payment could not be completed"],
+]);
+
+function AutoRechargeCard({ setting }: { setting: AutoRechargeView | null }) {
+  const router = useRouter();
+  const [busy, setBusy] = useState(false);
+  const pack = setting ? findCreditPack(setting.packId) : undefined;
+
+  async function turnOff() {
+    setBusy(true);
+    try {
+      await turnOffAutoRecharge();
+      trackEvent("auto_recharge_off", { pack_id: setting?.packId });
+      toast.success("Auto top-up is off");
+      router.refresh();
+    } catch {
+      toast.error("Could not turn auto top-up off. Try again.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  if (setting?.enabled && pack) {
+    return (
+      <div className="glass flex flex-wrap items-center justify-between gap-4 rounded-2xl px-5 py-4">
+        <div className="min-w-0">
+          <p className="flex items-center gap-2 text-sm font-medium text-foreground">
+            <RefreshCw className="h-4 w-4 text-primary" />
+            Auto top-up is on
+          </p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            When your balance drops below {autoRechargeThreshold(pack).toLocaleString("en-US")} credits we charge your
+            saved card {formatPackPrice(pack)} and add {formatCredits(autoRechargeCredits(pack))} (the {pack.name} pack
+            plus {AUTO_RECHARGE_EXTRA_BONUS_PERCENT}% extra). At most {AUTO_RECHARGE_MAX_PER_DAY} a day and{" "}
+            {AUTO_RECHARGE_MAX_PER_MONTH} in 30 days. Stripe emails a receipt each time.
+          </p>
+        </div>
+        <Button type="button" variant="outline" disabled={busy} onClick={turnOff} className="rounded-full">
+          {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : "Turn off"}
+        </Button>
+      </div>
+    );
+  }
+
+  const paused = setting && !setting.enabled ? PAUSED_REASONS.get(setting.disabledReason ?? "") : undefined;
+  return (
+    <div className="glass rounded-2xl px-5 py-4">
+      <p className="flex items-center gap-2 text-sm font-medium text-foreground">
+        <RefreshCw className="h-4 w-4 text-primary" />
+        Auto top-up
+        <span className="rounded-full border border-border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+          Off
+        </span>
+      </p>
+      {paused && (
+        <p className="mt-1 text-xs font-medium text-amber-600">
+          Auto top-up was switched off because {paused}. Tick the box when you next buy credits to turn it back on.
+        </p>
+      )}
+      <p className="mt-1 text-xs text-muted-foreground">
+        Optional. Tick the box at checkout and we buy the same pack again when your balance runs low, with{" "}
+        {AUTO_RECHARGE_EXTRA_BONUS_PERCENT}% extra credits on every automatic top-up. Nothing is charged
+        automatically unless you turn this on, and you can turn it off here at any time.
+      </p>
+    </div>
+  );
 }
 
 function formatWhen(iso: string): string {
@@ -197,7 +287,7 @@ function Statement({ entries }: { entries: CreditLedgerEntry[] }) {
         >
           <div className="min-w-0">
             <p className="truncate text-sm font-medium text-foreground">
-              {labelForKind(entry.kind)}
+              {labelFor(entry)}
             </p>
             <p className="text-xs text-muted-foreground">
               {formatWhen(entry.created_at)}
@@ -226,15 +316,22 @@ export function CreditConsole({
   account: initialAccount,
   initialLedger,
   recommendedPackId,
+  autoRecharge,
+  autoRechargeReady,
 }: {
   account: CreditAccountState;
   initialLedger: CreditLedgerEntry[];
   recommendedPackId?: string;
+  autoRecharge: AutoRechargeView | null;
+  /** False until migration 018 exists in the database: then the feature is not offered at all. */
+  autoRechargeReady: boolean;
 }) {
   const router = useRouter();
   const [account, setAccount] = useState(initialAccount);
   const [ledger, setLedger] = useState(initialLedger);
   const [selectedPack, setSelectedPack] = useState<CreditPack | null>(null);
+  // The auto top-up box at checkout. Never ticked for the person.
+  const [autoOn, setAutoOn] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [confirming, setConfirming] = useState(false);
   const confirmStarted = useRef(false);
@@ -311,8 +408,9 @@ export function CreditConsole({
   const fetchClientSecret = useCallback(async () => {
     if (!selectedPack) throw new Error("No pack selected");
     try {
-      const secret = await startCreditCheckoutSession(selectedPack.id);
+      const secret = await startCreditCheckoutSession(selectedPack.id, autoRechargeReady && autoOn);
       trackEvent("begin_checkout", {
+        auto_recharge: autoOn,
         currency: "USD",
         value: selectedPack.priceInCents / 100,
         items: [
@@ -332,11 +430,12 @@ export function CreditConsole({
       setCheckoutError(message);
       throw err;
     }
-  }, [selectedPack]);
+  }, [selectedPack, autoOn, autoRechargeReady]);
 
   function closeCheckout() {
     setSelectedPack(null);
     setCheckoutError(null);
+    setAutoOn(false);
   }
 
   return (
@@ -351,6 +450,8 @@ export function CreditConsole({
       )}
 
       <BalanceCard account={account} />
+
+      {autoRechargeReady && <AutoRechargeCard setting={autoRecharge} />}
 
       <section>
         <h2 className="mb-4 text-lg font-semibold text-foreground">
@@ -425,16 +526,43 @@ export function CreditConsole({
           )}
 
           {checkoutError === null && selectedPack !== null && stripePromise && (
-            <EmbeddedCheckoutProvider
-              // Remounting per pack is required: the provider caches the
-              // client secret it was created with, so switching packs
-              // without a new key would pay for the previous one.
-              key={selectedPack.id}
-              stripe={stripePromise}
-              options={{ fetchClientSecret }}
-            >
-              <EmbeddedCheckout />
-            </EmbeddedCheckoutProvider>
+            <>
+              {autoRechargeReady && (
+              <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-border bg-card/40 p-3 text-xs text-muted-foreground">
+                <input
+                  type="checkbox"
+                  checked={autoOn}
+                  onChange={(e) => {
+                    setAutoOn(e.target.checked);
+                    if (e.target.checked) trackEvent("auto_recharge_opt_in", { pack_id: selectedPack.id });
+                  }}
+                  className="mt-0.5 h-4 w-4 shrink-0 accent-primary"
+                />
+                <span>
+                  <span className="font-medium text-foreground">Auto top-up (optional).</span> When my balance drops
+                  below {autoRechargeThreshold(selectedPack).toLocaleString("en-US")} credits, charge this card{" "}
+                  {formatPackPrice(selectedPack)} for another {selectedPack.name} pack and add{" "}
+                  {formatCredits(autoRechargeCredits(selectedPack))} ({AUTO_RECHARGE_EXTRA_BONUS_PERCENT}% extra). At most{" "}
+                  {AUTO_RECHARGE_MAX_PER_DAY} a day and {AUTO_RECHARGE_MAX_PER_MONTH} in 30 days. I can turn it off at
+                  any time on this page. See the{" "}
+                  <a href="/terms#billing" target="_blank" rel="noreferrer" className="underline underline-offset-2">
+                    terms
+                  </a>
+                  .
+                </span>
+              </label>
+              )}
+              <EmbeddedCheckoutProvider
+                // Remounting per pack and per auto top-up choice is required: the
+                // provider caches the client secret it was created with, so a change
+                // without a new key would pay for the previous one.
+                key={`${selectedPack.id}:${autoOn}`}
+                stripe={stripePromise}
+                options={{ fetchClientSecret }}
+              >
+                <EmbeddedCheckout />
+              </EmbeddedCheckoutProvider>
+            </>
           )}
         </DialogContent>
       </Dialog>
