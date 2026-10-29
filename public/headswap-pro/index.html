@@ -586,7 +586,7 @@ $("go").onclick = async () => {
     if (hold) settle(hold.hold_id);       // the swap never started: the credits go back at once
     S.job = null; update(); hideProgress();
     if (err.status === 401) { $("authNotice").hidden = false; $("authText").innerHTML = 'Sign in to NanoPocket.ai to swap heads. <a href="/auth/login?next=/headswap-pro/index.html">Sign in</a>'; showError("Please sign in to swap heads."); }
-    else if (err.status === 402 && err.body && err.body.reason === "insufficient_credits") { showCredits(err.body.available); showError(err.message + " Buy credits at nanopocket.ai/credits and try again."); }
+    else if (err.status === 402 && err.body && err.body.reason === "insufficient_credits") { showCredits(err.body.available); showError(err.message + " Buy credits at nanopocket.ai" + (err.body.topup_url || "/credits") + " and try again."); }
     else showError(err.message, err.requestId);
   }
 };

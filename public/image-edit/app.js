@@ -134,7 +134,7 @@ async function api(path, opts = {}) {
   return r.json();
 }
 function showError(e) {
-  if (e && e.status === 402) toast(e.message, "err", { href: "/credits", label: "Buy credits" });
+  if (e && e.status === 402) toast(e.message, "err", { href: (e.body && e.body.topup_url) || "/credits?pack=standard", label: "Buy credits" });
   else toast(e.message, "err");
 }
 const cur = () => S.byId[S.current];

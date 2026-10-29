@@ -43,6 +43,7 @@
   const FREE_TOPUP_CREDITS = 30;
   const FREE_TOPUP_FREQUENCY = "at most three times a month";
   const TOPUP_URL = "/credits";
+  const SUGGESTED_TOPUP_URL = "/credits?pack=standard";
 
   const MAX_FACES = 64; // upper bound for the refFiles array; the actual
                         // limit is whatever the backend reports per request
@@ -178,6 +179,7 @@
       if (typeof body.available === "number") setCredits(body.available);
       const err = new Error(body.detail || "You are out of credits.");
       err.needsTopUp = true;
+      err.topUpUrl = body.topup_url;
       return err;
     }
     if (res.status === 401) {
@@ -317,7 +319,8 @@
     actionHint.append("Error: " + err.message + " ");
     if (err.needsTopUp) {
       const link = document.createElement("a");
-      link.href = TOPUP_URL;
+      // The pack the server's message recommends, or the $20 one when the page itself found the shortfall.
+      link.href = err.topUpUrl || SUGGESTED_TOPUP_URL;
       link.textContent = "Buy credits";
       actionHint.append(link);
     } else if (err.needsSignIn) {

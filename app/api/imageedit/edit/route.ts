@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 
 import { privateJson, provisionCredits } from "@/lib/facestudio-gate";
+import { suggestPack, suggestionSentence, topUpPath } from "@/lib/credit-packs";
 import { upstreamString } from "@/lib/facestudio-server";
 import {
   attachJobToHold,
@@ -162,9 +163,9 @@ export async function POST(request: NextRequest) {
         detail:
           jobs.length > 0
             ? `Started ${jobs.length} of ${n}; each edit costs ${IMAGEEDIT_CREDITS_PER_EDIT} credits and you have ${hold.available} left.`
-            : `An edit costs ${IMAGEEDIT_CREDITS_PER_EDIT} credits and you have ${hold.available}. Buy credits to keep editing.`,
+            : `An edit costs ${IMAGEEDIT_CREDITS_PER_EDIT} credits and you have ${hold.available}. Buy credits to keep editing: ${suggestionSentence()}`,
         status: 402,
-        extra: { reason: "insufficient_credits", required: IMAGEEDIT_CREDITS_PER_EDIT, available: hold.available, topup_url: "/credits" },
+        extra: { reason: "insufficient_credits", required: IMAGEEDIT_CREDITS_PER_EDIT, available: hold.available, suggested_pack: suggestPack(0).id, topup_url: topUpPath(suggestPack(0)) },
       };
       break;
     }

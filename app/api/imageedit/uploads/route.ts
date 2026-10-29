@@ -1,4 +1,5 @@
 import { privateJson, provisionCredits } from "@/lib/facestudio-gate";
+import { suggestPack, suggestionSentence, topUpPath } from "@/lib/credit-packs";
 import {
   currentUserId,
   isImageEditConfigured,
@@ -46,11 +47,12 @@ export async function POST() {
   if (available < IMAGEEDIT_CREDITS_PER_EDIT) {
     return privateJson(
       {
-        detail: `An edit costs ${IMAGEEDIT_CREDITS_PER_EDIT} credits and you have ${available}. Buy credits to keep editing.`,
+        detail: `An edit costs ${IMAGEEDIT_CREDITS_PER_EDIT} credits and you have ${available}. Buy credits to keep editing: ${suggestionSentence()}`,
         reason: "insufficient_credits",
         required: IMAGEEDIT_CREDITS_PER_EDIT,
         available,
-        topup_url: "/credits",
+        suggested_pack: suggestPack(0).id,
+        topup_url: topUpPath(suggestPack(0)),
       },
       402
     );

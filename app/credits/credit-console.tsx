@@ -123,22 +123,31 @@ function PackCard({
   pack,
   disabled,
   onSelect,
+  recommended,
 }: {
   pack: CreditPack;
   disabled: boolean;
   onSelect: (pack: CreditPack) => void;
+  /** The pack a tool's "not enough credits" message pointed to. */
+  recommended: boolean;
 }) {
   const bonus = bonusPercent(pack);
+  const marked = recommended || pack.highlight;
 
   return (
     <div
+      id={recommended ? "recommended-pack" : undefined}
       className={`relative flex flex-col rounded-2xl p-6 ${
-        pack.highlight ? "glass-strong ring-1 ring-primary/40" : "glass"
+        recommended
+          ? "glass-strong ring-2 ring-primary"
+          : pack.highlight
+            ? "glass-strong ring-1 ring-primary/40"
+            : "glass"
       }`}
     >
-      {pack.highlight && (
+      {marked && (
         <span className="absolute -top-2.5 left-6 rounded-full bg-primary px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary-foreground">
-          Most popular
+          {recommended ? "Recommended for you" : "Most popular"}
         </span>
       )}
       <div className="flex items-baseline justify-between">
@@ -161,7 +170,7 @@ function PackCard({
         type="button"
         disabled={disabled}
         onClick={() => onSelect(pack)}
-        variant={pack.highlight ? "default" : "outline"}
+        variant={marked ? "default" : "outline"}
         className="mt-5 rounded-full"
       >
         Buy credits
@@ -216,9 +225,11 @@ function Statement({ entries }: { entries: CreditLedgerEntry[] }) {
 export function CreditConsole({
   account: initialAccount,
   initialLedger,
+  recommendedPackId,
 }: {
   account: CreditAccountState;
   initialLedger: CreditLedgerEntry[];
+  recommendedPackId?: string;
 }) {
   const router = useRouter();
   const [account, setAccount] = useState(initialAccount);
@@ -291,6 +302,12 @@ export function CreditConsole({
     };
   }, [refresh, router]);
 
+  // Arriving from a "not enough credits" link: bring the recommended pack into view (it is below the fold on a phone).
+  useEffect(() => {
+    if (!recommendedPackId) return;
+    document.getElementById("recommended-pack")?.scrollIntoView({ block: "center", behavior: "smooth" });
+  }, [recommendedPackId]);
+
   const fetchClientSecret = useCallback(async () => {
     if (!selectedPack) throw new Error("No pack selected");
     try {
@@ -354,6 +371,7 @@ export function CreditConsole({
                 pack={pack}
                 disabled={confirming}
                 onSelect={setSelectedPack}
+                recommended={pack.id === recommendedPackId}
               />
             ))}
           </div>

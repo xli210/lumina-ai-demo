@@ -14,6 +14,7 @@ import {
   releaseHold,
 } from "@/lib/credits-server";
 import { needsWatermark, watermarkEnabled } from "@/lib/facestudio-watermark";
+import { suggestPack, suggestionSentence, topUpPath } from "@/lib/credit-packs";
 import {
   FACESTUDIO_HOLD_TTL_SECONDS,
   FACESTUDIO_MAX_FACES,
@@ -250,18 +251,21 @@ export async function POST(req: NextRequest) {
   }
 
   if (!hold.ok || !hold.hold_id) {
+    const shortfall = hold.shortfall ?? price - hold.available;
+    const pack = suggestPack(shortfall);
     return privateJson(
       {
         detail:
           `Swapping ${faceCount} face${faceCount === 1 ? "" : "s"} costs ` +
           `${price} credits and you have ${hold.available}. Swap fewer faces, ` +
-          `or buy credits. Free credits are topped up to ${FREE_TOPUP_CREDITS}, ` +
+          `or buy credits: ${suggestionSentence(shortfall)} Free credits are topped up to ${FREE_TOPUP_CREDITS}, ` +
           `${FREE_TOPUP_FREQUENCY}.`,
         reason: "insufficient_credits",
         required: price,
         available: hold.available,
-        shortfall: hold.shortfall ?? price - hold.available,
-        topup_url: "/credits",
+        shortfall,
+        suggested_pack: pack.id,
+        topup_url: topUpPath(pack),
       },
       402
     );

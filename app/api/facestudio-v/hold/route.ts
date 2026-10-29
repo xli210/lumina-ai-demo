@@ -9,6 +9,7 @@ import {
 } from "@/lib/facestudio-v-server";
 import { signEntitlement } from "@/lib/facestudio-v-entitlement";
 import { FACESTUDIO_V_MODES, FACESTUDIO_V_SERVICE, facestudioVIsOpen } from "@/lib/facestudio-v";
+import { suggestPack, suggestionSentence, topUpPath } from "@/lib/credit-packs";
 import { authenticate, preflight, readJson, reply } from "../_shared";
 
 export const dynamic = "force-dynamic";
@@ -67,13 +68,18 @@ export async function POST(request: Request) {
       estimate: { credits, ...(typeof body?.mode === "string" && Object.prototype.hasOwnProperty.call(FACESTUDIO_V_MODES, body.mode) ? { mode: body.mode } : {}) },
     });
     if (!hold.ok || !hold.hold_id) {
+      const shortfall = hold.shortfall ?? Math.max(0, credits - hold.available);
+      const pack = suggestPack(shortfall);
+      // The studio is on another origin and shows `error` as it is, so the link is spelled out in it.
       return reply(
         request,
         {
-          error: `You need ${credits} credits for this video and have ${hold.available}.`,
+          error: `You need ${credits} credits for this video and have ${hold.available}. ${suggestionSentence(shortfall)} Top up at nanopocket.ai${topUpPath(pack)}`,
           reason: "insufficient_credits",
-          shortfall: hold.shortfall ?? Math.max(0, credits - hold.available),
+          shortfall,
           available: hold.available,
+          suggested_pack: pack.id,
+          topup_url: `https://nanopocket.ai${topUpPath(pack)}`,
         },
         402
       );

@@ -257,6 +257,9 @@ export interface FaceStudioInsufficientCredits {
   required: number;
   available: number;
   shortfall: number;
+  /** Id of the pack the message recommends (`suggestPack` in lib/credit-packs.ts). */
+  suggested_pack: string;
+  /** The credits page with that pack marked. */
   topup_url: string;
 }
 

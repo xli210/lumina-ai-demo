@@ -46,7 +46,7 @@ async function paidCheckout(sessionId: string | undefined, userId: string) {
 export default async function CreditsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ session_id?: string }>;
+  searchParams: Promise<{ session_id?: string; pack?: string }>;
 }) {
   const supabase = await createClient();
   const {
@@ -69,7 +69,10 @@ export default async function CreditsPage({
     claim === "blocked_ip" || claim === "blocked_device"
       ? claim
       : null;
-  const purchase = await paidCheckout((await searchParams).session_id, user.id);
+  const params = await searchParams;
+  const purchase = await paidCheckout(params.session_id, user.id);
+  // Set by a tool's "not enough credits" link: the pack its message recommended.
+  const recommended = findCreditPack(params.pack)?.id;
 
   return (
     <main className="relative min-h-screen">
@@ -95,7 +98,7 @@ export default async function CreditsPage({
             </p>
           </div>
         )}
-        <CreditConsole account={account} initialLedger={ledger} />
+        <CreditConsole account={account} initialLedger={ledger} recommendedPackId={recommended} />
         <div className="mt-8 rounded-2xl border border-border bg-card/40 p-5">
           <p className="text-sm font-semibold text-foreground">Prefer not to spend credits at all?</p>
           <p className="mt-1 text-sm text-muted-foreground">

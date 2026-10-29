@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 
 import { provisionCredits } from "@/lib/facestudio-gate";
 import { countOpenHolds, hasEverPurchased, holdCredits } from "@/lib/credits-server";
+import { suggestPack, suggestionSentence, topUpPath } from "@/lib/credit-packs";
 import {
   HEADSWAP_PRO_HOLD_TTL_SECONDS,
   HEADSWAP_PRO_MAX_OPEN,
@@ -76,14 +77,17 @@ export async function POST(req: NextRequest) {
       estimate: { mode: "headswap-pro", variations: images, watermark: !paid, price_version: 1 },
     });
     if (!hold.ok || !hold.hold_id) {
+      const shortfall = hold.shortfall ?? Math.max(0, price - hold.available);
+      const pack = suggestPack(shortfall);
       return privateJson(
         {
-          detail: `You need ${price} credits for ${images === 1 ? "this image" : `these ${images} images`} and have ${hold.available}.`,
+          detail: `You need ${price} credits for ${images === 1 ? "this image" : `these ${images} images`} and have ${hold.available}. ${suggestionSentence(shortfall)}`,
           reason: "insufficient_credits",
           required: price,
           available: hold.available,
-          shortfall: hold.shortfall ?? Math.max(0, price - hold.available),
-          topup_url: "/credits",
+          shortfall,
+          suggested_pack: pack.id,
+          topup_url: topUpPath(pack),
         },
         402
       );

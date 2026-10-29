@@ -16,6 +16,7 @@ import {
   FREE_TOPUP_LIMITS,
   isFaceStudioJobId,
 } from "@/lib/facestudio";
+import { suggestPack, suggestionSentence, topUpPath } from "@/lib/credit-packs";
 import { todayUtc } from "@/lib/demo-quota";
 import type { CreditAccountState } from "@/lib/credits";
 
@@ -132,13 +133,14 @@ export async function requireSpendableBalance(): Promise<FaceStudioGate> {
       response: privateJson(
         {
           detail:
-            `You have used your free credits. Buy credits to keep going; free ` +
+            `You have used your free credits. Buy credits to keep going: ${suggestionSentence()} Free ` +
             `credits are topped up to ${FREE_TOPUP_CREDITS}, ${FREE_TOPUP_FREQUENCY}.`,
           reason: "insufficient_credits",
           required: DETECT_MIN_BALANCE,
           available: account.available,
           shortfall: DETECT_MIN_BALANCE - account.available,
-          topup_url: "/credits",
+          suggested_pack: suggestPack(0).id,
+          topup_url: topUpPath(suggestPack(0)),
         },
         402
       ),
