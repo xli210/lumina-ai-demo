@@ -145,6 +145,23 @@ export function WhatsNewBar() {
     return () => ro.disconnect();
   }, [visible]);
 
+  // The bar is fixed under the navbar, so it publishes its height as --whats-new-h for the hero to
+  // leave room for; without it the bar covers the top of the hero video on phones.
+  const barRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const bar = barRef.current;
+    if (!visible || !bar) return;
+    const root = document.documentElement;
+    const publish = () => root.style.setProperty("--whats-new-h", `${bar.offsetHeight}px`);
+    publish();
+    const ro = new ResizeObserver(publish);
+    ro.observe(bar);
+    return () => {
+      ro.disconnect();
+      root.style.removeProperty("--whats-new-h");
+    };
+  }, [visible]);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     const dismissed = window.localStorage.getItem(STORAGE_KEY);
@@ -177,7 +194,7 @@ export function WhatsNewBar() {
   const shown = scrolling ? [...items, ...items] : items;
 
   return (
-    <div className="fixed left-0 right-0 top-14 z-40 border-b border-neutral-200 bg-white sm:top-16">
+    <div ref={barRef} className="fixed left-0 right-0 top-14 z-40 border-b border-neutral-200 bg-white sm:top-16">
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-1.5 sm:px-6 sm:py-2">
         <div className="hidden shrink-0 items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-neutral-500 sm:flex">
           <Sparkles className="h-3 w-3 text-amber-500" />

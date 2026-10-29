@@ -157,6 +157,8 @@ export function HeroSection() {
       ref={heroRef}
       className="relative flex flex-col items-center overflow-hidden pt-16 sm:pt-20"
     >
+      {/* Room for the What's new bar, which is fixed under the navbar while it is shown. */}
+      <div aria-hidden className="w-full shrink-0" style={{ height: "var(--whats-new-h, 0px)" }} />
       <div
         className="relative z-10 w-full opacity-0 animate-fade-in"
         style={{ animationDelay: "0.1s" }}
@@ -246,9 +248,9 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* HeadSwap Pro: the launch film plays full width, so the call to action is a small card in the top-left corner, where it is on screen whatever the window height. */}
+          {/* HeadSwap Pro: the launch film plays full width, so the call to action is a small card in the top-left corner, where it is on screen whatever the window height. On phones the card would cover most of the film, so they get the button below instead. */}
           <div
-            className="pointer-events-none absolute left-3 top-3 flex max-w-[calc(100%-1.5rem)] transition-opacity duration-1000 sm:left-8 sm:top-8"
+            className="pointer-events-none absolute left-8 top-8 hidden max-w-[calc(100%-4rem)] transition-opacity duration-1000 sm:flex"
             style={{ opacity: feature === "headswap-pro" ? 1 : 0 }}
             aria-hidden={feature !== "headswap-pro"}
           >
@@ -277,6 +279,25 @@ export function HeroSection() {
                 </Link>
               </div>
             </div>
+          </div>
+
+          {/* Phones: one small button in the bottom-left corner, above the slide dots. */}
+          <div
+            className="absolute bottom-7 left-3 transition-opacity duration-1000 sm:hidden"
+            style={{ opacity: feature === "headswap-pro" ? 1 : 0, pointerEvents: feature === "headswap-pro" ? "auto" : "none" }}
+            aria-hidden={feature !== "headswap-pro"}
+          >
+            <Link
+              href="/headswap-pro/index.html"
+              tabIndex={feature === "headswap-pro" ? 0 : -1}
+              className="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-xs font-semibold text-black shadow-lg"
+            >
+              <span className="rounded-full bg-sky-500 px-1.5 py-0.5 text-[9px] font-bold uppercase leading-none tracking-wide text-white">
+                New
+              </span>
+              Try {HEADSWAP_PRO_NAME}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
 
           <div
