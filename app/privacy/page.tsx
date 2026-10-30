@@ -72,7 +72,7 @@ const DATA_CATEGORIES: DataCategory[] = [
   {
     category: "Online demo content",
     items:
-      "Source images and videos uploaded to the Nano FaceStudio Online and Video FaceSwap Pro online demos.",
+      "Source images and videos uploaded to the online tools: Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap Online and Nano ImageEdit 2.0 Online.",
     purpose:
       "Process the swap or generation request and return the result to the same browser session.",
     basis: "Consent (the user actively uploads).",
@@ -392,8 +392,9 @@ export default function PrivacyPage() {
             4. Online demo handling — what happens to uploaded faces
           </h2>
           <p className="mb-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
-            The Nano FaceStudio Online and Video FaceSwap Pro online demos are the only NanoPocket
-            surfaces that receive user-uploaded face content. We treat that content as follows:
+            The online tools (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap Online and
+            Nano ImageEdit 2.0 Online) are the only NanoPocket surfaces that receive user-uploaded
+            face content. We treat that content as follows:
           </p>
           <ul className="space-y-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
             <li>

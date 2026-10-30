@@ -154,7 +154,7 @@ interface ModelComponent {
 const MODEL_PROVENANCE: ModelComponent[] = [
   {
     category: "Identity (face)",
-    product: "Nano FaceStudio Online / Nano FaceStudio Pro 1.0 / Video FaceSwap Pro",
+    product: "Nano FaceStudio Online / Nano FaceStudio Pro 1.0 / Video FaceSwap Online",
     upstream: "InstantX / InstantID",
     upstreamUrl: "https://huggingface.co/InstantX/InstantID",
     license: "Apache-2.0 (model card terms)",
@@ -280,9 +280,9 @@ const NETWORK_ASSERTIONS: NetworkAssertion[] = [
     exception: "Same activation + update check exceptions as above.",
   },
   {
-    product: "Image / Video FaceSwap Pro online demos",
+    product: "Online tools (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap Online, Nano ImageEdit 2.0 Online)",
     expected:
-      "Outbound HTTPS to the Cloudflare demo tunnel is required by design — these are explicitly online services, not local ones.",
+      "Outbound HTTPS to NanoPocket's hosted GPUs is required by design — these are explicitly online services, not local ones.",
     exception: "n/a — this is the contract.",
   },
 ];

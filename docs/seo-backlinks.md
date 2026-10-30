@@ -68,3 +68,63 @@ Post: Most AI photo editors regenerate the whole picture. Ours keeps everything 
 identical for object edits (remove, replace, add, change text) and shows how much of the image
 changed, so you can check it yourself. Browser-based, paid per edit, no subscription:
 https://nanopocket.ai/image-edit
+
+## 2026-10-30 update: lead with "free to start", list all four online tools
+
+Still nothing posted on anyone's behalf: every listing below needs the owner's own account.
+Each claim here is true on 2026-10-30 and comes from the billing constants (lib/credits.ts,
+lib/facestudio.ts): 100 free credits on sign-up (10 photo face swaps), free top-ups to 30
+credits at most three times a month, no card, no subscription. Results from accounts that
+have never bought credits carry a watermark; photo edits never do. Never write "unlimited",
+"no watermark" (for swaps) or "free forever" for the online tools.
+
+### Owner checklist, in order of value
+
+1. Bing Webmaster Tools: sign in at https://www.bing.com/webmasters, choose "Import from
+   Google Search Console" (one click, verifies the site and imports the sitemaps). ChatGPT
+   search, Copilot and DuckDuckGo read Bing's index. `public/BingSiteAuth.xml` is already live
+   if you prefer file verification.
+2. Product Hunt launch of Video FaceSwap Online (Tuesday to Thursday, 00:01 PT).
+3. AlternativeTo: add NanoPocket as an alternative to Reface, DeepSwap, FaceFusion, Akool.
+4. AI directories (check each one's current price before paying): There's An AI For That,
+   Futurepedia, Toolify, TopAI.tools, FutureTools, SaaSHub, AI Valley.
+5. Chinese: V2EX 「分享创造」, 少数派 Matrix, 知乎回答 ("有哪些好用的 AI 换脸工具"), 小红书 and
+   Bilibili with a before/after clip from /video-face-swap-examples, 即刻.
+6. Reddit r/SideProject and r/StableDiffusion (read each sub's self-promotion rule first),
+   Hacker News "Show HN" for the hard-footage test results page.
+
+### Listing fields (paste as is)
+
+- Name: NanoPocket
+- Tagline (<= 60): AI face swap for photos and video, free to start
+- Category: AI image editing / AI video / face swap
+- Pricing model: Freemium (free credits on sign-up, then pay per use; no subscription)
+- Website: https://nanopocket.ai/face-swap
+- Main link for video: https://nanopocket.ai/facestudio-v
+- Examples: https://nanopocket.ai/video-face-swap-examples
+- Images: https://nanopocket.ai/images/facestudio-v/og-facestudio-v.jpg,
+  https://nanopocket.ai/images/face-studio/group-after.jpg
+
+Short description (<= 160):
+Swap a face or a whole head in a video or a group photo, in your browser. 100 free credits on
+sign-up, no card, no install, no subscription.
+
+Long description:
+NanoPocket makes AI face swap tools that run in the browser. Video FaceSwap Online replaces
+one person's face, or their whole head, in a video and keeps everyone else and the sound as
+filmed; it is built for hard footage such as profile turns and hands over the face. Nano
+FaceStudio Online swaps up to six faces in one photo and keeps the hair, hands and glasses that
+cross a face. Nano HeadSwap Pro puts a whole new head into a photo, and Nano ImageEdit 2.0
+Online edits a photo by describing the change. New accounts get 100 free credits (10 photo face
+swaps), with free top-ups after that; then every tool is paid per use in credits that never
+expire. Swaps from accounts that have never bought credits carry a watermark.
+
+### Chinese listing (中文)
+
+- 一句话:在线 AI 换脸,照片、合影、视频都能换,注册送免费积分。
+- 简介:NanoPocket 是在浏览器里用的 AI 换脸工具。Video FaceSwap Online 只替换视频里你选的那个人
+  (脸或整个头),其他人和原声保持不变,侧脸转头、手挡脸也能换;Nano FaceStudio Online 一张合影最多
+  同时换 6 张脸;Nano HeadSwap Pro 换整个头;Nano ImageEdit 2.0 Online 用文字描述来修图。注册即送
+  100 积分(约 10 次照片换脸),无需信用卡、无需安装、无需订阅;之后按积分付费,积分永不过期。从未
+  充值的账号换脸结果带水印,充值一次即去除。
+- 链接:https://nanopocket.ai/zh-CN

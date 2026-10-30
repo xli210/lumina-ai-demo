@@ -19,6 +19,7 @@ import {
   PERFORMANCE,
 } from "@/lib/face-studio-facts";
 import { FACESTUDIO_MAX_FACES, FREE_TOPUP_CREDITS, FREE_TOPUP_FREQUENCY } from "@/lib/facestudio";
+import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACE_STUDIO_OG, SHOWCASE, SHOWCASE_IMAGES, type ShowImage } from "@/lib/face-studio-showcase";
 
 /**
@@ -39,8 +40,8 @@ const CONSOLE_URL = "/face-studio/launch";
 const abs = (path: string) => `https://nanopocket.ai${path}`;
 
 // The site template appends " | NanoPocket", so this stays short.
-const TITLE = "Nano FaceStudio: Face Swap That Keeps Hair & Hands";
-const DESCRIPTION = `Swap up to ${FACESTUDIO_MAX_FACES} faces in one photo, or a whole head, and keep the hair, hands, glasses and jewellery that cross the face. Full resolution; a top-up removes the watermark. ${FACE_SWAP_CREDITS} credits per face, ${FREE_ALLOWANCE_SHORT}, no subscription.`;
+const TITLE = `Free Group Photo Face Swap Online: Up to ${FACESTUDIO_MAX_FACES} Faces`;
+const DESCRIPTION = `Free to start: ${SIGNUP_GRANT_CREDITS} credits on sign-up cover ${Math.floor(SIGNUP_GRANT_CREDITS / FACE_SWAP_CREDITS)} face swaps. Swap up to ${FACESTUDIO_MAX_FACES} faces in one photo, or a whole head, and keep the hair, hands, glasses and jewellery that cross the face. Full resolution; a top-up removes the watermark. ${FACE_SWAP_CREDITS} credits per face, ${FREE_ALLOWANCE_SHORT}, no subscription.`;
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -158,9 +158,10 @@ export default function TermsPage() {
         </Section>
 
         <Section id="demos" title="3. Online demos">
-          The Nano FaceStudio Online and Video FaceSwap Pro online demos are provided free for
-          every signed-in NanoPocket account. They are best-effort, rate-limited services with no
-          uptime SLA. The user retains all rights to demo outputs, subject to the Acceptable Use
+          The online tools (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap Online and
+          Nano ImageEdit 2.0 Online) are available to every signed-in NanoPocket account. New
+          accounts receive free credits; beyond them, use is paid in prepaid credits as described
+          on the Pricing page. They are best-effort, rate-limited services with no uptime SLA. The user retains all rights to demo outputs, subject to the Acceptable Use
           policy below. Source content is processed in volatile memory and discarded as described
           in the{" "}
           <Link

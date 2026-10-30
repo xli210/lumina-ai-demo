@@ -1,4 +1,8 @@
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE as CREDITS, HEADSWAP_PRO_MAX_VARIATIONS as MAX, HEADSWAP_PRO_NAME as NAME } from "@/lib/headswap-pro";
+import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
+
+/** Head swaps the sign-up grant pays for, quoted in the meta descriptions. */
+const FREE_HEADS = Math.floor(SIGNUP_GRANT_CREDITS / CREDITS);
 
 /**
  * Every word on the HeadSwap Pro launch page, in each language it is published in. The page layout lives once,
@@ -80,9 +84,9 @@ export interface HsCopy {
 }
 
 const en: HsCopy = {
-  metaTitle: `${NAME}: Put Any Head in Any Photo`,
+  metaTitle: `AI Head Swap Online, Free to Start: ${NAME}`,
   metaDescription:
-    "Swap the whole head in a portrait or a group photo: face, hair and head shape come from the new head, and the body, the pose and everyone else stay exactly as they were. Up to 4 variations at a time.",
+    `Swap the whole head in a portrait or a group photo: face, hair and head shape come from the new head, and the body, the pose and everyone else stay exactly as they were. Up to ${MAX} variations at a time. ${SIGNUP_GRANT_CREDITS} free credits on sign-up cover ${FREE_HEADS} head swaps.`,
   tagline: "Starring you.",
   kicker: "A NanoPocket original",
   heroLine: "Put any head in any photo, portrait or group shot. The new face, the new hair, the same scene.",
@@ -192,8 +196,8 @@ const en: HsCopy = {
 };
 
 const zhCN: HsCopy = {
-  metaTitle: `${NAME}:AI 换头,把新的头换进任何照片`,
-  metaDescription: `在线 AI 换头:脸、发型和头型都来自新头,身体、姿势和照片里的其他人保持原样。合影里可以只换一个人,侧脸、仰拍等大角度也能换,一次最多 ${MAX} 个结果。每张 ${CREDITS} 积分,新用户送免费积分。`,
+  metaTitle: `AI 换头在线免费试用:${NAME},把新的头换进任何照片`,
+  metaDescription: `在线 AI 换头:脸、发型和头型都来自新头,身体、姿势和照片里的其他人保持原样。合影里可以只换一个人,侧脸、仰拍等大角度也能换,一次最多 ${MAX} 个结果。每张 ${CREDITS} 积分,新用户注册送 ${SIGNUP_GRANT_CREDITS} 积分,可免费换 ${FREE_HEADS} 张。`,
   tagline: "主角,就是你。",
   kicker: "NanoPocket 原创出品",
   heroLine: "把新的头换进任何照片,单人照或合影都可以。新的脸、新的发型,同一个场景。",
@@ -301,7 +305,7 @@ const zhCN: HsCopy = {
 };
 
 const ja: HsCopy = {
-  metaTitle: `${NAME}:AIヘッドスワップ、どんな写真にも新しい頭を`,
+  metaTitle: `無料で試せるAIヘッドスワップ:${NAME}`,
   metaDescription: `オンラインで頭ごと入れ替えるAIヘッドスワップ。顔・髪型・頭の形が新しくなり、体やポーズ、写真のほかの人はそのまま。集合写真で一人だけ、横顔やあおりなど急な角度にも対応し、一度に最大${MAX}パターン。1枚${CREDITS}クレジット、新規アカウントには無料クレジット付き。`,
   tagline: "主役は、あなた。",
   kicker: "NanoPocket オリジナル",

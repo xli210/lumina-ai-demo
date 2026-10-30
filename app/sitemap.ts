@@ -3,6 +3,7 @@ import { BLOG_POSTS } from "@/lib/blog-posts";
 import { ZH_GUIDES, zhGuideFor } from "@/lib/zh-guides";
 import { appReleases } from "@/lib/release-data";
 import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
+import { VIDEO_EXAMPLES, VIDEO_EXAMPLES_PATH, videoExamplePath } from "@/lib/video-examples";
 
 const BASE = "https://nanopocket.ai";
 
@@ -70,17 +71,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // "Try online" button on the site — now lands on it.
     {
       url: `${BASE}/face-studio`,
-      lastModified: new Date("2026-10-06"),
+      lastModified: new Date("2026-10-30"),
       changeFrequency: "weekly",
       priority: 0.95,
     },
     // Nano ImageEdit 2.0 Online landing page; the editor itself is auth-gated.
-    { url: `${BASE}/image-edit`, lastModified: new Date("2026-10-05"), changeFrequency: "weekly", priority: 0.95 },
+    { url: `${BASE}/image-edit`, lastModified: new Date("2026-10-30"), changeFrequency: "weekly", priority: 0.95 },
     // Video FaceSwap Online 1.1.0: the public page of the release (its studio is behind sign-in).
-    { url: `${BASE}/headswap-pro`, lastModified: new Date("2026-10-28"), changeFrequency: "weekly", priority: 0.9, alternates: { languages: { en: `${BASE}/headswap-pro`, "zh-CN": `${BASE}/zh-CN/headswap-pro`, ja: `${BASE}/ja/headswap-pro`, "x-default": `${BASE}/headswap-pro` } } },
-    { url: `${BASE}/zh-CN/headswap-pro`, lastModified: new Date("2026-10-28"), changeFrequency: "weekly", priority: 0.8, alternates: { languages: { en: `${BASE}/headswap-pro`, "zh-CN": `${BASE}/zh-CN/headswap-pro`, ja: `${BASE}/ja/headswap-pro`, "x-default": `${BASE}/headswap-pro` } } },
-    { url: `${BASE}/ja/headswap-pro`, lastModified: new Date("2026-10-28"), changeFrequency: "weekly", priority: 0.8, alternates: { languages: { en: `${BASE}/headswap-pro`, "zh-CN": `${BASE}/zh-CN/headswap-pro`, ja: `${BASE}/ja/headswap-pro`, "x-default": `${BASE}/headswap-pro` } } },
+    { url: `${BASE}/headswap-pro`, lastModified: new Date("2026-10-30"), changeFrequency: "weekly", priority: 0.9, alternates: { languages: { en: `${BASE}/headswap-pro`, "zh-CN": `${BASE}/zh-CN/headswap-pro`, ja: `${BASE}/ja/headswap-pro`, "x-default": `${BASE}/headswap-pro` } } },
+    { url: `${BASE}/zh-CN/headswap-pro`, lastModified: new Date("2026-10-30"), changeFrequency: "weekly", priority: 0.8, alternates: { languages: { en: `${BASE}/headswap-pro`, "zh-CN": `${BASE}/zh-CN/headswap-pro`, ja: `${BASE}/ja/headswap-pro`, "x-default": `${BASE}/headswap-pro` } } },
+    { url: `${BASE}/ja/headswap-pro`, lastModified: new Date("2026-10-30"), changeFrequency: "weekly", priority: 0.8, alternates: { languages: { en: `${BASE}/headswap-pro`, "zh-CN": `${BASE}/zh-CN/headswap-pro`, ja: `${BASE}/ja/headswap-pro`, "x-default": `${BASE}/headswap-pro` } } },
     { url: `${BASE}/facestudio-v`, lastModified: new Date("2026-10-30"), changeFrequency: "daily", priority: 0.95 },
+    // One watch page per example clip, so Google can index the videos (see lib/video-examples.ts).
+    { url: `${BASE}${VIDEO_EXAMPLES_PATH}`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly", priority: 0.8 },
+    ...VIDEO_EXAMPLES.map((v) => ({ url: `${BASE}${videoExamplePath(v)}`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly" as const, priority: 0.6 })),
     // The catalogue of desktop apps and the index of release notes: the parents of the per-app pages.
     { url: `${BASE}/apps`, lastModified: new Date("2026-10-21"), changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE}/video-face-swap-test-results`, lastModified: new Date("2026-10-24"), changeFrequency: "monthly", priority: 0.75 },
@@ -154,7 +158,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/compare/nanopocket-vs-nano-banana`, lastModified: new Date("2026-06-02"), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/about`, lastModified: new Date("2026-06-02"), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/trust`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly", priority: 0.85 },
-    { url: `${BASE}/verify`, lastModified: new Date("2026-05-29"), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/verify`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/community`, lastModified: new Date("2026-05-29"), changeFrequency: "weekly", priority: 0.75 },
     { url: `${BASE}/docs`, lastModified: new Date("2026-06-04"), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/docs/face-swap-pipeline`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly", priority: 0.9 },
@@ -170,9 +174,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     },
-    { url: `${BASE}/privacy`, lastModified: new Date("2026-05-29"), changeFrequency: "yearly", priority: 0.7 },
-    { url: `${BASE}/terms`, lastModified: new Date("2026-05-29"), changeFrequency: "yearly", priority: 0.7 },
-    { url: `${BASE}/security`, lastModified: new Date("2026-05-29"), changeFrequency: "yearly", priority: 0.7 },
+    { url: `${BASE}/privacy`, lastModified: new Date("2026-10-30"), changeFrequency: "yearly", priority: 0.7 },
+    { url: `${BASE}/terms`, lastModified: new Date("2026-10-30"), changeFrequency: "yearly", priority: 0.7 },
+    { url: `${BASE}/security`, lastModified: new Date("2026-10-30"), changeFrequency: "yearly", priority: 0.7 },
     { url: `${BASE}/contact`, lastModified: new Date("2026-03-19"), changeFrequency: "monthly", priority: 0.6 },
   ];
 }

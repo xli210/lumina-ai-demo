@@ -7,8 +7,12 @@
 // nineteen real before/after clips. The same clips are also described on the page as
 // VideoObject structured data (public/facestudio-v/index.html). Both are generated from
 // lib/facestudio-v-videos.ts, so the sitemap, the markup and the page agree.
+//
+// Google indexes a video only where it is the main content of the page, which on /facestudio-v
+// it is not, so each clip is also listed on its own watch page (lib/video-examples.ts).
 
-import { FACESTUDIO_V_VIDEOS } from "@/lib/facestudio-v-videos";
+import { FACESTUDIO_V_VIDEOS, type FacestudioVVideo } from "@/lib/facestudio-v-videos";
+import { VIDEO_EXAMPLES, videoExamplePath } from "@/lib/video-examples";
 
 const BASE = "https://nanopocket.ai";
 
@@ -18,26 +22,35 @@ const esc = (s: string) =>
 /** Google limits: title 100 characters, description 2048. */
 const clip = (s: string, n: number) => (s.length <= n ? s : `${s.slice(0, n - 1).trimEnd()}…`);
 
-function buildXml(): string {
-  const videos = FACESTUDIO_V_VIDEOS.map(
-    (v) => `    <video:video>
+function videoTag(v: FacestudioVVideo, description: string): string {
+  return `    <video:video>
       <video:thumbnail_loc>${esc(`${BASE}${v.thumbnailUrl}`)}</video:thumbnail_loc>
       <video:title>${esc(clip(`${v.title}: Video FaceSwap Online`, 100))}</video:title>
-      <video:description>${esc(clip(v.description, 2048))}</video:description>
+      <video:description>${esc(clip(description, 2048))}</video:description>
       <video:content_loc>${esc(`${BASE}${v.contentUrl}`)}</video:content_loc>
       <video:duration>${Math.max(1, Math.round(v.durationSeconds))}</video:duration>
       <video:publication_date>${v.uploadDate}</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
       <video:requires_subscription>no</video:requires_subscription>
-    </video:video>`
+    </video:video>`;
+}
+
+function buildXml(): string {
+  const productPage = FACESTUDIO_V_VIDEOS.map((v) => videoTag(v, v.description)).join("\n");
+  const watchPages = VIDEO_EXAMPLES.map(
+    (v) => `  <url>
+    <loc>${BASE}${videoExamplePath(v)}</loc>
+${videoTag(v, v.summary)}
+  </url>`
   ).join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>${BASE}/facestudio-v</loc>
-${videos}
+${productPage}
   </url>
+${watchPages}
 </urlset>
 `;
 }

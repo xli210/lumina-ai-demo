@@ -272,7 +272,7 @@ const TRUST_SUBPROCESSORS: SubprocessorRow[] = [
   },
   {
     name: "Cloudflare, Inc.",
-    purpose: "Online demo tunnels (Image / Video FaceSwap Pro).",
+    purpose: "Network tunnels to the GPU servers behind the online tools.",
     region: "Global edge.",
     policy: "https://www.cloudflare.com/privacypolicy/",
   },

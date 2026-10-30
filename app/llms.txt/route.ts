@@ -88,6 +88,11 @@ function buildLlmsTxt(): string {
       `${FACESTUDIO_V_TAGLINE} Built for hard footage: profile turns, hands and arms in front of the face, low light. Open to registered NanoPocket users; requests are queued, and each video is paid for in credits at a price shown before it starts; the free sign-up credits can cover a short first clip. A video from an account that has never topped up carries a moving watermark. The page and its fourteen example cases are public; opening the studio requires a free account.`,
     ),
     bullet(
+      "/video-face-swap-examples",
+      "Video face swap examples: real results, one page per clip",
+      "Nineteen real Video FaceSwap Online renders, each on its own page with the video: profile turns, a hand over the face, an arm sweeping past, low light, group selfies where only one person changes, and whole-head swaps.",
+    ),
+    bullet(
       "/video-face-swap-test-results",
       "Video face swap test results: method, numbers and limits",
       `What was measured on ${FACESTUDIO_V_NAME} ${FACESTUDIO_V_VERSION}: 74 swapped clips, five hard cases, a face-recognition model cosine similarity (0.65 against 0.08 before the swap, 0.36 being the usual same-person threshold), and what the test does not cover. Written by the maker, a first look rather than a benchmark, with no head-to-head against other tools.`,

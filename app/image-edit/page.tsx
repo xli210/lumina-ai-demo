@@ -18,6 +18,7 @@ import {
   IMAGE_EDIT_TOOLS,
   IMAGE_EDIT_URL,
   IMAGE_EDIT_WARM_SECONDS,
+  IMAGE_EDIT_WELCOME_CREDITS,
 } from "@/lib/image-edit-facts";
 import { IMAGE_EDIT_EXAMPLES, IMAGE_EDIT_OG } from "@/lib/image-edit-examples";
 import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
@@ -35,8 +36,8 @@ import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
 
 const LAUNCH = "/image-edit/launch";
 // The site template appends " | NanoPocket", so keep this short enough to survive it (~60 characters shown in results).
-const TITLE = `${IMAGE_EDIT_NAME}: AI Photo Editor by Prompt`;
-const DESCRIPTION = `Remove, replace or add objects, change text on signs, relight, change the season or restore old photos by describing the edit. Full-resolution PNG, the rest of the photo stays identical. ${IMAGE_EDIT_PRICE_CREDITS} credits per edit, no subscription.`;
+const TITLE = `Free AI Photo Editor Online by Text: ${IMAGE_EDIT_NAME}`;
+const DESCRIPTION = `Remove, replace or add objects, change text on signs, relight, change the season or restore old photos by describing the edit. Full-resolution PNG, the rest of the photo stays identical. ${IMAGE_EDIT_WELCOME_CREDITS} free credits on sign-up (${Math.floor(IMAGE_EDIT_WELCOME_CREDITS / IMAGE_EDIT_PRICE_CREDITS)} edits), then ${IMAGE_EDIT_PRICE_CREDITS} credits per edit; no watermark, no subscription.`;
 
 export const metadata: Metadata = {
   title: TITLE,
