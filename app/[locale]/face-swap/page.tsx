@@ -17,13 +17,14 @@ import { OnlineToolCards } from "../online-tools";
 import {
   hreflangAlternates,
   isAppLocale,
+  TRANSLATED_PAGES,
   type AppLocale,
 } from "@/lib/i18n/locales";
 import { notFound } from "next/navigation";
 
 const BASE_URL = "https://nanopocket.ai";
 const PATH = "/face-swap";
-const LAST_VERIFIED = "2026-10-28";
+const LAST_VERIFIED = "2026-10-30";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -43,7 +44,7 @@ export async function generateMetadata({
     description: t("description"),
     alternates: {
       canonical,
-      languages: hreflangAlternates(BASE_URL, PATH, ["zh-CN", "ja", "ko"]),
+      languages: hreflangAlternates(BASE_URL, PATH, TRANSLATED_PAGES[PATH]),
     },
     openGraph: {
       type: "website",

@@ -1,0 +1,183 @@
+{
+  "FaceSwap": {
+    "metadata": {
+      "title": "Face Swap IA en Ligne Gratuit : Échanger des Visages en Photo et Vidéo",
+      "description": "Échangez des visages avec l'IA directement dans le navigateur : face swap en photo (jusqu'à 6 visages par photo), échange de tête, face swap vidéo et retouche photo par texte. Crédits gratuits à l'inscription, puis paiement en crédits ; sans installation, sans abonnement et sans GPU.",
+      "ogTitle": "Face swap IA en ligne — dans votre navigateur",
+      "ogDescription": "Échange de visage en photo, échange de tête et face swap vidéo, tout dans le navigateur. Crédits gratuits à l'inscription, sans installation ni abonnement."
+    },
+    "hero": {
+      "kicker": "Outils en ligne — dans votre navigateur",
+      "headline": "Face swap IA en ligne, gratuit pour commencer. Sans installation, sans abonnement.",
+      "subhead": "Échange de visage en photo, échange de tête, face swap vidéo et retouche photo par texte, tout dans le navigateur. Un compte NanoPocket gratuit inclut des crédits gratuits ; ensuite, vous payez en crédits qui n'expirent jamais. Aucun GPU nécessaire.",
+      "lastVerifiedLabel": "Dernière vérification le",
+      "openSpeed": "Vous commencez quelques secondes après l'inscription",
+      "ctaPrimary": "Ouvrir le face swap photo",
+      "ctaSecondary": "Créer un compte gratuit"
+    },
+    "steps": {
+      "heading": "Comment ça marche",
+      "step1Title": "Créez un compte",
+      "step1Body": "Inscrivez-vous gratuitement sur NanoPocket avec votre e-mail ou Google. Les nouveaux comptes reçoivent automatiquement des crédits gratuits.",
+      "step2Title": "Choisissez un outil",
+      "step2Body": "Face swap photo, échange de tête, face swap vidéo ou retouche par texte. Chaque outil affiche son coût en crédits avant de commencer.",
+      "step3Title": "Importez et générez",
+      "step3Body": "Importez la photo ou la vidéo et une photo du nouveau visage ; le résultat arrive en quelques secondes. Si une tâche échoue, les crédits sont remboursés automatiquement."
+    },
+    "compare": {
+      "heading": "Comparaison avec les autres sites de face swap",
+      "intro": "Classé selon ce qui compte quand on veut échanger un visage aujourd'hui : mise en route, inscription, coût pour commencer et modèle d'identité utilisé.",
+      "colTool": "Outil",
+      "colSetup": "Mise en route",
+      "colSignup": "Inscription",
+      "colPricing": "Prix",
+      "colIdentity": "Modèle d'identité",
+      "colPrivacy": "Confidentialité",
+      "footnote": "Méthodologie complète et comparaisons directes sur",
+      "footnoteAnd": "et",
+      "rows": [
+        {
+          "tool": "Outils en ligne NanoPocket",
+          "setup": "Navigateur : ouvrir et utiliser",
+          "signup": "Compte NanoPocket gratuit (e-mail ou Google)",
+          "pricing": "Crédits gratuits à l'inscription, puis paiement en crédits, sans abonnement",
+          "identity": "Pile de diffusion ",
+          "privacy": "Traitement sur GPU cloud ; jamais utilisé pour entraîner des modèles"
+        },
+        {
+          "tool": "DeepSwap",
+          "setup": "Navigateur",
+          "signup": "Compte + paiement pour toutes les fonctions",
+          "pricing": "Essai gratuit puis abonnement",
+          "identity": "Pipeline GAN cloud (selon l'éditeur)",
+          "privacy": "Envoi dans le cloud"
+        },
+        {
+          "tool": "WaveSpeed AI (le face swap est une fonction de la suite)",
+          "setup": "Navigateur",
+          "signup": "Compte",
+          "pricing": "Crédits / formules d'abonnement",
+          "identity": "Suite IA multimodèle : le face swap n'est qu'une fonction",
+          "privacy": "Envoi dans le cloud"
+        },
+        {
+          "tool": "Magic Hour",
+          "setup": "Navigateur",
+          "signup": "Compte",
+          "pricing": "Crédits / formules d'abonnement",
+          "identity": "Pipeline cloud (selon l'éditeur)",
+          "privacy": "Envoi dans le cloud"
+        },
+        {
+          "tool": "Reface",
+          "setup": "App mobile (iOS / Android)",
+          "signup": "Compte ; filigrane sur l'offre gratuite",
+          "pricing": "Offre gratuite avec filigrane + abonnement",
+          "identity": "GAN optimisé pour mobile",
+          "privacy": "Envoi dans le cloud"
+        },
+        {
+          "tool": "Akool",
+          "setup": "Navigateur + API REST",
+          "signup": "Compte ; intégration B2B pour l'API",
+          "pricing": "Abonnement + facturation par appel API",
+          "identity": "Pipeline cloud (selon l'éditeur)",
+          "privacy": "Envoi dans le cloud"
+        }
+      ]
+    },
+    "diffusion": {
+      "heading": "Pourquoi les résultats sont meilleurs ici",
+      "p1": "La plupart des sites de face swap dans le cloud utilisent un modèle d'identité GAN (souvent InsightFace inswapper_128 ou un dérivé). C'est rapide et peu coûteux, mais les détails se perdent avec les angles difficiles, les occlusions et les petits visages. NanoPocket combine des modèles GAN et de diffusion, l'état de l'art en 2026 pour préserver l'identité.",
+      "p2": "La version bureau Nano FaceStudio Pro 1.0 utilise la même technologie d'identité, mais tourne entièrement sur votre propre GPU."
+    },
+    "offline": {
+      "heading": "Si vous voulez tout faire hors ligne",
+      "body": "Les outils en ligne couvrent presque tous les usages personnels et professionnels. Si votre travail exige zéro envoi dans le cloud (contenu réglementé ou projets sous NDA), la version bureau facultative exécute la même technologie sur votre propre GPU.",
+      "ctaDesktop": "Voir Nano FaceStudio Pro 1.0 (bureau)",
+      "ctaVerify": "Affirmations vérifiables"
+    },
+    "faq": {
+      "heading": "Questions fréquentes",
+      "items": [
+        {
+          "q": "Le face swap en ligne est-il gratuit ?",
+          "a": "Gratuit pour commencer. Les nouveaux comptes reçoivent des crédits gratuits à l'inscription (une fois par personne) ; ensuite, vous payez en crédits qui n'expirent jamais, sans abonnement. Chaque outil affiche son coût avant de commencer et les tâches échouées sont remboursées automatiquement. Les comptes qui n'ont jamais acheté de crédits reçoivent les résultats visage, tête et vidéo avec un filigrane ; un seul achat le supprime. Nano FaceSwap pour Windows est par ailleurs une application de bureau gratuite."
+        },
+        {
+          "q": "Faut-il un compte ?",
+          "a": "Oui, un compte NanoPocket gratuit avec e-mail ou Google. Le compte sert à attribuer les crédits gratuits et à éviter les abus. Inscription sur /auth/sign-up."
+        },
+        {
+          "q": "Faut-il un GPU ?",
+          "a": "Non. Les outils en ligne tournent sur les GPU cloud de NanoPocket ; n'importe quel appareil avec un navigateur récent suffit (portable, PC ou tablette). Pour travailler sur votre propre GPU, utilisez la version bureau Nano FaceStudio Pro 1.0."
+        },
+        {
+          "q": "Que deviennent mes photos et vidéos ?",
+          "a": "Elles ne sont envoyées aux GPU de NanoPocket que le temps du traitement et ne servent jamais à entraîner des modèles. Les fichiers importés et les résultats ne sont conservés que peu de temps ; les durées exactes figurent sur chaque outil et sur /privacy. Si vous avez besoin de zéro cloud, prenez la version bureau."
+        },
+        {
+          "q": "Comment se compare-t-il à DeepSwap ou Reface ?",
+          "a": "Les outils NanoPocket utilisent une technologie d'identité par diffusion, qui préserve mieux le visage avec les angles difficiles et les occlusions ; vous pouvez échanger plusieurs visages sur une photo ou la tête entière. NanoPocket est une marque plus jeune et moins connue. Comparaison détaillée sur /compare/nanopocket-vs-deepswap et classement sur /best-face-swap-app-2026."
+        },
+        {
+          "q": "Quelle est la différence entre les outils ?",
+          "a": "Nano FaceStudio Online échange les visages en photo, jusqu'à 6 par photo. Nano HeadSwap Pro échange la tête entière (visage, cheveux et forme de la tête) et peut ne changer qu'une personne sur une photo de groupe. Video FaceSwap Online travaille sur la vidéo : il échange le visage ou la tête entière et garde le son d'origine. Nano ImageEdit 2.0 Online retouche les photos à partir d'une description en texte."
+        },
+        {
+          "q": "Existe-t-il une version bureau ?",
+          "a": "Oui. Nano FaceStudio Pro 1.0 est disponible pour Windows, la version macOS suivra. C'est un produit séparé, facultatif et à achat unique, qui exécute le face swap et six autres outils visage sur votre propre GPU."
+        }
+      ]
+    },
+    "disclosure": {
+      "heading": "En toute transparence",
+      "cloudGpuTitle": "Les outils en ligne utilisent des GPU cloud.",
+      "cloudGpuBody": "Les outils en ligne tournent sur des GPU de NanoPocket et les fichiers ne servent pas à l'entraînement. Si vous avez besoin de zéro cloud, la version bureau est le meilleur choix.",
+      "youngerBrandTitle": "Une marque jeune.",
+      "youngerBrandBody": "Au {lastVerified}, NanoPocket est moins connue que DeepSwap ou Reface. Évaluez-nous plutôt grâce aux preuves vérifiables sur /verify que par l'ancienneté de la marque."
+    }
+  },
+  "OnlineTools": {
+    "heading": "Quatre outils en ligne, directement dans le navigateur",
+    "intro": "Il suffit d'un compte NanoPocket gratuit ; les nouveaux comptes reçoivent {grant} crédits (une fois par personne). Chaque outil affiche son coût en crédits avant de commencer et les tâches échouées sont remboursées automatiquement. Sans installation et sans GPU.",
+    "openCta": "Découvrir et commencer",
+    "faceStudio": {
+      "blurb": "Face swap en photo. Jusqu'à 6 visages par photo, et vous choisissez qui va où.",
+      "bullet1": "Résultat en résolution d'origine, sans compression",
+      "bullet2": "Sur une photo de groupe, ne changez que certaines personnes",
+      "bullet3": "Échange de tête aussi : visage et cheveux ensemble",
+      "price": "{face} crédits par visage ; {head} crédits par tête"
+    },
+    "headSwap": {
+      "blurb": "Échange de tête en photo. Place une nouvelle tête (visage, cheveux et forme) en gardant le corps, la pose et les autres personnes.",
+      "bullet1": "Sur une photo de groupe, choisissez une personne : seule sa tête change",
+      "bullet2": "Fonctionne de profil et sous des angles difficiles",
+      "bullet3": "Jusqu'à 4 résultats à la fois",
+      "price": "{hsp} crédits par image"
+    },
+    "video": {
+      "blurb": "Face swap vidéo. Échange le visage ou la tête entière d'une personne de la vidéo ; les autres personnes et le son d'origine restent tels que filmés.",
+      "bullet1": "Échangez seulement le visage ou toute la tête",
+      "bullet2": "Dans une vidéo à plusieurs, choisissez qui changer",
+      "bullet3": "Garde le son d'origine et restaure les détails",
+      "price": "Prix par vidéo, affiché en crédits avant de commencer"
+    },
+    "imageEdit": {
+      "blurb": "Retouchez vos photos par texte. Décrivez la modification en une phrase, par exemple retirer un objet ou changer le fond.",
+      "bullet1": "Importez une photo et décrivez la modification",
+      "bullet2": "PNG sans perte et sans filigrane",
+      "bullet3": "Jusqu'à 4 résultats à la fois",
+      "price": "{edit} crédits par retouche"
+    },
+    "watermarkNote": "Les comptes qui n'ont jamais acheté de crédits reçoivent les résultats visage, tête et vidéo avec le filigrane NanoPocket ; un seul achat de crédits le supprime. La retouche par texte n'a pas de filigrane. Les crédits n'expirent pas et il n'y a pas d'abonnement.",
+    "englishNote": "Pour l'instant, l'interface des outils est en anglais."
+  },
+  "Common": {
+    "languageSwitcher": {
+      "label": "Langue",
+      "switchTo": "Passer en {language}"
+    },
+    "footerTagline": "Suite créative IA : modèles GAN et de diffusion, en ligne ou sur votre propre GPU. Sans abonnement."
+  }
+}

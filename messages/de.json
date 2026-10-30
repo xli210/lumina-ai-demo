@@ -1,0 +1,183 @@
+{
+  "FaceSwap": {
+    "metadata": {
+      "title": "KI Face Swap Online Kostenlos: Gesichter in Fotos & Videos tauschen",
+      "description": "Gesichter mit KI direkt im Browser tauschen: Face Swap in Fotos (bis zu 6 Gesichter pro Foto), Kopftausch, Video-Face-Swap und Bildbearbeitung per Text. Kostenlose Credits bei der Anmeldung, danach Bezahlung in Credits; keine Installation, kein Abo, keine eigene GPU nötig.",
+      "ogTitle": "KI Face Swap online — direkt im Browser",
+      "ogDescription": "Gesichtertausch in Fotos, Kopftausch und Video-Face-Swap, alles im Browser. Kostenlose Credits bei der Anmeldung, keine Installation, kein Abo."
+    },
+    "hero": {
+      "kicker": "Online-Tools — direkt im Browser",
+      "headline": "KI Face Swap online, kostenlos starten. Keine Installation, kein Abo.",
+      "subhead": "Gesichtertausch in Fotos, Kopftausch, Video-Face-Swap und Bildbearbeitung per Text, alles im Browser. Ein kostenloses NanoPocket-Konto enthält Gratis-Credits; danach zahlst du mit Credits, die nie verfallen. Keine GPU nötig.",
+      "lastVerifiedLabel": "Zuletzt geprüft am",
+      "openSpeed": "Sekunden nach der Anmeldung startklar",
+      "ctaPrimary": "Foto-Face-Swap öffnen",
+      "ctaSecondary": "Kostenloses Konto erstellen"
+    },
+    "steps": {
+      "heading": "So funktioniert es",
+      "step1Title": "Konto erstellen",
+      "step1Body": "Melde dich kostenlos bei NanoPocket mit E-Mail oder Google an. Neue Konten erhalten automatisch Gratis-Credits.",
+      "step2Title": "Tool auswählen",
+      "step2Body": "Face Swap in Fotos, Kopftausch, Video-Face-Swap oder Bearbeitung per Text. Jedes Tool zeigt vor dem Start, wie viele Credits es kostet.",
+      "step3Title": "Hochladen und erstellen",
+      "step3Body": "Lade das Foto oder Video und ein Foto des neuen Gesichts hoch; das Ergebnis kommt in Sekunden. Schlägt ein Auftrag fehl, werden die Credits automatisch erstattet."
+    },
+    "compare": {
+      "heading": "Vergleich mit anderen Face-Swap-Websites",
+      "intro": "Sortiert nach dem, was zählt, wenn du heute ein Gesicht tauschen willst: Einrichtung, Anmeldung, Kosten zum Start und das Identitätsmodell dahinter.",
+      "colTool": "Tool",
+      "colSetup": "Einrichtung",
+      "colSignup": "Anmeldung",
+      "colPricing": "Preis",
+      "colIdentity": "Identitätsmodell",
+      "colPrivacy": "Datenschutz",
+      "footnote": "Vollständige Methodik und direkte Vergleiche unter",
+      "footnoteAnd": "und",
+      "rows": [
+        {
+          "tool": "NanoPocket Online-Tools",
+          "setup": "Browser: öffnen und loslegen",
+          "signup": "Kostenloses NanoPocket-Konto (E-Mail oder Google)",
+          "pricing": "Gratis-Credits bei der Anmeldung, danach Bezahlung in Credits, kein Abo",
+          "identity": "Diffusions-Stack ",
+          "privacy": "Verarbeitung auf Cloud-GPU; wird nicht zum Training genutzt"
+        },
+        {
+          "tool": "DeepSwap",
+          "setup": "Browser",
+          "signup": "Konto + Zahlung für alle Funktionen",
+          "pricing": "Gratis-Test, dann Abo",
+          "identity": "Cloud-GAN-Pipeline (laut Anbieter)",
+          "privacy": "Upload in die Cloud"
+        },
+        {
+          "tool": "WaveSpeed AI (Face Swap ist eine Funktion der Suite)",
+          "setup": "Browser",
+          "signup": "Konto",
+          "pricing": "Credits / Abo-Stufen",
+          "identity": "Multimodell-KI-Suite: Face Swap ist eine Funktion davon",
+          "privacy": "Upload in die Cloud"
+        },
+        {
+          "tool": "Magic Hour",
+          "setup": "Browser",
+          "signup": "Konto",
+          "pricing": "Credits / Abo-Stufen",
+          "identity": "Cloud-Pipeline (laut Anbieter)",
+          "privacy": "Upload in die Cloud"
+        },
+        {
+          "tool": "Reface",
+          "setup": "Mobile App (iOS / Android)",
+          "signup": "Konto; Wasserzeichen im Gratis-Tarif",
+          "pricing": "Gratis-Tarif mit Wasserzeichen + Abo",
+          "identity": "Für Mobilgeräte optimiertes GAN",
+          "privacy": "Upload in die Cloud"
+        },
+        {
+          "tool": "Akool",
+          "setup": "Browser + REST-API",
+          "signup": "Konto; B2B-Onboarding für die API",
+          "pricing": "Abo + Abrechnung pro API-Aufruf",
+          "identity": "Cloud-Pipeline (laut Anbieter)",
+          "privacy": "Upload in die Cloud"
+        }
+      ]
+    },
+    "diffusion": {
+      "heading": "Warum die Ergebnisse hier besser aussehen",
+      "p1": "Die meisten Cloud-Face-Swap-Seiten nutzen ein GAN-Identitätsmodell (meist InsightFace inswapper_128 oder ein Ableger). Das ist schnell und günstig, verliert aber Details bei schwierigen Winkeln, Verdeckungen und kleinen Gesichtern. NanoPocket kombiniert GAN- und Diffusionsmodelle, der Stand der Technik 2026 für den Erhalt der Identität.",
+      "p2": "Die Desktop-Version Nano FaceStudio Pro 1.0 nutzt dieselbe Identitätstechnik, läuft aber vollständig auf deiner eigenen GPU."
+    },
+    "offline": {
+      "heading": "Wenn du komplett offline arbeiten willst",
+      "body": "Die Online-Tools decken fast alle privaten und beruflichen Anwendungen ab. Wenn deine Arbeit null Cloud-Upload verlangt (regulierte Inhalte oder Projekte unter NDA), führt die optionale Desktop-Version dieselbe Technik auf deiner eigenen GPU aus.",
+      "ctaDesktop": "Nano FaceStudio Pro 1.0 (Desktop) ansehen",
+      "ctaVerify": "Überprüfbare Angaben"
+    },
+    "faq": {
+      "heading": "Häufige Fragen",
+      "items": [
+        {
+          "q": "Ist der Online-Face-Swap kostenlos?",
+          "a": "Kostenlos zum Start. Neue Konten erhalten bei der Anmeldung Gratis-Credits (einmal pro Person); danach zahlst du mit Credits, die nie verfallen, ohne Abo. Jedes Tool zeigt die Kosten vor dem Start, und fehlgeschlagene Aufträge werden automatisch erstattet. Konten, die noch nie Credits gekauft haben, erhalten Gesichts-, Kopf- und Video-Ergebnisse mit Wasserzeichen; ein einziger Kauf entfernt es. Außerdem ist Nano FaceSwap für Windows eine kostenlose Desktop-App."
+        },
+        {
+          "q": "Brauche ich ein Konto?",
+          "a": "Ja, ein kostenloses NanoPocket-Konto mit E-Mail oder Google. Das Konto dient dazu, die Gratis-Credits zu vergeben und Missbrauch zu verhindern. Anmeldung unter /auth/sign-up."
+        },
+        {
+          "q": "Brauche ich eine GPU?",
+          "a": "Nein. Die Online-Tools laufen auf den Cloud-GPUs von NanoPocket; jedes Gerät mit modernem Browser reicht (Laptop, PC oder Tablet). Wer auf der eigenen GPU arbeiten will, nutzt die Desktop-Version Nano FaceStudio Pro 1.0."
+        },
+        {
+          "q": "Was passiert mit meinen Fotos und Videos?",
+          "a": "Sie werden nur zur Verarbeitung an die GPUs von NanoPocket gesendet und nie zum Training von Modellen verwendet. Hochgeladene Dateien und Ergebnisse werden nur kurz gespeichert; die genauen Fristen stehen bei jedem Tool und unter /privacy. Wenn du null Cloud brauchst, nimm die Desktop-Version."
+        },
+        {
+          "q": "Wie schneidet es im Vergleich zu DeepSwap oder Reface ab?",
+          "a": "Die NanoPocket-Tools nutzen Identitätstechnik auf Diffusionsbasis, die das Gesicht bei schwierigen Winkeln und Verdeckungen besser erhält; du kannst mehrere Gesichter in einem Foto oder den ganzen Kopf tauschen. NanoPocket ist eine jüngere, weniger bekannte Marke. Ausführlicher Vergleich unter /compare/nanopocket-vs-deepswap, Rangliste unter /best-face-swap-app-2026."
+        },
+        {
+          "q": "Was ist der Unterschied zwischen den Tools?",
+          "a": "Nano FaceStudio Online tauscht Gesichter in Fotos, bis zu 6 pro Foto. Nano HeadSwap Pro tauscht den ganzen Kopf (Gesicht, Haare und Kopfform) und kann in einem Gruppenfoto nur eine Person ändern. Video FaceSwap Online arbeitet mit Videos: Es tauscht das Gesicht oder den ganzen Kopf und behält den Originalton. Nano ImageEdit 2.0 Online bearbeitet Fotos nach einer Textbeschreibung."
+        },
+        {
+          "q": "Gibt es eine Desktop-Version?",
+          "a": "Ja. Nano FaceStudio Pro 1.0 ist für Windows erhältlich, die macOS-Version folgt. Es ist ein separates, optionales Produkt mit Einmalkauf, das Face Swap und sechs weitere Gesichts-Tools auf deiner eigenen GPU ausführt."
+        }
+      ]
+    },
+    "disclosure": {
+      "heading": "Offen gesagt",
+      "cloudGpuTitle": "Die Online-Tools nutzen Cloud-GPUs.",
+      "cloudGpuBody": "Die Online-Tools laufen auf GPUs von NanoPocket, und Dateien werden nicht zum Training verwendet. Wenn du null Cloud brauchst, ist die Desktop-Version die bessere Wahl.",
+      "youngerBrandTitle": "Eine junge Marke.",
+      "youngerBrandBody": "Stand {lastVerified} ist NanoPocket weniger bekannt als DeepSwap oder Reface. Bewerte uns anhand der überprüfbaren Nachweise unter /verify statt nach dem Alter der Marke."
+    }
+  },
+  "OnlineTools": {
+    "heading": "Vier Online-Tools, direkt im Browser",
+    "intro": "Du brauchst nur ein kostenloses NanoPocket-Konto; neue Konten erhalten {grant} Credits (einmal pro Person). Jedes Tool zeigt seine Kosten in Credits vor dem Start, und fehlgeschlagene Aufträge werden automatisch erstattet. Keine Installation, keine eigene GPU.",
+    "openCta": "Ansehen und starten",
+    "faceStudio": {
+      "blurb": "Face Swap in Fotos. Bis zu 6 Gesichter pro Foto, und du bestimmst, wer wohin kommt.",
+      "bullet1": "Ergebnis in Originalauflösung, ohne Kompression",
+      "bullet2": "In Gruppenfotos nur einzelne Personen tauschen",
+      "bullet3": "Auch Kopftausch: Gesicht und Haare zusammen",
+      "price": "{face} Credits pro Gesicht; {head} Credits pro Kopf"
+    },
+    "headSwap": {
+      "blurb": "Kopftausch in Fotos. Setzt einen neuen Kopf (Gesicht, Haare und Form) ein; Körper, Pose und andere Personen bleiben gleich.",
+      "bullet1": "In Gruppenfotos eine Person auswählen, nur ihr Kopf ändert sich",
+      "bullet2": "Funktioniert auch bei Profil und steilen Winkeln",
+      "bullet3": "Bis zu 4 Ergebnisse auf einmal",
+      "price": "{hsp} Credits pro Bild"
+    },
+    "video": {
+      "blurb": "Video-Face-Swap. Tauscht das Gesicht oder den ganzen Kopf einer Person im Video; andere Personen und der Originalton bleiben wie gefilmt.",
+      "bullet1": "Nur das Gesicht oder den ganzen Kopf tauschen",
+      "bullet2": "In Videos mit mehreren Personen wählst du, wer getauscht wird",
+      "bullet3": "Behält den Originalton und stellt Details wieder her",
+      "price": "Preis pro Video, vor dem Start in Credits angezeigt"
+    },
+    "imageEdit": {
+      "blurb": "Fotos per Text bearbeiten. Beschreibe die Änderung in einem Satz, etwa ein Objekt entfernen oder den Hintergrund ändern.",
+      "bullet1": "Foto hochladen und die Änderung beschreiben",
+      "bullet2": "Verlustfreies PNG, ohne Wasserzeichen",
+      "bullet3": "Bis zu 4 Ergebnisse auf einmal",
+      "price": "{edit} Credits pro Bearbeitung"
+    },
+    "watermarkNote": "Konten, die noch nie Credits gekauft haben, erhalten Gesichts-, Kopf- und Video-Ergebnisse mit NanoPocket-Wasserzeichen; ein einziger Credit-Kauf entfernt es. Die Textbearbeitung hat kein Wasserzeichen. Credits verfallen nicht, und es gibt kein Abo.",
+    "englishNote": "Die Oberfläche der Tools ist derzeit auf Englisch."
+  },
+  "Common": {
+    "languageSwitcher": {
+      "label": "Sprache",
+      "switchTo": "Zu {language} wechseln"
+    },
+    "footerTagline": "KI-Kreativsuite: GAN- und Diffusionsmodelle, online oder auf deiner eigenen GPU. Kein Abo."
+  }
+}

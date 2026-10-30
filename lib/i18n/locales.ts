@@ -12,7 +12,7 @@
 
 export const DEFAULT_LOCALE = "en" as const;
 
-export const LOCALES = ["en", "zh-CN", "ja", "ko"] as const;
+export const LOCALES = ["en", "zh-CN", "ja", "ko", "es", "pt-BR", "de", "fr"] as const;
 
 export type AppLocale = (typeof LOCALES)[number];
 
@@ -21,6 +21,10 @@ export const LOCALE_LABELS: Record<AppLocale, string> = {
   "zh-CN": "中文",
   ja: "日本語",
   ko: "한국어",
+  es: "Español",
+  "pt-BR": "Português",
+  de: "Deutsch",
+  fr: "Français",
 };
 
 /**
@@ -33,6 +37,10 @@ export const LOCALE_SUBTITLES: Record<AppLocale, string> = {
   "zh-CN": "Chinese (Simplified) — 简体中文",
   ja: "Japanese — 日本語",
   ko: "Korean — 한국어",
+  es: "Spanish — Español",
+  "pt-BR": "Portuguese (Brazil) — Português",
+  de: "German — Deutsch",
+  fr: "French — Français",
 };
 
 export function isAppLocale(value: unknown): value is AppLocale {
@@ -56,9 +64,9 @@ export function localizedPath(locale: AppLocale, path: string): string {
  * language switcher must not invent `/<locale><path>` for them: those addresses 404, and every page linking to
  * them taught crawlers hundreds of dead URLs. Add a page here when its translation ships.
  */
-const TRANSLATED_PAGES: Record<string, readonly AppLocale[]> = {
+export const TRANSLATED_PAGES: Record<string, readonly AppLocale[]> = {
   "/": ["zh-CN"],
-  "/face-swap": ["zh-CN", "ja", "ko"],
+  "/face-swap": ["zh-CN", "ja", "ko", "es", "pt-BR", "de", "fr"],
   "/headswap-pro": ["zh-CN", "ja"],
 };
 
@@ -73,6 +81,10 @@ const LOCALE_LANDING: Record<AppLocale, string> = {
   "zh-CN": "/zh-CN",
   ja: "/ja/face-swap",
   ko: "/ko/face-swap",
+  es: "/es/face-swap",
+  "pt-BR": "/pt-BR/face-swap",
+  de: "/de/face-swap",
+  fr: "/fr/face-swap",
 };
 
 /** Translated pages whose English counterpart is not at the same path. */

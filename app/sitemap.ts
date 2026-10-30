@@ -4,6 +4,7 @@ import { ZH_GUIDES, zhGuideFor } from "@/lib/zh-guides";
 import { appReleases } from "@/lib/release-data";
 import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
 import { VIDEO_EXAMPLES, VIDEO_EXAMPLES_PATH, videoExamplePath } from "@/lib/video-examples";
+import { TRANSLATED_PAGES } from "@/lib/i18n/locales";
 
 const BASE = "https://nanopocket.ai";
 
@@ -101,12 +102,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // 10 SEO product landings
     { url: `${BASE}/apps/nanoface-vivid`, lastModified: new Date("2026-06-02"), changeFrequency: "weekly", priority: 0.9 },
     ...(() => {
-      const faceSwapLanguages = {
-        en: `${BASE}/face-swap`,
-        "zh-CN": `${BASE}/zh-CN/face-swap`,
-        ja: `${BASE}/ja/face-swap`,
-        ko: `${BASE}/ko/face-swap`,
-      };
+      const faceSwapLocales = TRANSLATED_PAGES["/face-swap"];
+      const faceSwapLanguages: Record<string, string> = { en: `${BASE}/face-swap` };
+      for (const l of faceSwapLocales) faceSwapLanguages[l] = `${BASE}/${l}/face-swap`;
       return [
         {
           url: `${BASE}/face-swap`,
@@ -115,27 +113,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
           priority: 0.95,
           alternates: { languages: faceSwapLanguages },
         },
-        {
-          url: `${BASE}/zh-CN/face-swap`,
-          lastModified: new Date("2026-10-01"),
+        ...faceSwapLocales.map((l) => ({
+          url: `${BASE}/${l}/face-swap`,
+          lastModified: new Date("2026-10-30"),
           changeFrequency: "weekly" as const,
           priority: 0.9,
           alternates: { languages: faceSwapLanguages },
-        },
-        {
-          url: `${BASE}/ja/face-swap`,
-          lastModified: new Date("2026-10-01"),
-          changeFrequency: "weekly" as const,
-          priority: 0.9,
-          alternates: { languages: faceSwapLanguages },
-        },
-        {
-          url: `${BASE}/ko/face-swap`,
-          lastModified: new Date("2026-10-01"),
-          changeFrequency: "weekly" as const,
-          priority: 0.9,
-          alternates: { languages: faceSwapLanguages },
-        },
+        })),
       ];
     })(),
     { url: `${BASE}/compare/nanopocket-vs-wavespeed`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly", priority: 0.75 },

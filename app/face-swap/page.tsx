@@ -21,7 +21,7 @@ import { Footer } from "../components/footer";
 import { Button } from "@/components/ui/button";
 import { DemoStatusBadge } from "../components/demo-status-badge";
 import { DEMOS, demoRedirectPath, type DemoId } from "@/lib/demos";
-import { hreflangAlternates } from "@/lib/i18n/locales";
+import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
 import {
   DIFFERENTIATORS,
   FACE_SWAP_CREDITS,
@@ -56,11 +56,7 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/face-swap",
-    languages: hreflangAlternates("https://nanopocket.ai", "/face-swap", [
-      "zh-CN",
-      "ja",
-      "ko",
-    ]),
+    languages: hreflangAlternates("https://nanopocket.ai", "/face-swap", TRANSLATED_PAGES["/face-swap"]),
   },
   openGraph: {
     type: "website",
