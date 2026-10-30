@@ -5,13 +5,13 @@ import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 
 const PAGE_URL = "https://nanopocket.ai/privacy";
-const EFFECTIVE_DATE = "2026-05-29";
-const POLICY_VERSION = "1.0";
+const EFFECTIVE_DATE = "2026-10-30";
+const POLICY_VERSION = "1.1";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "NanoPocket Privacy Policy: what we collect, why, where it goes, how long we keep it, and the GDPR / CCPA rights available to every user. Effective 2026-05-29, version 1.0.",
+    `NanoPocket Privacy Policy: what we collect, why, where it goes, how long we keep it, how uploaded faces are handled, and the GDPR / CCPA rights available to every user. Effective ${EFFECTIVE_DATE}, version ${POLICY_VERSION}.`,
   keywords: [
     "NanoPocket privacy policy",
     "NanoPocket data collection",
@@ -33,6 +33,10 @@ export const metadata: Metadata = {
   },
 };
 
+/** How long online-tool uploads and results are kept: used in the table and in section 4. */
+const ONLINE_RETENTION =
+  "Video FaceSwap Online: uploads and results are deleted 24 hours after the video is made. Nano FaceStudio Online, Nano HeadSwap Pro and Nano ImageEdit 2.0 Online: uploads and results are kept in private storage (Cloudflare R2 object storage or the GPU servers' disks), reachable only through signed links that expire within an hour, so the result can be downloaded. They are not yet deleted automatically after a fixed period; they are deleted on request (tech@nanopocket.ai) and with the account. Never used to train models.";
+
 interface DataCategory {
   category: string;
   items: string;
@@ -44,7 +48,7 @@ interface DataCategory {
 const DATA_CATEGORIES: DataCategory[] = [
   {
     category: "Account data",
-    items: "Email address, password hash, display name, optional avatar URL.",
+    items: "Email address, sign-in method (email link, password or Google), password hash if a password is set, display name, optional avatar URL.",
     purpose:
       "Authentication, license issuance, support correspondence, transactional email.",
     basis: "Contract performance (GDPR Art. 6(1)(b)).",
@@ -63,21 +67,38 @@ const DATA_CATEGORIES: DataCategory[] = [
   {
     category: "Payment metadata",
     items:
-      "Stripe customer ID, payment intent ID, transaction amount, region, tax breakdown. NanoPocket never sees the raw card number, CVC, or expiry.",
+      "Stripe customer ID, payment intent ID, transaction amount, region, tax breakdown and, if auto top-up is on, that setting and Stripe's reference to the saved card. NanoPocket never sees the raw card number, CVC, or expiry.",
     purpose: "Order fulfilment, tax remittance, anti-fraud.",
     basis: "Contract performance, legal obligation (tax law).",
     retention:
       "Tax-relevant records retained for the period required by the buyer's jurisdiction (typically 7 years in the US/EU). Stripe's retention policy applies separately.",
   },
   {
-    category: "Online demo content",
+    category: "Online tool uploads and results",
     items:
-      "Source images and videos uploaded to the online tools: Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap Online and Nano ImageEdit 2.0 Online.",
+      "Photos and videos uploaded to the online tools (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap Online and Nano ImageEdit 2.0 Online), the results made from them, and the face data derived from them while a job runs (see section 4).",
     purpose:
-      "Process the swap or generation request and return the result to the same browser session.",
-    basis: "Consent (the user actively uploads).",
+      "Carry out the swap or edit the user asked for and let the user download the result.",
+    basis:
+      "Contract performance (GDPR Art. 6(1)(b)); for face data, the explicit consent the user gives by uploading (Art. 9(2)(a)).",
+    retention: ONLINE_RETENTION,
+  },
+  {
+    category: "Credits and job records",
+    items:
+      "Credit balance and statement (purchases, free grants, spends, refunds), job identifiers, and the mode, size and price of each job. Not the photos or videos themselves.",
+    purpose: "Charge and refund credits correctly, answer billing questions, prevent abuse.",
+    basis: "Contract performance, legal obligation (accounting), legitimate interest in preventing abuse (GDPR Art. 6(1)(b),(c),(f)).",
     retention:
-      "Volatile only. Source files are processed in working memory on a hosted GPU and discarded once the response is returned. Files are not persisted to a database, an object store, or a model-training pipeline.",
+      "While the account exists. Records of purchases are kept for the period tax law requires (typically 7 years).",
+  },
+  {
+    category: "Invite rewards",
+    items:
+      "Your invite code. For an account opened through an invite link: which account invited it, when, and whether the reward was paid.",
+    purpose: "Run the invite rewards described in the Terms (section 6) and stop self-invites.",
+    basis: "Contract performance, legitimate interest in preventing abuse (GDPR Art. 6(1)(b),(f)).",
+    retention: "While the accounts involved exist; deleted with either account.",
   },
   {
     category: "Feedback & survey responses",
@@ -90,9 +111,10 @@ const DATA_CATEGORIES: DataCategory[] = [
   },
   {
     category: "Web analytics",
-    items: "Aggregate page-view counts, referrer, UTM parameters, country-level IP geolocation.",
-    purpose: "Understand traffic and content effectiveness.",
-    basis: "Legitimate interest (GDPR Art. 6(1)(f)).",
+    items:
+      "Pages viewed, referrer, UTM parameters, approximate location derived by Google, device and browser type, and events such as sign-up, checkout started and purchase.",
+    purpose: "Understand traffic, which pages and sources lead to sign-ups and purchases, and content effectiveness.",
+    basis: "Legitimate interest (GDPR Art. 6(1)(f)). You can object or opt out at any time (section 5).",
     retention: "14 months in Google Analytics 4 (default GA4 retention).",
   },
   {
@@ -137,20 +159,26 @@ const SUBPROCESSORS: Subprocessor[] = [
   },
   {
     name: "Stripe, Inc.",
-    purpose: "Payment processing, tax calculation, invoice generation.",
+    purpose: "Payment processing, receipts and invoices, the saved card for optional auto top-up.",
     region: "US, EU.",
     policy: "https://stripe.com/privacy",
   },
   {
     name: "Cloudflare, Inc.",
-    purpose: "Demo tunnels for online image / video face-swap demos.",
+    purpose: "Object storage for online-tool uploads and results (R2), and network tunnels to the GPU servers.",
     region: "Global edge.",
     policy: "https://www.cloudflare.com/privacypolicy/",
   },
   {
+    name: "Render Services, Inc.",
+    purpose: "Hosts the gateways that pass online-tool jobs between nanopocket.ai and the GPU servers.",
+    region: "US.",
+    policy: "https://render.com/privacy",
+  },
+  {
     name: "Google LLC (Google Analytics 4)",
-    purpose: "Aggregate web analytics.",
-    region: "Global; configured to anonymise IP at collection.",
+    purpose: "Web analytics.",
+    region: "Global; GA4 does not log or store IP addresses.",
     policy: "https://policies.google.com/privacy",
   },
   {
@@ -249,7 +277,7 @@ export default function PrivacyPage() {
               ["Who we are", "who"],
               ["What we collect", "collect"],
               ["Subprocessors", "subprocessors"],
-              ["Online demo handling", "demos"],
+              ["Uploaded photos, videos & faces", "demos"],
               ["Cookies & web tracking", "cookies"],
               ["GDPR rights (EU/UK)", "gdpr"],
               ["CCPA rights (California)", "ccpa"],
@@ -295,10 +323,11 @@ export default function PrivacyPage() {
           </h2>
           <p className="mb-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
             Every category below is listed with its purpose, lawful basis under the GDPR, and
-            retention period. If a category is not on this list, we do not collect it. We do not
-            collect special-category data (health, biometric identifiers used for unique
-            identification, political opinions, religion, sexuality) and we do not perform
-            automated decision-making with legal effects on data subjects.
+            retention period. If a category is not on this list, we do not collect it. We never
+            use anyone&apos;s face to identify them, and we do not collect other special-category
+            data (health, political opinions, religion, sexuality). The face data the online tools
+            derive while they work is described in section 4. We do not perform automated
+            decision-making with legal effects on data subjects.
           </p>
           <div className="overflow-x-auto rounded-2xl border border-border/60">
             <table className="w-full min-w-[760px]">
@@ -389,40 +418,66 @@ export default function PrivacyPage() {
 
         <section id="demos" className="mb-12">
           <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground">
-            4. Online demo handling — what happens to uploaded faces
+            4. Online tools: what happens to uploaded photos, videos and faces
           </h2>
           <p className="mb-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
             The online tools (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap Online and
             Nano ImageEdit 2.0 Online) are the only NanoPocket surfaces that receive user-uploaded
-            face content. We treat that content as follows:
+            photos and videos. The desktop apps process everything on the user&apos;s own machine.
+            We treat online-tool content as follows:
           </p>
           <ul className="space-y-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
             <li>
-              <strong className="text-foreground">Volatile processing only.</strong> Source files
-              live in the demo GPU&apos;s working memory for the duration of one inference and are
-              discarded immediately after the response is returned.
+              <strong className="text-foreground">Where it is processed.</strong> Jobs run on GPU
+              servers operated by NanoPocket, reached through gateways hosted by Render and network
+              tunnels run by Cloudflare. Nano FaceStudio Online re-encodes photos in the browser
+              before upload, which removes their EXIF data, including GPS location.
             </li>
             <li>
-              <strong className="text-foreground">No model training.</strong> Demo content is never
-              used to train, fine-tune, evaluate, or red-team any model. There is no &quot;opt-in
-              to improve our AI&quot; checkbox; training on user content is simply not part of any
-              product surface.
+              <strong className="text-foreground">Face data.</strong> To swap a face, the models
+              detect the faces in a file and derive numerical representations of facial features
+              from them (face embeddings). On Video FaceSwap Online the same kind of measure is used
+              to show how closely a result matches the reference photo. Face data is used only to
+              carry out the job the user asked for. It is never used to identify anyone, never
+              compared against a database of people, never sold, and never kept as a separate record
+              or beyond the job&apos;s own files.
             </li>
             <li>
-              <strong className="text-foreground">No persistence.</strong> Demo content is not
-              copied to long-term object storage, a database, a content-moderation queue, or any
-              human-review pipeline.
+              <strong className="text-foreground">How long files are kept.</strong> {ONLINE_RETENTION}
             </li>
             <li>
-              <strong className="text-foreground">No third-party sharing.</strong> Demo content is
-              not transferred to advertising networks, model marketplaces, or any third party
-              outside the subprocessor list above.
+              <strong className="text-foreground">No model training.</strong> Uploads and results
+              are never used to train, fine-tune, evaluate, or red-team any model. There is no
+              &quot;opt-in to improve our AI&quot; checkbox; training on user content is simply not
+              part of any product surface.
             </li>
             <li>
-              <strong className="text-foreground">Consent &amp; lawful use.</strong> By submitting
-              a face to the demo, the uploader confirms they hold all rights necessary to do so
-              and that the use is lawful (no impersonation, no non-consensual likeness, no minors
-              in adult contexts).
+              <strong className="text-foreground">No human review.</strong> Files are not looked at
+              by people, except when we investigate a misuse report or a support request about a
+              specific job.
+            </li>
+            <li>
+              <strong className="text-foreground">No third-party sharing.</strong> Uploads and
+              results are not transferred to advertising networks, model marketplaces, or any third
+              party outside the subprocessor list above.
+            </li>
+            <li>
+              <strong className="text-foreground">Consent &amp; lawful use.</strong> Before a face is
+              processed, the tools ask the uploader to confirm they have the right to use it. The
+              uploader is responsible for that being true and for the use being lawful (no
+              impersonation, no non-consensual likeness, no sexual content of real people, nothing
+              involving minors in adult contexts). By uploading a photo or video of themselves, the
+              uploader consents to the face-data processing described here.
+            </li>
+            <li>
+              <strong className="text-foreground">US state biometric laws.</strong> Some US state
+              laws (for example in Illinois, Texas and Washington) treat face geometry as biometric
+              information. Where such a law applies: we collect face data only to perform the job
+              the user requests; we do not sell, lease, trade or otherwise profit from it; we
+              destroy it no later than the job&apos;s files, and in any case within the time the law
+              requires; and the user gives consent by uploading. Anyone who does not consent should
+              not upload a photo or video of themselves, and anyone whose face was uploaded by
+              someone else without permission can ask us to delete it (tech@nanopocket.ai).
             </li>
           </ul>
         </section>
@@ -439,10 +494,13 @@ export default function PrivacyPage() {
             another party, and is not used for advertising or analytics. If you arrive through a
             friend&apos;s invite link, a third first-party cookie, <code>np_ref</code>, holds that
             friend&apos;s invite code for 30 days so the invite reward can be paid if you open an
-            account and buy credits. Google Analytics 4 sets analytics cookies for aggregate
-            traffic measurement; IPs are anonymised at collection. We do not use advertising
-            pixels (Meta Pixel, TikTok Pixel, LinkedIn Insight Tag, Google Ads conversion pixels,
-            etc.) and we do not retarget visitors.
+            account and buy credits. Google Analytics 4 sets analytics cookies to measure traffic
+            and which sources lead to sign-ups and purchases; GA4 does not log or store IP
+            addresses. You can block or delete these cookies in your browser settings, or opt out
+            of Google Analytics with Google&apos;s browser add-on
+            (tools.google.com/dlpage/gaoptout). We do not use advertising pixels (Meta Pixel,
+            TikTok Pixel, Reddit Pixel, LinkedIn Insight Tag, Google Ads conversion pixels, etc.)
+            and we do not retarget visitors.
           </p>
         </section>
 
@@ -503,7 +561,7 @@ export default function PrivacyPage() {
             8. International data transfers
           </h2>
           <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Account, license, and demo infrastructure runs primarily in US-East. EU-based users
+            Account, license, and online-tool infrastructure runs primarily in the US. EU-based users
             who use these services therefore transfer personal data to the US. We rely on the
             European Commission&apos;s Standard Contractual Clauses (2021/914) where required, and
             on the EU-U.S. Data Privacy Framework where the relevant subprocessor is certified.
@@ -515,16 +573,17 @@ export default function PrivacyPage() {
             9. Children&apos;s data
           </h2>
           <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-            NanoPocket is not directed to children under 16 (under 13 in the United States). We do
-            not knowingly collect data from children. If a parent or guardian becomes aware that
-            their child has signed up, please email{" "}
+            NanoPocket is for adults. It is not directed to anyone under 18, accounts and credit
+            purchases are for adults only, and we do not knowingly collect data from anyone under
+            18. If a parent or guardian becomes aware that their child has signed up, or that a
+            child&apos;s photo was uploaded, please email{" "}
             <a
               href="mailto:tech@nanopocket.ai"
               className="text-emerald-500 underline-offset-4 hover:underline"
             >
               tech@nanopocket.ai
             </a>{" "}
-            and we will delete the account.
+            and we will delete the account and any files we still hold.
           </p>
         </section>
 
@@ -562,6 +621,13 @@ export default function PrivacyPage() {
             at least 14 days before they take effect. Non-material edits (typo fixes, link
             updates, subprocessor list refreshes within the same category) are made silently and
             reflected in the version number above.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            Version 1.1 (2026-10-30) corrects how online-tool files are stored and for how long,
+            describes the face data the tools derive and the US state biometric notice, adds
+            credits and job records, invite rewards and Render as a subprocessor, sets the minimum
+            age to 18, and explains how to opt out of analytics. Corrections that bring this policy
+            in line with how the services already work take effect on publication.
           </p>
         </section>
 

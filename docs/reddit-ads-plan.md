@@ -97,7 +97,7 @@ Leave comments on for ads; Reddit users ask questions, and an answered question 
 
 - **Is it free?** "Free to start: new accounts get 100 credits, enough for a short clip. After that you pay per video in credits; the price shows before you start. No subscription."
 - **Watermark?** "Videos from an account that has never topped up have a moving watermark and are capped at 5 s. One top-up removes the watermark and allows up to 60 s."
-- **Privacy?** "Uploads and results are deleted after 24 hours and never used for training. There's also a free desktop app (Nano FaceSwap) if you want to stay offline."
+- **Privacy?** "Video uploads and results are deleted after 24 hours, and nothing you upload is ever used for training. There's also a free desktop app (Nano FaceSwap) if you want to stay offline."
 - **Could this be misused?** "You have to confirm you have the right to use the face before it starts. The examples use stock footage. Don't swap real people without their permission."
 - **How is it different from FaceFusion or Roop?** "Those are local GAN swappers you install. This runs in the browser, uses a diffusion restore pass, and was tuned on profile turns, hands and low light. If you prefer local, our desktop app is free."
 

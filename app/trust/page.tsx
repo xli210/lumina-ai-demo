@@ -182,7 +182,7 @@ const PRIVACY_CLAIMS: PrivacyClaim[] = [
   {
     question: "Is my source media uploaded?",
     answer:
-      "Desktop apps: No. Every photo, video, and prompt stays on the user's local disk; the model runs on the user's GPU. Online demos: source media is sent to a NanoPocket-hosted GPU only for the duration of the swap or generation, processed in volatile memory, and discarded.",
+      "Desktop apps: No. Every photo, video, and prompt stays on the user's local disk; the model runs on the user's GPU. Online tools: photos and videos are uploaded to GPU servers operated by NanoPocket, never used to train any model, and kept only as long as the Privacy Policy states (Video FaceSwap Online deletes them after 24 hours; the other tools keep them in private storage until deleted on request or with the account).",
   },
   {
     question: "Is content used to train models?",
@@ -202,7 +202,7 @@ const PRIVACY_CLAIMS: PrivacyClaim[] = [
   {
     question: "How long is data retained?",
     answer:
-      "Account data (email, license, machine activation records) is retained while the account exists; deletion on request is supported via tech@nanopocket.ai. Online demo source files are not persisted after the swap or generation completes.",
+      "Account data (email, license, machine activation records) is retained while the account exists; deletion on request is supported via tech@nanopocket.ai. Online-tool uploads and results: Video FaceSwap Online deletes them 24 hours after the video is made; Nano FaceStudio Online, Nano HeadSwap Pro and Nano ImageEdit 2.0 Online keep them in private storage until they are deleted on request or with the account. See the Privacy Policy, section 2.",
   },
   {
     question: "Where are servers located?",
@@ -319,9 +319,9 @@ const RETENTION_TABLE: RetentionRow[] = [
     trigger: "Statutory tax record-keeping (Stripe retention applies separately)",
   },
   {
-    category: "Online demo content (face swap source files)",
-    duration: "Volatile only — discarded after one inference",
-    trigger: "End of HTTP response from demo tunnel",
+    category: "Online-tool uploads and results",
+    duration: "Video FaceSwap Online: 24 hours. Other online tools: until deleted on request or with the account",
+    trigger: "Video made (Video FaceSwap Online); deletion request or account deletion (other tools)",
   },
   {
     category: "Feedback & survey responses",
@@ -709,7 +709,7 @@ const trustFaqJsonLd = {
       name: "Is my data really private?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "On desktop: yes. The full model runs on the user's GPU; only the license-activation handshake leaves the machine. On the online demos: source media is sent to a NanoPocket-hosted GPU only for the duration of the swap or generation, processed in volatile memory, discarded, and never used to train any model.",
+        text: "On desktop: yes. The full model runs on the user's GPU; only the license-activation handshake leaves the machine. On the online tools: photos and videos are processed on GPU servers operated by NanoPocket, kept only as long as the Privacy Policy states, and never used to train any model.",
       },
     },
     {
