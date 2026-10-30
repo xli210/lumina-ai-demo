@@ -390,13 +390,21 @@ export async function ensureSignupGrant(
     console.error("[credits] free-claim check failed, granting anyway:", message);
   }
 
-  return grantCredits({
+  const granted = await grantCredits({
     userId,
     amount: SIGNUP_GRANT_CREDITS,
     kind: "signup_grant",
     idempotencyKey,
     reference: { reason: "welcome_grant" },
   });
+
+  // A new account that came through an invite link is linked to its inviter
+  // now, and only now: an account refused free credits above never gets here.
+  if (granted.applied) {
+    const { recordReferralForNewAccount } = await import("@/lib/referral-server");
+    await recordReferralForNewAccount(userId);
+  }
+  return granted;
 }
 
 /**

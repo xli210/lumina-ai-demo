@@ -301,6 +301,10 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download
           </a>
+          <a class="btn-download" href="/account#invite" data-invite title="Your friend gets 100 extra credits on their first purchase, you get 200">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="3" y="8" width="18" height="4"/><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 010-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 010 5"/></svg>
+            <span data-invite-label>Invite a friend</span>
+          </a>
         </div>
       </div>
       <div class="info-notice wm-note" id="wmResult" hidden>
@@ -677,7 +681,7 @@ function renderResult(i) {
   cmp.querySelector(".after").src = abs(r.url);
   cmp.querySelector(".before img").src = abs(S.before);
   // download_url (gateway) is served with Content-Disposition: attachment, so it saves even across origins
-  const a = $("download"); a.href = abs(r.download_url || r.url); a.download = `headswap-pro-${i + 1}.png`;
+  const a = $("download"); a.href = abs(r.download_url || r.url); a.download = `nanopocket-head-swap-${i + 1}.png`;
   $("thumbs").querySelectorAll("button").forEach((b, k) => b.classList.toggle("on", k === i));
 }
 
@@ -704,5 +708,6 @@ function bindCompare(cmp) {
 function escapeHtml(s) { return String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
 update();
 </script>
+<script src="/invite-button.js" defer></script>
 </body>
 </html>

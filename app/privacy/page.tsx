@@ -436,7 +436,10 @@ export default function PrivacyPage() {
             Supabase&apos;s auth client), and a second first-party cookie, <code>np_did</code>,
             holding a random device id for two years. It is used only to tell whether a second
             account on the same browser has already collected free credits, is never shared with
-            another party, and is not used for advertising or analytics. Google Analytics 4 sets analytics cookies for aggregate
+            another party, and is not used for advertising or analytics. If you arrive through a
+            friend&apos;s invite link, a third first-party cookie, <code>np_ref</code>, holds that
+            friend&apos;s invite code for 30 days so the invite reward can be paid if you open an
+            account and buy credits. Google Analytics 4 sets analytics cookies for aggregate
             traffic measurement; IPs are anonymised at collection. We do not use advertising
             pixels (Meta Pixel, TikTok Pixel, LinkedIn Insight Tag, Google Ads conversion pixels,
             etc.) and we do not retarget visitors.

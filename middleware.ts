@@ -8,6 +8,7 @@ import {
   isDeviceId,
   newDeviceId,
 } from '@/lib/device-cookie'
+import { REFERRAL_COOKIE, REFERRAL_COOKIE_MAX_AGE_S, isReferralCode } from '@/lib/referral'
 
 const LOCALE_HEADER = 'x-app-locale'
 
@@ -106,6 +107,19 @@ export async function middleware(request: NextRequest) {
       sameSite: 'lax',
       path: '/',
       maxAge: DEVICE_COOKIE_MAX_AGE_S,
+    })
+  }
+
+  // An invite link (?ref=<code>, lib/referral.ts). The first invite a browser
+  // follows is the one that counts, so a later link cannot take the credit.
+  const ref = request.nextUrl.searchParams.get('ref')?.toLowerCase()
+  if (isReferralCode(ref) && !request.cookies.get(REFERRAL_COOKIE)?.value) {
+    response.cookies.set(REFERRAL_COOKIE, ref, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: REFERRAL_COOKIE_MAX_AGE_S,
     })
   }
 

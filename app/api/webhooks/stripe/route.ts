@@ -10,6 +10,7 @@ import {
 } from "@/lib/credits-server";
 import { stripeBonusKey, stripePaymentKey } from "@/lib/credits";
 import { findCreditPack } from "@/lib/credit-packs";
+import { rewardReferralOnPurchase } from "@/lib/referral-server";
 import {
   creditAutoRecharge,
   disableAutoRechargeForCustomer,
@@ -140,6 +141,9 @@ async function handleCreditTopup(
     `[Webhook] Top-up ${packId}: ${base}+${bonus} credits for ${userId}` +
       (purchase.applied ? "" : " (replay, no change)")
   );
+
+  // An invited account's first purchase pays the invite reward (never throws).
+  await rewardReferralOnPurchase(userId, paymentIntentId);
 
   // The box for auto top-up was ticked: now that the money has arrived, switch it on with the
   // card this payment used. Done after the credits, and a failure here asks Stripe to retry,

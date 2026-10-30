@@ -6,9 +6,9 @@ import {
 
 export const metadata: Metadata = {
   title:
-    "Nano FaceSwap — Local Face Swap for Windows (NVIDIA GPU)",
+    "Free Local Face Swap for Windows: Nano FaceSwap (NVIDIA GPU)",
   description:
-    "Nano FaceSwap is a local desktop face-swap app for Windows. It swaps single or multiple faces in photos and videos on a single NVIDIA GPU, with a one-time license, no per-minute fees, and no cloud upload of source media.",
+    "Nano FaceSwap is a free local desktop face-swap app for Windows. It swaps single or multiple faces in photos and videos on a single NVIDIA GPU, with a free license, no per-minute fees, and no cloud upload of source media.",
   keywords: [
     "Nano FaceSwap",
     "desktop face swap",
@@ -30,17 +30,17 @@ export const metadata: Metadata = {
   alternates: { canonical: "/apps/nano-faceswap" },
   openGraph: {
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
-    title: "Nano FaceSwap — Local Desktop Face Swap",
+    title: "Nano FaceSwap — Free Local Desktop Face Swap",
     description:
-      "Local desktop face-swap for Windows NVIDIA GPUs. One-time license, no per-minute fees, no cloud upload.",
+      "Free local desktop face swap for Windows NVIDIA GPUs. Free license, no per-minute fees, no cloud upload.",
     type: "website",
     url: "https://nanopocket.ai/apps/nano-faceswap",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nano FaceSwap — Local Desktop Face Swap",
+    title: "Nano FaceSwap — Free Local Desktop Face Swap",
     description:
-      "Local desktop face swap on a single NVIDIA GPU. One-time license, no cloud upload.",
+      "Free local desktop face swap on a single NVIDIA GPU. No cloud upload.",
   },
 };
 
@@ -58,7 +58,7 @@ const data: ProductLandingData = {
     softwareVersion: "1.0.6",
     releaseDate: "2026-01-12",
     description:
-      "Nano FaceSwap — local Windows desktop face-swap for photos and video on a single NVIDIA GPU. Single-face and multi-face swap in one app. One-time license, no per-minute or per-frame fees, no cloud upload of source media. A local alternative to Roop, FaceFusion, Rope, DeepSwap, DeepFaceLab.",
+      "Nano FaceSwap — local Windows desktop face-swap for photos and video on a single NVIDIA GPU. Single-face and multi-face swap in one app. Free, with a free license key; no per-minute or per-frame fees, no cloud upload of source media. A local alternative to Roop, FaceFusion, Rope, DeepSwap, DeepFaceLab.",
     offer: {
       price: "0.00",
       priceCurrency: "USD",
@@ -73,7 +73,7 @@ const data: ProductLandingData = {
       { name: "Tested GPUs", value: "RTX 30, RTX 40, RTX 50 series" },
       { name: "Data handling", value: "100% local; no upload of source media" },
       { name: "Network requirement", value: "Only for license activation" },
-      { name: "License model", value: "One-time, machine-bound; no per-minute or per-frame fees" },
+      { name: "License model", value: "Free, machine-bound license key; no per-minute or per-frame fees" },
       { name: "Pro upgrade", value: "Nano FaceStudio Pro 1.0 — GAN and diffusion models" },
     ],
   },
@@ -158,7 +158,7 @@ const data: ProductLandingData = {
     versionChip: "v1.0.6",
     title: "Nano",
     titleAccent: "FaceSwap",
-    lead: "Nano FaceSwap is a local Windows desktop face-swap application that swaps single or multiple faces in photos and videos on a single NVIDIA GPU, ships with a one-time license, charges no per-minute or per-frame fees, and never uploads source media to a server.",
+    lead: "Nano FaceSwap is a local Windows desktop face-swap application that swaps single or multiple faces in photos and videos on a single NVIDIA GPU, is free with a license key, charges no per-minute or per-frame fees, and never uploads source media to a server.",
     parameters: [
       { value: "Single & group", label: "One-face and multi-face swap" },
       {
@@ -166,7 +166,7 @@ const data: ProductLandingData = {
         label: "Same app, both media types",
       },
       {
-        value: "One-time license",
+        value: "Free license",
         label: "No per-minute or per-frame fees",
       },
     ],
@@ -180,7 +180,7 @@ const data: ProductLandingData = {
   trust: [
     { label: "Single-GPU NVIDIA CUDA" },
     { label: "100% local · no cloud upload" },
-    { label: "One-time license" },
+    { label: "Free license" },
     { label: "Photos + video in one app" },
   ],
   sections: [
@@ -278,7 +278,7 @@ const data: ProductLandingData = {
     },
     {
       q: "How is this different from Roop or FaceFusion?",
-      a: "Roop, Roop-Unleashed, FaceFusion, Rope, Rope-Live, and Reactor ship as Gradio scripts that wrap the InsightFace inswapper_128 GAN — they require a Python environment, a pip/conda setup, and per-machine recompilation. Nano FaceSwap ships as a single Windows installer with a desktop UI and a one-time license. No Python required.",
+      a: "Roop, Roop-Unleashed, FaceFusion, Rope, Rope-Live, and Reactor ship as Gradio scripts that wrap the InsightFace inswapper_128 GAN — they require a Python environment, a pip/conda setup, and per-machine recompilation. Nano FaceSwap ships as a single Windows installer with a desktop UI and a free license key. No Python required.",
     },
     {
       q: "Should I get this or Nano FaceStudio Pro 1.0?",
@@ -290,12 +290,12 @@ const data: ProductLandingData = {
     },
     {
       q: "Can I use it for marketing campaigns or client work?",
-      a: "Yes. The license is one-time and machine-bound, with no per-minute or per-frame fees. Swapped photos and videos can be used in commercial deliverables under the standard Terms of Use, with the usual subject-consent requirements.",
+      a: "Yes. The app is free; its license key is machine-bound, and there are no per-minute or per-frame fees. Swapped photos and videos can be used in commercial deliverables under the standard Terms of Use, with the usual subject-consent requirements.",
     },
   ],
   closing: {
     title: "Install Nano FaceSwap.",
-    body: "Local desktop face swap for photos and videos on a single NVIDIA GPU. One-time license, no per-minute fees, source media stays on your disk.",
+    body: "Local desktop face swap for photos and videos on a single NVIDIA GPU. Free, no per-minute fees, source media stays on your disk.",
     primaryCta: { label: "Download for Windows", href: "/download" },
     secondaryCta: {
       label: "See Nano FaceStudio Pro 1.0",

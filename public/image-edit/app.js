@@ -722,7 +722,7 @@ function renderTop() {
   if (v && v.status === "done") {
     dl.classList.remove("disabled");
     dl.href = v.image.png;
-    dl.download = `${(S.docName || "photo").replace(/\.[^.]+$/, "")}_v${v.n}.png`;
+    dl.download = `${(S.docName || "photo").replace(/\.[^.]+$/, "")}_v${v.n}_nanopocket.png`;
   } else dl.classList.add("disabled");
   $("undoBtn").disabled = !(v && v.parent);
   $("redoBtn").disabled = !S.redo.length;

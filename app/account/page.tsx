@@ -5,6 +5,9 @@ import { createClient } from "@/lib/supabase/server";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { AccountProfile } from "./account-profile";
+import { InviteFriends } from "./invite-friends";
+import { getOrCreateReferralCode, getReferralStats } from "@/lib/referral-server";
+import { referralLink } from "@/lib/referral";
 
 export const metadata: Metadata = { robots: { index: false, follow: true } };
 
@@ -25,6 +28,11 @@ export default async function AccountPage() {
     .eq("id", user.id)
     .single();
 
+  const [code, stats] = await Promise.all([
+    getOrCreateReferralCode(user.id),
+    getReferralStats(user.id),
+  ]);
+
   return (
     <main className="relative min-h-screen">
       <Navbar />
@@ -41,6 +49,9 @@ export default async function AccountPage() {
             <span className="text-muted-foreground"> (Video FaceSwap Online, kept 24 hours)</span>
           </p>
         </div>
+        {code && (
+          <InviteFriends link={referralLink(code)} signups={stats.signups} rewarded={stats.rewarded} />
+        )}
         <AccountProfile user={user} profile={profile} />
       </div>
       <Footer />
