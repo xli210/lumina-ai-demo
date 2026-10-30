@@ -31,7 +31,7 @@ Add trending music in each app's editor. Platform music libraries are licensed f
 | Reddit | `https://nanopocket.ai/video-face-swap-examples?utm_source=reddit&utm_medium=social` |
 | 小红书 / 抖音 / B 站 | `https://nanopocket.ai/zh-CN?utm_source=xiaohongshu` (use `douyin` / `bilibili` as the source) |
 
-Your own invite link (Account → Invite friends) also works anywhere. Friends who buy earn you 200 credits.
+Your own invite link (Account → Invite friends) also works anywhere. When a friend first buys credits, you both get 100.
 
 ## Captions
 

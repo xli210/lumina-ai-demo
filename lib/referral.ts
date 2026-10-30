@@ -18,7 +18,7 @@ export const REFERRAL_COOKIE = "np_ref";
 export const REFERRAL_COOKIE_MAX_AGE_S = 60 * 60 * 24 * 30;
 
 /** What the inviter gets when the friend first buys credits. */
-export const REFERRAL_REWARD_CREDITS = 200;
+export const REFERRAL_REWARD_CREDITS = 100;
 
 /** What the friend gets on top of their first purchase. */
 export const REFERRAL_FRIEND_CREDITS = 100;
