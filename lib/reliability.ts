@@ -16,7 +16,7 @@ export type Outcome =
   | "in_flight"; // still running
 
 /** Release reasons that mean the person stopped, not the service. */
-const NOT_A_FAULT = new Set(["cancelled", "studio_cancelled", "page_released_before_job", "no_job_started"]);
+const NOT_A_FAULT = new Set(["cancelled", "studio_cancelled", "input_rejected", "page_released_before_job", "no_job_started"]);
 
 export interface HoldRow {
   id: string;
@@ -181,6 +181,7 @@ export function fmtRate(r: number | null): string {
 /** Human wording for the codes the routes store. Unknown codes are shown as they are. */
 export const REASON_LABELS: Record<string, string> = {
   render_failed: "Render failed on the GPU",
+  input_rejected: "Photo could not be used (not our fault)",
   edit_failed: "Edit failed on the GPU",
   gateway_rejected: "GPU gateway refused the job",
   gateway_unreachable: "GPU gateway unreachable",
