@@ -30,14 +30,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
       : {}),
   }));
   const zhGuideEntries = [
-    { url: `${BASE}/zh-CN/guides`, lastModified: new Date("2026-10-21"), changeFrequency: "weekly" as const, priority: 0.8 },
+    { url: `${BASE}/zh-CN/guides`, lastModified: new Date("2026-10-30"), changeFrequency: "weekly" as const, priority: 0.8 },
     ...ZH_GUIDES.map((g) => ({
       url: `${BASE}/zh-CN/guides/${g.slug}`,
       lastModified: new Date(g.date),
       changeFrequency: "monthly" as const,
       priority: 0.75,
-      alternates: { languages: { en: `${BASE}/blog/${g.slug}`, "zh-CN": `${BASE}/zh-CN/guides/${g.slug}` } },
+      ...(g.english === false
+        ? {}
+        : { alternates: { languages: { en: `${BASE}/blog/${g.slug}`, "zh-CN": `${BASE}/zh-CN/guides/${g.slug}` } } }),
     })),
+    {
+      url: `${BASE}/zh-CN/facestudio-v`,
+      lastModified: new Date("2026-10-30"),
+      changeFrequency: "weekly" as const,
+      priority: 0.9,
+      alternates: { languages: { en: `${BASE}/facestudio-v`, "zh-CN": `${BASE}/zh-CN/facestudio-v` } },
+    },
   ];
 
   const releaseNoteEntries = appReleases.map((app) => ({

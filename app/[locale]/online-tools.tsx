@@ -36,7 +36,7 @@ export async function OnlineToolCards({ locale }: { locale: AppLocale }) {
   const tools: { key: ToolKey; name: string; href: string; Icon: React.ComponentType<{ className?: string }> }[] = [
     { key: "faceStudio", name: FACE_STUDIO_NAME, href: "/face-studio", Icon: ImageIcon },
     { key: "headSwap", name: HEADSWAP_PRO_NAME, href: translatedOrEnglish("/headswap-pro", locale), Icon: UserRoundCog },
-    { key: "video", name: FACESTUDIO_V_NAME, href: FACESTUDIO_V_PAGE, Icon: Clapperboard },
+    { key: "video", name: FACESTUDIO_V_NAME, href: translatedOrEnglish(FACESTUDIO_V_PAGE, locale), Icon: Clapperboard },
     { key: "imageEdit", name: IMAGEEDIT_NAME, href: "/image-edit", Icon: Wand2 },
   ];
 

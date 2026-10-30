@@ -7,6 +7,11 @@
  * "no sign-in needed", because the studio needs a free account.
  */
 
+import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
+import { FACE_SWAP_CREDITS, HEAD_SWAP_CREDITS } from "@/lib/face-studio-facts";
+import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
+import { HEADSWAP_PRO_CREDITS_PER_IMAGE } from "@/lib/headswap-pro";
+
 export interface ZhGuide {
   /** Same as the English guide's slug, so the pair is easy to map. */
   slug: string;
@@ -16,15 +21,18 @@ export interface ZhGuide {
   keywords: string[];
   content: string;
   cta: { title: string; body: string; href: string; label: string };
+  /** False for a guide written for Chinese searches only, with no English post under /blog. */
+  english?: boolean;
 }
 
 const DATE = "2026-10-21";
+const DATE_1030 = "2026-10-30";
 const MEDIA = "/facestudio-v/media/xc";
 
 const cta = {
   title: "试试 Video FaceSwap Online 1.1.0",
   body: "上传视频,选择要换的人,开始前先看到价格。视频失败会退还积分,新账号有免费积分。",
-  href: "/facestudio-v",
+  href: "/zh-CN/facestudio-v",
   label: "打开 Video FaceSwap Online",
 };
 
@@ -309,9 +317,105 @@ export const ZH_GUIDES: ZhGuide[] = [
 - [视频怎么换脸?分步教程](/zh-CN/guides/how-to-swap-a-face-in-a-video)
 - [2026 年视频换脸工具怎么选](/zh-CN/guides/best-video-face-swap-tools-2026-how-to-choose)`,
   },
+  {
+    slug: "how-to-make-a-face-swap-video-on-your-phone",
+    english: false,
+    title: "手机上怎么做换脸视频?不用下载 App 的在线教程(2026)",
+    description:
+      "用手机浏览器给视频换脸:从相册选视频、拍一张参考人脸、点选要换的人。附手机视频的长度和帧率注意事项、费用和水印说明。",
+    date: DATE_1030,
+    keywords: ["手机换脸视频", "手机视频换脸", "手机怎么做换脸视频", "AI换脸视频怎么做", "视频换脸软件免费", "ai换脸在线使用"],
+    cta: { ...cta, href: "/zh-CN/facestudio-v", label: "打开中文介绍页" },
+    content: `## 简短回答
+
+不需要装 App。用手机浏览器打开 [Video FaceSwap Online](/zh-CN/facestudio-v),登录免费账号,从相册选一段视频,再选一张人脸照片,点一下要换的人,确认价格后开始。做好以后直接下载到手机。
+
+## 开始前准备
+
+- **一个免费的 NanoPocket 账号**:用邮箱或 Google 注册,新账号送 ${SIGNUP_GRANT_CREDITS} 积分。
+- **一段视频**:画面里的脸要够大、够清楚。
+- **一张参考人脸照片**:正面、光线均匀、整张脸都露出来。可以直接用手机前置摄像头拍一张。
+- **使用这张脸的权利**:换别人的脸要先征得本人同意,开始前工作室会让你确认。
+
+## 手机视频要注意的三件事
+
+1. **帧率。** 很多手机默认录 60 帧。时长限制按每秒最多 30 帧来算,所以 60 帧的视频会被当成两倍长。想多换一点时长,录的时候选 30 帧。
+2. **时长。** 从未充值过的账号每段最长 5 秒,充值一次后最长 60 秒(换头 12 秒)。超出的部分不会让你白付钱:工作室会截取开头或你选的那一段,并在付费前告诉你。
+3. **网络。** 视频文件比较大,上传时尽量连 Wi-Fi。
+
+## 步骤
+
+1. 在手机浏览器打开 nanopocket.ai/facestudio-v,点「打开视频换脸」并登录。工作室界面目前是英文,但按钮很少,照下面做就行。
+2. **上传视频**:点上传,从相册选视频。系统会找到并跟踪画面里的每一张脸。
+3. **添加参考人脸**:选那张正面照片,勾选确认你有权使用这张脸。
+4. **点选要换的人**:多人视频里点一下要换的那个人。两个人同样显眼时,工作室会让你选,不会乱猜。
+5. **看价格,开始**:例如 10 秒 1080p 的快速模式大约 20 积分。做好后下载保存。
+
+## 想要更好的效果
+
+- 参考照片越清晰、越正面,换出来越像。
+- 脸被话筒、口罩长时间挡住,或者转到完全背对镜头的那几帧,会保持原样。
+- 想连发型一起换,选换头模式,适合几秒钟的短镜头。
+
+## 水印和费用
+
+注册送的积分可以先试一段 5 秒以内的视频,这时会带一个缓慢移动的 NanoPocket 水印。充值一次以后做的视频就没有水印,也能用完整时长。每个视频开始前显示价格,失败会退回积分,没有订阅。
+
+## 相关文章
+
+- [视频怎么换脸?分步教程](/zh-CN/guides/how-to-swap-a-face-in-a-video)
+- [为什么换脸一转头、一挡手就穿帮](/zh-CN/guides/why-face-swaps-break-on-hands-profile-turns-and-low-light)`,
+  },
+  {
+    slug: "how-to-swap-faces-in-a-group-photo",
+    english: false,
+    title: `合照怎么换脸?多人照片在线换脸教程(一张最多换 ${FACESTUDIO_MAX_FACES} 张脸)`,
+    description:
+      `在浏览器里给合照换脸:一张照片最多换 ${FACESTUDIO_MAX_FACES} 张脸,每张脸换成谁由你决定;也可以只换其中一个人,或者连发型一起换头。`,
+    date: DATE_1030,
+    keywords: ["合照换脸", "多人换脸", "照片换脸", "AI换脸在线", "免费ai换脸", "ai换脸网站", "照片换头"],
+    cta: {
+      title: "试试 Nano FaceStudio Online",
+      body: `上传合照,给每张脸指定新的人脸。注册送免费积分,每张脸 ${FACE_SWAP_CREDITS} 积分。`,
+      href: "/face-studio",
+      label: "打开照片换脸",
+    },
+    content: `## 简短回答
+
+打开 [Nano FaceStudio Online](/face-studio),上传合照,系统会找出照片里的每一张脸。给想换的那几张脸各自添加一张参考照片,不想换的留着不动,然后生成。一张照片最多换 ${FACESTUDIO_MAX_FACES} 张脸,输出保持原图分辨率。
+
+## 费用
+
+- 换脸:每张脸 ${FACE_SWAP_CREDITS} 积分。
+- 换头(脸和发型一起换):每张 ${HEAD_SWAP_CREDITS} 积分。
+- 新账号注册送 ${SIGNUP_GRANT_CREDITS} 积分,够换 ${Math.floor(SIGNUP_GRANT_CREDITS / FACE_SWAP_CREDITS)} 张脸。1 积分 = 0.01 美元,没有订阅,失败自动退回。
+- 从未充值过的账号,结果会带 NanoPocket 水印;充值一次即可去除。
+
+## 步骤
+
+1. **上传合照。** 照片越清晰越好,每张脸最好不要太小。
+2. **给每张脸指定新的人。** 点照片里的一张脸,添加一张参考照片;可以每张脸用不同的人,也可以只换一个人。
+3. **确认有权使用这些脸。** 开始前工作室会让你确认。
+4. **生成并下载。** 结果是原图分辨率的 PNG,可以用前后对比查看,用画笔把不想改的地方还原。
+
+## 只想换一个人的头?
+
+如果你想把合照里某一个人的整个头(脸、发型、头型)换掉,而身体、姿势和其他人都不变,用 [Nano HeadSwap Pro](/zh-CN/headswap-pro)。在合照里点选那个人就行,侧脸、仰拍等大角度也能换,每张 ${HEADSWAP_PRO_CREDITS_PER_IMAGE} 积分,一次最多出 4 个结果。
+
+## 让结果更自然的小技巧
+
+- 参考照片和合照里的人脸朝向接近时,效果最好。
+- 光线差别很大时,换脸后可以用 [Nano ImageEdit 2.0 Online](/image-edit) 用一句话调整整体色调。
+- 只换你有权使用的脸,不要在未经本人同意的情况下发布。
+
+## 相关文章
+
+- [手机上怎么做换脸视频?](/zh-CN/guides/how-to-make-a-face-swap-video-on-your-phone)
+- [本地换脸和在线换脸怎么选](/zh-CN/guides/local-vs-online-face-swap-privacy-cost-quality)`,
+  },
 ];
 
 /** The Chinese guide for an English blog slug, if there is one (for hreflang). */
 export function zhGuideFor(slug: string): ZhGuide | undefined {
-  return ZH_GUIDES.find((g) => g.slug === slug);
+  return ZH_GUIDES.find((g) => g.slug === slug && g.english !== false);
 }

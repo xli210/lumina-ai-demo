@@ -26,8 +26,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: guide.keywords,
     alternates: {
       canonical: `/zh-CN/guides/${guide.slug}`,
-      // The English guide with the same slug, and this one: they point at each other.
-      languages: { en: `https://nanopocket.ai/blog/${guide.slug}`, "zh-CN": url },
+      // The English guide with the same slug, and this one: they point at each other. A guide written
+      // only for Chinese searches has no English pair.
+      ...(guide.english === false
+        ? {}
+        : { languages: { en: `https://nanopocket.ai/blog/${guide.slug}`, "zh-CN": url } }),
     },
     openGraph: { type: "article", url, title: guide.title, description: guide.description, publishedTime: guide.date, locale: "zh_CN", images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }] },
   };

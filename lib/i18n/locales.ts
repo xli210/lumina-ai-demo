@@ -68,6 +68,7 @@ export const TRANSLATED_PAGES: Record<string, readonly AppLocale[]> = {
   "/": ["zh-CN"],
   "/face-swap": ["zh-CN", "ja", "ko", "es", "pt-BR", "de", "fr"],
   "/headswap-pro": ["zh-CN", "ja"],
+  "/facestudio-v": ["zh-CN"],
 };
 
 /** This page's address in `locale` if it has been translated, else its English address. */

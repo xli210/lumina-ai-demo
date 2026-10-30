@@ -128,7 +128,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "NanoPocket 支持视频换脸吗？",
-    a: "支持。Video FaceSwap Online（1.1.0）是在线视频换脸：只替换你选的那个人，其他人和原声保持不变。需要登录 NanoPocket 账号，按积分计费，开始前会显示价格，失败的视频自动退款；从未充值的账号生成的视频会带移动水印，充值一次即可去除。访问地址：nanopocket.ai/facestudio-v。",
+    a: "支持。Video FaceSwap Online（1.1.0）是在线视频换脸：只替换你选的那个人，其他人和原声保持不变。需要登录 NanoPocket 账号，按积分计费，开始前会显示价格，失败的视频自动退款；从未充值的账号生成的视频会带移动水印，充值一次即可去除。中文介绍：nanopocket.ai/zh-CN/facestudio-v。",
   },
   {
     q: "本地桌面版 Nano FaceStudio Pro 1.0 什么时候发布？",
