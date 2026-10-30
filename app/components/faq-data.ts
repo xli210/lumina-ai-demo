@@ -2,7 +2,21 @@
  * The homepage FAQ. Shared by the visible accordion (faq-section.tsx, a client component) and the
  * FAQPage structured data in app/page.tsx, so the two can never say different things.
  */
+import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
+import { FACE_SWAP_CREDITS } from "@/lib/face-studio-facts";
+import { HEADSWAP_PRO_CREDITS_PER_IMAGE } from "@/lib/headswap-pro";
+import { IMAGEEDIT_CREDITS_PER_EDIT } from "@/lib/imageedit";
+
+/** What the sign-up grant buys, so "free" always comes with a number that matches billing. */
+export const FREE_FACE_SWAPS = Math.floor(SIGNUP_GRANT_CREDITS / FACE_SWAP_CREDITS);
+const FREE_HEADSWAPS = Math.floor(SIGNUP_GRANT_CREDITS / HEADSWAP_PRO_CREDITS_PER_IMAGE);
+const FREE_EDITS = Math.floor(SIGNUP_GRANT_CREDITS / IMAGEEDIT_CREDITS_PER_EDIT);
+
 export const HOME_FAQS: readonly { question: string; answer: string }[] = [
+  {
+    question: "Is NanoPocket free?",
+    answer: `Yes, it is free to start. Every new account gets ${SIGNUP_GRANT_CREDITS} free credits, enough for ${FREE_FACE_SWAPS} photo face swaps (${FACE_SWAP_CREDITS} credits each), ${FREE_HEADSWAPS} Nano HeadSwap Pro images or ${FREE_EDITS} AI photo edits, and no card is needed to sign up. Three desktop apps are free for good: Nano FaceSwap, Nano FacialEdit and Nano ImageTryon; the paid desktop apps have a 7-day free trial. After the free credits you top up only when you need more, with no subscription. Face, head and video swaps made before your first purchase carry a NanoPocket watermark.`,
+  },
   {
     question: "Can I try it without downloading anything?",
     answer:

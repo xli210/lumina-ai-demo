@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     other: verificationOther,
   },
   description:
-    "Local AI face swap, face editing and virtual try-on for Windows. Your photos and videos stay on your computer, with no subscription: free apps or a one-time license. Free online demos too.",
+    "Local AI face swap, face editing and virtual try-on for Windows. Your photos and videos stay on your computer, with no subscription: free apps or a one-time license. Online tools are free to start with sign-up credits.",
   keywords: [
     "NanoPocket", "local AI", "generative AI", "offline AI",
     "Runway alternative", "ComfyUI alternative", "Flux local app",

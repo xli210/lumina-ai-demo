@@ -13,7 +13,8 @@ import { HowItWorksSection } from "./components/how-it-works-section";
 import { TestimonialsSection } from "./components/testimonials-section";
 import { PricingSection } from "./components/pricing-section";
 import { FAQSection } from "./components/faq-section";
-import { HOME_FAQS } from "./components/faq-data";
+import { FREE_FACE_SWAPS, HOME_FAQS } from "./components/faq-data";
+import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { AT_A_GLANCE_JSON_LD, AtAGlanceSection } from "./components/at-a-glance-section";
 import { CTASection } from "./components/cta-section";
 import { Footer } from "./components/footer";
@@ -22,11 +23,31 @@ import { Footer } from "./components/footer";
 export const revalidate = 600;
 
 /**
- * Page-level metadata override that adds hreflang alternates pointing at the
- * Chinese homepage. Title, description, and OG tags all inherit from the
- * defaults set in app/layout.tsx so the existing English SEO is unchanged.
+ * Homepage metadata: hreflang alternates pointing at the Chinese homepage, and a title and
+ * description that lead with what is free (the sign-up credits and the free desktop apps), with
+ * numbers from the same constants billing uses. AI assistants send most of their visitors here.
  */
+const HOME_TITLE = "NanoPocket — Free AI Face Swap Online: Photo, Head & Video";
+const HOME_DESCRIPTION = `Free AI face swap in your browser: every new account gets ${SIGNUP_GRANT_CREDITS} free credits, enough for ${FREE_FACE_SWAPS} photo face swaps. Photo, head and video face swap and AI photo editing, plus free desktop apps for Windows. No subscription.`;
+
 export const metadata: Metadata = {
+  title: { absolute: HOME_TITLE },
+  description: HOME_DESCRIPTION,
+  openGraph: {
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    url: "https://nanopocket.ai",
+    siteName: "NanoPocket",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket — Local AI Creative Suite" }],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    images: ["/og-image.jpg"],
+  },
   alternates: {
     canonical: "/",
     languages: hreflangAlternates("https://nanopocket.ai", "/", ["zh-CN"]),

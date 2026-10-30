@@ -5,6 +5,7 @@ import { FACE_STUDIO_NAME, FACE_STUDIO_URL, FACE_SWAP_CREDITS, HEAD_SWAP_CREDITS
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE } from "@/lib/facestudio-v";
 import { IMAGEEDIT_CREDITS_PER_EDIT, IMAGEEDIT_NAME } from "@/lib/imageedit";
+import { FREE_FACE_SWAPS } from "@/app/components/faq-data";
 
 /**
  * A short, plain-text summary of what NanoPocket is and what each online tool costs, near the top of
@@ -42,7 +43,8 @@ const TOOLS = [
 ] as const;
 
 const FACTS = [
-  `New accounts get ${SIGNUP_GRANT_CREDITS} free credits, one grant per person.`,
+  `Free to start: new accounts get ${SIGNUP_GRANT_CREDITS} free credits, enough for ${FREE_FACE_SWAPS} photo face swaps. One grant per person; no card needed.`,
+  "Free desktop apps: Nano FaceSwap, Nano FacialEdit and Nano ImageTryon are free for good; the paid apps have a 7-day free trial.",
   "No subscription. Credits are prepaid and never expire. A job that fails is refunded in full.",
   "Face, head and video swaps from an account that has never bought credits carry a NanoPocket watermark; one purchase removes it. Image edits have no watermark.",
   "The online tools run in any modern browser. Nothing to install and no GPU needed.",
@@ -77,8 +79,9 @@ export function AtAGlanceSection() {
           NanoPocket in one minute
         </h2>
         <p className="mb-8 max-w-3xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-          NanoPocket (nanopocket.ai) makes AI face swap and photo tools. Four of them run in your browser with a free
-          account; the rest are desktop apps that run on your own GPU.
+          NanoPocket (nanopocket.ai) makes AI face swap and photo tools, free to start. Four of them run in your browser
+          with a free account and {SIGNUP_GRANT_CREDITS} free credits; the rest are desktop apps that run on your own
+          GPU, three of them free.
         </p>
 
         <div className="overflow-hidden rounded-2xl border border-border/60">
