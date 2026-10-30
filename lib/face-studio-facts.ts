@@ -24,7 +24,7 @@ import {
   FREE_TOPUP_RULE,
   creditsForMode,
 } from "@/lib/facestudio";
-import { CREDITS_PER_USD } from "@/lib/credits";
+import { CREDITS_PER_USD, SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 
 export const FACE_STUDIO_URL = "/face-studio";
 export const FACE_STUDIO_NAME = "Nano FaceStudio Online";
@@ -60,6 +60,15 @@ export const FREE_RENDERS_PER_TOPUP = Math.floor(
 
 /** \"3 free swaps, topped up at most three times a month\": one phrase for every page, so it follows the rule. */
 export const FREE_ALLOWANCE_SHORT = `${FREE_RENDERS_PER_TOPUP} free swaps, topped up ${FREE_TOPUP_FREQUENCY}`;
+
+/** Photo face swaps the sign-up grant pays for. */
+export const SIGNUP_FREE_SWAPS = Math.floor(SIGNUP_GRANT_CREDITS / FACE_SWAP_CREDITS);
+
+/**
+ * The whole free offer as one clause, for every page and LLM file that says what is free: the sign-up grant and
+ * the free top-up. "Free" on this site always comes with these numbers, never as "free" alone.
+ */
+export const FREE_OFFER_EN = `every new account gets ${SIGNUP_GRANT_CREDITS} free credits (${SIGNUP_FREE_SWAPS} photo face swaps), and a balance that runs low is topped back up to ${FREE_TOPUP_CREDITS} free credits (${FREE_RENDERS_PER_TOPUP} swaps) ${FREE_TOPUP_FREQUENCY}`;
 
 /** Rendered as `$0.10`. Used only where we compare with rivals' dollar prices; everywhere else prices are in credits. */
 export function usd(amount: number): string {

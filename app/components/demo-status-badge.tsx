@@ -1,6 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { createAdminClient } from "@/lib/supabase/admin";
-import type { DemoId } from "@/lib/demos";
+import { getDemo, isInternalDemo, type DemoId } from "@/lib/demos";
 
 interface BadgeProps {
   demoId: DemoId;
@@ -61,6 +61,9 @@ export async function DemoStatusBadge({
   size = "sm",
   hideWhenUnknown = false,
 }: BadgeProps) {
+  // Tools on nanopocket.ai are not pinged by the uptime checker (scripts/check-demos.mjs), so any row for
+  // them is a leftover from the tunnel they replaced and would show a stale "down".
+  if (isInternalDemo(getDemo(demoId))) return null;
   const latest = await fetchLatest(demoId);
 
   const status: "up" | "down" | "unknown" = latest?.status ?? "unknown";

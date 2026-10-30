@@ -9,7 +9,7 @@ const PAGE_URL = "https://nanopocket.ai/security";
 const LAST_REVIEWED = "2026-05-29";
 
 export const metadata: Metadata = {
-  title: "Security & Vulnerability Disclosure — NanoPocket",
+  title: "Security & Vulnerability Disclosure",
   description:
     "How to report a security issue to NanoPocket, our coordinated-disclosure timeline, code-signing status, and the standards we follow. Last reviewed 2026-05-29.",
   keywords: [

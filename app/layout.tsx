@@ -12,6 +12,7 @@ import { AnalyticsEvents } from "./components/analytics-events";
 import { FeedbackButton } from "./components/feedback-button";
 import { DEFAULT_LOCALE, isAppLocale, type AppLocale } from "@/lib/i18n/locales";
 import { demoAvailabilityEn } from "@/lib/demo-availability";
+import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 
 import "./globals.css";
 
@@ -97,7 +98,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "NanoPocket — Local AI Face Swap, Face Edit & Try-On",
-    description: "AI face swap, face editing and virtual try-on that run on your own GPU: your files stay on your computer and there is no subscription. Free apps or a one-time license, plus free in-browser demos.",
+    description: "AI face swap, face editing and virtual try-on that run on your own GPU: your files stay on your computer and there is no subscription. Free apps or a one-time license, plus free-to-start in-browser tools.",
     url: "https://nanopocket.ai",
     siteName: "NanoPocket",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket — Local AI Creative Suite" }],
@@ -107,7 +108,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "NanoPocket — Local AI Face Swap, Face Edit & Try-On",
-    description: "AI face swap, face editing and virtual try-on that run on your own GPU: your files stay on your computer and there is no subscription. Free apps or a one-time license, plus free in-browser demos.",
+    description: "AI face swap, face editing and virtual try-on that run on your own GPU: your files stay on your computer and there is no subscription. Free apps or a one-time license, plus free-to-start in-browser tools.",
     images: ["/og-image.jpg"],
   },
 };
@@ -170,12 +171,10 @@ export default async function RootLayout({
                 height: 630,
               },
               image: "https://nanopocket.ai/og-image.jpg",
-              slogan:
-                "Local AI creative suite — GAN and diffusion models and more, on your GPU. No subscription, no cloud.",
-              description:
-                "NanoPocket builds local AI desktop apps for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal): face swap, image and video upscaling, image generation, video generation, portrait retouch, and virtual try-on. Every desktop app runs 100% on the user's GPU; pricing is one-time per product with no subscriptions.",
+              slogan: "AI face swap in your browser or on your own GPU. Free to start, no subscription.",
+              description: `NanoPocket makes AI face swap and photo tools. In the browser: Video FaceSwap Online (swap a face or whole head in a video), Nano FaceStudio Online (up to six faces in one photo), Nano HeadSwap Pro (whole-head swap in a photo) and Nano ImageEdit 2.0 Online (edit a photo by describing the change), free to start with ${SIGNUP_GRANT_CREDITS} sign-up credits and paid per use in credits after that. On the desktop: apps for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) that run 100% on the user's GPU, three of them free and the rest one-time licences. No subscriptions.`,
               disambiguatingDescription:
-                "NanoPocket is an independent product company at nanopocket.ai. It is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, nanobnana, or any other Nano-prefixed website that wraps Google's Gemini 2.5 Flash Image API. NanoPocket's face-swap pipeline runs locally on GAN and diffusion models, not on Google's API.",
+                "NanoPocket is an independent product company at nanopocket.ai. It is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, nanobnana, or any other Nano-prefixed website that wraps Google's Gemini 2.5 Flash Image API. NanoPocket's face swap runs on its own GAN and diffusion models (on NanoPocket's GPUs online, on the user's GPU on desktop), not on Google's API.",
               contactPoint: [
                 {
                   "@type": "ContactPoint",
@@ -201,6 +200,11 @@ export default async function RootLayout({
                 "https://nanopocket.ai/.well-known/security.txt",
               ],
               knowsAbout: [
+                "AI face swap online",
+                "Video face swap",
+                "Head swap",
+                "Multi-face (group photo) face swap",
+                "AI photo editing",
                 "Local AI inference",
                 "Diffusion models",
                 "Generative AI for creative workflows",
@@ -221,6 +225,16 @@ export default async function RootLayout({
                     "@type": "Offer",
                     name: "Video FaceSwap Online 1.1.0",
                     url: "https://nanopocket.ai/facestudio-v",
+                  },
+                  {
+                    "@type": "Offer",
+                    name: "Nano FaceStudio Online",
+                    url: "https://nanopocket.ai/face-studio",
+                  },
+                  {
+                    "@type": "Offer",
+                    name: "Nano HeadSwap Pro",
+                    url: "https://nanopocket.ai/headswap-pro",
                   },
                   {
                     "@type": "Offer",
@@ -371,11 +385,11 @@ export default async function RootLayout({
                 {
                   "@type": "WebPage",
                   "@id": "https://nanopocket.ai/face-swap",
-                  name: "Free online AI face swap — runs in your browser",
+                  name: "Free AI face swap online — photo and video, runs in your browser",
                   url: "https://nanopocket.ai/face-swap",
                   dateModified: "2026-06-03",
                   description:
-                    "Canonical landing page for NanoPocket's free in-browser face-swap demos. Single-purpose, no install, no subscription, GAN and diffusion models.",
+                    "Canonical landing page for NanoPocket's free AI face swap online: photo (up to six faces) and video, free to start with sign-up credits, no install, no subscription, GAN and diffusion models.",
                 },
                 {
                   "@type": "TechArticle",
@@ -384,7 +398,7 @@ export default async function RootLayout({
                   url: "https://nanopocket.ai/compare/nanopocket-vs-wavespeed",
                   dateModified: "2026-06-03",
                   description:
-                    "Comparison: WaveSpeed AI (broad cloud generative-AI suite where face swap is one feature) vs NanoPocket (specialised face-swap stack with free in-browser demo + optional local desktop).",
+                    "Comparison: WaveSpeed AI (broad cloud generative-AI suite where face swap is one feature) vs NanoPocket (specialised face-swap stack with free-to-start in-browser tools + optional local desktop).",
                 },
                 {
                   "@type": "WebPage",

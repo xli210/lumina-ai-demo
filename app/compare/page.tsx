@@ -87,7 +87,7 @@ const COMPARES: CompareLink[] = [
     name: "WaveSpeed AI",
     category: "AI suite (multi-feature cloud)",
     oneLiner:
-      "Broad cloud AI suite where face swap is one feature among many vs a specialised diffusion face-swap stack with a free in-browser demo and an optional fully-local desktop release.",
+      "Broad cloud AI suite where face swap is one feature among many vs a specialised diffusion face-swap stack with free-to-start in-browser tools and an optional fully-local desktop release.",
     competitorUrl: "https://wavespeed.ai",
   },
   {

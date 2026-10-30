@@ -22,31 +22,33 @@ import { Button } from "@/components/ui/button";
 import { DemoStatusBadge } from "../components/demo-status-badge";
 import { DEMOS, demoRedirectPath, type DemoId } from "@/lib/demos";
 import { hreflangAlternates } from "@/lib/i18n/locales";
-import { DemoQuotaWidget } from "./quota-widget";
-import { DEMO_DAILY_LIMIT } from "@/lib/demo-quota";
 import {
   DIFFERENTIATORS,
   FACE_SWAP_CREDITS,
   FREE_ALLOWANCE_SHORT,
+  FREE_OFFER_EN,
+  SIGNUP_FREE_SWAPS,
 } from "@/lib/face-studio-facts";
+import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
 import { demoAvailabilityEn } from "@/lib/demo-availability";
 
 const PAGE_URL = "https://nanopocket.ai/face-swap";
-const LAST_VERIFIED = "2026-10-01";
+const LAST_VERIFIED = "2026-10-30";
 
 export const metadata: Metadata = {
   title:
     // The layout template appends " | NanoPocket"; the brand is not repeated here.
-    "Free Online AI Face Swap — No Install, No Subscription",
+    "Free AI Face Swap Online — Photo, Group Photo & Video, No Install",
   description:
-    `Free online AI face swap that runs in your browser. No install, no subscription, no GPU required. Nano FaceStudio Online swaps up to ${FACESTUDIO_MAX_FACES} faces in one photo at full resolution with a free allowance of renders (a small watermark until your first top-up). Sign in once with a free account and start swapping.`,
+    `Free AI face swap in your browser: ${SIGNUP_GRANT_CREDITS} free credits on sign-up (${SIGNUP_FREE_SWAPS} photo face swaps), no card, no install, no subscription. Swap up to ${FACESTUDIO_MAX_FACES} faces in one photo at full resolution, or a face in a video. Watermark until your first top-up.`,
   keywords: [
     "free online face swap",
     "ai face swap online",
     "face swap in browser",
     "free face swap no install",
-    "face swap no signup",
+    "free video face swap",
+    "group photo face swap",
     "best free ai face swap",
     "browser face swap",
     "online face swap diffusion",
@@ -63,9 +65,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: PAGE_URL,
-    title: "Free Online AI Face Swap — runs in your browser",
+    title: "Free AI Face Swap Online — runs in your browser",
     description:
-      "Diffusion-grade face swap that runs in your browser. Free renders to start, no install, no subscription.",
+      `Diffusion-grade face swap that runs in your browser. ${SIGNUP_GRANT_CREDITS} free credits on sign-up (${SIGNUP_FREE_SWAPS} photo swaps), no install, no subscription.`,
     images: ["/images/vivid/gemini-after.jpg"],
   },
   other: {
@@ -98,11 +100,11 @@ const ONLINE_DEMO_COPY: OnlineDemoCopy[] = [
   {
     id: "video",
     blurb:
-      "Same identity stack extended to video with temporal smoothing. Drop in a clip, get a swapped clip — no frame-by-frame work.",
+      "Video FaceSwap Online: replace one person's face, or their whole head, in a video. Everyone else and the original sound stay as filmed — no frame-by-frame work.",
     bullets: [
-      "Short-clip video swap straight from the browser",
-      "Temporal-consistent — no flicker between frames",
-      "Free, browser-based, no install",
+      "Pick the person to change; the rest of the video stays as filmed",
+      "Built for hard footage: profile turns, hands in front of the face, low light",
+      "Paid per video in credits, price shown before it starts; sign-up credits can cover a short first clip",
     ],
     Icon: Video,
     accent: "sky",
@@ -147,10 +149,10 @@ interface CompareRow {
 
 const COMPARE_ROWS: CompareRow[] = [
   {
-    tool: "NanoPocket — free online demos",
+    tool: "NanoPocket — free to start",
     setup: "Browser only — open and go",
-    signup: "Free NanoPocket account (email + password)",
-    pricing: "Free for the demo tier",
+    signup: "Free NanoPocket account, no card",
+    pricing: `${SIGNUP_GRANT_CREDITS} free credits on sign-up + free top-ups, then pay per use in credits; no subscription`,
     identity: "Diffusion stack",
     privacy: "Cloud GPU for the demo, volatile only, not used for training",
     highlight: true,
@@ -200,11 +202,11 @@ const COMPARE_ROWS: CompareRow[] = [
 const FAQS = [
   {
     q: "Is the online face swap really free?",
-    a: `Free to start. Nano FaceStudio Online, the photo face swap, gives every signed-in account ${FREE_ALLOWANCE_SHORT} at full resolution — the same output as a paid render apart from a small NanoPocket.ai watermark, which one top-up removes — and face detection is always free. Past that it is ${FACE_SWAP_CREDITS} credits per face replaced — one pass runs per face, so faces you leave alone are free — prepaid in credits that never expire, with no subscription and no auto-renewal. A render that fails is refunded in full automatically. Nano FaceStudio Pro 1.0, the local desktop version, is a separate, optional, one-time-purchase product; buying credits does not affect a desktop license and owning one does not consume credits.`,
+    a: `Free to start: ${FREE_OFFER_EN}. No card is needed. Nano FaceStudio Online, the photo face swap, renders the free swaps at full resolution — the same output as a paid render apart from a small NanoPocket.ai watermark, which one top-up removes — and face detection is always free. Past that it is ${FACE_SWAP_CREDITS} credits per face replaced — one pass runs per face, so faces you leave alone are free — prepaid in credits that never expire, with no subscription and no auto-renewal. A render that fails is refunded in full automatically. Nano FaceStudio Pro 1.0, the local desktop version, is a separate, optional, one-time-purchase product; buying credits does not affect a desktop license and owning one does not consume credits.`,
   },
   {
     q: "Do I need an account?",
-    a: `Yes — a free NanoPocket account (email + password). It is what the free allowance is attached to: every signed-in account gets ${FREE_ALLOWANCE_SHORT} on Nano FaceStudio Online, plus 10 video opens per UTC day for Video FaceSwap Pro and NanoFace Vivid. It is not there to sell anything — no card is required to use the free allowance. Sign up at /auth/sign-up. If your workflow needs more than the free allowance, buy credits at /credits or run the desktop app locally with no cap.`,
+    a: `Yes — a free NanoPocket account (email + password). It is what the free credits are attached to: ${FREE_OFFER_EN}. No card is required to use them. Sign up at /auth/sign-up. If your workflow needs more than the free allowance, buy credits at /credits or run the desktop app locally with no cap.`,
   },
   {
     q: `Can it swap more than one face in a photo?`,
@@ -232,11 +234,11 @@ const FAQS = [
   },
   {
     q: "What is the difference between the demos?",
-    a: "Nano FaceStudio Online (formerly Image FaceSwap Pro 2.0) is for still-image swaps, including several faces in one photo, with the strongest identity preservation. Video FaceSwap Pro is the same identity stack extended to short video clips with temporal smoothing. NanoFace Vivid is a face-detail restorer that fixes the over-smoothed look that Gemini 2.5 Flash Image (Nano Banana), Firefly, Roop, and cloud face-swap services leave on portraits — it is identity-locked and is meant to run after another face-swap step (or after any AI portrait generator).",
+    a: "Nano FaceStudio Online (formerly Image FaceSwap Pro 2.0) is for still-image swaps, including several faces in one photo, with the strongest identity preservation. Video FaceSwap Online (formerly Video FaceSwap Pro) swaps one person's face or whole head in a video and leaves everyone else and the sound as filmed; it is paid per video in credits, at a price shown before it starts. NanoFace Vivid is a face-detail restorer that fixes the over-smoothed look that Gemini 2.5 Flash Image (Nano Banana), Firefly, Roop, and cloud face-swap services leave on portraits — it is identity-locked and is meant to run after another face-swap step (or after any AI portrait generator).",
   },
   {
     q: "Is there a desktop version?",
-    a: "Yes — Nano FaceStudio Pro 1.0 is available now for Windows, with the macOS build to follow. It uses the same diffusion identity stack as Nano FaceStudio Online and adds six more tools, including Face Vivid (the NanoFace Vivid restoration). It is a separate, optional one-time purchase for users who want fully-local processing. The online demos are free either way.",
+    a: "Yes — Nano FaceStudio Pro 1.0 is available now for Windows, with the macOS build to follow. It uses the same diffusion identity stack as Nano FaceStudio Online and adds six more tools, including Face Vivid (the NanoFace Vivid restoration). It is a separate, optional one-time purchase for users who want fully-local processing. The online tools are free to start either way.",
   },
 ];
 
@@ -312,7 +314,7 @@ const howToJsonLd = {
   "@type": "HowTo",
   name: "How to face-swap a photo online for free with NanoPocket",
   description:
-    "Three-step procedure for performing a free in-browser face swap using NanoPocket's diffusion identity stack. No install, no subscription.",
+    `Three steps to a free in-browser face swap with NanoPocket: ${SIGNUP_GRANT_CREDITS} free credits on sign-up cover ${SIGNUP_FREE_SWAPS} photo face swaps. No install, no subscription.`,
   totalTime: "PT2M",
   estimatedCost: { "@type": "MonetaryAmount", currency: "USD", value: "0" },
   inLanguage: "en",
@@ -329,14 +331,14 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 1,
       name: "Open the demo",
-      text: "Visit nanopocket.ai/face-swap and click the button for the demo you need: Nano FaceStudio Online for stills, Video FaceSwap Pro for short clips, or NanoFace Vivid for fixing over-smoothed AI faces. Each opens in a new browser tab.",
+      text: "Visit nanopocket.ai/face-swap and open the tool you need: Nano FaceStudio Online for photos (up to six faces), or Video FaceSwap Online for a face in a video. Each opens in a new browser tab.",
       url: "https://nanopocket.ai/face-swap#demos",
     },
     {
       "@type": "HowToStep",
       position: 2,
       name: "Sign in with a free NanoPocket account",
-      text: "Enter the demo password listed on the card, or create a free account at /auth/sign-up. The account is required for rate-limit purposes only; the demo tier is not gated by subscription or credits.",
+      text: `Create a free account at /auth/sign-up (no card). ${FREE_OFFER_EN.charAt(0).toUpperCase()}${FREE_OFFER_EN.slice(1)}.`,
       url: "https://nanopocket.ai/auth/sign-up",
     },
     {
@@ -394,8 +396,8 @@ export default function FaceSwapPage() {
             Diffusion-grade face swap that runs in your browser. Sign in once
             with a free NanoPocket account, upload a photo and a reference
             face, and get a swap in seconds. No GPU required on your machine
-            and no subscription; Nano FaceStudio Online includes {FREE_ALLOWANCE_SHORT}{" "}
-            at full resolution.
+            and no subscription: {SIGNUP_GRANT_CREDITS} free credits on sign-up
+            cover {SIGNUP_FREE_SWAPS} photo face swaps at full resolution.
           </p>
 
           <div className="mb-6 flex flex-wrap items-center gap-3 text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
@@ -428,17 +430,16 @@ export default function FaceSwapPage() {
       <section id="demos" className="px-6 pb-12">
         <div className="mx-auto max-w-6xl">
           <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            Free online demos
+            Free online face swap tools
           </h2>
           <p className="mb-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             Each demo is a separate browser tool. Pick the one that matches
             what you want to do — still photo, short video clip, or fixing the
             over-smoothed AI look on an existing portrait. {demoAvailabilityEn()}{" "}
-            Nano FaceStudio Online is paid in credits with {FREE_ALLOWANCE_SHORT}; the free demos allow {DEMO_DAILY_LIMIT} opens
-            per kind per day (resets at 00:00 UTC).
+            Free to start: {FREE_OFFER_EN}. After that, each swap is paid in
+            credits that never expire, with no subscription.
           </p>
 
-          <DemoQuotaWidget />
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {ONLINE_DEMOS.map((d) => {

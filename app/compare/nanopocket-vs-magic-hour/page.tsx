@@ -70,7 +70,7 @@ const data: ComparisonData = {
     },
     {
       dimension: "Pricing model",
-      nanopocket: "One-time license + free trial + free in-browser demo.",
+      nanopocket: "One-time license + free trial + free-to-start in-browser tools.",
       competitor:
         "Subscription tiers + credit packs. Heavy users can outpace included quota.",
       winner: "nanopocket",
@@ -90,7 +90,7 @@ const data: ComparisonData = {
     },
     {
       dimension: "Polished web UI",
-      nanopocket: "Free in-browser demo; full feature set is on desktop.",
+      nanopocket: "In-browser tools, free to start with sign-up credits; full feature set is on desktop.",
       competitor: "Polished web app is the primary surface.",
       winner: "competitor",
     },

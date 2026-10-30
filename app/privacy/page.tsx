@@ -9,7 +9,7 @@ const EFFECTIVE_DATE = "2026-05-29";
 const POLICY_VERSION = "1.0";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — NanoPocket",
+  title: "Privacy Policy",
   description:
     "NanoPocket Privacy Policy: what we collect, why, where it goes, how long we keep it, and the GDPR / CCPA rights available to every user. Effective 2026-05-29, version 1.0.",
   keywords: [

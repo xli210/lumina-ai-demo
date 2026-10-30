@@ -51,7 +51,7 @@ const data: ComparisonData = {
   rows: [
     {
       dimension: "Primary platform",
-      nanopocket: "Windows + macOS desktop, plus a free in-browser demo.",
+      nanopocket: "Windows + macOS desktop, plus free-to-start in-browser tools.",
       competitor: "iOS + Android (web present but not the focus).",
       winner: "even",
     },
@@ -152,7 +152,7 @@ const data: ComparisonData = {
     {
       q: "Does Reface offer video face swap?",
       a:
-        "Yes for short clips and GIFs. The workflow is optimised for social-share output, not for long-form professional video. NanoPocket's Video FaceSwap Pro covers longer uploaded clips with temporal consistency.",
+        "Yes for short clips and GIFs. The workflow is optimised for social-share output, not for long-form professional video. NanoPocket's Video FaceSwap Online covers longer uploaded clips with temporal consistency.",
     },
     {
       q: "How does the long-run cost compare?",

@@ -57,7 +57,7 @@ const data: ComparisonData = {
     },
     {
       dimension: "Delivery model",
-      nanopocket: "Desktop application + free in-browser demo.",
+      nanopocket: "Desktop application + free-to-start in-browser tools.",
       competitor: "Cloud platform + REST API + web app.",
       winner: "even",
     },

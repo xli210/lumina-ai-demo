@@ -19,6 +19,10 @@ import {
   isAppLocale,
   type AppLocale,
 } from "@/lib/i18n/locales";
+import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
+import { FACE_SWAP_CREDITS } from "@/lib/face-studio-facts";
+import { HEADSWAP_PRO_CREDITS_PER_IMAGE } from "@/lib/headswap-pro";
+import { IMAGEEDIT_CREDITS_PER_EDIT } from "@/lib/imageedit";
 
 const BASE_URL = "https://nanopocket.ai";
 const PATH = "/";
@@ -30,6 +34,15 @@ const LAST_VERIFIED = "2026-10-28";
  * translation has been reviewed.
  */
 const HOME_TRANSLATED_LOCALES: AppLocale[] = ["zh-CN"];
+
+/** Values for the {credits}/{swaps}/... placeholders, so the free offer is quoted from billing's constants. */
+const FREE = {
+  credits: SIGNUP_GRANT_CREDITS,
+  swaps: Math.floor(SIGNUP_GRANT_CREDITS / FACE_SWAP_CREDITS),
+  faceCredits: FACE_SWAP_CREDITS,
+  headswaps: Math.floor(SIGNUP_GRANT_CREDITS / HEADSWAP_PRO_CREDITS_PER_IMAGE),
+  edits: Math.floor(SIGNUP_GRANT_CREDITS / IMAGEEDIT_CREDITS_PER_EDIT),
+};
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -46,8 +59,8 @@ export async function generateMetadata({
   const canonical = `${BASE_URL}/${locale}`;
 
   return {
-    title: t("title"),
-    description: t("description"),
+    title: { absolute: t("title") },
+    description: t("description", FREE),
     alternates: {
       canonical,
       languages: hreflangAlternates(BASE_URL, "/", HOME_TRANSLATED_LOCALES),
@@ -56,7 +69,7 @@ export async function generateMetadata({
       type: "website",
       url: canonical,
       title: t("ogTitle"),
-      description: t("ogDescription"),
+      description: t("ogDescription", FREE),
       images: ["/og-image.jpg"],
       locale: locale.replace("-", "_"),
     },
@@ -98,7 +111,10 @@ export default async function LocalizedHomePage({ params }: PageProps) {
 
   const whyUsItems = t.raw("whyUs.items") as WhyUsItem[];
   const appsItems = t.raw("appsCatalog.items") as AppCatalogItem[];
-  const faqs = t.raw("faq.items") as FaqItem[];
+  const faqs: FaqItem[] = [
+    { q: t("faq.free.q"), a: t("faq.free.a", FREE) },
+    ...(t.raw("faq.items") as FaqItem[]),
+  ];
   const canonical = `${BASE_URL}/${locale}`;
 
   const webPageJsonLd = {
@@ -107,7 +123,7 @@ export default async function LocalizedHomePage({ params }: PageProps) {
     "@id": canonical,
     url: canonical,
     name: t("metadata.ogTitle"),
-    description: t("metadata.description"),
+    description: t("metadata.description", FREE),
     inLanguage: locale,
     isPartOf: { "@id": "https://nanopocket.ai#website" },
     dateModified: LAST_VERIFIED,
@@ -160,7 +176,7 @@ export default async function LocalizedHomePage({ params }: PageProps) {
                 className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1"
               >
                 <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                {t(`hero.trustChip${n}`)}
+                {t(`hero.trustChip${n}`, FREE)}
               </span>
             ))}
           </div>

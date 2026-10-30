@@ -6,7 +6,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    "Nano ImageEdit — Local GAN and diffusion models Image Generator, Local Midjourney Alternative",
+    "Nano ImageEdit — Local AI Image Generator, a Midjourney Alternative",
   description:
     "Nano ImageEdit is a local desktop image generator and editor running GAN and diffusion models on a single NVIDIA GPU. Text-to-image, image-to-image, and reference conditioning ship in one app, with a streaming DiT path for GPUs with under 12 GB of VRAM.",
   keywords: [
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/apps/nano-imageedit" },
   openGraph: {
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
-    title: "Nano ImageEdit — Local GAN and diffusion models Image Generator",
+    title: "Nano ImageEdit — Local AI Image Generator",
     description:
       "Local text-to-image and image-to-image with GAN and diffusion models on a single NVIDIA GPU. Streaming DiT for under-12 GB VRAM cards.",
     type: "website",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nano ImageEdit — Local GAN and diffusion models Image Generator",
+    title: "Nano ImageEdit — Local AI Image Generator",
     description:
       "Local GAN and diffusion models image generation on a single NVIDIA GPU. No subscription, no cloud upload.",
   },

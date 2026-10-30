@@ -23,9 +23,11 @@ import {
 /** Shown in place of the registry name for the demo Nano FaceStudio Online replaced. */
 const DISPLAY_NAME: Partial<Record<DemoEntry["id"], string>> = {
   image: "Nano FaceStudio Online (formerly Image FaceSwap Pro 2.0)",
+  video: "Video FaceSwap Online (formerly Video FaceSwap Pro)",
 };
 const DISPLAY_NAME_ZH: Partial<Record<DemoEntry["id"], string>> = {
   image: "Nano FaceStudio Online（原 Image FaceSwap Pro 2.0）",
+  video: "Video FaceSwap Online（原 Video FaceSwap Pro）",
 };
 
 function displayName(d: DemoEntry): string {

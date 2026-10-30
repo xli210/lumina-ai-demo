@@ -147,10 +147,10 @@
   },
   "Home": {
     "metadata": {
-      "title": "NanoPocket — 在线 AI 换脸、换头 + 本地 AI 创作套件",
-      "description": "浏览器里直接用的 AI 换脸、换头和视频换脸,注册即送免费积分,无需安装、无需订阅。另有一整套买断制的本地 AI 桌面应用,在你自己的 GPU 上运行。",
-      "ogTitle": "NanoPocket — 在线 AI 换脸 + 本地创作套件",
-      "ogDescription": "浏览器里的换脸、换头和视频换脸(注册送免费积分,无需安装、无需订阅),加上一整套完全在本地运行的 AI 桌面应用。"
+      "title": "NanoPocket — 免费在线 AI 换脸:照片换脸、换头、视频换脸",
+      "description": "免费在线 AI 换脸:注册即送 {credits} 积分,够做 {swaps} 次照片换脸,无需信用卡、无需安装、无需订阅。支持照片换脸、换头、视频换脸和 AI 修图,另有免费的 Windows 桌面换脸应用。",
+      "ogTitle": "NanoPocket — 免费在线 AI 换脸:照片、换头、视频",
+      "ogDescription": "免费在线 AI 换脸:注册即送 {credits} 积分(约 {swaps} 次照片换脸),浏览器里直接做照片换脸、换头和视频换脸,无需安装、无需订阅;另有免费的本地桌面应用。"
     },
     "hero": {
       "kicker": "在线工具 + 可选本地桌面版",
@@ -158,7 +158,7 @@
       "subhead": "NanoPocket 提供在浏览器里直接用的 AI 换脸、换头、视频换脸和文字修图(注册送免费积分,无需安装、无需订阅),另外还有一整套买断制的桌面应用,可以 100% 跑在你自己的 GPU 上。",
       "ctaPrimary": "试用在线换脸",
       "ctaSecondary": "查看完整应用列表",
-      "trustChip1": "注册送免费积分",
+      "trustChip1": "注册送 {credits} 免费积分",
       "trustChip2": "Windows + macOS 本地桌面应用",
       "trustChip3": "买断制，无订阅"
     },
@@ -242,6 +242,10 @@
     },
     "faq": {
       "heading": "常见问题",
+      "free": {
+        "q": "NanoPocket 免费吗？",
+        "a": "免费就能开始用。每个新账号注册即送 {credits} 积分,够做 {swaps} 次照片换脸(每张脸 {faceCredits} 积分)、{headswaps} 张 Nano HeadSwap Pro 换头或 {edits} 次 AI 修图,注册不需要信用卡。三款桌面应用永久免费:Nano FaceSwap、Nano FacialEdit 和 Nano ImageTryon;付费桌面应用有 7 天免费试用。免费积分用完后,需要时再充值,没有订阅。首次购买之前做的换脸、换头和视频换脸结果带 NanoPocket 水印。"
+      },
       "items": [
         {
           "q": "NanoPocket 有任何隐藏费用或周期性收费吗？",

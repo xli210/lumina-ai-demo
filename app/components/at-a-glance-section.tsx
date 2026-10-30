@@ -1,11 +1,18 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
-import { FACE_STUDIO_NAME, FACE_STUDIO_URL, FACE_SWAP_CREDITS, HEAD_SWAP_CREDITS } from "@/lib/face-studio-facts";
+import {
+  FACE_STUDIO_NAME,
+  FACE_STUDIO_URL,
+  FACE_SWAP_CREDITS,
+  FREE_RENDERS_PER_TOPUP,
+  HEAD_SWAP_CREDITS,
+  SIGNUP_FREE_SWAPS,
+} from "@/lib/face-studio-facts";
+import { FREE_TOPUP_CREDITS, FREE_TOPUP_FREQUENCY } from "@/lib/facestudio";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE } from "@/lib/facestudio-v";
 import { IMAGEEDIT_CREDITS_PER_EDIT, IMAGEEDIT_NAME } from "@/lib/imageedit";
-import { FREE_FACE_SWAPS } from "@/app/components/faq-data";
 
 /**
  * A short, plain-text summary of what NanoPocket is and what each online tool costs, near the top of
@@ -43,7 +50,8 @@ const TOOLS = [
 ] as const;
 
 const FACTS = [
-  `Free to start: new accounts get ${SIGNUP_GRANT_CREDITS} free credits, enough for ${FREE_FACE_SWAPS} photo face swaps. One grant per person; no card needed.`,
+  `Free to start: new accounts get ${SIGNUP_GRANT_CREDITS} free credits, enough for ${SIGNUP_FREE_SWAPS} photo face swaps. One grant per person; no card needed.`,
+  `Free top-ups: a balance that runs low is topped back up to ${FREE_TOPUP_CREDITS} free credits (${FREE_RENDERS_PER_TOPUP} photo swaps), ${FREE_TOPUP_FREQUENCY}.`,
   "Free desktop apps: Nano FaceSwap, Nano FacialEdit and Nano ImageTryon are free for good; the paid apps have a 7-day free trial.",
   "No subscription. Credits are prepaid and never expire. A job that fails is refunded in full.",
   "Face, head and video swaps from an account that has never bought credits carry a NanoPocket watermark; one purchase removes it. Image edits have no watermark.",

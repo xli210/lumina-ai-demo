@@ -51,7 +51,7 @@ const data: ComparisonData = {
   rows: [
     {
       dimension: "Pricing & licensing",
-      nanopocket: "One-time commercial license. Free desktop trial + free in-browser demo.",
+      nanopocket: "One-time commercial license. Free desktop trial + free-to-start in-browser tools.",
       competitor:
         "Free, MIT-licensed code. Note that the inswapper_128 weights it depends on are released for non-commercial research only — the user is responsible for checking that.",
       winner: "even",
@@ -172,7 +172,7 @@ const data: ComparisonData = {
     {
       q: "Which has better video temporal consistency?",
       a:
-        "NanoPocket Video FaceSwap Pro ships a built-in temporal-consistency pass. FaceFusion supports frame-by-frame video and has community scripts for smoothing; quality depends on what the user assembles.",
+        "NanoPocket Video FaceSwap Online ships a built-in temporal-consistency pass. FaceFusion supports frame-by-frame video and has community scripts for smoothing; quality depends on what the user assembles.",
     },
   ],
 };

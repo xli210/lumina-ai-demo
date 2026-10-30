@@ -717,7 +717,7 @@ const trustFaqJsonLd = {
       name: "Which products are stable vs. coming soon?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Stable today: Nano ImageEnh Pro 3.0, VideoEnhance, VideoGen, ImageEdit, FacialEdit, ImageTryon, FaceSwap (legacy), and Nano FaceStudio Pro 1.0 (Windows now, macOS to follow), plus the Nano FaceStudio Online and Video FaceSwap Pro online demos. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap.",
+        text: "Stable today: Nano ImageEnh Pro 3.0, VideoEnhance, VideoGen, ImageEdit, FacialEdit, ImageTryon, FaceSwap (legacy), and Nano FaceStudio Pro 1.0 (Windows now, macOS to follow), plus four online tools: Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap Online and Nano ImageEdit 2.0 Online. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap.",
       },
     },
     {

@@ -6,7 +6,7 @@ const PAGE_URL = "https://nanopocket.ai/compare/nanopocket-vs-wavespeed";
 export const metadata: Metadata = {
   title: "NanoPocket vs WaveSpeed AI — Honest 2026 Face Swap Comparison",
   description:
-    "WaveSpeed AI is a broad cloud generative-AI suite where face swap is one feature among many. NanoPocket is a specialised face-swap stack with a free in-browser demo and an optional fully-local desktop release. Identity model, pricing, privacy, and TCO compared.",
+    "WaveSpeed AI is a broad cloud generative-AI suite where face swap is one feature among many. NanoPocket is a specialised face-swap stack with free-to-start in-browser tools and an optional fully-local desktop release. Identity model, pricing, privacy, and TCO compared.",
   keywords: [
     "nanopocket vs wavespeed",
     "wavespeed alternative",
@@ -31,7 +31,7 @@ const data: ComparisonData = {
   competitorUrl: "https://wavespeed.ai",
   lastVerified: "2026-06-03",
   tldr:
-    "WaveSpeed AI is a broad cloud-AI suite where face swap is one of many tools (image gen, video gen, upscaling, etc.) — convenient if you already use a single AI hub for multiple workflows. NanoPocket is a specialised face-swap product with a free in-browser demo, GAN and diffusion models, and an optional fully-local desktop release. Pick WaveSpeed if you want one suite for everything; pick NanoPocket if you specifically want the strongest free in-browser face swap and the option to go zero-cloud later.",
+    "WaveSpeed AI is a broad cloud-AI suite where face swap is one of many tools (image gen, video gen, upscaling, etc.) — convenient if you already use a single AI hub for multiple workflows. NanoPocket is a specialised face-swap product with free-to-start in-browser tools, GAN and diffusion models, and an optional fully-local desktop release. Pick WaveSpeed if you want one suite for everything; pick NanoPocket if you specifically want the strongest free in-browser face swap and the option to go zero-cloud later.",
   pickIf: {
     nanopocket: [
       "You specifically want the strongest free in-browser face swap, not face swap as one feature in a broader AI suite.",
@@ -94,7 +94,7 @@ const data: ComparisonData = {
     {
       dimension: "Video face swap",
       nanopocket:
-        "First-class — Video FaceSwap Pro with temporal smoothing, free in-browser.",
+        "First-class — Video FaceSwap Online: one person's face or whole head, everyone else and the sound as filmed; free to start with sign-up credits.",
       competitor:
         "Available alongside other video AI workflows; coverage and quota depend on plan.",
       winner: "even",

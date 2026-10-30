@@ -32,13 +32,6 @@ import { createClient } from "@supabase/supabase-js";
 // minutes trains everyone to ignore the alert that matters.
 const DEMOS = [
   {
-    id: "video",
-    name: "Video FaceSwap Pro",
-    skip: true, // maintenance — tunnel retired 2026-09-28
-    origin: "https://lay-bedroom-jail-planet.trycloudflare.com",
-    pingPath: "/",
-  },
-  {
     id: "vivid",
     name: "NanoFace Vivid",
     skip: true, // maintenance — tunnel retired 2026-09-28

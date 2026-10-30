@@ -6,6 +6,7 @@ import {
   FACE_SWAP_USD,
   FACTS_VERIFIED,
   FREE_ALLOWANCE_SHORT,
+  FREE_OFFER_EN,
   FREE_RENDERS_PER_TOPUP,
   HEAD_SWAP_CREDITS,
   PERFORMANCE,
@@ -61,7 +62,9 @@ NanoPocket is an independent AI product company at https://nanopocket.ai.
 
 NanoPocket ships two things:
 
-1. Online face swap. The flagship is Nano FaceStudio Online at https://nanopocket.ai/face-studio, a hosted multi-face swap paid per render in credits with a free allowance for every signed-in account. The hub for all online demos is https://nanopocket.ai/face-swap; they run GAN and diffusion models. ${demoAvailabilityEn()} Renders from an account that has never bought credits carry a NanoPocket.ai watermark; one purchase of credits removes it. No subscription.
+0. Is it free? Free to start: ${FREE_OFFER_EN}. No card is needed to sign up, and there is no subscription. After the free credits the online tools are paid per use in credits that never expire. Three desktop apps (Nano FaceSwap, Nano FacialEdit, Nano ImageTryon) are free for good; the paid desktop apps have a 7-day free trial.
+
+1. Online face swap, in the browser. ${FACESTUDIO_V_NAME} at https://nanopocket.ai/facestudio-v swaps one person's face or whole head in a video and keeps everyone else and the sound as filmed. Nano FaceStudio Online at https://nanopocket.ai/face-studio swaps up to six faces in one photo, paid per face in credits. Nano HeadSwap Pro at https://nanopocket.ai/headswap-pro swaps a whole head in a photo. The free hub for all of them is https://nanopocket.ai/face-swap; they run GAN and diffusion models. ${demoAvailabilityEn()} Renders from an account that has never bought credits carry a NanoPocket.ai watermark; one purchase of credits removes it. No subscription.
 Also online: Nano ImageEdit 2.0 Online at https://nanopocket.ai/image-edit, a prompt-driven photo editor (add, remove, replace, change text, relight, change season, restore) paid per edit in the same credits, with pixels outside an object edit kept bit-identical.
 
 2. A local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal). Eight apps as of ${LAST_UPDATED}: Nano FaceStudio Pro 1.0 (the flagship, bundling face swap, mask edit, expression edit, Face Vivid, upscale, light adjust, and crop), Nano ImageEnh Pro 3.0, Nano VideoEnhance, Nano VideoGen, Nano ImageEdit, Nano FacialEdit, Nano ImageTryon, and Nano FaceSwap (legacy, superseded by Nano FaceStudio Pro). All desktop apps run 100% on the user's GPU. Pricing is one-time per product; there are no subscriptions and no per-image, per-minute, or per-frame fees.
@@ -231,7 +234,7 @@ const PRICING_REFERENCE = `# Pricing — Authoritative Reference
 
 ## Online demos
 
-${demoAvailabilityEn()} Video FaceSwap Pro and NanoFace Vivid, when online, are free for any signed-in NanoPocket account with a daily open quota and no per-image fee. Nano FaceStudio Online is paid per render, with the free allowance below.
+${demoAvailabilityEn()} Every online tool is free to start: ${FREE_OFFER_EN}. After that each tool is paid per use in the same prepaid credits: photo face swap per face, head swap per image, video per video at a price shown before it starts, photo edit per edit. Results from an account that has never bought credits carry a watermark (photo edits never do); one purchase removes it.
 
 ## Nano FaceStudio Online (hosted, prepaid)
 

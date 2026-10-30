@@ -352,7 +352,7 @@ const FAQS = [
   {
     q: "What is the best face swap app for video?",
     a:
-      "For temporal-consistent video swap, NanoPocket Video FaceSwap Pro and Magic Hour both ship first-class workflows. Akool covers video swap inside its enterprise pipeline. FaceFusion supports video frame-by-frame; results depend on user-side scripting. For mobile-only short clips, DeepSwap and Reface are easier but cloud-based.",
+      "For temporal-consistent video swap, NanoPocket Video FaceSwap Online and Magic Hour both ship first-class workflows. Akool covers video swap inside its enterprise pipeline. FaceFusion supports video frame-by-frame; results depend on user-side scripting. For mobile-only short clips, DeepSwap and Reface are easier but cloud-based.",
   },
   {
     q: "Is NanoPocket the same as Nano Banana, NanoBnana, or nanobanana.ai?",

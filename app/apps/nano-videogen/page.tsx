@@ -6,7 +6,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    "Nano VideoGen — Local AI Video Generator  for Windows NVIDIA GPUs",
+    "Nano VideoGen — Local AI Video Generator for Windows NVIDIA GPUs",
   description:
     "Nano VideoGen is a local desktop AI video generator built on GAN and diffusion models. It produces text-to-video and image-to-video outputs on a single NVIDIA GPU with as little as 12 GB VRAM, includes camera-control LoRAs, keyframe interpolation, and a 2× spatial upscaler.",
   keywords: [

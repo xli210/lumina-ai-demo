@@ -19,7 +19,7 @@ const LAST_VERIFIED = "2026-10-21";
 
 export const metadata: Metadata = {
   title:
-    "免费在线 AI 换脸 — 常见问题 FAQ | NanoPocket",
+    "免费在线 AI 换脸 — 常见问题 FAQ",
   description:
     "关于 NanoPocket 在线 AI 换脸的中文 FAQ。包含免费在线换脸的使用方法、是否有水印、是否需要注册、与 DeepSwap / Reface / Roop 等产品的差异、扩散 (diffusion) 模型与 GAN 模型的技术差异。",
   keywords: [
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "article",
     url: PAGE_URL,
-    title: "免费在线 AI 换脸 — 常见问题 FAQ | NanoPocket",
+    title: "免费在线 AI 换脸 — 常见问题 FAQ",
     description:
       "NanoPocket 在线 AI 换脸的中文 FAQ：使用方法、是否免费、是否有水印、与同类产品的差异、底层模型差异。",
     images: ["/images/vivid/gemini-after.jpg"],
@@ -88,7 +88,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "换脸输出的分辨率是多少？会被压缩吗？",
-    a: "按原图分辨率输出，最高 4080×4080，PNG 格式约 20 MB，不压缩、不加水印 — 每日免费额度出的图和付费出的图完全一样。这是与同类工具的一个明显差别：Reface 免费版是 720p 带水印，Akool 免费版是 720p 带水印，多数免费和中档套餐上限在 720p 到 1080p。上传单张照片最大支持 40 MB。",
+    a: "按原图分辨率输出，最高 4080×4080，PNG 格式约 20 MB，不压缩 — 免费积分出的图和付费出的图分辨率完全一样，区别只是从未充值的账号出图带 NanoPocket.ai 水印，充值一次即永久去除。这是与同类工具的一个明显差别：Reface 免费版是 720p 带水印，Akool 免费版是 720p 带水印，多数免费和中档套餐上限在 720p 到 1080p。上传单张照片最大支持 40 MB。",
   },
   {
     q: "上传的照片会带走我的位置信息吗？",
@@ -96,11 +96,11 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "需要安装软件吗？需要 GPU 吗？",
-    a: "在线演示不需要安装任何软件，也不需要本地 GPU。模型运行在 NanoPocket 的云端 GPU 上。任何能打开浏览器的设备（笔记本、台式机、平板）都可以使用。如果你专门需要 100% 本地处理（比如不允许上传的素材），桌面版 Nano FaceStudio Pro 1.0 是另一个选项 — 但桌面版尚未正式发布。",
+    a: "在线演示不需要安装任何软件，也不需要本地 GPU。模型运行在 NanoPocket 的云端 GPU 上。任何能打开浏览器的设备（笔记本、台式机、平板）都可以使用。如果你专门需要 100% 本地处理（比如不允许上传的素材），桌面版 Nano FaceStudio Pro 1.0 是另一个选项 — Windows 版现已推出，macOS 版随后推出。",
   },
   {
     q: "换脸出来的图片有水印吗？",
-    a: "没有水印。NanoPocket 的免费在线换脸演示在所有输出（图片和视频）上都不加任何水印。这是与 Reface 免费版（带水印）、Magic Hour 免费视频（带水印）、DeepSwap 免费试用（受限）的主要区别之一。",
+    a: "从未充值过的账号，换脸、换头和视频换脸的结果带 NanoPocket.ai 水印；任意充值一次后，之后的结果就永久不带水印。用免费积分可以先看效果（分辨率和付费出图一样），满意再充值。Nano ImageEdit 2.0 Online 的修图结果始终没有水印。",
   },
   {
     q: "需要注册账号吗？为什么需要注册？",

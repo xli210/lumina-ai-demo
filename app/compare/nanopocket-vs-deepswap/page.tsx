@@ -31,7 +31,7 @@ const data: ComparisonData = {
   competitorUrl: "https://www.deepswap.ai",
   lastVerified: "2026-05-29",
   tldr:
-    "DeepSwap is a cloud-web face swap service with iOS and Android companion apps and a subscription pricing model. Nano FaceStudio Pro 1.0 is a desktop tool with a free in-browser demo, a one-time license, and verifiable local processing. The trade-off is convenience-without-install vs privacy + lower long-run cost.",
+    "DeepSwap is a cloud-web face swap service with iOS and Android companion apps and a subscription pricing model. Nano FaceStudio Pro 1.0 is a desktop tool with free-to-start in-browser tools, a one-time license, and verifiable local processing. The trade-off is convenience-without-install vs privacy + lower long-run cost.",
   pickIf: {
     nanopocket: [
       "You don't want every face you swap to be uploaded to a cloud service.",
@@ -58,7 +58,7 @@ const data: ComparisonData = {
     },
     {
       dimension: "Pricing model",
-      nanopocket: "One-time license + free trial + free in-browser demo.",
+      nanopocket: "One-time license + free trial + free-to-start in-browser tools.",
       competitor: "Subscription (monthly or yearly) + free trial. Per-feature unlock model.",
       winner: "nanopocket",
     },
@@ -105,7 +105,7 @@ const data: ComparisonData = {
     },
     {
       dimension: "Free entry point",
-      nanopocket: "Free in-browser demo for image and video, plus a 7-day desktop trial.",
+      nanopocket: "In-browser photo and video face swap, free to start with sign-up credits, plus a 7-day desktop trial.",
       competitor:
         "Free trial with quota; full features behind subscription.",
       winner: "even",
@@ -134,7 +134,7 @@ const data: ComparisonData = {
     {
       q: "Is NanoPocket really a DeepSwap alternative if it doesn't have a web app for full editing?",
       a:
-        "There is a free in-browser demo for image and video, which covers a meaningful slice of the DeepSwap quick-swap workflow. Heavy editing flows still happen on the desktop app. If you specifically need a full feature set inside a browser tab without installing anything, DeepSwap is the closer fit.",
+        "In-browser photo and video face swap, free to start with sign-up credits, covers a meaningful slice of the DeepSwap quick-swap workflow. Heavy editing flows still happen on the desktop app. If you specifically need a full feature set inside a browser tab without installing anything, DeepSwap is the closer fit.",
     },
     {
       q: "Does DeepSwap upload my face?",

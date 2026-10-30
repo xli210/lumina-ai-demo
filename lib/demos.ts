@@ -78,17 +78,16 @@ export const DEMOS: DemoEntry[] = [
   },
   {
     id: "video",
-    name: "Video FaceSwap Pro",
-    origin: "https://lay-bedroom-jail-planet.trycloudflare.com",
-    landingPath: "/",
-    pingPath: "/",
-    password: "nanopocket-video",
+    // The tunnel demo (Video FaceSwap Pro) was retired on 2026-09-28; its replacement, Video FaceSwap
+    // Online, runs on our own GPUs at /facestudio-v and is paid per video in credits.
+    name: "Video FaceSwap Online",
+    origin: "https://nanopocket.ai",
+    landingPath: "/facestudio-v/launch",
+    pingPath: "/facestudio-v",
+    password: null,
     productHref: "/facestudio-v",
-    maintenance: {
-      since: "2026-09-28",
-      note: "The tunnel this demo ran through has been retired. It is being moved onto our own GPU infrastructure, the same one Nano FaceStudio Online now runs on.",
-      eta: "No firm date yet",
-    },
+    internal: true,
+    metered: true,
   },
   {
     id: "vivid",

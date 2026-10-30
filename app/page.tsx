@@ -13,7 +13,8 @@ import { HowItWorksSection } from "./components/how-it-works-section";
 import { TestimonialsSection } from "./components/testimonials-section";
 import { PricingSection } from "./components/pricing-section";
 import { FAQSection } from "./components/faq-section";
-import { FREE_FACE_SWAPS, HOME_FAQS } from "./components/faq-data";
+import { HOME_FAQS } from "./components/faq-data";
+import { SIGNUP_FREE_SWAPS } from "@/lib/face-studio-facts";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { AT_A_GLANCE_JSON_LD, AtAGlanceSection } from "./components/at-a-glance-section";
 import { CTASection } from "./components/cta-section";
@@ -28,7 +29,7 @@ export const revalidate = 600;
  * numbers from the same constants billing uses. AI assistants send most of their visitors here.
  */
 const HOME_TITLE = "NanoPocket — Free AI Face Swap Online: Photo, Head & Video";
-const HOME_DESCRIPTION = `Free AI face swap in your browser: every new account gets ${SIGNUP_GRANT_CREDITS} free credits, enough for ${FREE_FACE_SWAPS} photo face swaps. Photo, head and video face swap and AI photo editing, plus free desktop apps for Windows. No subscription.`;
+const HOME_DESCRIPTION = `Free AI face swap in your browser: every new account gets ${SIGNUP_GRANT_CREDITS} free credits, enough for ${SIGNUP_FREE_SWAPS} photo face swaps. Photo, head and video face swap and AI photo editing, plus free desktop apps for Windows. No subscription.`;
 
 export const metadata: Metadata = {
   title: { absolute: HOME_TITLE },

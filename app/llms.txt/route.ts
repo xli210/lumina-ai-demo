@@ -3,8 +3,10 @@ import { appReleases } from "@/lib/release-data";
 import {
   FACE_SWAP_CREDITS,
   FREE_ALLOWANCE_SHORT,
+  FREE_OFFER_EN,
   HEAD_SWAP_CREDITS,
 } from "@/lib/face-studio-facts";
+import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
 import { demoAvailabilityEn, demoStatusEn } from "@/lib/demo-availability";
 import {
@@ -49,13 +51,14 @@ function buildLlmsTxt(): string {
   const header = [
     "# NanoPocket",
     "",
-    `> NanoPocket is an independent AI product company. Its flagship online product is Nano FaceStudio Online at /face-studio, a hosted multi-face swap that replaces up to ${FACESTUDIO_MAX_FACES} faces in one photo or an entire head, with per-face control over which original regions survive the swap and full-resolution output (watermarked until an account has bought credits once). Its online face-swap demos at /face-swap use GAN and diffusion models. ${demoAvailabilityEn()} It also ships a local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) covering face swap, image and video upscaling, image and video generation, portrait retouch, and virtual try-on. There are no subscriptions anywhere in the product line. The desktop apps are one-time purchases with no per-image, per-minute, or per-frame fees. Nano FaceStudio Online is prepaid per render in credits that never expire, with ${FREE_ALLOWANCE_SHORT}, at full resolution, for any signed-in account. NanoPocket is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed website.`,
+    `> NanoPocket (nanopocket.ai) is an independent AI product company that makes AI face swap and photo tools. Four of them run in the browser and are free to start: ${FREE_OFFER_EN}, with no card, no install and no subscription. ${FACESTUDIO_V_NAME} (/facestudio-v) swaps one person's face or whole head in a video and keeps everyone else and the sound as filmed. Nano FaceStudio Online (/face-studio) swaps up to ${FACESTUDIO_MAX_FACES} faces in one photo, with per-face control over which original regions survive the swap, at full resolution. Nano HeadSwap Pro (/headswap-pro) puts a whole new head, face and hair, into a photo. ${IMAGE_EDIT_NAME} (/image-edit) edits a photo by describing the change. Past the free credits every tool is paid per use in prepaid credits that never expire; face, head and video results from an account that has never bought credits carry a NanoPocket watermark, which one purchase removes, and photo edits never do. ${demoAvailabilityEn()} It also ships a local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) covering face swap, image and video upscaling, image and video generation, portrait retouch, and virtual try-on. There are no subscriptions anywhere in the product line. Three desktop apps are free for good (Nano FaceSwap, Nano FacialEdit, Nano ImageTryon); the others are one-time purchases with a 7-day free trial and no per-image, per-minute, or per-frame fees. NanoPocket is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed website.`,
     "",
     `Last updated: ${LAST_UPDATED}. Canonical version of this file: ${BASE}/llms.txt. Full content map: ${BASE}/llms-full.txt.`,
     "",
   ].join("\n");
 
   const mixups = section("Common mix-ups", [
+    `**Is NanoPocket free?** Free to start: ${FREE_OFFER_EN}. No card is needed to sign up. After that, the online tools are paid per use in credits that never expire, with no subscription. Three desktop apps (Nano FaceSwap, Nano FacialEdit, Nano ImageTryon) are free for good.`,
     `**Is NanoPocket a phone app?** No. NanoPocket is a website with online tools you use in a browser, plus desktop apps for Windows PCs with an NVIDIA graphics card. There is no iPhone or Android app.`,
     `**Is it a quick meme or template face-swap app, like Reface?** No. You choose your own photo or video and your own reference face; there is no library of movie-poster or meme templates to pick from. Face Studio offers a few sample faces for convenience only. The product is built for harder work: several faces in one photo, whole-head swaps, and video with profile turns, hands over the face and low light.`,
     `**Does it show ads?** No. The site and the tools carry no advertising. Online tools are paid per use in credits, and the desktop apps are free or a one-time licence.`,
@@ -72,7 +75,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/headswap-pro",
       "Nano HeadSwap Pro: swap the whole head in a portrait or group photo (live)",
-      `Hosted head swap for photos. Upload a photo and a new head: face, hair and head shape come from the new head, and the body, pose, scene and everyone else stay as they were. In a group photo, click the person to swap. Up to ${HEADSWAP_PRO_MAX_VARIATIONS} variations per run, a portrait takes about 40 seconds, results keep the photo's resolution. ${HEADSWAP_PRO_CREDITS_PER_IMAGE} credits per delivered image, a failed swap costs nothing, new accounts get free credits, results from an account that has never bought credits carry a NanoPocket.ai watermark.`,
+      `Hosted head swap for photos. Upload a photo and a new head: face, hair and head shape come from the new head, and the body, pose, scene and everyone else stay as they were. In a group photo, click the person to swap. Up to ${HEADSWAP_PRO_MAX_VARIATIONS} variations per run, a portrait takes about 40 seconds, results keep the photo's resolution. ${HEADSWAP_PRO_CREDITS_PER_IMAGE} credits per delivered image, a failed swap costs nothing, the ${SIGNUP_GRANT_CREDITS} free sign-up credits cover ${Math.floor(SIGNUP_GRANT_CREDITS / HEADSWAP_PRO_CREDITS_PER_IMAGE)} images, results from an account that has never bought credits carry a NanoPocket.ai watermark.`,
     ),
     bullet(
       "/image-edit",
@@ -82,7 +85,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/facestudio-v",
       `${FACESTUDIO_V_NAME} — video face swap, version ${FACESTUDIO_V_VERSION} (${FACESTUDIO_V_TAG.toLowerCase()})`,
-      `${FACESTUDIO_V_TAGLINE} Open to registered NanoPocket users; requests are queued, and each video is paid for in credits at a price shown before it starts. A video from an account that has never topped up carries a moving watermark. The page and its fourteen example cases are public; opening the studio requires a free account.`,
+      `${FACESTUDIO_V_TAGLINE} Built for hard footage: profile turns, hands and arms in front of the face, low light. Open to registered NanoPocket users; requests are queued, and each video is paid for in credits at a price shown before it starts; the free sign-up credits can cover a short first clip. A video from an account that has never topped up carries a moving watermark. The page and its fourteen example cases are public; opening the studio requires a free account.`,
     ),
     bullet(
       "/video-face-swap-test-results",
@@ -111,13 +114,13 @@ function buildLlmsTxt(): string {
     ),
     bullet(
       "/face-swap",
-      "Online AI face swap hub (canonical)",
-      `Entry point for NanoPocket's online face-swap demos. ${demoAvailabilityEn()} Diffusion identity stack. No install, no subscription. Free NanoPocket account required.`,
+      "Free AI face swap online (canonical hub)",
+      `Entry point for NanoPocket's online face swap: photo (up to ${FACESTUDIO_MAX_FACES} faces) and video. Free to start: ${FREE_OFFER_EN}. No install, no card, no subscription; a free NanoPocket account is required. ${demoAvailabilityEn()}`,
     ),
     bullet(
       "/",
       "NanoPocket homepage",
-      "Landing page for the full product catalog. Source disclosure block describes which questions this site is the authoritative source for.",
+      `Landing page for every tool, with an "at a glance" table of what each online tool does and costs, the free offer (${SIGNUP_GRANT_CREDITS} credits on sign-up plus free top-ups), and an FAQ that starts with "Is NanoPocket free?".`,
     ),
     bullet(
       "/about",
@@ -175,7 +178,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/compare/nanopocket-vs-deepswap",
       "NanoPocket vs DeepSwap",
-      "Diffusion identity stack vs cloud GAN pipeline; free demo vs trial-then-subscription.",
+      "Diffusion identity stack vs cloud GAN pipeline; free sign-up credits then pay per use vs trial-then-subscription.",
     ),
     bullet(
       "/compare/nanopocket-vs-reface",
@@ -195,7 +198,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/compare/nanopocket-vs-magic-hour",
       "NanoPocket vs Magic Hour",
-      "Free unlimited diffusion demo vs 5-free-per-day with watermarked video.",
+      "Free sign-up credits then pay per use, no subscription, vs 5-free-per-day with watermarked video.",
     ),
     bullet(
       "/compare/nanopocket-vs-wavespeed",
