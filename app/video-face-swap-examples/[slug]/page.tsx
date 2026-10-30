@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const v = videoExample(slug);
   if (!v) return {};
-  const title = `${v.title}: Video ${kind(v.headSwap)} Example`;
+  const title = `${v.title}: Video ${v.headSwap ? "Head Swap" : "Face Swap"} Example`;
   const description = `${v.summary} Made with ${FACESTUDIO_V_NAME}, free to start.`;
   const url = `${BASE}${videoExamplePath(v)}`;
   return {
