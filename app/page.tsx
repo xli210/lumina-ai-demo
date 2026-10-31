@@ -25,11 +25,12 @@ export const revalidate = 600;
 
 /**
  * Homepage metadata: hreflang alternates pointing at the Chinese homepage, and a title and
- * description that lead with what is free (the sign-up credits and the free desktop apps), with
- * numbers from the same constants billing uses. AI assistants send most of their visitors here.
+ * description that lead with the local desktop apps (the wording the page had while ChatGPT
+ * referrals and the "nanopocket" Google ranking peaked, 10/20–10/29), then the free online offer,
+ * with numbers from the same constants billing uses. AI assistants send most of their visitors here.
  */
-const HOME_TITLE = "NanoPocket — Free AI Face Swap Online: Photo, Head & Video";
-const HOME_DESCRIPTION = `Free AI face swap in your browser: every new account gets ${SIGNUP_GRANT_CREDITS} free credits, enough for ${SIGNUP_FREE_SWAPS} photo face swaps. Photo, head and video face swap and AI photo editing, plus free desktop apps for Windows. No subscription.`;
+const HOME_TITLE = "NanoPocket — Local AI Face Swap, Face Edit & Try-On";
+const HOME_DESCRIPTION = `AI face swap, face editing and virtual try-on that run on your own GPU: your files stay on your computer and there is no subscription. Free Windows apps or a one-time license, plus photo, head and video face swap online, where every new account gets ${SIGNUP_GRANT_CREDITS} free credits (${SIGNUP_FREE_SWAPS} photo face swaps).`;
 
 export const metadata: Metadata = {
   title: { absolute: HOME_TITLE },

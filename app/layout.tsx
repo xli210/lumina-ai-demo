@@ -194,6 +194,9 @@ export default async function RootLayout({
               sameAs: [
                 "https://discord.gg/bNfPjfUDAn",
                 "https://x.com/NanoPocket_ai",
+                "https://github.com/Nanopocket-ai",
+                "https://www.youtube.com/@NanoPocket_ai",
+                "https://huggingface.co/Nanopocket-ai",
                 "https://nanopocket.ai/about",
                 "https://nanopocket.ai/trust",
                 "https://nanopocket.ai/verify",
