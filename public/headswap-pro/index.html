@@ -412,6 +412,12 @@ async function settle(hold) {
     await sleep(1500);
   }
 }
+// A page closed or hidden while a swap is running: ask once more as it goes (the server answers "held" unless the swap is over), so a swap that ends right
+// then is not left to the later sweep, when the gateway may no longer know the job.
+addEventListener("pagehide", () => {
+  if (!S.hold) return;
+  try { navigator.sendBeacon("/api/headswap/settle", new Blob([JSON.stringify({ hold_id: S.hold })], { type: "application/json" })); } catch (e) {}
+});
 // Files go straight to storage with a one-time link from the gateway, so the server in between never carries the image.
 async function uploadFile(file, kind) {
   const ct = ["image/jpeg", "image/png", "image/webp"].includes(file.type) ? file.type : null;
@@ -602,6 +608,7 @@ $("go").onclick = async () => {
   }
 };
 
+let emptyPolls = 0;
 async function poll() {
   let j;
   try { j = await api(`/api/job/${S.job}`); }
@@ -610,6 +617,15 @@ async function poll() {
     settle(S.hold); S.hold = null;
     S.job = null; update(); hideProgress(); showError(err.message, err.requestId); return;
   }
+  // An answer that is not a job (api() gives null for a body it cannot read, seen on a phone) is a blip, not the end: reading j.status of it stopped the polling,
+  // the swap finished unseen and the credits were never settled by this page.
+  if (!j || typeof j !== "object" || !j.status) {
+    if (++emptyPolls <= 30) { setTimeout(poll, 2000); return; }
+    emptyPolls = 0;
+    S.job = null; update(); hideProgress(); showError("Could not read the progress of your swap. Reload the page: if it finished, it is saved and the credits are settled automatically.");
+    return;
+  }
+  emptyPolls = 0;
   const kind = S.photo.faces.length > 1 ? "Group photo" : "Portrait";
   if (j.status === "queued") {
     showProgress(`Waiting for the GPU… ${j.phase && j.phase !== "Waiting for a GPU" ? "· " + j.phase : ""}`, 0.02);
