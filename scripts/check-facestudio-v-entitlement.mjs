@@ -2,7 +2,7 @@
 // The watermark token: signed here, checked the way the studio checks it.
 import assert from "node:assert/strict";
 import { createHmac } from "node:crypto";
-import { ENTITLEMENT_TTL_SECONDS, readEntitlement, signEntitlement } from "../lib/facestudio-v-entitlement.ts";
+import { ENTITLEMENT_TTL_SECONDS, accountOf, readEntitlement, signEntitlement } from "../lib/facestudio-v-entitlement.ts";
 
 const S = "test-secret";
 const now = Date.now();
@@ -30,6 +30,16 @@ assert.equal(readEntitlement(`${flipped}.${sig}`, S, now), null, "unpaid token e
 assert.equal(readEntitlement(paid, S, now + (ENTITLEMENT_TTL_SECONDS + 1) * 1000), null, "expired");
 assert.equal(readEntitlement("", S, now), null);
 assert.equal(readEntitlement("a.b.c", S, now), null);
+
+// the account: opaque, the same for one user, different for another, and covered by the signature
+const mine = signEntitlement(false, S, now, "user-1");
+assert.deepEqual(readEntitlement(mine, S, now), { paid: false, account: accountOf("user-1", S) });
+assert.equal(accountOf("user-1", S), createHmac("sha256", S).update("account:user-1").digest("hex").slice(0, 24));
+assert.notEqual(accountOf("user-1", S), accountOf("user-2", S));
+assert.ok(!JSON.parse(Buffer.from(mine.split(".")[0], "base64url").toString()).a.includes("user-1"));
+const [mraw, msig] = mine.split(".");
+const swapped = Buffer.from(JSON.stringify({ ...JSON.parse(Buffer.from(mraw, "base64url")), a: accountOf("user-2", S) })).toString("base64url");
+assert.equal(readEntitlement(`${swapped}.${msig}`, S, now), null, "account edited");
 
 // no secret: no token (the video is marked, the hold still works)
 assert.equal(signEntitlement(true, undefined, now), null);

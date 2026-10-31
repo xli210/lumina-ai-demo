@@ -91,7 +91,7 @@ export async function POST(request: Request) {
     // safe side to fail on, and it never stops a hold.
     let entitlement: string | null = null;
     try {
-      entitlement = signEntitlement(await hasEverPurchased(auth.userId));
+      entitlement = signEntitlement(await hasEverPurchased(auth.userId), undefined, undefined, auth.userId);
     } catch (err: unknown) {
       console.error("[facestudio-v] entitlement failed:", err instanceof Error ? err.message : err);
     }

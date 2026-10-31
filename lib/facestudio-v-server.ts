@@ -40,8 +40,12 @@ export type { StudioBilling, StudioJob };
  * returned the credits of videos that were made. settleStaleHolds still settles what it can before anything expires.
  */
 export const FSV_HOLD_TTL_SECONDS = 3 * 60 * 60;
-/** Videos one account can have in line or rendering at once. */
-export const FSV_MAX_OPEN = 2;
+/**
+ * Videos one account can have reserved (in line or rendering) at once. The studio holds each account to its own
+ * limits (an account with credits 2 rendering + 3 waiting, a free one 1 + 1, counted by the account in the
+ * entitlement); this is the larger of the two, so it never refuses what the studio would take.
+ */
+export const FSV_MAX_OPEN = 5;
 /** Largest price one hold may ask for. The studio's own caps keep real prices far below it. */
 export const FSV_MAX_CREDITS = 2000;
 

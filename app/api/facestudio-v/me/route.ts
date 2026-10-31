@@ -31,7 +31,7 @@ export async function GET(request: Request) {
     let tier: { paid?: boolean; entitlement?: string } = {};
     try {
       const paid = await hasEverPurchased(auth.userId);
-      const entitlement = signEntitlement(paid);
+      const entitlement = signEntitlement(paid, undefined, undefined, auth.userId);
       if (entitlement) tier = { paid, entitlement };
     } catch (err: unknown) {
       console.error("[facestudio-v] me: entitlement failed:", err instanceof Error ? err.message : err);
