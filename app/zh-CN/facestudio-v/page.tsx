@@ -202,7 +202,7 @@ export default function ZhVideoFaceSwapPage() {
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {PAIRS_2.map(({ slug, title, before }) => (
               <li key={slug} className="overflow-hidden rounded-2xl border border-border/60 bg-background/60">
-                <div className="grid grid-cols-2 gap-1 bg-black">
+                <div className="grid grid-cols-1 gap-1 bg-black sm:grid-cols-2">
                   {[["before", before], ["after", FACESTUDIO_V_VERSION]].map(([side, label]) => (
                     <figure key={side} className="relative m-0">
                       <video
@@ -238,7 +238,7 @@ export default function ZhVideoFaceSwapPage() {
           <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {PRECISION_2.map(({ slug, title, look }) => (
               <li key={slug}>
-                <div className="grid grid-cols-2 gap-1 overflow-hidden rounded-2xl bg-black">
+                <div className="grid grid-cols-1 gap-1 overflow-hidden rounded-2xl bg-black sm:grid-cols-2">
                   {[["before", "2.0 之前"], ["after", FACESTUDIO_V_VERSION]].map(([side, label]) => (
                     <figure key={side} className="relative m-0">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
