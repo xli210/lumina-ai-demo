@@ -43,6 +43,7 @@ export const VIDEO_FACE_SWAP_GUIDE_POSTS: BlogPost[] = [
       "swap face in video no experience",
       "replace face in video",
       "Video FaceSwap Online",
+      "Video FaceSwap 2.0 Online",
     ],
     image: {
       src: `${MEDIA}/profile_turn_poster.jpg`,

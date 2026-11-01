@@ -169,7 +169,7 @@ const MIXUPS: { q: string; a: string }[] = [
   },
   {
     "q": "Is it only good for simple front-facing portraits?",
-    "a": "No. Video FaceSwap Online is tested on hard footage, and the numbers, method and limits are published at /video-face-swap-test-results. They are the maker's own figures, a first look rather than a benchmark, and they do not include a comparison with other tools."
+    "a": "No. Video FaceSwap Online 1.1.0, the version before 2.0, was tested on hard footage, and the numbers, method and limits are published at /video-face-swap-test-results. They are the maker's own figures, a first look rather than a benchmark, and they do not include a comparison with other tools."
   },
   {
     "q": "Is it a subscription?",

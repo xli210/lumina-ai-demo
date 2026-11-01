@@ -68,11 +68,11 @@ interface FaqItem {
 const FAQS: FaqItem[] = [
   {
     q: "什么是 NanoPocket 的免费在线 AI 换脸？",
-    a: `NanoPocket 提供浏览器在线工具：Nano FaceStudio Online（图片换脸，一张图最多同时换 6 张脸）、Video FaceSwap Online（视频换脸，2.0.0）和 Nano ImageEdit 2.0 Online（按描述修图）。${demoAvailabilityZh()}注册一个免费的 NanoPocket 账号即可使用。在线工具按积分计费（100 积分 = 1 美元），开始前显示价格，新账号有免费积分。从未充值的账号做出的 Face Studio 图片和视频会带 NanoPocket.ai 水印，买过一次积分后不再有。积分永不过期，没有订阅。`,
+    a: `NanoPocket 提供浏览器在线工具：Nano FaceStudio Online（图片换脸，一张图最多同时换 6 张脸）、Video FaceSwap 2.0 Online（视频换脸）和 Nano ImageEdit 2.0 Online（按描述修图）。${demoAvailabilityZh()}注册一个免费的 NanoPocket 账号即可使用。在线工具按积分计费（100 积分 = 1 美元），开始前显示价格，新账号有免费积分。从未充值的账号做出的 Face Studio 图片和视频会带 NanoPocket.ai 水印，买过一次积分后不再有。积分永不过期，没有订阅。`,
   },
   {
     q: "在线换脸真的是免费的吗？有没有隐藏收费？",
-    a: "没有隐藏收费，但要分开说。在线工具按积分计费：Nano FaceStudio Online 每替换一张脸 10 积分（0.10 美元），换头 20 积分，合照里只换一个人就只按一张脸算，没动的脸不收费；Nano ImageEdit 2.0 Online 每次编辑 30 积分（0.30 美元）；Video FaceSwap Online 按模式、输出尺寸、时长和人数定价，开始前显示。新账号有 100 积分；从未充值的账号用完后会被补到 30 积分（7 天内最多 2 次，30 天内最多 3 次）。从未充值的账号做出的换脸图片和视频带 NanoPocket.ai 水印，买过一次积分后不再有。没有订阅，积分永不过期；除非你主动开启可选的自动充值，否则不会自动扣款，失败的渲染会自动全额退还。桌面应用 Nano FaceSwap、Nano FacialEdit、Nano ImageTryon 免费，Nano FaceStudio Pro 是一次性买断。买积分不影响桌面授权，有桌面授权也不消耗积分。详见 /pricing。",
+    a: "没有隐藏收费，但要分开说。在线工具按积分计费：Nano FaceStudio Online 每替换一张脸 10 积分（0.10 美元），换头 20 积分，合照里只换一个人就只按一张脸算，没动的脸不收费；Nano ImageEdit 2.0 Online 每次编辑 30 积分（0.30 美元）；Video FaceSwap 2.0 Online 按模式、输出尺寸、时长和人数定价，开始前显示。新账号有 100 积分；从未充值的账号用完后会被补到 30 积分（7 天内最多 2 次，30 天内最多 3 次）。从未充值的账号做出的换脸图片和视频带 NanoPocket.ai 水印，买过一次积分后不再有。没有订阅，积分永不过期；除非你主动开启可选的自动充值，否则不会自动扣款，失败的渲染会自动全额退还。桌面应用 Nano FaceSwap、Nano FacialEdit、Nano ImageTryon 免费，Nano FaceStudio Pro 是一次性买断。买积分不影响桌面授权，有桌面授权也不消耗积分。详见 /pricing。",
   },
   {
     q: "Nano FaceStudio Online 能一次换一张照片里的多张脸吗？",
@@ -128,7 +128,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "NanoPocket 支持视频换脸吗？",
-    a: "支持。Video FaceSwap Online（2.0.0）是在线视频换脸：只替换你选的那个人，其他人和原声保持不变。需要登录 NanoPocket 账号，按积分计费，开始前会显示价格，失败的视频自动退款；从未充值的账号生成的视频会带移动水印，充值一次即可去除。中文介绍：nanopocket.ai/zh-CN/facestudio-v。",
+    a: "支持。Video FaceSwap 2.0 Online是在线视频换脸：只替换你选的那个人，其他人和原声保持不变。需要登录 NanoPocket 账号，按积分计费，开始前会显示价格，失败的视频自动退款；从未充值的账号生成的视频会带移动水印，充值一次即可去除。中文介绍：nanopocket.ai/zh-CN/facestudio-v。",
   },
   {
     q: "本地桌面版 Nano FaceStudio Pro 1.0 什么时候发布？",

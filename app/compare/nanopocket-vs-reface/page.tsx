@@ -152,7 +152,7 @@ const data: ComparisonData = {
     {
       q: "Does Reface offer video face swap?",
       a:
-        "Yes for short clips and GIFs. The workflow is optimised for social-share output, not for long-form professional video. NanoPocket's Video FaceSwap Online covers longer uploaded clips with temporal consistency.",
+        "Yes for short clips and GIFs. The workflow is optimised for social-share output, not for long-form professional video. NanoPocket's Video FaceSwap 2.0 Online covers longer uploaded clips with temporal consistency.",
     },
     {
       q: "How does the long-run cost compare?",

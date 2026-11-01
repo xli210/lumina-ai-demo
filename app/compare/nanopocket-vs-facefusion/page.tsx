@@ -172,7 +172,7 @@ const data: ComparisonData = {
     {
       q: "Which has better video temporal consistency?",
       a:
-        "NanoPocket Video FaceSwap Online ships a built-in temporal-consistency pass. FaceFusion supports frame-by-frame video and has community scripts for smoothing; quality depends on what the user assembles.",
+        "NanoPocket Video FaceSwap 2.0 Online ships a built-in temporal-consistency pass. FaceFusion supports frame-by-frame video and has community scripts for smoothing; quality depends on what the user assembles.",
     },
   ],
 };

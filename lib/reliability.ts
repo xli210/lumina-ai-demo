@@ -43,7 +43,7 @@ export function classify(h: Pick<HoldRow, "status" | "estimate">): Outcome {
 
 export const SERVICE_LABELS: Record<string, string> = {
   facestudio: "Nano FaceStudio Online",
-  "facestudio-v": "Video FaceSwap Online",
+  "facestudio-v": "Video FaceSwap 2.0 Online",
   imageedit: "Image Edit Online",
   "headswap-pro": "Nano HeadSwap Pro",
 };

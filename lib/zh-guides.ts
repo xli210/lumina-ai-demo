@@ -33,7 +33,7 @@ const cta = {
   title: "试试 Video FaceSwap Online 1.1.0",
   body: "上传视频,选择要换的人,开始前先看到价格。视频失败会退还积分,新账号有免费积分。",
   href: "/zh-CN/facestudio-v",
-  label: "打开 Video FaceSwap Online",
+  label: "打开 Video FaceSwap 2.0 Online",
 };
 
 export const ZH_GUIDES: ZhGuide[] = [
@@ -47,7 +47,7 @@ export const ZH_GUIDES: ZhGuide[] = [
     cta,
     content: `## 简短回答
 
-打开 [Video FaceSwap Online](/facestudio-v),上传视频,添加一张你想要的人脸照片,点击要替换的那个人,然后开始。只有被选中的人会变,其他人、背景和原声都保持原样。不需要画蒙版,也不需要逐帧处理。
+打开 [Video FaceSwap 2.0 Online](/facestudio-v),上传视频,添加一张你想要的人脸照片,点击要替换的那个人,然后开始。只有被选中的人会变,其他人、背景和原声都保持原样。不需要画蒙版,也不需要逐帧处理。
 
 ## 你需要准备什么
 
@@ -143,7 +143,7 @@ export const ZH_GUIDES: ZhGuide[] = [
 
 ### 4. 有水印吗?
 
-很多免费档会加一个裁不掉的标记。要看清到底什么能去掉它:订阅、一次性购买,还是充值。在 Video FaceSwap Online 上,从未充值的账号做的视频带水印,充值一次后之后的视频就没有。
+很多免费档会加一个裁不掉的标记。要看清到底什么能去掉它:订阅、一次性购买,还是充值。在 Video FaceSwap 2.0 Online 上,从未充值的账号做的视频带水印,充值一次后之后的视频就没有。
 
 ### 5. 怎么计费?
 
@@ -164,7 +164,7 @@ export const ZH_GUIDES: ZhGuide[] = [
 
 ## 哪一类工具适合什么用途
 
-- **偶尔换一小段视频,不想装软件:** 按视频计费的在线工具,比如 [Video FaceSwap Online](/facestudio-v),价格先显示。
+- **偶尔换一小段视频,不想装软件:** 按视频计费的在线工具,比如 [Video FaceSwap 2.0 Online](/facestudio-v),价格先显示。
 - **保密素材,或者经常换脸:** 本地桌面应用。NanoPocket 的 [Nano FaceSwap](/apps/nano-faceswap) 免费,在 Windows 上用你自己的 NVIDIA 显卡运行,不上传源素材。
 - **喜欢折腾、有时间:** FaceFusion、DeepFaceLab 这类开源工具可以在自己电脑上免费运行,代价是自己配置 Python、驱动和参数。
 - **手机上随手玩、套模板:** 手机应用最容易上手,但通常对"换谁"和输出质量的控制最少。
@@ -178,7 +178,7 @@ export const ZH_GUIDES: ZhGuide[] = [
 
 ## 我们能说什么,不能说什么
 
-我们可以展示自己的结果:[Video FaceSwap Online 页面](/facestudio-v)上的五个困难镜头前后对比都是真实渲染。我们没有和别的工具做过正面对比测试,所以不声称胜过其中任何一个。我们公布的数字(74 段公开视频,平均与参考脸的相似度 0.65,换脸前是 0.08)是初步印象,不是基准测试。
+我们可以展示自己的结果:[Video FaceSwap Online 1.1.0 页面](/facestudio-v)上的五个困难镜头前后对比都是真实渲染。我们没有和别的工具做过正面对比测试,所以不声称胜过其中任何一个。我们公布的数字(74 段公开视频,平均与参考脸的相似度 0.65,换脸前是 0.08)是初步印象,不是基准测试。
 
 ## 相关文章
 
@@ -304,7 +304,7 @@ export const ZH_GUIDES: ZhGuide[] = [
 ## 你该选哪个?
 
 - **有 NVIDIA 电脑,在意隐私:** 先用免费的本地应用:换脸用 [Nano FaceSwap](/apps/nano-faceswap),人像编辑用 [Nano FacialEdit](/apps/nano-facialedit),虚拟试穿用 [Nano ImageTryon](/apps/nano-imagetryon)。
-- **想要最强的工作室、很少使用:** 用 [Video FaceSwap Online](/facestudio-v),按视频付费。
+- **想要最强的工作室、很少使用:** 用 [Video FaceSwap 2.0 Online](/facestudio-v),按视频付费。
 - **用手机或 Mac:** 在线工具在任何浏览器里都能用;桌面应用目前需要 Windows 和 NVIDIA 显卡。
 - **两个都想要:** 很多人先在线试做,最后的私密工作放在本地。
 
@@ -328,7 +328,7 @@ export const ZH_GUIDES: ZhGuide[] = [
     cta: { ...cta, href: "/zh-CN/facestudio-v", label: "打开中文介绍页" },
     content: `## 简短回答
 
-不需要装 App。用手机浏览器打开 [Video FaceSwap Online](/zh-CN/facestudio-v),登录免费账号,从相册选一段视频,再选一张人脸照片,点一下要换的人,确认价格后开始。做好以后直接下载到手机。
+不需要装 App。用手机浏览器打开 [Video FaceSwap 2.0 Online](/zh-CN/facestudio-v),登录免费账号,从相册选一段视频,再选一张人脸照片,点一下要换的人,确认价格后开始。做好以后直接下载到手机。
 
 ## 开始前准备
 

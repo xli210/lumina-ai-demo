@@ -94,7 +94,7 @@ const data: ComparisonData = {
     {
       dimension: "Video face swap",
       nanopocket:
-        "First-class — Video FaceSwap Online: one person's face or whole head, everyone else and the sound as filmed; free to start with sign-up credits.",
+        "First-class — Video FaceSwap 2.0 Online: one person's face or whole head, everyone else and the sound as filmed; free to start with sign-up credits.",
       competitor:
         "Available alongside other video AI workflows; coverage and quota depend on plan.",
       winner: "even",

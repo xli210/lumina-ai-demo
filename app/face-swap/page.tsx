@@ -96,7 +96,7 @@ const ONLINE_DEMO_COPY: OnlineDemoCopy[] = [
   {
     id: "video",
     blurb:
-      "Video FaceSwap Online: replace one person's face, or their whole head, in a video. Everyone else and the original sound stay as filmed — no frame-by-frame work.",
+      "Video FaceSwap 2.0 Online: replace one person's face, or their whole head, in a video. Everyone else and the original sound stay as filmed — no frame-by-frame work.",
     bullets: [
       "Pick the person to change; the rest of the video stays as filmed",
       "Built for hard footage: profile turns, hands in front of the face, low light",
@@ -230,7 +230,7 @@ const FAQS = [
   },
   {
     q: "What is the difference between the demos?",
-    a: "Nano FaceStudio Online (formerly Image FaceSwap Pro 2.0) is for still-image swaps, including several faces in one photo, with the strongest identity preservation. Video FaceSwap Online (formerly Video FaceSwap Pro) swaps one person's face or whole head in a video and leaves everyone else and the sound as filmed; it is paid per video in credits, at a price shown before it starts. NanoFace Vivid is a face-detail restorer that fixes the over-smoothed look that Gemini 2.5 Flash Image (Nano Banana), Firefly, Roop, and cloud face-swap services leave on portraits — it is identity-locked and is meant to run after another face-swap step (or after any AI portrait generator).",
+    a: "Nano FaceStudio Online (formerly Image FaceSwap Pro 2.0) is for still-image swaps, including several faces in one photo, with the strongest identity preservation. Video FaceSwap 2.0 Online (formerly Video FaceSwap Pro) swaps one person's face or whole head in a video and leaves everyone else and the sound as filmed; it is paid per video in credits, at a price shown before it starts. NanoFace Vivid is a face-detail restorer that fixes the over-smoothed look that Gemini 2.5 Flash Image (Nano Banana), Firefly, Roop, and cloud face-swap services leave on portraits — it is identity-locked and is meant to run after another face-swap step (or after any AI portrait generator).",
   },
   {
     q: "Is there a desktop version?",
@@ -327,7 +327,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 1,
       name: "Open the demo",
-      text: "Visit nanopocket.ai/face-swap and open the tool you need: Nano FaceStudio Online for photos (up to six faces), or Video FaceSwap Online for a face in a video. Each opens in a new browser tab.",
+      text: "Visit nanopocket.ai/face-swap and open the tool you need: Nano FaceStudio Online for photos (up to six faces), or Video FaceSwap 2.0 Online for a face in a video. Each opens in a new browser tab.",
       url: "https://nanopocket.ai/face-swap#demos",
     },
     {
