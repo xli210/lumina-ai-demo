@@ -96,7 +96,7 @@ The YouTube film itself does contain them. If legal clears the posters, the othe
 ### Film posters on the home page (decided by the owner)
 
 The first slide of the home page carousel plays `public/headswap-pro/hero-posters.mp4`: 10 s cut from the launch film (the *Us* poster swap, then the *Star Wars: The Last Jedi*
-multi-face poster swap), silent, 30 fps. Two files: `hero-posters.mp4` (1920 wide, crf 25, 3.3 MB, for screens 900 px and wider) and `hero-posters-sm.mp4` (1280 wide, crf 27, for phones); the poster is 1920 wide. The owner asked for the film-poster swap in the home hero. It contains real film posters, so the legal note above applies
+multi-face poster swap), silent, 30 fps. Two files, re-encoded 2026-11-01 from `headswap_pro_launch_1080p60.mp4` (the 45 Mbps master; cut at 8.9-14.8 s and 27.7-32.2 s with a 0.3 s crossfade): `hero-posters.mp4` (1920 wide, crf 19, max 7 Mbps, 8.5 MB, for screens 900 px and wider) and `hero-posters-sm.mp4` (1280 wide, crf 21, max 3 Mbps, 2.5 MB, for phones). The master is only 1080p, so a sharper hero needs a 1440p or 4K render of the film; the poster is 1920 wide. The owner asked for the film-poster swap in the home hero. It contains real film posters, so the legal note above applies
 to it. To go back to a poster-free hero, point the slide in `app/components/hero-section.tsx` at `compare/ex2_v2.webp` (an image slide) or at `teaser.mp4`.
 
 ### Group and steep-angle examples (second set, 2026-10-27)
