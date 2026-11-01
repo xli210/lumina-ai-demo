@@ -361,7 +361,8 @@ from the ledger's `allowance:` promo grants; see `ensureDailyAllowance`). Both a
 | Rule | Value |
 | --- | --- |
 | Accounts per device that may receive free credits | 1, forever. The device is an httpOnly cookie `np_did`, set by `middleware.ts` |
-| Accounts per network | 1 per 30 days. The network is the IP (IPv6 reduced to its /64) |
+| Accounts per network | 1 per 3 days (30 until 2026-11-01). The network is the IP (IPv6 reduced to its /64) |
+| Throwaway email addresses | No free credits (`blocked_email`, scripts/020). The domain list is `lib/disposable-email.ts` |
 | Existing accounts | Grandfathered: they keep their credits and allowance. They count against a *device*, not against an *IP* |
 | Accounts that have bought credits | Always eligible for the daily top-up |
 
@@ -381,8 +382,22 @@ If the migration is not applied, `claimFreeCredits` logs
 `free_credit_claim() is missing` and the grant goes ahead (reduced to 100): an
 outage of the check must not take free credits away from everyone.
 
+Why 3 days and not 30: of the 87 refusals up to 2026-11-01, 74 came within 24 hours of the account
+they matched, while the IP-only matches 7 to 24 days apart were a single earlier account and a
+newcomer who never used a tool, so a reassigned address, not a second account. The 3-day window
+lets those people in; the device check, which has no window, still catches the same browser.
+
 Looking for abuse: the queries are at the bottom of
-`scripts/015_create_free_credit_claims.sql`.
+`scripts/015_create_free_credit_claims.sql`. Throwaway domains (temp-mail services rotate them,
+so `lib/disposable-email.ts` needs new ones added now and then):
+
+```sql
+select split_part(email,'@',2) domain, count(*), string_agg(split_part(email,'@',1), ' ')
+from auth.users where created_at > now() - interval '14 days'
+group by 1 having count(*) > 1 order by 2 desc;
+```
+
+Add a domain whose local parts are all random strings and that is not a known mail provider.
 
 ### Purchase
 

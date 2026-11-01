@@ -67,7 +67,7 @@ export default async function CreditsPage({
   // Why an account has no free credits, if that is the case. Never fatal.
   const claim = await getFreeClaimOutcome(user.id).catch(() => null);
   const refused =
-    claim === "blocked_ip" || claim === "blocked_device"
+    claim === "blocked_ip" || claim === "blocked_device" || claim === "blocked_email"
       ? claim
       : null;
   // The auto top-up setting. If it cannot be read (migration 018 not run yet) the feature is not offered.
@@ -96,15 +96,29 @@ export default async function CreditsPage({
         </div>
         {refused && account.lifetime_purchased === 0 && (
           <div className="mb-6 rounded-2xl border border-border bg-card/40 p-4 text-sm text-muted-foreground">
-            <p className="font-medium text-foreground">
-              Free credits were already claimed from this{" "}
-              {refused === "blocked_device" ? "browser" : "network"}.
-            </p>
-            <p className="mt-1">
-              Free credits are limited to one account per person. If this is
-              your first account and you share a connection with someone else,
-              buying any credit pack unlocks your account for free credits too.
-            </p>
+            {refused === "blocked_email" ? (
+              <>
+                <p className="font-medium text-foreground">
+                  Free sign-up credits are not available for temporary email addresses.
+                </p>
+                <p className="mt-1">
+                  Sign up with Google or a permanent email address to get them. This
+                  account can still buy credits and use every tool.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="font-medium text-foreground">
+                  Free credits were already claimed from this{" "}
+                  {refused === "blocked_device" ? "browser" : "network"}.
+                </p>
+                <p className="mt-1">
+                  Free credits are limited to one account per person. If this is
+                  your first account and you share a connection with someone else,
+                  buying any credit pack unlocks your account for free credits too.
+                </p>
+              </>
+            )}
           </div>
         )}
         <CreditConsole

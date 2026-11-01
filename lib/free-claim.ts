@@ -3,6 +3,7 @@ import { createHmac } from "node:crypto";
 import { cookies, headers } from "next/headers";
 
 import { DEVICE_COOKIE, isDeviceId } from "@/lib/device-cookie";
+import { isDisposableEmail } from "@/lib/disposable-email";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 /**
@@ -18,6 +19,8 @@ import { createAdminClient } from "@/lib/supabase/admin";
  *
  *   - It stops the common case: several accounts made from one browser, or
  *     from one connection, to collect the free credits again.
+ *   - It refuses addresses on throwaway-inbox domains (lib/disposable-email.ts),
+ *     the usual companion of a VPN when someone farms accounts.
  *   - It does not stop someone who changes network *and* clears cookies (a VPN
  *     plus a fresh browser profile). Nothing based on IP and cookies can. The
  *     next steps up are a CAPTCHA at signup (Supabase supports Turnstile) and
@@ -35,14 +38,23 @@ import { createAdminClient } from "@/lib/supabase/admin";
 export const MAX_FREE_CLAIMS_PER_DEVICE = 1;
 /** Accounts per network that may receive free credits within the window. */
 export const MAX_FREE_CLAIMS_PER_IP = 1;
-/** Dynamic addresses get reassigned, so an IP is only held against someone for this long. */
-export const IP_WINDOW_DAYS = 30;
+/**
+ * Dynamic addresses get reassigned, so an IP is only held against someone for this long.
+ *
+ * 3 days, down from 30 on 2026-11-01. Of 87 refusals to then, 74 came within 24 hours of
+ * the account they matched (someone opening account after account), while the IP-only
+ * matches 7 to 24 days apart were each a single earlier account and a newcomer who never
+ * used a tool: a reassigned address or a shared connection, not a second account. The
+ * device check, which has no window, still catches the same browser coming back later.
+ */
+export const IP_WINDOW_DAYS = 3;
 
 export type FreeClaimOutcome =
   | "granted"
   | "grandfathered"
   | "blocked_ip"
-  | "blocked_device";
+  | "blocked_device"
+  | "blocked_email";
 
 export function isAllowedOutcome(o: FreeClaimOutcome): boolean {
   return o === "granted" || o === "grandfathered";
@@ -146,6 +158,22 @@ export async function claimFreeCredits(
 ): Promise<FreeClaimOutcome | null> {
   const keys = await claimKeysFromRequest();
   const supabase = createAdminClient();
+
+  if (!options.grandfather) {
+    const { data: found } = await supabase.auth.admin.getUserById(userId);
+    if (isDisposableEmail(found?.user?.email)) {
+      // Recorded like any other verdict (one per account), so it is asked once.
+      const { error } = await supabase
+        .from("free_credit_claims")
+        .upsert(
+          { user_id: userId, outcome: "blocked_email", ip_hash: keys.ipHash, device_hash: keys.deviceHash },
+          { onConflict: "user_id", ignoreDuplicates: true }
+        );
+      if (error) throw new Error(`free claim (email) failed: ${error.message}`);
+      return (await getFreeClaimOutcome(userId)) ?? "blocked_email";
+    }
+  }
+
   const { data, error } = await supabase.rpc("free_credit_claim", {
     p_user_id: userId,
     p_ip_hash: keys.ipHash,
@@ -171,7 +199,8 @@ export async function claimFreeCredits(
     outcome === "granted" ||
     outcome === "grandfathered" ||
     outcome === "blocked_ip" ||
-    outcome === "blocked_device"
+    outcome === "blocked_device" ||
+    outcome === "blocked_email"
   ) {
     return outcome;
   }
@@ -198,7 +227,8 @@ export async function getFreeClaimOutcome(
   return outcome === "granted" ||
     outcome === "grandfathered" ||
     outcome === "blocked_ip" ||
-    outcome === "blocked_device"
+    outcome === "blocked_device" ||
+    outcome === "blocked_email"
     ? outcome
     : null;
 }
