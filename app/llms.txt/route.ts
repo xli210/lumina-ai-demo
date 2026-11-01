@@ -125,7 +125,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/",
       "NanoPocket homepage",
-      `Landing page for every tool, with an "at a glance" table of what each online tool does and costs, the free offer (${SIGNUP_GRANT_CREDITS} credits on sign-up plus free top-ups), and an FAQ that starts with "Is NanoPocket free?".`,
+      `Landing page for every tool, with an "at a glance" table of what each online tool does and costs, the free offer (${SIGNUP_GRANT_CREDITS} credits on sign-up, plus free top-ups once an account has bought credits), and an FAQ that starts with "Is NanoPocket free?".`,
     ),
     bullet(
       "/about",

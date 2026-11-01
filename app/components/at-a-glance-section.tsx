@@ -9,7 +9,7 @@ import {
   HEAD_SWAP_CREDITS,
   SIGNUP_FREE_SWAPS,
 } from "@/lib/face-studio-facts";
-import { FREE_TOPUP_CREDITS, FREE_TOPUP_FREQUENCY } from "@/lib/facestudio";
+import { FREE_TOPUP_CREDITS } from "@/lib/facestudio";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE } from "@/lib/facestudio-v";
 import { IMAGEEDIT_CREDITS_PER_EDIT, IMAGEEDIT_NAME } from "@/lib/imageedit";
@@ -51,7 +51,7 @@ const TOOLS = [
 
 const FACTS = [
   `Free to start: new accounts get ${SIGNUP_GRANT_CREDITS} free credits, enough for ${SIGNUP_FREE_SWAPS} photo face swaps. One grant per person; no card needed.`,
-  `Free top-ups: a balance that runs low is topped back up to ${FREE_TOPUP_CREDITS} free credits (${FREE_RENDERS_PER_TOPUP} photo swaps), ${FREE_TOPUP_FREQUENCY}.`,
+  `Free top-ups after a first purchase: an account that has bought credits is topped back up to ${FREE_TOPUP_CREDITS} free credits (${FREE_RENDERS_PER_TOPUP} photo swaps) whenever it runs low.`,
   "Free desktop apps: Nano FaceSwap, Nano FacialEdit and Nano ImageTryon are free for good; the paid apps have a 7-day free trial.",
   "No subscription. Credits are prepaid and never expire. A job that fails is refunded in full.",
   "Face, head and video swaps from an account that has never bought credits carry a NanoPocket watermark; one purchase removes it. Image edits have no watermark.",

@@ -20,8 +20,6 @@
 import {
   FACESTUDIO_MAX_FACES,
   FREE_TOPUP_CREDITS,
-  FREE_TOPUP_FREQUENCY,
-  FREE_TOPUP_RULE,
   creditsForMode,
 } from "@/lib/facestudio";
 import { CREDITS_PER_USD, SIGNUP_GRANT_CREDITS } from "@/lib/credits";
@@ -58,17 +56,20 @@ export const FREE_RENDERS_PER_TOPUP = Math.floor(
   FREE_TOPUP_CREDITS / FACE_SWAP_CREDITS
 );
 
-/** \"3 free swaps, topped up at most three times a month\": one phrase for every page, so it follows the rule. */
-export const FREE_ALLOWANCE_SHORT = `${FREE_RENDERS_PER_TOPUP} free swaps, topped up ${FREE_TOPUP_FREQUENCY}`;
-
 /** Photo face swaps the sign-up grant pays for. */
 export const SIGNUP_FREE_SWAPS = Math.floor(SIGNUP_GRANT_CREDITS / FACE_SWAP_CREDITS);
+
+/**
+ * \"10 free swaps on sign-up (100 credits)\": the free tier in one phrase for every page. Since 2026-11-01 that is the
+ * sign-up grant alone; the top-up (FREE_TOPUP_CREDITS) only comes after a first purchase.
+ */
+export const FREE_ALLOWANCE_SHORT = `${SIGNUP_FREE_SWAPS} free swaps on sign-up (${SIGNUP_GRANT_CREDITS} credits)`;
 
 /**
  * The whole free offer as one clause, for every page and LLM file that says what is free: the sign-up grant and
  * the free top-up. "Free" on this site always comes with these numbers, never as "free" alone.
  */
-export const FREE_OFFER_EN = `every new account gets ${SIGNUP_GRANT_CREDITS} free credits (${SIGNUP_FREE_SWAPS} photo face swaps), and a balance that runs low is topped back up to ${FREE_TOPUP_CREDITS} free credits (${FREE_RENDERS_PER_TOPUP} swaps) ${FREE_TOPUP_FREQUENCY}`;
+export const FREE_OFFER_EN = `every new account gets ${SIGNUP_GRANT_CREDITS} free credits (${SIGNUP_FREE_SWAPS} photo face swaps), and after a first purchase a balance that runs low is topped back up to ${FREE_TOPUP_CREDITS} free credits (${FREE_RENDERS_PER_TOPUP} swaps)`;
 
 /** Rendered as `$0.10`. Used only where we compare with rivals' dollar prices; everywhere else prices are in credits. */
 export function usd(amount: number): string {
@@ -293,7 +294,7 @@ export const FACE_STUDIO_FAQ: readonly FactQA[] = [
   },
   {
     q: "Is there a free tier for Nano FaceStudio Online?",
-    a: `Yes. A signed-in NanoPocket account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low, which is ${FREE_RENDERS_PER_TOPUP} single-face swaps at full resolution (watermarked until the account has bought credits once), or one render replacing ${FREE_RENDERS_PER_TOPUP} faces at once. An account that has never bought credits is topped up ${FREE_TOPUP_RULE}; one that has bought credits is topped up whenever it runs low. Face detection is always free. The top-up goes up to ${FREE_TOPUP_CREDITS} rather than adding to it, so it does not accumulate.`,
+    a: `Yes. A signed-in NanoPocket account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low, which is ${FREE_RENDERS_PER_TOPUP} single-face swaps at full resolution (watermarked until the account has bought credits once), or one render replacing ${FREE_RENDERS_PER_TOPUP} faces at once. Only an account that has bought credits is topped up; one that has never bought has its sign-up credits only. Face detection is always free. The top-up goes up to ${FREE_TOPUP_CREDITS} rather than adding to it, so it does not accumulate.`,
   },
   {
     q: "Can Nano FaceStudio Online swap more than one face in a photo?",

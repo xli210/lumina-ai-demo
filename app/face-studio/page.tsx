@@ -41,7 +41,7 @@ const abs = (path: string) => `https://nanopocket.ai${path}`;
 
 // The site template appends " | NanoPocket", so this stays short.
 const TITLE = `Free Group Photo Face Swap Online: Up to ${FACESTUDIO_MAX_FACES} Faces`;
-const DESCRIPTION = `Free to start: ${SIGNUP_GRANT_CREDITS} credits on sign-up cover ${Math.floor(SIGNUP_GRANT_CREDITS / FACE_SWAP_CREDITS)} face swaps. Swap up to ${FACESTUDIO_MAX_FACES} faces in one photo, or a whole head, and keep the hair, hands, glasses and jewellery that cross the face. Full resolution; a top-up removes the watermark. ${FACE_SWAP_CREDITS} credits per face, ${FREE_ALLOWANCE_SHORT}, no subscription.`;
+const DESCRIPTION = `Free to start: ${SIGNUP_GRANT_CREDITS} credits on sign-up cover ${Math.floor(SIGNUP_GRANT_CREDITS / FACE_SWAP_CREDITS)} face swaps. Swap up to ${FACESTUDIO_MAX_FACES} faces in one photo, or a whole head, and keep the hair, hands, glasses and jewellery that cross the face. Full resolution; a top-up removes the watermark. ${FACE_SWAP_CREDITS} credits per face, no subscription.`;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -108,7 +108,7 @@ const softwareJsonLd = {
       name: "Free allowance",
       price: "0",
       priceCurrency: "USD",
-      description: `A signed-in account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low (${FREE_TOPUP_FREQUENCY} for an account that has never bought credits), which is ${FREE_RENDERS_PER_TOPUP} full-resolution face swaps, watermarked until the account has bought credits once. Face detection is always free.`,
+      description: `Once an account has bought credits it is topped up to ${FREE_TOPUP_CREDITS} credits whenever it runs low, which is ${FREE_RENDERS_PER_TOPUP} full-resolution face swaps; an account that has never bought gets no top-up. Renders are watermarked until the account has bought credits once. Face detection is always free.`,
       url: PAGE_URL,
     },
   ],
@@ -254,7 +254,7 @@ export default function FaceStudioLandingPage() {
     { value: String(FACESTUDIO_MAX_FACES), label: "faces in one photo" },
     { value: "4080 px", label: "output, watermark gone after a top-up" },
     { value: String(FACE_SWAP_CREDITS), label: "credits per face swapped" },
-    { value: String(FREE_RENDERS_PER_TOPUP), label: `free swaps, topped up ${FREE_TOPUP_FREQUENCY}` },
+    { value: String(FREE_RENDERS_PER_TOPUP), label: `free swaps per top-up, ${FREE_TOPUP_FREQUENCY}` },
   ];
 
   return (
@@ -534,7 +534,7 @@ export default function FaceStudioLandingPage() {
         <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl bg-neutral-950 text-white">
           <div className="grid gap-px bg-white/10 md:grid-cols-3">
             {[
-              { name: "Free allowance", price: "Free", note: `Topped up to ${FREE_TOPUP_CREDITS} credits when you run low, ${FREE_TOPUP_FREQUENCY}: ${FREE_RENDERS_PER_TOPUP} face swaps at full resolution, with a NanoPocket.ai watermark until you have bought credits once. Accounts that have bought credits are topped up whenever they run low.` },
+              { name: "Free allowance", price: "Free", note: `After your first purchase you are topped up to ${FREE_TOPUP_CREDITS} credits (${FREE_RENDERS_PER_TOPUP} face swaps at full resolution) whenever you run low. Before it, renders carry a NanoPocket.ai watermark and there is no top-up.` },
               { name: "Face swap", price: `${FACE_SWAP_CREDITS} credits`, note: "Per face you replace. Faces you leave alone are free." },
               { name: "Head swap", price: `${HEAD_SWAP_CREDITS} credits`, note: "One head per render." },
             ].map((p) => (

@@ -41,7 +41,7 @@
   }
   /** Keep in step with FREE_TOPUP_CREDITS and FREE_TOPUP_FREQUENCY in lib/facestudio.ts. */
   const FREE_TOPUP_CREDITS = 30;
-  const FREE_TOPUP_FREQUENCY = "at most three times a month";
+  const FREE_TOPUP_FREQUENCY = "once the account has bought credits";
   const TOPUP_URL = "/credits";
   const SUGGESTED_TOPUP_URL = "/credits?pack=starter";
 
@@ -1003,7 +1003,7 @@
             `Swapping ${selectedCount} face${selectedCount === 1 ? "" : "s"} ` +
               `costs ${price} credits and you have ${creditsAvailable}. Swap ` +
               `fewer faces, or buy credits. Free credits are topped up to ` +
-              `${FREE_TOPUP_CREDITS}, ${FREE_TOPUP_FREQUENCY}.`
+              `${FREE_TOPUP_CREDITS} ${FREE_TOPUP_FREQUENCY}.`
           ),
           { needsTopUp: true }
         )

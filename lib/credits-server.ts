@@ -512,9 +512,12 @@ export async function ensureDailyAllowance(params: {
   day: string;
   /** Rate limits for an account that has never bought; all must hold. */
   limits?: readonly TopUpLimit[];
+  /** No top-up at all for an account that has never bought credits. */
+  paidOnly?: boolean;
 }): Promise<CreditAccountState> {
   const account = await getCreditAccount(params.userId);
   if (account.available >= params.amount) return account;
+  if (params.paidOnly && account.lifetime_purchased === 0) return account;
   if (!(await isFreeEligible(params.userId, account))) return account;
 
   if (account.lifetime_purchased === 0 && params.limits && params.limits.length > 0) {

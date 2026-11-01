@@ -4,7 +4,7 @@
  */
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACE_SWAP_CREDITS, FREE_RENDERS_PER_TOPUP, SIGNUP_FREE_SWAPS } from "@/lib/face-studio-facts";
-import { FREE_TOPUP_CREDITS, FREE_TOPUP_FREQUENCY } from "@/lib/facestudio";
+import { FREE_TOPUP_CREDITS } from "@/lib/facestudio";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE } from "@/lib/headswap-pro";
 import { IMAGEEDIT_CREDITS_PER_EDIT } from "@/lib/imageedit";
 
@@ -15,7 +15,7 @@ const FREE_EDITS = Math.floor(SIGNUP_GRANT_CREDITS / IMAGEEDIT_CREDITS_PER_EDIT)
 export const HOME_FAQS: readonly { question: string; answer: string }[] = [
   {
     question: "Is NanoPocket free?",
-    answer: `Yes, it is free to start. Every new account gets ${SIGNUP_GRANT_CREDITS} free credits, enough for ${SIGNUP_FREE_SWAPS} photo face swaps (${FACE_SWAP_CREDITS} credits each), ${FREE_HEADSWAPS} Nano HeadSwap Pro images or ${FREE_EDITS} AI photo edits, and no card is needed to sign up. When the balance runs low it is topped back up to ${FREE_TOPUP_CREDITS} free credits (${FREE_RENDERS_PER_TOPUP} more photo swaps), ${FREE_TOPUP_FREQUENCY}. Three desktop apps are free for good: Nano FaceSwap, Nano FacialEdit and Nano ImageTryon; the paid desktop apps have a 7-day free trial. After the free credits you top up only when you need more, with no subscription. Face, head and video swaps made before your first purchase carry a NanoPocket watermark.`,
+    answer: `Yes, it is free to start. Every new account gets ${SIGNUP_GRANT_CREDITS} free credits, enough for ${SIGNUP_FREE_SWAPS} photo face swaps (${FACE_SWAP_CREDITS} credits each), ${FREE_HEADSWAPS} Nano HeadSwap Pro images or ${FREE_EDITS} AI photo edits, and no card is needed to sign up. After a first purchase, a balance that runs low is topped back up to ${FREE_TOPUP_CREDITS} free credits (${FREE_RENDERS_PER_TOPUP} more photo swaps). Three desktop apps are free for good: Nano FaceSwap, Nano FacialEdit and Nano ImageTryon; the paid desktop apps have a 7-day free trial. After the free credits you top up only when you need more, with no subscription. Face, head and video swaps made before your first purchase carry a NanoPocket watermark.`,
   },
   {
     question: "Can I try it without downloading anything?",

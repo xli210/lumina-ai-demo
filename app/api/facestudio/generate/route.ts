@@ -258,7 +258,7 @@ export async function POST(req: NextRequest) {
         detail:
           `Swapping ${faceCount} face${faceCount === 1 ? "" : "s"} costs ` +
           `${price} credits and you have ${hold.available}. Swap fewer faces, ` +
-          `or buy credits: ${suggestionSentence(shortfall)} Free credits are topped up to ${FREE_TOPUP_CREDITS}, ` +
+          `or buy credits: ${suggestionSentence(shortfall)} Free credits are topped up to ${FREE_TOPUP_CREDITS} ` +
           `${FREE_TOPUP_FREQUENCY}.`,
         reason: "insufficient_credits",
         required: price,

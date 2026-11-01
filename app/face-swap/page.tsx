@@ -148,7 +148,7 @@ const COMPARE_ROWS: CompareRow[] = [
     tool: "NanoPocket — free to start",
     setup: "Browser only — open and go",
     signup: "Free NanoPocket account, no card",
-    pricing: `${SIGNUP_GRANT_CREDITS} free credits on sign-up + free top-ups, then pay per use in credits; no subscription`,
+    pricing: `${SIGNUP_GRANT_CREDITS} free credits on sign-up, then pay per use (free top-ups after a first purchase) in credits; no subscription`,
     identity: "Diffusion stack",
     privacy: "Cloud GPU for the demo, volatile only, not used for training",
     highlight: true,

@@ -13,7 +13,7 @@ import {
   FACESTUDIO_SERVICE,
   FREE_TOPUP_CREDITS,
   FREE_TOPUP_FREQUENCY,
-  FREE_TOPUP_LIMITS,
+  FREE_TOPUP_PAID_ONLY,
   isFaceStudioJobId,
 } from "@/lib/facestudio";
 import { suggestPack, suggestionSentence, topUpPath } from "@/lib/credit-packs";
@@ -67,8 +67,7 @@ async function currentUserId(): Promise<string | null> {
  * Bring an account's credits up to date before anything reads them.
  *
  * Two grants, both idempotent: the one-off welcome credits, and the free
- * top-up (rate-limited for accounts that have never bought credits) that
- * keeps Nano FaceStudio Online usable without paying. Called by
+ * top-up, which since 2026-11-01 only accounts that have bought credits get. Called by
  * every gate rather than on a schedule, so it costs nothing for accounts
  * that never visit.
  */
@@ -81,7 +80,7 @@ export async function provisionCredits(
     amount: FREE_TOPUP_CREDITS,
     service: FACESTUDIO_SERVICE,
     day: todayUtc(),
-    limits: FREE_TOPUP_LIMITS,
+    paidOnly: FREE_TOPUP_PAID_ONLY,
   });
 }
 
@@ -134,7 +133,7 @@ export async function requireSpendableBalance(): Promise<FaceStudioGate> {
         {
           detail:
             `You have used your free credits. Buy credits to keep going: ${suggestionSentence()} Free ` +
-            `credits are topped up to ${FREE_TOPUP_CREDITS}, ${FREE_TOPUP_FREQUENCY}.`,
+            `credits are topped up to ${FREE_TOPUP_CREDITS} ${FREE_TOPUP_FREQUENCY}.`,
           reason: "insufficient_credits",
           required: DETECT_MIN_BALANCE,
           available: account.available,

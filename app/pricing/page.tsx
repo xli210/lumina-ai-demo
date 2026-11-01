@@ -10,7 +10,6 @@ import {
   FACESTUDIO_MAX_FACES,
   FACESTUDIO_PRICE_PER_FACE,
   FREE_TOPUP_CREDITS,
-  FREE_TOPUP_RULE,
 } from "@/lib/facestudio";
 import { IMAGE_EDIT_NAME, IMAGE_EDIT_PRICE_CREDITS } from "@/lib/image-edit-facts";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
@@ -68,7 +67,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "What do the free credits cover?",
-    a: `A new account starts with ${SIGNUP_GRANT_CREDITS} credits. An account that has never bought credits is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low, ${FREE_TOPUP_RULE}. An account that has bought credits is topped up whenever it runs low. Free credits are limited to one account per person.`,
+    a: `A new account starts with ${SIGNUP_GRANT_CREDITS} credits. An account that has bought credits is also topped up to ${FREE_TOPUP_CREDITS} credits whenever it runs low; one that has never bought gets no top-up. Free credits are limited to one account per person.`,
   },
   {
     q: "How do I remove the watermark?",
@@ -231,9 +230,8 @@ export default function PricingPage() {
         <section className="mb-16" id="free">
           <h2 className={h2}>Free credits, and the watermark</h2>
           <p className={note}>
-            A new account starts with {SIGNUP_GRANT_CREDITS} credits. An account that has never bought credits is topped up to{" "}
-            {FREE_TOPUP_CREDITS} credits when it runs low, {FREE_TOPUP_RULE}; one that has bought credits is topped up whenever it
-            runs low. Free credits are limited to one account per person.
+            A new account starts with {SIGNUP_GRANT_CREDITS} credits. An account that has bought credits is also topped up to{" "}
+            {FREE_TOPUP_CREDITS} credits whenever it runs low; one that has never bought gets no top-up. Free credits are limited to one account per person.
           </p>
           <p className={note}>
             <strong className="text-foreground">The watermark:</strong> renders from {FACESTUDIO_V_NAME} and Nano FaceStudio Online
