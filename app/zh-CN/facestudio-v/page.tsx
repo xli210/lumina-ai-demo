@@ -17,7 +17,7 @@ const PATH = "/zh-CN/facestudio-v";
 const PAGE_URL = `${BASE}${PATH}`;
 const LAST_VERIFIED = "2026-10-30";
 
-const TITLE = "AI 视频换脸在线免费试用:换脸、换头,保留原声 — Video FaceSwap Online";
+const TITLE = "AI 视频换脸在线免费试用:换脸、换头,保留原声 — Video FaceSwap 2.0 Online";
 const DESCRIPTION = `在线视频换脸:上传视频和一张人脸照片,只替换你选的那个人的脸或整个头,其他人和原声保持不变。注册送 ${SIGNUP_GRANT_CREDITS} 免费积分,可以先试一段短视频;之后按视频用积分付费,开始前先显示价格,失败自动退回。`;
 
 export const metadata: Metadata = {
@@ -159,7 +159,7 @@ export default function ZhVideoFaceSwapPage() {
       <section className="px-6 pt-28 pb-12 sm:pt-32">
         <div className="mx-auto max-w-5xl">
           <p className="mb-3 text-sm font-medium tracking-widest text-primary">
-            {FACESTUDIO_V_NAME} {FACESTUDIO_V_VERSION} · 在线工具
+            {FACESTUDIO_V_NAME} · 在线工具
           </p>
           <h1 className="mb-5 text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             AI 视频换脸:只换你选的那个人
@@ -375,7 +375,7 @@ export default function ZhVideoFaceSwapPage() {
             <li><Link className="text-primary underline-offset-4 hover:underline" href="/zh-CN/guides/how-to-swap-faces-in-a-group-photo">合照怎么换脸?多人照片换脸教程</Link></li>
           </ul>
           <p className="mt-6 text-xs text-muted-foreground">
-            English: <Link href={FACESTUDIO_V_PAGE} hrefLang="en" className="underline-offset-4 hover:underline">Video FaceSwap Online</Link>
+            English: <Link href={FACESTUDIO_V_PAGE} hrefLang="en" className="underline-offset-4 hover:underline">Video FaceSwap 2.0 Online</Link>
           </p>
         </div>
       </section>

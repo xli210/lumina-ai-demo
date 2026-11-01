@@ -14,13 +14,13 @@ import {
 } from "@/lib/facestudio-v";
 
 /**
- * A one-time reminder for signed-in users while the Video FaceSwap Online
+ * A one-time reminder for signed-in users while the Video FaceSwap 2.0 Online
  * preview is open. It reads the session in the browser (like the navbar), so
  * every page's HTML stays identical for everyone and CDN caching is unaffected.
  * Shown once per browser: marked as seen the moment it appears.
  */
 
-const SEEN_KEY = "nanopocket_fsv_notice_seen_v3";
+const SEEN_KEY = "nanopocket_fsv_notice_seen_v4";
 // Pages where it would be noise: the preview's own page, sign-in flows, admin.
 const QUIET_PREFIXES = ["/facestudio-v", "/auth", "/admin", "/checkout"];
 
@@ -74,9 +74,9 @@ export function FacestudioVNotice() {
       </button>
       <p className="mb-1 inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-widest text-sky-200">
         <Video className="h-3.5 w-3.5" />
-        Official release
+        New model
       </p>
-      <p className="pr-6 text-sm font-semibold">{FACESTUDIO_V_NAME} {FACESTUDIO_V_VERSION} is out</p>
+      <p className="pr-6 text-sm font-semibold">{FACESTUDIO_V_NAME} is out</p>
       <p className="mt-1 text-sm text-white/75">
         Swap one face in a video and keep the rest as filmed. Each video is paid in credits, priced before you start. Top up once to remove the watermark.
       </p>
@@ -86,7 +86,7 @@ export function FacestudioVNotice() {
           onClick={() => setVisible(false)}
           className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-sm font-medium text-black hover:bg-neutral-100"
         >
-          Try Video FaceSwap Online
+          Try Video FaceSwap 2.0 Online
           <ArrowRight className="h-4 w-4" />
         </Link>
         <Link

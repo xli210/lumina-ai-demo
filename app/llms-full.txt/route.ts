@@ -172,7 +172,7 @@ const FACESTUDIO_V_REFERENCE = `# ${FACESTUDIO_V_NAME} — Preview Reference
 
 URL: ${BASE}/facestudio-v
 
-${FACESTUDIO_V_NAME} is NanoPocket's video face swap, version ${FACESTUDIO_V_VERSION} (${FACESTUDIO_V_TAG.toLowerCase()}). ${FACESTUDIO_V_TAGLINE} It is open to registered NanoPocket users; requests are queued, and each video is paid for in credits at a price shown before it starts. Videos from an account that has never topped up credits carry a moving NanoPocket watermark; one top-up removes it.
+${FACESTUDIO_V_NAME} is NanoPocket's video face swap, version ${FACESTUDIO_V_VERSION} (${FACESTUDIO_V_TAG.toLowerCase()}; formerly Video FaceSwap Online). ${FACESTUDIO_V_TAGLINE} It is open to registered NanoPocket users; requests are queued, and each video is paid for in credits at a price shown before it starts. Videos from an account that has never topped up credits carry a moving NanoPocket watermark; one top-up removes it.
 
 ## What it does
 

@@ -175,7 +175,7 @@ export default function PricingPage() {
                   <td className={td}>Swaps the whole head: face, hair and head shape. Up to {HEADSWAP_PRO_MAX_VARIATIONS} variations a run; each costs the same, and a failed swap costs nothing.</td>
                 </tr>
                 <tr className="border-b border-border">
-                  <td className={td}><Link href="/facestudio-v" className={textLink}>{FACESTUDIO_V_NAME} {FACESTUDIO_V_VERSION}</Link></td>
+                  <td className={td}><Link href="/facestudio-v" className={textLink}>{FACESTUDIO_V_NAME}</Link></td>
                   <td className={td}>Priced per video from the mode, output size, clip length and number of people, and shown before you start.</td>
                   <td className={td}>A 10-second 1080p clip in Fast mode is about 20 credits. Requests are queued.</td>
                 </tr>

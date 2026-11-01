@@ -1,5 +1,5 @@
 /**
- * Video FaceSwap Online: NanoPocket's queued video face swap, officially
+ * Video FaceSwap 2.0 Online (Video FaceSwap Online until 1.1.0): NanoPocket's queued video face swap, officially
  * released as version 1.1.0 (it ran as a three-day preview and a one-week trial
  * first), now at 2.0.0. One source for the name, the wording and the on/off switch, so the
  * homepage card, the What's new bar, the landing page, llms.txt and the
@@ -21,11 +21,15 @@
  * Safe to import from middleware, server and client code: plain data only.
  */
 
-export const FACESTUDIO_V_NAME = "Video FaceSwap Online";
+export const FACESTUDIO_V_NAME = "Video FaceSwap 2.0 Online";
+/** What it was called through 1.1.0, for old queries and for what was made on that version. */
+export const FACESTUDIO_V_FORMER_NAME = "Video FaceSwap Online";
 /** 2.0.0 (Fast and Best quality modes; Whole head unchanged): a new face-swap engine (glasses kept sharp, nothing showing through a hand, eyes that follow the clip, steadier close-ups, about twice as fast). 1.1.0 was the official release: hard footage and the watermark policy. */
 export const FACESTUDIO_V_VERSION = "2.0.0";
 /** The version the published examples and the measured figures were made with: they keep this label until they are re-made. */
 export const FACESTUDIO_V_MEASURED_VERSION = "1.1.0";
+/** How the examples and the measured figures are labelled: the name and version they were made under. */
+export const FACESTUDIO_V_MEASURED = `${FACESTUDIO_V_FORMER_NAME} ${FACESTUDIO_V_MEASURED_VERSION}`;
 export const FACESTUDIO_V_URL = "https://nanopocket.ai/facestudio-v";
 /** The public page: the demo, with its fourteen cases. No sign-in. */
 export const FACESTUDIO_V_PAGE = "/facestudio-v";
@@ -57,7 +61,7 @@ export function facestudioVIsOpen(now: number = Date.now()): boolean {
 }
 
 /** The label used everywhere. */
-export const FACESTUDIO_V_TAG = "Official release";
+export const FACESTUDIO_V_TAG = "New model";
 
 /** What it costs, in one sentence. The studio prices each video; the price is shown before you start. */
 export const FACESTUDIO_V_PRICE_LINE =
@@ -76,7 +80,7 @@ export const FACESTUDIO_V_POINTS = [
 
 export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
   {
-    q: "What is Video FaceSwap Online?",
+    q: "What is Video FaceSwap 2.0 Online?",
     a: `${FACESTUDIO_V_NAME} is a video face swap from NanoPocket. You give it a video and a photo of the face you want; it replaces one person in every frame and leaves everyone and everything else as it was filmed. Version ${FACESTUDIO_V_VERSION} is the current release: it is available to registered NanoPocket users and paid for in credits.`,
   },
   {

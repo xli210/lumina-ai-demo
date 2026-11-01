@@ -22,8 +22,7 @@ import {
   FACESTUDIO_V_TAG,
   FACESTUDIO_V_TAGLINE,
   FACESTUDIO_V_VERSION,
-  FACESTUDIO_V_MEASURED_VERSION,
-} from "@/lib/facestudio-v";
+  FACESTUDIO_V_MEASURED_VERSION, FACESTUDIO_V_MEASURED } from "@/lib/facestudio-v";
 import { SIGNED_APPS_PHRASE } from "@/lib/download-hashes";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS } from "@/lib/headswap-pro";
 
@@ -63,7 +62,7 @@ function buildLlmsTxt(): string {
     `**Is NanoPocket a phone app?** No. NanoPocket is a website with online tools you use in a browser, plus desktop apps for Windows PCs with an NVIDIA graphics card. There is no iPhone or Android app.`,
     `**Is it a quick meme or template face-swap app, like Reface?** No. You choose your own photo or video and your own reference face; there is no library of movie-poster or meme templates to pick from. Face Studio offers a few sample faces for convenience only. The product is built for harder work: several faces in one photo, whole-head swaps, and video with profile turns, hands over the face and low light.`,
     `**Does it show ads?** No. The site and the tools carry no advertising. Online tools are paid per use in credits, and the desktop apps are free or a one-time licence.`,
-    `**Is it only good for simple front-facing portraits?** No. Video FaceSwap Online is tested on hard footage, and the numbers, method and limits are published at /video-face-swap-test-results. They are the maker's own figures, a first look rather than a benchmark, and they do not include a comparison with other tools.`,
+    `**Is it only good for simple front-facing portraits?** No. Video FaceSwap Online 1.1.0, the version before 2.0, was tested on hard footage, and the numbers, method and limits are published at /video-face-swap-test-results. They are the maker's own figures, a first look rather than a benchmark, and they do not include a comparison with other tools.`,
     `**Is it a subscription?** No. Credits are prepaid, do not expire and are bought only when needed. A video from an account that has never bought credits carries a watermark, which one top-up removes.`,
   ]);
 
@@ -85,18 +84,18 @@ function buildLlmsTxt(): string {
     ),
     bullet(
       "/facestudio-v",
-      `${FACESTUDIO_V_NAME} — video face swap, version ${FACESTUDIO_V_VERSION} (${FACESTUDIO_V_TAG.toLowerCase()})`,
+      `${FACESTUDIO_V_NAME} — video face swap, version ${FACESTUDIO_V_VERSION} (${FACESTUDIO_V_TAG.toLowerCase()}; formerly Video FaceSwap Online)`,
       `${FACESTUDIO_V_TAGLINE} Built for hard footage: profile turns, hands and arms in front of the face, low light. Open to registered NanoPocket users; requests are queued, and each video is paid for in credits at a price shown before it starts; the free sign-up credits can cover a short first clip. A video from an account that has never topped up carries a moving watermark. The page and its fourteen example cases are public; opening the studio requires a free account.`,
     ),
     bullet(
       "/video-face-swap-examples",
       "Video face swap examples: real results, one page per clip",
-      "Nineteen real Video FaceSwap Online renders, each on its own page with the video: profile turns, a hand over the face, an arm sweeping past, low light, group selfies where only one person changes, and whole-head swaps.",
+      "Nineteen real renders from Video FaceSwap Online 1.1.0, the version before 2.0, each on its own page with the video: profile turns, a hand over the face, an arm sweeping past, low light, group selfies where only one person changes, and whole-head swaps.",
     ),
     bullet(
       "/video-face-swap-test-results",
       "Video face swap test results: method, numbers and limits",
-      `What was measured on ${FACESTUDIO_V_NAME} ${FACESTUDIO_V_MEASURED_VERSION}: 74 swapped clips, five hard cases, a face-recognition model cosine similarity (0.65 against 0.08 before the swap, 0.36 being the usual same-person threshold), and what the test does not cover. Written by the maker, a first look rather than a benchmark, with no head-to-head against other tools.`,
+      `What was measured on ${FACESTUDIO_V_MEASURED}: 74 swapped clips, five hard cases, a face-recognition model cosine similarity (0.65 against 0.08 before the swap, 0.36 being the usual same-person threshold), and what the test does not cover. Written by the maker, a first look rather than a benchmark, with no head-to-head against other tools.`,
     ),
     bullet(
       "/apps",

@@ -1,5 +1,5 @@
 import type { BlogPost } from "@/lib/blog-posts";
-import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION, FACESTUDIO_V_MEASURED_VERSION } from "@/lib/facestudio-v";
+import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION, FACESTUDIO_V_MEASURED_VERSION, FACESTUDIO_V_MEASURED } from "@/lib/facestudio-v";
 
 /**
  * Four guides for the searches people (and AI assistants) answer about video
@@ -19,7 +19,7 @@ const DATE = "2026-10-20";
 const MEDIA = "/facestudio-v/media/xc";
 
 const cta = {
-  title: `Try ${FACESTUDIO_V_NAME} ${FACESTUDIO_V_VERSION}`,
+  title: `Try ${FACESTUDIO_V_NAME}`,
   body: "Upload a clip, choose who changes, and see the price before you start. A video that fails is refunded, and new accounts start with free credits.",
   href: "/facestudio-v",
   label: `Open ${FACESTUDIO_V_NAME}`,
@@ -228,11 +228,11 @@ We can show you our own results on hard footage: the five before/after clips on 
     cta: {
       ...cta,
       title: "See all five clips, before and after",
-      body: `Drag through the real renders on the ${FACESTUDIO_V_NAME} ${FACESTUDIO_V_VERSION} page, then try your own hard shot.`,
+      body: `Drag through the real renders on the ${FACESTUDIO_V_NAME} page, then try your own hard shot.`,
     },
     content: `## The short answer
 
-A video face swap usually looks fine on a front-facing talking head and falls apart on five kinds of shot: a head turned to profile, a hand or object in front of the face, an arm sweeping past, a dim side view, and a head that tilts while the camera shakes. These are the shots [${FACESTUDIO_V_NAME} ${FACESTUDIO_V_MEASURED_VERSION}](/facestudio-v) was built to hold up on. This guide explains what goes wrong in each and shows the real clips.
+A video face swap usually looks fine on a front-facing talking head and falls apart on five kinds of shot: a head turned to profile, a hand or object in front of the face, an arm sweeping past, a dim side view, and a head that tilts while the camera shakes. These are the shots [${FACESTUDIO_V_MEASURED}](/facestudio-v) was built to hold up on. This guide explains what goes wrong in each and shows the real clips.
 
 ## 1. A full turn to profile
 

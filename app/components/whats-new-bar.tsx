@@ -27,11 +27,11 @@ interface WhatsNewItem {
 const ITEMS: WhatsNewItem[] = [
   {
     id: "nano-facestudio-v-trial",
-    label: "RELEASE",
+    label: "NEW MODEL",
     labelClassName: "bg-rose-100 text-rose-700 ring-rose-200",
     icon: Video,
     iconClassName: "text-rose-600",
-    text: `${FACESTUDIO_V_NAME} ${FACESTUDIO_V_VERSION} — engine breakthrough in Fast and Best quality, built for motion: dance, heads thrown back, hands and hair across the face · 2× faster`,
+    text: `${FACESTUDIO_V_NAME} — engine breakthrough in Fast and Best quality, built for motion: dance, heads thrown back, hands and hair across the face · 2× faster`,
     href: "/facestudio-v",
   },
   {
@@ -70,7 +70,8 @@ const ITEMS: WhatsNewItem[] = [
 // v7: Video FaceSwap Online 1.1.0 is the official release (the trial is over).
 // v8: the last days of the Nano FaceStudio Pro launch price.
 // v9: Video FaceSwap Online 2.0.0.
-const STORAGE_KEY = "nanopocket_whats_new_dismissed_v9";
+// v10: it is now named Video FaceSwap 2.0 Online.
+const STORAGE_KEY = "nanopocket_whats_new_dismissed_v10";
 
 const dollars = (cents: number) => `$${(cents / 100).toFixed(2)}`;
 

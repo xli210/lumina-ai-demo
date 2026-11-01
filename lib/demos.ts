@@ -80,7 +80,7 @@ export const DEMOS: DemoEntry[] = [
     id: "video",
     // The tunnel demo (Video FaceSwap Pro) was retired on 2026-09-28; its replacement, Video FaceSwap
     // Online, runs on our own GPUs at /facestudio-v and is paid per video in credits.
-    name: "Video FaceSwap Online",
+    name: "Video FaceSwap 2.0 Online",
     origin: "https://nanopocket.ai",
     landingPath: "/facestudio-v/launch",
     pingPath: "/facestudio-v",

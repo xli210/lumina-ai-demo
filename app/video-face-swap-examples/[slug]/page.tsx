@@ -6,7 +6,7 @@ import { Navbar } from "../../components/navbar";
 import { Footer } from "../../components/footer";
 import { Button } from "@/components/ui/button";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
-import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_MEASURED_VERSION } from "@/lib/facestudio-v";
+import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_MEASURED_VERSION, FACESTUDIO_V_MEASURED } from "@/lib/facestudio-v";
 import {
   VIDEO_EXAMPLES,
   VIDEO_EXAMPLES_PATH,
@@ -103,7 +103,7 @@ export default async function VideoExamplePage({ params }: Props) {
             <ArrowLeft className="h-4 w-4" /> All video face swap examples
           </Link>
           <p className="mb-2 text-sm font-medium uppercase tracking-widest text-primary">
-            {kind(v.headSwap)} · {FACESTUDIO_V_NAME} {FACESTUDIO_V_MEASURED_VERSION}
+            {kind(v.headSwap)} · {FACESTUDIO_V_MEASURED}
           </p>
           <h1 className="mb-6 text-balance text-3xl font-bold tracking-tight text-foreground sm:text-4xl">{v.title}</h1>
 
