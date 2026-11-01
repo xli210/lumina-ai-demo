@@ -120,13 +120,13 @@ export function formatPackPrice(pack: CreditPack): string {
 }
 
 /**
- * The pack put forward when someone cannot afford what they asked for: Standard
- * ($20), or the smallest bigger pack that covers the shortfall. Never Starter:
- * $5 can fall short of one long video, and a card fee takes about a tenth of it.
+ * The pack put forward when someone cannot afford what they asked for: the smallest
+ * one that covers the shortfall, Starter ($5) included. From 10/29 to 11/1 this
+ * skipped Starter and led with $20; first purchases, mostly $5 before, stopped in those days, so
+ * the cheapest way in comes first again (the card fee on $5 is the price of that).
  */
 export function suggestPack(shortfall: number): CreditPack {
-  const larger = CREDIT_PACKS.slice(CREDIT_PACKS.findIndex((pack) => pack.id === "standard"));
-  return larger.find((pack) => totalCredits(pack) >= shortfall) ?? larger[larger.length - 1];
+  return CREDIT_PACKS.find((pack) => totalCredits(pack) >= shortfall) ?? CREDIT_PACKS[CREDIT_PACKS.length - 1];
 }
 
 /** The credits page with that pack marked as the one to buy. */

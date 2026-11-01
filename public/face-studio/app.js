@@ -43,7 +43,7 @@
   const FREE_TOPUP_CREDITS = 30;
   const FREE_TOPUP_FREQUENCY = "at most three times a month";
   const TOPUP_URL = "/credits";
-  const SUGGESTED_TOPUP_URL = "/credits?pack=standard";
+  const SUGGESTED_TOPUP_URL = "/credits?pack=starter";
 
   const MAX_FACES = 64; // upper bound for the refFiles array; the actual
                         // limit is whatever the backend reports per request
@@ -319,7 +319,7 @@
     actionHint.append("Error: " + err.message + " ");
     if (err.needsTopUp) {
       const link = document.createElement("a");
-      // The pack the server's message recommends, or the $20 one when the page itself found the shortfall.
+      // The pack the server's message recommends, or the $5 one when the page itself found the shortfall.
       link.href = err.topUpUrl || SUGGESTED_TOPUP_URL;
       link.textContent = "Buy credits";
       actionHint.append(link);
@@ -1154,6 +1154,14 @@
     resultTime.textContent = `${elapsed.toFixed(1)}s`;
     // The worker says so when it put the NanoPocket.ai mark on this render.
     if (resultWatermark) resultWatermark.hidden = !watermarked;
+    // Point at video while the balance still covers a Fast clip (at least 25 credits since 10/26).
+    const videoNudge = document.getElementById("video-nudge");
+    if (videoNudge) {
+      const ok = typeof creditsAvailable === "number" && creditsAvailable >= 25;
+      videoNudge.hidden = !ok;
+      if (ok) document.getElementById("video-nudge-credits").textContent =
+        `You have ${creditsAvailable.toLocaleString("en-US")} credits, enough for a short clip in Fast mode. `;
+    }
     resultSection.hidden = false;
     progressBar.style.width = "100%";
     resetFeedback();

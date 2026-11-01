@@ -309,7 +309,11 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
       </div>
       <div class="info-notice wm-note" id="wmResult" hidden>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
-        <span>This free result carries a watermark. <a id="wmLink2" href="https://nanopocket.ai/" target="_blank" rel="noopener">Buy credits</a> and swap again for a clean image.</span>
+        <span>This free result carries a watermark. <a id="wmLink2" href="https://nanopocket.ai/" target="_blank" rel="noopener">Top up once, from $5</a>, and every result after that is watermark-free.</span>
+      </div>
+      <div class="info-notice" id="videoNudge" hidden>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg>
+        <span>Now try it on a video. <span id="videoNudgeCredits"></span>Video FaceSwap 2.0 Online swaps a face or the whole head in a clip, and shows the price before it starts. <a href="/facestudio-v/launch" target="_blank" rel="noopener" onclick="window.gtag&&gtag('event','video_nudge_click',{from:'headswap'})">Try a video</a></span>
       </div>
       <div class="stage" id="stage"></div>
       <div class="thumbs" id="thumbs"></div>
@@ -333,7 +337,14 @@ const $ = (id) => document.getElementById(id);
 // API server: same origin by default; a frontend hosted elsewhere sets window.HS_API_BASE or opens ?api=https://host:port
 const API = (window.HS_API_BASE || new URLSearchParams(location.search).get("api") || "").replace(/\/$/, "");
 const abs = (u) => (u && u.startsWith("/") ? API + u : u);
-const S = { photo: null, face: null, head: null, n: 1, job: null, results: [], before: null, sel: 0, t0: 0 };
+const S = { photo: null, face: null, head: null, n: 1, job: null, results: [], before: null, sel: 0, t0: 0, available: null, done: false };
+// A Fast video clip has cost at least this much (holds since 10/26); the nudge to try one only shows when the balance covers it.
+const VIDEO_MIN_CREDITS = 25;
+function updateVideoNudge() {
+  const ok = S.done && typeof S.available === "number" && S.available >= VIDEO_MIN_CREDITS;
+  $("videoNudge").hidden = !ok;
+  if (ok) $("videoNudgeCredits").textContent = `You have ${S.available} credits, enough for a short clip in Fast mode. `;
+}
 if (window.HS_PRICING_URL) { $("wmLink").href = window.HS_PRICING_URL; $("wmLink2").href = window.HS_PRICING_URL; }
 
 // ---------- entitlement: the site's backend signs whether this user has ever bought credits; the gateway checks it
@@ -398,6 +409,7 @@ async function site(url, body) {
   return j;
 }
 function showCredits(available) {
+  if (typeof available === "number") { S.available = available; updateVideoNudge(); }
   $("credits").textContent = (available === undefined || available === null ? "" : `You have ${available} credits. `) +
     `Each image costs ${PRICE} credits; a failed swap costs nothing.`;
 }
@@ -580,7 +592,7 @@ function update() {
 $("go").onclick = async () => {
   if (S.job || $("go").disabled) return;
   clearError();
-  S.results = []; S.sel = 0; S.t0 = Date.now();
+  S.results = []; S.sel = 0; S.t0 = Date.now(); S.done = false; updateVideoNudge();
   $("resultSection").hidden = true; $("thumbs").innerHTML = "";
   S.job = "reserving"; update();
   showProgress("Reserving your credits…", 0);
@@ -646,6 +658,7 @@ async function poll() {
     S.job = null; update(); hideProgress();
     renderResult(S.sel ?? 0); renderThumbs();
     $("wmResult").hidden = !j.watermarked;
+    S.done = true; updateVideoNudge();
     $("meta").textContent = `${Math.round((Date.now() - S.t0) / 1000)} s · ${S.results[0].size[0]} × ${S.results[0].size[1]} px` +
       (j.n > 1 ? ` · ${j.n} variations` : "");
     return;

@@ -1189,6 +1189,7 @@ main {
 }
 .wm-callout p { margin: 0; flex: 1 1 320px; }
 .wm-callout strong { color: #fbbf24; }
+.wm-callout-video strong { color: #7dd3fc; }
 .wm-callout-result { margin: 0 0 16px; max-width: none; }
 .wm-btn {
   display: inline-block; flex: 0 0 auto; padding: 10px 20px; border-radius: 999px;
