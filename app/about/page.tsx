@@ -173,7 +173,7 @@ const MIXUPS: { q: string; a: string }[] = [
   },
   {
     "q": "Is it a subscription?",
-    "a": "No. Credits are prepaid, do not expire and are bought only when needed. A video from an account that has never bought credits carries a watermark, which one top-up removes."
+    "a": "No. Credits are prepaid, do not expire and are bought only when needed. A video from an account that has never bought credits carries a watermark, which one top-up removes. A top-up also keeps your finished videos for 7 days instead of 24 hours."
   }
 ];
 

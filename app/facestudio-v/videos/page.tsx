@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { buttonVariants } from "@/components/ui/button";
+import { hasEverPurchased } from "@/lib/credits-server";
 import { createClient } from "@/lib/supabase/server";
 import { FACESTUDIO_V_LAUNCH, FACESTUDIO_V_MODES, FACESTUDIO_V_NAME } from "@/lib/facestudio-v";
 import { downloadUrl, timeLeft } from "@/lib/facestudio-v-download";
@@ -11,11 +12,11 @@ import { Footer } from "../../components/footer";
 import { Navbar } from "../../components/navbar";
 
 /**
- * /facestudio-v/videos: the signed-in person's videos of the last two days.
+ * /facestudio-v/videos: the signed-in person's videos of the last week.
  *
  * The studio makes a video even when the page that asked for it was closed, and
- * keeps it 24 hours after it was made, then deletes it for good (it shows a real
- * person's face). This page is where it can be found again from any device:
+ * keeps it 24 hours after it was made (7 days once the account has added
+ * credits), then deletes it for good (it shows a real person's face). This page is where it can be found again from any device:
  * each row is a reservation of this account with its studio job, settled first,
  * and a ready video gets a short-lived signed download link (lib/facestudio-v-download).
  */
@@ -32,7 +33,7 @@ function describe(v: MyVideo, now: number): { text: string; ready: boolean } {
     return { text: `Ready. Deleted in ${timeLeft(v.keptUntil, now)}.`, ready: true };
   }
   if (v.state === "done" || (v.state === "gone" && v.hold === "captured")) {
-    return { text: "Deleted for your privacy, 24 hours after it was made.", ready: false };
+    return { text: "Deleted for your privacy when its keeping time was over (24 hours, or 7 days for an account that has added credits).", ready: false };
   }
   if (v.state === "running" || (v.hold === "open" && v.state !== "error" && v.state !== "cancelled" && v.state !== "gone")) {
     return { text: v.state === "unknown" ? "Being made. The studio could not be reached just now." : "Being made.", ready: false };
@@ -60,6 +61,12 @@ export default async function MyVideosPage() {
   }
   const cfg = studioConfig();
   const now = Date.now();
+  let paid = false;
+  try {
+    paid = await hasEverPurchased(user.id);
+  } catch (err: unknown) {
+    console.error("[facestudio-v] My videos could not tell whether the account has paid:", err instanceof Error ? err.message : err);
+  }
 
   return (
     <main className="relative min-h-screen">
@@ -67,20 +74,29 @@ export default async function MyVideosPage() {
       <div className="mx-auto max-w-3xl px-6 pt-28 pb-16">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-foreground">My videos</h1>
-          <p className="mt-1 text-muted-foreground">{FACESTUDIO_V_NAME}: the videos you made in the last two days.</p>
+          <p className="mt-1 text-muted-foreground">{FACESTUDIO_V_NAME}: the videos you made in the last 7 days.</p>
         </div>
 
         <div className="mb-8 rounded-lg border border-border bg-muted/40 p-4 text-sm leading-relaxed text-foreground">
-          To protect your privacy, every video is deleted for good 24 hours after it is made. Download the ones you want to
+          To protect your privacy, every video is deleted for good {paid ? "7 days" : "24 hours"} after it is made. Download the ones you want to
           keep before then. A video that was made is charged, and it is not refunded once it has been deleted. Videos that
           could not be made, or that you cancelled, are never charged.
+          {paid ? null : (
+            <>
+              {" "}
+              <Link href="/credits" className="font-medium text-primary underline-offset-4 hover:underline">
+                Add credits
+              </Link>{" "}
+              once and your videos are kept for 7 days instead.
+            </>
+          )}
         </div>
 
         {failed ? (
           <p className="text-sm text-muted-foreground">Your videos could not be loaded right now. Please try again in a minute.</p>
         ) : videos.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            No videos in the last two days.{" "}
+            No videos in the last 7 days.{" "}
             <Link href={FACESTUDIO_V_LAUNCH} className="font-medium text-primary underline-offset-4 hover:underline">
               Open the studio
             </Link>

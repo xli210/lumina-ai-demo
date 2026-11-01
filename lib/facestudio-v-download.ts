@@ -8,9 +8,10 @@ import { createHmac } from "node:crypto";
  *
  *   <studio>/api/outputs/<job>.mp4?exp=<unix seconds>&sig=<hex(HMAC-SHA256(secret, "download:<job>:<exp>"))[:32]>&dl=1
  *
- * The studio keeps a finished video for 24 hours after it was made and then
- * deletes it for good, so a link never outlives that: it expires at whichever
- * comes first, an hour from now or the end of those 24 hours.
+ * The studio keeps a finished video for 24 hours after it was made (7 days for an
+ * account that has paid) and then deletes it for good, so a link never outlives
+ * that: it expires at whichever comes first, an hour from now or the end of the
+ * time the studio says the video is kept (`keptUntil`).
  */
 
 export const DOWNLOAD_LINK_SECONDS = 60 * 60;

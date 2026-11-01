@@ -182,7 +182,7 @@ const PRIVACY_CLAIMS: PrivacyClaim[] = [
   {
     question: "Is my source media uploaded?",
     answer:
-      "Desktop apps: No. Every photo, video, and prompt stays on the user's local disk; the model runs on the user's GPU. Online tools: photos and videos are uploaded to GPU servers operated by NanoPocket, never used to train any model, and kept only as long as the Privacy Policy states (Video FaceSwap 2.0 Online deletes them after 24 hours; the other tools keep them in private storage until deleted on request or with the account).",
+      "Desktop apps: No. Every photo, video, and prompt stays on the user's local disk; the model runs on the user's GPU. Online tools: photos and videos are uploaded to GPU servers operated by NanoPocket, never used to train any model, and kept only as long as the Privacy Policy states (Video FaceSwap 2.0 Online deletes uploads within 24 hours and finished videos after 24 hours, or after 7 days for an account that has added credits; the other tools keep them in private storage until deleted on request or with the account).",
   },
   {
     question: "Is content used to train models?",
@@ -202,7 +202,7 @@ const PRIVACY_CLAIMS: PrivacyClaim[] = [
   {
     question: "How long is data retained?",
     answer:
-      "Account data (email, license, machine activation records) is retained while the account exists; deletion on request is supported via tech@nanopocket.ai. Online-tool uploads and results: Video FaceSwap 2.0 Online deletes them 24 hours after the video is made; Nano FaceStudio Online, Nano HeadSwap Pro and Nano ImageEdit 2.0 Online keep them in private storage until they are deleted on request or with the account. See the Privacy Policy, section 2.",
+      "Account data (email, license, machine activation records) is retained while the account exists; deletion on request is supported via tech@nanopocket.ai. Online-tool uploads and results: Video FaceSwap 2.0 Online deletes uploads within 24 hours and a finished video 24 hours after it is made (7 days for an account that has added credits); Nano FaceStudio Online, Nano HeadSwap Pro and Nano ImageEdit 2.0 Online keep them in private storage until they are deleted on request or with the account. See the Privacy Policy, section 2.",
   },
   {
     question: "Where are servers located?",
@@ -320,7 +320,7 @@ const RETENTION_TABLE: RetentionRow[] = [
   },
   {
     category: "Online-tool uploads and results",
-    duration: "Video FaceSwap 2.0 Online: 24 hours. Other online tools: until deleted on request or with the account",
+    duration: "Video FaceSwap 2.0 Online: 24 hours (finished videos 7 days for an account that has added credits). Other online tools: until deleted on request or with the account",
     trigger: "Video made (Video FaceSwap 2.0 Online); deletion request or account deletion (other tools)",
   },
   {

@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 
 /** How long online-tool uploads and results are kept: used in the table and in section 4. */
 const ONLINE_RETENTION =
-  "Video FaceSwap 2.0 Online: uploads and results are deleted 24 hours after the video is made. Nano FaceStudio Online, Nano HeadSwap Pro and Nano ImageEdit 2.0 Online: uploads and results are kept in private storage (Cloudflare R2 object storage or the GPU servers' disks), reachable only through signed links that expire within an hour, so the result can be downloaded. They are not yet deleted automatically after a fixed period; they are deleted on request (tech@nanopocket.ai) and with the account. Never used to train models.";
+  "Video FaceSwap 2.0 Online: uploads are deleted within 24 hours, and a finished video is deleted 24 hours after it is made, or 7 days after if the account has added credits. Nano FaceStudio Online, Nano HeadSwap Pro and Nano ImageEdit 2.0 Online: uploads and results are kept in private storage (Cloudflare R2 object storage or the GPU servers' disks), reachable only through signed links that expire within an hour, so the result can be downloaded. They are not yet deleted automatically after a fixed period; they are deleted on request (tech@nanopocket.ai) and with the account. Never used to train models.";
 
 interface DataCategory {
   category: string;

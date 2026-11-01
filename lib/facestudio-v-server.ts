@@ -227,7 +227,7 @@ export async function reconcileOpenHolds(userId: string): Promise<void> {
  * Settle the oldest open reservations of everyone that have a job, by asking the
  * studio how each went. The page settles its own job when it sees the end, but
  * the person may have closed it while the video was being made (the studio makes
- * it anyway and keeps it 24 hours): without this, nothing would charge for that
+ * it anyway and keeps it 24 hours, or 7 days for an account that has paid): without this, nothing would charge for that
  * video and the expiry sweep would return the credits. Called before that sweep.
  * A hold the studio cannot be asked about stays open (settleHold says "unreachable").
  */
@@ -270,11 +270,12 @@ export interface MyVideo {
 }
 
 /**
- * This user's videos of the last two days (a video is kept 24 hours after it is
- * made; the reservation can be older than that). Open reservations are settled
- * first, so the list says what was charged.
+ * This user's videos of the last 8 days (a video is kept 24 hours after it is
+ * made, 7 days for an account that has paid, and the reservation can be a day
+ * older than the video it made). Open reservations are settled first, so the
+ * list says what was charged.
  */
-export async function videosOf(userId: string, limit = 30): Promise<MyVideo[]> {
+export async function videosOf(userId: string, limit = 40): Promise<MyVideo[]> {
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("credit_holds")
@@ -282,7 +283,7 @@ export async function videosOf(userId: string, limit = 30): Promise<MyVideo[]> {
     .eq("service", FACESTUDIO_V_SERVICE)
     .eq("user_id", userId)
     .not("job_ref", "is", null)
-    .gt("created_at", new Date(Date.now() - 48 * 3600 * 1000).toISOString())
+    .gt("created_at", new Date(Date.now() - 8 * 24 * 3600 * 1000).toISOString())
     .order("created_at", { ascending: false })
     .limit(limit);
   if (error) throw new Error(`Failed to list videos: ${error.message}`);

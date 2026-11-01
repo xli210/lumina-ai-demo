@@ -93,7 +93,7 @@ export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
   },
   {
     q: "How long can my clip be?",
-    a: "Up to 60 seconds in Fast and Best quality, and up to 12 seconds in Whole head. Our GPU capacity is limited, so an account that has never topped up credits makes videos of up to 5 seconds in Fast and Best quality, and a 2-second Whole head clip for 80 credits, and its videos wait behind those of accounts that have. Topping up credits once gives the full lengths and a place at the front of the line. Limits count a clip by its frames, at 30 frames per second at most: a 60 fps clip counts as twice as long as it plays. A longer video is not refused: the studio uses the first part of it, or the part you choose, exactly as you uploaded it (nothing is re-encoded), and tells you which part before you pay.",
+    a: "Up to 60 seconds in Fast and Best quality, and up to 12 seconds in Whole head. Our GPU capacity is limited, so an account that has never topped up credits makes videos of up to 5 seconds in Fast and Best quality, and a 2-second Whole head clip for 80 credits, and its videos wait behind those of accounts that have. Topping up credits once gives the full lengths, a place at the front of the line, and keeps your finished videos for 7 days instead of 24 hours. Limits count a clip by its frames, at 30 frames per second at most: a 60 fps clip counts as twice as long as it plays. A longer video is not refused: the studio uses the first part of it, or the part you choose, exactly as you uploaded it (nothing is re-encoded), and tells you which part before you pay.",
   },
   {
     q: "Why is there a watermark on my video, and how do I remove it?",
@@ -105,7 +105,7 @@ export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
   },
   {
     q: "What happens to my uploads?",
-    a: "The studio states that uploads and results are deleted after 24 hours. Read the NanoPocket privacy policy for how NanoPocket handles account data.",
+    a: "The studio states that uploads are deleted within 24 hours and that a finished video is kept 24 hours, or 7 days for an account that has added credits. Read the NanoPocket privacy policy for how NanoPocket handles account data.",
   },
   {
     q: "What does it not do?",

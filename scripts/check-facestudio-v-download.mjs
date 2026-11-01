@@ -17,7 +17,7 @@ assert.equal(Number(u.searchParams.get("exp")), nowS + DOWNLOAD_LINK_SECONDS, "a
 assert.equal(u.searchParams.get("sig"), signDownload("0123456789ab", nowS + DOWNLOAD_LINK_SECONDS, S));
 assert.equal(u.searchParams.get("dl"), "1");
 
-// never past the 24 hours the video is kept
+// never past the time the video is kept (a day, or a week for an account that has paid: the studio says which)
 const soon = nowS + 600;
 assert.equal(Number(new URL(downloadUrl("https://studio.example", "0123456789ab", soon, now, S)).searchParams.get("exp")), soon);
 assert.equal(downloadUrl("https://studio.example", "0123456789ab", nowS - 1, now, S), null, "already deleted: no link");
