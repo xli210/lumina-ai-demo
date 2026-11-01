@@ -188,7 +188,7 @@ export default function ZhVideoFaceSwapPage() {
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-2 text-2xl font-bold tracking-tight text-foreground">{FACESTUDIO_V_VERSION} 重大突破:为动态而生的换脸引擎</h2>
           <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-            跳舞是换脸最难的素材:头往后仰、头发和袖子扫过脸、镜头旋转、舞台光变色。{FACESTUDIO_V_VERSION} 换上新引擎,每一帧都重新判断脸在哪、朝哪、前面挡着什么。下面每组左边是原片,右边是 {FACESTUDIO_V_VERSION},每段只用一张参考照片,不需要手动遮罩或关键帧。本次更新针对 Fast(快速)和 Best quality(高质量)两个模式;换头(Whole head)模式保持不变。
+            跳舞是换脸最难的素材:头往后仰、头发和袖子扫过脸、镜头旋转、舞台光变色。{FACESTUDIO_V_VERSION} 换上新引擎,每一帧都重新判断脸在哪、朝哪、前面挡着什么。下面每组标着「原片」的是原视频,标着「{FACESTUDIO_V_VERSION}」的是换脸结果,每段只用一张参考照片,不需要手动遮罩或关键帧。本次更新针对 Fast(快速)和 Best quality(高质量)两个模式;换头(Whole head)模式保持不变。
           </p>
           <ul className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {NEW_IN_2.map(({ tag, title, body }) => (
@@ -234,7 +234,7 @@ export default function ZhVideoFaceSwapPage() {
       <section className="px-6 pb-14">
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-2 text-2xl font-bold tracking-tight text-foreground">细节放大:之前的引擎哪里出错</h2>
-          <p className="mb-6 text-sm leading-relaxed text-muted-foreground">每组左边是 2.0 之前的引擎,右边是 {FACESTUDIO_V_VERSION},同一段素材、同一张参考照片、同一帧。</p>
+          <p className="mb-6 text-sm leading-relaxed text-muted-foreground">每组标着「2.0 之前」的是之前的引擎,标着「{FACESTUDIO_V_VERSION}」的是新版,同一段素材、同一张参考照片、同一帧。</p>
           <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {PRECISION_2.map(({ slug, title, look }) => (
               <li key={slug}>
