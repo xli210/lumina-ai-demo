@@ -22,6 +22,7 @@ import {
   FACESTUDIO_V_TAG,
   FACESTUDIO_V_TAGLINE,
   FACESTUDIO_V_VERSION,
+  FACESTUDIO_V_MEASURED_VERSION,
 } from "@/lib/facestudio-v";
 import { SIGNED_APPS_PHRASE } from "@/lib/download-hashes";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS } from "@/lib/headswap-pro";
@@ -95,7 +96,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/video-face-swap-test-results",
       "Video face swap test results: method, numbers and limits",
-      `What was measured on ${FACESTUDIO_V_NAME} ${FACESTUDIO_V_VERSION}: 74 swapped clips, five hard cases, a face-recognition model cosine similarity (0.65 against 0.08 before the swap, 0.36 being the usual same-person threshold), and what the test does not cover. Written by the maker, a first look rather than a benchmark, with no head-to-head against other tools.`,
+      `What was measured on ${FACESTUDIO_V_NAME} ${FACESTUDIO_V_MEASURED_VERSION}: 74 swapped clips, five hard cases, a face-recognition model cosine similarity (0.65 against 0.08 before the swap, 0.36 being the usual same-person threshold), and what the test does not cover. Written by the maker, a first look rather than a benchmark, with no head-to-head against other tools.`,
     ),
     bullet(
       "/apps",

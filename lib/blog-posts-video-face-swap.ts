@@ -1,5 +1,5 @@
 import type { BlogPost } from "@/lib/blog-posts";
-import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
+import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION, FACESTUDIO_V_MEASURED_VERSION } from "@/lib/facestudio-v";
 
 /**
  * Four guides for the searches people (and AI assistants) answer about video
@@ -92,7 +92,7 @@ ${WATERMARK}
 - Use a reference photo that is sharp and front-facing, not a screenshot of a screenshot.
 - Make sure the face in the video is large enough to see clearly.
 - Even light helps. In heavy lens flare or strong backlight the face can be lost for a moment, and those frames stay as filmed.
-- Hands, microphones and props over the face are the hardest case. [Version ${FACESTUDIO_V_VERSION} added five examples of exactly that](/blog/why-face-swaps-break-on-hands-profile-turns-and-low-light), but a clear view of the face still gives the best result.
+- Hands, microphones and props over the face are the hardest case. [Version ${FACESTUDIO_V_MEASURED_VERSION} added five examples of exactly that](/blog/why-face-swaps-break-on-hands-profile-turns-and-low-light), but a clear view of the face still gives the best result.
 
 ## What it will and will not do
 
@@ -232,7 +232,7 @@ We can show you our own results on hard footage: the five before/after clips on 
     },
     content: `## The short answer
 
-A video face swap usually looks fine on a front-facing talking head and falls apart on five kinds of shot: a head turned to profile, a hand or object in front of the face, an arm sweeping past, a dim side view, and a head that tilts while the camera shakes. These are the shots [${FACESTUDIO_V_NAME} ${FACESTUDIO_V_VERSION}](/facestudio-v) was built to hold up on. This guide explains what goes wrong in each and shows the real clips.
+A video face swap usually looks fine on a front-facing talking head and falls apart on five kinds of shot: a head turned to profile, a hand or object in front of the face, an arm sweeping past, a dim side view, and a head that tilts while the camera shakes. These are the shots [${FACESTUDIO_V_NAME} ${FACESTUDIO_V_MEASURED_VERSION}](/facestudio-v) was built to hold up on. This guide explains what goes wrong in each and shows the real clips.
 
 ## 1. A full turn to profile
 

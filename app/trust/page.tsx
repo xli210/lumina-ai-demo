@@ -90,7 +90,7 @@ const SYSTEM_REQS: SystemReq[] = [
     status: "Stable",
   },
   {
-    product: "Video FaceSwap Online 1.1.0",
+    product: "Video FaceSwap Online 2.0.0",
     href: "/facestudio-v",
     os: "Any modern browser, signed-in NanoPocket account, paid in credits",
     gpu: "Hosted GPU (no local hardware required)",
@@ -558,7 +558,7 @@ const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     title: "Online demo capacity at peak hours",
-    product: "Video FaceSwap Online 1.1.0",
+    product: "Video FaceSwap Online 2.0.0",
     detail:
       "Requests are queued on a single GPU, so a clip may wait for its turn. The price is shown before you start, and a video that fails is refunded.",
     href: "/facestudio-v",

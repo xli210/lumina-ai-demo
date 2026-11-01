@@ -5,7 +5,7 @@ import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { Button } from "@/components/ui/button";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
-import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
+import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_MEASURED_VERSION } from "@/lib/facestudio-v";
 import { VIDEO_EXAMPLES, VIDEO_EXAMPLES_PATH, videoExamplePath } from "@/lib/video-examples";
 
 const BASE = "https://nanopocket.ai";
@@ -68,7 +68,7 @@ export default function VideoExamplesPage() {
       <section className="px-6 pt-28 pb-10 sm:pt-32">
         <div className="mx-auto max-w-6xl">
           <p className="mb-3 text-sm font-medium uppercase tracking-widest text-primary">
-            {FACESTUDIO_V_NAME} {FACESTUDIO_V_VERSION}
+            {FACESTUDIO_V_NAME} {FACESTUDIO_V_MEASURED_VERSION}
           </p>
           <h1 className="mb-4 text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Video face swap examples

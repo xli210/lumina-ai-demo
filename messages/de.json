@@ -157,7 +157,7 @@
       "price": "{hsp} Credits pro Bild"
     },
     "video": {
-      "blurb": "Video-Face-Swap. Tauscht das Gesicht oder den ganzen Kopf einer Person im Video; andere Personen und der Originalton bleiben wie gefilmt.",
+      "blurb": "Video-Face-Swap. Tauscht das Gesicht oder den ganzen Kopf einer Person im Video; andere Personen und der Originalton bleiben wie gefilmt. Neu in 2.0: neue Engine in den Modi Fast und Best quality, gebaut für Bewegung (Tanz, weit zurückgelegter Kopf, Hände und Haare vor dem Gesicht) und etwa doppelt so schnell.",
       "bullet1": "Nur das Gesicht oder den ganzen Kopf tauschen",
       "bullet2": "In Videos mit mehreren Personen wählst du, wer getauscht wird",
       "bullet3": "Behält den Originalton und stellt Details wieder her",

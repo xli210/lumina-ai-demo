@@ -1,7 +1,7 @@
 /**
  * Video FaceSwap Online: NanoPocket's queued video face swap, officially
  * released as version 1.1.0 (it ran as a three-day preview and a one-week trial
- * first). One source for the name, the wording and the on/off switch, so the
+ * first), now at 2.0.0. One source for the name, the wording and the on/off switch, so the
  * homepage card, the What's new bar, the landing page, llms.txt and the
  * middleware gate cannot disagree.
  *
@@ -22,8 +22,10 @@
  */
 
 export const FACESTUDIO_V_NAME = "Video FaceSwap Online";
-/** 1.1.0, the official release: hard footage (profile turns, hands and arms in front of the face) and the watermark policy. */
-export const FACESTUDIO_V_VERSION = "1.1.0";
+/** 2.0.0 (Fast and Best quality modes; Whole head unchanged): a new face-swap engine (glasses kept sharp, nothing showing through a hand, eyes that follow the clip, steadier close-ups, about twice as fast). 1.1.0 was the official release: hard footage and the watermark policy. */
+export const FACESTUDIO_V_VERSION = "2.0.0";
+/** The version the published examples and the measured figures were made with: they keep this label until they are re-made. */
+export const FACESTUDIO_V_MEASURED_VERSION = "1.1.0";
 export const FACESTUDIO_V_URL = "https://nanopocket.ai/facestudio-v";
 /** The public page: the demo, with its fourteen cases. No sign-in. */
 export const FACESTUDIO_V_PAGE = "/facestudio-v";
@@ -75,7 +77,7 @@ export const FACESTUDIO_V_POINTS = [
 export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
   {
     q: "What is Video FaceSwap Online?",
-    a: `${FACESTUDIO_V_NAME} is a video face swap from NanoPocket. You give it a video and a photo of the face you want; it replaces one person in every frame and leaves everyone and everything else as it was filmed. Version ${FACESTUDIO_V_VERSION} is the official release: it is available to registered NanoPocket users and paid for in credits.`,
+    a: `${FACESTUDIO_V_NAME} is a video face swap from NanoPocket. You give it a video and a photo of the face you want; it replaces one person in every frame and leaves everyone and everything else as it was filmed. Version ${FACESTUDIO_V_VERSION} is the current release: it is available to registered NanoPocket users and paid for in credits.`,
   },
   {
     q: "How do I get in?",

@@ -157,7 +157,7 @@
       "price": "{hsp} créditos por imagen"
     },
     "video": {
-      "blurb": "Face swap en vídeo. Cambia la cara o la cabeza entera de una persona del vídeo; el resto de personas y el audio original quedan como se grabaron.",
+      "blurb": "Face swap en vídeo. Cambia la cara o la cabeza entera de una persona del vídeo; el resto de personas y el audio original quedan como se grabaron. Novedad en 2.0: nuevo motor en los modos Fast y Best quality, pensado para el movimiento (baile, cabeza echada hacia atrás, manos y pelo delante de la cara) y unas 2 veces más rápido.",
       "bullet1": "Cambia solo la cara o la cabeza entera",
       "bullet2": "En vídeos con varias personas eliges a cuál cambiar",
       "bullet3": "Conserva el audio original y restaura el detalle",

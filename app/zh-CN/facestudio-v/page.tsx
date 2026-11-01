@@ -38,6 +38,29 @@ export const metadata: Metadata = {
   },
 };
 
+/** What 2.0.0 changed, with the before/after pairs shown on the English page (public/facestudio-v/media/v2). */
+const NEW_IN_2: { tag: string; title: string; body: string }[] = [
+  { tag: "OCCLUSION-AWARE", title: "手、头发、袖子挡脸不穿帮", body: "每一帧都单独算出挡在脸前的东西。挡在前面的保持原样,下面的五官不会透出来。" },
+  { tag: "EXTREME POSE", title: "大仰角、仰头、倒过来", body: "头往后仰到脸朝天、从下往上拍、转到侧脸,新脸一路跟住,脸一回来就在。" },
+  { tag: "MOTION PERSISTENCE", title: "高速旋转和运动模糊", body: "转圈时画面糊成一片,换脸也不会闪回原来的脸。" },
+  { tag: "IDENTITY LOCK", title: "群舞只换你选的那位", body: "交叉走位、镜头切换、出画再入画,始终锁定同一位舞者;两人一样显眼时会让你选,不乱猜。" },
+  { tag: "SCENE ADAPTIVE", title: "舞台光和烟雾", body: "紫光、橙光、烟雾、暗场:新脸跟着现场的光,不像贴上去的。" },
+  { tag: "FINE DETAIL", title: "眼镜、闭眼、大特写", body: "眼镜清晰不变色,跟着原片闭眼,大特写更稳(帧间闪烁最多降低 34%)。换脸速度快一倍。" },
+];
+const PAIRS_2: { slug: string; title: string; before: string }[] = [
+  { slug: "dance", title: "一整段舞蹈,一次换完:转头、甩头发、拳头挡脸", before: "原片" },
+  { slug: "pitch", title: "头往后仰到倒过来,再穿过头发起身", before: "原片" },
+  { slug: "group_sleeves", title: "群舞里红袖子一次次扫过脸,只换选中的人", before: "原片" },
+  { slug: "smoke", title: "烟雾、紫光、耳机,手从脸前划过", before: "原片" },
+  { slug: "sun", title: "橙色光里双手捧脸、头往后仰", before: "原片" },
+];
+
+/** Zoomed stills where the engine before 2.0 slipped (public/facestudio-v/media/v2/prec_*). */
+const PRECISION_2: { slug: string; title: string; look: string }[] = [
+  { slug: "angle", title: "仰头也只有一张脸", look: "看鼻子旁边的脸颊:头往后仰、手指放在嘴边,之前脸贴歪了,脸颊上多出一只眼睛;现在脸稳稳贴在她脸上。" },
+  { slug: "hand", title: "手挡脸不穿帮", look: "看手背:之前手背上透出鼻子和脸颊的轮廓;现在手是完整的,只换露出来的那部分脸。" },
+];
+
 /** The five hard-footage clips, captioned in Chinese. */
 const CLIPS: { slug: string; title: string; body: string }[] = [
   { slug: "profile-turn", title: "转到侧脸再转回来", body: "头转了九十度又转回来,每个角度都是新的脸,转动时不闪烁。" },
@@ -143,7 +166,7 @@ export default function ZhVideoFaceSwapPage() {
           </h1>
           <p className="mb-6 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             上传一段视频和一张人脸照片,点选要换的人。它会在每一帧里替换这个人的脸或整个头,其他人、背景和原声都保持拍摄时的样子。
-            转侧脸、手挡脸、昏暗光线这些容易穿帮的镜头,是这一版专门做好的。注册送 {SIGNUP_GRANT_CREDITS} 免费积分,可以先试一段短视频。
+            {FACESTUDIO_V_VERSION} 是一次引擎级突破:为跳舞这类高动态视频而生,大仰角、遮挡、高速旋转都能稳住,换脸速度快一倍。注册送 {SIGNUP_GRANT_CREDITS} 免费积分,可以先试一段短视频。
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <Button asChild size="lg" className="rounded-full bg-foreground text-background">
@@ -158,6 +181,77 @@ export default function ZhVideoFaceSwapPage() {
           <p className="mt-3 text-xs text-muted-foreground">
             需要一个免费的 NanoPocket 账号;工作室界面目前为英文。最近核实:{LAST_VERIFIED}
           </p>
+        </div>
+      </section>
+
+      <section className="px-6 pb-14">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="mb-2 text-2xl font-bold tracking-tight text-foreground">{FACESTUDIO_V_VERSION} 重大突破:为动态而生的换脸引擎</h2>
+          <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
+            跳舞是换脸最难的素材:头往后仰、头发和袖子扫过脸、镜头旋转、舞台光变色。{FACESTUDIO_V_VERSION} 换上新引擎,每一帧都重新判断脸在哪、朝哪、前面挡着什么。下面每组左边是原片,右边是 {FACESTUDIO_V_VERSION},每段只用一张参考照片,不需要手动遮罩或关键帧。本次更新针对 Fast(快速)和 Best quality(高质量)两个模式;换头(Whole head)模式保持不变。
+          </p>
+          <ul className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {NEW_IN_2.map(({ tag, title, body }) => (
+              <li key={title} className="border-t border-border/60 pt-4">
+                <p className="mb-2 text-xs font-medium tracking-wide text-muted-foreground">{tag}</p>
+                <h3 className="mb-1 font-semibold text-foreground">{title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{body}</p>
+              </li>
+            ))}
+          </ul>
+          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {PAIRS_2.map(({ slug, title, before }) => (
+              <li key={slug} className="overflow-hidden rounded-2xl border border-border/60 bg-background/60">
+                <div className="grid grid-cols-2 gap-1 bg-black">
+                  {[["before", before], ["after", FACESTUDIO_V_VERSION]].map(([side, label]) => (
+                    <figure key={side} className="relative m-0">
+                      <video
+                        src={`/facestudio-v/media/v2/${slug}_${side}.mp4`}
+                        poster={`/facestudio-v/media/v2/${slug}_${side}.jpg`}
+                        muted
+                        loop
+                        autoPlay
+                        playsInline
+                        preload="metadata"
+                        className="aspect-video w-full bg-black object-cover"
+                      />
+                      <figcaption className="absolute left-2 top-2 rounded-full bg-black/70 px-2 py-0.5 text-xs font-semibold text-white">{label}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+                <div className="p-4">
+                  <h3 className="font-semibold text-foreground">{title}</h3>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+            素材和参考照片来自 Pexels(免费使用),只用于测试;只换你有权使用的脸。Fast 模式,无水印。速度在 NVIDIA RTX 4080 SUPER 上用四段 720p–1080p 视频测得。
+          </p>
+        </div>
+      </section>
+
+      <section className="px-6 pb-14">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="mb-2 text-2xl font-bold tracking-tight text-foreground">细节放大:之前的引擎哪里出错</h2>
+          <p className="mb-6 text-sm leading-relaxed text-muted-foreground">每组左边是 2.0 之前的引擎,右边是 {FACESTUDIO_V_VERSION},同一段素材、同一张参考照片、同一帧。</p>
+          <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {PRECISION_2.map(({ slug, title, look }) => (
+              <li key={slug}>
+                <div className="grid grid-cols-2 gap-1 overflow-hidden rounded-2xl bg-black">
+                  {[["before", "2.0 之前"], ["after", FACESTUDIO_V_VERSION]].map(([side, label]) => (
+                    <figure key={side} className="relative m-0">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={`/facestudio-v/media/v2/prec_${slug}_${side}.jpg?v=2`} alt={`${label}:${title}`} loading="lazy" className="aspect-square w-full object-cover" />
+                      <figcaption className="absolute left-2 top-2 rounded-full bg-black/70 px-2 py-0.5 text-xs font-semibold text-white">{label}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+                <h3 className="mt-3 font-semibold text-foreground">{title}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{look}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

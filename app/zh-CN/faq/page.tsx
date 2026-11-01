@@ -68,7 +68,7 @@ interface FaqItem {
 const FAQS: FaqItem[] = [
   {
     q: "什么是 NanoPocket 的免费在线 AI 换脸？",
-    a: `NanoPocket 提供浏览器在线工具：Nano FaceStudio Online（图片换脸，一张图最多同时换 6 张脸）、Video FaceSwap Online（视频换脸，1.1.0）和 Nano ImageEdit 2.0 Online（按描述修图）。${demoAvailabilityZh()}注册一个免费的 NanoPocket 账号即可使用。在线工具按积分计费（100 积分 = 1 美元），开始前显示价格，新账号有免费积分。从未充值的账号做出的 Face Studio 图片和视频会带 NanoPocket.ai 水印，买过一次积分后不再有。积分永不过期，没有订阅。`,
+    a: `NanoPocket 提供浏览器在线工具：Nano FaceStudio Online（图片换脸，一张图最多同时换 6 张脸）、Video FaceSwap Online（视频换脸，2.0.0）和 Nano ImageEdit 2.0 Online（按描述修图）。${demoAvailabilityZh()}注册一个免费的 NanoPocket 账号即可使用。在线工具按积分计费（100 积分 = 1 美元），开始前显示价格，新账号有免费积分。从未充值的账号做出的 Face Studio 图片和视频会带 NanoPocket.ai 水印，买过一次积分后不再有。积分永不过期，没有订阅。`,
   },
   {
     q: "在线换脸真的是免费的吗？有没有隐藏收费？",
@@ -128,7 +128,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "NanoPocket 支持视频换脸吗？",
-    a: "支持。Video FaceSwap Online（1.1.0）是在线视频换脸：只替换你选的那个人，其他人和原声保持不变。需要登录 NanoPocket 账号，按积分计费，开始前会显示价格，失败的视频自动退款；从未充值的账号生成的视频会带移动水印，充值一次即可去除。中文介绍：nanopocket.ai/zh-CN/facestudio-v。",
+    a: "支持。Video FaceSwap Online（2.0.0）是在线视频换脸：只替换你选的那个人，其他人和原声保持不变。需要登录 NanoPocket 账号，按积分计费，开始前会显示价格，失败的视频自动退款；从未充值的账号生成的视频会带移动水印，充值一次即可去除。中文介绍：nanopocket.ai/zh-CN/facestudio-v。",
   },
   {
     q: "本地桌面版 Nano FaceStudio Pro 1.0 什么时候发布？",

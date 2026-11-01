@@ -612,7 +612,7 @@ export default function FaceStudioLandingPage() {
             <ul className="mt-3 space-y-2 text-sm">
               <li>
                 <Link href="/facestudio-v" className={textLink}>Video FaceSwap Online</Link>
-                <span className="text-muted-foreground"> swaps a face in a video (version 1.1.0)</span>
+                <span className="text-muted-foreground"> swaps a face in a video (version 2.0.0)</span>
               </li>
               <li>
                 <Link href="/image-edit" className={textLink}>Nano ImageEdit 2.0 Online</Link>

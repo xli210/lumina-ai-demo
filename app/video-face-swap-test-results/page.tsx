@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
-import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
+import { FACESTUDIO_V_NAME, FACESTUDIO_V_MEASURED_VERSION } from "@/lib/facestudio-v";
 
 /**
  * What we measured on Video FaceSwap Online, how, and what it does not show.
@@ -12,7 +12,7 @@ import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
 
 const URL_ = "https://nanopocket.ai/video-face-swap-test-results";
 const TITLE = "Video Face Swap Test Results: Method, Numbers and Limits";
-const DESCRIPTION = `What we measured on ${FACESTUDIO_V_NAME} ${FACESTUDIO_V_VERSION}: 74 swapped clips and five hard cases, how similarity was scored, and what the test does not prove. A first look, not a benchmark, with no head-to-head against other tools.`;
+const DESCRIPTION = `What we measured on ${FACESTUDIO_V_NAME} ${FACESTUDIO_V_MEASURED_VERSION}: 74 swapped clips and five hard cases, how similarity was scored, and what the test does not prove. A first look, not a benchmark, with no head-to-head against other tools.`;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -126,7 +126,7 @@ export default function TestResultsPage() {
             What we measured on video face swap, and what it does not prove
           </h1>
           <p className="mb-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            These are our own numbers for {FACESTUDIO_V_NAME} {FACESTUDIO_V_VERSION}, written by the people who make it. They are a first
+            These are our own numbers for {FACESTUDIO_V_NAME} {FACESTUDIO_V_MEASURED_VERSION}, written by the people who make it. They are a first
             look, not an independent benchmark, and we have not compared the product with any other tool. The method is below so you can
             check it, and so you know how much weight to give it.
           </p>
