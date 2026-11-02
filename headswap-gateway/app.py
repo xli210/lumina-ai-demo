@@ -420,7 +420,9 @@ def health():
 
 @app.post("/api/warm")
 def warm():
-    """Wake a worker when the page opens; harmless and cheap if one is already up."""
+    """Wake a worker when the page opens (WARM_ENABLED=1; off by default: with no GPU to run them the warm-ups queued up, and each one that ran cost GPU time)."""
+    if os.environ.get("WARM_ENABLED", "0") != "1":
+        return {"ok": True, "skipped": True}
     if time.time() - _last_warm[0] > 60:
         _last_warm[0] = time.time()
         try:

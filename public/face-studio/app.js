@@ -111,7 +111,7 @@
   let faceTemplates = [];          // [{ id, url, name }]
 
   // ── Warm a GPU worker while the user picks a photo ──
-  fetch(API_BASE + "/visit", { method: "POST" }).catch(() => {});
+  // (no GPU warm-up on opening: it queued with no GPU to run it, and cost GPU time when it ran. The cold start is shown as "Starting up a GPU" instead.)
 
   // ══════════════════════════════════════════════════════════════════════
   //  Credits

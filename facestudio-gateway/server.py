@@ -326,6 +326,8 @@ def v5_visit():
     user choosing a photo. A blank image has no faces, so the job is a
     sub-second no-op. At most once a minute per instance."""
     global _last_warm
+    if os.environ.get("WARM_ENABLED", "0") != "1":      # off by default: with no GPU to run them the warm-ups queued by the dozen, and each one that ran cost GPU time
+        return {"ok": True, "skipped": True}
     with _warm_lock:
         if time.time() - _last_warm < 60:
             return {"ok": True, "skipped": True}

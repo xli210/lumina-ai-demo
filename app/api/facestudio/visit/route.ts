@@ -23,6 +23,11 @@ export async function POST() {
     return privateJson({ ok: false, reason: "not_configured" }, 200);
   }
 
+  // Warming is off unless FACESTUDIO_WARM=1: with no GPU to run them the warm-ups queued up by the dozen (43 at once), and each one that ran cost GPU time.
+  if (process.env.FACESTUDIO_WARM !== "1") {
+    return privateJson({ ok: true, skipped: true }, 200);
+  }
+
   try {
     await warmGateway();
   } catch (err: unknown) {
