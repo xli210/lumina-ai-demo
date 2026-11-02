@@ -1,0 +1,479 @@
+{
+  "video": {
+    "title": "KI-Video-Face-Swap online, kostenlos testen: Gesicht oder Kopf tauschen, Ton behalten",
+    "description": "Video-Face-Swap online: Lade ein Video und ein Foto eines Gesichts hoch, und nur die Person, die du auswählst, bekommt das neue Gesicht oder den ganzen neuen Kopf. Alle anderen und der Originalton bleiben wie gefilmt. Mit {grant} kostenlosen Credits bei der Anmeldung testest du zuerst einen kurzen Clip.",
+    "keywords": [
+      "KI Face Swap Video",
+      "Video Face Swap online",
+      "Gesicht im Video tauschen",
+      "Kopf im Video tauschen"
+    ],
+    "kicker": "Online-Tool",
+    "h1": "KI-Video-Face-Swap: Nur die Person, die du auswählst, verändert sich",
+    "lead1": "Lade ein Video und ein Foto eines Gesichts hoch und klicke dann auf die Person, die sich ändern soll. Das Gesicht oder der ganze Kopf wird in jedem Frame ersetzt, während alle anderen, der Hintergrund und der Originalton so bleiben, wie sie gefilmt wurden.",
+    "lead2": "Version {version} ist eine neue Engine für Aufnahmen mit viel Bewegung, etwa Tanz. Steile Winkel, Dinge vor dem Gesicht und schnelle Drehungen meistert sie zuverlässig, und der Tausch ist etwa doppelt so schnell. Mit {grant} kostenlosen Credits bei der Anmeldung testest du zuerst einen kurzen Clip.",
+    "ctaOpen": "Video-Face-Swap öffnen",
+    "ctaGuide": "Anleitung lesen (auf Englisch)",
+    "accountNote": "Du brauchst ein kostenloses NanoPocket-Konto. Die Oberfläche des Studios ist derzeit auf Englisch. Zuletzt geprüft: {date}",
+    "newHeading": "Neu in {version}: eine Engine, gemacht für Bewegung",
+    "newBody": "Tanz ist das schwierigste Material für einen Face Swap: Köpfe kippen nach hinten, Haare und Ärmel streichen über das Gesicht, die Kamera dreht sich, und das Bühnenlicht wechselt die Farbe. {version} ermittelt für jeden einzelnen Frame neu, wo das Gesicht ist, wohin es zeigt und was davor liegt. In jedem Paar unten ist „Original“ das Ausgangsvideo und „{version}“ das Ergebnis, erstellt aus einem einzigen Referenzfoto ohne manuelle Masken oder Keyframes. Dieses Update gilt für die Modi Fast und Best quality; der Modus Whole head bleibt unverändert.",
+    "features": [
+      {
+        "tag": "OCCLUSION-AWARE",
+        "title": "Hände, Haare und Ärmel vor dem Gesicht",
+        "body": "Was vor dem Gesicht liegt, wird Frame für Frame ermittelt. Es bleibt wie gefilmt, und die Gesichtszüge dahinter scheinen nicht durch."
+      },
+      {
+        "tag": "EXTREME POSE",
+        "title": "Steile Winkel, nach hinten gekippte Köpfe, sogar kopfüber",
+        "body": "Ein Kopf, der so weit nach hinten kippt, dass das Gesicht zum Himmel zeigt, eine Aufnahme von unten, eine Drehung ins volle Profil: Das neue Gesicht bleibt dran und ist sofort wieder da, sobald das Gesicht zurückkehrt."
+      },
+      {
+        "tag": "MOTION PERSISTENCE",
+        "title": "Schnelle Drehungen und Bewegungsunschärfe",
+        "body": "Selbst wenn eine Drehung das Bild verwischt, blitzt nicht plötzlich wieder das Originalgesicht auf."
+      },
+      {
+        "tag": "IDENTITY LOCK",
+        "title": "Beim Gruppentanz nur die Person, die du auswählst",
+        "body": "Auch wenn sich Wege kreuzen, die Kamera schneidet oder jemand das Bild verlässt und zurückkommt, bleibt es bei derselben Person. Sind zwei Personen gleich präsent, fragt es dich, statt zu raten."
+      },
+      {
+        "tag": "SCENE ADAPTIVE",
+        "title": "Bühnenlicht und Rauch",
+        "body": "Violettes Licht, oranges Licht, Rauch, eine dunkle Bühne: Das neue Gesicht nimmt das Licht der Szene an und wirkt deshalb nicht aufgeklebt."
+      },
+      {
+        "tag": "FINE DETAIL",
+        "title": "Brillen, geschlossene Augen, extreme Nahaufnahmen",
+        "body": "Brillen bleiben scharf und behalten ihre Farbe, die Augen schließen sich, wenn sie sich im Original schließen, und Nahaufnahmen sind ruhiger (bis zu 34 % weniger Flimmern von Frame zu Frame)."
+      }
+    ],
+    "before": "Original",
+    "pairs": {
+      "dance": "Ein ganzer Tanz in einem Durchgang: Kopfdrehungen, fliegende Haare, eine Faust vor dem Gesicht",
+      "pitch": "Ein Kopf, der bis kopfüber nach hinten kippt und sich dann durch die Haare wieder aufrichtet",
+      "group_sleeves": "Ein Gruppentanz, bei dem rote Ärmel immer wieder über das Gesicht streichen; nur die ausgewählte Person verändert sich",
+      "smoke": "Rauch, violettes Licht und Kopfhörer, dazu eine Hand, die vor dem Gesicht vorbeizieht",
+      "sun": "Oranges Licht, beide Hände um das Gesicht, der Kopf kippt nach hinten"
+    },
+    "pairsNote": "Aufnahmen und Referenzfotos stammen von Pexels (frei nutzbar) und dienen nur zum Testen; tausche nur Gesichter, die du verwenden darfst. Fast-Modus, ohne Wasserzeichen. Geschwindigkeit gemessen auf einer NVIDIA RTX 4080 SUPER mit vier Videos in 720p bis 1080p.",
+    "precisionHeading": "Aus der Nähe: Wo die frühere Engine danebenlag",
+    "precisionBody": "In jedem Paar ist „Vor 2.0“ die frühere Engine und „{version}“ die neue: dieselbe Aufnahme, dasselbe Referenzfoto, derselbe Frame.",
+    "beforeTwo": "Vor 2.0",
+    "precision": {
+      "angle": {
+        "title": "Ein Gesicht, auch mit nach hinten gekipptem Kopf",
+        "look": "Achte auf die Wange neben der Nase. Bei nach hinten gekipptem Kopf und Fingern am Mund hat die frühere Engine das Gesicht falsch platziert und ein zusätzliches Auge auf die Wange gesetzt. Jetzt sitzt das Gesicht fest an seinem Platz."
+      },
+      "hand": {
+        "title": "Eine Hand vor dem Gesicht",
+        "look": "Achte auf den Handrücken. Bei der früheren Engine schien der Umriss von Nase und Wange hindurch. Jetzt ist die Hand vollständig, und nur der sichtbare Teil des Gesichts wird getauscht."
+      }
+    },
+    "clipsHeading": "Echte Ergebnisse: die fünf schwierigsten Aufnahmen",
+    "clipsBody": "All das sind echte Ergebnisse von {name}. Aufnahmen und Gesichter stammen aus kostenlosen Stock-Bibliotheken (Pexels, Mixkit) und dienen nur zum Testen.",
+    "clipsAll": "Alle 19 Beispiele",
+    "clips": {
+      "profile-turn": {
+        "title": "Eine Drehung ins Profil und zurück",
+        "body": "Der Kopf dreht sich um neunzig Grad und wieder zurück. In jedem Winkel ist das neue Gesicht da, ohne Flimmern während der Drehung."
+      },
+      "hand-glasses": {
+        "title": "Eine Hand vor dem Gesicht und eine Brille",
+        "body": "Die Hand bleibt unberührt vor dem Gesicht, und nur der sichtbare Teil des Gesichts wird getauscht. Sobald die Hand weggeht, ist das Gesicht sofort vollständig."
+      },
+      "arm-across": {
+        "title": "Ein Arm, der über das Gesicht streicht",
+        "body": "Der Kopf dreht sich, die Kamera wackelt, und ein Arm zieht vor dem Gesicht vorbei, trotzdem springt das Gesicht nicht."
+      },
+      "head-back-hands": {
+        "title": "Lachen, mit den Händen in den Haaren",
+        "body": "Hände berühren Gesicht und Haare, und der Kopf geht beim Lachen nach hinten. Der Tausch hält die ganze Zeit mit."
+      },
+      "profile-back": {
+        "title": "Ein dunkles Profil, dann eine Drehung zur Kamera",
+        "body": "Eine Seitenansicht bei sehr wenig Licht, dann eine Drehung zur Kamera. Das Gesicht bleibt die ganze Zeit auf dem Kopf."
+      }
+    },
+    "watchAlone": "Einzeln ansehen",
+    "stepsHeading": "Drei Schritte",
+    "steps": [
+      {
+        "title": "Video hochladen",
+        "body": "Jedes Video mit Personen, bis 1080p. Jedes Gesicht im Bild wird gefunden und verfolgt, und der Originalton bleibt erhalten."
+      },
+      {
+        "title": "Neues Gesicht hinzufügen",
+        "body": "Ein klares Foto von vorn, auf dem das ganze Gesicht zu sehen ist. Je klarer es ist, desto größer die Ähnlichkeit. Vor dem Start bestätigst du, dass du dieses Gesicht verwenden darfst."
+      },
+      {
+        "title": "Person anklicken",
+        "body": "Klicke auf die Person, die ersetzt werden soll, und prüfe vor dem Start die Kosten. Nur diese Person verändert sich; Details werden wiederhergestellt, und das Video kommt in 1080p oder 4K heraus."
+      }
+    ],
+    "compareHeading": "Gesicht oder ganzer Kopf?",
+    "compareCols": [
+      "Face Swap",
+      "Ganzer Kopf"
+    ],
+    "compareRows": [
+      {
+        "label": "Ersetzt",
+        "face": "Das Gesicht",
+        "head": "Gesicht, Haare und Kopfform"
+      },
+      {
+        "label": "Behält",
+        "face": "Originalhaare, Kopfform und Mimik",
+        "head": "Körper, Kleidung, Hintergrund und alle anderen"
+      },
+      {
+        "label": "Tempo",
+        "face": "Wenige Sekunden für den Tausch, danach Restaurierung und Hochskalierung",
+        "head": "Einige Minuten für wenige Sekunden Video"
+      },
+      {
+        "label": "Längster Clip",
+        "face": "60 Sekunden (5 Sekunden mit einem kostenlosen Konto)",
+        "head": "12 Sekunden (2 Sekunden mit einem kostenlosen Konto)"
+      },
+      {
+        "label": "Ideal für",
+        "face": "Gespräche, Interviews und längere Clips",
+        "head": "Einen neuen Look, kurze Einstellungen"
+      }
+    ],
+    "topupHeading": "Einmal aufladen: kein Wasserzeichen, volle Länge, Vorrang in der Warteschlange",
+    "topupPoints": [
+      "Mit {grant} kostenlosen Credits bei der Anmeldung testest du einen Clip von bis zu 5 Sekunden, mit einem beweglichen Wasserzeichen.",
+      "Nach einer Aufladung haben neue Videos kein Wasserzeichen, können bis zu 60 Sekunden lang sein (12 bei Whole head) und kommen in der Warteschlange vor kostenlose Konten."
+    ],
+    "topupPricing": "Preise und Erstattungsbedingungen (auf Englisch)",
+    "ctaMake": "Video erstellen",
+    "faqHeading": "Häufige Fragen",
+    "faq": [
+      {
+        "q": "Ist der Video-Face-Swap kostenlos?",
+        "a": "Du kannst kostenlos starten. Jedes neue Konto erhält einmalig {grant} Credits, genug, um einen kurzen Clip zu testen. Danach bezahlst du jedes Video in Credits. Es gibt kein Abo, und die Kosten werden vor dem Start angezeigt."
+      },
+      {
+        "q": "Wie lang darf ein Video sein?",
+        "a": "Bis zu 60 Sekunden in Fast und Best quality und bis zu 12 Sekunden in Whole head. Unsere GPUs sind begrenzt, deshalb erstellt ein Konto, das noch nie aufgeladen hat, Clips von bis zu 5 Sekunden (2 Sekunden in Whole head), und diese warten hinter denen von Konten, die aufgeladen haben. Ein längeres Video wird nicht abgelehnt: Das Studio verwendet den ersten Teil oder den Teil, den du auswählst, und sagt dir vor dem Bezahlen, welchen."
+      },
+      {
+        "q": "Warum ist auf meinem Video ein Wasserzeichen?",
+        "a": "Videos von einem Konto, das noch nie Credits aufgeladen hat, tragen ein langsam wanderndes, halbtransparentes NanoPocket-Zeichen. Nach einer Aufladung haben deine neuen Videos kein Wasserzeichen. Kostenlose Credits von der Anmeldung zählen nicht als Aufladung, und ein fertiges Video behält das Zeichen, mit dem es erstellt wurde."
+      },
+      {
+        "q": "Was ist der Unterschied zwischen einem Face Swap und einem Tausch des ganzen Kopfes?",
+        "a": "Ein Face Swap ersetzt nur das Gesicht und behält Originalhaare, Kopfform und Mimik, was gut zu Gesprächen, Interviews und längeren Clips passt. Ein Tausch des ganzen Kopfes übernimmt Gesicht, Haare und Kopfform aus dem Referenzfoto und lässt Körper, Kleidung, Hintergrund und andere Personen unberührt, was gut zu kurzen Einstellungen passt."
+      },
+      {
+        "q": "Kann ich jedes beliebige Gesicht tauschen?",
+        "a": "Nur ein Gesicht, das du verwenden darfst. Das Studio bittet dich vor dem Start, das zu bestätigen. Veröffentliche keine Face-Swap-Videos von echten Menschen ohne deren Erlaubnis."
+      },
+      {
+        "q": "Was passiert mit meinem hochgeladenen Video?",
+        "a": "Laut Studio werden Uploads innerhalb von 24 Stunden gelöscht, und ein fertiges Video wird 24 Stunden aufbewahrt, bei einem Konto, das aufgeladen hat, 7 Tage. Sie werden nicht zum Trainieren von Modellen verwendet. Siehe die Datenschutzerklärung unter /privacy (auf Englisch)."
+      },
+      {
+        "q": "Gibt es das Studio in meiner Sprache?",
+        "a": "Die Oberfläche des Studios ist derzeit auf Englisch. Die Schritte sind einfach: Video hochladen, neues Gesicht hinzufügen, die zu ändernde Person anklicken und starten. Die drei Schritte auf dieser Seite kannst du als Anleitung nutzen."
+      }
+    ],
+    "english": "Englische Version"
+  },
+  "faceStudio": {
+    "title": "Kostenloser Face Swap für Gruppenfotos online: bis zu {max} Gesichter",
+    "description": "Kostenlos starten: {grant} Credits bei der Anmeldung reichen für {swaps} Face Swaps. Tausche bis zu {max} Gesichter in einem Foto oder einen ganzen Kopf und behalte Haare, Hände, Brillen und Schmuck, die vor dem Gesicht liegen. Volle Auflösung, kein Abo.",
+    "kicker": "Online-Tool · im Browser",
+    "h1": "Tausche jedes Gesicht. Behalte alles andere.",
+    "lead": "Ersetze bis zu {max} Gesichter in einem Foto oder einen ganzen Kopf und entscheide, was vom Original bleibt: Haare über einem Auge, eine Hand an der Wange, Brillen, ein Nasenring. Das Ergebnis kommt in voller Auflösung zurück. Kostenlose Konten tragen ein kleines NanoPocket.ai-Wasserzeichen, das eine Aufladung entfernt.",
+    "cta": "Nano FaceStudio Online öffnen",
+    "note": "Kostenloses NanoPocket-Konto erforderlich. {grant} kostenlose Credits bei der Anmeldung reichen für {swaps} Swaps ({face} Credits pro Gesicht).",
+    "examplesHeading": "Echte Ergebnisse",
+    "beforeLabel": "Vorher",
+    "afterLabel": "Nachher",
+    "examples": {
+      "hero": "Ein neues Gesicht. Nasenring, Mütze und Haare bleiben unberührt.",
+      "group": "Ein Durchgang hat fünf Gesichtern in diesem Raster neue Referenzen gegeben. Requisiten und die übrigen Gesichter haben sich nicht verändert."
+    },
+    "featuresHeading": "Was es kann",
+    "features": [
+      {
+        "title": "Behalten, was vor dem Gesicht liegt",
+        "body": "Für jedes Gesicht wählst du, was vom Original bleiben soll: Haare, Hände, Brillen, Schmuck oder ein Mikrofon. Ein einfacher Swap malt darüber."
+      },
+      {
+        "title": "Bis zu {max} Gesichter in einem Durchgang",
+        "body": "Ein Upload findet bis zu {max} Gesichter. Jedes kann ein eigenes Referenzfoto und eigene Einstellungen haben. Gesichter, die du nicht anrührst, bleiben genau, wie sie sind, und kosten nichts."
+      },
+      {
+        "title": "Gesicht oder ganzer Kopf",
+        "body": "Face Swap ersetzt nur das Gesicht und behält Haare und Kopfform. Kopftausch ersetzt den ganzen Kopf, für eine größere Ähnlichkeit mit deiner Referenz."
+      },
+      {
+        "title": "Volle Auflösung",
+        "body": "Du erhältst das Ergebnis in der Größe deines Fotos, bis zu 4080 × 4080 Pixel, ohne Herunterskalierung."
+      },
+      {
+        "title": "Selbst nachbessern mit dem Pinsel",
+        "body": "Ist ein Detail verloren gegangen, male darüber, und dieser Bereich kommt sofort aus dem Originalfoto zurück."
+      }
+    ],
+    "stepsHeading": "So funktioniert’s",
+    "steps": [
+      {
+        "title": "Foto hochladen",
+        "body": "Gesichter werden automatisch gefunden, bis zu {max} pro Foto."
+      },
+      {
+        "title": "Für jedes Gesicht eine Referenz hinzufügen",
+        "body": "Füge für jedes Gesicht, das du ersetzen möchtest, ein Foto hinzu oder wähle eines der virtuellen Gesichter. Wähle Face Swap oder Kopftausch und was erhalten bleiben soll."
+      },
+      {
+        "title": "Generieren und herunterladen",
+        "body": "Die Kosten werden vor dem Start angezeigt. Lade das Ergebnis herunter oder bessere es mit dem Pinsel nach."
+      }
+    ],
+    "faqHeading": "Häufige Fragen",
+    "faq": [
+      {
+        "q": "Ist es kostenlos?",
+        "a": "Du kannst kostenlos starten: {grant} Credits bei der Anmeldung reichen für {swaps} Face Swaps. Danach bezahlst du in Credits ({face} pro Gesicht), ohne Abo."
+      },
+      {
+        "q": "Gibt es ein Wasserzeichen?",
+        "a": "Ergebnisse von einem Konto, das noch nie Credits gekauft hat, tragen ein NanoPocket.ai-Wasserzeichen. Kaufe einmal Credits, und bei deinen nächsten Ergebnissen ist es weg. Kostenlose Credits zählen nicht als Kauf."
+      },
+      {
+        "q": "Kann ich das Foto von jeder beliebigen Person verwenden?",
+        "a": "Verwende nur Gesichter, die du verwenden darfst: dein eigenes oder die von Personen, die zugestimmt haben."
+      },
+      {
+        "q": "Funktioniert es auf dem Smartphone?",
+        "a": "Ja. Es läuft in jedem modernen Browser, und die ganze Arbeit erledigen unsere GPUs."
+      }
+    ],
+    "pricingLink": "Preise und Erstattungsbedingungen (auf Englisch)",
+    "english": "Englische Version"
+  },
+  "imageEdit": {
+    "title": "KI-Bildbearbeitung online: Foto bearbeiten, indem du die Änderung beschreibst",
+    "description": "Bearbeite ein Foto, indem du die Änderung beschreibst: Objekte entfernen oder hinzufügen, Dinge ersetzen, den Text auf einem Schild ändern, eine Szene neu ausleuchten, die Jahreszeit wechseln oder ein altes Foto restaurieren. Alles, was du nicht ändern wolltest, bleibt, wie es war. {grant} kostenlose Credits bei der Anmeldung.",
+    "kicker": "Online-Tool · im Browser",
+    "h1": "Beschreibe die Änderung. Der Rest des Fotos bleibt.",
+    "lead": "Lade ein Foto hoch und sag, was sich ändern soll: ein Objekt entfernen, etwas ersetzen, den Text auf einem Schild ändern oder die Szene neu ausleuchten. Bei Objektänderungen bleibt alles außerhalb der Bearbeitung identisch mit deinem Originalfoto, und das Ergebnis kommt in voller Auflösung und ohne Wasserzeichen zurück.",
+    "cta": "Nano ImageEdit 2.0 Online öffnen",
+    "note": "Kostenloses NanoPocket-Konto erforderlich. {grant} kostenlose Credits bei der Anmeldung, {edit} Credits pro Bearbeitung.",
+    "promptNote": "Das Bearbeitungsmodell ist mit englischen Anweisungen getestet. Schreibe sie also auf Englisch, um die zuverlässigsten Ergebnisse zu erhalten.",
+    "examplesHeading": "Echte Ergebnisse",
+    "beforeLabel": "Vorher",
+    "afterLabel": "Nachher",
+    "examples": {
+      "text-barber": "Der Text des Schilds wurde geändert, im selben 3D-Schriftstil.",
+      "replace-fruit": "Eine Banane, ersetzt durch eine Traube violetter Beeren, an derselben Stelle.",
+      "remove-cars": "Geparkte Autos entfernt, der Hintergrund dahinter aufgefüllt.",
+      "restore-sepia": "Ein altes, beschädigtes Foto repariert und koloriert."
+    },
+    "toolsHeading": "Was es kann",
+    "tools": [
+      {
+        "title": "Magic Edit",
+        "body": "Male über einen Bereich und beschreibe, was daraus werden soll, oder beschreibe eine Änderung am ganzen Foto."
+      },
+      {
+        "title": "Hinzufügen",
+        "body": "Füge dem Foto ein neues Objekt hinzu."
+      },
+      {
+        "title": "Entfernen",
+        "body": "Entferne Objekte oder Personen. Der Hintergrund dahinter wird natürlich aufgefüllt."
+      },
+      {
+        "title": "Ersetzen",
+        "body": "Tausche ein Objekt an derselben Stelle gegen ein anderes."
+      },
+      {
+        "title": "Text",
+        "body": "Ändere den Text auf Schildern, Verpackungen oder Postern, wobei Schriftstil und Perspektive erhalten bleiben."
+      },
+      {
+        "title": "Licht & Stil",
+        "body": "Leuchte das ganze Foto neu aus oder ändere seine Farbstimmung. Nur Farbe und Licht ändern sich."
+      },
+      {
+        "title": "Jahreszeit",
+        "body": "Ändere die Jahreszeit einer Szene: Herbstlaub, Winterschnee, Frühlingsblüte."
+      },
+      {
+        "title": "Restaurieren",
+        "body": "Repariere alte oder beschädigte Fotos: Kratzer und Flecken entfernen, Kontrast korrigieren und kolorieren."
+      }
+    ],
+    "stepsHeading": "So funktioniert’s",
+    "steps": [
+      {
+        "title": "Foto hinzufügen",
+        "body": "Zieh es hinein, füge es ein oder durchsuche deine Dateien. Du kannst auch mit einem Beispiel beginnen."
+      },
+      {
+        "title": "Tool wählen und Änderung beschreiben",
+        "body": "Gib an, was sich ändern soll, und male einen Bereich, wenn du die Stelle eingrenzen möchtest. Du kannst bis zu 4 Varianten anfordern."
+      },
+      {
+        "title": "Vergleichen und herunterladen",
+        "body": "Vergleiche Vorher und Nachher, bearbeite von jeder Version aus weiter und lade das Ergebnis in voller Auflösung herunter."
+      }
+    ],
+    "faqHeading": "Häufige Fragen",
+    "faq": [
+      {
+        "q": "Ist es kostenlos?",
+        "a": "Du kannst kostenlos starten, mit den {grant} Credits, die jedes neue Konto erhält. Danach kostet jede fertige Bearbeitung {edit} Credits, ohne Abo."
+      },
+      {
+        "q": "Gibt es ein Wasserzeichen?",
+        "a": "Nein. Ergebnisse von Nano ImageEdit 2.0 Online tragen kein Wasserzeichen."
+      },
+      {
+        "q": "Muss ich etwas installieren?",
+        "a": "Nein. Es läuft in deinem Browser, und die Arbeit erledigen unsere GPUs."
+      },
+      {
+        "q": "Kann ich jedes beliebige Foto bearbeiten?",
+        "a": "Nur Fotos, die du bearbeiten darfst, einschließlich der Personen darauf: Das bist du selbst, oder sie haben zugestimmt."
+      }
+    ],
+    "pricingLink": "Preise und Erstattungsbedingungen (auf Englisch)",
+    "english": "Englische Version"
+  },
+  "headswap": {
+    "metaTitle": "KI-Kopftausch online, kostenlos starten: {name}",
+    "metaDescription": "Tausche den ganzen Kopf in einem Porträt oder Gruppenfoto: Gesicht, Haare und Kopfform kommen vom neuen Kopf, und Körper, Pose und alle anderen bleiben genau, wie sie waren. Bis zu {max} Varianten auf einmal. {grant} kostenlose Credits bei der Anmeldung reichen für {free} Kopftausche.",
+    "tagline": "In der Hauptrolle: du.",
+    "kicker": "Eine NanoPocket-Eigenproduktion",
+    "heroLine": "Setz jeden Kopf in jedes Foto, ob Porträt oder Gruppenbild. Das neue Gesicht, die neuen Haare, dieselbe Szene.",
+    "ctaOpen": "Ab ans Set",
+    "ctaSoon": "Öffnet bald",
+    "watchFilm": "Film auf YouTube ansehen",
+    "heroNote": "{credits} Credits pro Bild · neue Konten erhalten kostenlose Credits",
+    "teaserAlt": "Ein Standbild aus dem Launch-Film von HeadSwap Pro: ein Studioporträt vor und nach dem Tausch",
+    "statementA": "Ein neuer Kopf.",
+    "statementB": "Jedes Foto.",
+    "statementBody": "Nicht nur das Gesicht: Auch die Haare und die Kopfform kommen mit. Und alles, was du nicht ändern wolltest, bleibt genau, wie es war.",
+    "statementTags": "Porträts · Gruppenbilder · Spiegel-Selfies · Studioarbeit",
+    "filmKicker": "Der Film",
+    "filmTitle": "{name}: der Launch-Film",
+    "filmBadge": "Der Launch-Film · 0:53",
+    "playLabel": "Abspielen",
+    "watchOnYouTube": "Auf YouTube ansehen",
+    "filmLength": "53 Sekunden",
+    "groupKicker": "Neu in HeadSwap Pro",
+    "groupTitleA": "Wähl einen Kopf aus der Menge.",
+    "groupTitleB": "Sogar von unten.",
+    "groupIntro": "Unser früherer Kopftausch schaffte ein Gesicht pro Foto. HeadSwap Pro findet alle Personen im Foto, du klickst auf die, die sich ändern soll, und nur dieser Kopf ändert sich. In beiden Fotos unten wird derselbe neue Kopf verwendet.",
+    "proofTitleA": "Gleiche Fotos.",
+    "proofTitleB": "Bessere Köpfe.",
+    "proofIntro": "Jedes Ergebnis stammt aus einem einzigen Durchgang mit Standardeinstellungen und ohne Retusche. Zieh den Regler und wechsle zwischen unserem früheren Kopftausch und dem Originalfoto.",
+    "facts": [
+      {
+        "k": "Der ganze Kopf",
+        "v": "Gesicht, Haare und Kopfform kommen alle vom neuen Kopf, nicht nur das Gesicht."
+      },
+      {
+        "k": "Einen Kopf aus der Menge wählen",
+        "v": "Klicke auf die Person, die du neu besetzen möchtest. Alle anderen und die ganze Szene bleiben genau, wie sie sind. Unser früherer Kopftausch schaffte ein Gesicht pro Foto."
+      },
+      {
+        "k": "Jeder Winkel",
+        "v": "Der neue Kopf wird in der Pose des Kopfes aufgebaut, den er ersetzt: zur Seite gedreht, nach hinten gekippt, sogar von unten gesehen."
+      },
+      {
+        "k": "Mehrere Takes",
+        "v": "Fordere bis zu {max} Varianten auf einmal an und wähle die beste aus."
+      },
+      {
+        "k": "Volle Größe",
+        "v": "Das Ergebnis behält die Auflösung deines Fotos. Großes Bild rein, großes Bild raus."
+      }
+    ],
+    "stepsHeading": "In drei Schritten zur Premiere",
+    "steps": [
+      {
+        "title": "Die Szene mitbringen",
+        "body": "Lade das Foto hoch, das du ändern möchtest. Personen werden automatisch gefunden. Klicke im Gruppenbild auf die Person, die du neu besetzen möchtest."
+      },
+      {
+        "title": "Die Hauptrolle besetzen",
+        "body": "Lade den neuen Kopf hoch: Ein klares Foto von vorn eignet sich am besten. Gesicht und Frisur kommen mit."
+      },
+      {
+        "title": "Und Action",
+        "body": "Wähle 1 bis {max} Varianten und drücke auf Tauschen. Ein Porträt dauert etwa 40 Sekunden. Zieh den Regler, um Vorher und Nachher zu vergleichen."
+      }
+    ],
+    "closeBody": "{credits} Credits pro Bild. Neue Konten erhalten kostenlose Credits.",
+    "packsLink": "Credit-Pakete ansehen",
+    "wantInLink": "Sag uns, dass du dabei sein willst",
+    "faqHeading": "Bevor die Kamera läuft",
+    "faq": [
+      {
+        "q": "Gibt es ein Wasserzeichen?",
+        "a": "Ergebnisse von einem Konto, das noch nie Credits gekauft hat, tragen ein kleines NanoPocket.ai-Wasserzeichen. Kaufe einmal Credits, und deine Ergebnisse sind von da an sauber, egal wie hoch dein Guthaben ist."
+      },
+      {
+        "q": "Welche Fotos eignen sich am besten?",
+        "a": "Für den neuen Kopf ein klares Foto von vorn, auf dem das Gesicht vollständig zu sehen ist. Für das Szenenfoto jedes Porträt oder Gruppenfoto, auf dem die Person, die du ändern möchtest, ihr Gesicht zeigt. Fotos bis 25 MB als JPG, PNG oder WebP."
+      },
+      {
+        "q": "Wie lange werden meine Bilder aufbewahrt?",
+        "a": "Dein hochgeladenes Foto wird bis zu 3 Stunden aufbewahrt, damit du mehrere Köpfe darauf ausprobieren kannst. Ein fertiges Bild kannst du 24 Stunden lang herunterladen."
+      },
+      {
+        "q": "Kann ich das Foto von jeder beliebigen Person verwenden?",
+        "a": "Verwende nur Fotos von Personen, die zugestimmt haben. Du bist dafür verantwortlich, dass deine Nutzung der Ergebnisse mit dem Gesetz und den Rechten anderer vereinbar ist."
+      }
+    ],
+    "footerMadeBy": "{name} wird von NanoPocket.ai entwickelt.",
+    "footerSee": "Die anderen Tools findest du unter",
+    "footerAnd": "und bei den",
+    "footerDesktop": "Desktop-Apps",
+    "footerEnd": ".",
+    "toolNote": "",
+    "compare": {
+      "vsEarlier": "vs. früherer Kopftausch",
+      "vsOriginal": "vs. Originalfoto",
+      "originalVsPro": "Originalfoto vs. HeadSwap Pro",
+      "groupLabel": "HeadSwap Pro vergleichen mit",
+      "newHead": "der neue Kopf",
+      "newHeadAlt": "Der verwendete neue Kopf",
+      "earlierTag": "Früher",
+      "originalTag": "Original",
+      "resultAlt": "{title}: Ergebnis mit HeadSwap Pro",
+      "earlierAlt": "{title}: Ergebnis des früheren Kopftauschs",
+      "originalAlt": "{title}: das Originalfoto",
+      "sliderEarlier": "Früheren Kopftausch mit HeadSwap Pro vergleichen",
+      "sliderOriginal": "Original mit HeadSwap Pro vergleichen"
+    },
+    "examples": {
+      "occlusion": {
+        "title": "Ein Spiegel, zwei Finger an der Wange, eine unscharfe Schulter im Vordergrund",
+        "note": "Getauscht wird der Kopf und sonst nichts: Spiegelbild, Hand am Gesicht und Vordergrund bleiben wie aufgenommen."
+      },
+      "studio": {
+        "title": "Eine Editorial-Aufnahme mit Filmkamera, geflochtenem Riemen und künstlerischem Make-up",
+        "note": "Bei Studio- und Produktarbeit muss das Styling den Tausch überstehen. Hände und Riemen bleiben vor dem Gesicht, Make-up und Blick bleiben wie im Originalfoto."
+      },
+      "fiveFriends": {
+        "title": "Fünf lachende Freunde. Ein neuer Kopf.",
+        "note": "Der Mann in der Mitte bekommt den neuen Kopf, samt Haaren. Die anderen vier bleiben unberührt: gleiche Gesichter, gleiche Haare, gleiche Anzüge und Krawatten, gleiche Bäume dahinter."
+      },
+      "huddle": {
+        "title": "Eine Gruppe im Kreis, von unten gesehen",
+        "note": "Eine tiefe Kamera blickt direkt nach oben auf fünf Köpfe, jeder in einem steilen Winkel. Der Mann im roten Hemd bekommt den neuen Kopf in derselben Neigung und mit demselben Grinsen, und die vier Personen um ihn herum bleiben genau wie aufgenommen."
+      }
+    }
+  }
+}

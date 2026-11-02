@@ -64,12 +64,60 @@ export function localizedPath(locale: AppLocale, path: string): string {
  * language switcher must not invent `/<locale><path>` for them: those addresses 404, and every page linking to
  * them taught crawlers hundreds of dead URLs. Add a page here when its translation ships.
  */
+const ALL_TRANSLATED: readonly AppLocale[] = ["zh-CN", "ja", "ko", "es", "pt-BR", "de", "fr"];
+
 export const TRANSLATED_PAGES: Record<string, readonly AppLocale[]> = {
-  "/": ["zh-CN"],
-  "/face-swap": ["zh-CN", "ja", "ko", "es", "pt-BR", "de", "fr"],
-  "/headswap-pro": ["zh-CN", "ja"],
-  "/facestudio-v": ["zh-CN"],
+  "/": ALL_TRANSLATED,
+  "/face-swap": ALL_TRANSLATED,
+  "/headswap-pro": ALL_TRANSLATED,
+  "/facestudio-v": ALL_TRANSLATED,
+  "/face-studio": ALL_TRANSLATED,
+  "/image-edit": ALL_TRANSLATED,
 };
+
+/**
+ * Remembers the language someone chose or last browsed in (see app/components/locale-switcher.tsx). Pages that are the
+ * same address for everyone and never cached (sign-in, credits) read it through middleware; the tool pages read it in the
+ * browser (public/i18n/tools.js).
+ */
+export const LOCALE_COOKIE = "np_locale";
+
+/** Pages shown in the visitor's language at their usual address, with no locale prefix. */
+const COOKIE_LOCALE_PATHS = ["/auth", "/credits"];
+
+export function usesLocaleCookie(pathname: string): boolean {
+  return COOKIE_LOCALE_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+}
+
+/** A language tag from a browser or a cookie, as one of ours. Any Chinese is zh-CN and any Portuguese pt-BR. */
+function supportedLocale(tag: string | undefined | null): AppLocale | null {
+  if (!tag) return null;
+  const t = tag.trim().toLowerCase();
+  const exact = LOCALES.find((l) => l.toLowerCase() === t);
+  if (exact) return exact;
+  const base = t.split("-")[0];
+  if (base === "zh") return "zh-CN";
+  if (base === "pt") return "pt-BR";
+  return LOCALES.find((l) => l === base) ?? null;
+}
+
+/** The chosen language, else the browser's first one we have. Same order as public/i18n/tools.js; change them together. */
+export function negotiateLocale(cookie: string | undefined, acceptLanguage: string | null): AppLocale {
+  const chosen = supportedLocale(cookie);
+  if (chosen) return chosen;
+  const ranked = (acceptLanguage ?? "")
+    .split(",")
+    .map((part) => {
+      const [tag, q] = part.trim().split(";q=");
+      return { tag, q: q === undefined ? 1 : Number(q) || 0 };
+    })
+    .sort((a, b) => b.q - a.q);
+  for (const { tag } of ranked) {
+    const found = supportedLocale(tag);
+    if (found) return found;
+  }
+  return DEFAULT_LOCALE;
+}
 
 /** This page's address in `locale` if it has been translated, else its English address. */
 export function translatedOrEnglish(path: string, locale: AppLocale): string {
@@ -80,12 +128,12 @@ export function translatedOrEnglish(path: string, locale: AppLocale): string {
 const LOCALE_LANDING: Record<AppLocale, string> = {
   en: "/",
   "zh-CN": "/zh-CN",
-  ja: "/ja/face-swap",
-  ko: "/ko/face-swap",
-  es: "/es/face-swap",
-  "pt-BR": "/pt-BR/face-swap",
-  de: "/de/face-swap",
-  fr: "/fr/face-swap",
+  ja: "/ja",
+  ko: "/ko",
+  es: "/es",
+  "pt-BR": "/pt-BR",
+  de: "/de",
+  fr: "/fr",
 };
 
 /** Translated pages whose English counterpart is not at the same path. */

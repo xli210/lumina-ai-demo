@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
-import { hreflangAlternates } from "@/lib/i18n/locales";
+import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
 import { Navbar } from "./components/navbar";
 import { WhatsNewBar } from "./components/whats-new-bar";
 import { HeroSection } from "./components/hero-section";
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
-    languages: hreflangAlternates("https://nanopocket.ai", "/", ["zh-CN"]),
+    languages: hreflangAlternates("https://nanopocket.ai", "/", TRANSLATED_PAGES["/"]),
   },
 };
 

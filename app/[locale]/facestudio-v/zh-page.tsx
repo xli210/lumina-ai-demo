@@ -4,6 +4,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { Navbar } from "../../components/navbar";
 import { Footer } from "../../components/footer";
 import { Button } from "@/components/ui/button";
+import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACESTUDIO_V_LAUNCH, FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
 import { VIDEO_EXAMPLES_PATH, isoDuration, videoExample, videoExamplePath } from "@/lib/video-examples";
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
   keywords: ["视频换脸", "AI视频换脸", "在线视频换脸", "视频换脸软件", "AI视频换脸软件免费", "视频换头", "AI换脸视频", "ai换脸在线使用"],
   alternates: {
     canonical: PATH,
-    languages: { en: `${BASE}${FACESTUDIO_V_PAGE}`, "zh-CN": PAGE_URL, "x-default": `${BASE}${FACESTUDIO_V_PAGE}` },
+    languages: hreflangAlternates(BASE, FACESTUDIO_V_PAGE, TRANSLATED_PAGES[FACESTUDIO_V_PAGE]),
   },
   openGraph: {
     type: "website",

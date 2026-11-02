@@ -5,9 +5,9 @@ import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 import { unavailableReason } from "@/lib/headswap-pro-server";
-import { hreflangAlternates } from "@/lib/i18n/locales";
+import { hreflangAlternates, LOCALE_LABELS } from "@/lib/i18n/locales";
 import { Compare, FilmFacade, Reveal, TeaserVideo, type CompareItem } from "./launch-client";
-import { HS_COPY, HS_TRANSLATED, type HsLocale } from "./copy";
+import { HS_COPY, HS_LOCALES, HS_TRANSLATED, type HsLocale } from "./copy";
 
 /**
  * The launch page for Nano HeadSwap Pro, laid out like a product keynote: a full-screen opening, a few big
@@ -302,9 +302,7 @@ export function HeadSwapLaunchPage({ locale }: { locale: HsLocale }) {
           </p>
           <p className="mt-4 text-center text-xs text-white/40">
             {[
-              { l: "en" as const, label: "English" },
-              { l: "zh-CN" as const, label: "简体中文" },
-              { l: "ja" as const, label: "日本語" },
+              ...HS_LOCALES.map((l) => ({ l, label: LOCALE_LABELS[l] })),
             ].map(({ l, label }, i) => (
               <span key={l}>
                 {i > 0 && " · "}

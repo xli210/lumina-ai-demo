@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import {
   EmbeddedCheckout,
   EmbeddedCheckoutProvider,
@@ -47,21 +48,33 @@ const CONFIRM_POLL_ATTEMPTS = 12;
 
 /** Human labels for ledger kinds, so a statement does not read like SQL. */
 const KIND_LABELS = new Map<string, string>([
-  ["purchase", "Top-up"],
-  ["bonus", "Bonus credits"],
-  ["signup_grant", "Welcome credits"],
-  ["promo", "Promotional credits"],
-  ["spend", "Usage"],
-  ["refund", "Refund"],
+  ["purchase", "kindPurchase"],
+  ["bonus", "kindBonus"],
+  ["signup_grant", "kindSignupGrant"],
+  ["promo", "kindPromo"],
+  ["spend", "kindSpend"],
+  ["refund", "kindRefund"],
+]);
+/** Rare and about billing: stated in English in every language, like the auto top-up terms. */
+const ENGLISH_KIND_LABELS = new Map<string, string>([
   ["reversal", "Payment reversed"],
   ["admin_adjust", "Manual adjustment"],
 ]);
 
-function labelFor(entry: CreditLedgerEntry): string {
+/** A pack's one-line description, by pack id. */
+const PACK_BLURBS: Record<string, string> = {
+  starter: "packStarter",
+  standard: "packStandard",
+  pro: "packPro",
+  studio: "packStudio",
+};
+
+function labelFor(entry: CreditLedgerEntry, t: (key: never) => string): string {
   if (entry.reference.source === "stripe_auto_recharge") {
     return entry.kind === "bonus" ? "Auto top-up bonus" : "Auto top-up";
   }
-  return KIND_LABELS.get(entry.kind) ?? entry.kind;
+  const key = KIND_LABELS.get(entry.kind);
+  return key ? t(key as never) : ENGLISH_KIND_LABELS.get(entry.kind) ?? entry.kind;
 }
 
 /** What the server knows about the person's auto top-up setting. */
@@ -145,10 +158,10 @@ function AutoRechargeCard({ setting }: { setting: AutoRechargeView | null }) {
   );
 }
 
-function formatWhen(iso: string): string {
+function formatWhen(iso: string, locale: string): string {
   const parsed = new Date(iso);
   if (Number.isNaN(parsed.getTime())) return "—";
-  return parsed.toLocaleString("en-US", {
+  return parsed.toLocaleString(locale, {
     month: "short",
     day: "numeric",
     hour: "numeric",
@@ -162,13 +175,14 @@ function matchesSession(entry: CreditLedgerEntry, sessionId: string): boolean {
 }
 
 function BalanceCard({ account }: { account: CreditAccountState }) {
+  const t = useTranslations("Ui.credits");
   return (
     <div className="glass-strong rounded-2xl p-8">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
           <p className="flex items-center gap-2 text-sm text-muted-foreground">
             <Coins className="h-4 w-4" />
-            Available to spend
+            {t("availableToSpend")}
           </p>
           <p className="mt-2 text-4xl font-bold tabular-nums text-foreground">
             {account.available.toLocaleString("en-US")}
@@ -176,7 +190,7 @@ function BalanceCard({ account }: { account: CreditAccountState }) {
         </div>
         <dl className="flex gap-8 text-sm">
           <div>
-            <dt className="text-muted-foreground">Balance</dt>
+            <dt className="text-muted-foreground">{t("balance")}</dt>
             <dd className="mt-1 font-medium tabular-nums text-foreground">
               {account.balance.toLocaleString("en-US")}
             </dd>
@@ -184,14 +198,14 @@ function BalanceCard({ account }: { account: CreditAccountState }) {
           <div>
             <dt className="flex items-center gap-1 text-muted-foreground">
               <Lock className="h-3 w-3" />
-              Reserved
+              {t("reserved")}
             </dt>
             <dd className="mt-1 font-medium tabular-nums text-foreground">
               {account.held.toLocaleString("en-US")}
             </dd>
           </div>
           <div>
-            <dt className="text-muted-foreground">Spent to date</dt>
+            <dt className="text-muted-foreground">{t("spentToDate")}</dt>
             <dd className="mt-1 font-medium tabular-nums text-foreground">
               {account.lifetime_spent.toLocaleString("en-US")}
             </dd>
@@ -221,6 +235,7 @@ function PackCard({
   /** The pack a tool's "not enough credits" message pointed to. */
   recommended: boolean;
 }) {
+  const t = useTranslations("Ui.credits");
   const bonus = bonusPercent(pack);
   const marked = recommended || pack.highlight;
 
@@ -237,7 +252,7 @@ function PackCard({
     >
       {marked && (
         <span className="absolute -top-2.5 left-6 rounded-full bg-primary px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary-foreground">
-          {recommended ? "Recommended for you" : "Most popular"}
+          {recommended ? t("recommended") : t("mostPopular")}
         </span>
       )}
       <div className="flex items-baseline justify-between">
@@ -247,15 +262,15 @@ function PackCard({
         </span>
       </div>
       <p className="mt-3 text-sm font-medium text-foreground">
-        {formatCredits(totalCredits(pack))}
+        {t("creditCount", { count: totalCredits(pack).toLocaleString("en-US") })}
       </p>
       {bonus > 0 && (
         <p className="mt-1 flex items-center gap-1 text-xs font-medium text-primary">
           <Sparkles className="h-3 w-3" />
-          {bonus}% extra free
+          {t("extraFree", { bonus })}
         </p>
       )}
-      <p className="mt-3 flex-1 text-xs text-muted-foreground">{pack.blurb}</p>
+      <p className="mt-3 flex-1 text-xs text-muted-foreground">{PACK_BLURBS[pack.id] ? t(PACK_BLURBS[pack.id] as never) : pack.blurb}</p>
       <Button
         type="button"
         disabled={disabled}
@@ -263,17 +278,19 @@ function PackCard({
         variant={marked ? "default" : "outline"}
         className="mt-5 rounded-full"
       >
-        Buy credits
+        {t("buyCredits")}
       </Button>
     </div>
   );
 }
 
 function Statement({ entries }: { entries: CreditLedgerEntry[] }) {
+  const t = useTranslations("Ui.credits");
+  const locale = useLocale();
   if (entries.length === 0) {
     return (
       <p className="text-sm text-muted-foreground">
-        Nothing here yet. Your top-ups and usage will appear as they happen.
+        {t("emptyStatement")}
       </p>
     );
   }
@@ -287,10 +304,10 @@ function Statement({ entries }: { entries: CreditLedgerEntry[] }) {
         >
           <div className="min-w-0">
             <p className="truncate text-sm font-medium text-foreground">
-              {labelFor(entry)}
+              {labelFor(entry, t)}
             </p>
             <p className="text-xs text-muted-foreground">
-              {formatWhen(entry.created_at)}
+              {formatWhen(entry.created_at, locale)}
             </p>
           </div>
           <div className="text-right">
@@ -303,7 +320,7 @@ function Statement({ entries }: { entries: CreditLedgerEntry[] }) {
               {entry.amount.toLocaleString("en-US")}
             </p>
             <p className="text-xs tabular-nums text-muted-foreground">
-              {entry.balance_after.toLocaleString("en-US")} after
+              {t("balanceAfter", { count: entry.balance_after.toLocaleString("en-US") })}
             </p>
           </div>
         </li>
@@ -327,6 +344,8 @@ export function CreditConsole({
   autoRechargeReady: boolean;
 }) {
   const router = useRouter();
+  const t = useTranslations("Ui.credits");
+  const locale = useLocale();
   const [account, setAccount] = useState(initialAccount);
   const [ledger, setLedger] = useState(initialLedger);
   const [selectedPack, setSelectedPack] = useState<CreditPack | null>(null);
@@ -377,7 +396,7 @@ export function CreditConsole({
         if (entries.some((entry) => matchesSession(entry, sessionId))) {
           if (cancelled) return;
           setConfirming(false);
-          toast.success("Credits added to your balance");
+          toast.success(t("added"));
           router.replace("/credits");
           return;
         }
@@ -397,7 +416,7 @@ export function CreditConsole({
     return () => {
       cancelled = true;
     };
-  }, [refresh, router]);
+  }, [refresh, router, t]);
 
   // Arriving from a "not enough credits" link: bring the recommended pack into view (it is below the fold on a phone).
   useEffect(() => {
@@ -444,7 +463,7 @@ export function CreditConsole({
         <div className="glass flex items-center gap-3 rounded-2xl px-5 py-4">
           <Loader2 className="h-4 w-4 animate-spin text-primary" />
           <p className="text-sm text-foreground">
-            Confirming your payment and adding credits…
+            {t("confirming")}
           </p>
         </div>
       )}
@@ -455,7 +474,7 @@ export function CreditConsole({
 
       <section>
         <h2 className="mb-4 text-lg font-semibold text-foreground">
-          Add credits
+          {t("addCredits")}
         </h2>
         {stripePromise === null ? (
           <div className="glass flex items-center gap-3 rounded-2xl px-5 py-4">
@@ -480,12 +499,13 @@ export function CreditConsole({
         <p className="mt-4 text-xs text-muted-foreground">
           1 credit = $0.01. Credits pay for hosted cloud processing only —
           desktop app licenses remain a one-time purchase and are unaffected.
+          {locale !== "en" && <span className="mt-1 block">{t("englishTerms")}</span>}
         </p>
       </section>
 
       <section>
         <h2 className="mb-4 text-lg font-semibold text-foreground">
-          Recent activity
+          {t("recentActivity")}
         </h2>
         <div className="glass rounded-2xl px-6 py-2">
           <Statement entries={ledger} />
@@ -502,8 +522,8 @@ export function CreditConsole({
           <DialogHeader>
             <DialogTitle>
               {selectedPack
-                ? `${selectedPack.name} — ${formatCredits(totalCredits(selectedPack))}`
-                : "Checkout"}
+                ? `${selectedPack.name} — ${t("creditCount", { count: totalCredits(selectedPack).toLocaleString("en-US") })}`
+                : t("checkout")}
             </DialogTitle>
           </DialogHeader>
 
@@ -511,7 +531,7 @@ export function CreditConsole({
             <div className="flex flex-col items-center gap-3 p-8 text-center">
               <AlertTriangle className="h-8 w-8 text-red-500" />
               <p className="text-sm font-medium text-foreground">
-                Unable to start checkout
+                {t("unableToStart")}
               </p>
               <p className="text-xs text-muted-foreground">{checkoutError}</p>
               <Button
@@ -520,7 +540,7 @@ export function CreditConsole({
                 onClick={closeCheckout}
                 className="mt-2 rounded-full"
               >
-                Close
+                {t("close")}
               </Button>
             </div>
           )}

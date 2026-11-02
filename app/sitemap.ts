@@ -40,13 +40,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ? {}
         : { alternates: { languages: { en: `${BASE}/blog/${g.slug}`, "zh-CN": `${BASE}/zh-CN/guides/${g.slug}` } } }),
     })),
-    {
-      url: `${BASE}/zh-CN/facestudio-v`,
-      lastModified: new Date("2026-10-30"),
-      changeFrequency: "weekly" as const,
-      priority: 0.9,
-      alternates: { languages: { en: `${BASE}/facestudio-v`, "zh-CN": `${BASE}/zh-CN/facestudio-v` } },
-    },
   ];
 
   const releaseNoteEntries = appReleases.map((app) => ({
@@ -56,9 +49,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  const homeLanguages = {
-    en: BASE,
-    "zh-CN": `${BASE}/zh-CN`,
+  const homeLanguages: Record<string, string> = { en: BASE };
+  for (const l of TRANSLATED_PAGES["/"]) homeLanguages[l] = `${BASE}/${l}`;
+
+  /** A page's English address and its translations, each pointing at all the others. */
+  const translatedEntries = (path: string, changeFrequency: "weekly" | "daily", priority: number, lastModified: string) => {
+    const languages: Record<string, string> = { en: `${BASE}${path}`, "x-default": `${BASE}${path}` };
+    for (const l of TRANSLATED_PAGES[path]) languages[l] = `${BASE}/${l}${path}`;
+    return [
+      { url: `${BASE}${path}`, lastModified: new Date(lastModified), changeFrequency, priority, alternates: { languages } },
+      ...TRANSLATED_PAGES[path].map((l) => ({
+        url: `${BASE}/${l}${path}`,
+        lastModified: new Date("2026-11-01"),
+        changeFrequency: "weekly" as const,
+        priority: priority - 0.1,
+        alternates: { languages },
+      })),
+    ];
   };
 
   return [
@@ -69,29 +76,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
       alternates: { languages: homeLanguages },
     },
-    {
-      url: `${BASE}/zh-CN`,
-      lastModified: new Date("2026-10-30"),
-      changeFrequency: "weekly",
-      priority: 0.95,
+    ...TRANSLATED_PAGES["/"].map((l) => ({
+      url: `${BASE}/${l}`,
+      lastModified: new Date("2026-11-01"),
+      changeFrequency: "weekly" as const,
+      priority: 0.9,
       alternates: { languages: homeLanguages },
-    },
+    })),
     // Nano FaceStudio Online. High priority because it is the only indexable description
     // of the hosted product, and because /api/demos/open?id=image — every
     // "Try online" button on the site — now lands on it.
-    {
-      url: `${BASE}/face-studio`,
-      lastModified: new Date("2026-10-30"),
-      changeFrequency: "weekly",
-      priority: 0.95,
-    },
+    ...translatedEntries("/face-studio", "weekly", 0.95, "2026-10-30"),
     // Nano ImageEdit 2.0 Online landing page; the editor itself is auth-gated.
-    { url: `${BASE}/image-edit`, lastModified: new Date("2026-10-30"), changeFrequency: "weekly", priority: 0.95 },
+    ...translatedEntries("/image-edit", "weekly", 0.95, "2026-10-30"),
     // Video FaceSwap Online 1.1.0: the public page of the release (its studio is behind sign-in).
-    { url: `${BASE}/headswap-pro`, lastModified: new Date("2026-10-30"), changeFrequency: "weekly", priority: 0.9, alternates: { languages: { en: `${BASE}/headswap-pro`, "zh-CN": `${BASE}/zh-CN/headswap-pro`, ja: `${BASE}/ja/headswap-pro`, "x-default": `${BASE}/headswap-pro` } } },
-    { url: `${BASE}/zh-CN/headswap-pro`, lastModified: new Date("2026-10-30"), changeFrequency: "weekly", priority: 0.8, alternates: { languages: { en: `${BASE}/headswap-pro`, "zh-CN": `${BASE}/zh-CN/headswap-pro`, ja: `${BASE}/ja/headswap-pro`, "x-default": `${BASE}/headswap-pro` } } },
-    { url: `${BASE}/ja/headswap-pro`, lastModified: new Date("2026-10-30"), changeFrequency: "weekly", priority: 0.8, alternates: { languages: { en: `${BASE}/headswap-pro`, "zh-CN": `${BASE}/zh-CN/headswap-pro`, ja: `${BASE}/ja/headswap-pro`, "x-default": `${BASE}/headswap-pro` } } },
-    { url: `${BASE}/facestudio-v`, lastModified: new Date("2026-10-30"), changeFrequency: "daily", priority: 0.95 },
+    ...translatedEntries("/headswap-pro", "weekly", 0.9, "2026-10-30"),
+    ...translatedEntries("/facestudio-v", "daily", 0.95, "2026-10-30"),
     // One watch page per example clip, so Google can index the videos (see lib/video-examples.ts).
     { url: `${BASE}${VIDEO_EXAMPLES_PATH}`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly", priority: 0.8 },
     ...VIDEO_EXAMPLES.map((v) => ({ url: `${BASE}${videoExamplePath(v)}`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly" as const, priority: 0.6 })),

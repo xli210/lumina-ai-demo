@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { ensureSignupGrant, listCreditLedger } from "@/lib/credits-server";
 import { getFreeClaimOutcome } from "@/lib/free-claim";
@@ -82,6 +83,7 @@ export default async function CreditsPage({
   const purchase = await paidCheckout(params.session_id, user.id);
   // Set by a tool's "not enough credits" link: the pack its message recommended.
   const recommended = findCreditPack(params.pack)?.id;
+  const t = await getTranslations("Ui.credits");
 
   return (
     <main className="relative min-h-screen">
@@ -89,9 +91,9 @@ export default async function CreditsPage({
       <Navbar />
       <div className="mx-auto max-w-4xl px-6 pt-28 pb-16">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground">Credits</h1>
+          <h1 className="text-3xl font-bold text-foreground">{t("title")}</h1>
           <p className="mt-1 text-muted-foreground">
-            Top up once, spend on any hosted AI service. Credits never expire.
+            {t("subtitle")}
           </p>
         </div>
         {refused && account.lifetime_purchased === 0 && (
@@ -99,23 +101,19 @@ export default async function CreditsPage({
             {refused === "blocked_email" ? (
               <>
                 <p className="font-medium text-foreground">
-                  Free sign-up credits are not available for temporary email addresses.
+                  {t("refusedEmailTitle")}
                 </p>
                 <p className="mt-1">
-                  Sign up with Google or a permanent email address to get them. This
-                  account can still buy credits and use every tool.
+                  {t("refusedEmailBody")}
                 </p>
               </>
             ) : (
               <>
                 <p className="font-medium text-foreground">
-                  Free credits were already claimed from this{" "}
-                  {refused === "blocked_device" ? "browser" : "network"}.
+                  {refused === "blocked_device" ? t("refusedBrowserTitle") : t("refusedNetworkTitle")}
                 </p>
                 <p className="mt-1">
-                  Free credits are limited to one account per person. If this is
-                  your first account and you share a connection with someone else,
-                  buying any credit pack unlocks your account for free credits too.
+                  {t("refusedBody")}
                 </p>
               </>
             )}
@@ -129,14 +127,12 @@ export default async function CreditsPage({
           autoRechargeReady={autoRechargeReady}
         />
         <div className="mt-8 rounded-2xl border border-border bg-card/40 p-5">
-          <p className="text-sm font-semibold text-foreground">Prefer not to spend credits at all?</p>
+          <p className="text-sm font-semibold text-foreground">{t("freeAppsTitle")}</p>
           <p className="mt-1 text-sm text-muted-foreground">
-            Nano FaceSwap, Nano FacialEdit and Nano ImageTryon are free desktop apps that run on your own
-            GPU: your photos and videos stay on your computer, and there is no subscription. They need
-            Windows and an NVIDIA graphics card.
+            {t("freeAppsBody")}
           </p>
           <Link href="/download" className="mt-3 inline-block text-sm font-medium text-primary underline-offset-4 hover:underline">
-            See the free apps
+            {t("freeAppsLink")}
           </Link>
         </div>
       </div>

@@ -1,72 +1,78 @@
+"use client";
+
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { translatedOrEnglish, type AppLocale } from "@/lib/i18n/locales";
 import { Wordmark } from "./wordmark";
 import { NavbarAuth } from "./navbar-auth";
 
 // Static markup only: the signed-in state is resolved in the browser
 // (navbar-auth.tsx) so the page HTML is the same for every visitor.
 export function Navbar() {
+  const t = useTranslations("Ui.nav");
+  const locale = useLocale() as AppLocale;
+  const isEnglish = locale === "en";
+  const home = translatedOrEnglish("/", locale);
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-neutral-200">
       <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
-        <Link href="/" className="flex items-center">
+        <Link href={home} className="flex items-center">
           <Wordmark className="h-5 w-auto text-black sm:h-6" />
         </Link>
 
         <div className="hidden items-center gap-3 lg:flex lg:gap-6 xl:gap-8">
           <Link
-            href="/face-swap"
+            href={translatedOrEnglish("/face-swap", locale)}
             className="whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
           >
-            Photo Face Swap
+            {t("photoFaceSwap")}
           </Link>
           <Link
-            href="/headswap-pro"
+            href={translatedOrEnglish("/headswap-pro", locale)}
             className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
           >
-            Photo Head Swap
+            {t("photoHeadSwap")}
             <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white lg:inline">
-              New
+              {t("new")}
             </span>
           </Link>
           <Link
-            href="/facestudio-v"
+            href={translatedOrEnglish("/facestudio-v", locale)}
             className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
           >
-            Video Face Swap
+            {t("videoFaceSwap")}
             <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white lg:inline">
-              New
+              {t("new")}
             </span>
           </Link>
           <span aria-hidden className="hidden h-4 w-px bg-neutral-200 min-[1200px]:block" />
+          {isEnglish && (
+            <Link href="/#showcase-features" className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1700px]:inline">
+              {t("showcase")}
+            </Link>
+          )}
+          {isEnglish && (
+            <Link href="/#how-it-works" className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1700px]:inline">
+              {t("howItWorks")}
+            </Link>
+          )}
           <Link
-            href="/#showcase-features"
-            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1700px]:inline"
-          >
-            Showcase
-          </Link>
-          <Link
-            href="/#how-it-works"
-            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1700px]:inline"
-          >
-            How It Works
-          </Link>
-          <Link
-            href="/apps"
+            href={isEnglish ? "/apps" : `${home}#apps-catalog`}
             className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1360px]:inline"
           >
-            Apps
+            {t("apps")}
           </Link>
-          <Link
-            href="/#faq"
-            className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1360px]:inline"
-          >
-            FAQ
-          </Link>
+          {isEnglish && (
+            <Link href="/#faq" className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1360px]:inline">
+              {t("faq")}
+            </Link>
+          )}
           <Link
             href="/download"
             className="hidden whitespace-nowrap text-sm text-neutral-500 transition-colors hover:text-black min-[1200px]:inline"
           >
-            Download
+            {t("download")}
           </Link>
           <a
             href="https://discord.gg/bNfPjfUDAn"

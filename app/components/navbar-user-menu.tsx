@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -21,6 +22,7 @@ export function NavbarUserMenu({
   isAdmin?: boolean;
 }) {
   const router = useRouter();
+  const t = useTranslations("Ui.nav");
   const supabase = createClient();
 
   const displayName =
@@ -65,15 +67,15 @@ export function NavbarUserMenu({
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => router.push("/account")}>
           <UserIcon className="mr-2 h-4 w-4" />
-          Account
+          {t("account")}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => router.push("/credits")}>
           <Coins className="mr-2 h-4 w-4" />
-          Credits
+          {t("credits")}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => router.push("/account#invite")}>
           <Gift className="mr-2 h-4 w-4" />
-          Invite friends
+          {t("inviteFriends")}
         </DropdownMenuItem>
         {isAdmin && (
           <DropdownMenuItem onClick={() => router.push("/admin")}>
@@ -84,7 +86,7 @@ export function NavbarUserMenu({
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut}>
           <LogOut className="mr-2 h-4 w-4" />
-          Sign Out
+          {t("signOut")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

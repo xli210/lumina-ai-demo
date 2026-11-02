@@ -171,7 +171,7 @@
       "price": "{edit} Credits pro Bearbeitung"
     },
     "watermarkNote": "Konten, die noch nie Credits gekauft haben, erhalten Gesichts-, Kopf- und Video-Ergebnisse mit NanoPocket-Wasserzeichen; ein einziger Credit-Kauf entfernt es. Die Textbearbeitung hat kein Wasserzeichen. Credits verfallen nicht, und es gibt kein Abo.",
-    "englishNote": "Die Oberfläche der Tools ist derzeit auf Englisch."
+    "englishNote": "Die Oberfläche des Videostudios ist derzeit auf Englisch; die Seite unten erklärt jeden Schritt."
   },
   "Common": {
     "languageSwitcher": {
@@ -179,5 +179,256 @@
       "switchTo": "Zu {language} wechseln"
     },
     "footerTagline": "KI-Kreativsuite: GAN- und Diffusionsmodelle, online oder auf deiner eigenen GPU. Kein Abo."
+  },
+  "Ui": {
+    "nav": {
+      "photoFaceSwap": "Foto-Face-Swap",
+      "photoHeadSwap": "Foto-Kopftausch",
+      "videoFaceSwap": "Video-Face-Swap",
+      "aiImageEdit": "KI-Bildbearbeitung",
+      "new": "Neu",
+      "showcase": "Beispiele",
+      "howItWorks": "So funktioniert’s",
+      "apps": "Apps",
+      "faq": "FAQ",
+      "download": "Download",
+      "signIn": "Anmelden",
+      "getStarted": "Loslegen",
+      "menu": "Menü",
+      "siteNavigation": "Seitennavigation",
+      "account": "Konto",
+      "credits": "Credits",
+      "inviteFriends": "Freunde einladen",
+      "signOut": "Abmelden"
+    },
+    "footer": {
+      "demo": "Demo",
+      "gallery": "Galerie",
+      "howItWorks": "So funktioniert’s",
+      "features": "Funktionen",
+      "apps": "Apps",
+      "pricing": "Preise",
+      "faq": "FAQ",
+      "download": "Download",
+      "blog": "Blog",
+      "about": "Über uns",
+      "photoFaceSwap": "Foto-Face-Swap",
+      "aiImageEdit": "KI-Bildbearbeitung",
+      "photoHeadSwap": "Foto-Kopftausch",
+      "videoFaceSwap": "Video-Face-Swap",
+      "status": "Status",
+      "compare": "Vergleich",
+      "community": "Community",
+      "privacy": "Datenschutz",
+      "terms": "AGB",
+      "security": "Sicherheit",
+      "contact": "Kontakt",
+      "signIn": "Anmelden"
+    },
+    "auth": {
+      "continueGoogle": "Weiter mit Google",
+      "continueGitHub": "Weiter mit GitHub",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "backToHome": "Zurück zur Startseite",
+      "loginTitle": "Willkommen zurück",
+      "loginSubtitle": "Melde dich an, um weiterzumachen",
+      "orContinueEmail": "Oder weiter mit E-Mail",
+      "forgotPassword": "Passwort vergessen?",
+      "yourPassword": "Dein Passwort",
+      "signingIn": "Anmeldung läuft...",
+      "signIn": "Anmelden",
+      "emailLink": "Oder schick mir einen Anmeldelink per E-Mail, ohne Passwort",
+      "noAccount": "Noch kein Konto?",
+      "signUp": "Registrieren",
+      "signupTitle": "Erstelle dein Konto",
+      "signupSubtitle": "Erstelle jetzt beeindruckende Inhalte mit KI",
+      "orSignupEmail": "Oder mit E-Mail registrieren",
+      "displayName": "Anzeigename",
+      "yourName": "Dein Name",
+      "passwordHint": "Mindestens 6 Zeichen",
+      "creatingAccount": "Konto wird erstellt...",
+      "createAccount": "Konto erstellen",
+      "haveAccount": "Du hast schon ein Konto?",
+      "checkEmailTitle": "Schau in dein E-Mail-Postfach",
+      "checkEmailBody": "Wir haben dir einen Bestätigungslink per E-Mail geschickt. Klicke darauf, um dein Konto zu bestätigen und loszulegen.",
+      "checkEmailSpam": "Nichts gefunden? Schau im Spam-Ordner nach. Öffne den Link in diesem Browser, dann landest du direkt bei dem Tool, das du nutzen wolltest.",
+      "backToSignIn": "Zurück zur Anmeldung"
+    },
+    "credits": {
+      "title": "Credits",
+      "subtitle": "Einmal aufladen und für jeden gehosteten KI-Dienst nutzen. Credits verfallen nie.",
+      "refusedEmailTitle": "Für temporäre E-Mail-Adressen gibt es keine kostenlosen Credits bei der Anmeldung.",
+      "refusedEmailBody": "Melde dich mit Google oder einer dauerhaften E-Mail-Adresse an, um sie zu erhalten. Dieses Konto kann trotzdem Credits kaufen und alle Tools nutzen.",
+      "refusedBrowserTitle": "In diesem Browser wurden die kostenlosen Credits bereits abgeholt.",
+      "refusedNetworkTitle": "In diesem Netzwerk wurden die kostenlosen Credits bereits abgeholt.",
+      "refusedBody": "Kostenlose Credits gibt es nur für ein Konto pro Person. Wenn das dein erstes Konto ist und du dir die Verbindung mit jemandem teilst, schaltet der Kauf eines beliebigen Credit-Pakets auch die kostenlosen Credits für dein Konto frei.",
+      "freeAppsTitle": "Du möchtest gar keine Credits ausgeben?",
+      "freeAppsBody": "Nano FaceSwap, Nano FacialEdit und Nano ImageTryon sind kostenlose Desktop-Apps, die auf deiner eigenen GPU laufen: Deine Fotos und Videos bleiben auf deinem Computer, und es gibt kein Abo. Du brauchst Windows und eine NVIDIA-Grafikkarte.",
+      "freeAppsLink": "Kostenlose Apps ansehen",
+      "availableToSpend": "Verfügbar",
+      "balance": "Guthaben",
+      "reserved": "Reserviert",
+      "spentToDate": "Bisher ausgegeben",
+      "recommended": "Für dich empfohlen",
+      "mostPopular": "Am beliebtesten",
+      "extraFree": "{bonus} % gratis dazu",
+      "buyCredits": "Credits kaufen",
+      "creditCount": "{count} Credits",
+      "packStarter": "Teste ein gehostetes Rendering von Anfang bis Ende.",
+      "packStandard": "Eine Handvoll kurzer Clips im Monat.",
+      "packPro": "Regelmäßige Restaurierungsarbeit.",
+      "emptyStatement": "Noch nichts da. Deine Aufladungen und deine Nutzung erscheinen hier, sobald sie anfallen.",
+      "balanceAfter": "danach {count}",
+      "kindPurchase": "Aufladung",
+      "kindBonus": "Bonus-Credits",
+      "kindSignupGrant": "Willkommens-Credits",
+      "kindPromo": "Aktions-Credits",
+      "kindSpend": "Nutzung",
+      "kindRefund": "Erstattung",
+      "confirming": "Zahlung wird bestätigt und Credits werden gutgeschrieben…",
+      "added": "Credits wurden deinem Guthaben hinzugefügt",
+      "addCredits": "Credits aufladen",
+      "recentActivity": "Letzte Aktivitäten",
+      "checkout": "Zur Kasse",
+      "unableToStart": "Bezahlvorgang konnte nicht gestartet werden",
+      "close": "Schließen",
+      "englishTerms": "Die automatische Aufladung und die Abrechnungsbedingungen werden auf Englisch angezeigt.",
+      "packStudio": "Der beste Preis pro Credit, für dauerhaft viel Nutzung."
+    }
+  },
+  "Home": {
+    "metadata": {
+      "title": "NanoPocket: KI-Face-Swap, Kopftausch und Video-Face-Swap, kostenlos im Browser starten",
+      "description": "KI-Face-Swap im Browser: {credits} kostenlose Credits bei der Anmeldung reichen für {swaps} Face Swaps in Fotos. Face Swap in Fotos, Tausch des ganzen Kopfes, Video-Face-Swap und KI-Bildbearbeitung, ohne Installation und ohne Abo, dazu Desktop-Apps, die auf deiner eigenen GPU laufen.",
+      "ogTitle": "NanoPocket: KI-Face-Swap für Fotos und Videos",
+      "ogDescription": "{credits} kostenlose Credits bei der Anmeldung (etwa {swaps} Face Swaps in Fotos). Face Swap, Kopftausch und Video-Face-Swap im Browser, dazu Desktop-Apps, die auf deiner eigenen GPU laufen."
+    },
+    "hero": {
+      "kicker": "Online-Tools + optionale Desktop-Apps",
+      "headline": "KI-Face-Swap für Fotos und Videos, direkt im Browser.",
+      "subhead": "NanoPocket bietet vier Online-Tools: Face Swap in Fotos, Tausch des ganzen Kopfes, Video-Face-Swap und KI-Bildbearbeitung. Melde dich an und erhalte kostenlose Credits, ohne Installation und ohne Abo. Außerdem gibt es eine Reihe von Desktop-Apps, die komplett auf deiner eigenen GPU laufen.",
+      "ctaPrimary": "Zu den Online-Tools",
+      "ctaSecondary": "Alle Desktop-Apps ansehen",
+      "trustChip1": "{credits} kostenlose Credits bei der Anmeldung",
+      "trustChip2": "Desktop-Apps für deine eigene GPU",
+      "trustChip3": "Kein Abo"
+    },
+    "whyUs": {
+      "heading": "Warum NanoPocket",
+      "intro": "Eine Produktlinie für zwei Arten von Menschen: alle, die sofort ein Ergebnis im Browser wollen, und alle, die lieber alles auf dem eigenen Computer haben.",
+      "items": [
+        {
+          "title": "Video-Face-Swap, gemacht für Bewegung",
+          "body": "Video FaceSwap 2.0 Online folgt einem Gesicht durch Kopfdrehungen, schnelle Bewegungen und wenn Hände oder Haare darüberstreichen. Es verändert nur die Person, die du auswählst, und behält den Originalton."
+        },
+        {
+          "title": "Mehrere Gesichter in einem Foto",
+          "body": "Nano FaceStudio Online tauscht bis zu 6 Gesichter in einem Foto und lässt dich behalten, was vor dem Gesicht liegt, etwa Haare, Hände und Brillen. Nano HeadSwap Pro ersetzt den ganzen Kopf."
+        },
+        {
+          "title": "Keine Installation, keine GPU nötig",
+          "body": "Die Online-Tools laufen in jedem modernen Browser, auch auf dem Smartphone. Die Arbeit erledigen unsere GPUs, und du siehst die Kosten in Credits, bevor du startest."
+        },
+        {
+          "title": "Oder alles auf dem eigenen Computer",
+          "body": "Die Desktop-Apps laufen auf deiner eigenen GPU, deine Fotos und Videos bleiben also auf deiner Festplatte. Drei davon sind kostenlos. Nichts, was wir verkaufen, ist ein Abo."
+        }
+      ]
+    },
+    "demosTeaser": {
+      "ctaSeeAll": "Mehr zum kostenlosen Online-Face-Swap"
+    },
+    "appsCatalog": {
+      "heading": "Alle Desktop-Apps von NanoPocket",
+      "intro": "Jede davon läuft auf deiner eigenen GPU. Die meisten brauchen Windows und eine NVIDIA-Grafikkarte. Die App-Seiten sind auf Englisch.",
+      "items": [
+        {
+          "name": "Nano FaceStudio Pro",
+          "summary": "Unser komplettes Desktop-Studio: Face Swap, Maskenbearbeitung, Mimikbearbeitung, Hochskalierung und Lichtanpassung in einer App.",
+          "href": "/apps/nano-facestudio-pro"
+        },
+        {
+          "name": "Nano FaceSwap",
+          "summary": "Ein kostenloser Desktop-Face-Swap für Fotos und Videos.",
+          "href": "/apps/nano-faceswap"
+        },
+        {
+          "name": "Nano FacialEdit",
+          "summary": "Eine kostenlose Desktop-App, um Mimik und Alter zu bearbeiten und Gesichter zu retuschieren.",
+          "href": "/apps/nano-facialedit"
+        },
+        {
+          "name": "Nano ImageTryon",
+          "summary": "Eine kostenlose Desktop-App, um Kleidung virtuell anzuprobieren.",
+          "href": "/apps/nano-imagetryon"
+        },
+        {
+          "name": "NanoFace Vivid",
+          "summary": "Holt echte Hautdetails in Gesichter zurück, die KI-Tools zu stark geglättet haben.",
+          "href": "/apps/nanoface-vivid"
+        },
+        {
+          "name": "Nano ImageEnh Pro",
+          "summary": "Skaliert Bilder hoch, entrauscht und restauriert sie. Auch für Macs mit Apple Silicon erhältlich.",
+          "href": "/apps/nano-imageenh-pro"
+        },
+        {
+          "name": "Nano VideoEnhance",
+          "summary": "Schärft Videos und skaliert sie hoch, auf deiner eigenen GPU.",
+          "href": "/apps/nano-videoenhance"
+        },
+        {
+          "name": "Nano VideoGen",
+          "summary": "Erstellt Videos aus einem Text-Prompt oder einem Bild.",
+          "href": "/apps/nano-videogen"
+        },
+        {
+          "name": "Nano ImageEdit",
+          "summary": "Bearbeitet Fotos auf deiner eigenen GPU: Teile eines Bildes auffüllen, erweitern und verändern.",
+          "href": "/apps/nano-imageedit"
+        }
+      ]
+    },
+    "pricing": {
+      "heading": "So bezahlst du",
+      "summary": "Online-Tools: kostenlose Credits bei der Anmeldung, danach zahlst du pro Nutzung in Credits. Desktop-Apps: Einige sind kostenlos, die anderen kosten eine einmalige Lizenz. Nichts davon ist ein Abo. Alle Preise und Bedingungen stehen auf der Preisseite (auf Englisch)."
+    },
+    "faq": {
+      "heading": "Häufige Fragen",
+      "free": {
+        "q": "Ist NanoPocket kostenlos?",
+        "a": "Du kannst kostenlos starten. Jedes neue Konto erhält {credits} Credits. Das reicht für {swaps} Face Swaps in Fotos ({faceCredits} Credits pro Stück), {headswaps} Kopftausche mit Nano HeadSwap Pro oder {edits} KI-Bildbearbeitungen. Ergebnisse von Face Swap, Kopftausch und Video tragen ein NanoPocket-Wasserzeichen, bis das Konto einmal Credits gekauft hat. Drei Desktop-Apps sind kostenlos: Nano FaceSwap, Nano FacialEdit und Nano ImageTryon."
+      },
+      "items": [
+        {
+          "q": "Brauche ich einen leistungsstarken Computer?",
+          "a": "Für die Online-Tools nicht: Sie laufen in jedem modernen Browser, auf dem Computer oder Smartphone, und die Arbeit erledigen unsere GPUs. Für die Desktop-Apps schon: Die meisten setzen Windows 10 oder 11 und eine NVIDIA-Grafikkarte voraus. Wie viel Speicher jede App braucht, steht auf der Seite /trust."
+        },
+        {
+          "q": "Verlassen meine Fotos und Videos meinen Computer?",
+          "a": "Bei den Desktop-Apps nicht: Sie bleiben auf deiner Festplatte, und das Modell läuft auf deiner GPU. Bei den Online-Tools werden deine Dateien zur Verarbeitung an unsere GPUs geschickt und nur kurz aufbewahrt, damit du das Ergebnis herunterladen kannst. Sie werden nicht zum Trainieren von Modellen verwendet. Die Details stehen in der Datenschutzerklärung unter /privacy (auf Englisch)."
+        },
+        {
+          "q": "Kann ich jedes beliebige Gesicht tauschen?",
+          "a": "Nur ein Gesicht, das du verwenden darfst: dein eigenes oder das einer Person, die zugestimmt hat. Veröffentliche keine Face Swaps von echten Menschen ohne deren Erlaubnis."
+        },
+        {
+          "q": "Ist NanoPocket dasselbe wie Nano Banana?",
+          "a": "Nein. NanoPocket ist ein unabhängiges Produkt unter nanopocket.ai und hat keine Verbindung zu Nano Banana oder anderen Diensten mit ähnlichem Namen."
+        }
+      ]
+    },
+    "cta": {
+      "heading": "Probier es jetzt aus, direkt im Browser",
+      "subhead": "Erstelle ein kostenloses Konto und mach deinen ersten Swap mit den Gratis-Credits.",
+      "primary": "Zu den Online-Tools",
+      "secondary": "Kostenloses Konto erstellen"
+    },
+    "footnote": {
+      "lastVerifiedLabel": "Zuletzt geprüft",
+      "trustHubLabel": "Preisbedingungen, die Datenschutz-Zusammenfassung und bekannte Einschränkungen findest du hier (auf Englisch):",
+      "verifyHubLabel": "Prüfsummen der Dateien und anderes, das du selbst überprüfen kannst, findest du hier (auf Englisch):"
+    }
   }
 }

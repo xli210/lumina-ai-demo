@@ -1,5 +1,11 @@
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE as CREDITS, HEADSWAP_PRO_MAX_VARIATIONS as MAX, HEADSWAP_PRO_NAME as NAME } from "@/lib/headswap-pro";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
+import { fillCopy } from "@/lib/i18n/page-copy";
+import de from "@/messages/pages/de.json";
+import es from "@/messages/pages/es.json";
+import fr from "@/messages/pages/fr.json";
+import ko from "@/messages/pages/ko.json";
+import ptBR from "@/messages/pages/pt-BR.json";
 
 /** Head swaps the sign-up grant pays for, quoted in the meta descriptions. */
 const FREE_HEADS = Math.floor(SIGNUP_GRANT_CREDITS / CREDITS);
@@ -10,12 +16,14 @@ const FREE_HEADS = Math.floor(SIGNUP_GRANT_CREDITS / CREDITS);
  *
  * Product names (Nano HeadSwap Pro, Nano FaceStudio Online, NanoPocket) are never translated. Prices and limits
  * come from lib/headswap-pro.ts, so a change there reaches every language. The tool itself
- * (/headswap-pro/index.html) is English only, which the translated pages say.
+ * (/headswap-pro/index.html) is translated in the browser by public/i18n/tools.js.
+ *
+ * ko, es, pt-BR, de and fr live in messages/pages/<locale>.json under "headswap", without the price question.
  */
 
-export type HsLocale = "en" | "zh-CN" | "ja";
-export const HS_LOCALES: readonly HsLocale[] = ["en", "zh-CN", "ja"];
-export const HS_TRANSLATED: readonly HsLocale[] = ["zh-CN", "ja"];
+export type HsLocale = "en" | "zh-CN" | "ja" | "ko" | "es" | "pt-BR" | "de" | "fr";
+export const HS_LOCALES: readonly HsLocale[] = ["en", "zh-CN", "ja", "ko", "es", "pt-BR", "de", "fr"];
+export const HS_TRANSLATED: readonly HsLocale[] = ["zh-CN", "ja", "ko", "es", "pt-BR", "de", "fr"];
 
 /** Strings the before/after slider shows. "{title}" is replaced with the example's title. */
 export interface CompareLabels {
@@ -268,7 +276,7 @@ const zhCN: HsCopy = {
   footerAnd: "和",
   footerDesktop: "桌面版软件",
   footerEnd: "。",
-  toolNote: "换头工具的界面目前只有英文。",
+  toolNote: "",
   compare: {
     vsEarlier: "对比之前的换头",
     vsOriginal: "对比原图",
@@ -377,7 +385,7 @@ const ja: HsCopy = {
   footerAnd: "と",
   footerDesktop: "デスクトップアプリ",
   footerEnd: "をご覧ください。",
-  toolNote: "ツールの画面は現在、英語のみです。",
+  toolNote: "",
   compare: {
     vsEarlier: "以前のヘッドスワップと比較",
     vsOriginal: "元の写真と比較",
@@ -413,4 +421,16 @@ const ja: HsCopy = {
   },
 };
 
-export const HS_COPY: Record<HsLocale, HsCopy> = { en, "zh-CN": zhCN, ja };
+const fromFile = (copy: unknown) =>
+  fillCopy(copy as HsCopy, { name: NAME, credits: CREDITS, max: MAX, grant: SIGNUP_GRANT_CREDITS, free: FREE_HEADS });
+
+export const HS_COPY: Record<HsLocale, HsCopy> = {
+  en,
+  "zh-CN": zhCN,
+  ja,
+  ko: fromFile(ko.headswap),
+  es: fromFile(es.headswap),
+  "pt-BR": fromFile(ptBR.headswap),
+  de: fromFile(de.headswap),
+  fr: fromFile(fr.headswap),
+};

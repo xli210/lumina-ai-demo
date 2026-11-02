@@ -178,6 +178,257 @@
       "price": "1回の編集につき {edit} クレジット"
     },
     "watermarkNote": "一度もクレジットを購入していないアカウントでは、顔入れ替え・ヘッドスワップ・動画の結果に NanoPocket の透かしが入ります。一度購入すれば消えます。文章での編集には透かしは入りません。クレジットに有効期限はなく、サブスクリプションもありません。",
-    "englishNote": "各ツールの操作画面は現在、英語のみです。"
+    "englishNote": "動画スタジオの操作画面は現在、英語のみです。各ステップの説明は下のページをご覧ください。"
+  },
+  "Ui": {
+    "nav": {
+      "photoFaceSwap": "写真の顔入れ替え",
+      "photoHeadSwap": "写真のヘッドスワップ",
+      "videoFaceSwap": "動画の顔入れ替え",
+      "aiImageEdit": "AI 画像編集",
+      "new": "新機能",
+      "showcase": "作例",
+      "howItWorks": "使い方",
+      "apps": "アプリ",
+      "faq": "よくある質問",
+      "download": "ダウンロード",
+      "signIn": "ログイン",
+      "getStarted": "始める",
+      "menu": "メニュー",
+      "siteNavigation": "サイトナビゲーション",
+      "account": "アカウント",
+      "credits": "クレジット",
+      "inviteFriends": "友だちを招待",
+      "signOut": "ログアウト"
+    },
+    "footer": {
+      "demo": "デモ",
+      "gallery": "ギャラリー",
+      "howItWorks": "使い方",
+      "features": "機能",
+      "apps": "アプリ",
+      "pricing": "料金",
+      "faq": "よくある質問",
+      "download": "ダウンロード",
+      "blog": "ブログ",
+      "about": "会社概要",
+      "photoFaceSwap": "写真の顔入れ替え",
+      "aiImageEdit": "AI 画像編集",
+      "photoHeadSwap": "写真のヘッドスワップ",
+      "videoFaceSwap": "動画の顔入れ替え",
+      "status": "ステータス",
+      "compare": "比較",
+      "community": "コミュニティ",
+      "privacy": "プライバシー",
+      "terms": "利用規約",
+      "security": "セキュリティ",
+      "contact": "お問い合わせ",
+      "signIn": "ログイン"
+    },
+    "auth": {
+      "continueGoogle": "Google で続行",
+      "continueGitHub": "GitHub で続行",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "backToHome": "ホームに戻る",
+      "loginTitle": "おかえりなさい",
+      "loginSubtitle": "続行するにはアカウントにログインしてください",
+      "orContinueEmail": "またはメールアドレスで続行",
+      "forgotPassword": "パスワードをお忘れですか?",
+      "yourPassword": "パスワード",
+      "signingIn": "ログインしています...",
+      "signIn": "ログイン",
+      "emailLink": "パスワードなしで、ログインリンクをメールで受け取る",
+      "noAccount": "アカウントをお持ちでない方",
+      "signUp": "新規登録",
+      "signupTitle": "アカウントを作成",
+      "signupSubtitle": "AI で素晴らしいコンテンツを作りましょう",
+      "orSignupEmail": "またはメールアドレスで登録",
+      "displayName": "表示名",
+      "yourName": "お名前",
+      "passwordHint": "6文字以上",
+      "creatingAccount": "アカウントを作成しています...",
+      "createAccount": "アカウントを作成",
+      "haveAccount": "すでにアカウントをお持ちの方",
+      "checkEmailTitle": "メールをご確認ください",
+      "checkEmailBody": "ご登録のメールアドレスに確認リンクをお送りしました。リンクをクリックしてアカウントを確認すると、ご利用を開始できます。",
+      "checkEmailSpam": "見つからない場合は、迷惑メールフォルダをご確認ください。リンクを同じブラウザで開くと、使おうとしていたツールに直接移動できます。",
+      "backToSignIn": "ログインに戻る"
+    },
+    "credits": {
+      "title": "クレジット",
+      "subtitle": "一度購入すれば、どのオンライン AI サービスにも使えます。クレジットに有効期限はありません。",
+      "refusedEmailTitle": "一時的なメールアドレスでは、登録時の無料クレジットは受け取れません。",
+      "refusedEmailBody": "受け取るには、Google または普段お使いのメールアドレスで登録してください。このアカウントでも、クレジットの購入とすべてのツールの利用は可能です。",
+      "refusedBrowserTitle": "このブラウザでは、無料クレジットをすでに受け取っています。",
+      "refusedNetworkTitle": "このネットワークでは、無料クレジットをすでに受け取っています。",
+      "refusedBody": "無料クレジットはお一人様1アカウントまでです。初めてのアカウントで、他の方と回線を共有している場合は、いずれかのクレジットパックを購入すると、このアカウントでも無料クレジットを受け取れるようになります。",
+      "freeAppsTitle": "クレジットを使わずに済ませたい方へ",
+      "freeAppsBody": "Nano FaceSwap、Nano FacialEdit、Nano ImageTryon は、ご自身の GPU で動く無料のデスクトップアプリです。写真や動画はお手元のパソコンに残り、サブスクリプションもありません。Windows と NVIDIA のグラフィックスカードが必要です。",
+      "freeAppsLink": "無料アプリを見る",
+      "availableToSpend": "利用可能",
+      "balance": "残高",
+      "reserved": "確保中",
+      "spentToDate": "累計利用",
+      "recommended": "おすすめ",
+      "mostPopular": "一番人気",
+      "extraFree": "{bonus}% 増量",
+      "buyCredits": "クレジットを購入",
+      "creditCount": "{count} クレジット",
+      "packStarter": "オンライン処理を一通り試せます。",
+      "packStandard": "月に数本の短い動画に。",
+      "packPro": "定期的な修復作業に。",
+      "emptyStatement": "まだ履歴はありません。購入や利用の履歴がここに表示されます。",
+      "balanceAfter": "処理後 {count}",
+      "kindPurchase": "購入",
+      "kindBonus": "ボーナス",
+      "kindSignupGrant": "登録特典",
+      "kindPromo": "プロモーション",
+      "kindSpend": "利用",
+      "kindRefund": "返金",
+      "confirming": "お支払いを確認し、クレジットを追加しています…",
+      "added": "クレジットが残高に追加されました",
+      "addCredits": "クレジットを追加",
+      "recentActivity": "最近の履歴",
+      "checkout": "お支払い",
+      "unableToStart": "お支払いを開始できません",
+      "close": "閉じる",
+      "englishTerms": "自動チャージと請求の条件は英語で表示されます。",
+      "packStudio": "クレジット単価が最も安く、継続的に多く使う方向けです。"
+    }
+  },
+  "Home": {
+    "metadata": {
+      "title": "NanoPocket: AI 顔入れ替え、ヘッドスワップ、動画の顔入れ替えをブラウザで無料で始められます",
+      "description": "ブラウザで使える AI 顔入れ替えツールです。登録で {credits} 無料クレジットが付き、写真の顔入れ替えが {swaps} 回できます。写真の顔入れ替え、ヘッドスワップ、動画の顔入れ替え、AI 写真編集を、インストールもサブスクリプションもなしでご利用いただけます。ご自身の GPU で動くデスクトップアプリもあります。",
+      "ogTitle": "NanoPocket: 写真と動画の AI 顔入れ替え",
+      "ogDescription": "登録で {credits} 無料クレジット(写真の顔入れ替え約 {swaps} 回分)が付きます。顔入れ替え、ヘッドスワップ、動画の顔入れ替えをブラウザで。ご自身の GPU で動くデスクトップアプリもあります。"
+    },
+    "hero": {
+      "kicker": "オンラインツール + 必要に応じてデスクトップアプリ",
+      "headline": "写真も動画も、ブラウザで AI 顔入れ替え。",
+      "subhead": "NanoPocket には、写真の顔入れ替え、ヘッドスワップ、動画の顔入れ替え、AI 写真編集の4つのオンラインツールがあります。登録すると無料クレジットが付き、インストールもサブスクリプションも不要です。すべてご自身の GPU で動くデスクトップアプリも揃えています。",
+      "ctaPrimary": "オンラインツールを見る",
+      "ctaSecondary": "デスクトップアプリをすべて見る",
+      "trustChip1": "登録で {credits} 無料クレジット",
+      "trustChip2": "ご自身の GPU で動くデスクトップアプリ",
+      "trustChip3": "サブスクリプションなし"
+    },
+    "whyUs": {
+      "heading": "NanoPocket が選ばれる理由",
+      "intro": "今すぐブラウザで結果がほしい方にも、すべてを自分のパソコンで完結させたい方にも使っていただける製品ラインです。",
+      "items": [
+        {
+          "title": "動きに強い動画の顔入れ替え",
+          "body": "Video FaceSwap 2.0 Online は、頭の向きが変わっても、手や髪が顔を横切っても、動きが速くても顔を追い続けます。入れ替わるのは選んだ人だけで、元の音声はそのまま残ります。"
+        },
+        {
+          "title": "1枚の写真で複数の顔を",
+          "body": "Nano FaceStudio Online は1枚の写真で最大6人の顔を入れ替えられ、髪や手、メガネなど顔の前にあるものを残すこともできます。Nano HeadSwap Pro は頭全体を入れ替えます。"
+        },
+        {
+          "title": "インストールも GPU も不要",
+          "body": "オンラインツールは、スマートフォンを含む最新のブラウザで動きます。処理は当社の GPU で行い、開始前に必要なクレジットを確認できます。"
+        },
+        {
+          "title": "すべて自分のパソコンで完結することも",
+          "body": "デスクトップアプリはご自身の GPU で動くため、写真や動画はお手元のディスクに残ります。3つは無料です。当社の製品にサブスクリプションはありません。"
+        }
+      ]
+    },
+    "demosTeaser": {
+      "ctaSeeAll": "無料のオンライン顔入れ替えについて詳しく見る"
+    },
+    "appsCatalog": {
+      "heading": "NanoPocket のデスクトップアプリ一覧",
+      "intro": "いずれもご自身の GPU で動きます。ほとんどのアプリには Windows と NVIDIA のグラフィックスカードが必要です。各アプリのページは英語です。",
+      "items": [
+        {
+          "name": "Nano FaceStudio Pro",
+          "summary": "当社の総合デスクトップスタジオです。顔入れ替え、マスク編集、表情編集、高解像度化、光の調整を1つのアプリで行えます。",
+          "href": "/apps/nano-facestudio-pro"
+        },
+        {
+          "name": "Nano FaceSwap",
+          "summary": "写真と動画の顔を入れ替える無料のデスクトップアプリです。",
+          "href": "/apps/nano-faceswap"
+        },
+        {
+          "name": "Nano FacialEdit",
+          "summary": "表情や年齢の編集、顔のレタッチができる無料のデスクトップアプリです。",
+          "href": "/apps/nano-facialedit"
+        },
+        {
+          "name": "Nano ImageTryon",
+          "summary": "服のバーチャル試着ができる無料のデスクトップアプリです。",
+          "href": "/apps/nano-imagetryon"
+        },
+        {
+          "name": "NanoFace Vivid",
+          "summary": "AI ツールでなめらかになりすぎた顔に、本物の肌のディテールを取り戻します。",
+          "href": "/apps/nanoface-vivid"
+        },
+        {
+          "name": "Nano ImageEnh Pro",
+          "summary": "画像の高解像度化、ノイズ除去、修復を行います。Apple Silicon の Mac にも対応しています。",
+          "href": "/apps/nano-imageenh-pro"
+        },
+        {
+          "name": "Nano VideoEnhance",
+          "summary": "ご自身の GPU で動画を鮮明にし、高解像度化します。",
+          "href": "/apps/nano-videoenhance"
+        },
+        {
+          "name": "Nano VideoGen",
+          "summary": "テキストや画像から動画を作成します。",
+          "href": "/apps/nano-videogen"
+        },
+        {
+          "name": "Nano ImageEdit",
+          "summary": "ご自身の GPU で写真を編集します。画像の一部を埋める、広げる、変更するといったことができます。",
+          "href": "/apps/nano-imageedit"
+        }
+      ]
+    },
+    "pricing": {
+      "heading": "お支払いについて",
+      "summary": "オンラインツールは、登録で無料クレジットが付き、その後は使った分だけクレジットでお支払いいただきます。デスクトップアプリは、無料のものと買い切りライセンスのものがあります。サブスクリプションはありません。詳しい料金と条件は料金ページ(英語)をご覧ください。"
+    },
+    "faq": {
+      "heading": "よくある質問",
+      "free": {
+        "q": "NanoPocket は無料ですか?",
+        "a": "無料で始められます。新規アカウントには {credits} クレジットが付き、写真の顔入れ替え {swaps} 回(1回 {faceCredits} クレジット)、Nano HeadSwap Pro のヘッドスワップ {headswaps} 回、または AI 写真編集 {edits} 回に使えます。顔入れ替え、ヘッドスワップ、動画の結果には、そのアカウントで一度クレジットを購入するまで NanoPocket の透かしが入ります。Nano FaceSwap、Nano FacialEdit、Nano ImageTryon の3つのデスクトップアプリは無料です。"
+      },
+      "items": [
+        {
+          "q": "高性能なパソコンは必要ですか?",
+          "a": "オンラインツールには必要ありません。パソコンでもスマートフォンでも最新のブラウザで動き、処理は当社の GPU で行います。デスクトップアプリには必要です。ほとんどのアプリに Windows 10 または 11 と NVIDIA のグラフィックスカードが必要です。各アプリに必要なメモリは /trust ページに記載しています。"
+        },
+        {
+          "q": "写真や動画はパソコンの外に送られますか?",
+          "a": "デスクトップアプリでは送られません。ファイルはお手元のディスクに残り、モデルはご自身の GPU で動きます。オンラインツールでは、ファイルは処理のため当社の GPU に送られ、結果をダウンロードできるよう短期間だけ保存されます。モデルの学習には使用しません。詳しくはプライバシーポリシー /privacy(英語)をご覧ください。"
+        },
+        {
+          "q": "どんな顔でも入れ替えられますか?",
+          "a": "使用する権利のある顔に限ります。ご自身の顔、または同意を得た方の顔です。実在の人物の入れ替え画像を、本人の許可なく公開しないでください。"
+        },
+        {
+          "q": "NanoPocket は Nano Banana と同じものですか?",
+          "a": "いいえ。NanoPocket は nanopocket.ai で提供している独立した製品で、Nano Banana や名前の似た他のサービスとは関係ありません。"
+        }
+      ]
+    },
+    "cta": {
+      "heading": "今すぐブラウザで試せます",
+      "subhead": "無料アカウントを作成し、無料クレジットで最初の入れ替えをお試しください。",
+      "primary": "オンラインツールを見る",
+      "secondary": "無料アカウントを作成"
+    },
+    "footnote": {
+      "lastVerifiedLabel": "最終確認日",
+      "trustHubLabel": "料金条件、プライバシーの概要、既知の制限はこちら(英語):",
+      "verifyHubLabel": "ファイルのチェックサムなど、ご自身で確認できる情報はこちら(英語):"
+    }
   }
 }

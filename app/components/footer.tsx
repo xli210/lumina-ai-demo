@@ -1,74 +1,77 @@
+"use client";
+
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { translatedOrEnglish, type AppLocale } from "@/lib/i18n/locales";
 import { Wordmark } from "./wordmark";
 
 export function Footer() {
+  const t = useTranslations("Ui.footer");
+  const locale = useLocale() as AppLocale;
+  const isEnglish = locale === "en";
+
   return (
     <footer className="border-t border-border px-6 py-12">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 md:flex-row md:justify-between">
-        <Link href="/" className="flex items-center">
+        <Link href={translatedOrEnglish("/", locale)} className="flex items-center">
           <Wordmark className="h-4 w-auto text-foreground sm:h-5" />
         </Link>
 
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-          <Link
-            href="/#demo"
-            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
-          >
-            Demo
-          </Link>
-          <Link
-            href="/#showcase"
-            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
-          >
-            Gallery
-          </Link>
-          <Link
-            href="/#how-it-works"
-            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
-          >
-            How It Works
-          </Link>
-          <Link
-            href="/#features"
-            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
-          >
-            Features
-          </Link>
+          {isEnglish && (
+            <Link href="/#demo" className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm">
+              {t("demo")}
+            </Link>
+          )}
+          {isEnglish && (
+            <Link href="/#showcase" className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm">
+              {t("gallery")}
+            </Link>
+          )}
+          {isEnglish && (
+            <Link href="/#how-it-works" className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm">
+              {t("howItWorks")}
+            </Link>
+          )}
+          {isEnglish && (
+            <Link href="/#features" className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm">
+              {t("features")}
+            </Link>
+          )}
           <Link
             href="/apps"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Apps
+            {t("apps")}
           </Link>
           <Link
             href="/pricing"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Pricing
+            {t("pricing")}
           </Link>
-          <Link
-            href="/#faq"
-            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
-          >
-            FAQ
-          </Link>
+          {isEnglish && (
+            <Link href="/#faq" className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm">
+              {t("faq")}
+            </Link>
+          )}
           <Link
             href="/download"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Download
+            {t("download")}
           </Link>
           <Link
             href="/blog"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Blog
+            {t("blog")}
           </Link>
           <Link
             href="/about"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            About
+            {t("about")}
           </Link>
           <Link
             href="/apps/nanoface-vivid"
@@ -77,34 +80,34 @@ export function Footer() {
             Vivid
           </Link>
           <Link
-            href="/face-swap"
+            href={translatedOrEnglish("/face-swap", locale)}
             className="text-xs font-semibold text-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Photo Face Swap
+            {t("photoFaceSwap")}
           </Link>
           <Link
-            href="/image-edit"
+            href={translatedOrEnglish("/image-edit", locale)}
             className="text-xs font-semibold text-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            AI Image Edit
+            {t("aiImageEdit")}
           </Link>
           <Link
-            href="/headswap-pro"
+            href={translatedOrEnglish("/headswap-pro", locale)}
             className="text-xs font-semibold text-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Photo Head Swap
+            {t("photoHeadSwap")}
           </Link>
           <Link
-            href="/facestudio-v"
+            href={translatedOrEnglish("/facestudio-v", locale)}
             className="text-xs font-semibold text-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Video Face Swap
+            {t("videoFaceSwap")}
           </Link>
           <Link
             href="/status"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Status
+            {t("status")}
           </Link>
           <Link
             href="/best-face-swap-app-2026"
@@ -116,7 +119,7 @@ export function Footer() {
             href="/compare"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Compare
+            {t("compare")}
           </Link>
           <Link
             href="/trust"
@@ -134,31 +137,31 @@ export function Footer() {
             href="/community"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Community
+            {t("community")}
           </Link>
           <Link
             href="/privacy"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Privacy
+            {t("privacy")}
           </Link>
           <Link
             href="/terms"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Terms
+            {t("terms")}
           </Link>
           <Link
             href="/security"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Security
+            {t("security")}
           </Link>
           <Link
             href="/contact"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Contact
+            {t("contact")}
           </Link>
           <a
             href="https://discord.gg/bNfPjfUDAn"
@@ -172,7 +175,7 @@ export function Footer() {
             href="/auth/login"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
-            Sign In
+            {t("signIn")}
           </Link>
         </div>
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, Check } from "lucide-react";
 
@@ -54,7 +55,7 @@ export const metadata: Metadata = {
     "AI photo editor no subscription",
     "Nano ImageEdit",
   ],
-  alternates: { canonical: "/image-edit" },
+  alternates: { canonical: "/image-edit", languages: hreflangAlternates("https://nanopocket.ai", "/image-edit", TRANSLATED_PAGES["/image-edit"]) },
   openGraph: {
     type: "website",
     url: IMAGE_EDIT_URL,

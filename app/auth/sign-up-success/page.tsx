@@ -1,9 +1,12 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Wordmark } from "@/app/components/wordmark";
 
-export default function SignUpSuccessPage() {
+export default async function SignUpSuccessPage() {
+  const t = await getTranslations("Ui.auth");
+
   return (
     <div className="flex min-h-screen items-center justify-center px-6 py-12">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -23,22 +26,19 @@ export default function SignUpSuccessPage() {
           </div>
 
           <h1 className="mb-2 text-2xl font-bold text-foreground">
-            Check Your Email
+            {t("checkEmailTitle")}
           </h1>
           <p className="mb-8 text-muted-foreground">
-            {
-              "We've sent a confirmation link to your email address. Click the link to verify your account and get started."
-            }
+            {t("checkEmailBody")}
           </p>
 
           <p className="mb-8 text-sm text-muted-foreground">
-            Can&apos;t find it? Check your spam folder. Open the link in this same browser so it can
-            take you straight to the tool you were after.
+            {t("checkEmailSpam")}
           </p>
 
           <Link href="/auth/login">
             <Button variant="outline" className="rounded-xl bg-transparent">
-              Back to Sign In
+              {t("backToSignIn")}
             </Button>
           </Link>
         </div>

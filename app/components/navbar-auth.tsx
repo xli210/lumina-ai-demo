@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -73,6 +74,7 @@ export function NavbarAuth() {
   }, []);
 
   const user = state?.user ?? null;
+  const t = useTranslations("Ui.nav");
 
   return (
     <div className="flex items-center gap-2 sm:gap-3">
@@ -91,12 +93,12 @@ export function NavbarAuth() {
               size="sm"
               className="text-xs text-neutral-500 hover:text-black sm:text-sm"
             >
-              Sign In
+              {t("signIn")}
             </Button>
           </Link>
           <Link href="/auth/sign-up">
             <Button size="sm" className="text-xs bg-black text-white hover:bg-neutral-800 sm:text-sm">
-              Get Started
+              {t("getStarted")}
             </Button>
           </Link>
         </>

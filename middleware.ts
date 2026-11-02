@@ -1,5 +1,5 @@
 import { updateSession } from '@/lib/supabase/middleware'
-import { LOCALES, DEFAULT_LOCALE } from '@/lib/i18n/locales'
+import { LOCALES, DEFAULT_LOCALE, LOCALE_COOKIE, negotiateLocale, usesLocaleCookie } from '@/lib/i18n/locales'
 import { NextResponse, type NextRequest } from 'next/server'
 import { facestudioVIsOpen } from '@/lib/facestudio-v'
 import {
@@ -43,7 +43,7 @@ function indexNowResponse(pathname: string): NextResponse | null {
 const CACHEABLE_EXACT = new Set([
   '/', '/about', '/pricing', '/blog', '/face-swap', '/image-edit', '/compare', '/trust',
   '/security', '/privacy', '/terms', '/best-face-swap-app-2026', '/docs',
-  '/release-notes', '/apps', '/status',
+  '/release-notes', '/apps', '/status', '/es', '/pt-BR', '/de', '/fr',
 ])
 const CACHEABLE_PREFIXES = [
   '/blog/', '/compare/', '/apps/', '/release-notes/', '/docs/', '/face-swap/',
@@ -84,7 +84,10 @@ export async function middleware(request: NextRequest) {
   // and a single custom header is the simplest reliable way to get the
   // locale to the root layout (for <html lang>) and to next-intl's request
   // config (for getTranslations / getLocale).
-  const locale = detectLocaleFromPath(request.nextUrl.pathname)
+  // Sign-in and credits have one address for everyone and are never cached, so they follow the visitor's language.
+  const locale = usesLocaleCookie(request.nextUrl.pathname)
+    ? negotiateLocale(request.cookies.get(LOCALE_COOKIE)?.value, request.headers.get('accept-language'))
+    : detectLocaleFromPath(request.nextUrl.pathname)
 
   const requestHeaders = new Headers(request.headers)
   requestHeaders.set(LOCALE_HEADER, locale)

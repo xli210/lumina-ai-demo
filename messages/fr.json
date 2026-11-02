@@ -171,7 +171,7 @@
       "price": "{edit} crédits par retouche"
     },
     "watermarkNote": "Les comptes qui n'ont jamais acheté de crédits reçoivent les résultats visage, tête et vidéo avec le filigrane NanoPocket ; un seul achat de crédits le supprime. La retouche par texte n'a pas de filigrane. Les crédits n'expirent pas et il n'y a pas d'abonnement.",
-    "englishNote": "Pour l'instant, l'interface des outils est en anglais."
+    "englishNote": "Les écrans du studio vidéo sont pour l'instant en anglais ; la page ci-dessous explique chaque étape."
   },
   "Common": {
     "languageSwitcher": {
@@ -179,5 +179,256 @@
       "switchTo": "Passer en {language}"
     },
     "footerTagline": "Suite créative IA : modèles GAN et de diffusion, en ligne ou sur votre propre GPU. Sans abonnement."
+  },
+  "Ui": {
+    "nav": {
+      "photoFaceSwap": "Face swap photo",
+      "photoHeadSwap": "Échange de tête photo",
+      "videoFaceSwap": "Face swap vidéo",
+      "aiImageEdit": "Retouche photo IA",
+      "new": "Nouveau",
+      "showcase": "Exemples",
+      "howItWorks": "Comment ça marche",
+      "apps": "Applications",
+      "faq": "FAQ",
+      "download": "Télécharger",
+      "signIn": "Se connecter",
+      "getStarted": "Commencer",
+      "menu": "Menu",
+      "siteNavigation": "Navigation du site",
+      "account": "Compte",
+      "credits": "Crédits",
+      "inviteFriends": "Inviter des amis",
+      "signOut": "Se déconnecter"
+    },
+    "footer": {
+      "demo": "Démo",
+      "gallery": "Galerie",
+      "howItWorks": "Comment ça marche",
+      "features": "Fonctionnalités",
+      "apps": "Applications",
+      "pricing": "Tarifs",
+      "faq": "FAQ",
+      "download": "Télécharger",
+      "blog": "Blog",
+      "about": "À propos",
+      "photoFaceSwap": "Face swap photo",
+      "aiImageEdit": "Retouche photo IA",
+      "photoHeadSwap": "Échange de tête photo",
+      "videoFaceSwap": "Face swap vidéo",
+      "status": "État du service",
+      "compare": "Comparer",
+      "community": "Communauté",
+      "privacy": "Confidentialité",
+      "terms": "Conditions",
+      "security": "Sécurité",
+      "contact": "Contact",
+      "signIn": "Se connecter"
+    },
+    "auth": {
+      "continueGoogle": "Continuer avec Google",
+      "continueGitHub": "Continuer avec GitHub",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "backToHome": "Retour à l'accueil",
+      "loginTitle": "Bon retour parmi nous",
+      "loginSubtitle": "Connectez-vous à votre compte pour continuer",
+      "orContinueEmail": "Ou continuez avec votre e-mail",
+      "forgotPassword": "Mot de passe oublié ?",
+      "yourPassword": "Votre mot de passe",
+      "signingIn": "Connexion...",
+      "signIn": "Se connecter",
+      "emailLink": "Ou recevez un lien de connexion par e-mail, sans mot de passe",
+      "noAccount": "Vous n'avez pas de compte ?",
+      "signUp": "S'inscrire",
+      "signupTitle": "Créez votre compte",
+      "signupSubtitle": "Commencez à créer des contenus étonnants avec l'IA",
+      "orSignupEmail": "Ou inscrivez-vous avec votre e-mail",
+      "displayName": "Nom affiché",
+      "yourName": "Votre nom",
+      "passwordHint": "Au moins 6 caractères",
+      "creatingAccount": "Création du compte...",
+      "createAccount": "Créer un compte",
+      "haveAccount": "Vous avez déjà un compte ?",
+      "checkEmailTitle": "Consultez vos e-mails",
+      "checkEmailBody": "Nous avons envoyé un lien de confirmation à votre adresse e-mail. Cliquez dessus pour valider votre compte et commencer.",
+      "checkEmailSpam": "Vous ne le trouvez pas ? Regardez dans vos spams. Ouvrez le lien dans ce même navigateur pour accéder directement à l'outil que vous cherchiez.",
+      "backToSignIn": "Retour à la connexion"
+    },
+    "credits": {
+      "title": "Crédits",
+      "subtitle": "Rechargez une fois, dépensez sur n'importe quel service IA en ligne. Les crédits n'expirent jamais.",
+      "refusedEmailTitle": "Les crédits gratuits à l'inscription ne sont pas disponibles pour les adresses e-mail temporaires.",
+      "refusedEmailBody": "Inscrivez-vous avec Google ou une adresse e-mail permanente pour les obtenir. Ce compte peut quand même acheter des crédits et utiliser tous les outils.",
+      "refusedBrowserTitle": "Les crédits gratuits ont déjà été demandés depuis ce navigateur.",
+      "refusedNetworkTitle": "Les crédits gratuits ont déjà été demandés depuis ce réseau.",
+      "refusedBody": "Les crédits gratuits sont limités à un compte par personne. S'il s'agit de votre premier compte et que vous partagez une connexion avec quelqu'un d'autre, l'achat de n'importe quel pack de crédits débloque aussi les crédits gratuits sur votre compte.",
+      "freeAppsTitle": "Vous préférez ne dépenser aucun crédit ?",
+      "freeAppsBody": "Nano FaceSwap, Nano FacialEdit et Nano ImageTryon sont des applications de bureau gratuites qui tournent sur votre propre GPU : vos photos et vidéos restent sur votre ordinateur, et il n'y a aucun abonnement. Elles nécessitent Windows et une carte graphique NVIDIA.",
+      "freeAppsLink": "Voir les applications gratuites",
+      "availableToSpend": "Disponible",
+      "balance": "Solde",
+      "reserved": "Réservé",
+      "spentToDate": "Dépensé à ce jour",
+      "recommended": "Recommandé pour vous",
+      "mostPopular": "Le plus populaire",
+      "extraFree": "{bonus} % offerts",
+      "buyCredits": "Acheter des crédits",
+      "creditCount": "{count} crédits",
+      "packStarter": "Essayez un rendu en ligne de A à Z.",
+      "packStandard": "Quelques clips courts par mois.",
+      "packPro": "Des travaux de restauration réguliers.",
+      "emptyStatement": "Rien pour l'instant. Vos recharges et votre utilisation apparaîtront ici au fur et à mesure.",
+      "balanceAfter": "{count} après",
+      "kindPurchase": "Recharge",
+      "kindBonus": "Crédits bonus",
+      "kindSignupGrant": "Crédits de bienvenue",
+      "kindPromo": "Crédits promo",
+      "kindSpend": "Utilisation",
+      "kindRefund": "Remboursement",
+      "confirming": "Confirmation de votre paiement et ajout des crédits…",
+      "added": "Crédits ajoutés à votre solde",
+      "addCredits": "Ajouter des crédits",
+      "recentActivity": "Activité récente",
+      "checkout": "Paiement",
+      "unableToStart": "Impossible de lancer le paiement",
+      "close": "Fermer",
+      "englishTerms": "Les conditions de recharge automatique et de facturation sont affichées en anglais.",
+      "packStudio": "Le meilleur prix par crédit, pour un usage soutenu."
+    }
+  },
+  "Home": {
+    "metadata": {
+      "title": "NanoPocket : face swap IA, échange de tête et face swap vidéo, gratuit pour commencer dans votre navigateur",
+      "description": "Face swap IA dans votre navigateur : {credits} crédits gratuits à l'inscription, soit {swaps} face swaps photo. Face swap photo, échange de tête entière, face swap vidéo et retouche photo par IA, sans installation ni abonnement, ainsi que des applications de bureau qui tournent sur votre propre GPU.",
+      "ogTitle": "NanoPocket : face swap IA pour vos photos et vidéos",
+      "ogDescription": "{credits} crédits gratuits à l'inscription (environ {swaps} face swaps photo). Face swap, échange de tête et face swap vidéo dans votre navigateur, ainsi que des applications de bureau qui tournent sur votre propre GPU."
+    },
+    "hero": {
+      "kicker": "Outils en ligne + applications de bureau en option",
+      "headline": "Le face swap IA pour vos photos et vidéos, dans votre navigateur.",
+      "subhead": "NanoPocket propose quatre outils en ligne : face swap photo, échange de tête entière, face swap vidéo et retouche photo par IA. Inscrivez-vous pour recevoir des crédits gratuits, sans rien installer et sans abonnement. Il existe aussi une gamme d'applications de bureau qui tournent entièrement sur votre propre GPU.",
+      "ctaPrimary": "Voir les outils en ligne",
+      "ctaSecondary": "Voir toutes les applications de bureau",
+      "trustChip1": "{credits} crédits gratuits à l'inscription",
+      "trustChip2": "Applications de bureau pour votre propre GPU",
+      "trustChip3": "Sans abonnement"
+    },
+    "whyUs": {
+      "heading": "Pourquoi NanoPocket",
+      "intro": "Une seule gamme pour deux types d'utilisateurs : ceux qui veulent un résultat tout de suite dans le navigateur, et ceux qui veulent tout garder sur leur ordinateur.",
+      "items": [
+        {
+          "title": "Un face swap vidéo pensé pour le mouvement",
+          "body": "Video FaceSwap 2.0 Online suit un visage malgré les rotations de la tête, les mains et les cheveux qui passent devant, et les mouvements rapides. Il ne change que la personne que vous choisissez et conserve le son d'origine."
+        },
+        {
+          "title": "Plusieurs visages sur une même photo",
+          "body": "Nano FaceStudio Online échange jusqu'à 6 visages sur une photo et vous permet de conserver ce qui passe devant le visage : cheveux, mains, lunettes. Nano HeadSwap Pro remplace la tête entière."
+        },
+        {
+          "title": "Rien à installer, aucun GPU nécessaire",
+          "body": "Les outils en ligne fonctionnent dans tout navigateur récent, y compris sur téléphone. Le traitement se fait sur nos GPU, et vous voyez le coût en crédits avant de commencer."
+        },
+        {
+          "title": "Ou gardez tout sur votre ordinateur",
+          "body": "Les applications de bureau tournent sur votre propre GPU : vos photos et vidéos restent sur votre disque. Trois d'entre elles sont gratuites. Rien de ce que nous vendons n'est un abonnement."
+        }
+      ]
+    },
+    "demosTeaser": {
+      "ctaSeeAll": "En savoir plus sur le face swap gratuit en ligne"
+    },
+    "appsCatalog": {
+      "heading": "Toutes les applications de bureau NanoPocket",
+      "intro": "Chacune tourne sur votre propre GPU. La plupart nécessitent Windows et une carte graphique NVIDIA. Les pages des applications sont en anglais.",
+      "items": [
+        {
+          "name": "Nano FaceStudio Pro",
+          "summary": "Notre studio de bureau complet : face swap, édition de masque, édition des expressions, agrandissement et réglage de la lumière dans une seule application.",
+          "href": "/apps/nano-facestudio-pro"
+        },
+        {
+          "name": "Nano FaceSwap",
+          "summary": "Un face swap de bureau gratuit pour les photos et les vidéos.",
+          "href": "/apps/nano-faceswap"
+        },
+        {
+          "name": "Nano FacialEdit",
+          "summary": "Une application de bureau gratuite pour modifier les expressions et l'âge, et retoucher les visages.",
+          "href": "/apps/nano-facialedit"
+        },
+        {
+          "name": "Nano ImageTryon",
+          "summary": "Une application de bureau gratuite pour essayer virtuellement des vêtements.",
+          "href": "/apps/nano-imagetryon"
+        },
+        {
+          "name": "NanoFace Vivid",
+          "summary": "Redonne un vrai grain de peau aux visages trop lissés par les outils d'IA.",
+          "href": "/apps/nanoface-vivid"
+        },
+        {
+          "name": "Nano ImageEnh Pro",
+          "summary": "Agrandit, débruite et restaure les images. Également disponible pour les Mac Apple Silicon.",
+          "href": "/apps/nano-imageenh-pro"
+        },
+        {
+          "name": "Nano VideoEnhance",
+          "summary": "Rend vos vidéos plus nettes et les agrandit sur votre propre GPU.",
+          "href": "/apps/nano-videoenhance"
+        },
+        {
+          "name": "Nano VideoGen",
+          "summary": "Crée une vidéo à partir d'un texte ou d'une image.",
+          "href": "/apps/nano-videogen"
+        },
+        {
+          "name": "Nano ImageEdit",
+          "summary": "Retouche vos photos sur votre propre GPU : remplir, étendre ou modifier des parties d'une image.",
+          "href": "/apps/nano-imageedit"
+        }
+      ]
+    },
+    "pricing": {
+      "heading": "Comment vous payez",
+      "summary": "Outils en ligne : crédits gratuits à l'inscription, puis paiement à l'usage en crédits. Applications de bureau : certaines sont gratuites, les autres s'achètent avec une licence en paiement unique. Rien n'est un abonnement. Tous les prix et conditions se trouvent sur la page Tarifs (en anglais)."
+    },
+    "faq": {
+      "heading": "Questions fréquentes",
+      "free": {
+        "q": "NanoPocket est-il gratuit ?",
+        "a": "Vous pouvez commencer gratuitement. Chaque nouveau compte reçoit {credits} crédits, soit {swaps} face swaps photo ({faceCredits} crédits chacun), {headswaps} échanges de tête avec Nano HeadSwap Pro ou {edits} retouches photo par IA. Les résultats du face swap, de l'échange de tête et de la vidéo portent un filigrane NanoPocket tant que le compte n'a pas acheté de crédits une première fois. Trois applications de bureau sont gratuites : Nano FaceSwap, Nano FacialEdit et Nano ImageTryon."
+      },
+      "items": [
+        {
+          "q": "Ai-je besoin d'un ordinateur puissant ?",
+          "a": "Pas pour les outils en ligne : ils fonctionnent dans tout navigateur récent, sur ordinateur comme sur téléphone, et le traitement se fait sur nos GPU. Les applications de bureau, elles, en ont besoin : la plupart nécessitent Windows 10 ou 11 et une carte graphique NVIDIA. La mémoire requise pour chaque application est indiquée sur la page /trust."
+        },
+        {
+          "q": "Mes photos et vidéos quittent-elles mon ordinateur ?",
+          "a": "Avec les applications de bureau, non : elles restent sur votre disque et le modèle tourne sur votre GPU. Avec les outils en ligne, vos fichiers sont envoyés à nos GPU pour être traités et ne sont conservés que peu de temps, le temps de télécharger le résultat. Ils ne servent pas à entraîner des modèles. Tous les détails figurent dans la politique de confidentialité sur /privacy (en anglais)."
+        },
+        {
+          "q": "Puis-je échanger n'importe quel visage ?",
+          "a": "Uniquement un visage que vous avez le droit d'utiliser : le vôtre, ou celui d'une personne qui a donné son accord. Ne publiez pas d'échanges de visage de personnes réelles sans leur autorisation."
+        },
+        {
+          "q": "NanoPocket, est-ce la même chose que Nano Banana ?",
+          "a": "Non. NanoPocket est un produit indépendant, disponible sur nanopocket.ai, sans aucun lien avec Nano Banana ni avec d'autres services au nom similaire."
+        }
+      ]
+    },
+    "cta": {
+      "heading": "Essayez maintenant, dans votre navigateur",
+      "subhead": "Créez un compte gratuit et réalisez votre premier échange avec les crédits gratuits.",
+      "primary": "Voir les outils en ligne",
+      "secondary": "Créer un compte gratuit"
+    },
+    "footnote": {
+      "lastVerifiedLabel": "Dernière vérification le",
+      "trustHubLabel": "Les conditions tarifaires, le résumé de confidentialité et les limites connues se trouvent (en anglais) sur",
+      "verifyHubLabel": "Les sommes de contrôle des fichiers et d'autres éléments que vous pouvez vérifier vous-même se trouvent (en anglais) sur"
+    }
   }
 }

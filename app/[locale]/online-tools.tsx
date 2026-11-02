@@ -34,10 +34,10 @@ const accents = {
 export async function OnlineToolCards({ locale }: { locale: AppLocale }) {
   const t = await getTranslations({ locale, namespace: "OnlineTools" });
   const tools: { key: ToolKey; name: string; href: string; Icon: React.ComponentType<{ className?: string }> }[] = [
-    { key: "faceStudio", name: FACE_STUDIO_NAME, href: "/face-studio", Icon: ImageIcon },
+    { key: "faceStudio", name: FACE_STUDIO_NAME, href: translatedOrEnglish("/face-studio", locale), Icon: ImageIcon },
     { key: "headSwap", name: HEADSWAP_PRO_NAME, href: translatedOrEnglish("/headswap-pro", locale), Icon: UserRoundCog },
     { key: "video", name: FACESTUDIO_V_NAME, href: translatedOrEnglish(FACESTUDIO_V_PAGE, locale), Icon: Clapperboard },
-    { key: "imageEdit", name: IMAGEEDIT_NAME, href: "/image-edit", Icon: Wand2 },
+    { key: "imageEdit", name: IMAGEEDIT_NAME, href: translatedOrEnglish("/image-edit", locale), Icon: Wand2 },
   ];
 
   return (

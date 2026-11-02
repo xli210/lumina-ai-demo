@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check, ChevronDown, ScanFace } from "lucide-react";
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
     "face swap no subscription",
     "ai face swap online",
   ],
-  alternates: { canonical: "/face-studio" },
+  alternates: { canonical: "/face-studio", languages: hreflangAlternates("https://nanopocket.ai", "/face-studio", TRANSLATED_PAGES["/face-studio"]) },
   openGraph: {
     type: "website",
     url: PAGE_URL,

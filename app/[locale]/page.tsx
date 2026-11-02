@@ -17,6 +17,7 @@ import { OnlineToolCards } from "./online-tools";
 import {
   hreflangAlternates,
   isAppLocale,
+  TRANSLATED_PAGES,
   type AppLocale,
 } from "@/lib/i18n/locales";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
@@ -26,14 +27,10 @@ import { IMAGEEDIT_CREDITS_PER_EDIT } from "@/lib/imageedit";
 
 const BASE_URL = "https://nanopocket.ai";
 const PATH = "/";
-const LAST_VERIFIED = "2026-10-28";
+const LAST_VERIFIED = "2026-11-01";
 
-/**
- * Locales that currently have a translated Home namespace. Add a locale
- * here only after messages/<locale>.json gains a Home namespace AND the
- * translation has been reviewed.
- */
-const HOME_TRANSLATED_LOCALES: AppLocale[] = ["zh-CN"];
+/** Locales with a Home namespace in messages/<locale>.json. */
+const HOME_TRANSLATED_LOCALES = TRANSLATED_PAGES["/"];
 
 /** Values for the {credits}/{swaps}/... placeholders, so the free offer is quoted from billing's constants. */
 const FREE = {
@@ -290,7 +287,10 @@ export default async function LocalizedHomePage({ params }: PageProps) {
             {t("pricing.heading")}
           </h2>
           <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-            {t("pricing.summary")}
+            {t("pricing.summary")}{" "}
+            <Link href="/pricing" hrefLang="en" className="text-foreground underline-offset-4 hover:underline">
+              /pricing
+            </Link>
           </p>
         </div>
       </section>

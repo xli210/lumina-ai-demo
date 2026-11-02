@@ -1,9 +1,14 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { useLocale } from "next-intl";
 import { Globe } from "lucide-react";
-import { LOCALES, LOCALE_LABELS, localeSwitchHref, type AppLocale } from "@/lib/i18n/locales";
+import { LOCALES, LOCALE_COOKIE, LOCALE_LABELS, localeSwitchHref, usesLocaleCookie, type AppLocale } from "@/lib/i18n/locales";
+
+function rememberLocale(locale: string) {
+  document.cookie = `${LOCALE_COOKIE}=${encodeURIComponent(locale)}; path=/; max-age=31536000; samesite=lax`;
+}
 
 /**
  * Inline locale switcher. Reads the current pathname, strips any leading
@@ -38,10 +43,30 @@ export function LocaleSwitcher({
     return pathname;
   }, [pathname]);
 
-  const currentLocale: AppLocale = useMemo(() => {
+  // Sign-in and credits keep one address in every language: choosing a language there reloads the same page in it.
+  const sameAddress = usesLocaleCookie(pathWithoutLocale);
+  const activeLocale = useLocale() as AppLocale;
+
+  const prefix = useMemo(() => {
     const first = pathname.split("/").filter(Boolean)[0];
-    return ((LOCALES as readonly string[]).includes(first) ? first : "en") as AppLocale;
+    return (LOCALES as readonly string[]).includes(first) ? (first as AppLocale) : null;
   }, [pathname]);
+  const currentLocale: AppLocale = sameAddress ? activeLocale : prefix ?? "en";
+
+  // Browsing a translated page carries its language on to sign-in, credits and the tools. Set here, not in middleware,
+  // because a cached page must not send a cookie.
+  useEffect(() => {
+    if (prefix) rememberLocale(prefix);
+  }, [prefix]);
+
+  const hrefFor = (loc: AppLocale) => (sameAddress ? pathWithoutLocale : localeSwitchHref(loc, pathWithoutLocale, currentLocale));
+  const choose = (loc: AppLocale) => (e: React.MouseEvent) => {
+    rememberLocale(loc);
+    if (sameAddress) {
+      e.preventDefault();
+      window.location.reload();
+    }
+  };
 
   const linkClass = (isCurrent: boolean) =>
     isCurrent ? "font-semibold text-black" : "text-neutral-500 transition-colors hover:text-black";
@@ -56,8 +81,9 @@ export function LocaleSwitcher({
             return (
               <a
                 key={loc}
-                href={localeSwitchHref(loc, pathWithoutLocale, currentLocale)}
+                href={hrefFor(loc)}
                 hrefLang={loc}
+                onClick={choose(loc)}
                 aria-current={isCurrent ? "true" : undefined}
                 className={linkClass(isCurrent)}
               >
@@ -74,13 +100,14 @@ export function LocaleSwitcher({
     <div className={`flex flex-wrap items-center gap-1 text-xs ${className}`}>
       <Globe className="h-3.5 w-3.5 text-neutral-400" aria-hidden="true" />
       {LOCALES.map((loc, i) => {
-        const href = localeSwitchHref(loc, pathWithoutLocale, currentLocale);
+        const href = hrefFor(loc);
         const isCurrent = loc === currentLocale;
         return (
           <span key={loc} className="flex items-center gap-1">
             <a
               href={href}
               hrefLang={loc}
+              onClick={choose(loc)}
               aria-current={isCurrent ? "true" : undefined}
               className={linkClass(isCurrent)}
             >
