@@ -37,7 +37,8 @@ export const maxDuration = 60;
  * so without a cap a single account could take the whole pool — and a
  * double-clicked button would pay twice for the same picture.
  */
-const MAX_CONCURRENT_RENDERS = 2;
+const MAX_CONCURRENT_RENDERS_FREE = 1;
+const MAX_CONCURRENT_RENDERS_PAID = 3;
 
 interface GenerateRequest {
   detectionId: string;
@@ -189,13 +190,21 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    // An account that has never bought credits runs one render at a time, one that has runs three: a few free accounts cannot hold the line.
+    let isPaid = false;
+    try {
+      isPaid = await hasEverPurchased(userId);
+    } catch (err: unknown) {
+      console.error("[facestudio] purchase lookup for the cap failed:", err instanceof Error ? err.message : err);
+    }
     const inFlight = await countOpenHolds(FACESTUDIO_SERVICE, userId);
-    if (inFlight >= MAX_CONCURRENT_RENDERS) {
+    if (inFlight >= (isPaid ? MAX_CONCURRENT_RENDERS_PAID : MAX_CONCURRENT_RENDERS_FREE)) {
       return privateJson(
         {
           detail:
-            `You already have ${inFlight} renders running. Wait for one to ` +
-            `finish before starting another.`,
+            `You already have ${inFlight} render${inFlight === 1 ? "" : "s"} running. Wait for ${inFlight === 1 ? "it" : "one"} to ` +
+            `finish before starting another.` +
+            (isPaid ? "" : " Add credits once to run up to 3 at a time."),
           reason: "too_many_concurrent_jobs",
         },
         429

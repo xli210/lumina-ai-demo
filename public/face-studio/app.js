@@ -1072,10 +1072,70 @@
       // The reservation is already deducted from what is spendable, so show
       // it immediately rather than waiting for the render to settle.
       setCredits(data.available);
+      rememberJob(data.job_id);
       pollStatus(data.job_id);
     } catch (err) {
       setProcessing(false);
       showActionError(err);
+    }
+  }
+
+  // A render outlives the tab: its job id is kept in this browser for a day (and is in the link of "My images"), so a person who closed the page, or whose
+  // GPU took a while to start, finds the picture again. Nothing here charges: /status settles the reservation, as it always did.
+  const LAST_JOB_KEY = "nanopocket_facestudio_last_job";
+  const JOB_ID_RE = /^[A-Za-z0-9-]{8,80}$/;
+  function rememberJob(jobId) {
+    try { localStorage.setItem(LAST_JOB_KEY, JSON.stringify({ job: jobId, at: Date.now() })); } catch (e) {}
+  }
+  function forgetJob() {
+    try { localStorage.removeItem(LAST_JOB_KEY); } catch (e) {}
+  }
+  function jobToRecover() {
+    try {
+      const j = new URLSearchParams(location.search).get("job");
+      if (j && JOB_ID_RE.test(j)) return j;
+    } catch (e) {}
+    try {
+      const rec = JSON.parse(localStorage.getItem(LAST_JOB_KEY) || "null");
+      if (rec && JOB_ID_RE.test(rec.job) && Date.now() - rec.at < 24 * 3600 * 1000) return rec.job;
+    } catch (e) {}
+    return null;
+  }
+  async function recoverJob(jobId) {
+    if (!jobId || polling || jobId === currentJobId) return;
+    const box = document.createElement("section");
+    box.id = "recovered";
+    box.style.cssText = "max-width:760px;margin:14px auto;padding:12px 14px;border:1px solid rgba(127,127,127,.4);border-radius:12px;background:rgba(127,127,127,.1);font-size:14px;line-height:1.5";
+    const host = document.querySelector("main") || document.body;
+    host.insertBefore(box, host.firstChild);
+    const close = '<button type="button" id="recoveredClose" aria-label="Close" style="float:right;background:none;border:0;color:inherit;font-size:20px;line-height:1;cursor:pointer">&times;</button>';
+    const show = (html) => {
+      box.innerHTML = close + html;
+      const b = document.getElementById("recoveredClose");
+      if (b) b.onclick = () => { forgetJob(); box.remove(); };
+    };
+    show("<b>Your earlier picture</b><br>Looking for it…");
+    for (let i = 0; i < 500; i++) {                         // about 25 minutes: a GPU may need that long to start when the queue is long
+      if (polling) { box.remove(); return; }                // this page started a render of its own: it shows that one
+      let res = null;
+      try { res = await fetch(API_BASE + "/status/" + jobId); } catch (e) { res = null; }
+      if (res && (res.status === 401 || res.status === 404)) { box.remove(); return; }    // not signed in, or not this account's: say nothing
+      let data = null;
+      try { data = res && res.ok ? await res.json() : null; } catch (e) { data = null; }
+      if (data && typeof data.available === "number") setCredits(data.available);
+      if (data && data.status === "done") {
+        const url = API_BASE + "/result/" + jobId;
+        show('<b>Your earlier picture</b><br><img src="' + url + '" alt="Your earlier render" style="max-width:100%;max-height:420px;border-radius:8px;margin:8px 0;display:block">' +
+             '<a href="' + url + '" download="nanopocket-face-studio.png" style="font-weight:600">Download</a> &nbsp;&middot;&nbsp; <a href="/my-images">My images</a>' +
+             (data.watermarked === true ? '<br><small>This image has the NanoPocket.ai watermark. Top up credits once to remove it.</small>' : ""));
+        return;
+      }
+      if (data && data.status === "error") {
+        show("<b>Your earlier picture</b><br>It could not be made" + (data.error_code ? "" : ": " + String(data.error || "generation failed").replace(/[<>&]/g, "")) + ". You were not charged.");
+        return;
+      }
+      show("<b>Your earlier picture</b><br>Still being made" + (data && data.state === "starting" ? ": a GPU is starting up for it" : "") + ". You can leave this page: it will be under <a href=\"/my-images\">My images</a>.");
+      await new Promise((r) => setTimeout(r, 3000));
     }
   }
 
@@ -1673,4 +1733,5 @@
 
   // initial state
   updateGenButton();
+  recoverJob(jobToRecover()).catch((e) => console.warn("recover failed:", e));
 })();

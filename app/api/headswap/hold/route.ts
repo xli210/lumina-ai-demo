@@ -5,7 +5,7 @@ import { countOpenHolds, hasEverPurchased, holdCredits } from "@/lib/credits-ser
 import { suggestPack, suggestionSentence, topUpPath } from "@/lib/credit-packs";
 import {
   HEADSWAP_PRO_HOLD_TTL_SECONDS,
-  HEADSWAP_PRO_MAX_OPEN,
+  headswapMaxOpen,
   HEADSWAP_PRO_NAME,
   HEADSWAP_PRO_SERVICE,
   creditsFor,
@@ -53,20 +53,25 @@ export async function POST(req: NextRequest) {
     await reconcileOpenHolds(userId).catch((err: unknown) =>
       console.error("[headswap] reconcile failed:", err instanceof Error ? err.message : err)
     );
-    const open = await countOpenHolds(HEADSWAP_PRO_SERVICE, userId);
-    if (open >= HEADSWAP_PRO_MAX_OPEN) {
-      return privateJson(
-        { detail: `You already have ${open} swaps running. Wait for one to finish first.`, reason: "too_many_open" },
-        429
-      );
-    }
-
     // Decided here from our own records, never from the request.
     let paid = false;
     try {
       paid = await hasEverPurchased(userId);
     } catch (err: unknown) {
       console.error("[headswap] purchase lookup failed:", err instanceof Error ? err.message : err);
+    }
+
+    const open = await countOpenHolds(HEADSWAP_PRO_SERVICE, userId);
+    if (open >= headswapMaxOpen(paid)) {
+      return privateJson(
+        {
+          detail:
+            `You already have ${open} swap${open === 1 ? "" : "s"} running. Wait for ${open === 1 ? "it" : "one"} to finish first.` +
+            (paid ? "" : " Add credits once to run up to 3 at a time, made first in line."),
+          reason: "too_many_open",
+        },
+        429
+      );
     }
 
     const hold = await holdCredits({

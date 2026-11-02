@@ -48,6 +48,12 @@ export default async function AccountPage() {
             </Link>
             <span className="text-muted-foreground"> (Video FaceSwap 2.0 Online: kept 24 hours, 7 days once you have added credits)</span>
           </p>
+          <p className="mt-1 text-sm">
+            <Link href="/my-images" className="font-medium text-primary underline-offset-4 hover:underline">
+              My images
+            </Link>
+            <span className="text-muted-foreground"> (Nano FaceStudio Online and Nano HeadSwap Pro, kept about a day)</span>
+          </p>
         </div>
         {code && (
           <InviteFriends link={referralLink(code)} signups={stats.signups} rewarded={stats.rewarded} />

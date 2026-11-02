@@ -17,8 +17,12 @@ export const HEADSWAP_PRO_SERVICE = "headswap-pro";
 export const HEADSWAP_PRO_CREDITS_PER_IMAGE = 20;
 export const HEADSWAP_PRO_MAX_VARIATIONS = 4;
 export const HEADSWAP_PRO_HOLD_TTL_SECONDS = 60 * 60;
-/** Reservations an account may have open at once: each one is a GPU job. */
-export const HEADSWAP_PRO_MAX_OPEN = 2;
+/** Reservations an account may have open at once: each one is a GPU job. An account that has never bought credits gets one, so a few accounts cannot hold the line. */
+export const HEADSWAP_PRO_MAX_OPEN_FREE = 1;
+export const HEADSWAP_PRO_MAX_OPEN_PAID = 3;
+export function headswapMaxOpen(paid: boolean): number {
+  return paid ? HEADSWAP_PRO_MAX_OPEN_PAID : HEADSWAP_PRO_MAX_OPEN_FREE;
+}
 /** How long a ticket is good for: long enough to pick the head photo, not worth keeping. */
 export const HEADSWAP_PRO_TICKET_TTL_SECONDS = 20 * 60;
 

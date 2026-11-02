@@ -606,6 +606,7 @@ $("go").onclick = async () => {
     fd.append("photo_id", S.photo.id); fd.append("face", S.face); fd.append("variations", S.n); fd.append("head_key", S.headKey);
     const { job } = await api("/api/swap", { method: "POST", body: fd, headers: { "X-HS-Ticket": hold.ticket } });
     S.job = job; update();
+    rememberJob(job, hold.hold_id, S.photo.faces.length);
     // tie the reservation to the job; without it the swap could not be charged, so try hard
     for (let i = 0; i < 4; i++) {
       try { await site("/api/headswap/job", { hold_id: hold.hold_id, job }); break; }
@@ -620,6 +621,49 @@ $("go").onclick = async () => {
     else showError(err.message, err.requestId);
   }
 };
+
+// A swap outlives the tab: its job is kept in this browser for a day (and is in the link of "My images"), so a person who closed the page, or whose GPU took a
+// while to start, finds the picture again. The reservation is settled by the same code as always (settle), or by the server's sweep.
+const LAST_KEY = "nanopocket_headswap_last";
+const ID_RE = /^[A-Za-z0-9-]{8,80}$/;
+function rememberJob(job, hold, faces) {
+  try { localStorage.setItem(LAST_KEY, JSON.stringify({ job, hold, faces, at: Date.now() })); } catch (e) {}
+}
+function jobToRecover() {
+  try {
+    const q = new URLSearchParams(location.search), j = q.get("job"), h = q.get("hold");
+    if (j && ID_RE.test(j)) return { job: j, hold: h && ID_RE.test(h) ? h : null, faces: 1 };
+  } catch (e) {}
+  try {
+    const rec = JSON.parse(localStorage.getItem(LAST_KEY) || "null");
+    if (rec && ID_RE.test(rec.job) && Date.now() - rec.at < 24 * 3600 * 1000) return { job: rec.job, hold: ID_RE.test(rec.hold || "") ? rec.hold : null, faces: rec.faces || 1 };
+  } catch (e) {}
+  return null;
+}
+async function recoverJob() {
+  const rec = jobToRecover();
+  if (!rec || S.job) return;
+  let j;
+  try { j = await api(`/api/job/${rec.job}`); } catch (e) { return; }              // not known any more (or no network): the page starts as an empty one
+  if (!j || typeof j !== "object" || !j.status) return;
+  S.photo = { faces: new Array(rec.faces).fill(0), id: null };                  // all poll() and update() read of the photo
+  S.t0 = Date.now(); S.done = false; S.hold = rec.hold;
+  if (j.status === "done") {
+    S.results = j.results || []; S.before = j.before;
+    if (S.hold) { settle(S.hold); S.hold = null; }
+    if (!S.results.length) { S.photo = null; return; }
+    renderResult(0); renderThumbs();
+    $("wmResult").hidden = !j.watermarked;
+    S.done = true; updateVideoNudge();
+    $("meta").textContent = `Your earlier swap · ${S.results[0].size[0]} × ${S.results[0].size[1]} px` + (j.n > 1 ? ` · ${j.n} variations` : "");
+    update();
+    return;
+  }
+  if (j.status === "error") { S.photo = null; if (S.hold) { settle(S.hold); S.hold = null; } return; }
+  S.job = rec.job; update();                                                    // queued or running: carry on as if the page had never closed
+  showProgress("Your earlier swap is still being made…", 0.03);
+  poll();
+}
 
 let emptyPolls = 0;
 async function poll() {
@@ -737,6 +781,7 @@ function bindCompare(cmp) {
 
 function escapeHtml(s) { return String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
 update();
+recoverJob();
 </script>
 <script src="/invite-button.js" defer></script>
 </body>
