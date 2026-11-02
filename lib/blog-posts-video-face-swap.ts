@@ -363,6 +363,9 @@ The online photo editor that keeps every pixel outside an edit identical, [Nano 
 
 - [How to swap a face in a video, step by step](/blog/how-to-swap-a-face-in-a-video)
 - [Best video face swap tools in 2026: how to choose](/blog/best-video-face-swap-tools-2026-how-to-choose)
-- [Local AI versus cloud AI](/blog/local-ai-vs-cloud-ai)`,
+- [Local AI versus cloud AI](/blog/local-ai-vs-cloud-ai)
+- [Face swap software that runs offline on your PC](/blog/face-swap-software-that-runs-offline-on-your-pc)
+- [Can my GPU run AI face swap? RTX 3070, 8 GB VRAM and other cards](/blog/can-my-gpu-run-face-swap-rtx-3070-8gb-vram)
+- [Free AI face swap without a watermark: what is actually free](/blog/free-ai-face-swap-no-watermark-what-is-free)`,
   },
 ];

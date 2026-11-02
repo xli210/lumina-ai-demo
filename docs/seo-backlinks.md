@@ -73,8 +73,9 @@ https://nanopocket.ai/image-edit
 
 Still nothing posted on anyone's behalf: every listing below needs the owner's own account.
 Each claim here is true on 2026-10-30 and comes from the billing constants (lib/credits.ts,
-lib/facestudio.ts): 100 free credits on sign-up (10 photo face swaps), free top-ups to 30
-credits at most three times a month, no card, no subscription. Results from accounts that
+lib/facestudio.ts): 100 free credits on sign-up (10 photo face swaps), no card, no subscription. (Until
+2026-11-01 this line also promised free top-ups to 30 credits; they now go only to accounts that have bought credits, so
+do not mention them in a listing.) Results from accounts that
 have never bought credits carry a watermark; photo edits never do. Never write "unlimited",
 "no watermark" (for swaps) or "free forever" for the online tools.
 
