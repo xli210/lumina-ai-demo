@@ -26,15 +26,6 @@ interface WhatsNewItem {
 
 const ITEMS: WhatsNewItem[] = [
   {
-    id: "equipment-upgrade-notice",
-    label: "NOTICE",
-    labelClassName: "bg-amber-100 text-amber-800 ring-amber-300",
-    icon: Sparkles,
-    iconClassName: "text-amber-600",
-    text: "We are upgrading our equipment, so Nano FaceStudio Online and Nano HeadSwap Pro may be slow or briefly unavailable. A picture that fails is never charged. Thank you for your patience.",
-    href: "/status",
-  },
-  {
     id: "nano-facestudio-v-trial",
     label: "NEW MODEL",
     labelClassName: "bg-rose-100 text-rose-700 ring-rose-200",
@@ -80,8 +71,8 @@ const ITEMS: WhatsNewItem[] = [
 // v8: the last days of the Nano FaceStudio Pro launch price.
 // v9: Video FaceSwap Online 2.0.0.
 // v10: it is now named Video FaceSwap 2.0 Online.
-// v11: the equipment-upgrade notice (Face Studio and HeadSwap Pro); take it out of ITEMS when the upgrade is done.
-const STORAGE_KEY = "nanopocket_whats_new_dismissed_v11";
+// v11: the equipment-upgrade notice (Face Studio and HeadSwap Pro); v12: it is taken off, so a bar dismissed under it shows again.
+const STORAGE_KEY = "nanopocket_whats_new_dismissed_v12";
 
 const dollars = (cents: number) => `$${(cents / 100).toFixed(2)}`;
 

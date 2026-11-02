@@ -131,6 +131,18 @@ export async function studioStatus(): Promise<StudioStatus> {
   }
 }
 
+/** The studio's /api/health document (its queue is in swap.queue), or null when it cannot be asked. For the admin queue view. */
+export async function studioHealth(): Promise<unknown | null> {
+  const a = parseStudioAddress(process.env.FACESTUDIO_V_STUDIO_URL);
+  if ("problem" in a) return null;
+  try {
+    const r = await studioFetch(a, "/api/health");
+    return r.ok ? await r.json() : null;
+  } catch {
+    return null;
+  }
+}
+
 /* ------------------------------------------------------------------ */
 /* CORS: the studio page is a different origin                         */
 /* ------------------------------------------------------------------ */

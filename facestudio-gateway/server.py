@@ -361,6 +361,15 @@ def v5_visit():
     return {"ok": True}
 
 
+@api.get("/queue")
+def v5_queue():
+    """RunPod's own count of the line and the workers, for the admin page. Read only: it starts nothing."""
+    try:
+        return {"ok": True, "runpod": runpod("GET", "/health", timeout=15)}
+    except UpstreamError:
+        return {"ok": False}
+
+
 @api.post("/uploads")
 def v5_uploads(body: UploadRequest):
     """Mint a presigned PUT so the browser can upload a photo directly.

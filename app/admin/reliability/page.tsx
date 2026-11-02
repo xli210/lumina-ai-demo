@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Navbar } from "../../components/navbar";
 import { Footer } from "../../components/footer";
 import { getHolds } from "@/lib/reliability-server";
+import { getBackends, getWaiting, type Backend, type Waiting } from "@/lib/queue-server";
 import {
   REASON_LABELS,
   WINDOWS,
@@ -79,6 +80,61 @@ function Row({ g }: { g: Group }) {
       <td className={`px-4 py-3 text-right font-semibold tabular-nums ${rateTone(sr)}`}>{fmtRate(sr)}</td>
       <td className={`px-4 py-3 text-right tabular-nums ${er !== null && er > 0.03 ? "text-rose-500" : "text-muted-foreground"}`}>{fmtRate(er)}</td>
     </tr>
+  );
+}
+
+function Queues({ waiting, backends, failed }: { waiting: Waiting[]; backends: Backend[]; failed: string | null }) {
+  const lab = (s: string) => SERVICE_LABELS[s] ?? s;
+  const late = (w: Waiting) => w.oldestMin !== null && w.oldestMin >= 15;
+  return (
+    <div className="grid gap-4 lg:grid-cols-2">
+      <div className="glass overflow-x-auto rounded-2xl">
+        <table className="w-full min-w-[360px] text-sm">
+          <thead>
+            <tr className="border-b border-border text-left">
+              <th className="px-4 py-3 font-semibold text-foreground">Open renders (last 24 h)</th>
+              <th className="px-4 py-3 text-right font-semibold text-foreground">Open</th>
+              <th className="px-4 py-3 text-right font-semibold text-foreground">Oldest</th>
+            </tr>
+          </thead>
+          <tbody>
+            {failed !== null ? (
+              <tr><td colSpan={3} className="px-4 py-3 text-amber-500">{failed}</td></tr>
+            ) : (
+              waiting.map((w) => (
+                <tr key={w.service} className="border-b border-border last:border-0">
+                  <td className="px-4 py-3 text-foreground">{lab(w.service)}</td>
+                  <td className="px-4 py-3 text-right tabular-nums text-foreground">{w.open}</td>
+                  <td className={`px-4 py-3 text-right tabular-nums ${late(w) ? "text-rose-500" : "text-muted-foreground"}`}>
+                    {w.oldestMin === null ? "-" : `${w.oldestMin} min`}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+      <div className="glass rounded-2xl p-4 text-sm">
+        <p className="mb-2 font-semibold text-foreground">The backends</p>
+        <ul className="space-y-3">
+          {backends.map((b) => (
+            <li key={b.name}>
+              <p className="text-foreground">{b.name}</p>
+              {b.note !== null ? (
+                <p className="text-amber-500">{b.note}</p>
+              ) : (
+                <p className="tabular-nums text-muted-foreground">
+                  <span className={b.inQueue !== null && b.inQueue > 5 ? "font-semibold text-rose-500" : "text-foreground"}>{b.inQueue ?? "?"}</span> in queue ·{" "}
+                  <span className="text-foreground">{b.inProgress ?? "?"}</span> running
+                  {b.workers !== null && Object.keys(b.workers).length > 0 && <> · workers {Object.entries(b.workers).map(([k, v]) => `${k} ${v}`).join(", ")}</>}
+                  {Object.keys(b.extra).length > 0 && <> · {Object.entries(b.extra).map(([k, v]) => `${k} ${v}`).join(", ")}</>}
+                </p>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 
@@ -167,6 +223,16 @@ export default async function ReliabilityPage({ searchParams }: { searchParams: 
     console.error("[admin/reliability] failed:", failure);
   }
 
+  let waiting: Waiting[] = [];
+  let waitingFailed: string | null = null;
+  const backendsP = getBackends().catch(() => [] as Backend[]);
+  try {
+    waiting = await getWaiting();
+  } catch (err: unknown) {
+    waitingFailed = err instanceof Error ? err.message : "Unknown error";
+  }
+  const backends = await backendsP;
+
   const groups = summarise(rows);
   const overall = groups.filter((g) => g.mode === null);
   const sum = overall.reduce(
@@ -228,6 +294,12 @@ export default async function ReliabilityPage({ searchParams }: { searchParams: 
                 <p className="mt-1.5 text-xs text-muted-foreground">credits were returned automatically</p>
               </div>
             </div>
+
+            <h2 className="mb-1 mt-10 text-xl font-bold text-foreground">Queues now</h2>
+            <p className="mb-4 text-sm text-muted-foreground">
+              Live, whatever the window above. Open renders are reservations not yet settled; a long wait on the oldest means a job is stuck or a GPU is slow to start. The backends are RunPod&apos;s own counts (images) and the studio&apos;s queue (video).
+            </p>
+            <Queues waiting={waiting} backends={backends} failed={waitingFailed} />
 
             <h2 className="mb-1 mt-10 text-xl font-bold text-foreground">By service and mode</h2>
             <p className="mb-4 text-sm text-muted-foreground">
