@@ -13,7 +13,8 @@ export interface StudioBilling {
 
 export type StudioJob =
   /** keptUntil: until when (unix seconds) the studio keeps the finished video; null or absent when there is none to download. */
-  | { found: true; state: string; billing: StudioBilling | null; keptUntil?: number | null }
+  /** vendor: who ended up rendering it ("own": our RTX 5090, "cloud": RunPod); vendorMoved: "own_to_cloud" | "cloud_to_own" when it changed hands. */
+  | { found: true; state: string; billing: StudioBilling | null; keptUntil?: number | null; vendor?: string | null; vendorMoved?: string | null }
   | { found: false }
   | { error: string };
 

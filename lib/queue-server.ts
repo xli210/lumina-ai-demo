@@ -3,14 +3,15 @@ import "server-only";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { callUpstream, isOk } from "@/lib/facestudio-server";
 import { gatewayBase } from "@/lib/headswap-pro-server";
-import { studioHealth } from "@/lib/facestudio-v-server";
+import { studioHealth, studioVendors } from "@/lib/facestudio-v-server";
 
 /**
  * The lines in front of the GPUs, for /admin/reliability. Service-role reads: call only from a page that has already checked for an admin.
  *
  * Two views of each product, so one can be read when the other is not available:
  *  - the open reservations (credit holds not yet settled): how many people are waiting or being served, and how long the oldest has waited;
- *  - what the product's own backend says: RunPod's jobs in queue and workers for the two image products (through their gateways), the studio's own queue for video.
+ *  - what the product's own backend says: RunPod's jobs in queue and workers for the two image products (through their gateways); for video, the studio's own queue
+ *    and each GPU vendor it sends work to (our RTX 5090 and RunPod) as the studio sees them.
  */
 
 export interface Waiting {
@@ -112,6 +113,26 @@ async function studioBackend(): Promise<Backend> {
   return { name, inQueue: n("waiting"), inProgress: q.running === true ? 1 : q.running === false ? 0 : null, workers: null, extra, note: null };
 }
 
+/** The studio's two GPU vendors, one line each. */
+async function videoVendors(): Promise<Backend[]> {
+  const ownName = "Video FaceSwap 2.0 Online: RTX 5090";
+  const cloudName = "Video FaceSwap 2.0 Online: RunPod";
+  const v = await studioVendors();
+  if (!v) return [down(ownName, "studio did not answer"), down(cloudName, "studio did not answer")];
+  const o = v.own;
+  let own: Backend;
+  if (!o) {
+    own = down(ownName, v.errors?.own ? `could not be read: ${v.errors.own}` : "not in use (the studio sends everything to RunPod)");
+  } else {
+    const age = num(o.heartbeat_s);
+    const state = o.disabled === true ? "switched off (jobq/disabled)" : o.up !== true ? (age === null ? "offline (never seen)" : `offline (last seen ${age} s ago)`) : o.paused === true ? "paused (disk nearly full)" : null;
+    own = { name: ownName, inQueue: num(o.waiting), inProgress: o.busy === true ? 1 : 0, workers: null, extra: age === null ? {} : { heartbeat: `${age} s ago` }, note: state };
+  }
+  const cloud = v.cloud ? fromRunpod(cloudName, v.cloud) : down(cloudName, v.errors?.cloud ? `could not be read: ${v.errors.cloud}` : "could not be read");
+  return [own, cloud];
+}
+
 export async function getBackends(): Promise<Backend[]> {
-  return Promise.all([facestudioBackend(), headswapBackend(), studioBackend()]);
+  const [face, head, studio, vendors] = await Promise.all([facestudioBackend(), headswapBackend(), studioBackend(), videoVendors()]);
+  return [face, head, studio, ...vendors];
 }

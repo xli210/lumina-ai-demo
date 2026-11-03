@@ -82,12 +82,14 @@ export async function fetchStudioJob(jobId: string): Promise<StudioJob> {
     const r = await studioFetch(cfg, `/api/jobs/${jobId}`);
     if (r.status === 404) return { found: false };
     if (!r.ok) return { error: `The studio answered ${r.status}.` };
-    const j = (await r.json()) as { state?: string; billing?: StudioBilling; kept_until?: number | null };
+    const j = (await r.json()) as { state?: string; billing?: StudioBilling; kept_until?: number | null; vendor?: string | null; vendor_moved?: string | null };
     return {
       found: true,
       state: String(j.state ?? ""),
       billing: j.billing ?? null,
       keptUntil: typeof j.kept_until === "number" ? j.kept_until : null,
+      vendor: j.vendor ?? null,
+      vendorMoved: j.vendor_moved ?? null,
     };
   } catch {
     return { error: "The studio did not answer." };
@@ -143,6 +145,19 @@ export async function studioHealth(): Promise<unknown | null> {
   }
 }
 
+/** How each GPU vendor stands (the studio's /api/vendors, which only this site's secret opens), or null when the studio could not be asked. */
+export async function studioVendors(): Promise<{ own: Record<string, unknown> | null; cloud: unknown; errors?: Record<string, string> } | null> {
+  const a = parseStudioAddress(process.env.FACESTUDIO_V_STUDIO_URL);
+  const secret = process.env.STUDIO_PARTNER_SECRET?.trim();
+  if ("problem" in a || !secret) return null;
+  try {
+    const r = await studioFetch(a, "/api/vendors", { headers: { "X-Studio-Partner": secret } });
+    return r.ok ? await r.json() : null;
+  } catch {
+    return null;
+  }
+}
+
 /* ------------------------------------------------------------------ */
 /* CORS: the studio page is a different origin                         */
 /* ------------------------------------------------------------------ */
@@ -179,11 +194,27 @@ export type SettleOutcome =
  * status for its job. Safe to call again: a hold that is no longer open is
  * reported as it is, never changed twice.
  */
+/** Note on the settled hold who rendered it, for /admin/reliability. Never in the way of the money: the credits are already settled, and a miss only shows as "Not recorded". */
+async function recordVendor(holdId: string, job: StudioJob): Promise<void> {
+  if (!("found" in job) || !job.found || !job.vendor) return;
+  try {
+    const supabase = createAdminClient();
+    const { data, error } = await supabase.from("credit_holds").select("estimate").eq("id", holdId).single();
+    if (error) throw new Error(error.message);
+    const estimate = { ...((data?.estimate as Record<string, unknown> | null) ?? {}), vendor: job.vendor, vendor_moved: job.vendorMoved ?? null };
+    const { error: failed } = await supabase.from("credit_holds").update({ estimate }).eq("id", holdId);
+    if (failed) throw new Error(failed.message);
+  } catch (err: unknown) {
+    console.error("[facestudio-v] could not record the vendor:", err instanceof Error ? err.message : err);
+  }
+}
+
 export async function settleHold(hold: CreditHoldRecord): Promise<SettleOutcome> {
   if (hold.status !== "open") return { status: "closed", hold: hold.status };
   if (!hold.job_ref) return { status: "held" };
 
-  const d = decideSettlement(hold.amount, await fetchStudioJob(hold.job_ref));
+  const job = await fetchStudioJob(hold.job_ref);
+  const d = decideSettlement(hold.amount, job);
   switch (d.action) {
     case "unreachable":
       return { status: "unreachable", message: d.message };
@@ -191,6 +222,7 @@ export async function settleHold(hold: CreditHoldRecord): Promise<SettleOutcome>
       return { status: "held" };
     case "release":
       await releaseHold(hold.id, d.reason);
+      await recordVendor(hold.id, job);
       return { status: "refunded" };
     case "capture": {
       const r = await captureHold({
@@ -198,6 +230,7 @@ export async function settleHold(hold: CreditHoldRecord): Promise<SettleOutcome>
         actualAmount: d.amount,
         reference: { service: FACESTUDIO_V_SERVICE, job: hold.job_ref },
       });
+      await recordVendor(hold.id, job);
       return { status: "settled", charged: r.charged ?? d.amount };
     }
   }

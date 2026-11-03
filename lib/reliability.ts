@@ -159,6 +159,46 @@ export function summarise(rows: HoldRow[]): Group[] {
   return out;
 }
 
+const VENDOR_LABELS: Record<string, string> = { own: "RTX 5090", cloud: "RunPod" };
+const NO_VENDOR = "Vendor not recorded";
+
+/** Who ended up rendering a video (the studio says when the hold is settled). Older holds, and ones the sweeper freed, have no vendor. */
+export function vendorOf(h: Pick<HoldRow, "service" | "estimate">): string {
+  if (h.service !== "facestudio-v") return "-";
+  const v = h.estimate?.vendor;
+  return typeof v === "string" ? VENDOR_LABELS[v] ?? v : NO_VENDOR;
+}
+
+export interface VendorSummary {
+  groups: Group[];
+  /** Started on the 5090, which could not do them, and finished by RunPod: delivered, so they count for RunPod, but each is a fault of the 5090's. */
+  ownToCloud: number;
+  /** Stuck in RunPod's queue and moved to the 5090. */
+  cloudToOwn: number;
+}
+
+/** Video FaceSwap only: one row per vendor, and one per mode inside it. A video counts for the vendor that finished it. */
+export function summariseVendors(rows: HoldRow[]): VendorSummary {
+  const video = rows.filter((h) => h.service === "facestudio-v");
+  const groups: Group[] = [];
+  for (const vendor of [VENDOR_LABELS.own, VENDOR_LABELS.cloud, NO_VENDOR]) {
+    const mine = video.filter((h) => vendorOf(h) === vendor);
+    if (mine.length === 0) continue;
+    const total = emptyTally();
+    const byMode = new Map<string, Tally>();
+    for (const h of mine) {
+      add(total, h);
+      const m = modeOf(h);
+      if (!byMode.has(m)) byMode.set(m, emptyTally());
+      add(byMode.get(m)!, h);
+    }
+    groups.push({ service: vendor, label: vendor, mode: null, tally: total });
+    for (const [mode, tally] of Array.from(byMode.entries()).sort((a, b) => b[1].total - a[1].total)) groups.push({ service: vendor, label: vendor, mode, tally });
+  }
+  const moved = (how: string) => video.filter((h) => h.estimate?.vendor_moved === how).length;
+  return { groups, ownToCloud: moved("own_to_cloud"), cloudToOwn: moved("cloud_to_own") };
+}
+
 export const WINDOWS = {
   today: { label: "Today (UTC)", since: () => new Date(new Date().toISOString().slice(0, 10) + "T00:00:00Z") },
   "24h": { label: "Last 24 hours", since: () => new Date(Date.now() - 24 * 3600_000) },

@@ -20,6 +20,8 @@ import {
   releaseReason,
   successRate,
   summarise,
+  summariseVendors,
+  vendorOf,
   SERVICE_LABELS,
   type Group,
   type HoldRow,
@@ -151,6 +153,7 @@ function Failures({ rows }: { rows: HoldRow[] }) {
             <th className="px-4 py-3 font-semibold text-foreground">When (UTC)</th>
             <th className="px-4 py-3 font-semibold text-foreground">Service</th>
             <th className="px-4 py-3 font-semibold text-foreground">Mode</th>
+            <th className="px-4 py-3 font-semibold text-foreground">Vendor</th>
             <th className="px-4 py-3 font-semibold text-foreground">Why</th>
             <th className="px-4 py-3 text-right font-semibold text-foreground">Credits returned</th>
             <th className="px-4 py-3 font-semibold text-foreground">Account</th>
@@ -166,6 +169,7 @@ function Failures({ rows }: { rows: HoldRow[] }) {
                 </td>
                 <td className="px-4 py-3 text-foreground">{SERVICE_LABELS[h.service] ?? h.service}</td>
                 <td className="px-4 py-3 text-muted-foreground">{modeOf(h)}</td>
+                <td className="px-4 py-3 text-muted-foreground">{vendorOf(h)}</td>
                 <td className="px-4 py-3 text-foreground">
                   {REASON_LABELS[r] ?? r}
                   <span className="ml-2 font-mono text-[11px] text-muted-foreground">{r}</span>
@@ -234,6 +238,7 @@ export default async function ReliabilityPage({ searchParams }: { searchParams: 
   const backends = await backendsP;
 
   const groups = summarise(rows);
+  const vendors = summariseVendors(rows);
   const overall = groups.filter((g) => g.mode === null);
   const sum = overall.reduce(
     (a, g) => ({ total: a.total + g.tally.total, success: a.success + g.tally.success, fail: a.fail + g.tally.system_failure }),
@@ -297,7 +302,7 @@ export default async function ReliabilityPage({ searchParams }: { searchParams: 
 
             <h2 className="mb-1 mt-10 text-xl font-bold text-foreground">Queues now</h2>
             <p className="mb-4 text-sm text-muted-foreground">
-              Live, whatever the window above. Open renders are reservations not yet settled; a long wait on the oldest means a job is stuck or a GPU is slow to start. The backends are RunPod&apos;s own counts (images) and the studio&apos;s queue (video).
+              Live, whatever the window above. Open renders are reservations not yet settled; a long wait on the oldest means a job is stuck or a GPU is slow to start. The backends are RunPod&apos;s own counts (images), the studio&apos;s queue (video), and each GPU vendor the studio sends video to.
             </p>
             <Queues waiting={waiting} backends={backends} failed={waitingFailed} />
 
@@ -335,6 +340,37 @@ export default async function ReliabilityPage({ searchParams }: { searchParams: 
               <p className="mt-2 text-xs text-amber-500">This window holds more than 20,000 renders; the oldest are left out.</p>
             )}
 
+            <h2 className="mb-1 mt-10 text-xl font-bold text-foreground">Video FaceSwap by GPU vendor</h2>
+            <p className="mb-4 text-sm text-muted-foreground">
+              A video counts for the vendor that finished it. Handed from the RTX 5090 to RunPod: <span className={vendors.ownToCloud > 0 ? "font-semibold text-rose-500" : "text-foreground"}>{vendors.ownToCloud}</span> (delivered, so not failures above, but each is a fault of the 5090&apos;s). Moved from RunPod&apos;s queue to the RTX 5090: <span className="text-foreground">{vendors.cloudToOwn}</span>.
+            </p>
+            {vendors.groups.length === 0 ? (
+              <p className="text-sm text-muted-foreground">No videos in this window.</p>
+            ) : (
+              <div className="glass overflow-x-auto rounded-2xl">
+                <table className="w-full min-w-[820px] text-sm">
+                  <thead>
+                    <tr className="border-b border-border text-left">
+                      <th className="px-4 py-3 font-semibold text-foreground">Vendor / mode</th>
+                      <th className={th}>Renders</th>
+                      <th className={th}>Delivered</th>
+                      <th className={th}>Failed</th>
+                      <th className={th}>Cancelled</th>
+                      <th className={th}>Expired</th>
+                      <th className={th}>Running</th>
+                      <th className={th}>Success</th>
+                      <th className={th}>Error</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {vendors.groups.map((g) => (
+                      <Row key={`${g.service}-${g.mode ?? "total"}`} g={g} />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
             <h2 className="mb-3 mt-10 text-xl font-bold text-foreground">Why renders failed</h2>
             <Reasons groups={groups} />
             {overall.every((g) => decided(g.tally) === g.tally.success) && <p className="text-sm text-muted-foreground">No failures to explain.</p>}
@@ -343,7 +379,7 @@ export default async function ReliabilityPage({ searchParams }: { searchParams: 
             <Failures rows={rows} />
 
             <p className="mt-10 text-xs text-muted-foreground">
-              Read from the credit holds, so it covers renders that were paid for in credits. Video FaceSwap 2.0 Online records its mode only on renders started after this was added; earlier ones show as &ldquo;Mode not recorded&rdquo;. An
+              Read from the credit holds, so it covers renders that were paid for in credits. Video FaceSwap 2.0 Online records its mode only on renders started after this was added; earlier ones show as &ldquo;Mode not recorded&rdquo;, and its vendor only since the RTX 5090 was split out; a render still running or never settled has no vendor yet. An
               &ldquo;expired&rdquo; render was never settled by the page, so it may have finished or failed; it is not counted either way. Generated {new Date().toLocaleString("en-US", { timeZone: "UTC" })} UTC.
             </p>
           </>
