@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { ensureSignupGrant, listCreditLedger } from "@/lib/credits-server";
 import { getFreeClaimOutcome } from "@/lib/free-claim";
 import { getStripe } from "@/lib/stripe";
-import { findCreditPack } from "@/lib/credit-packs";
+import { findCreditPack, suggestPack } from "@/lib/credit-packs";
 import { getAutoRecharge } from "@/lib/auto-recharge";
 import Link from "next/link";
 import { Navbar } from "../components/navbar";
@@ -48,7 +48,7 @@ async function paidCheckout(sessionId: string | undefined, userId: string) {
 export default async function CreditsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ session_id?: string; pack?: string }>;
+  searchParams: Promise<{ session_id?: string; pack?: string; need?: string; from?: string }>;
 }) {
   const supabase = await createClient();
   const {
@@ -82,7 +82,10 @@ export default async function CreditsPage({
   const params = await searchParams;
   const purchase = await paidCheckout(params.session_id, user.id);
   // Set by a tool's "not enough credits" link: the pack its message recommended.
-  const recommended = findCreditPack(params.pack)?.id;
+  // ...or by the studio, which says how many credits are missing: the smallest pack that covers them.
+  const needed = Number(params.need);
+  const recommended = (Number.isFinite(needed) && needed > 0 ? suggestPack(Math.min(needed, 1_000_000)) : findCreditPack(params.pack))?.id;
+  const fromStudio = params.from === "studio";
   const t = await getTranslations("Ui.credits");
 
   return (
@@ -117,6 +120,18 @@ export default async function CreditsPage({
                 </p>
               </>
             )}
+          </div>
+        )}
+        {fromStudio && (
+          <div className="mb-6 rounded-2xl border border-primary/40 bg-primary/5 p-4 text-sm">
+            <p className="font-medium text-foreground">Buying credits for your video?</p>
+            <p className="mt-1 text-muted-foreground">
+              Pick a pack below. When you are done, go back to the studio tab: it picks up your new credits by itself and your video is still there.{" "}
+              <Link href="/facestudio-v/launch" className="font-medium text-primary underline-offset-4 hover:underline">
+                Or open the studio again
+              </Link>
+              .
+            </p>
           </div>
         )}
         <CreditConsole
