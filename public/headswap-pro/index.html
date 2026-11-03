@@ -186,6 +186,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
   background: rgba(248, 113, 113, 0.08); color: #fecaca; font-size: 0.9rem; text-align: center; }
 .error-box .ref { display: block; margin-top: 4px; font-size: 0.75rem; color: var(--text-muted); }
 .error-box .ref code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--text-secondary); user-select: all; }
+.error-box a { color: inherit; text-decoration: underline; }
 
 /* footer */
 .site-footer { text-align: center; padding: 32px 24px; color: var(--text-muted); font-size: 0.8rem; }
@@ -448,6 +449,13 @@ function showError(msg, rid) {
   box.innerHTML = escapeHtml(msg) + (rid ? `<span class="ref">Reference: <code>${escapeHtml(rid)}</code> — include it if you contact support.</span>` : "");
   box.hidden = false;
 }
+// Not enough credits: the message plus a button to the pack it recommends, in a new tab so the photos on this page stay.
+function showTopUp(msg, path) {
+  const box = $("errorBox");
+  const href = typeof path === "string" && path.charAt(0) === "/" ? path : "/credits?pack=starter";
+  box.innerHTML = escapeHtml(msg) + ' <a href="' + escapeHtml(href) + '" target="_blank" rel="noopener"><strong>Buy credits</strong></a>, then come back and try again.';
+  box.hidden = false;
+}
 function clearError() { $("errorBox").hidden = true; }
 
 // ---------- start: watermark notice + wake a GPU while the user picks photos
@@ -617,7 +625,7 @@ $("go").onclick = async () => {
     if (hold) settle(hold.hold_id);       // the swap never started: the credits go back at once
     S.job = null; update(); hideProgress();
     if (err.status === 401) { $("authNotice").hidden = false; $("authText").innerHTML = 'Sign in to NanoPocket.ai to swap heads. <a href="/auth/login?next=/headswap-pro/index.html">Sign in</a>'; showError("Please sign in to swap heads."); }
-    else if (err.status === 402 && err.body && err.body.reason === "insufficient_credits") { showCredits(err.body.available); showError(err.message + " Buy credits at nanopocket.ai" + (err.body.topup_url || "/credits") + " and try again."); }
+    else if (err.status === 402 && err.body && err.body.reason === "insufficient_credits") { showCredits(err.body.available); showTopUp(err.message, err.body.topup_url); }
     else showError(err.message, err.requestId);
   }
 };
