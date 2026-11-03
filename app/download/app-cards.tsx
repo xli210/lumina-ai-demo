@@ -99,6 +99,8 @@ const apps: AppInfo[] = [
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "Free",
+    proPageHref: "/apps/nano-facestudio-pro",
+    proPageLabel: "Want diffusion quality and 7 tools? See Nano FaceStudio Pro",
     platforms: [
       {
         platform: "Windows",
@@ -121,6 +123,8 @@ const apps: AppInfo[] = [
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "Free",
+    proPageHref: "/apps/nano-facestudio-pro",
+    proPageLabel: "Want diffusion quality and 7 tools? See Nano FaceStudio Pro",
     platforms: [
       {
         platform: "Windows",

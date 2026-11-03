@@ -296,8 +296,8 @@ const data: ProductLandingData = {
     body: "Identity-preserving expression edits, slider-driven control over smile, brow, and eyes, and a portrait-grade face swap in the same app. Local NVIDIA GPU, one-time license.",
     primaryCta: { label: "Download for Windows", href: "/download" },
     secondaryCta: {
-      label: "Read the release notes",
-      href: "/release-notes/nano-facialedit",
+      label: "See Nano FaceStudio Pro 1.0",
+      href: "/apps/nano-facestudio-pro",
       variant: "secondary",
     },
   },
