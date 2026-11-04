@@ -35,6 +35,10 @@ const TRANSLATED_PAGE_NAMES: Record<string, string> = {
   "/image-edit": IMAGE_EDIT_NAME,
   "/headswap-pro": "Nano HeadSwap Pro",
   "/apps/nano-facestudio-pro": "Nano FaceStudio Pro (desktop app)",
+  "/apps/nano-faceswap": "Nano FaceSwap (free desktop app)",
+  "/apps/nano-facialedit": "Nano FacialEdit (free desktop app)",
+  "/apps/nano-imagetryon": "Nano ImageTryon (free desktop app)",
+  "/pricing": "prices",
 };
 
 const LAST_UPDATED = new Date().toISOString().slice(0, 10);
@@ -233,7 +237,7 @@ function buildLlmsTxt(): string {
     (LOCALES.filter((l) => l !== DEFAULT_LOCALE) as AppLocale[]).map((locale) => {
       const pages = Object.keys(TRANSLATED_PAGES).filter((p) => p !== "/" && TRANSLATED_PAGES[p].includes(locale));
       const links = pages.map((p) => `[${TRANSLATED_PAGE_NAMES[p] ?? p}](${BASE}/${locale}${p})`).join(", ");
-      return bullet(`/${locale}`, `${LOCALE_LABELS[locale]} (${locale}) home`, `The site in this language: ${links}. Prices, refund terms and legal text stay in English.`);
+      return bullet(`/${locale}`, `${LOCALE_LABELS[locale]} (${locale}) home`, `The site in this language: ${links}. Legal text stays in English.`);
     }),
   );
 

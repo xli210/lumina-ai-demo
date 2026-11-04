@@ -100,7 +100,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/video-face-swap-test-results`, lastModified: new Date("2026-10-24"), changeFrequency: "monthly", priority: 0.75 },
     { url: `${BASE}/release-notes`, lastModified: new Date("2026-10-21"), changeFrequency: "weekly", priority: 0.7 },
     // What everything costs: read from the code that charges it, so it is always current.
-    { url: `${BASE}/pricing`, lastModified: new Date("2026-10-21"), changeFrequency: "weekly", priority: 0.9 },
+    ...translatedEntries("/pricing", "weekly", 0.9, "2026-10-21"),
     { url: `${BASE}/use-cases`, lastModified: new Date("2026-10-05"), changeFrequency: "monthly", priority: 0.8 },
     ...IMAGE_EDIT_USE_CASES.map((u) => ({ url: `${BASE}/use-cases/${u.slug}`, lastModified: new Date("2026-10-05"), changeFrequency: "monthly" as const, priority: 0.85 })),
     // The index changes whenever a post is added, so it carries the newest post's date.
@@ -138,9 +138,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/apps/nano-videoenhance`, lastModified: new Date("2026-05-29"), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/apps/nano-videogen`, lastModified: new Date("2026-05-29"), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/apps/nano-imageedit`, lastModified: new Date("2026-05-29"), changeFrequency: "monthly", priority: 0.85 },
-    { url: `${BASE}/apps/nano-facialedit`, lastModified: new Date("2026-05-29"), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE}/apps/nano-imagetryon`, lastModified: new Date("2026-05-29"), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE}/apps/nano-faceswap`, lastModified: new Date("2026-05-29"), changeFrequency: "monthly", priority: 0.8 },
+    ...translatedEntries("/apps/nano-facialedit", "weekly", 0.8, "2026-05-29"),
+    ...translatedEntries("/apps/nano-imagetryon", "weekly", 0.8, "2026-05-29"),
+    ...translatedEntries("/apps/nano-faceswap", "weekly", 0.8, "2026-05-29"),
     { url: `${BASE}/best-face-swap-app-2026`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly", priority: 0.95 },
     { url: `${BASE}/compare`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/compare/nanopocket-vs-reface`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly", priority: 0.8 },

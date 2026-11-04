@@ -289,7 +289,7 @@ export default async function LocalizedHomePage({ params }: PageProps) {
           </h2>
           <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
             {t("pricing.summary")}{" "}
-            <Link href="/pricing" hrefLang="en" className="text-foreground underline-offset-4 hover:underline">
+            <Link href={translatedOrEnglish("/pricing", locale)} className="text-foreground underline-offset-4 hover:underline">
               /pricing
             </Link>
           </p>

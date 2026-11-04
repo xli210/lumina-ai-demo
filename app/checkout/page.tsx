@@ -9,8 +9,12 @@ export const metadata: Metadata = {
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { CheckoutContent } from "./checkout-content";
+import { getLocale } from "next-intl/server";
+import type { AppLocale } from "@/lib/i18n/locales";
+import { pageStrings } from "@/lib/i18n/strings";
 
-export default function CheckoutPage() {
+export default async function CheckoutPage() {
+  const strings = await pageStrings((await getLocale()) as AppLocale);
   return (
     <main className="relative min-h-screen">
       <Navbar />
@@ -21,7 +25,7 @@ export default function CheckoutPage() {
           </div>
         }
       >
-        <CheckoutContent />
+        <CheckoutContent strings={strings} />
       </Suspense>
       <Footer />
     </main>

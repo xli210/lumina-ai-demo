@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { ArrowLeft, Check, Lock, ImagePlus, Video, Sparkles, Wand2 } from "lucide-react";
 import Checkout from "../components/checkout";
 import { PRODUCTS } from "@/lib/products";
+import { tr, type Strings } from "@/lib/i18n/strings";
 
 const iconMap: Record<string, typeof Sparkles> = {
   "nano-imageedit": ImagePlus,
@@ -12,7 +13,8 @@ const iconMap: Record<string, typeof Sparkles> = {
   "nnanoimageenh": Wand2,
 };
 
-export function CheckoutContent() {
+export function CheckoutContent({ strings }: { strings: Strings }) {
+  const t = (text: string, values?: Record<string, string | number>) => tr(strings, text, values);
   const searchParams = useSearchParams();
   const productId = searchParams.get("product") || PRODUCTS[0].id;
   const product = PRODUCTS.find((p) => p.id === productId) || PRODUCTS[0];
@@ -22,16 +24,16 @@ export function CheckoutContent() {
     return (
       <div className="min-h-[60vh] flex items-center justify-center px-6 py-24">
         <div className="relative mx-auto max-w-md text-center">
-          <h1 className="mb-4 text-2xl font-bold text-foreground">This product is free!</h1>
+          <h1 className="mb-4 text-2xl font-bold text-foreground">{t("This product is free!")}</h1>
           <p className="mb-8 text-muted-foreground">
-            {product.name} doesn&apos;t require payment. Head to the download page to claim your free license.
+            {t("{name} doesn't require payment. Head to the download page to claim your free license.", { name: product.name })}
           </p>
           <Link
             href={`/download#${product.id}`}
             scroll={false}
             className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
-            Go to Download
+            {t("Go to Download")}
           </Link>
         </div>
       </div>
@@ -51,12 +53,12 @@ export function CheckoutContent() {
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Downloads
+            {t("Back to Downloads")}
           </Link>
           <div className="flex items-center gap-2">
             <Lock className="h-4 w-4 text-muted-foreground" />
             <span className="text-sm text-muted-foreground">
-              Secure Checkout
+              {t("Secure Checkout")}
             </span>
           </div>
         </div>
@@ -77,13 +79,13 @@ export function CheckoutContent() {
                 {product.name}
               </h2>
               <p className="mb-6 text-sm text-muted-foreground">
-                {product.description}
+                {t(product.description)}
               </p>
 
               <div className="mb-6 border-t border-border pt-6">
                 <div className="flex items-baseline justify-between">
                   <span className="text-sm text-muted-foreground">
-                    One-time purchase
+                    {t("One-time purchase")}
                   </span>
                   <span className="text-3xl font-bold text-foreground">
                     ${(product.priceInCents / 100).toFixed(2)}
@@ -91,7 +93,7 @@ export function CheckoutContent() {
                 </div>
                 {product.trialDays && product.trialDays > 0 && (
                   <p className="mt-2 text-xs text-emerald-500">
-                    Includes upgrade from your free trial — same license key
+                    {t("Includes upgrade from your free trial — same license key")}
                   </p>
                 )}
               </div>
@@ -102,7 +104,7 @@ export function CheckoutContent() {
                     <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
                       <Check className="h-3 w-3 text-primary" />
                     </div>
-                    <span className="text-sm text-foreground">{feature}</span>
+                    <span className="text-sm text-foreground">{t(feature)}</span>
                   </div>
                 ))}
               </div>
@@ -111,7 +113,7 @@ export function CheckoutContent() {
 
           <div className="lg:col-span-3">
             <div className="glass-strong overflow-hidden rounded-2xl p-1">
-              <Checkout productId={product.id} />
+              <Checkout productId={product.id} strings={strings} />
             </div>
           </div>
         </div>

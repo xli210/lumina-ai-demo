@@ -1,8 +1,10 @@
 "use client";
 
 import { Sparkles, Download, Package, Shield } from "lucide-react";
+import { tr, type Strings } from "@/lib/i18n/strings";
 
-export function DownloadHero() {
+export function DownloadHero({ strings }: { strings: Strings }) {
+  const t = (text: string) => tr(strings, text);
   return (
     <section className="relative flex flex-col items-center justify-center overflow-hidden px-6 pt-32 pb-16">
       {/* Background */}
@@ -16,20 +18,19 @@ export function DownloadHero() {
       <div className="relative z-10 mx-auto max-w-3xl text-center">
         <div className="mb-6 inline-flex items-center gap-2 rounded-full glass-subtle px-4 py-2 text-sm text-muted-foreground animate-fade-in">
           <Package className="h-4 w-4 text-primary" />
-          <span>Our Products — Download &amp; Get Started</span>
+          <span>{t("Our Products — Download & Get Started")}</span>
         </div>
 
         <h1 className="mb-4 text-balance text-5xl font-bold tracking-tight text-foreground opacity-0 animate-fade-in md:text-6xl"
           style={{ animationDelay: "0.1s" }}
         >
-          Download Our Apps
+          {t("Download Our Apps")}
         </h1>
 
         <p className="mb-8 text-pretty text-lg text-muted-foreground opacity-0 animate-fade-in"
           style={{ animationDelay: "0.2s" }}
         >
-          Explore our suite of AI-powered tools. Each app is designed to run locally
-          on your machine — no cloud dependency, full privacy.
+          {t("Explore our suite of AI-powered tools. Each app is designed to run locally on your machine — no cloud dependency, full privacy.")}
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-6 opacity-0 animate-fade-in"
@@ -37,17 +38,17 @@ export function DownloadHero() {
         >
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Sparkles className="h-4 w-4 text-primary" />
-            <span>Free trials included</span>
+            <span>{t("Free trials included")}</span>
           </div>
           <div className="h-4 w-px bg-border" />
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Shield className="h-4 w-4 text-primary" />
-            <span>Signed-in users only</span>
+            <span>{t("Signed-in users only")}</span>
           </div>
           <div className="h-4 w-px bg-border" />
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Download className="h-4 w-4 text-primary" />
-            <span>Runs 100% locally</span>
+            <span>{t("Runs 100% locally")}</span>
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
 import { CREDIT_PACKS, bonusPercent, totalCredits } from "@/lib/credit-packs";
 import { PRODUCTS } from "@/lib/products";
+import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import {
   FACESTUDIO_MAX_FACES,
@@ -37,7 +38,7 @@ const DESCRIPTION = `Free desktop apps, online tools paid per use in credits, on
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: "/pricing" },
+  alternates: { canonical: "/pricing", languages: hreflangAlternates("https://nanopocket.ai", "/pricing", TRANSLATED_PAGES["/pricing"]) },
   openGraph: {
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }], type: "website", url: PAGE_URL, title: TITLE, description: DESCRIPTION },
 };

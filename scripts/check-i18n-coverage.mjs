@@ -29,7 +29,7 @@ const WRITTEN_ELSEWHERE = { video: ["zh-CN"], headswap: ["zh-CN", "ja"] };
 const BASELINE = path.join(ROOT, "scripts", "i18n-left-in-english.txt");
 
 const TOOL_SOURCES = ["public/face-studio/index.html", "public/face-studio/app.js", "public/headswap-pro/index.html", "public/image-edit/index.html", "public/image-edit/app.js"];
-const PAGE_SOURCES = ["app/credits", "app/my-images", "app/facestudio-v/videos", "app/auth"];
+const PAGE_SOURCES = ["app/credits", "app/my-images", "app/facestudio-v/videos", "app/auth", "app/download", "app/checkout"];
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), "utf-8");
 const readJson = (p) => JSON.parse(read(p));
@@ -122,8 +122,8 @@ const uiEn = readJson("messages/en.json").Ui;
 const source = readJson("messages/pages/en.source.json");
 const { tools } = source;
 // Home and Ui in that file are notes for translators: those words live in messages/<locale>.json, checked above.
-const { video, faceStudio, imageEdit, headswap, pro } = source;
-const pageSource = { video, faceStudio, imageEdit, headswap, pro };
+const { video, faceStudio, imageEdit, headswap, pro, pricing, faceswap, facialedit, imagetryon } = source;
+const pageSource = { video, faceStudio, imageEdit, headswap, pro, pricing, faceswap, facialedit, imagetryon };
 
 const english = foundEnglish();
 const translated = dictionaryKeys(tools);

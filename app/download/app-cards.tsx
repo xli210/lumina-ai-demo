@@ -1,6 +1,8 @@
 "use client";
 
 import { trackEvent } from "@/lib/analytics";
+import { translatedOrEnglish, type AppLocale } from "@/lib/i18n/locales";
+import { tr, type Strings } from "@/lib/i18n/strings";
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -263,7 +265,8 @@ function getDaysRemaining(trialEndsAt: string): number {
   return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
 }
 
-export function AppCards() {
+export function AppCards({ strings, locale }: { strings: Strings; locale: AppLocale }) {
+  const t = (text: string, values?: Record<string, string | number>) => tr(strings, text, values);
   const [claimingApp, setClaimingApp] = useState<string | null>(null);
   const [licenseData, setLicenseData] = useState<Record<string, LicenseInfo>>(
     {}
@@ -320,7 +323,7 @@ export function AppCards() {
       if (!res.ok) {
         setErrors((prev) => ({
           ...prev,
-          [appId]: data.error || "Failed to claim license",
+          [appId]: data.error || t("Failed to claim license"),
         }));
         return;
       }
@@ -343,7 +346,7 @@ export function AppCards() {
     } catch {
       setErrors((prev) => ({
         ...prev,
-        [appId]: "Network error. Please try again.",
+        [appId]: t("Network error. Please try again."),
       }));
     } finally {
       setClaimingApp(null);
@@ -370,7 +373,7 @@ export function AppCards() {
   }
 
   function formatPrice(priceInCents: number) {
-    if (priceInCents === 0) return "Free";
+    if (priceInCents === 0) return t("Free");
     return `$${(priceInCents / 100).toFixed(2)}`;
   }
 
@@ -433,7 +436,7 @@ export function AppCards() {
                                 : "bg-primary/10 text-primary"
                             }`}
                           >
-                            {app.badge}
+                            {t(app.badge)}
                           </span>
                         )}
                         <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
@@ -441,17 +444,17 @@ export function AppCards() {
                         </span>
                       </div>
                       <p className="text-sm font-medium text-primary mb-1">
-                        {app.tagline}
+                        {t(app.tagline)}
                       </p>
                       <p className="text-muted-foreground max-w-xl">
-                        {app.description}
+                        {t(app.description)}
                       </p>
                       {app.proPageHref && (
                         <Link
-                          href={app.proPageHref}
+                          href={translatedOrEnglish(app.proPageHref, locale)}
                           className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:gap-2 transition-all"
                         >
-                          {app.proPageLabel ?? "Learn more"}
+                          {t(app.proPageLabel ?? "Learn more")}
                           <ArrowRight className="h-3.5 w-3.5" />
                         </Link>
                       )}
@@ -477,20 +480,20 @@ export function AppCards() {
                       </span>
                       {price > 0 && (
                         <span className="block text-xs opacity-75">
-                          one-time
+                          {t("one-time")}
                         </span>
                       )}
                     </div>
                     {isPaidWithTrial && (
                       <p className="mt-1 text-xs text-muted-foreground">
-                        {trialDays}-day free trial
+                        {t("{days}-day free trial", { days: trialDays })}
                       </p>
                     )}
                     {product?.originalPriceInCents &&
                       product.originalPriceInCents > price &&
                       product.promoValidUntil && (
                         <p className="mt-1 text-xs font-medium text-amber-500">
-                          Launch price through {product.promoValidUntil} · then {formatPrice(product.originalPriceInCents)}
+                          {t("Launch price through {date} · then {price}", { date: product.promoValidUntil, price: formatPrice(product.originalPriceInCents) })}
                         </p>
                       )}
                   </div>
@@ -504,32 +507,28 @@ export function AppCards() {
                         {isPaidWithTrial ? (
                           <>
                             <p className="text-sm font-medium text-foreground mb-1">
-                              Start your {trialDays}-day free trial
+                              {t("Start your {days}-day free trial", { days: trialDays })}
                             </p>
                             <p className="text-xs text-muted-foreground">
-                              Try the full app for free. No payment required
-                              upfront. Purchase anytime to keep using after the
-                              trial.
+                              {t("Try the full app for free. No payment required upfront. Purchase anytime to keep using after the trial.")}
                             </p>
                           </>
                         ) : price === 0 ? (
                           <>
                             <p className="text-sm font-medium text-foreground mb-1">
-                              Get your free activation license
+                              {t("Get your free activation license")}
                             </p>
                             <p className="text-xs text-muted-foreground">
-                              Each license activates on 1 machine. You&apos;ll
-                              receive a license key to activate the app.
+                              {t("Each license activates on 1 machine. You'll receive a license key to activate the app.")}
                             </p>
                           </>
                         ) : (
                           <>
                             <p className="text-sm font-medium text-foreground mb-1">
-                              Purchase to get your activation license
+                              {t("Purchase to get your activation license")}
                             </p>
                             <p className="text-xs text-muted-foreground">
-                              Each license activates on 1 machine. You&apos;ll
-                              receive a license key to activate the app.
+                              {t("Each license activates on 1 machine. You'll receive a license key to activate the app.")}
                             </p>
                           </>
                         )}
@@ -545,12 +544,12 @@ export function AppCards() {
                               {isClaiming ? (
                                 <>
                                   <Key className="h-4 w-4 animate-spin" />
-                                  Starting...
+                                  {t("Starting...")}
                                 </>
                               ) : (
                                 <>
                                   <Clock className="h-4 w-4" />
-                                  Start Free Trial
+                                  {t("Start Free Trial")}
                                 </>
                               )}
                             </Button>
@@ -562,7 +561,7 @@ export function AppCards() {
                               }
                             >
                               <ShoppingCart className="h-4 w-4" />
-                              Buy — {formatPrice(price)}
+                              {t("Buy — {price}", { price: formatPrice(price) })}
                             </Button>
                           </>
                         ) : price === 0 ? (
@@ -574,12 +573,12 @@ export function AppCards() {
                             {isClaiming ? (
                               <>
                                 <Key className="h-4 w-4 animate-spin" />
-                                Generating...
+                                {t("Generating...")}
                               </>
                             ) : (
                               <>
                                 <Key className="h-4 w-4" />
-                                Get Free License
+                                {t("Get Free License")}
                               </>
                             )}
                           </Button>
@@ -591,7 +590,7 @@ export function AppCards() {
                             }
                           >
                             <ShoppingCart className="h-4 w-4" />
-                            Purchase — {formatPrice(price)}
+                            {t("Purchase — {price}", { price: formatPrice(price) })}
                           </Button>
                         )}
                       </div>
@@ -610,8 +609,7 @@ export function AppCards() {
                         <div className="flex items-center gap-2">
                           <Clock className="h-5 w-5 text-amber-500" />
                           <span className="text-sm font-semibold text-amber-500">
-                            Free Trial — {daysRemaining} day
-                            {daysRemaining !== 1 ? "s" : ""} remaining
+                            {daysRemaining === 1 ? t("Free Trial — 1 day remaining") : t("Free Trial — {n} days remaining", { n: daysRemaining })}
                           </span>
                         </div>
                         <Button
@@ -622,13 +620,13 @@ export function AppCards() {
                           }
                         >
                           <ShoppingCart className="h-3.5 w-3.5" />
-                          Upgrade — {formatPrice(price)}
+                          {t("Upgrade — {price}", { price: formatPrice(price) })}
                         </Button>
                       </div>
                       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                         <div className="flex-1">
                           <p className="text-xs text-muted-foreground mb-1">
-                            Your Trial License Key (save this!)
+                            {t("Your Trial License Key (save this!)")}
                           </p>
                           <code className="text-lg font-mono font-bold tracking-wider text-foreground">
                             {licInfo.license_key}
@@ -643,19 +641,18 @@ export function AppCards() {
                           {copiedKey === app.id ? (
                             <>
                               <Check className="h-3.5 w-3.5" />
-                              Copied!
+                              {t("Copied!")}
                             </>
                           ) : (
                             <>
                               <Copy className="h-3.5 w-3.5" />
-                              Copy Key
+                              {t("Copy Key")}
                             </>
                           )}
                         </Button>
                       </div>
                       <p className="mt-3 text-xs text-muted-foreground">
-                        Enter this key in the app after installation. Purchase
-                        anytime to keep using after the trial ends.
+                        {t("Enter this key in the app after installation. Purchase anytime to keep using after the trial ends.")}
                       </p>
                     </div>
                   </div>
@@ -669,7 +666,7 @@ export function AppCards() {
                         <div className="flex items-center gap-2">
                           <AlertTriangle className="h-5 w-5 text-red-500" />
                           <span className="text-sm font-semibold text-red-500">
-                            Trial Expired
+                            {t("Trial Expired")}
                           </span>
                         </div>
                         <Button
@@ -680,13 +677,11 @@ export function AppCards() {
                           }
                         >
                           <ShoppingCart className="h-3.5 w-3.5" />
-                          Purchase — {formatPrice(price)}
+                          {t("Purchase — {price}", { price: formatPrice(price) })}
                         </Button>
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        Your {trialDays}-day free trial has ended. Purchase a
-                        full license to continue using {app.name}. Your existing
-                        license key will be upgraded automatically.
+                        {t("Your {days}-day free trial has ended. Purchase a full license to continue using {name}. Your existing license key will be upgraded automatically.", { days: trialDays, name: app.name })}
                       </p>
                     </div>
                   </div>
@@ -700,14 +695,14 @@ export function AppCards() {
                         <CheckCircle2 className="h-5 w-5 text-emerald-500" />
                         <span className="text-sm font-semibold text-emerald-500">
                           {price > 0
-                            ? "Licensed — Full Version"
-                            : "License Activated"}
+                            ? t("Licensed — Full Version")
+                            : t("License Activated")}
                         </span>
                       </div>
                       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                         <div className="flex-1">
                           <p className="text-xs text-muted-foreground mb-1">
-                            Your License Key (save this!)
+                            {t("Your License Key (save this!)")}
                           </p>
                           <code className="text-lg font-mono font-bold tracking-wider text-foreground">
                             {licInfo.license_key}
@@ -722,19 +717,18 @@ export function AppCards() {
                           {copiedKey === app.id ? (
                             <>
                               <Check className="h-3.5 w-3.5" />
-                              Copied!
+                              {t("Copied!")}
                             </>
                           ) : (
                             <>
                               <Copy className="h-3.5 w-3.5" />
-                              Copy Key
+                              {t("Copy Key")}
                             </>
                           )}
                         </Button>
                       </div>
                       <p className="mt-3 text-xs text-muted-foreground">
-                        Enter this key in the app after installation to activate
-                        it on your machine.
+                        {t("Enter this key in the app after installation to activate it on your machine.")}
                       </p>
                     </div>
                   </div>
@@ -744,7 +738,7 @@ export function AppCards() {
                 {hasLicense && !trialExpired && (
                   <div className="border-t border-border/50 pt-6">
                     <p className="mb-4 text-sm font-medium text-muted-foreground">
-                      Download for your platform
+                      {t("Download for your platform")}
                     </p>
                     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                       {app.platforms.map((platform) => {
@@ -775,7 +769,7 @@ export function AppCards() {
                             </div>
                             {heldReason ? (
                               <div className="max-w-[16rem] text-right">
-                                <p className="text-sm font-semibold text-amber-600">Temporarily unavailable</p>
+                                <p className="text-sm font-semibold text-amber-600">{t("Temporarily unavailable")}</p>
                                 <p className="mt-0.5 text-xs leading-snug text-muted-foreground">{heldReason}</p>
                               </div>
                             ) : (
@@ -788,12 +782,12 @@ export function AppCards() {
                               {isDownloading ? (
                                 <>
                                   <CheckCircle2 className="h-4 w-4 animate-pulse" />
-                                  Done
+                                  {t("Done")}
                                 </>
                               ) : (
                                 <>
                                   <Download className="h-4 w-4" />
-                                  Download
+                                  {t("Download")}
                                 </>
                               )}
                             </Button>

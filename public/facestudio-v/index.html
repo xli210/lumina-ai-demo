@@ -729,5 +729,52 @@ function drawHud(){
 /* 2.0.0 precision: drag to compare */
 document.querySelectorAll('.cmp').forEach(function(c){var r=c.querySelector('input');r.addEventListener('input',function(){c.style.setProperty('--x',r.value+'%');});});
 </script>
+<script>
+/* The offer of a translation, as on the other pages (app/components/language-prompt.tsx): this page is a static file outside the app's layout. Never a redirect. */
+(function () {
+  var COPY = {
+    "zh-CN": ["这个页面有中文版。", "查看中文版", "关闭"],
+    ja: ["このページには日本語版があります。", "日本語で見る", "閉じる"],
+    ko: ["이 페이지는 한국어로도 볼 수 있습니다.", "한국어로 보기", "닫기"],
+    es: ["Esta página está disponible en español.", "Ver en español", "Cerrar"],
+    "pt-BR": ["Esta página está disponível em português.", "Ver em português", "Fechar"],
+    de: ["Diese Seite gibt es auch auf Deutsch.", "Auf Deutsch ansehen", "Schließen"],
+    fr: ["Cette page est disponible en français.", "Voir en français", "Fermer"]
+  };
+  var KEY = "nanopocket_language_prompt_closed_v1";
+  function pick(tag) {
+    var t = String(tag || "").trim().toLowerCase(), base = t.split("-")[0];
+    if (base === "en") return "en";
+    if (base === "zh") return "zh-CN";
+    if (base === "pt") return "pt-BR";
+    return COPY[base] ? base : null;
+  }
+  function wanted() {
+    var m = document.cookie.match(/(?:^|;\s*)np_locale=([^;]+)/), c = m && pick(decodeURIComponent(m[1]));
+    if (c) return c;
+    var langs = navigator.languages || [navigator.language];
+    for (var i = 0; i < langs.length; i++) { var p = pick(langs[i]); if (p) return p; }
+    return "en";
+  }
+  function track(name, locale) { try { if (window.gtag) gtag("event", name, { language: locale }); } catch (e) {} }
+  try { if (localStorage.getItem(KEY) === "1") return; } catch (e) { return; }
+  var locale = wanted(), c = COPY[locale];
+  if (!c) return;
+  setTimeout(function () {
+    var d = document.createElement("div"), mobile = innerWidth < 640;
+    d.lang = locale; d.setAttribute("role", "region"); d.setAttribute("aria-label", c[0]);
+    d.style.cssText = "position:fixed;z-index:30;left:16px;bottom:16px;" + (mobile ? "right:16px;" : "max-width:320px;") + "display:flex;gap:8px;align-items:flex-start;padding:12px;border-radius:12px;background:#15171c;color:#f2f3f5;border:1px solid #33363d;font:14px/1.45 system-ui,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.45)";
+    var t = document.createElement("div"); t.style.flex = "1"; t.textContent = c[0];
+    var a = document.createElement("a"); a.href = "/" + locale + "/facestudio-v"; a.hreflang = locale; a.textContent = c[1];
+    a.style.cssText = "display:block;margin-top:4px;color:#7cb7ff;font-weight:500"; a.onclick = function () { track("language_prompt_accepted", locale); };
+    t.appendChild(a);
+    var x = document.createElement("button"); x.type = "button"; x.textContent = "\u00d7"; x.setAttribute("aria-label", c[2]);
+    x.style.cssText = "background:none;border:0;color:#9aa0aa;font-size:18px;line-height:1;cursor:pointer;padding:0 2px";
+    x.onclick = function () { try { localStorage.setItem(KEY, "1"); } catch (e) {} d.remove(); };
+    d.appendChild(t); d.appendChild(x); document.body.appendChild(d);
+    track("language_prompt_shown", locale);
+  }, 1500);
+})();
+</script>
 </body>
 </html>

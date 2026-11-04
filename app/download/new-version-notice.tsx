@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BadgeCheck, Sparkles } from "lucide-react";
 import { appReleases } from "@/lib/release-data";
 import { SIGNED_DOWNLOADS } from "@/lib/download-hashes";
+import { tr, type Strings } from "@/lib/i18n/strings";
 
 /**
  * "New versions are out", above the Windows warning on /download.
@@ -23,7 +24,7 @@ const FEATURED = [
 /** How many changes each card lists; the rest are one click away. */
 const HIGHLIGHTS = 3;
 
-export function NewVersionNotice() {
+export function NewVersionNotice({ strings }: { strings: Strings }) {
   const cards = FEATURED.flatMap((f) => {
     const app = appReleases.find((a) => a.slug === f.slug);
     const latest = app?.releases[0];
@@ -38,10 +39,10 @@ export function NewVersionNotice() {
       <div className="mx-auto max-w-5xl rounded-2xl border border-sky-500/30 bg-sky-500/5 p-5 sm:p-6">
         <h2 className="flex items-center gap-2 text-base font-semibold text-foreground">
           <Sparkles className="h-4 w-4 text-sky-500" />
-          New versions are out for {cards.length} of our local apps
+          {tr(strings, "New versions are out for {n} of our local apps", { n: cards.length })}
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Here is what changed in the latest version of each:
+          {tr(strings, "Here is what changed in the latest version of each:")}
         </p>
 
         <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -51,13 +52,13 @@ export function NewVersionNotice() {
                 {c.name} {c.latest.version}
               </p>
               <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
-                <span>{c.note}</span>
+                <span>{tr(strings, c.note)}</span>
                 <span aria-hidden>·</span>
                 <span>{c.latest.date}</span>
                 {c.signed && (
                   <span className="inline-flex items-center gap-1 text-emerald-500">
                     <BadgeCheck className="h-3.5 w-3.5" />
-                    Code-signed
+                    {tr(strings, "Code-signed")}
                   </span>
                 )}
               </p>
@@ -68,13 +69,13 @@ export function NewVersionNotice() {
               </ul>
               <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
                 <a href={`#${c.slug}`} className="font-medium text-primary underline-offset-4 hover:underline">
-                  Get {c.latest.version}
+                  {tr(strings, "Get {version}", { version: c.latest.version })}
                 </a>
                 <Link
                   href={`/release-notes/${c.slug}`}
                   className="font-medium text-primary underline-offset-4 hover:underline"
                 >
-                  All changes
+                  {tr(strings, "All changes")}
                 </Link>
               </p>
             </div>
@@ -82,8 +83,7 @@ export function NewVersionNotice() {
         </div>
 
         <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-          We are still updating our other local apps, one at a time, and we hope you enjoy what is
-          coming. The SHA-256 checksum and signing details of every download are on{" "}
+          {tr(strings, "We are still updating our other local apps, one at a time, and we hope you enjoy what is coming. The SHA-256 checksum and signing details of every download are on")}{" "}
           <Link href="/verify" className="font-medium text-primary underline-offset-4 hover:underline">
             /verify
           </Link>

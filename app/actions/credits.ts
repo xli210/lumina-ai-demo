@@ -1,6 +1,7 @@
 "use server";
 
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
+import { LOCALE_COOKIE, negotiateLocale, stripeLocale } from "@/lib/i18n/locales";
 import type Stripe from "stripe";
 
 import { getStripe } from "@/lib/stripe";
@@ -128,6 +129,7 @@ export async function startCreditCheckoutSession(
 
   const session = await getStripe().checkout.sessions.create({
     ui_mode: "embedded",
+    locale: stripeLocale(negotiateLocale((await cookies()).get(LOCALE_COOKIE)?.value, headersList.get("accept-language"))),
     mode: "payment",
     customer: customerId,
     return_url: `${origin}/credits?session_id={CHECKOUT_SESSION_ID}`,

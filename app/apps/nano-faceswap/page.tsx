@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
 import {
   ProductLandingShell,
   type ProductLandingData,
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     "private face swap",
     "no cloud face swap",
   ],
-  alternates: { canonical: "/apps/nano-faceswap" },
+  alternates: { canonical: "/apps/nano-faceswap", languages: hreflangAlternates("https://nanopocket.ai", "/apps/nano-faceswap", TRANSLATED_PAGES["/apps/nano-faceswap"]) },
   openGraph: {
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NanoPocket" }],
     title: "Nano FaceSwap — Free Local Desktop Face Swap",

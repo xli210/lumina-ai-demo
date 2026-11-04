@@ -90,11 +90,7 @@ export default async function MyVideosPage() {
 
         <div className="mb-8 rounded-lg border border-border bg-muted/40 p-4 text-sm leading-relaxed text-foreground">
           {paid ? t("noticePaid") : t("noticeFree")}{" "}
-          {/* Refund wording stays in English in every language: docs/i18n.md. */}
-          <span lang="en">
-            A video that was made is charged, and it is not refunded once it has been deleted. Videos that could not be made, or that you cancelled, are
-            never charged.
-          </span>
+          {t("billing")}
           {paid ? null : (
             <>
               {" "}

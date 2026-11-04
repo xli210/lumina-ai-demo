@@ -149,7 +149,7 @@
       "{grant} créditos grátis no cadastro permitem testar um clipe de até 5 segundos, com marca d'água em movimento.",
       "Depois de uma recarga, os novos vídeos saem sem marca d'água, podem ter até 60 segundos (12 no Whole head) e passam à frente das contas grátis na fila."
     ],
-    "topupPricing": "Preços e condições de reembolso (em inglês)",
+    "topupPricing": "Preços",
     "ctaMake": "Começar a fazer um vídeo",
     "faqHeading": "Perguntas frequentes",
     "faq": [
@@ -179,7 +179,7 @@
       },
       {
         "q": "O estúdio está no meu idioma?",
-        "a": "Sim. As telas do estúdio estão no seu idioma; só os textos sobre preços e reembolsos continuam em inglês."
+        "a": "Sim. As telas do estúdio estão no seu idioma."
       }
     ],
     "english": "Versão em inglês"
@@ -256,7 +256,7 @@
         "a": "Sim. Funciona em qualquer navegador moderno, e todo o trabalho acontece nas nossas GPUs."
       }
     ],
-    "pricingLink": "Preços e condições de reembolso (em inglês)",
+    "pricingLink": "Preços",
     "english": "Versão em inglês"
   },
   "imageEdit": {
@@ -346,7 +346,7 @@
         "a": "Só fotos que você tem o direito de editar, inclusive quanto às pessoas que aparecem nelas: elas são você ou concordaram."
       }
     ],
-    "pricingLink": "Preços e condições de reembolso (em inglês)",
+    "pricingLink": "Preços",
     "english": "Versão em inglês"
   },
   "headswap": {
@@ -483,7 +483,7 @@
     "h1": "O rosto inteiro, em um só estúdio, na sua própria GPU",
     "lead": "Sete ferramentas em um app para desktop: troca de rosto, edição com máscara, edição de expressões, Face Vivid, ampliação, ajuste de luz e corte. Tudo roda no seu computador, então suas fotos nunca são enviadas e não há cobrança por imagem.",
     "cta": "Comprar e baixar",
-    "note": "Licença de pagamento único, sem assinatura. Já disponível para Windows; o macOS virá depois. A página de compra e os preços estão em inglês.",
+    "note": "Licença de pagamento único, sem assinatura. Já disponível para Windows; o macOS virá depois.",
     "examplesHeading": "Telas reais do app",
     "beforeLabel": "Antes",
     "afterLabel": "Depois",
@@ -561,7 +561,386 @@
         "a": "Sim, de acordo com os Termos de Uso, que estão em inglês. É proibido usar a imagem de uma pessoa sem o consentimento dela."
       }
     ],
-    "pricingLink": "Preços (em inglês)",
+    "pricingLink": "Preços",
     "english": "Ler a página completa em inglês"
+  },
+  "pricing": {
+    "title": "Preços: apps grátis e créditos pagos por uso",
+    "description": "Apps para desktop grátis, ferramentas online pagas por uso em créditos e licenças Pro de pagamento único. Troca de rosto a partir de {face} créditos por rosto, edição de foto a {edit} créditos. Sem assinatura.",
+    "kicker": "Preços",
+    "h1": "Quanto custa o NanoPocket",
+    "lead": "Três formas de pagar, e nenhuma é assinatura. Os apps para desktop grátis não custam nada. As ferramentas online são pagas por uso, a partir de um saldo de créditos, em que 100 créditos equivalem a um dólar americano, e o preço aparece antes de você começar. Os apps Pro para desktop têm licença de pagamento único.",
+    "onlineHeading": "Ferramentas online: pague por uso, em créditos",
+    "onlineNote": "Elas rodam nas GPUs da NanoPocket, no seu navegador, então não há nada para instalar. Se uma renderização falhar ou for cancelada, os créditos são devolvidos. Os créditos nunca expiram.",
+    "thTool": "Ferramenta",
+    "thPay": "Quanto você paga",
+    "thNote": "Bom saber",
+    "faceStudioPay": "Troca de rosto: {face} créditos por rosto; troca de cabeça: {head} créditos.",
+    "faceStudioNote": "Até {faces} rostos em uma foto. A detecção de rostos é grátis. Você paga por rosto trocado, então os rostos que você deixa como estão não custam nada.",
+    "headswapPay": "{credits} créditos por imagem entregue.",
+    "headswapNote": "Troca a cabeça inteira: rosto, cabelo e formato da cabeça. Até {variations} variações por execução; cada uma custa o mesmo, e uma troca que falha não custa nada.",
+    "videoPay": "O preço é calculado por vídeo, conforme o modo, o tamanho da saída, a duração do clipe e o número de pessoas, e aparece antes de você começar.",
+    "videoNote": "Um clipe de 10 segundos em 1080p no modo Fast custa cerca de 20 créditos. Os pedidos entram em fila.",
+    "imageEditPay": "{edit} créditos por edição.",
+    "imageEditNote": "PNG sem perdas, sem marca d'água. Nas ferramentas de objeto, todos os pixels fora da edição ficam idênticos.",
+    "packsHeading": "Pacotes de créditos",
+    "packsNote": "Compre créditos quando precisar. 1 crédito custa $0.01, e os pacotes maiores trazem créditos de bônus. Os créditos são comprados na página de créditos.",
+    "packsLink": "Ir para a página de créditos",
+    "thPack": "Pacote",
+    "thPrice": "Preço",
+    "thCredits": "Créditos que você recebe",
+    "thRoughly": "Aproximadamente",
+    "bonus": "inclui {bonus} de bônus, +{percent}%",
+    "roughly": "{swaps} trocas de rosto, ou {edits} edições de foto",
+    "freeHeading": "Créditos grátis e a marca d'água",
+    "freeNote": "Uma conta nova começa com {grant} créditos. Uma conta que já comprou créditos também é recarregada até {topup} créditos sempre que o saldo está baixo; quem nunca comprou não recebe essa recarga. Os créditos grátis são limitados a uma conta por pessoa.",
+    "watermarkNote": "A marca d'água: os resultados de {video} e do Nano FaceStudio Online feitos em uma conta que nunca comprou créditos levam a marca d'água da NanoPocket.ai. Compre créditos uma vez, com qualquer pacote, e ela sai dos resultados que você fizer depois. Créditos grátis não contam como compra.",
+    "desktopHeading": "Apps para desktop: grátis ou com licença de pagamento único",
+    "desktopNote": "Os apps para desktop rodam na sua própria GPU NVIDIA, no Windows, então suas fotos e vídeos ficam no seu computador. A licença é separada dos créditos.",
+    "thApp": "App",
+    "thTrial": "Teste",
+    "freeLicense": "Licença grátis",
+    "oneTime": "{price}, pagamento único",
+    "trialDays": "Teste grátis de {days} dias",
+    "desktopLink": "Ir para a página de download",
+    "faqHeading": "Perguntas",
+    "faq": [
+      {
+        "q": "Existe assinatura?",
+        "a": "Não. As ferramentas online são pagas por uso, a partir de um saldo de créditos que você recarrega quando quiser, e os apps para desktop são grátis ou têm licença de pagamento único."
+      },
+      {
+        "q": "Os créditos expiram?",
+        "a": "Não. Os créditos nunca expiram, e o preço de cada renderização aparece antes de você começar. Se uma renderização falhar ou for cancelada, os créditos são devolvidos."
+      },
+      {
+        "q": "Os créditos funcionam nos apps para desktop?",
+        "a": "Não. Os créditos pagam apenas as ferramentas online. As licenças dos apps para desktop são separadas: comprar créditos não afeta uma licença, e ter uma licença não gasta créditos."
+      }
+    ],
+    "terms": "Os Termos de Uso, incluindo as condições de reembolso, estão em inglês.",
+    "termsLink": "Ler os Termos de Uso",
+    "english": "Ler esta página em inglês",
+    "linkLabel": "Preços"
+  },
+  "faceswap": {
+    "title": "Nano FaceSwap: troca de rosto local e grátis para Windows",
+    "description": "Troca de rosto grátis para desktop, em fotos e vídeos, na sua própria GPU NVIDIA. Sem cobrança por minuto ou por quadro, e nada é enviado.",
+    "kicker": "App grátis para desktop",
+    "h1": "Troca de rosto grátis no seu próprio computador",
+    "lead": "Troque um rosto ou vários, em fotos e em vídeos, com um só app para desktop para Windows. Ele é grátis com uma chave de licença, não tem cobrança por minuto nem por quadro e nunca envia seus arquivos.",
+    "cta": "Obter a licença grátis",
+    "note": "Licença grátis. Windows com uma GPU NVIDIA. A página de download aparece no seu idioma.",
+    "examplesHeading": "",
+    "beforeLabel": "",
+    "afterLabel": "",
+    "examples": {},
+    "featuresHeading": "O que ele faz",
+    "features": [
+      {
+        "title": "Fotos e vídeos",
+        "body": "Os dois no mesmo app, com uma única GPU NVIDIA."
+      },
+      {
+        "title": "Escolha quem muda",
+        "body": "O app encontra os rostos na imagem. Troque uma pessoa e deixe as outras como estão, ou troque um grupo inteiro com um clique."
+      },
+      {
+        "title": "Fica no seu computador",
+        "body": "Suas fotos e vídeos nunca são enviados."
+      },
+      {
+        "title": "Sem taxas de uso",
+        "body": "Sem cobrança por minuto ou por quadro."
+      }
+    ],
+    "stepsHeading": "Como começar",
+    "steps": [
+      {
+        "title": "Obtenha uma licença grátis",
+        "body": "Entre na sua conta e resgate a licença na página de download. Cada licença é ativada em um computador."
+      },
+      {
+        "title": "Instale e ative",
+        "body": "Baixe o app e digite sua chave de licença. A ativação é a única vez em que ele precisa de internet."
+      },
+      {
+        "title": "Troque",
+        "body": "Abra uma foto ou um vídeo, escolha o rosto e adicione o novo."
+      }
+    ],
+    "faqHeading": "Perguntas",
+    "faq": [
+      {
+        "q": "Vai rodar no meu computador?",
+        "a": "Windows 10 ou 11 com uma GPU NVIDIA (GTX 1060 ou mais nova, 4 GB de VRAM ou mais) e 8 GB de RAM. Não roda em Macs."
+      },
+      {
+        "q": "Minhas fotos e vídeos são enviados?",
+        "a": "Não. Tudo roda na sua própria GPU, e seus arquivos ficam no seu computador. A única comunicação pela rede é a ativação da licença."
+      },
+      {
+        "q": "Devo escolher este ou o Nano FaceStudio Pro?",
+        "a": "O Nano FaceSwap é grátis e cobre as trocas do dia a dia em fotos e vídeos. O Nano FaceStudio Pro é nosso app pago para desktop, com licença de pagamento único: sete ferramentas, incluindo troca de rosto por difusão, edição com máscara, edição de expressões e ampliação."
+      }
+    ],
+    "pricingLink": "Preços",
+    "english": "Ler a página completa em inglês"
+  },
+  "facialedit": {
+    "title": "Nano FacialEdit: editor de retratos local e grátis para Windows",
+    "description": "Edição de retratos grátis para desktop, na sua própria GPU NVIDIA: expressão, sorriso, olhos e retoque de pele com controles deslizantes. Nada é enviado.",
+    "kicker": "App grátis para desktop",
+    "h1": "Edite expressões e retoque retratos no seu próprio computador",
+    "lead": "Abra olhos fechados, suavize uma testa franzida, realce um sorriso e retoque a pele, com controles deslizantes, em um app grátis para desktop para Windows. A pessoa continua parecendo ela mesma, e seus retratos nunca são enviados.",
+    "cta": "Obter a licença grátis",
+    "note": "Licença grátis. Windows com uma GPU NVIDIA. A página de download aparece no seu idioma.",
+    "examplesHeading": "",
+    "beforeLabel": "",
+    "afterLabel": "",
+    "examples": {},
+    "featuresHeading": "O que ele faz",
+    "features": [
+      {
+        "title": "Controles deslizantes, não predefinições",
+        "body": "Expressão, sorriso, sobrancelhas e abertura dos olhos são, cada um, um controle que você arrasta."
+      },
+      {
+        "title": "Mantém a semelhança",
+        "body": "O formato do rosto, o tom de pele e os traços marcantes continuam quando a expressão muda."
+      },
+      {
+        "title": "Retoque de pele",
+        "body": "Remove manchas, vermelhidão e tom irregular e mantém os poros e a textura da pele, sem aparência de plástico."
+      },
+      {
+        "title": "Troca de rosto incluída",
+        "body": "Um modo de troca de rosto para retratos está no mesmo app."
+      }
+    ],
+    "stepsHeading": "Como começar",
+    "steps": [
+      {
+        "title": "Obtenha uma licença grátis",
+        "body": "Entre na sua conta e resgate a licença na página de download. Cada licença é ativada em um computador."
+      },
+      {
+        "title": "Instale e ative",
+        "body": "Baixe o app e digite sua chave de licença. A ativação é a única vez em que ele precisa de internet."
+      },
+      {
+        "title": "Edite",
+        "body": "Abra um retrato e arraste os controles."
+      }
+    ],
+    "faqHeading": "Perguntas",
+    "faq": [
+      {
+        "q": "Vai rodar no meu computador?",
+        "a": "Windows 10 ou 11 com uma GPU NVIDIA (GTX 1060 ou mais nova, 4 GB de VRAM ou mais) e 8 GB de RAM. Não roda em Macs."
+      },
+      {
+        "q": "Meus retratos são enviados?",
+        "a": "Não. Tudo roda na sua própria GPU, e seus arquivos ficam no seu computador. A única comunicação pela rede é a ativação da licença."
+      },
+      {
+        "q": "Devo escolher este ou o Nano FaceStudio Pro?",
+        "a": "O Nano FacialEdit é grátis e feito para edições de retratos. O Nano FaceStudio Pro é nosso app pago para desktop, com licença de pagamento único: sete ferramentas, incluindo troca de rosto por difusão, edição com máscara, edição de expressões e ampliação."
+      }
+    ],
+    "pricingLink": "Preços",
+    "english": "Ler a página completa em inglês"
+  },
+  "imagetryon": {
+    "title": "Nano ImageTryon: provador virtual local e grátis para Windows",
+    "description": "Provador virtual grátis para desktop, na sua própria GPU NVIDIA: coloque uma peça de roupa de qualquer foto em uma pessoa, mantendo o corpo, a pose e a iluminação. Nada é enviado.",
+    "kicker": "App grátis para desktop",
+    "h1": "Experimente roupas a partir de uma foto, no seu próprio computador",
+    "lead": "Pegue uma peça de uma foto de catálogo, de uma peça estendida ou de moda de rua e coloque em uma pessoa em outra foto, com um app grátis para desktop para Windows. O corpo, a pose e a iluminação continuam como estavam, e nada é enviado.",
+    "cta": "Obter a licença grátis",
+    "note": "Licença grátis. Windows com uma GPU NVIDIA. A página de download aparece no seu idioma.",
+    "examplesHeading": "",
+    "beforeLabel": "",
+    "afterLabel": "",
+    "examples": {},
+    "featuresHeading": "O que ele faz",
+    "features": [
+      {
+        "title": "Uma peça de qualquer foto",
+        "body": "Fotos de catálogo, de peças estendidas e de moda de rua servem como origem. A textura do tecido, a cor e a silhueta são mantidas."
+      },
+      {
+        "title": "Se ajusta à pessoa",
+        "body": "As proporções do corpo, a altura e a pose da pessoa continuam como estão."
+      },
+      {
+        "title": "Combina com a luz",
+        "body": "A iluminação da peça é refeita para combinar com a foto da pessoa, seja ao sol, à sombra, em ambiente fechado ou em estúdio."
+      },
+      {
+        "title": "Para lojas e para você",
+        "body": "Fotos de catálogo, anúncios em marketplaces e estilo pessoal, tudo no seu próprio computador."
+      }
+    ],
+    "stepsHeading": "Como começar",
+    "steps": [
+      {
+        "title": "Obtenha uma licença grátis",
+        "body": "Entre na sua conta e resgate a licença na página de download. Cada licença é ativada em um computador."
+      },
+      {
+        "title": "Instale e ative",
+        "body": "Baixe o app e digite sua chave de licença. A ativação é a única vez em que ele precisa de internet."
+      },
+      {
+        "title": "Experimente",
+        "body": "Abra uma foto da pessoa e uma foto da peça."
+      }
+    ],
+    "faqHeading": "Perguntas",
+    "faq": [
+      {
+        "q": "Vai rodar no meu computador?",
+        "a": "Windows 10 ou 11 com uma GPU NVIDIA (GTX 1060 ou mais nova, 4 GB de VRAM ou mais) e 8 GB de RAM. Não roda em Macs."
+      },
+      {
+        "q": "Minhas fotos são enviadas?",
+        "a": "Não. Tudo roda na sua própria GPU, e seus arquivos ficam no seu computador. A única comunicação pela rede é a ativação da licença."
+      }
+    ],
+    "pricingLink": "Preços",
+    "english": "Ler a página completa em inglês"
+  },
+  "strings": {
+    "This product is free!": "Este produto é grátis!",
+    "{name} doesn't require payment. Head to the download page to claim your free license.": "O {name} não exige pagamento. Vá à página de download para resgatar sua licença grátis.",
+    "Go to Download": "Ir para o download",
+    "Back to Downloads": "Voltar para os downloads",
+    "Secure Checkout": "Pagamento seguro",
+    "One-time purchase": "Compra única",
+    "Includes upgrade from your free trial — same license key": "Inclui a atualização do seu teste grátis — a mesma chave de licença",
+    "Payment system not configured": "Sistema de pagamento não configurado",
+    "Unable to load checkout": "Não foi possível carregar o pagamento",
+    "Payment Successful!": "Pagamento concluído!",
+    "Your license has been activated. You can now download the app and start using it with your license key. Check your downloads page for the license key.": "Sua licença foi ativada. Agora você pode baixar o app e começar a usá-lo com a sua chave de licença. A chave está na sua página de downloads.",
+    "Go to Downloads": "Ir para os downloads",
+    "View Account": "Ver conta",
+    "Our Products — Download & Get Started": "Nossos produtos — baixe e comece",
+    "Download Our Apps": "Baixe nossos apps",
+    "Explore our suite of AI-powered tools. Each app is designed to run locally on your machine — no cloud dependency, full privacy.": "Conheça nosso conjunto de ferramentas com IA. Cada app foi feito para rodar localmente no seu computador — sem depender da nuvem e com total privacidade.",
+    "Free trials included": "Testes grátis incluídos",
+    "Signed-in users only": "Somente para quem entrou na conta",
+    "Runs 100% locally": "Roda 100% localmente",
+    "New versions are out for {n} of our local apps": "Há novas versões de {n} dos nossos apps locais",
+    "Here is what changed in the latest version of each:": "Veja o que mudou na versão mais recente de cada um:",
+    "Code-signed": "Assinado digitalmente",
+    "Get {version}": "Obter a {version}",
+    "All changes": "Todas as mudanças",
+    "We are still updating our other local apps, one at a time, and we hope you enjoy what is coming. The SHA-256 checksum and signing details of every download are on": "Ainda estamos atualizando nossos outros apps locais, um de cada vez, e esperamos que você goste do que vem por aí. A soma de verificação SHA-256 e os detalhes da assinatura de cada download estão em",
+    "Free face swap": "Troca de rosto grátis",
+    "System Requirements": "Requisitos do sistema",
+    "Make sure your device meets the minimum requirements for each app": "Confira se o seu dispositivo atende aos requisitos mínimos de cada app",
+    "Face & Enhancement Tools": "Ferramentas de rosto e aprimoramento",
+    "OS": "SO",
+    "RAM": "RAM",
+    "Storage": "Armazenamento",
+    "8 GB minimum (16 GB recommended)": "8 GB no mínimo (16 GB recomendados)",
+    "8 GB minimum": "8 GB no mínimo",
+    "2 GB available space": "2 GB de espaço livre",
+    "1 GB available space": "1 GB de espaço livre",
+    "Failed to claim license": "Não foi possível resgatar a licença",
+    "Network error. Please try again.": "Erro de rede. Tente novamente.",
+    "Free": "Grátis",
+    "New": "Novo",
+    "Learn more": "Saiba mais",
+    "one-time": "pagamento único",
+    "{days}-day free trial": "Teste grátis de {days} dias",
+    "Launch price through {date} · then {price}": "Preço de lançamento até {date} · depois {price}",
+    "Start your {days}-day free trial": "Comece seu teste grátis de {days} dias",
+    "Try the full app for free. No payment required upfront. Purchase anytime to keep using after the trial.": "Experimente o app completo de graça. Não é preciso pagar nada antes. Compre quando quiser para continuar usando depois do teste.",
+    "Get your free activation license": "Obtenha sua licença de ativação grátis",
+    "Each license activates on 1 machine. You'll receive a license key to activate the app.": "Cada licença é ativada em 1 computador. Você receberá uma chave de licença para ativar o app.",
+    "Purchase to get your activation license": "Compre para obter sua licença de ativação",
+    "Starting...": "Iniciando...",
+    "Start Free Trial": "Começar teste grátis",
+    "Buy — {price}": "Comprar — {price}",
+    "Generating...": "Gerando...",
+    "Get Free License": "Obter licença grátis",
+    "Purchase — {price}": "Comprar — {price}",
+    "Free Trial — {n} days remaining": "Teste grátis — {n} dias restantes",
+    "Free Trial — 1 day remaining": "Teste grátis — 1 dia restante",
+    "Upgrade — {price}": "Atualizar — {price}",
+    "Your Trial License Key (save this!)": "Sua chave de licença de teste (guarde-a!)",
+    "Copied!": "Copiado!",
+    "Copy Key": "Copiar chave",
+    "Enter this key in the app after installation. Purchase anytime to keep using after the trial ends.": "Digite esta chave no app depois de instalar. Compre quando quiser para continuar usando depois que o teste terminar.",
+    "Trial Expired": "Teste encerrado",
+    "Your {days}-day free trial has ended. Purchase a full license to continue using {name}. Your existing license key will be upgraded automatically.": "Seu teste grátis de {days} dias terminou. Compre uma licença completa para continuar usando o {name}. Sua chave de licença atual será atualizada automaticamente.",
+    "Licensed — Full Version": "Licenciado — versão completa",
+    "License Activated": "Licença ativada",
+    "Your License Key (save this!)": "Sua chave de licença (guarde-a!)",
+    "Enter this key in the app after installation to activate it on your machine.": "Digite esta chave no app depois de instalar para ativá-lo no seu computador.",
+    "Download for your platform": "Baixar para a sua plataforma",
+    "Temporarily unavailable": "Indisponível por enquanto",
+    "Done": "Concluído",
+    "Download": "Baixar",
+    "See the full feature tour": "Ver o tour completo dos recursos",
+    "Want diffusion quality and 7 tools? See Nano FaceStudio Pro": "Quer a qualidade da difusão e 7 ferramentas? Conheça o Nano FaceStudio Pro",
+    "What's new in 3.0": "Novidades da 3.0",
+    "AI Face Studio — 7 tools in one desktop app": "AI Face Studio — 7 ferramentas em um só app para desktop",
+    "Face swap, mask edit, expression editing, face vivid restoration, 2×/3×/4× upscale, light adjust, and crop — one unified desktop studio, every model running on your GPU. Multi-face swap up to 16 faces per image using GAN and diffusion models.": "Troca de rosto, edição com máscara, edição de expressões, restauração Face Vivid, ampliação 2×/3×/4×, ajuste de luz e corte — um estúdio único para desktop, com todos os modelos rodando na sua GPU. Troca de vários rostos, até 16 por imagem, com modelos GAN e de difusão.",
+    "AI Facial Editing & Enhancement": "Edição e aprimoramento facial com IA",
+    "Retouch, enhance, and transform facial features with AI. Supports face swap, expression editing, and portrait retouching — all running 100% locally on your GPU.": "Retoque, aprimore e transforme feições do rosto com IA. Aceita troca de rosto, edição de expressões e retoque de retratos — tudo rodando 100% localmente na sua GPU.",
+    "AI Face Swap": "Troca de rosto com IA",
+    "Swap faces in photos and videos with realistic AI-powered results. Fast, private, and running 100% locally on your GPU.": "Troque rostos em fotos e vídeos com resultados realistas feitos por IA. Rápido, privado e rodando 100% localmente na sua GPU.",
+    "AI Virtual Try-On": "Provador virtual com IA",
+    "See how clothes look on you before you buy. AI-powered virtual try-on with photo-realistic results — running 100% locally on your GPU.": "Veja como as roupas ficam em você antes de comprar. Provador virtual com IA e resultados fotorrealistas — rodando 100% localmente na sua GPU.",
+    "AI Image Generation & Editing": "Geração e edição de imagens com IA",
+    "Generate and edit stunning images from text prompts with Nano ImageEdit. Supports text-to-image and image-to-image, running 100% locally on your GPU.": "Gere e edite imagens impressionantes a partir de descrições em texto com o Nano ImageEdit. Aceita texto para imagem e imagem para imagem, rodando 100% localmente na sua GPU.",
+    "AI Video Enhancement": "Aprimoramento de vídeo com IA",
+    "Upscale, stabilize, and enhance video quality with AI. Improve resolution, reduce noise, and sharpen details — all running 100% locally on your GPU.": "Amplie, estabilize e melhore a qualidade do vídeo com IA. Aumente a resolução, reduza o ruído e realce os detalhes — tudo rodando 100% localmente na sua GPU.",
+    "AI Image Enhancement — Pro": "Aprimoramento de imagens com IA — Pro",
+    "Upscale, denoise, and restore images with AI. Now featuring a smooth Electron desktop app, native Apple Silicon support (M2–M5), batch processing, and crop + background matting — all running 100% locally on your GPU.": "Amplie, reduza o ruído e restaure imagens com IA. Agora com um app para desktop em Electron mais fluido, suporte nativo a Apple Silicon (M2–M5), processamento em lote e corte + recorte de fundo — tudo rodando 100% localmente na sua GPU.",
+    "AI Video Generation": "Geração de vídeo com IA",
+    "Create stunning videos from text prompts or images with Nano VideoGen. Supports text-to-video, image-to-video, keyframe interpolation, and camera control LoRAs — all running 100% locally on your GPU.": "Crie vídeos impressionantes a partir de descrições em texto ou de imagens com o Nano VideoGen. Aceita texto para vídeo, imagem para vídeo, interpolação de quadros-chave e LoRAs de controle de câmera — tudo rodando 100% localmente na sua GPU.",
+    "AI Facial Editing — Retouch, enhance, and transform facial features with Nano FacialEdit, running 100% locally on your GPU.": "Edição facial com IA — retoque, aprimore e transforme feições do rosto com o Nano FacialEdit, rodando 100% localmente na sua GPU.",
+    "AI Face Swap — Swap faces in photos and videos with realistic results using Nano FaceSwap, running 100% locally on your GPU.": "Troca de rosto com IA — troque rostos em fotos e vídeos com resultados realistas usando o Nano FaceSwap, rodando 100% localmente na sua GPU.",
+    "AI Virtual Try-On — See how clothes look on you before you buy, powered by AI running 100% locally on your GPU.": "Provador virtual com IA — veja como as roupas ficam em você antes de comprar, com IA rodando 100% localmente na sua GPU.",
+    "AI Image Generation — Generate and edit stunning images from text prompts with Nano ImageEdit, running locally on your GPU.": "Geração de imagens com IA — gere e edite imagens impressionantes a partir de descrições em texto com o Nano ImageEdit, rodando localmente na sua GPU.",
+    "AI Video Enhancement — Upscale, stabilize, and enhance video quality with Nano VideoEnhance, running 100% locally on your GPU.": "Aprimoramento de vídeo com IA — amplie, estabilize e melhore a qualidade do vídeo com o Nano VideoEnhance, rodando 100% localmente na sua GPU.",
+    "AI Image Enhancement — Upscale, denoise, and restore images with Nano ImageEnh, running 100% locally on your GPU.": "Aprimoramento de imagens com IA — amplie, reduza o ruído e restaure imagens com o Nano ImageEnh, rodando 100% localmente na sua GPU.",
+    "AI Face Studio — Face swap, mask edit, expression editing, face vivid, upscale, light adjust, and crop in one local desktop app running 100% on your GPU. Free browser demos at /face-swap preview the swap + vivid capabilities.": "AI Face Studio — troca de rosto, edição com máscara, edição de expressões, Face Vivid, ampliação, ajuste de luz e corte em um só app local para desktop, rodando 100% na sua GPU. As demonstrações grátis no navegador em /face-swap mostram os recursos de troca e Face Vivid.",
+    "AI Video Generation — Create stunning videos from text prompts or images with Nano VideoGen, running 100% locally on your GPU.": "Geração de vídeo com IA — crie vídeos impressionantes a partir de descrições em texto ou de imagens com o Nano VideoGen, rodando 100% localmente na sua GPU.",
+    "AI-powered facial retouching & enhancement": "Retoque e aprimoramento facial com IA",
+    "Face swap and expression editing": "Troca de rosto e edição de expressões",
+    "Runs 100% locally on your GPU": "Roda 100% localmente na sua GPU",
+    "All future updates included": "Todas as atualizações futuras incluídas",
+    "AI-powered face swapping": "Troca de rosto com IA",
+    "Photo and video support": "Suporte a fotos e vídeos",
+    "AI-powered virtual try-on": "Provador virtual com IA",
+    "Photo-realistic clothing swap": "Troca de roupa fotorrealista",
+    "Text-to-image generation": "Geração de texto para imagem",
+    "Image-to-image with reference photos": "Imagem para imagem com fotos de referência",
+    "7-day free trial included": "Teste grátis de 7 dias incluído",
+    "AI-powered video upscaling & enhancement": "Ampliação e aprimoramento de vídeo com IA",
+    "Video stabilization and denoising": "Estabilização e redução de ruído de vídeo",
+    "AI-powered image upscaling & denoising": "Ampliação e redução de ruído de imagens com IA",
+    "Photo restoration and enhancement": "Restauração e aprimoramento de fotos",
+    "7-tool bundle: swap, mask, expression, vivid, upscale, light, crop": "Pacote de 7 ferramentas: troca, máscara, expressão, Vivid, ampliação, luz, corte",
+    "Multi-face swap up to 16 faces per image": "Troca de vários rostos, até 16 por imagem",
+    "GAN and diffusion models": "Modelos GAN e de difusão",
+    "2×, 3×, 4× full-image upscale": "Ampliação da imagem inteira em 2×, 3×, 4×",
+    "Face Vivid: de-plasticize AI-smoothed skin": "Face Vivid: tira o aspecto de plástico da pele alisada pela IA",
+    "Runs 100% locally on NVIDIA CUDA or Apple Silicon Metal": "Roda 100% localmente em NVIDIA CUDA ou Apple Silicon Metal",
+    "One-time license covers Windows + macOS": "A licença de pagamento único vale para Windows + macOS",
+    "Free browser demos available at /face-swap": "Demonstrações grátis no navegador em /face-swap",
+    "All 1.x updates included": "Todas as atualizações 1.x incluídas",
+    "Text-to-video generation": "Geração de texto para vídeo",
+    "Image-to-video & keyframe interpolation": "Imagem para vídeo e interpolação de quadros-chave",
+    "Camera control LoRAs (dolly, jib, static)": "LoRAs de controle de câmera (dolly, jib, estática)",
+    "Our flagship desktop studio": "Nosso principal estúdio para desktop",
+    "Local image generator and editor": "Gerador e editor de imagens local",
+    "Local virtual try-on": "Provador virtual local",
+    "Free facial editing": "Edição facial grátis"
   }
 }

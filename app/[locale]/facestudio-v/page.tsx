@@ -6,7 +6,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { Navbar } from "../../components/navbar";
 import { Footer } from "../../components/footer";
 import { Button } from "@/components/ui/button";
-import { hreflangAlternates, isAppLocale, TRANSLATED_PAGES, type AppLocale } from "@/lib/i18n/locales";
+import { hreflangAlternates, isAppLocale, translatedOrEnglish, TRANSLATED_PAGES, type AppLocale } from "@/lib/i18n/locales";
 import { fillCopy, pageCopy, type VideoPageCopy } from "@/lib/i18n/page-copy";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACESTUDIO_V_LAUNCH, FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
@@ -273,7 +273,7 @@ export default async function LocalizedVideoFaceSwapPage({ params }: PageProps) 
             <Button asChild className="rounded-full bg-foreground text-background">
               <Link href={FACESTUDIO_V_LAUNCH}>{c.ctaMake} <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
-            <Link href="/pricing" hrefLang="en" className="text-sm text-primary underline-offset-4 hover:underline">{c.topupPricing}</Link>
+            <Link href={translatedOrEnglish("/pricing", locale)} className="text-sm text-primary underline-offset-4 hover:underline">{c.topupPricing}</Link>
           </div>
         </div>
       </section>

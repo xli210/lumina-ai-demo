@@ -71,7 +71,7 @@
         "a": "能。它可以在任何现代浏览器里运行,所有处理都在我们的 GPU 上完成。"
       }
     ],
-    "pricingLink": "价格和退款条款(英文页面)",
+    "pricingLink": "价格",
     "english": "英文版"
   },
   "imageEdit": {
@@ -161,7 +161,7 @@
         "a": "只能修改你有权修改的照片,包括照片里的人:是你本人,或者对方已经同意。"
       }
     ],
-    "pricingLink": "价格和退款条款(英文页面)",
+    "pricingLink": "价格",
     "english": "英文版"
   },
   "pro": {
@@ -171,7 +171,7 @@
     "h1": "一个工作室搞定整张脸,全在你自己的 GPU 上运行",
     "lead": "一个桌面应用,七个工具:换脸、蒙版编辑、表情编辑、Face Vivid、放大、调光和裁剪。所有处理都在你的电脑上完成,照片不会上传,也不按张收费。",
     "cta": "购买并下载",
-    "note": "一次性授权,无需订阅。Windows 版现已推出,macOS 版稍后推出。购买页和价格为英文。",
+    "note": "一次性授权,无需订阅。Windows 版现已推出,macOS 版稍后推出。",
     "examplesHeading": "软件真实界面",
     "beforeLabel": "之前",
     "afterLabel": "之后",
@@ -249,7 +249,386 @@
         "a": "可以,但须遵守使用条款(英文)。禁止未经本人同意使用其肖像。"
       }
     ],
-    "pricingLink": "价格(英文)",
+    "pricingLink": "价格",
     "english": "阅读完整的英文页面"
+  },
+  "pricing": {
+    "title": "价格:免费应用和按次付费的积分",
+    "description": "免费桌面应用,按次付费的在线工具(用积分支付),以及一次性购买的 Pro 授权。换脸每张脸 {face} 积分,照片编辑 {edit} 积分。无需订阅。",
+    "kicker": "价格",
+    "h1": "NanoPocket 的价格",
+    "lead": "三种付费方式,都不是订阅。免费桌面应用不收任何费用。在线工具按次付费,从积分余额中扣除,100 积分等于 1 美元,开始前会显示价格。Pro 桌面应用是一次性授权。",
+    "onlineHeading": "在线工具:按次付费,用积分支付",
+    "onlineNote": "这些工具在浏览器里使用,运行在 NanoPocket 的 GPU 上,所以无需安装。如果处理失败或被取消,积分会退回。积分永不过期。",
+    "thTool": "工具",
+    "thPay": "费用",
+    "thNote": "须知",
+    "faceStudioPay": "换脸每张脸 {face} 积分;换头 {head} 积分。",
+    "faceStudioNote": "每张照片最多 {faces} 张脸。人脸检测免费。按实际替换的脸数收费,所以你不动的脸不收费。",
+    "headswapPay": "每张交付的图片 {credits} 积分。",
+    "headswapNote": "替换整个头部:脸、头发和头型。每次最多 {variations} 个版本;每个版本价格相同,换头失败不收费。",
+    "videoPay": "按每个视频的模式、输出尺寸、片段时长和人数计价,开始前会显示价格。",
+    "videoNote": "Fast 模式下一段 10 秒的 1080p 片段约 20 积分。请求需要排队。",
+    "imageEditPay": "每次编辑 {edit} 积分。",
+    "imageEditNote": "无损 PNG,无水印。使用对象工具时,编辑范围之外的每个像素都保持不变。",
+    "packsHeading": "积分包",
+    "packsNote": "需要时再购买积分。1 积分是 $0.01,更大的积分包会额外赠送积分。积分在积分页面购买。",
+    "packsLink": "前往积分页面",
+    "thPack": "积分包",
+    "thPrice": "价格",
+    "thCredits": "获得积分",
+    "thRoughly": "大约可做",
+    "bonus": "含赠送 {bonus},+{percent}%",
+    "roughly": "{swaps} 次换脸,或 {edits} 次照片编辑",
+    "freeHeading": "免费积分和水印",
+    "freeNote": "新账号起始有 {grant} 积分。购买过积分的账号,在积分不足时还会被充值到 {topup} 积分;从未购买过的账号没有这项充值。免费积分每人限一个账号。",
+    "watermarkNote": "水印:在从未购买过积分的账号上,{video} 和 Nano FaceStudio Online 生成的作品会带有 NanoPocket.ai 水印。用任意积分包购买一次积分后,之后生成的作品就不再带水印。免费积分不算购买。",
+    "desktopHeading": "桌面应用:免费或一次性授权",
+    "desktopNote": "桌面应用在 Windows 上使用你自己的 NVIDIA GPU 运行,所以你的照片和视频都留在你的电脑里。授权与积分是分开的。",
+    "thApp": "应用",
+    "thTrial": "试用",
+    "freeLicense": "免费授权",
+    "oneTime": "{price},一次性",
+    "trialDays": "{days} 天免费试用",
+    "desktopLink": "前往下载页",
+    "faqHeading": "常见问题",
+    "faq": [
+      {
+        "q": "有订阅吗?",
+        "a": "没有。在线工具按次付费,从你想充值时充入的积分余额中扣除;桌面应用是免费的,或是一次性授权。"
+      },
+      {
+        "q": "积分会过期吗?",
+        "a": "不会。积分永不过期,每次处理的价格在开始前都会显示。如果处理失败或被取消,积分会退回。"
+      },
+      {
+        "q": "积分能用在桌面应用里吗?",
+        "a": "不能。积分只用于在线工具。桌面授权是分开的:购买积分不影响授权,持有授权也不会使用积分。"
+      }
+    ],
+    "terms": "服务条款(包括退款条款)为英文。",
+    "termsLink": "阅读服务条款",
+    "english": "阅读本页英文版",
+    "linkLabel": "价格"
+  },
+  "faceswap": {
+    "title": "Nano FaceSwap:Windows 免费本地换脸软件",
+    "description": "免费桌面换脸软件,支持照片和视频,在你自己的 NVIDIA GPU 上运行。不按分钟或按帧收费,也不上传任何文件。",
+    "kicker": "免费桌面应用",
+    "h1": "在你自己的电脑上免费换脸",
+    "lead": "用一个 Windows 桌面应用,在照片和视频里换一张脸或多张脸。凭授权密钥免费使用,不按分钟或按帧收费,也绝不上传你的文件。",
+    "cta": "获取免费授权",
+    "note": "免费授权。Windows 加 NVIDIA GPU。下载页会以你的语言显示。",
+    "examplesHeading": "",
+    "beforeLabel": "",
+    "afterLabel": "",
+    "examples": {},
+    "featuresHeading": "功能",
+    "features": [
+      {
+        "title": "照片和视频",
+        "body": "两者都在同一个应用里,只需一块 NVIDIA GPU。"
+      },
+      {
+        "title": "自己选择换谁",
+        "body": "应用会找出画面中的人脸。可以只换一个人、其他人保持不变,也可以一键换掉整组人。"
+      },
+      {
+        "title": "留在你的电脑里",
+        "body": "你的照片和视频绝不会上传。"
+      },
+      {
+        "title": "没有使用费",
+        "body": "不按分钟或按帧收费。"
+      }
+    ],
+    "stepsHeading": "如何开始",
+    "steps": [
+      {
+        "title": "获取免费授权",
+        "body": "登录后在下载页领取。每个授权可在一台电脑上激活。"
+      },
+      {
+        "title": "安装并激活",
+        "body": "下载应用并输入你的授权密钥。只有激活时需要联网。"
+      },
+      {
+        "title": "换脸",
+        "body": "打开照片或视频,选择人脸,再添加新的脸。"
+      }
+    ],
+    "faqHeading": "常见问题",
+    "faq": [
+      {
+        "q": "我的电脑能运行吗?",
+        "a": "Windows 10 或 11,NVIDIA GPU(GTX 1060 或更新,显存 4 GB 或以上),以及 8 GB 内存。不支持 Mac。"
+      },
+      {
+        "q": "我的照片和视频会被上传吗?",
+        "a": "不会。所有处理都在你自己的 GPU 上运行,文件留在你的电脑里。唯一的网络通信是授权激活。"
+      },
+      {
+        "q": "我该选它还是 Nano FaceStudio Pro?",
+        "a": "Nano FaceSwap 免费,涵盖照片和视频里的日常换脸。Nano FaceStudio Pro 是我们的付费桌面应用,一次性授权:七个工具,包括扩散换脸、蒙版编辑、表情编辑和放大。"
+      }
+    ],
+    "pricingLink": "价格",
+    "english": "阅读完整英文页面"
+  },
+  "facialedit": {
+    "title": "Nano FacialEdit:Windows 免费本地人像编辑软件",
+    "description": "免费桌面人像编辑软件,在你自己的 NVIDIA GPU 上运行:用滑块调整表情、微笑、眼睛和皮肤修饰。不上传任何文件。",
+    "kicker": "免费桌面应用",
+    "h1": "在你自己的电脑上编辑表情、修饰人像",
+    "lead": "用滑块睁开闭着的眼睛、舒展皱起的眉头、提起嘴角、修饰皮肤,全在一个免费的 Windows 桌面应用里完成。人物看起来仍然是他们自己,你的人像也绝不会上传。",
+    "cta": "获取免费授权",
+    "note": "免费授权。Windows 加 NVIDIA GPU。下载页会以你的语言显示。",
+    "examplesHeading": "",
+    "beforeLabel": "",
+    "afterLabel": "",
+    "examples": {},
+    "featuresHeading": "功能",
+    "features": [
+      {
+        "title": "用滑块,不是预设",
+        "body": "表情、微笑、眉毛和睁眼程度,各有一个可以拖动的滑块。"
+      },
+      {
+        "title": "保持原有相貌",
+        "body": "改变表情时,脸型、肤色和个人特征都保持不变。"
+      },
+      {
+        "title": "皮肤修饰",
+        "body": "去除瑕疵、泛红和不均匀的肤色,同时保留毛孔和皮肤质感,不会有塑料感。"
+      },
+      {
+        "title": "包含换脸",
+        "body": "同一个应用里还有适用于人像的换脸模式。"
+      }
+    ],
+    "stepsHeading": "如何开始",
+    "steps": [
+      {
+        "title": "获取免费授权",
+        "body": "登录后在下载页领取。每个授权可在一台电脑上激活。"
+      },
+      {
+        "title": "安装并激活",
+        "body": "下载应用并输入你的授权密钥。只有激活时需要联网。"
+      },
+      {
+        "title": "编辑",
+        "body": "打开一张人像,拖动滑块。"
+      }
+    ],
+    "faqHeading": "常见问题",
+    "faq": [
+      {
+        "q": "我的电脑能运行吗?",
+        "a": "Windows 10 或 11,NVIDIA GPU(GTX 1060 或更新,显存 4 GB 或以上),以及 8 GB 内存。不支持 Mac。"
+      },
+      {
+        "q": "我的人像会被上传吗?",
+        "a": "不会。所有处理都在你自己的 GPU 上运行,文件留在你的电脑里。唯一的网络通信是授权激活。"
+      },
+      {
+        "q": "我该选它还是 Nano FaceStudio Pro?",
+        "a": "Nano FacialEdit 免费,专为人像编辑而做。Nano FaceStudio Pro 是我们的付费桌面应用,一次性授权:七个工具,包括扩散换脸、蒙版编辑、表情编辑和放大。"
+      }
+    ],
+    "pricingLink": "价格",
+    "english": "阅读完整英文页面"
+  },
+  "imagetryon": {
+    "title": "Nano ImageTryon:Windows 免费本地虚拟试穿软件",
+    "description": "免费桌面虚拟试穿软件,在你自己的 NVIDIA GPU 上运行:把任意照片里的服装穿到人物身上,保持体型、姿势和光线。不上传任何文件。",
+    "kicker": "免费桌面应用",
+    "h1": "在你自己的电脑上,用照片试穿衣服",
+    "lead": "从商品目录图、平铺图或街拍照片里取一件服装,穿到另一张照片的人物身上,用的是一个免费的 Windows 桌面应用。体型、姿势和光线保持原样,也不会上传任何文件。",
+    "cta": "获取免费授权",
+    "note": "免费授权。Windows 加 NVIDIA GPU。下载页会以你的语言显示。",
+    "examplesHeading": "",
+    "beforeLabel": "",
+    "afterLabel": "",
+    "examples": {},
+    "featuresHeading": "功能",
+    "features": [
+      {
+        "title": "任意照片里的服装",
+        "body": "商品目录图、平铺图和街拍照片都可以作为来源。面料质感、颜色和轮廓都会保留。"
+      },
+      {
+        "title": "贴合人物",
+        "body": "人物的身材比例、身高和姿势保持不变。"
+      },
+      {
+        "title": "匹配光线",
+        "body": "服装会重新打光,与人物照片一致,无论照片拍摄于阳光下、阴影里、室内还是影棚。"
+      },
+      {
+        "title": "适合店铺,也适合自己",
+        "body": "商品目录照片、电商平台商品图和个人搭配,全都在你自己的电脑上完成。"
+      }
+    ],
+    "stepsHeading": "如何开始",
+    "steps": [
+      {
+        "title": "获取免费授权",
+        "body": "登录后在下载页领取。每个授权可在一台电脑上激活。"
+      },
+      {
+        "title": "安装并激活",
+        "body": "下载应用并输入你的授权密钥。只有激活时需要联网。"
+      },
+      {
+        "title": "试穿",
+        "body": "打开人物照片和服装照片。"
+      }
+    ],
+    "faqHeading": "常见问题",
+    "faq": [
+      {
+        "q": "我的电脑能运行吗?",
+        "a": "Windows 10 或 11,NVIDIA GPU(GTX 1060 或更新,显存 4 GB 或以上),以及 8 GB 内存。不支持 Mac。"
+      },
+      {
+        "q": "我的照片会被上传吗?",
+        "a": "不会。所有处理都在你自己的 GPU 上运行,文件留在你的电脑里。唯一的网络通信是授权激活。"
+      }
+    ],
+    "pricingLink": "价格",
+    "english": "阅读完整英文页面"
+  },
+  "strings": {
+    "This product is free!": "此产品免费!",
+    "{name} doesn't require payment. Head to the download page to claim your free license.": "{name} 无需付费。请前往下载页领取你的免费授权。",
+    "Go to Download": "前往下载",
+    "Back to Downloads": "返回下载",
+    "Secure Checkout": "安全结账",
+    "One-time purchase": "一次性购买",
+    "Includes upgrade from your free trial — same license key": "包含从免费试用升级,授权密钥不变",
+    "Payment system not configured": "支付系统尚未配置",
+    "Unable to load checkout": "无法加载结账页面",
+    "Payment Successful!": "付款成功!",
+    "Your license has been activated. You can now download the app and start using it with your license key. Check your downloads page for the license key.": "你的授权已激活。现在可以下载应用,并用你的授权密钥开始使用。授权密钥请在下载页查看。",
+    "Go to Downloads": "前往下载",
+    "View Account": "查看账号",
+    "Our Products — Download & Get Started": "我们的产品:下载并开始使用",
+    "Download Our Apps": "下载我们的应用",
+    "Explore our suite of AI-powered tools. Each app is designed to run locally on your machine — no cloud dependency, full privacy.": "探索我们的 AI 工具套件。每个应用都设计为在你的电脑本地运行:不依赖云端,完全保护隐私。",
+    "Free trials included": "包含免费试用",
+    "Signed-in users only": "仅限已登录用户",
+    "Runs 100% locally": "100% 本地运行",
+    "New versions are out for {n} of our local apps": "我们有 {n} 个本地应用推出了新版本",
+    "Here is what changed in the latest version of each:": "以下是每个应用最新版本的更新内容:",
+    "Code-signed": "已代码签名",
+    "Get {version}": "获取 {version}",
+    "All changes": "全部更新",
+    "We are still updating our other local apps, one at a time, and we hope you enjoy what is coming. The SHA-256 checksum and signing details of every download are on": "我们仍在逐个更新其他本地应用,希望你会喜欢即将推出的内容。每个下载文件的 SHA-256 校验值和签名信息见",
+    "Free face swap": "免费换脸",
+    "System Requirements": "系统要求",
+    "Make sure your device meets the minimum requirements for each app": "请确认你的设备满足每个应用的最低要求",
+    "Face & Enhancement Tools": "人脸与增强工具",
+    "OS": "操作系统",
+    "RAM": "内存",
+    "Storage": "存储空间",
+    "8 GB minimum (16 GB recommended)": "至少 8 GB(推荐 16 GB)",
+    "8 GB minimum": "至少 8 GB",
+    "2 GB available space": "2 GB 可用空间",
+    "1 GB available space": "1 GB 可用空间",
+    "Failed to claim license": "领取授权失败",
+    "Network error. Please try again.": "网络错误,请重试。",
+    "Free": "免费",
+    "New": "新",
+    "Learn more": "了解更多",
+    "one-time": "一次性",
+    "{days}-day free trial": "{days} 天免费试用",
+    "Launch price through {date} · then {price}": "发布价截至 {date} · 之后 {price}",
+    "Start your {days}-day free trial": "开始 {days} 天免费试用",
+    "Try the full app for free. No payment required upfront. Purchase anytime to keep using after the trial.": "免费试用完整应用,无需预先付款。试用结束后,随时购买即可继续使用。",
+    "Get your free activation license": "获取你的免费激活授权",
+    "Each license activates on 1 machine. You'll receive a license key to activate the app.": "每个授权可在 1 台电脑上激活。你会收到一个授权密钥,用于激活应用。",
+    "Purchase to get your activation license": "购买以获取你的激活授权",
+    "Starting...": "正在开始...",
+    "Start Free Trial": "开始免费试用",
+    "Buy — {price}": "购买 — {price}",
+    "Generating...": "正在生成...",
+    "Get Free License": "获取免费授权",
+    "Purchase — {price}": "购买 — {price}",
+    "Free Trial — {n} days remaining": "免费试用 — 还剩 {n} 天",
+    "Free Trial — 1 day remaining": "免费试用 — 还剩 1 天",
+    "Upgrade — {price}": "升级 — {price}",
+    "Your Trial License Key (save this!)": "你的试用授权密钥(请保存!)",
+    "Copied!": "已复制!",
+    "Copy Key": "复制密钥",
+    "Enter this key in the app after installation. Purchase anytime to keep using after the trial ends.": "安装后在应用中输入此密钥。试用结束后,随时购买即可继续使用。",
+    "Trial Expired": "试用已结束",
+    "Your {days}-day free trial has ended. Purchase a full license to continue using {name}. Your existing license key will be upgraded automatically.": "你的 {days} 天免费试用已结束。购买完整授权即可继续使用 {name}。你现有的授权密钥会自动升级。",
+    "Licensed — Full Version": "已授权 — 完整版",
+    "License Activated": "授权已激活",
+    "Your License Key (save this!)": "你的授权密钥(请保存!)",
+    "Enter this key in the app after installation to activate it on your machine.": "安装后在应用中输入此密钥,即可在你的电脑上激活。",
+    "Download for your platform": "下载适合你平台的版本",
+    "Temporarily unavailable": "暂时不可用",
+    "Done": "完成",
+    "Download": "下载",
+    "See the full feature tour": "查看完整功能介绍",
+    "Want diffusion quality and 7 tools? See Nano FaceStudio Pro": "想要扩散模型画质和 7 个工具?查看 Nano FaceStudio Pro",
+    "What's new in 3.0": "3.0 新功能",
+    "AI Face Studio — 7 tools in one desktop app": "AI Face Studio:一个桌面应用里的 7 个工具",
+    "Face swap, mask edit, expression editing, face vivid restoration, 2×/3×/4× upscale, light adjust, and crop — one unified desktop studio, every model running on your GPU. Multi-face swap up to 16 faces per image using GAN and diffusion models.": "换脸、蒙版编辑、表情编辑、Face Vivid 修复、2×/3×/4× 放大、调光和裁剪,全在一个统一的桌面工作室里,所有模型都在你的 GPU 上运行。使用 GAN 和扩散模型,每张图最多可换 16 张脸。",
+    "AI Facial Editing & Enhancement": "AI 人脸编辑与增强",
+    "Retouch, enhance, and transform facial features with AI. Supports face swap, expression editing, and portrait retouching — all running 100% locally on your GPU.": "用 AI 修饰、增强和改变面部特征。支持换脸、表情编辑和人像修饰,全部 100% 在你的 GPU 上本地运行。",
+    "AI Face Swap": "AI 换脸",
+    "Swap faces in photos and videos with realistic AI-powered results. Fast, private, and running 100% locally on your GPU.": "在照片和视频里换脸,效果逼真。快速、私密,100% 在你的 GPU 上本地运行。",
+    "AI Virtual Try-On": "AI 虚拟试穿",
+    "See how clothes look on you before you buy. AI-powered virtual try-on with photo-realistic results — running 100% locally on your GPU.": "购买前先看看衣服穿在你身上的样子。AI 虚拟试穿,效果逼真,100% 在你的 GPU 上本地运行。",
+    "AI Image Generation & Editing": "AI 图像生成与编辑",
+    "Generate and edit stunning images from text prompts with Nano ImageEdit. Supports text-to-image and image-to-image, running 100% locally on your GPU.": "用 Nano ImageEdit 根据文字提示生成并编辑出色的图像。支持文生图和图生图,100% 在你的 GPU 上本地运行。",
+    "AI Video Enhancement": "AI 视频增强",
+    "Upscale, stabilize, and enhance video quality with AI. Improve resolution, reduce noise, and sharpen details — all running 100% locally on your GPU.": "用 AI 放大、稳定并提升视频画质。提高分辨率、减少噪点、锐化细节,全部 100% 在你的 GPU 上本地运行。",
+    "AI Image Enhancement — Pro": "AI 图像增强 — Pro",
+    "Upscale, denoise, and restore images with AI. Now featuring a smooth Electron desktop app, native Apple Silicon support (M2–M5), batch processing, and crop + background matting — all running 100% locally on your GPU.": "用 AI 放大、降噪并修复图像。现在提供流畅的 Electron 桌面应用、原生 Apple Silicon 支持(M2–M5)、批量处理,以及裁剪和背景抠图,全部 100% 在你的 GPU 上本地运行。",
+    "AI Video Generation": "AI 视频生成",
+    "Create stunning videos from text prompts or images with Nano VideoGen. Supports text-to-video, image-to-video, keyframe interpolation, and camera control LoRAs — all running 100% locally on your GPU.": "用 Nano VideoGen 根据文字提示或图像创作出色的视频。支持文生视频、图生视频、关键帧插值和镜头控制 LoRA,全部 100% 在你的 GPU 上本地运行。",
+    "AI Facial Editing — Retouch, enhance, and transform facial features with Nano FacialEdit, running 100% locally on your GPU.": "AI 人脸编辑:用 Nano FacialEdit 修饰、增强并改变面部特征,100% 在你的 GPU 上本地运行。",
+    "AI Face Swap — Swap faces in photos and videos with realistic results using Nano FaceSwap, running 100% locally on your GPU.": "AI 换脸:用 Nano FaceSwap 在照片和视频里换脸,效果逼真,100% 在你的 GPU 上本地运行。",
+    "AI Virtual Try-On — See how clothes look on you before you buy, powered by AI running 100% locally on your GPU.": "AI 虚拟试穿:购买前先看看衣服穿在你身上的样子,由 100% 在你的 GPU 上本地运行的 AI 驱动。",
+    "AI Image Generation — Generate and edit stunning images from text prompts with Nano ImageEdit, running locally on your GPU.": "AI 图像生成:用 Nano ImageEdit 根据文字提示生成并编辑出色的图像,在你的 GPU 上本地运行。",
+    "AI Video Enhancement — Upscale, stabilize, and enhance video quality with Nano VideoEnhance, running 100% locally on your GPU.": "AI 视频增强:用 Nano VideoEnhance 放大、稳定并提升视频画质,100% 在你的 GPU 上本地运行。",
+    "AI Image Enhancement — Upscale, denoise, and restore images with Nano ImageEnh, running 100% locally on your GPU.": "AI 图像增强:用 Nano ImageEnh 放大、降噪并修复图像,100% 在你的 GPU 上本地运行。",
+    "AI Face Studio — Face swap, mask edit, expression editing, face vivid, upscale, light adjust, and crop in one local desktop app running 100% on your GPU. Free browser demos at /face-swap preview the swap + vivid capabilities.": "AI Face Studio:换脸、蒙版编辑、表情编辑、Face Vivid、放大、调光和裁剪,都在一个本地桌面应用里,100% 在你的 GPU 上运行。/face-swap 上的免费浏览器演示可预览换脸和 Face Vivid 功能。",
+    "AI Video Generation — Create stunning videos from text prompts or images with Nano VideoGen, running 100% locally on your GPU.": "AI 视频生成:用 Nano VideoGen 根据文字提示或图像创作出色的视频,100% 在你的 GPU 上本地运行。",
+    "AI-powered facial retouching & enhancement": "AI 人脸修饰与增强",
+    "Face swap and expression editing": "换脸与表情编辑",
+    "Runs 100% locally on your GPU": "100% 在你的 GPU 上本地运行",
+    "All future updates included": "包含今后所有更新",
+    "AI-powered face swapping": "AI 换脸",
+    "Photo and video support": "支持照片和视频",
+    "AI-powered virtual try-on": "AI 虚拟试穿",
+    "Photo-realistic clothing swap": "逼真的服装替换",
+    "Text-to-image generation": "文生图",
+    "Image-to-image with reference photos": "参考照片图生图",
+    "7-day free trial included": "含 7 天免费试用",
+    "AI-powered video upscaling & enhancement": "AI 视频放大与增强",
+    "Video stabilization and denoising": "视频稳定与降噪",
+    "AI-powered image upscaling & denoising": "AI 图像放大与降噪",
+    "Photo restoration and enhancement": "照片修复与增强",
+    "7-tool bundle: swap, mask, expression, vivid, upscale, light, crop": "7 个工具合集:换脸、蒙版、表情、Face Vivid、放大、调光、裁剪",
+    "Multi-face swap up to 16 faces per image": "每张图最多可换 16 张脸",
+    "GAN and diffusion models": "GAN 和扩散模型",
+    "2×, 3×, 4× full-image upscale": "2×、3×、4× 整图放大",
+    "Face Vivid: de-plasticize AI-smoothed skin": "Face Vivid:去除 AI 磨皮造成的塑料感",
+    "Runs 100% locally on NVIDIA CUDA or Apple Silicon Metal": "100% 在 NVIDIA CUDA 或 Apple Silicon Metal 上本地运行",
+    "One-time license covers Windows + macOS": "一次性授权涵盖 Windows 和 macOS",
+    "Free browser demos available at /face-swap": "/face-swap 提供免费浏览器演示",
+    "All 1.x updates included": "包含所有 1.x 更新",
+    "Text-to-video generation": "文生视频",
+    "Image-to-video & keyframe interpolation": "图生视频与关键帧插值",
+    "Camera control LoRAs (dolly, jib, static)": "镜头控制 LoRA(推拉、摇臂、固定)",
+    "Our flagship desktop studio": "我们的旗舰桌面工作室",
+    "Local image generator and editor": "本地图像生成与编辑",
+    "Local virtual try-on": "本地虚拟试穿",
+    "Free facial editing": "免费人脸编辑"
   }
 }

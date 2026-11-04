@@ -5,7 +5,7 @@ import type { AppLocale } from "@/lib/i18n/locales";
  * so a page only loads what it shows. The English source the translators worked from is messages/pages/en.source.json;
  * the English pages themselves have their own copy.
  *
- * Deliberately absent: price lists, refund terms and legal text. These pages link to the English pricing and terms pages
+ * Deliberately absent: legal text. These pages link to the English terms and terms pages
  * instead, and each link says so.
  */
 
@@ -78,11 +78,63 @@ export interface VideoPageCopy {
   english: string;
 }
 
+/** /<locale>/pricing: the figures come from the code that charges them, the words from here. */
+export interface PricingPageCopy {
+  title: string;
+  description: string;
+  kicker: string;
+  h1: string;
+  lead: string;
+  onlineHeading: string;
+  onlineNote: string;
+  thTool: string;
+  thPay: string;
+  thNote: string;
+  faceStudioPay: string;
+  faceStudioNote: string;
+  headswapPay: string;
+  headswapNote: string;
+  videoPay: string;
+  videoNote: string;
+  imageEditPay: string;
+  imageEditNote: string;
+  packsHeading: string;
+  packsNote: string;
+  packsLink: string;
+  thPack: string;
+  thPrice: string;
+  thCredits: string;
+  thRoughly: string;
+  bonus: string;
+  roughly: string;
+  freeHeading: string;
+  freeNote: string;
+  watermarkNote: string;
+  desktopHeading: string;
+  desktopNote: string;
+  thApp: string;
+  thTrial: string;
+  freeLicense: string;
+  oneTime: string;
+  trialDays: string;
+  desktopLink: string;
+  faqHeading: string;
+  faq: Faq[];
+  terms: string;
+  termsLink: string;
+  english: string;
+  linkLabel: string;
+}
+
 export interface PageCopy {
   video?: VideoPageCopy;
   faceStudio: ToolPageCopy;
   imageEdit: ToolPageCopy;
   pro: ToolPageCopy;
+  faceswap: ToolPageCopy;
+  facialedit: ToolPageCopy;
+  imagetryon: ToolPageCopy;
+  pricing: PricingPageCopy;
 }
 
 export async function pageCopy(locale: AppLocale): Promise<PageCopy> {

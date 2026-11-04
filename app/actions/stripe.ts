@@ -3,7 +3,8 @@
 import { stripe } from '../../lib/stripe'
 import { PRODUCTS } from '../../lib/products'
 import { createClient } from '@/lib/supabase/server'
-import { headers } from 'next/headers'
+import { cookies, headers } from 'next/headers'
+import { LOCALE_COOKIE, negotiateLocale, stripeLocale } from '@/lib/i18n/locales'
 
 export async function startCheckoutSession(productId: string) {
   console.log('[Stripe] startCheckoutSession called for product:', productId)
@@ -33,6 +34,7 @@ export async function startCheckoutSession(productId: string) {
   console.log('[Stripe] User:', user?.id || 'anonymous', user?.email || 'no email')
 
   const headersList = await headers()
+  const cookieStore = await cookies()
   const origin = headersList.get('origin') || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 
   console.log('[Stripe] Origin for return_url:', origin)
@@ -40,6 +42,7 @@ export async function startCheckoutSession(productId: string) {
   try {
     const session = await stripe.checkout.sessions.create({
       ui_mode: 'embedded',
+      locale: stripeLocale(negotiateLocale(cookieStore.get(LOCALE_COOKIE)?.value, headersList.get('accept-language'))),
       return_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       line_items: [
         {

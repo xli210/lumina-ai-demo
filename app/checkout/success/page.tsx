@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, Download, ArrowRight } from "lucide-react";
+import { getLocale } from "next-intl/server";
 import { Button } from "@/components/ui/button";
+import type { AppLocale } from "@/lib/i18n/locales";
+import { pageStrings, tr } from "@/lib/i18n/strings";
 import { Navbar } from "../../components/navbar";
 import { Footer } from "../../components/footer";
 
 export const metadata: Metadata = { robots: { index: false, follow: true } };
 
-export default function CheckoutSuccessPage() {
+export default async function CheckoutSuccessPage() {
+  const strings = await pageStrings((await getLocale()) as AppLocale);
+  const t = (text: string) => tr(strings, text);
   return (
     <main className="relative min-h-screen">
       <Navbar />
@@ -22,26 +27,24 @@ export default function CheckoutSuccessPage() {
           </div>
 
           <h1 className="mb-3 text-3xl font-bold tracking-tight text-foreground">
-            Payment Successful!
+            {t("Payment Successful!")}
           </h1>
 
           <p className="mb-8 text-muted-foreground">
-            Your license has been activated. You can now download the app and
-            start using it with your license key. Check your downloads page for
-            the license key.
+            {t("Your license has been activated. You can now download the app and start using it with your license key. Check your downloads page for the license key.")}
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
             <Link href="/download">
               <Button className="gap-2 rounded-full px-8">
                 <Download className="h-4 w-4" />
-                Go to Downloads
+                {t("Go to Downloads")}
               </Button>
             </Link>
             <Link href="/account">
               <Button variant="outline" className="gap-2 rounded-full px-8">
                 <ArrowRight className="h-4 w-4" />
-                View Account
+                {t("View Account")}
               </Button>
             </Link>
           </div>

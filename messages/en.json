@@ -475,7 +475,8 @@
       "notMade": "This video could not be made. Your credits were returned.",
       "credits": "{count} credits.",
       "download": "Download",
-      "downloadUnavailable": "Download unavailable right now"
+      "downloadUnavailable": "Download unavailable right now",
+      "billing": "A video that was made is charged, and it is not refunded once it has been deleted. Videos that could not be made, or that you cancelled, are never charged."
     }
   }
 }

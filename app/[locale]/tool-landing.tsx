@@ -3,7 +3,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { Button } from "@/components/ui/button";
-import type { AppLocale } from "@/lib/i18n/locales";
+import { translatedOrEnglish, type AppLocale } from "@/lib/i18n/locales";
 import type { TitleBody, ToolPageCopy } from "@/lib/i18n/page-copy";
 
 /**
@@ -67,7 +67,7 @@ export function ToolLanding({
         </div>
       </section>
 
-      <section className="px-6 pb-14">
+      {examples.length > 0 && <section className="px-6 pb-14">
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-6 text-2xl font-bold tracking-tight text-foreground">{copy.examplesHeading}</h2>
           <ul className={`grid grid-cols-1 gap-6 ${wideExamples ? "" : "md:grid-cols-2"}`}>
@@ -90,7 +90,7 @@ export function ToolLanding({
             ))}
           </ul>
         </div>
-      </section>
+      </section>}
 
       <section className="px-6 pb-14">
         <div className="mx-auto max-w-5xl">
@@ -141,7 +141,7 @@ export function ToolLanding({
             ))}
           </div>
           <p className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            <Link href="/pricing" hrefLang="en" className="text-primary underline-offset-4 hover:underline">
+            <Link href={translatedOrEnglish("/pricing", locale)} className="text-primary underline-offset-4 hover:underline">
               {copy.pricingLink}
             </Link>
             <Link href={englishHref} hrefLang="en" className="text-muted-foreground underline-offset-4 hover:underline">

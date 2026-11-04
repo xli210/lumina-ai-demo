@@ -9,11 +9,12 @@ import { loadStripe } from '@stripe/stripe-js'
 import { AlertTriangle } from 'lucide-react'
 
 import { startCheckoutSession } from '../actions/stripe'
+import { tr, type Strings } from '@/lib/i18n/strings'
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null
 
-export default function Checkout({ productId }: { productId: string }) {
+export default function Checkout({ productId, strings = {} }: { productId: string; strings?: Strings }) {
   const [error, setError] = useState<string | null>(null)
 
   const fetchClientSecret = useCallback(async () => {
@@ -32,7 +33,7 @@ export default function Checkout({ productId }: { productId: string }) {
     return (
       <div className="flex flex-col items-center justify-center gap-3 p-12 text-center">
         <AlertTriangle className="h-8 w-8 text-amber-500" />
-        <p className="text-sm font-medium text-foreground">Payment system not configured</p>
+        <p className="text-sm font-medium text-foreground">{tr(strings, 'Payment system not configured')}</p>
         <p className="text-xs text-muted-foreground">
           Stripe publishable key is missing. Please contact support.
         </p>
@@ -44,7 +45,7 @@ export default function Checkout({ productId }: { productId: string }) {
     return (
       <div className="flex flex-col items-center justify-center gap-3 p-12 text-center">
         <AlertTriangle className="h-8 w-8 text-red-500" />
-        <p className="text-sm font-medium text-foreground">Unable to load checkout</p>
+        <p className="text-sm font-medium text-foreground">{tr(strings, 'Unable to load checkout')}</p>
         <p className="text-xs text-muted-foreground">{error}</p>
         <button
           type="button"

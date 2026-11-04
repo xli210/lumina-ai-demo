@@ -178,7 +178,7 @@
       "price": "편집 1회당 {edit} 크레딧"
     },
     "watermarkNote": "크레딧을 한 번도 구매하지 않은 계정은 얼굴 바꾸기, 헤드 스왑, 동영상 결과에 NanoPocket 워터마크가 들어가며, 한 번 구매하면 사라집니다. 글로 사진 편집에는 워터마크가 없습니다. 크레딧은 만료되지 않으며 구독도 없습니다.",
-    "englishNote": "동영상 스튜디오 화면은 사용자의 언어로 표시됩니다. 가격과 환불 안내만 영어로 제공됩니다."
+    "englishNote": "동영상 스튜디오 화면은 사용자의 언어로 표시됩니다."
   },
   "Ui": {
     "nav": {
@@ -335,7 +335,8 @@
       "notMade": "이 동영상을 만들지 못했습니다. 크레딧이 반환되었습니다.",
       "credits": "{count} 크레딧.",
       "download": "다운로드",
-      "downloadUnavailable": "지금은 다운로드할 수 없습니다"
+      "downloadUnavailable": "지금은 다운로드할 수 없습니다",
+      "billing": "만들어진 동영상은 결제되며, 삭제된 뒤에는 환불되지 않습니다. 만들지 못했거나 취소한 동영상은 결제되지 않습니다."
     }
   },
   "Home": {
@@ -382,7 +383,7 @@
     },
     "appsCatalog": {
       "heading": "NanoPocket 데스크톱 앱 전체",
-      "intro": "모두 내 GPU에서 실행됩니다. 대부분 Windows와 NVIDIA 그래픽 카드가 필요합니다. 앱 소개 페이지는 영어로 제공됩니다.",
+      "intro": "각 앱은 내 GPU에서 실행됩니다. 대부분 Windows와 NVIDIA 그래픽 카드가 필요합니다. 일부 앱 페이지는 영어로 표시됩니다.",
       "items": [
         {
           "name": "Nano FaceStudio Pro",

@@ -192,7 +192,7 @@
     },
     "appsCatalog": {
       "heading": "全部 NanoPocket 应用",
-      "intro": "每个应用都以 Windows 或 macOS 原生桌面程序的形式发布,100% 跑在你的本地 GPU 上。",
+      "intro": "每个应用都在你自己的 GPU 上运行。大多数需要 Windows 和 NVIDIA 显卡。部分应用页面为英文。",
       "items": [
         {
           "name": "Nano FaceStudio Pro 1.0",
@@ -330,7 +330,7 @@
       "price": "每次编辑 {edit} 积分"
     },
     "watermarkNote": "从未购买过积分的账号,换脸、换头和视频的结果会带 NanoPocket 水印,购买一次积分即可去除;文字修图没有水印。积分永不过期,没有订阅。",
-    "englishNote": "视频工作室的操作界面已是你的语言,只有价格和退款说明保留英文。"
+    "englishNote": "视频工作室的界面是你的语言。"
   },
   "Ui": {
     "nav": {
@@ -487,7 +487,8 @@
       "notMade": "这个视频未能生成。积分已退回。",
       "credits": "{count} 积分。",
       "download": "下载",
-      "downloadUnavailable": "暂时无法下载"
+      "downloadUnavailable": "暂时无法下载",
+      "billing": "已生成的视频会收费,视频被删除后不予退款。未能生成或被你取消的视频,绝不收费。"
     }
   }
 }

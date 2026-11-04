@@ -149,7 +149,7 @@
       "登録で付く {grant} 無料クレジットで、最長5秒の動画をお試しいただけます(動く透かし入り)。",
       "一度購入すると、以後の動画は透かしなしで最長60秒(Whole head は12秒)になり、無料アカウントより先に処理されます。"
     ],
-    "topupPricing": "料金と返金条件(英語)",
+    "topupPricing": "料金",
     "ctaMake": "動画を作り始める",
     "faqHeading": "よくある質問",
     "faq": [
@@ -179,7 +179,7 @@
       },
       {
         "q": "スタジオは日本語に対応していますか?",
-        "a": "はい。スタジオの操作画面はお使いの言語で表示されます。価格と返金に関する説明のみ英語です。"
+        "a": "はい。スタジオの画面はお使いの言語で表示されます。"
       }
     ],
     "english": "英語版"
@@ -256,7 +256,7 @@
         "a": "はい。最新のブラウザで動き、処理はすべて当社の GPU で行います。"
       }
     ],
-    "pricingLink": "料金と返金条件(英語)",
+    "pricingLink": "料金",
     "english": "英語版"
   },
   "imageEdit": {
@@ -346,7 +346,7 @@
         "a": "編集する権利のある写真に限ります。写っている人についても同様で、ご本人であるか、同意を得ている必要があります。"
       }
     ],
-    "pricingLink": "料金と返金条件(英語)",
+    "pricingLink": "料金",
     "english": "英語版"
   },
   "pro": {
@@ -356,7 +356,7 @@
     "h1": "顔のすべてを 1 つのスタジオで、自分の GPU で",
     "lead": "1 つのデスクトップアプリに 7 つのツール:顔交換、マスク編集、表情編集、Face Vivid、アップスケール、ライト調整、切り抜き。すべてお使いのコンピューターで処理するため、写真がアップロードされることはなく、画像ごとの料金もありません。",
     "cta": "購入してダウンロード",
-    "note": "買い切りライセンスで、サブスクリプションはありません。Windows 版は提供中で、macOS 版は今後提供予定です。購入ページと価格は英語です。",
+    "note": "買い切りライセンスで、サブスクリプションはありません。Windows 版は提供中で、macOS 版は今後提供予定です。",
     "examplesHeading": "アプリの実際の画面",
     "beforeLabel": "処理前",
     "afterLabel": "処理後",
@@ -434,7 +434,386 @@
         "a": "はい。英語の利用規約に従ってご利用ください。本人の同意なく肖像を使用することは禁止されています。"
       }
     ],
-    "pricingLink": "価格(英語)",
+    "pricingLink": "料金",
     "english": "英語の詳しいページを読む"
+  },
+  "pricing": {
+    "title": "料金:無料アプリと使った分だけのクレジット",
+    "description": "無料のデスクトップアプリ、使った分だけクレジットで支払うオンラインツール、買い切りの Pro ライセンス。顔交換は 1 人あたり {face} クレジット、写真編集は {edit} クレジットから。サブスクリプションはありません。",
+    "kicker": "料金",
+    "h1": "NanoPocket の料金",
+    "lead": "お支払い方法は 3 種類で、どれもサブスクリプションではありません。無料のデスクトップアプリは無料でお使いいただけます。オンラインツールはクレジット残高から使った分だけ支払う方式で、100 クレジットが 1 米ドルに相当し、開始前に料金が表示されます。Pro のデスクトップアプリは買い切りライセンスです。",
+    "onlineHeading": "オンラインツール:使った分だけ、クレジットで",
+    "onlineNote": "ブラウザー上で NanoPocket の GPU で処理するため、インストールは不要です。処理に失敗した場合やキャンセルした場合、クレジットは戻ります。クレジットに有効期限はありません。",
+    "thTool": "ツール",
+    "thPay": "料金",
+    "thNote": "補足",
+    "faceStudioPay": "顔交換は 1 人あたり {face} クレジット、ヘッドスワップは {head} クレジットです。",
+    "faceStudioNote": "1 枚の写真で最大 {faces} 人まで。顔の検出は無料です。料金がかかるのは入れ替えた顔の分だけで、そのままにした顔には料金がかかりません。",
+    "headswapPay": "お届けする画像 1 枚につき {credits} クレジットです。",
+    "headswapNote": "顔、髪、頭の形を含めて頭全体を入れ替えます。1 回の実行で最大 {variations} パターンまで作成でき、1 パターンごとの料金は同じです。入れ替えに失敗した場合は料金がかかりません。",
+    "videoPay": "モード、出力サイズ、クリップの長さ、人数に応じて 1 本ごとに料金が決まり、開始前に表示されます。",
+    "videoNote": "高速モードで 10 秒の 1080p クリップは約 20 クレジットです。リクエストは順番待ちになります。",
+    "imageEditPay": "1 回の編集につき {edit} クレジットです。",
+    "imageEditNote": "ロスレス PNG で、透かしは入りません。オブジェクト系のツールでは、編集した部分以外のピクセルはすべてそのまま変わりません。",
+    "packsHeading": "クレジットパック",
+    "packsNote": "必要なときにクレジットを購入できます。1 クレジットは $0.01 で、大きいパックほどボーナスクレジットが付きます。クレジットはクレジットのページで購入できます。",
+    "packsLink": "クレジットのページへ",
+    "thPack": "パック",
+    "thPrice": "価格",
+    "thCredits": "もらえるクレジット",
+    "thRoughly": "目安",
+    "bonus": "ボーナス {bonus} クレジット込み、+{percent}%",
+    "roughly": "顔交換 {swaps} 回、または写真編集 {edits} 回",
+    "freeHeading": "無料クレジットと透かし",
+    "freeNote": "新しいアカウントには {grant} クレジットが付きます。クレジットを購入したことのあるアカウントは、残りが少なくなると {topup} クレジットまで補充されます。購入したことがないアカウントには補充されません。無料クレジットはお一人様 1 アカウントまでです。",
+    "watermarkNote": "透かしについて:クレジットを一度も購入していないアカウントで作成した {video} と Nano FaceStudio Online の結果には、NanoPocket.ai の透かしが入ります。どのパックでも一度クレジットを購入すると、その後に作成する結果から透かしがなくなります。無料クレジットは購入に含まれません。",
+    "desktopHeading": "デスクトップアプリ:無料、または買い切りライセンス",
+    "desktopNote": "デスクトップアプリは Windows 上のお使いの NVIDIA GPU で動作するため、写真や動画はお手元のコンピューターから出ません。ライセンスはクレジットとは別です。",
+    "thApp": "アプリ",
+    "thTrial": "試用",
+    "freeLicense": "無料ライセンス",
+    "oneTime": "{price}(買い切り)",
+    "trialDays": "{days} 日間の無料試用",
+    "desktopLink": "ダウンロードのページへ",
+    "faqHeading": "よくある質問",
+    "faq": [
+      {
+        "q": "サブスクリプションはありますか?",
+        "a": "いいえ。オンラインツールはクレジット残高から使った分だけ支払う方式で、クレジットは必要なときに購入できます。デスクトップアプリは無料、または買い切りライセンスです。"
+      },
+      {
+        "q": "クレジットに有効期限はありますか?",
+        "a": "いいえ。クレジットに有効期限はなく、処理ごとの料金は開始前に表示されます。処理に失敗した場合やキャンセルした場合、クレジットは戻ります。"
+      },
+      {
+        "q": "クレジットはデスクトップアプリで使えますか?",
+        "a": "いいえ。クレジットはオンラインツール専用です。デスクトップのライセンスは別で、クレジットを購入してもライセンスには影響せず、ライセンスを持っていてもクレジットは消費されません。"
+      }
+    ],
+    "terms": "返金条件を含む利用規約は英語で表示されます。",
+    "termsLink": "利用規約を読む",
+    "english": "このページを英語で読む",
+    "linkLabel": "料金"
+  },
+  "faceswap": {
+    "title": "Nano FaceSwap:Windows 向け無料ローカル顔交換アプリ",
+    "description": "お使いの NVIDIA GPU で動く、写真と動画向けの無料デスクトップ顔交換アプリ。分単位・フレーム単位の料金はなく、アップロードもありません。",
+    "h1": "自分のコンピューターで使える無料の顔交換",
+    "lead": "Windows 向けの 1 つのデスクトップアプリで、写真でも動画でも、1 人または複数人の顔を入れ替えられます。ライセンスキーがあれば無料で、分単位・フレーム単位の料金はなく、ファイルがアップロードされることもありません。",
+    "examplesHeading": "",
+    "beforeLabel": "",
+    "afterLabel": "",
+    "examples": {},
+    "features": [
+      {
+        "title": "写真も動画も",
+        "body": "どちらも同じアプリで、1 つの NVIDIA GPU で処理できます。"
+      },
+      {
+        "title": "変える人を選べる",
+        "body": "アプリが画像内の顔を見つけます。1 人だけ入れ替えて他の人はそのままにすることも、ワンクリックで全員を入れ替えることもできます。"
+      },
+      {
+        "title": "コンピューターの中だけで完結",
+        "body": "写真や動画がアップロードされることはありません。"
+      },
+      {
+        "title": "利用料金なし",
+        "body": "分単位・フレーム単位の料金はかかりません。"
+      }
+    ],
+    "steps": [
+      {
+        "title": "無料ライセンスを入手",
+        "body": "ログインして、ダウンロードページで受け取ります。ライセンスは 1 台のコンピューターで有効化できます。"
+      },
+      {
+        "title": "インストールして有効化",
+        "body": "アプリをダウンロードして、ライセンスキーを入力します。ネットワークが必要なのは有効化のときだけです。"
+      },
+      {
+        "title": "入れ替える",
+        "body": "写真または動画を開き、顔を選んで新しい顔を追加します。"
+      }
+    ],
+    "faq": [
+      {
+        "q": "お使いのコンピューターで動きますか?",
+        "a": "Windows 10 または 11 と、NVIDIA GPU(GTX 1060 以降、VRAM 4 GB 以上)、RAM 8 GB が必要です。Mac では動作しません。"
+      },
+      {
+        "q": "写真や動画はアップロードされますか?",
+        "a": "いいえ。すべてお使いの GPU で処理され、ファイルはコンピューターから出ません。通信が発生するのはライセンスの有効化のときだけです。"
+      },
+      {
+        "q": "これと Nano FaceStudio Pro のどちらを選ぶべきですか?",
+        "a": "Nano FaceSwap は無料で、写真や動画での日常的な顔交換に対応します。Nano FaceStudio Pro は買い切りライセンスの有料デスクトップアプリで、拡散モデルによる顔交換、マスク編集、表情編集、アップスケールなど 7 つのツールが入っています。"
+      }
+    ],
+    "kicker": "無料のデスクトップアプリ",
+    "cta": "無料ライセンスを入手",
+    "note": "無料ライセンス。NVIDIA GPU を搭載した Windows 向け。ダウンロードページはお使いの言語で表示されます。",
+    "featuresHeading": "できること",
+    "stepsHeading": "始め方",
+    "faqHeading": "よくある質問",
+    "pricingLink": "料金",
+    "english": "英語の詳しいページを読む"
+  },
+  "facialedit": {
+    "title": "Nano FacialEdit:Windows 向け無料ローカルポートレート編集アプリ",
+    "description": "お使いの NVIDIA GPU で動く無料のデスクトップポートレート編集アプリ。表情、笑顔、目、肌のレタッチをスライダーで調整できます。アップロードはありません。",
+    "h1": "自分のコンピューターで表情を編集し、ポートレートをレタッチ",
+    "lead": "閉じた目を開く、しかめ面をやわらげる、笑顔を引き上げる、肌をレタッチする。これらをスライダーで行える、Windows 向けの無料デスクトップアプリです。その人らしさは保たれ、ポートレートがアップロードされることもありません。",
+    "examplesHeading": "",
+    "beforeLabel": "",
+    "afterLabel": "",
+    "examples": {},
+    "features": [
+      {
+        "title": "プリセットではなくスライダー",
+        "body": "表情、笑顔、眉、目の開き具合を、それぞれスライダーをドラッグして調整します。"
+      },
+      {
+        "title": "その人らしさを保つ",
+        "body": "表情を変えても、顔の形、肌の色、特徴的なパーツはそのまま残ります。"
+      },
+      {
+        "title": "肌のレタッチ",
+        "body": "ニキビ跡、赤み、色ムラを取り除きつつ、毛穴や肌の質感は残すため、作り物のような仕上がりになりません。"
+      },
+      {
+        "title": "顔交換も搭載",
+        "body": "ポートレート向けの顔交換モードも同じアプリに入っています。"
+      }
+    ],
+    "steps": [
+      {
+        "title": "無料ライセンスを入手",
+        "body": "ログインして、ダウンロードページで受け取ります。ライセンスは 1 台のコンピューターで有効化できます。"
+      },
+      {
+        "title": "インストールして有効化",
+        "body": "アプリをダウンロードして、ライセンスキーを入力します。ネットワークが必要なのは有効化のときだけです。"
+      },
+      {
+        "title": "編集する",
+        "body": "ポートレートを開き、スライダーをドラッグします。"
+      }
+    ],
+    "faq": [
+      {
+        "q": "お使いのコンピューターで動きますか?",
+        "a": "Windows 10 または 11 と、NVIDIA GPU(GTX 1060 以降、VRAM 4 GB 以上)、RAM 8 GB が必要です。Mac では動作しません。"
+      },
+      {
+        "q": "ポートレートはアップロードされますか?",
+        "a": "いいえ。すべてお使いの GPU で処理され、ファイルはコンピューターから出ません。通信が発生するのはライセンスの有効化のときだけです。"
+      },
+      {
+        "q": "これと Nano FaceStudio Pro のどちらを選ぶべきですか?",
+        "a": "Nano FacialEdit は無料で、ポートレートの編集向けです。Nano FaceStudio Pro は買い切りライセンスの有料デスクトップアプリで、拡散モデルによる顔交換、マスク編集、表情編集、アップスケールなど 7 つのツールが入っています。"
+      }
+    ],
+    "kicker": "無料のデスクトップアプリ",
+    "cta": "無料ライセンスを入手",
+    "note": "無料ライセンス。NVIDIA GPU を搭載した Windows 向け。ダウンロードページはお使いの言語で表示されます。",
+    "featuresHeading": "できること",
+    "stepsHeading": "始め方",
+    "faqHeading": "よくある質問",
+    "pricingLink": "料金",
+    "english": "英語の詳しいページを読む"
+  },
+  "imagetryon": {
+    "title": "Nano ImageTryon:Windows 向け無料ローカルバーチャル試着アプリ",
+    "description": "お使いの NVIDIA GPU で動く無料のデスクトップバーチャル試着アプリ。任意の写真の服を人物に着せ替え、体型、ポーズ、光はそのまま保ちます。アップロードはありません。",
+    "h1": "自分のコンピューターで、写真から服を試着",
+    "lead": "カタログ写真、平置き写真、ストリートファッションの写真から服を取り出し、別の写真の人物に着せられる、Windows 向けの無料デスクトップアプリです。体型、ポーズ、光はそのまま残り、アップロードもありません。",
+    "examplesHeading": "",
+    "beforeLabel": "",
+    "afterLabel": "",
+    "examples": {},
+    "features": [
+      {
+        "title": "どんな写真の服でも",
+        "body": "カタログ写真、平置き写真、ストリートファッションの写真のどれでも元画像に使えます。生地の質感、色、シルエットが引き継がれます。"
+      },
+      {
+        "title": "人物にフィット",
+        "body": "人物の体型のバランス、身長、ポーズはそのまま保たれます。"
+      },
+      {
+        "title": "光になじむ",
+        "body": "日なた、日陰、室内、スタジオのどこで撮った写真でも、服の光を人物の写真に合わせて調整します。"
+      },
+      {
+        "title": "お店にも個人にも",
+        "body": "カタログ写真、マーケットプレイスの出品、個人のスタイリングまで、すべてご自分のコンピューターで行えます。"
+      }
+    ],
+    "steps": [
+      {
+        "title": "無料ライセンスを入手",
+        "body": "ログインして、ダウンロードページで受け取ります。ライセンスは 1 台のコンピューターで有効化できます。"
+      },
+      {
+        "title": "インストールして有効化",
+        "body": "アプリをダウンロードして、ライセンスキーを入力します。ネットワークが必要なのは有効化のときだけです。"
+      },
+      {
+        "title": "試着する",
+        "body": "人物の写真と服の写真を開きます。"
+      }
+    ],
+    "faq": [
+      {
+        "q": "お使いのコンピューターで動きますか?",
+        "a": "Windows 10 または 11 と、NVIDIA GPU(GTX 1060 以降、VRAM 4 GB 以上)、RAM 8 GB が必要です。Mac では動作しません。"
+      },
+      {
+        "q": "写真はアップロードされますか?",
+        "a": "いいえ。すべてお使いの GPU で処理され、ファイルはコンピューターから出ません。通信が発生するのはライセンスの有効化のときだけです。"
+      }
+    ],
+    "kicker": "無料のデスクトップアプリ",
+    "cta": "無料ライセンスを入手",
+    "note": "無料ライセンス。NVIDIA GPU を搭載した Windows 向け。ダウンロードページはお使いの言語で表示されます。",
+    "featuresHeading": "できること",
+    "stepsHeading": "始め方",
+    "faqHeading": "よくある質問",
+    "pricingLink": "料金",
+    "english": "英語の詳しいページを読む"
+  },
+  "strings": {
+    "This product is free!": "この製品は無料です。",
+    "{name} doesn't require payment. Head to the download page to claim your free license.": "{name} のお支払いは不要です。ダウンロードページで無料ライセンスを受け取ってください。",
+    "Go to Download": "ダウンロードへ",
+    "Back to Downloads": "ダウンロードに戻る",
+    "Secure Checkout": "安全なお支払い",
+    "One-time purchase": "買い切り",
+    "Includes upgrade from your free trial — same license key": "無料試用版からのアップグレードを含みます。ライセンスキーは同じです",
+    "Payment system not configured": "お支払いシステムが設定されていません",
+    "Unable to load checkout": "お支払い画面を読み込めません",
+    "Payment Successful!": "お支払いが完了しました。",
+    "Your license has been activated. You can now download the app and start using it with your license key. Check your downloads page for the license key.": "ライセンスが有効になりました。アプリをダウンロードして、ライセンスキーで使い始められます。ライセンスキーはダウンロードページで確認できます。",
+    "Go to Downloads": "ダウンロードへ",
+    "View Account": "アカウントを見る",
+    "Our Products — Download & Get Started": "製品一覧 — ダウンロードして始める",
+    "Download Our Apps": "アプリをダウンロード",
+    "Explore our suite of AI-powered tools. Each app is designed to run locally on your machine — no cloud dependency, full privacy.": "AI を活用したツール群をご覧ください。どのアプリもお使いのコンピューター上でローカルに動作するよう作られており、クラウドに頼らず、プライバシーも守られます。",
+    "Free trials included": "無料試用あり",
+    "Signed-in users only": "ログインしたユーザーのみ",
+    "Runs 100% locally": "100% ローカルで動作",
+    "New versions are out for {n} of our local apps": "ローカルアプリのうち {n} 本の新バージョンを公開しました",
+    "Here is what changed in the latest version of each:": "それぞれの最新バージョンでの変更点です:",
+    "Code-signed": "コード署名済み",
+    "Get {version}": "{version} を入手",
+    "All changes": "すべての変更点",
+    "We are still updating our other local apps, one at a time, and we hope you enjoy what is coming. The SHA-256 checksum and signing details of every download are on": "その他のローカルアプリも順次更新しています。今後の更新もお楽しみに。各ダウンロードの SHA-256 チェックサムと署名の詳細は次のページに掲載しています:",
+    "Free face swap": "無料の顔交換",
+    "System Requirements": "動作環境",
+    "Make sure your device meets the minimum requirements for each app": "お使いのデバイスが各アプリの最低要件を満たしていることをご確認ください",
+    "Face & Enhancement Tools": "顔・高画質化ツール",
+    "OS": "OS",
+    "RAM": "RAM",
+    "Storage": "ストレージ",
+    "8 GB minimum (16 GB recommended)": "最低 8 GB(16 GB 推奨)",
+    "8 GB minimum": "最低 8 GB",
+    "2 GB available space": "空き容量 2 GB",
+    "1 GB available space": "空き容量 1 GB",
+    "Failed to claim license": "ライセンスを受け取れませんでした",
+    "Network error. Please try again.": "ネットワークエラーです。もう一度お試しください。",
+    "Free": "無料",
+    "New": "新着",
+    "Learn more": "詳しく見る",
+    "one-time": "買い切り",
+    "{days}-day free trial": "{days} 日間の無料試用",
+    "Launch price through {date} · then {price}": "発売記念価格は {date} まで · その後は {price}",
+    "Start your {days}-day free trial": "{days} 日間の無料試用を始める",
+    "Try the full app for free. No payment required upfront. Purchase anytime to keep using after the trial.": "フル機能のアプリを無料でお試しいただけます。事前のお支払いは不要です。試用後も使い続けるには、いつでも購入できます。",
+    "Get your free activation license": "無料の有効化ライセンスを入手",
+    "Each license activates on 1 machine. You'll receive a license key to activate the app.": "ライセンスは 1 台のコンピューターで有効化できます。アプリの有効化に使うライセンスキーをお渡しします。",
+    "Purchase to get your activation license": "購入して有効化ライセンスを入手",
+    "Starting...": "開始しています…",
+    "Start Free Trial": "無料試用を始める",
+    "Buy — {price}": "購入 — {price}",
+    "Generating...": "発行しています…",
+    "Get Free License": "無料ライセンスを入手",
+    "Purchase — {price}": "購入 — {price}",
+    "Free Trial — {n} days remaining": "無料試用 — 残り {n} 日",
+    "Free Trial — 1 day remaining": "無料試用 — 残り 1 日",
+    "Upgrade — {price}": "アップグレード — {price}",
+    "Your Trial License Key (save this!)": "試用ライセンスキー(必ず保存してください)",
+    "Copied!": "コピーしました",
+    "Copy Key": "キーをコピー",
+    "Enter this key in the app after installation. Purchase anytime to keep using after the trial ends.": "インストール後、このキーをアプリに入力してください。試用期間が終わっても使い続けるには、いつでも購入できます。",
+    "Trial Expired": "試用期間が終了しました",
+    "Your {days}-day free trial has ended. Purchase a full license to continue using {name}. Your existing license key will be upgraded automatically.": "{days} 日間の無料試用が終了しました。{name} を引き続き使うには、正式なライセンスを購入してください。お持ちのライセンスキーは自動的にアップグレードされます。",
+    "Licensed — Full Version": "ライセンス取得済み — 正式版",
+    "License Activated": "ライセンスが有効になりました",
+    "Your License Key (save this!)": "ライセンスキー(必ず保存してください)",
+    "Enter this key in the app after installation to activate it on your machine.": "インストール後、このキーをアプリに入力すると、お使いのコンピューターで有効になります。",
+    "Download for your platform": "お使いの環境向けにダウンロード",
+    "Temporarily unavailable": "一時的にご利用いただけません",
+    "Done": "完了",
+    "Download": "ダウンロード",
+    "See the full feature tour": "機能の詳しい紹介を見る",
+    "Want diffusion quality and 7 tools? See Nano FaceStudio Pro": "拡散モデルの品質と 7 つのツールをお求めですか? Nano FaceStudio Pro をご覧ください",
+    "What's new in 3.0": "3.0 の新機能",
+    "AI Face Studio — 7 tools in one desktop app": "AI Face Studio — 1 つのデスクトップアプリに 7 つのツール",
+    "Face swap, mask edit, expression editing, face vivid restoration, 2×/3×/4× upscale, light adjust, and crop — one unified desktop studio, every model running on your GPU. Multi-face swap up to 16 faces per image using GAN and diffusion models.": "顔交換、マスク編集、表情編集、Face Vivid による修復、2×/3×/4× アップスケール、ライト調整、切り抜きを 1 つのデスクトップスタジオにまとめました。すべてのモデルがお使いの GPU で動作します。GAN モデルと拡散モデルで、1 枚の画像で最大 16 人の顔を入れ替えられます。",
+    "AI Facial Editing & Enhancement": "AI 顔編集・高画質化",
+    "Retouch, enhance, and transform facial features with AI. Supports face swap, expression editing, and portrait retouching — all running 100% locally on your GPU.": "AI で顔の特徴をレタッチ、補正、変換します。顔交換、表情編集、ポートレートのレタッチに対応し、すべてお使いの GPU で 100% ローカルに動作します。",
+    "AI Face Swap": "AI 顔交換",
+    "Swap faces in photos and videos with realistic AI-powered results. Fast, private, and running 100% locally on your GPU.": "写真や動画の顔を、AI でリアルに入れ替えます。高速でプライバシーも守られ、お使いの GPU で 100% ローカルに動作します。",
+    "AI Virtual Try-On": "AI バーチャル試着",
+    "See how clothes look on you before you buy. AI-powered virtual try-on with photo-realistic results — running 100% locally on your GPU.": "購入前に、服が自分にどう見えるかを確かめられます。写真のようにリアルな AI バーチャル試着で、お使いの GPU で 100% ローカルに動作します。",
+    "AI Image Generation & Editing": "AI 画像生成・編集",
+    "Generate and edit stunning images from text prompts with Nano ImageEdit. Supports text-to-image and image-to-image, running 100% locally on your GPU.": "Nano ImageEdit で、テキストのプロンプトから美しい画像を生成・編集できます。テキストから画像、画像から画像に対応し、お使いの GPU で 100% ローカルに動作します。",
+    "AI Video Enhancement": "AI 動画高画質化",
+    "Upscale, stabilize, and enhance video quality with AI. Improve resolution, reduce noise, and sharpen details — all running 100% locally on your GPU.": "AI で動画をアップスケール、手ぶれ補正、高画質化します。解像度の向上、ノイズ低減、ディテールのシャープ化まで、すべてお使いの GPU で 100% ローカルに動作します。",
+    "AI Image Enhancement — Pro": "AI 画像高画質化 — Pro",
+    "Upscale, denoise, and restore images with AI. Now featuring a smooth Electron desktop app, native Apple Silicon support (M2–M5), batch processing, and crop + background matting — all running 100% locally on your GPU.": "AI で画像をアップスケール、ノイズ除去、修復します。動作の軽い Electron 製デスクトップアプリになり、Apple Silicon(M2〜M5)にネイティブ対応し、一括処理、切り抜き、背景の切り抜きにも対応しました。すべてお使いの GPU で 100% ローカルに動作します。",
+    "AI Video Generation": "AI 動画生成",
+    "Create stunning videos from text prompts or images with Nano VideoGen. Supports text-to-video, image-to-video, keyframe interpolation, and camera control LoRAs — all running 100% locally on your GPU.": "Nano VideoGen で、テキストのプロンプトや画像から美しい動画を作成できます。テキストから動画、画像から動画、キーフレーム補間、カメラ制御 LoRA に対応し、すべてお使いの GPU で 100% ローカルに動作します。",
+    "AI Facial Editing — Retouch, enhance, and transform facial features with Nano FacialEdit, running 100% locally on your GPU.": "AI 顔編集 — Nano FacialEdit で顔の特徴をレタッチ、補正、変換。お使いの GPU で 100% ローカルに動作します。",
+    "AI Face Swap — Swap faces in photos and videos with realistic results using Nano FaceSwap, running 100% locally on your GPU.": "AI 顔交換 — Nano FaceSwap で写真や動画の顔をリアルに入れ替え。お使いの GPU で 100% ローカルに動作します。",
+    "AI Virtual Try-On — See how clothes look on you before you buy, powered by AI running 100% locally on your GPU.": "AI バーチャル試着 — 購入前に服が自分にどう見えるかを確認。AI がお使いの GPU で 100% ローカルに動作します。",
+    "AI Image Generation — Generate and edit stunning images from text prompts with Nano ImageEdit, running locally on your GPU.": "AI 画像生成 — Nano ImageEdit でテキストのプロンプトから美しい画像を生成・編集。お使いの GPU でローカルに動作します。",
+    "AI Video Enhancement — Upscale, stabilize, and enhance video quality with Nano VideoEnhance, running 100% locally on your GPU.": "AI 動画高画質化 — Nano VideoEnhance で動画をアップスケール、手ぶれ補正、高画質化。お使いの GPU で 100% ローカルに動作します。",
+    "AI Image Enhancement — Upscale, denoise, and restore images with Nano ImageEnh, running 100% locally on your GPU.": "AI 画像高画質化 — Nano ImageEnh で画像をアップスケール、ノイズ除去、修復。お使いの GPU で 100% ローカルに動作します。",
+    "AI Face Studio — Face swap, mask edit, expression editing, face vivid, upscale, light adjust, and crop in one local desktop app running 100% on your GPU. Free browser demos at /face-swap preview the swap + vivid capabilities.": "AI Face Studio — 顔交換、マスク編集、表情編集、Face Vivid、アップスケール、ライト調整、切り抜きを、お使いの GPU で 100% 動作する 1 つのローカルデスクトップアプリに。/face-swap の無料ブラウザーデモで、顔交換と Face Vivid の機能を確認できます。",
+    "AI Video Generation — Create stunning videos from text prompts or images with Nano VideoGen, running 100% locally on your GPU.": "AI 動画生成 — Nano VideoGen でテキストのプロンプトや画像から美しい動画を作成。お使いの GPU で 100% ローカルに動作します。",
+    "AI-powered facial retouching & enhancement": "AI による顔のレタッチ・補正",
+    "Face swap and expression editing": "顔交換と表情編集",
+    "Runs 100% locally on your GPU": "お使いの GPU で 100% ローカルに動作",
+    "All future updates included": "今後のアップデートをすべて含む",
+    "AI-powered face swapping": "AI による顔交換",
+    "Photo and video support": "写真と動画に対応",
+    "AI-powered virtual try-on": "AI によるバーチャル試着",
+    "Photo-realistic clothing swap": "写真のようにリアルな服の着せ替え",
+    "Text-to-image generation": "テキストから画像を生成",
+    "Image-to-image with reference photos": "参照写真を使った画像から画像への変換",
+    "7-day free trial included": "7 日間の無料試用付き",
+    "AI-powered video upscaling & enhancement": "AI による動画のアップスケール・高画質化",
+    "Video stabilization and denoising": "動画の手ぶれ補正とノイズ除去",
+    "AI-powered image upscaling & denoising": "AI による画像のアップスケール・ノイズ除去",
+    "Photo restoration and enhancement": "写真の修復・補正",
+    "7-tool bundle: swap, mask, expression, vivid, upscale, light, crop": "7 つのツールをセットで:顔交換、マスク、表情、Vivid、アップスケール、ライト、切り抜き",
+    "Multi-face swap up to 16 faces per image": "1 枚の画像で最大 16 人の顔を入れ替え",
+    "GAN and diffusion models": "GAN モデルと拡散モデル",
+    "2×, 3×, 4× full-image upscale": "画像全体を 2×、3×、4× にアップスケール",
+    "Face Vivid: de-plasticize AI-smoothed skin": "Face Vivid:AI でつるつるになった肌の不自然さを解消",
+    "Runs 100% locally on NVIDIA CUDA or Apple Silicon Metal": "NVIDIA CUDA または Apple Silicon の Metal で 100% ローカルに動作",
+    "One-time license covers Windows + macOS": "買い切りライセンスで Windows と macOS の両方に対応",
+    "Free browser demos available at /face-swap": "/face-swap で無料のブラウザーデモを利用できます",
+    "All 1.x updates included": "1.x のアップデートをすべて含む",
+    "Text-to-video generation": "テキストから動画を生成",
+    "Image-to-video & keyframe interpolation": "画像から動画、キーフレーム補間",
+    "Camera control LoRAs (dolly, jib, static)": "カメラ制御 LoRA(ドリー、ジブ、固定)",
+    "Our flagship desktop studio": "当社の主力デスクトップスタジオ",
+    "Local image generator and editor": "ローカル画像生成・編集",
+    "Local virtual try-on": "ローカルのバーチャル試着",
+    "Free facial editing": "無料の顔編集"
   }
 }

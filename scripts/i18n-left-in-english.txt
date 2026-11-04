@@ -1,8 +1,8 @@
 # English in the tool screens and cookie-language pages that is not translated, on purpose or from before scripts/check-i18n-coverage.mjs.
 , and every result after that is watermark-free.
-A video that was made is charged, and it is not refunded once it has been deleted. Videos that could not be made, or that you cancelled, are never charged.
 Add a warm lamp glow
 Add the text "{n}".{n}
+All versions
 Apply a moody cinematic teal-and-orange color grade to the photo. Keep all content exactly the same.
 Authentication Error
 Auto top-up
@@ -57,6 +57,7 @@ New Password
 Only use photos of people who have agreed to it. Users are responsible for ensuring their use of this technology complies with applicable laws and the rights of third parties.
 Packs start at $5, no subscription, and failed edits are refunded.
 Payments are not configured on this deployment.
+Release Notes
 Remember your password?
 Remove {n}, revealing the background behind it naturally.{n}
 Replace it with a potted plant

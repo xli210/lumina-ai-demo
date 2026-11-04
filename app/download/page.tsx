@@ -13,6 +13,9 @@ import { AppCards } from "./app-cards";
 import { ReleaseNotes } from "./release-notes";
 import { SystemRequirements } from "./system-requirements";
 import { PRODUCTS } from "@/lib/products";
+import { getLocale } from "next-intl/server";
+import type { AppLocale } from "@/lib/i18n/locales";
+import { pageStrings } from "@/lib/i18n/strings";
 
 /** Re-rendered every 10 minutes, so a launch price leaves the page soon after it ends. */
 export const revalidate = 600;
@@ -32,7 +35,9 @@ const softwareData = () => ({
   ],
 });
 
-export default function DownloadPage() {
+export default async function DownloadPage() {
+  const locale = (await getLocale()) as AppLocale;
+  const strings = await pageStrings(locale);
   return (
     <main className="relative min-h-screen">
       <script
@@ -40,10 +45,10 @@ export default function DownloadPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareData()) }}
       />
       <Navbar />
-      <DownloadHero />
-      <NewVersionNotice />
-      <AppCards />
-      <SystemRequirements />
+      <DownloadHero strings={strings} />
+      <NewVersionNotice strings={strings} />
+      <AppCards strings={strings} locale={locale} />
+      <SystemRequirements strings={strings} />
       <ReleaseNotes />
       <Footer />
     </main>

@@ -74,6 +74,10 @@ export const TRANSLATED_PAGES: Record<string, readonly AppLocale[]> = {
   "/face-studio": ALL_TRANSLATED,
   "/image-edit": ALL_TRANSLATED,
   "/apps/nano-facestudio-pro": ALL_TRANSLATED,
+  "/apps/nano-faceswap": ALL_TRANSLATED,
+  "/apps/nano-facialedit": ALL_TRANSLATED,
+  "/apps/nano-imagetryon": ALL_TRANSLATED,
+  "/pricing": ALL_TRANSLATED,
 };
 
 /**
@@ -84,7 +88,7 @@ export const TRANSLATED_PAGES: Record<string, readonly AppLocale[]> = {
 export const LOCALE_COOKIE = "np_locale";
 
 /** Pages shown in the visitor's language at their usual address, with no locale prefix. */
-const COOKIE_LOCALE_PATHS = ["/auth", "/credits", "/my-images", "/facestudio-v/videos"];
+const COOKIE_LOCALE_PATHS = ["/auth", "/credits", "/my-images", "/facestudio-v/videos", "/download", "/checkout"];
 
 export function usesLocaleCookie(pathname: string): boolean {
   return COOKIE_LOCALE_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
@@ -118,6 +122,11 @@ export function negotiateLocale(cookie: string | undefined, acceptLanguage: stri
     if (found) return found;
   }
   return DEFAULT_LOCALE;
+}
+
+/** Stripe's name for a language: it knows Simplified Chinese as "zh". */
+export function stripeLocale(locale: AppLocale): "en" | "zh" | "ja" | "ko" | "es" | "pt-BR" | "de" | "fr" {
+  return locale === "zh-CN" ? "zh" : locale;
 }
 
 /** This page's address in `locale` if it has been translated, else its English address. */

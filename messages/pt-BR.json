@@ -171,7 +171,7 @@
       "price": "{edit} créditos por edição"
     },
     "watermarkNote": "Contas que nunca compraram créditos recebem os resultados de rosto, cabeça e vídeo com a marca d'água da NanoPocket; uma única compra de créditos remove. A edição por texto não tem marca d'água. Os créditos não expiram e não há assinatura.",
-    "englishNote": "As telas do estúdio de vídeo estão no seu idioma; só os textos sobre preços e reembolsos continuam em inglês."
+    "englishNote": "As telas do estúdio de vídeo estão no seu idioma."
   },
   "Common": {
     "languageSwitcher": {
@@ -335,7 +335,8 @@
       "notMade": "Não foi possível criar este vídeo. Seus créditos foram devolvidos.",
       "credits": "{count} créditos.",
       "download": "Baixar",
-      "downloadUnavailable": "Download indisponível no momento"
+      "downloadUnavailable": "Download indisponível no momento",
+      "billing": "Um vídeo que foi feito é cobrado, e não é reembolsado depois de apagado. Vídeos que não puderam ser feitos, ou que você cancelou, nunca são cobrados."
     }
   },
   "Home": {
@@ -382,7 +383,7 @@
     },
     "appsCatalog": {
       "heading": "Todos os apps desktop da NanoPocket",
-      "intro": "Todos rodam na sua própria GPU. A maioria precisa de Windows e de uma placa de vídeo NVIDIA. As páginas dos apps estão em inglês.",
+      "intro": "Cada um roda na sua própria GPU. A maioria precisa de Windows e de uma placa de vídeo NVIDIA. Algumas páginas de apps estão em inglês.",
       "items": [
         {
           "name": "Nano FaceStudio Pro",
