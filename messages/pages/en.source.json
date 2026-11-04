@@ -1,6 +1,6 @@
 {
   "_about": "English source for the translated pages. Not rendered: en pages keep their own copy. Translators work from this file; scripts/merge_i18n.py checks each language against it. Prices beyond a plain credit count, refund terms and legal text are deliberately absent and link to the English pages.",
-  "OnlineToolsEnglishNote": "The video studio's own screens are currently in English; the page below explains each step.",
+  "OnlineToolsEnglishNote": "The video studio's screens are in your language; only the price and refund wording stays in English.",
   "Home": {
     "metadata": {
       "title": "NanoPocket: AI face swap, head swap and video face swap, free to start in your browser",
@@ -225,7 +225,7 @@
     "lead2": "Version {version} is a new engine built for footage with lots of movement, such as dance. Steep angles, things crossing the face and fast spins all hold up, and swapping is about twice as fast. {grant} free credits on sign-up let you try a short clip first.",
     "ctaOpen": "Open video face swap",
     "ctaGuide": "Read the guide (in English)",
-    "accountNote": "You need a free NanoPocket account. The studio's screens are currently in English. Last checked: {date}",
+    "accountNote": "You need a free NanoPocket account. The studio's screens are in your language. Last checked: {date}",
     "newHeading": "What's new in {version}: an engine built for movement",
     "newBody": "Dance is the hardest footage for a face swap: heads tilt back, hair and sleeves sweep across the face, the camera spins and the stage lights change colour. {version} works out again for every frame where the face is, which way it points and what is in front of it. In each pair below, \"Original\" is the source video and \"{version}\" is the result, made from one reference photo with no manual masks or keyframes. This update applies to the Fast and Best quality modes; Whole head mode is unchanged.",
     "features": [
@@ -293,7 +293,7 @@
       { "q": "What is the difference between a face swap and a whole-head swap?", "a": "A face swap replaces only the face and keeps the original hair, head shape and expression, which suits talking, interviews and longer clips. A whole-head swap takes the face, hair and head shape from the reference photo and leaves the body, clothes, background and other people alone, which suits short shots." },
       { "q": "Can I swap any face I like?", "a": "Only a face you have the right to use. The studio asks you to confirm this before it starts. Do not publish face swap videos of real people without their permission." },
       { "q": "What happens to my uploaded video?", "a": "The studio states that uploads are deleted within 24 hours and that a finished video is kept for 24 hours, or 7 days for an account that has topped up. They are not used to train models. See the privacy policy at /privacy (in English)." },
-      { "q": "Is the studio in my language?", "a": "The studio's screens are currently in English. The steps are simple: upload a video, add the new face, click the person to change, and start. You can use the three steps on this page as a guide." }
+      { "q": "Is the studio in my language?", "a": "Yes. The studio's screens are in your language; only the price and refund wording stays in English." }
     ],
     "english": "English version"
   },

@@ -14,7 +14,7 @@
     "lead2": "A versão {version} é um novo motor feito para vídeos com muito movimento, como dança. Ângulos extremos, coisas passando pela frente do rosto e giros rápidos não atrapalham, e a troca está cerca de duas vezes mais rápida. {grant} créditos grátis no cadastro permitem testar um clipe curto primeiro.",
     "ctaOpen": "Abrir o face swap em vídeo",
     "ctaGuide": "Ler o guia (em inglês)",
-    "accountNote": "Você precisa de uma conta grátis da NanoPocket. As telas do estúdio ainda estão em inglês. Última verificação: {date}",
+    "accountNote": "Você precisa de uma conta grátis da NanoPocket. As telas do estúdio estão no seu idioma. Última verificação: {date}",
     "newHeading": "O que há de novo na {version}: um motor feito para o movimento",
     "newBody": "Dança é o tipo de vídeo mais difícil para um face swap: a cabeça inclina para trás, cabelo e mangas passam pela frente do rosto, a câmera gira e as luzes do palco mudam de cor. A {version} calcula de novo, em cada quadro, onde o rosto está, para onde aponta e o que há na frente dele. Em cada par abaixo, “Original” é o vídeo de origem e “{version}” é o resultado, feito com uma única foto de referência, sem máscaras manuais nem keyframes. Esta atualização vale para os modos Fast e Best quality; o modo Whole head não mudou.",
     "features": [
@@ -179,7 +179,7 @@
       },
       {
         "q": "O estúdio está no meu idioma?",
-        "a": "As telas do estúdio ainda estão em inglês. Os passos são simples: envie um vídeo, adicione o novo rosto, clique na pessoa que quer mudar e comece. Você pode usar os três passos desta página como guia."
+        "a": "Sim. As telas do estúdio estão no seu idioma; só os textos sobre preços e reembolsos continuam em inglês."
       }
     ],
     "english": "Versão em inglês"

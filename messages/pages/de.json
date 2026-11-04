@@ -14,7 +14,7 @@
     "lead2": "Version {version} ist eine neue Engine für Aufnahmen mit viel Bewegung, etwa Tanz. Steile Winkel, Dinge vor dem Gesicht und schnelle Drehungen meistert sie zuverlässig, und der Tausch ist etwa doppelt so schnell. Mit {grant} kostenlosen Credits bei der Anmeldung testest du zuerst einen kurzen Clip.",
     "ctaOpen": "Video-Face-Swap öffnen",
     "ctaGuide": "Anleitung lesen (auf Englisch)",
-    "accountNote": "Du brauchst ein kostenloses NanoPocket-Konto. Die Oberfläche des Studios ist derzeit auf Englisch. Zuletzt geprüft: {date}",
+    "accountNote": "Du brauchst ein kostenloses NanoPocket-Konto. Die Oberfläche des Studios ist in deiner Sprache. Zuletzt geprüft: {date}",
     "newHeading": "Neu in {version}: eine Engine, gemacht für Bewegung",
     "newBody": "Tanz ist das schwierigste Material für einen Face Swap: Köpfe kippen nach hinten, Haare und Ärmel streichen über das Gesicht, die Kamera dreht sich, und das Bühnenlicht wechselt die Farbe. {version} ermittelt für jeden einzelnen Frame neu, wo das Gesicht ist, wohin es zeigt und was davor liegt. In jedem Paar unten ist „Original“ das Ausgangsvideo und „{version}“ das Ergebnis, erstellt aus einem einzigen Referenzfoto ohne manuelle Masken oder Keyframes. Dieses Update gilt für die Modi Fast und Best quality; der Modus Whole head bleibt unverändert.",
     "features": [
@@ -179,7 +179,7 @@
       },
       {
         "q": "Gibt es das Studio in meiner Sprache?",
-        "a": "Die Oberfläche des Studios ist derzeit auf Englisch. Die Schritte sind einfach: Video hochladen, neues Gesicht hinzufügen, die zu ändernde Person anklicken und starten. Die drei Schritte auf dieser Seite kannst du als Anleitung nutzen."
+        "a": "Ja. Die Oberfläche des Studios ist in deiner Sprache; nur die Hinweise zu Preisen und Rückerstattungen bleiben auf Englisch."
       }
     ],
     "english": "Englische Version"

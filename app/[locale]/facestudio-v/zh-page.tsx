@@ -102,7 +102,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "界面是中文的吗?",
-    a: "工作室的操作界面目前是英文,步骤很简单:上传视频、添加参考人脸、点选要换的人、开始。这一页的说明和下面的中文教程可以对照着用。",
+    a: "是的,工作室的操作界面是中文,只有价格和退款说明保留英文。步骤很简单:上传视频、添加参考人脸、点选要换的人、开始。",
   },
 ];
 
@@ -180,7 +180,7 @@ export default function ZhVideoFaceSwapPage() {
             </Button>
           </div>
           <p className="mt-3 text-xs text-muted-foreground">
-            需要一个免费的 NanoPocket 账号;工作室界面目前为英文。最近核实:{LAST_VERIFIED}
+            需要一个免费的 NanoPocket 账号;工作室界面为中文。最近核实:{LAST_VERIFIED}
           </p>
         </div>
       </section>

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import { LOCALE_COOKIE, negotiateLocale } from "@/lib/i18n/locales";
 import { createClient } from "@/lib/supabase/server";
 import { signStudioToken, studioConfig, studioStatus } from "@/lib/facestudio-v-server";
 import {
@@ -59,7 +61,9 @@ export default async function FaceStudioVLaunch() {
   if (status.ok && cfg) {
     // The studio page bills through our API. It cannot use our cookies, so it gets a
     // short-lived signed token in the URL fragment (never sent to any server).
-    redirect(`${cfg.origin}/?key=${encodeURIComponent(cfg.key)}#t=${signStudioToken(user.id)}`);
+    // The studio is another address and cannot read our language cookie, so its language travels the same way.
+    const lang = negotiateLocale((await cookies()).get(LOCALE_COOKIE)?.value, (await headers()).get("accept-language"));
+    redirect(`${cfg.origin}/?key=${encodeURIComponent(cfg.key)}#t=${signStudioToken(user.id)}&l=${encodeURIComponent(lang)}`);
   }
 
   const reason = status.ok ? "no_address" : status.reason;

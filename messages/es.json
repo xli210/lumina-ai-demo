@@ -171,7 +171,7 @@
       "price": "{edit} créditos por edición"
     },
     "watermarkNote": "Las cuentas que nunca han comprado créditos reciben los resultados de cara, cabeza y vídeo con la marca de agua de NanoPocket; una sola compra de créditos la quita. La edición por texto no lleva marca de agua. Los créditos no caducan y no hay suscripción.",
-    "englishNote": "Por ahora, las pantallas del estudio de vídeo están en inglés; en esta página te explicamos cada paso."
+    "englishNote": "Las pantallas del estudio de vídeo están en tu idioma; solo los textos sobre precios y reembolsos siguen en inglés."
   },
   "Common": {
     "languageSwitcher": {
@@ -295,8 +295,8 @@
       "close": "Cerrar",
       "englishTerms": "La recarga automática y las condiciones de facturación se muestran en inglés.",
       "packStudio": "El mejor precio por crédito, para un uso constante.",
-      "fromStudioTitle": "¿Compras créditos para tu video?",
-      "fromStudioBody": "Elige un paquete abajo. Cuando termines, vuelve a la pestaña del estudio: recibe tus créditos nuevos por sí solo y tu video sigue ahí. <studio>O abre el estudio de nuevo</studio>."
+      "fromStudioTitle": "¿Compras créditos para tu vídeo?",
+      "fromStudioBody": "Elige un paquete abajo. Cuando termines, vuelve a la pestaña del estudio: recibe tus créditos nuevos por sí solo y tu vídeo sigue ahí. <studio>O abre el estudio de nuevo</studio>."
     },
     "myImages": {
       "title": "Mis imágenes",
@@ -312,16 +312,16 @@
       "notCharged": "Sin cargo. Ábrela: si al final se creó, aparecerá ahí."
     },
     "myVideos": {
-      "title": "Mis videos",
-      "subtitle": "{name}: los videos que creaste en los últimos 7 días.",
-      "noticePaid": "Para proteger tu privacidad, cada video se elimina definitivamente 7 días después de crearse. Descarga antes los que quieras conservar.",
-      "noticeFree": "Para proteger tu privacidad, cada video se elimina definitivamente 24 horas después de crearse. Descarga antes los que quieras conservar.",
-      "addCredits": "<credits>Compra créditos</credits> una vez y tus videos se guardarán 7 días.",
-      "failed": "No se pudieron cargar tus videos en este momento. Inténtalo de nuevo en un minuto.",
-      "empty": "No hay videos de los últimos 7 días.",
+      "title": "Mis vídeos",
+      "subtitle": "{name}: los vídeos que creaste en los últimos 7 días.",
+      "noticePaid": "Para proteger tu privacidad, cada vídeo se elimina definitivamente 7 días después de crearse. Descarga antes los que quieras conservar.",
+      "noticeFree": "Para proteger tu privacidad, cada vídeo se elimina definitivamente 24 horas después de crearse. Descarga antes los que quieras conservar.",
+      "addCredits": "<credits>Compra créditos</credits> una vez y tus vídeos se guardarán 7 días.",
+      "failed": "No se pudieron cargar tus vídeos en este momento. Inténtalo de nuevo en un minuto.",
+      "empty": "No hay vídeos de los últimos 7 días.",
       "openStudio": "Abrir el estudio",
-      "newVideo": "Crear un video nuevo",
-      "video": "Video",
+      "newVideo": "Crear un vídeo nuevo",
+      "video": "Vídeo",
       "modeFast": "Rápido",
       "modeQuality": "Máxima calidad",
       "modeHead": "Cabeza completa",
@@ -332,7 +332,7 @@
       "making": "Se está creando.",
       "makingUnknown": "Se está creando. No se pudo contactar con el estudio en este momento.",
       "cancelled": "Cancelado. Tus créditos se han devuelto.",
-      "notMade": "No se pudo crear este video. Tus créditos se han devuelto.",
+      "notMade": "No se pudo crear este vídeo. Tus créditos se han devuelto.",
       "credits": "{count} créditos.",
       "download": "Descargar",
       "downloadUnavailable": "Descarga no disponible en este momento"
