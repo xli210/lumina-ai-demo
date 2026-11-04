@@ -475,5 +475,93 @@
         "note": "Una cámara baja que mira hacia arriba a cinco cabezas, todas en un ángulo pronunciado. El hombre de la camisa roja recibe la cabeza nueva con la misma inclinación y la misma sonrisa, y las cuatro personas que lo rodean quedan exactamente como en la toma."
       }
     }
+  },
+  "pro": {
+    "title": "Nano FaceStudio Pro: cambio de rostro y edición facial local para Windows",
+    "description": "Cambio de rostro, edición con máscara, edición de expresiones, restauración facial, ampliación, ajuste de luz y recorte en una sola app de escritorio. Funciona sin conexión en tu propia GPU, con licencia de pago único y sin subir nada.",
+    "kicker": "App de escritorio",
+    "h1": "Todo el rostro, en un solo estudio y en tu propia GPU",
+    "lead": "Siete herramientas en una app de escritorio: cambio de rostro, edición con máscara, edición de expresiones, Face Vivid, ampliación, ajuste de luz y recorte. Todo funciona en tu computadora, así que tus fotos nunca se suben y no hay cargo por imagen.",
+    "cta": "Comprar y descargar",
+    "note": "Licencia de pago único, sin suscripción. Ya disponible para Windows; macOS llegará más adelante. La página de compra y los precios están en inglés.",
+    "examplesHeading": "Pantallas reales de la app",
+    "beforeLabel": "Antes",
+    "afterLabel": "Después",
+    "examples": {
+      "protect": "Protección de zonas: desactiva una zona y el anillo se queda exactamente como en la foto original.",
+      "expression": "Edición de expresiones: cierra los ojos con un solo control y la identidad de la persona no cambia.",
+      "mask": "Edición con máscara: pinta sobre un detalle que el cambio alteró y volverá desde el original, sin tocar el resto."
+    },
+    "featuresHeading": "Siete herramientas",
+    "features": [
+      {
+        "title": "Cambio de rostro",
+        "body": "Detecta hasta 16 rostros por imagen. Cambia uno, o todos con un clic, y elige qué zonas no se tocan."
+      },
+      {
+        "title": "Edición con máscara",
+        "body": "Recupera cualquier detalle con un pincel. No es destructiva: deshaz el pincel y el cambio de rostro sigue igual."
+      },
+      {
+        "title": "Edición de expresiones",
+        "body": "Ajusta el ángulo de la cabeza, los ojos y la boca con controles, o copia la expresión de un rostro de referencia."
+      },
+      {
+        "title": "Face Vivid",
+        "body": "Devuelve una textura de piel natural a los rostros que la IA ha dejado lisos y con aspecto de plástico."
+      },
+      {
+        "title": "Ampliación de imagen",
+        "body": "Amplía toda la imagen 2×, 3× o 4×, no solo los rostros."
+      },
+      {
+        "title": "Ajuste de luz",
+        "body": "Brillo, contraste y saturación automáticos."
+      },
+      {
+        "title": "Recorte",
+        "body": "Recorte preciso con proporciones predefinidas."
+      }
+    ],
+    "stepsHeading": "Cómo empezar",
+    "steps": [
+      {
+        "title": "Obtén una licencia",
+        "body": "Compra una sola vez en la página de descarga. No hay suscripción."
+      },
+      {
+        "title": "Instala y activa",
+        "body": "Descarga la app y actívala. Solo necesita internet para la activación."
+      },
+      {
+        "title": "Trabaja sin conexión",
+        "body": "Abre una foto y usa cualquiera de las siete herramientas en tu propia GPU."
+      }
+    ],
+    "faqHeading": "Preguntas",
+    "faq": [
+      {
+        "q": "¿En qué se diferencia de Nano FaceStudio Online?",
+        "a": "Nano FaceStudio Online funciona en el navegador con nuestras GPU y se paga por uso con créditos. Nano FaceStudio Pro es una app de escritorio con licencia de pago único que funciona en tu propia GPU, no tiene cargo por imagen y añade edición con máscara, edición de expresiones, Face Vivid, ampliación, ajuste de luz y recorte."
+      },
+      {
+        "q": "¿Se suben mis fotos?",
+        "a": "No. Todos los modelos funcionan en tu GPU, y tus fotos nunca se suben ni se guardan en un servidor. La única conexión es la activación de la licencia, una sola vez."
+      },
+      {
+        "q": "¿Qué hardware necesito?",
+        "a": "Windows 10 u 11 con una GPU NVIDIA de al menos 8 GB de VRAM. Se ha probado con las series RTX 30, 40 y 50. La versión de macOS para Apple Silicon (M2 a M5) aún no está disponible, y los Mac con Intel no son compatibles."
+      },
+      {
+        "q": "¿Puedo probarla antes de comprar?",
+        "a": "La app de escritorio no tiene versión de prueba. Primero puedes probar gratis las herramientas en línea: Nano FaceStudio Online usa el mismo motor de cambio de rostro y recibes créditos gratis al registrarte."
+      },
+      {
+        "q": "¿Puedo usar los resultados en trabajos para clientes?",
+        "a": "Sí, según los Términos de uso, que están en inglés. Está prohibido usar la imagen de una persona sin su consentimiento."
+      }
+    ],
+    "pricingLink": "Precios (en inglés)",
+    "english": "Leer la página completa en inglés"
   }
 }

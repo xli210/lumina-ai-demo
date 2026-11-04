@@ -34,6 +34,7 @@ const TRANSLATED_PAGE_NAMES: Record<string, string> = {
   "/face-studio": "Nano FaceStudio Online",
   "/image-edit": IMAGE_EDIT_NAME,
   "/headswap-pro": "Nano HeadSwap Pro",
+  "/apps/nano-facestudio-pro": "Nano FaceStudio Pro (desktop app)",
 };
 
 const LAST_UPDATED = new Date().toISOString().slice(0, 10);

@@ -28,6 +28,7 @@ export function ToolLanding({
   launchHref,
   englishHref,
   jsonLd,
+  wideExamples = false,
 }: {
   locale: AppLocale;
   name: string;
@@ -36,6 +37,8 @@ export function ToolLanding({
   launchHref: string;
   englishHref: string;
   jsonLd: object[];
+  /** One pair per row, for whole-window screenshots whose detail is lost when small. */
+  wideExamples?: boolean;
 }) {
   const items: TitleBody[] = copy.features ?? copy.tools ?? [];
   const itemsHeading = copy.featuresHeading ?? copy.toolsHeading ?? "";
@@ -67,7 +70,7 @@ export function ToolLanding({
       <section className="px-6 pb-14">
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-6 text-2xl font-bold tracking-tight text-foreground">{copy.examplesHeading}</h2>
-          <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <ul className={`grid grid-cols-1 gap-6 ${wideExamples ? "" : "md:grid-cols-2"}`}>
             {examples.map((e) => (
               <li key={e.key} className="overflow-hidden rounded-2xl border border-border/60 bg-background/60">
                 <div className="grid grid-cols-2 gap-1 bg-black">

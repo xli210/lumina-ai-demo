@@ -82,6 +82,7 @@ export interface PageCopy {
   video?: VideoPageCopy;
   faceStudio: ToolPageCopy;
   imageEdit: ToolPageCopy;
+  pro: ToolPageCopy;
 }
 
 export async function pageCopy(locale: AppLocale): Promise<PageCopy> {

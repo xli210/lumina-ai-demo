@@ -475,5 +475,93 @@
         "note": "Une caméra basse, dirigée droit vers le haut sur cinq têtes, toutes sous un angle marqué. L'homme à la chemise rouge reçoit la nouvelle tête, avec la même inclinaison et le même sourire, et les quatre personnes autour de lui restent exactement telles que photographiées."
       }
     }
+  },
+  "pro": {
+    "title": "Nano FaceStudio Pro : échange de visage et retouche faciale en local pour Windows",
+    "description": "Échange de visage, retouche par masque, modification d'expression, restauration du visage, agrandissement, réglage de la lumière et recadrage dans une seule application de bureau. Fonctionne hors ligne sur votre GPU, avec une licence à paiement unique et sans envoi de fichiers.",
+    "kicker": "Application de bureau",
+    "h1": "Tout le visage, dans un seul studio, sur votre propre GPU",
+    "lead": "Sept outils dans une application de bureau : échange de visage, retouche par masque, modification d'expression, Face Vivid, agrandissement, réglage de la lumière et recadrage. Tout fonctionne sur votre ordinateur : vos photos ne sont jamais envoyées et il n'y a aucun frais par image.",
+    "cta": "Acheter et télécharger",
+    "note": "Licence à paiement unique, sans abonnement. Disponible dès maintenant pour Windows, macOS suivra. La page d'achat et les prix sont en anglais.",
+    "examplesHeading": "De vrais écrans de l'application",
+    "beforeLabel": "Avant",
+    "afterLabel": "Après",
+    "examples": {
+      "protect": "Protection des zones : désactivez une zone et la bague reste exactement comme sur la photo d'origine.",
+      "expression": "Modification d'expression : fermez les yeux avec un seul curseur, l'identité de la personne reste la même.",
+      "mask": "Retouche par masque : peignez sur un détail modifié par l'échange, il revient de l'original et le reste ne bouge pas."
+    },
+    "featuresHeading": "Sept outils",
+    "features": [
+      {
+        "title": "Échange de visage",
+        "body": "Détecte jusqu'à 16 visages par image. Échangez-en un, ou tous en un clic, et choisissez les zones à ne pas toucher."
+      },
+      {
+        "title": "Retouche par masque",
+        "body": "Récupérez n'importe quel détail au pinceau. La retouche est non destructive : annulez le pinceau et l'échange reste inchangé."
+      },
+      {
+        "title": "Modification d'expression",
+        "body": "Réglez l'angle de la tête, les yeux et la bouche avec des curseurs, ou copiez l'expression d'un visage de référence."
+      },
+      {
+        "title": "Face Vivid",
+        "body": "Redonne une texture de peau naturelle aux visages que l'IA a rendus lisses et artificiels."
+      },
+      {
+        "title": "Agrandissement d'image",
+        "body": "Agrandit toute l'image par 2, 3 ou 4, pas seulement les visages."
+      },
+      {
+        "title": "Réglage de la lumière",
+        "body": "Luminosité, contraste et saturation automatiques."
+      },
+      {
+        "title": "Recadrage",
+        "body": "Recadrage précis avec des formats prédéfinis."
+      }
+    ],
+    "stepsHeading": "Pour commencer",
+    "steps": [
+      {
+        "title": "Obtenez une licence",
+        "body": "Achetez une seule fois sur la page de téléchargement. Il n'y a pas d'abonnement."
+      },
+      {
+        "title": "Installez et activez",
+        "body": "Téléchargez l'application et activez-la. Seule l'activation nécessite internet."
+      },
+      {
+        "title": "Travaillez hors ligne",
+        "body": "Ouvrez une photo et utilisez les sept outils sur votre propre GPU."
+      }
+    ],
+    "faqHeading": "Questions",
+    "faq": [
+      {
+        "q": "Quelle différence avec Nano FaceStudio Online ?",
+        "a": "Nano FaceStudio Online fonctionne dans le navigateur sur nos GPU et se paie à l'usage en crédits. Nano FaceStudio Pro est une application de bureau à licence unique qui fonctionne sur votre propre GPU, sans frais par image, et ajoute la retouche par masque, la modification d'expression, Face Vivid, l'agrandissement, le réglage de la lumière et le recadrage."
+      },
+      {
+        "q": "Mes photos sont-elles envoyées ?",
+        "a": "Non. Tous les modèles fonctionnent sur votre GPU, et vos photos ne sont jamais envoyées ni conservées sur un serveur. La seule communication est l'activation unique de la licence."
+      },
+      {
+        "q": "Quel matériel faut-il ?",
+        "a": "Windows 10 ou 11 avec un GPU NVIDIA d'au moins 8 Go de VRAM. Les séries RTX 30, 40 et 50 ont été testées. La version macOS pour Apple Silicon (M2 à M5) reste à venir, et les Mac Intel ne sont pas pris en charge."
+      },
+      {
+        "q": "Puis-je l'essayer avant d'acheter ?",
+        "a": "L'application de bureau n'a pas de version d'essai. Vous pouvez d'abord essayer gratuitement les outils en ligne : Nano FaceStudio Online utilise le même moteur d'échange de visage, et vous recevez des crédits gratuits à l'inscription."
+      },
+      {
+        "q": "Puis-je utiliser les résultats pour des clients ?",
+        "a": "Oui, selon les conditions d'utilisation, rédigées en anglais. Utiliser l'image d'une personne sans son consentement est interdit."
+      }
+    ],
+    "pricingLink": "Prix (en anglais)",
+    "english": "Lire la page complète en anglais"
   }
 }

@@ -475,5 +475,93 @@
         "note": "Eine tiefe Kamera blickt direkt nach oben auf fünf Köpfe, jeder in einem steilen Winkel. Der Mann im roten Hemd bekommt den neuen Kopf in derselben Neigung und mit demselben Grinsen, und die vier Personen um ihn herum bleiben genau wie aufgenommen."
       }
     }
+  },
+  "pro": {
+    "title": "Nano FaceStudio Pro: lokaler Face Swap und Gesichtsbearbeitung für Windows",
+    "description": "Face Swap, Maskenbearbeitung, Ausdrucksbearbeitung, Gesichtsrestaurierung, Hochskalieren, Lichtanpassung und Zuschnitt in einer Desktop-App. Läuft offline auf deiner eigenen GPU, mit Einmallizenz und ohne Uploads.",
+    "kicker": "Desktop-App",
+    "h1": "Das ganze Gesicht in einem Studio, auf deiner eigenen GPU",
+    "lead": "Sieben Werkzeuge in einer Desktop-App: Face Swap, Maskenbearbeitung, Ausdrucksbearbeitung, Face Vivid, Hochskalieren, Lichtanpassung und Zuschnitt. Alles läuft auf deinem Computer, deine Fotos werden also nie hochgeladen, und es gibt keine Gebühr pro Bild.",
+    "cta": "Kaufen und herunterladen",
+    "note": "Einmallizenz, kein Abo. Jetzt für Windows verfügbar, macOS folgt. Die Kaufseite und die Preise sind auf Englisch.",
+    "examplesHeading": "Echte Ansichten aus der App",
+    "beforeLabel": "Vorher",
+    "afterLabel": "Nachher",
+    "examples": {
+      "protect": "Bereichsschutz: Schalte einen Bereich aus, und der Ring bleibt genau wie im Originalfoto.",
+      "expression": "Ausdrucksbearbeitung: Schließe die Augen mit einem einzigen Regler, die Identität der Person bleibt gleich.",
+      "mask": "Maskenbearbeitung: Male über ein Detail, das der Tausch verändert hat, und es kommt aus dem Original zurück, während der Rest bleibt."
+    },
+    "featuresHeading": "Sieben Werkzeuge",
+    "features": [
+      {
+        "title": "Face Swap",
+        "body": "Erkennt bis zu 16 Gesichter pro Bild. Tausche eines oder alle mit einem Klick und wähle, welche Bereiche unberührt bleiben."
+      },
+      {
+        "title": "Maskenbearbeitung",
+        "body": "Hole jedes Detail mit dem Pinsel zurück. Die Bearbeitung ist nicht destruktiv: Machst du den Pinsel rückgängig, bleibt der Tausch unverändert."
+      },
+      {
+        "title": "Ausdrucksbearbeitung",
+        "body": "Passe Kopfwinkel, Augen und Mund mit Reglern an oder übernimm den Ausdruck eines Referenzgesichts."
+      },
+      {
+        "title": "Face Vivid",
+        "body": "Gibt Gesichtern, die durch KI glatt und künstlich wirken, eine natürliche Hautstruktur zurück."
+      },
+      {
+        "title": "Bild hochskalieren",
+        "body": "Vergrößert das ganze Bild um das 2-, 3- oder 4-Fache, nicht nur die Gesichter."
+      },
+      {
+        "title": "Lichtanpassung",
+        "body": "Automatische Helligkeit, Kontrast und Sättigung."
+      },
+      {
+        "title": "Zuschnitt",
+        "body": "Präziser Zuschnitt mit Vorgaben für Seitenverhältnisse."
+      }
+    ],
+    "stepsHeading": "So fängst du an",
+    "steps": [
+      {
+        "title": "Lizenz holen",
+        "body": "Einmal auf der Download-Seite kaufen. Es gibt kein Abo."
+      },
+      {
+        "title": "Installieren und aktivieren",
+        "body": "Lade die App herunter und aktiviere sie. Nur dafür braucht sie eine Internetverbindung."
+      },
+      {
+        "title": "Offline arbeiten",
+        "body": "Öffne ein Foto und nutze die sieben Werkzeuge auf deiner eigenen GPU."
+      }
+    ],
+    "faqHeading": "Fragen",
+    "faq": [
+      {
+        "q": "Was ist der Unterschied zu Nano FaceStudio Online?",
+        "a": "Nano FaceStudio Online läuft im Browser auf unseren GPUs und wird pro Nutzung mit Credits bezahlt. Nano FaceStudio Pro ist eine Desktop-App mit Einmallizenz, die auf deiner eigenen GPU läuft, keine Gebühr pro Bild kostet und zusätzlich Maskenbearbeitung, Ausdrucksbearbeitung, Face Vivid, Hochskalieren, Lichtanpassung und Zuschnitt bietet."
+      },
+      {
+        "q": "Werden meine Fotos hochgeladen?",
+        "a": "Nein. Alle Modelle laufen auf deiner GPU, und deine Fotos werden weder hochgeladen noch auf einem Server gespeichert. Die einzige Netzwerkverbindung ist die einmalige Lizenzaktivierung."
+      },
+      {
+        "q": "Welche Hardware brauche ich?",
+        "a": "Windows 10 oder 11 mit einer NVIDIA-GPU und mindestens 8 GB VRAM. Getestet wurden die Serien RTX 30, 40 und 50. Die macOS-Version für Apple Silicon (M2 bis M5) folgt noch, Intel-Macs werden nicht unterstützt."
+      },
+      {
+        "q": "Kann ich sie vor dem Kauf testen?",
+        "a": "Für die Desktop-App gibt es keine Testversion. Du kannst zuerst die Online-Tools kostenlos ausprobieren: Nano FaceStudio Online nutzt dieselbe Face-Swap-Engine, und bei der Anmeldung bekommst du kostenlose Credits."
+      },
+      {
+        "q": "Darf ich die Ergebnisse für Kundenprojekte nutzen?",
+        "a": "Ja, gemäß den Nutzungsbedingungen, die auf Englisch vorliegen. Das Bildnis einer Person ohne deren Einwilligung zu verwenden ist verboten."
+      }
+    ],
+    "pricingLink": "Preise (auf Englisch)",
+    "english": "Die vollständige Seite auf Englisch lesen"
   }
 }

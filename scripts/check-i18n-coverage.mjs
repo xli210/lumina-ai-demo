@@ -122,8 +122,8 @@ const uiEn = readJson("messages/en.json").Ui;
 const source = readJson("messages/pages/en.source.json");
 const { tools } = source;
 // Home and Ui in that file are notes for translators: those words live in messages/<locale>.json, checked above.
-const { video, faceStudio, imageEdit, headswap } = source;
-const pageSource = { video, faceStudio, imageEdit, headswap };
+const { video, faceStudio, imageEdit, headswap, pro } = source;
+const pageSource = { video, faceStudio, imageEdit, headswap, pro };
 
 const english = foundEnglish();
 const translated = dictionaryKeys(tools);

@@ -10,6 +10,7 @@ import {
   FACESTUDIO_PRO_REGULAR_PRICE_CENTS,
   facestudioProLaunchPriceOn,
 } from "@/lib/products";
+import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
 
 /**
  * Nano FaceStudio Pro 1.0 — product introduction.
@@ -53,7 +54,10 @@ export const metadata: Metadata = {
     "Topaz Photo AI alternative",
     "DeepSwap alternative",
   ],
-  alternates: { canonical: "/apps/nano-facestudio-pro" },
+  alternates: {
+    canonical: "/apps/nano-facestudio-pro",
+    languages: hreflangAlternates("https://nanopocket.ai", "/apps/nano-facestudio-pro", TRANSLATED_PAGES["/apps/nano-facestudio-pro"]),
+  },
   openGraph: {
     title: "Nano FaceStudio Pro 1.0 — Local AI Face Studio",
     description:

@@ -460,6 +460,94 @@
       "huddle": { "title": "A huddle, seen from below", "note": "A low camera looking straight up at five heads, every one at a steep angle. The man in the red shirt gets the new head in the same tilt and the same grin, and the four people around him stay exactly as shot." }
     }
   },
+  "pro": {
+    "title": "Nano FaceStudio Pro: local face swap and face editing for Windows",
+    "description": "Face swap, mask edit, expression editing, face restoration, upscale, light adjust and crop in one desktop app. Runs offline on your own GPU with a one-time license and no uploads.",
+    "kicker": "Desktop app",
+    "h1": "The whole face, in one studio, on your own GPU",
+    "lead": "Seven tools in one desktop app: face swap, mask edit, expression editing, Face Vivid, upscale, light adjust and crop. Everything runs on your computer, so your photos are never uploaded and there is no fee per image.",
+    "cta": "Buy and download",
+    "note": "One-time license, no subscription. Available now for Windows, with macOS to follow. The purchase page and prices are in English.",
+    "examplesHeading": "Real screens from the app",
+    "beforeLabel": "Before",
+    "afterLabel": "After",
+    "examples": {
+      "protect": "Region protection: turn off a region and the ring stays exactly as it was in the original photo.",
+      "expression": "Expression edit: close the eyes with one slider, and the person's identity stays the same.",
+      "mask": "Mask edit: paint over a detail the swap changed, and it comes back from the original while the rest of the swap stays."
+    },
+    "featuresHeading": "Seven tools",
+    "features": [
+      {
+        "title": "Face swap",
+        "body": "Detects up to 16 faces per image. Swap one, or all of them with one click, and choose which regions stay untouched."
+      },
+      {
+        "title": "Mask edit",
+        "body": "Bring back any detail with a brush. It is non-destructive: undo the brush and the swap is unchanged."
+      },
+      {
+        "title": "Expression edit",
+        "body": "Adjust head angle, eyes and mouth with sliders, or copy an expression from a reference face."
+      },
+      {
+        "title": "Face Vivid",
+        "body": "Restores natural skin texture on faces that AI has left looking smooth and plastic."
+      },
+      {
+        "title": "Image upscale",
+        "body": "Enlarges the whole image 2×, 3× or 4×, not just the faces."
+      },
+      {
+        "title": "Light adjust",
+        "body": "Automatic brightness, contrast and saturation."
+      },
+      {
+        "title": "Crop",
+        "body": "Precision crop with aspect-ratio presets."
+      }
+    ],
+    "stepsHeading": "How to get started",
+    "steps": [
+      {
+        "title": "Get a license",
+        "body": "Buy once on the download page. There is no subscription."
+      },
+      {
+        "title": "Install and activate",
+        "body": "Download the app and activate it. Activation is the only time it needs the network."
+      },
+      {
+        "title": "Work offline",
+        "body": "Open a photo and use any of the seven tools, on your own GPU."
+      }
+    ],
+    "faqHeading": "Questions",
+    "faq": [
+      {
+        "q": "How is it different from Nano FaceStudio Online?",
+        "a": "Nano FaceStudio Online runs in the browser on our GPUs and is paid per use in credits. Nano FaceStudio Pro is a desktop app with a one-time license that runs on your own GPU, has no fee per image, and adds mask edit, expression editing, Face Vivid, upscale, light adjust and crop."
+      },
+      {
+        "q": "Are my photos uploaded?",
+        "a": "No. Every model runs on your GPU, and your photos are never uploaded or kept on a server. The only network traffic is a one-time license activation."
+      },
+      {
+        "q": "What hardware do I need?",
+        "a": "Windows 10 or 11 with an NVIDIA GPU and at least 8 GB of VRAM. RTX 30, 40 and 50 series have been tested. The macOS build for Apple Silicon (M2 to M5) is still to come, and Intel Macs are not supported."
+      },
+      {
+        "q": "Can I try it before I buy?",
+        "a": "There is no trial of the desktop app. You can try the online tools for free first: Nano FaceStudio Online uses the same swap engine, and you get free credits when you sign up."
+      },
+      {
+        "q": "Can I use the results in client work?",
+        "a": "Yes, under the Terms of Use, which are in English. Using someone's likeness without their consent is prohibited."
+      }
+    ],
+    "pricingLink": "Prices (in English)",
+    "english": "Read the full page in English"
+  },
   "tools": [
     "Best single-face or multi-face swap app.",
     "10 free swaps on sign-up (100 credits). Need more?",

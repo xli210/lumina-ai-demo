@@ -17,6 +17,7 @@ import { OnlineToolCards } from "../online-tools";
 import {
   hreflangAlternates,
   isAppLocale,
+  translatedOrEnglish,
   TRANSLATED_PAGES,
   type AppLocale,
 } from "@/lib/i18n/locales";
@@ -331,7 +332,7 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
           </p>
           <div className="flex flex-wrap gap-3">
             <Button asChild variant="outline" className="rounded-full">
-              <Link href="/apps/nano-facestudio-pro">
+              <Link href={translatedOrEnglish("/apps/nano-facestudio-pro", locale as AppLocale)}>
                 {t("offline.ctaDesktop")}{" "}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

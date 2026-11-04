@@ -17,6 +17,7 @@ import { OnlineToolCards } from "./online-tools";
 import {
   hreflangAlternates,
   isAppLocale,
+  translatedOrEnglish,
   TRANSLATED_PAGES,
   type AppLocale,
 } from "@/lib/i18n/locales";
@@ -261,7 +262,7 @@ export default async function LocalizedHomePage({ params }: PageProps) {
             {appsItems.map((app) => (
               <Link
                 key={app.name}
-                href={app.href}
+                href={translatedOrEnglish(app.href, locale)}
                 className="group flex flex-col rounded-2xl border border-border/60 bg-background/60 p-5 transition-colors hover:border-foreground/30 hover:bg-background"
               >
                 <div className="mb-2 flex items-center justify-between gap-2">
