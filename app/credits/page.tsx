@@ -124,13 +124,15 @@ export default async function CreditsPage({
         )}
         {fromStudio && (
           <div className="mb-6 rounded-2xl border border-primary/40 bg-primary/5 p-4 text-sm">
-            <p className="font-medium text-foreground">Buying credits for your video?</p>
+            <p className="font-medium text-foreground">{t("fromStudioTitle")}</p>
             <p className="mt-1 text-muted-foreground">
-              Pick a pack below. When you are done, go back to the studio tab: it picks up your new credits by itself and your video is still there.{" "}
-              <Link href="/facestudio-v/launch" className="font-medium text-primary underline-offset-4 hover:underline">
-                Or open the studio again
-              </Link>
-              .
+              {t.rich("fromStudioBody", {
+                studio: (chunks) => (
+                  <Link href="/facestudio-v/launch" className="font-medium text-primary underline-offset-4 hover:underline">
+                    {chunks}
+                  </Link>
+                ),
+              })}
             </p>
           </div>
         )}

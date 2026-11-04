@@ -322,5 +322,20 @@
   "Waiting for the GPU…": "正在等待 GPU…",
   "Something went wrong.": "出错了。",
   "Compare original and result": "对比原图和结果",
-  ".": "。"
+  ".": "。",
+  "Your earlier picture": "你之前的图片",
+  "Looking for it…": "正在查找…",
+  "Your earlier render": "你之前的生成结果",
+  "My images": "我的图片",
+  "This image has the NanoPocket.ai watermark. Top up credits once to remove it.": "这张图片带有 NanoPocket.ai 水印,充值一次积分即可去除。",
+  "It could not be made. You were not charged.": "未能生成。没有扣积分。",
+  "Still being made. You can leave this page: it will be under": "还在生成。你可以离开这个页面,之后可在这里找到它:",
+  "Still being made: a GPU is starting up for it. You can leave this page: it will be under": "还在生成:正在为它启动 GPU。你可以离开这个页面,之后可在这里找到它:",
+  "Your earlier swap · {w} × {h} px": "你之前的换头结果 · {w} × {h} px",
+  "Your earlier swap · {w} × {h} px · {n} variations": "你之前的换头结果 · {w} × {h} px · {n} 个版本",
+  "Your earlier swap is still being made…": "你之前的换头还在生成…",
+  ", then come back and try again.": ",然后回到这里再试一次。",
+  "Could not read the progress of your swap. Reload the page: if it finished, it is saved and the credits are settled automatically.": "无法读取换头进度。请刷新页面:如果已经完成,结果已保存,积分也会自动结算。",
+  "Face Studio is temporarily unavailable. Please try again in a few minutes.": "Face Studio 暂时不可用,请过几分钟再试。",
+  "Sign in to NanoPocket.ai to swap heads.": "请登录 NanoPocket.ai 后换头。"
 }

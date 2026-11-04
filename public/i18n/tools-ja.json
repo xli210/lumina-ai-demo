@@ -322,5 +322,20 @@
   "Waiting for the GPU…": "GPU を待っています…",
   "Something went wrong.": "問題が発生しました。",
   "Compare original and result": "元の写真と結果を比較",
-  ".": "。"
+  ".": "。",
+  "Your earlier picture": "以前の画像",
+  "Looking for it…": "探しています…",
+  "Your earlier render": "以前の生成結果",
+  "My images": "マイ画像",
+  "This image has the NanoPocket.ai watermark. Top up credits once to remove it.": "この画像には NanoPocket.ai の透かしが入っています。クレジットを一度購入すれば消えます。",
+  "It could not be made. You were not charged.": "作成できませんでした。課金はされていません。",
+  "Still being made. You can leave this page: it will be under": "まだ作成中です。このページを離れても大丈夫です。完成したら次の場所で確認できます:",
+  "Still being made: a GPU is starting up for it. You can leave this page: it will be under": "まだ作成中です。GPU を起動しています。このページを離れても大丈夫です。完成したら次の場所で確認できます:",
+  "Your earlier swap · {w} × {h} px": "以前のスワップ · {w} × {h} px",
+  "Your earlier swap · {w} × {h} px · {n} variations": "以前のスワップ · {w} × {h} px · {n} バリエーション",
+  "Your earlier swap is still being made…": "以前のスワップはまだ作成中です…",
+  ", then come back and try again.": "してから、戻ってもう一度お試しください。",
+  "Could not read the progress of your swap. Reload the page: if it finished, it is saved and the credits are settled automatically.": "スワップの進行状況を読み取れませんでした。ページを再読み込みしてください。完了していれば結果は保存され、クレジットは自動で精算されます。",
+  "Face Studio is temporarily unavailable. Please try again in a few minutes.": "Face Studio は一時的に利用できません。数分後にもう一度お試しください。",
+  "Sign in to NanoPocket.ai to swap heads.": "ヘッドスワップを行うには NanoPocket.ai にサインインしてください。"
 }

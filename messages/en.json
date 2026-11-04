@@ -434,7 +434,48 @@
       "unableToStart": "Unable to start checkout",
       "close": "Close",
       "englishTerms": "Auto top-up and billing terms are shown in English.",
-      "packStudio": "Best rate per credit, for sustained volume."
+      "packStudio": "Best rate per credit, for sustained volume.",
+      "fromStudioTitle": "Buying credits for your video?",
+      "fromStudioBody": "Pick a pack below. When you are done, go back to the studio tab: it picks up your new credits by itself and your video is still there. <studio>Or open the studio again</studio>."
+    },
+    "myImages": {
+      "title": "My images",
+      "subtitle": "Your pictures of the last {hours} hours from Nano FaceStudio Online and Nano HeadSwap Pro.",
+      "notice": "Pictures are kept for about a day after they are made, then deleted for good: download the ones you want. A picture that was made is charged; one that could not be made is not. You can leave a page while its picture is made: it is here when you come back.",
+      "addCredits": "<credits>Add credits</credits> once to run up to 3 pictures at a time instead of 1.",
+      "failed": "Your images could not be loaded right now. Please try again in a minute.",
+      "empty": "No images in the last {hours} hours.",
+      "openStudio": "Open Nano FaceStudio Online",
+      "open": "Open",
+      "made": "Made. {credits} credits.",
+      "making": "Being made, or waiting for a GPU. Open it to see.",
+      "notCharged": "Not charged. Open it: if it was made after all, it is shown there."
+    },
+    "myVideos": {
+      "title": "My videos",
+      "subtitle": "{name}: the videos you made in the last 7 days.",
+      "noticePaid": "To protect your privacy, every video is deleted for good 7 days after it is made. Download the ones you want to keep before then.",
+      "noticeFree": "To protect your privacy, every video is deleted for good 24 hours after it is made. Download the ones you want to keep before then.",
+      "addCredits": "<credits>Add credits</credits> once and your videos are kept for 7 days instead.",
+      "failed": "Your videos could not be loaded right now. Please try again in a minute.",
+      "empty": "No videos in the last 7 days.",
+      "openStudio": "Open the studio",
+      "newVideo": "Make a new video",
+      "video": "Video",
+      "modeFast": "Fast",
+      "modeQuality": "Best quality",
+      "modeHead": "Whole head",
+      "modeEnhanceFast": "Fast enhance",
+      "modeEnhanceBest": "Best-quality enhance",
+      "ready": "Ready. Deleted in {time}.",
+      "deleted": "Deleted for your privacy when its keeping time was over (24 hours, or 7 days for an account that has added credits).",
+      "making": "Being made.",
+      "makingUnknown": "Being made. The studio could not be reached just now.",
+      "cancelled": "Cancelled. Your credits were returned.",
+      "notMade": "This video could not be made. Your credits were returned.",
+      "credits": "{count} credits.",
+      "download": "Download",
+      "downloadUnavailable": "Download unavailable right now"
     }
   }
 }

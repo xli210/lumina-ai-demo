@@ -446,7 +446,48 @@
       "unableToStart": "无法开始结账",
       "close": "关闭",
       "englishTerms": "自动充值和账单条款以英文显示。",
-      "packStudio": "每积分单价最低,适合长期大量使用。"
+      "packStudio": "每积分单价最低,适合长期大量使用。",
+      "fromStudioTitle": "在为你的视频购买积分?",
+      "fromStudioBody": "在下面选一个积分包。买好后回到工作室的标签页:它会自动读取新的积分,你的视频也还在那里。<studio>也可以重新打开工作室</studio>。"
+    },
+    "myImages": {
+      "title": "我的图片",
+      "subtitle": "最近 {hours} 小时内你用 Nano FaceStudio Online 和 Nano HeadSwap Pro 生成的图片。",
+      "notice": "图片生成后保留约一天,之后永久删除,请及时下载需要的图片。生成成功的图片会扣积分,未能生成的不扣。图片生成时你可以离开页面,回来后在这里就能找到。",
+      "addCredits": "<credits>购买积分</credits>一次后,可同时生成最多 3 张图片,而不是 1 张。",
+      "failed": "暂时无法加载你的图片,请过一分钟再试。",
+      "empty": "最近 {hours} 小时内没有图片。",
+      "openStudio": "打开 Nano FaceStudio Online",
+      "open": "打开",
+      "made": "已生成。{credits} 积分。",
+      "making": "正在生成,或正在等待 GPU。打开即可查看。",
+      "notCharged": "未扣积分。打开看看:如果其实已经生成,会在那里显示。"
+    },
+    "myVideos": {
+      "title": "我的视频",
+      "subtitle": "{name}:你最近 7 天生成的视频。",
+      "noticePaid": "为保护你的隐私,每个视频在生成 7 天后都会被永久删除。请在此之前下载需要保留的视频。",
+      "noticeFree": "为保护你的隐私,每个视频在生成 24 小时后都会被永久删除。请在此之前下载需要保留的视频。",
+      "addCredits": "<credits>购买积分</credits>一次后,视频可保留 7 天。",
+      "failed": "暂时无法加载你的视频,请过一分钟再试。",
+      "empty": "最近 7 天没有视频。",
+      "openStudio": "打开工作室",
+      "newVideo": "生成新视频",
+      "video": "视频",
+      "modeFast": "快速",
+      "modeQuality": "最佳画质",
+      "modeHead": "整个头部",
+      "modeEnhanceFast": "快速增强",
+      "modeEnhanceBest": "最佳画质增强",
+      "ready": "已完成。{time} 后删除。",
+      "deleted": "保留期已过,为保护你的隐私已删除(保留 24 小时;购买过积分的账号保留 7 天)。",
+      "making": "正在生成。",
+      "makingUnknown": "正在生成。暂时无法连接工作室。",
+      "cancelled": "已取消。积分已退回。",
+      "notMade": "这个视频未能生成。积分已退回。",
+      "credits": "{count} 积分。",
+      "download": "下载",
+      "downloadUnavailable": "暂时无法下载"
     }
   }
 }

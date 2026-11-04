@@ -1,0 +1,83 @@
+# English in the tool screens and cookie-language pages that is not translated, on purpose or from before scripts/check-i18n-coverage.mjs.
+, and every result after that is watermark-free.
+A video that was made is charged, and it is not refunded once it has been deleted. Videos that could not be made, or that you cancelled, are never charged.
+Add a warm lamp glow
+Add the text "{n}".{n}
+Apply a moody cinematic teal-and-orange color grade to the photo. Keep all content exactly the same.
+Authentication Error
+Auto top-up
+Auto top-up is on
+Auto top-up was switched off because
+Back to Home
+Back to Sign In
+Back to home
+Change the lighting to blue hour just after sunset: a deep blue sky, soft cool ambient light and warm glowing windows and street lights. Keep all objects and the composition exactly the same.
+Change the lighting to golden hour just before sunset: warm, low sunlight, long soft shadows and a warm orange-pink sky. Keep all objects and details exactly the same.
+Change the season to autumn: the trees have orange, red and yellow leaves, with fallen leaves on the ground. Keep the composition exactly the same.
+Change the season to midsummer: lush deep-green trees and grass, bright sunlight and a clear blue sky. Keep the composition exactly the same.
+Change the season to spring: fresh light-green leaves and trees in pink and white blossom, soft spring sunlight. Keep the composition exactly the same.
+Change the season to winter: snow covering the ground, snow on the trees and roofs, and an overcast winter sky. Keep the composition exactly the same.
+Change the text "{n}" to "{n}", keeping the same font style, colors and perspective.{n}
+Check your email
+Colorize this old photograph with natural, realistic colors and fix the faded contrast. Keep all people, objects and the composition exactly the same.
+Confirm New Password
+Convert the photo to a rich black-and-white film look with deep contrast. Keep all content exactly the same.
+Describe the change to the whole photo…
+Describe the edit…
+Describe the look you want…
+Describe what the painted area should become…
+Detection failed:
+Each image costs {n} credits; a failed swap costs nothing.
+Email address
+Enter your email and we&apos;ll send you a link to reset your password.
+Enter your new password below. It must be at least 6 characters.
+Faces displayed in demos are used solely to demonstrate technical capability. Users are responsible for ensuring their use of this technology complies with applicable laws and the rights of third parties.
+Failed to load seg overlay for face
+Failed to load template
+Fill in “{n}” first.
+Filled in from the fields on the left; you can edit it.
+Filled in from your fields. These decide where the edit is pasted into your photo.
+Head swap works with one face. This photo has
+If an account exists with that email, we&apos;ve sent a password reset link. Please check your inbox and spam folder.
+It could not be made
+Keep everything else in the image exactly the same.
+Latin Barber Shop
+Make it an early foggy morning with soft, diffused light and mist. Keep all objects and the composition exactly the same.
+Make it bright red
+Make it look brand new
+Nano Barber Shop
+Nano FaceStudio Online
+Nano FaceStudio Online &mdash; Powered by
+Nano HeadSwap Pro
+Nano ImageEdit 2.0 Online
+Nano ImageEdit 2.0 Online &rarr;
+Nano ImageEdit 2.0 Online — NanoPocket
+Nanopocket FaceSwap Pro
+New Password
+Only use photos of people who have agreed to it. Users are responsible for ensuring their use of this technology complies with applicable laws and the rights of third parties.
+Packs start at $5, no subscription, and failed edits are refunded.
+Payments are not configured on this deployment.
+Remember your password?
+Remove {n}, revealing the background behind it naturally.{n}
+Replace it with a potted plant
+Replace {n} with {n}, in the same place.{n}
+Request a new reset link
+Reserved credits are held by jobs still running. They are returned automatically if a job fails, and only the metered cost is charged when one finishes.
+Reset your password
+Restore this damaged old photograph: remove the spots, scratches, stains and damaged borders, improve the contrast, and colorize it with natural, realistic colors. Keep the composition exactly the same.
+Set new password
+Something went wrong during authentication. Please try again.
+Still being made
+Still starting up (
+Supabase limits password reset emails. Please wait a few minutes before trying again.
+That photo is {n} MB. The limit is
+Top up from $5
+Top up once, from $5
+Try Again
+Turn it into a wooden bench
+Turn this scene into a moonlit night: a dark blue night sky, everything softly lit by moonlight. Keep the scene and composition exactly the same.
+Waiting for the GPU… {n}
+When my balance drops below
+When your balance drops below
+You can request another link in
+Your credits. Failed edits are refunded.

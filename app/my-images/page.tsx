@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { buttonVariants } from "@/components/ui/button";
 import { hasEverPurchased } from "@/lib/credits-server";
@@ -18,23 +19,24 @@ import { Navbar } from "../components/navbar";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "My images | NanoPocket",
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Ui.myImages");
+  return { title: `${t("title")} | NanoPocket`, robots: { index: false, follow: false } };
+}
 
 const PRODUCT: Record<MyImage["product"], string> = {
   facestudio: "Nano FaceStudio Online",
   "headswap-pro": "Nano HeadSwap Pro",
 };
 
-function describe(i: MyImage): string {
-  if (i.status === "captured") return `Made. ${i.credits} credits.`;
-  if (i.status === "open") return "Being made, or waiting for a GPU. Open it to see.";
-  return "Not charged. Open it: if it was made after all, it is shown there.";
-}
-
 export default async function MyImagesPage() {
+  const t = await getTranslations("Ui.myImages");
+  const locale = await getLocale();
+  const describe = (i: MyImage): string => {
+    if (i.status === "captured") return t("made", { credits: i.credits });
+    if (i.status === "open") return t("making");
+    return t("notCharged");
+  };
   const supabase = await createClient();
   const {
     data: { user },
@@ -63,31 +65,33 @@ export default async function MyImagesPage() {
       <Navbar />
       <div className="mx-auto max-w-3xl px-6 pt-28 pb-16">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-foreground">My images</h1>
-          <p className="mt-1 text-muted-foreground">Your pictures of the last {MY_IMAGES_HOURS} hours from Nano FaceStudio Online and Nano HeadSwap Pro.</p>
+          <h1 className="text-3xl font-bold text-foreground">{t("title")}</h1>
+          <p className="mt-1 text-muted-foreground">{t("subtitle", { hours: MY_IMAGES_HOURS })}</p>
         </div>
 
         <div className="mb-8 rounded-lg border border-border bg-muted/40 p-4 text-sm leading-relaxed text-foreground">
-          Pictures are kept for about a day after they are made, then deleted for good: download the ones you want. A picture that was made is charged;
-          one that could not be made is not. You can leave a page while its picture is made: it is here when you come back.
+          {t("notice")}
           {paid ? null : (
             <>
               {" "}
-              <Link href="/credits" className="font-medium text-primary underline-offset-4 hover:underline">
-                Add credits
-              </Link>{" "}
-              once to run up to 3 pictures at a time instead of 1.
+              {t.rich("addCredits", {
+                credits: (chunks) => (
+                  <Link href="/credits" className="font-medium text-primary underline-offset-4 hover:underline">
+                    {chunks}
+                  </Link>
+                ),
+              })}
             </>
           )}
         </div>
 
         {failed ? (
-          <p className="text-sm text-muted-foreground">Your images could not be loaded right now. Please try again in a minute.</p>
+          <p className="text-sm text-muted-foreground">{t("failed")}</p>
         ) : images.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            No images in the last {MY_IMAGES_HOURS} hours.{" "}
+            {t("empty", { hours: MY_IMAGES_HOURS })}{" "}
             <Link href="/face-studio/launch" className="font-medium text-primary underline-offset-4 hover:underline">
-              Open Nano FaceStudio Online
+              {t("openStudio")}
             </Link>
           </p>
         ) : (
@@ -98,13 +102,13 @@ export default async function MyImagesPage() {
                   <div className="font-medium text-foreground">
                     {PRODUCT[i.product]}
                     <span className="ml-2 text-sm font-normal text-muted-foreground">
-                      {new Date(i.createdAt).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" })} UTC
+                      {new Date(i.createdAt).toLocaleString(locale, { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" })} UTC
                     </span>
                   </div>
                   <div className="mt-0.5 text-sm text-muted-foreground">{describe(i)}</div>
                 </div>
                 <a href={imageLink(i)} className={buttonVariants({ size: "sm" })}>
-                  Open
+                  {t("open")}
                 </a>
               </li>
             ))}

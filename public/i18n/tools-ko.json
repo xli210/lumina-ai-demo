@@ -321,5 +321,20 @@
   "Portrait": "인물 사진",
   "Waiting for the GPU…": "GPU를 기다리는 중…",
   "Something went wrong.": "문제가 발생했습니다.",
-  "Compare original and result": "원본과 결과 비교"
+  "Compare original and result": "원본과 결과 비교",
+  "Your earlier picture": "이전 이미지",
+  "Looking for it…": "찾는 중…",
+  "Your earlier render": "이전 결과물",
+  "My images": "내 이미지",
+  "This image has the NanoPocket.ai watermark. Top up credits once to remove it.": "이 이미지에는 NanoPocket.ai 워터마크가 있습니다. 크레딧을 한 번 충전하면 없앨 수 있습니다.",
+  "It could not be made. You were not charged.": "만들지 못했습니다. 요금은 부과되지 않았습니다.",
+  "Still being made. You can leave this page: it will be under": "아직 만드는 중입니다. 이 페이지를 떠나도 됩니다. 완성되면 다음 위치에서 볼 수 있습니다:",
+  "Still being made: a GPU is starting up for it. You can leave this page: it will be under": "아직 만드는 중입니다. GPU를 시작하고 있습니다. 이 페이지를 떠나도 됩니다. 완성되면 다음 위치에서 볼 수 있습니다:",
+  "Your earlier swap · {w} × {h} px": "이전 교체 결과 · {w} × {h} px",
+  "Your earlier swap · {w} × {h} px · {n} variations": "이전 교체 결과 · {w} × {h} px · 변형 {n}개",
+  "Your earlier swap is still being made…": "이전 교체 작업을 아직 만드는 중입니다…",
+  ", then come back and try again.": " 후 돌아와서 다시 시도하세요.",
+  "Could not read the progress of your swap. Reload the page: if it finished, it is saved and the credits are settled automatically.": "교체 진행 상황을 읽을 수 없습니다. 페이지를 새로 고치세요. 완료되었다면 결과가 저장되어 있고 크레딧은 자동으로 정산됩니다.",
+  "Face Studio is temporarily unavailable. Please try again in a few minutes.": "Face Studio를 일시적으로 사용할 수 없습니다. 몇 분 후 다시 시도해 주세요.",
+  "Sign in to NanoPocket.ai to swap heads.": "머리를 교체하려면 NanoPocket.ai에 로그인하세요."
 }

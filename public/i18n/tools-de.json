@@ -321,5 +321,20 @@
   "Portrait": "Porträt",
   "Waiting for the GPU…": "Warten auf die GPU…",
   "Something went wrong.": "Etwas ist schiefgelaufen.",
-  "Compare original and result": "Original und Ergebnis vergleichen"
+  "Compare original and result": "Original und Ergebnis vergleichen",
+  "Your earlier picture": "Dein früheres Bild",
+  "Looking for it…": "Wird gesucht…",
+  "Your earlier render": "Dein früheres Ergebnis",
+  "My images": "Meine Bilder",
+  "This image has the NanoPocket.ai watermark. Top up credits once to remove it.": "Dieses Bild trägt das NanoPocket.ai-Wasserzeichen. Lade einmal Credits auf, um es zu entfernen.",
+  "It could not be made. You were not charged.": "Es konnte nicht erstellt werden. Dir wurde nichts berechnet.",
+  "Still being made. You can leave this page: it will be under": "Wird noch erstellt. Du kannst diese Seite verlassen: Du findest es unter",
+  "Still being made: a GPU is starting up for it. You can leave this page: it will be under": "Wird noch erstellt: Dafür startet gerade eine GPU. Du kannst diese Seite verlassen: Du findest es unter",
+  "Your earlier swap · {w} × {h} px": "Dein früherer Tausch · {w} × {h} px",
+  "Your earlier swap · {w} × {h} px · {n} variations": "Dein früherer Tausch · {w} × {h} px · {n} Varianten",
+  "Your earlier swap is still being made…": "Dein früherer Tausch wird noch erstellt…",
+  ", then come back and try again.": " und komm dann zurück, um es erneut zu versuchen.",
+  "Could not read the progress of your swap. Reload the page: if it finished, it is saved and the credits are settled automatically.": "Der Fortschritt deines Tauschs konnte nicht gelesen werden. Lade die Seite neu: Falls er fertig ist, ist er gespeichert, und die Credits werden automatisch abgerechnet.",
+  "Face Studio is temporarily unavailable. Please try again in a few minutes.": "Face Studio ist vorübergehend nicht verfügbar. Bitte versuche es in ein paar Minuten erneut.",
+  "Sign in to NanoPocket.ai to swap heads.": "Melde dich bei NanoPocket.ai an, um Köpfe zu tauschen."
 }

@@ -785,6 +785,21 @@
     "Portrait",
     "Waiting for the GPU…",
     "Something went wrong.",
-    "Compare original and result"
+    "Compare original and result",
+    "Your earlier picture",
+    "Looking for it…",
+    "Your earlier render",
+    "My images",
+    "This image has the NanoPocket.ai watermark. Top up credits once to remove it.",
+    "It could not be made. You were not charged.",
+    "Still being made. You can leave this page: it will be under",
+    "Still being made: a GPU is starting up for it. You can leave this page: it will be under",
+    "Your earlier swap · {w} × {h} px",
+    "Your earlier swap · {w} × {h} px · {n} variations",
+    "Your earlier swap is still being made…",
+    ", then come back and try again.",
+    "Could not read the progress of your swap. Reload the page: if it finished, it is saved and the credits are settled automatically.",
+    "Face Studio is temporarily unavailable. Please try again in a few minutes.",
+    "Sign in to NanoPocket.ai to swap heads."
   ]
 }

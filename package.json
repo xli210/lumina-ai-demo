@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "check:i18n-dnt": "node scripts/check-i18n-dnt.mjs",
+    "check:i18n-coverage": "node scripts/check-i18n-coverage.mjs",
     "check:geo": "node scripts/check-geo.mjs",
     "verify:credits": "node scripts/verify-credit-system.mjs",
     "check:migrations": "node scripts/probe-migration-state.mjs",

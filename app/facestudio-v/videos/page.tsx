@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { buttonVariants } from "@/components/ui/button";
 import { hasEverPurchased } from "@/lib/credits-server";
 import { createClient } from "@/lib/supabase/server";
-import { FACESTUDIO_V_LAUNCH, FACESTUDIO_V_MODES, FACESTUDIO_V_NAME } from "@/lib/facestudio-v";
+import { FACESTUDIO_V_LAUNCH, FACESTUDIO_V_NAME } from "@/lib/facestudio-v";
 import { downloadUrl, timeLeft } from "@/lib/facestudio-v-download";
 import { studioConfig, videosOf, type MyVideo } from "@/lib/facestudio-v-server";
 import { Footer } from "../../components/footer";
@@ -23,26 +24,36 @@ import { Navbar } from "../../components/navbar";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: `My videos | ${FACESTUDIO_V_NAME}`,
-  robots: { index: false, follow: false },
-};
-
-function describe(v: MyVideo, now: number): { text: string; ready: boolean } {
-  if (v.state === "done" && v.keptUntil && v.keptUntil * 1000 > now) {
-    return { text: `Ready. Deleted in ${timeLeft(v.keptUntil, now)}.`, ready: true };
-  }
-  if (v.state === "done" || (v.state === "gone" && v.hold === "captured")) {
-    return { text: "Deleted for your privacy when its keeping time was over (24 hours, or 7 days for an account that has added credits).", ready: false };
-  }
-  if (v.state === "running" || (v.hold === "open" && v.state !== "error" && v.state !== "cancelled" && v.state !== "gone")) {
-    return { text: v.state === "unknown" ? "Being made. The studio could not be reached just now." : "Being made.", ready: false };
-  }
-  if (v.state === "cancelled") return { text: "Cancelled. Your credits were returned.", ready: false };
-  return { text: "This video could not be made. Your credits were returned.", ready: false };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Ui.myVideos");
+  return { title: `${t("title")} | ${FACESTUDIO_V_NAME}`, robots: { index: false, follow: false } };
 }
 
+// Same keys as FACESTUDIO_V_MODES.
+const MODE_KEYS = {
+  fast: "modeFast",
+  quality: "modeQuality",
+  head: "modeHead",
+  enhance_fast: "modeEnhanceFast",
+  enhance_best: "modeEnhanceBest",
+} as const;
+
 export default async function MyVideosPage() {
+  const t = await getTranslations("Ui.myVideos");
+  const locale = await getLocale();
+  const describe = (v: MyVideo, now: number): { text: string; ready: boolean } => {
+    if (v.state === "done" && v.keptUntil && v.keptUntil * 1000 > now) {
+      return { text: t("ready", { time: timeLeft(v.keptUntil, now) }), ready: true };
+    }
+    if (v.state === "done" || (v.state === "gone" && v.hold === "captured")) {
+      return { text: t("deleted"), ready: false };
+    }
+    if (v.state === "running" || (v.hold === "open" && v.state !== "error" && v.state !== "cancelled" && v.state !== "gone")) {
+      return { text: v.state === "unknown" ? t("makingUnknown") : t("making"), ready: false };
+    }
+    if (v.state === "cancelled") return { text: t("cancelled"), ready: false };
+    return { text: t("notMade"), ready: false };
+  };
   const supabase = await createClient();
   const {
     data: { user },
@@ -73,32 +84,38 @@ export default async function MyVideosPage() {
       <Navbar />
       <div className="mx-auto max-w-3xl px-6 pt-28 pb-16">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-foreground">My videos</h1>
-          <p className="mt-1 text-muted-foreground">{FACESTUDIO_V_NAME}: the videos you made in the last 7 days.</p>
+          <h1 className="text-3xl font-bold text-foreground">{t("title")}</h1>
+          <p className="mt-1 text-muted-foreground">{t("subtitle", { name: FACESTUDIO_V_NAME })}</p>
         </div>
 
         <div className="mb-8 rounded-lg border border-border bg-muted/40 p-4 text-sm leading-relaxed text-foreground">
-          To protect your privacy, every video is deleted for good {paid ? "7 days" : "24 hours"} after it is made. Download the ones you want to
-          keep before then. A video that was made is charged, and it is not refunded once it has been deleted. Videos that
-          could not be made, or that you cancelled, are never charged.
+          {paid ? t("noticePaid") : t("noticeFree")}{" "}
+          {/* Refund wording stays in English in every language: docs/i18n.md. */}
+          <span lang="en">
+            A video that was made is charged, and it is not refunded once it has been deleted. Videos that could not be made, or that you cancelled, are
+            never charged.
+          </span>
           {paid ? null : (
             <>
               {" "}
-              <Link href="/credits" className="font-medium text-primary underline-offset-4 hover:underline">
-                Add credits
-              </Link>{" "}
-              once and your videos are kept for 7 days instead.
+              {t.rich("addCredits", {
+                credits: (chunks) => (
+                  <Link href="/credits" className="font-medium text-primary underline-offset-4 hover:underline">
+                    {chunks}
+                  </Link>
+                ),
+              })}
             </>
           )}
         </div>
 
         {failed ? (
-          <p className="text-sm text-muted-foreground">Your videos could not be loaded right now. Please try again in a minute.</p>
+          <p className="text-sm text-muted-foreground">{t("failed")}</p>
         ) : videos.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            No videos in the last 7 days.{" "}
+            {t("empty")}{" "}
             <Link href={FACESTUDIO_V_LAUNCH} className="font-medium text-primary underline-offset-4 hover:underline">
-              Open the studio
+              {t("openStudio")}
             </Link>
           </p>
         ) : (
@@ -110,22 +127,22 @@ export default async function MyVideosPage() {
                 <li key={v.job} className="flex flex-wrap items-center gap-x-6 gap-y-2 p-4">
                   <div className="min-w-0 flex-1">
                     <div className="font-medium text-foreground">
-                      {(v.mode && FACESTUDIO_V_MODES[v.mode]) || "Video"}
+                      {v.mode && v.mode in MODE_KEYS ? t(MODE_KEYS[v.mode as keyof typeof MODE_KEYS]) : t("video")}
                       <span className="ml-2 text-sm font-normal text-muted-foreground">
-                        {new Date(v.createdAt).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" })} UTC
+                        {new Date(v.createdAt).toLocaleString(locale, { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" })} UTC
                       </span>
                     </div>
                     <div className="mt-0.5 text-sm text-muted-foreground">
                       {d.text}
-                      {v.hold === "captured" ? ` ${v.credits} credits.` : ""}
+                      {v.hold === "captured" ? ` ${t("credits", { count: v.credits })}` : ""}
                     </div>
                   </div>
                   {url ? (
                     <a href={url} className={buttonVariants({ size: "sm" })}>
-                      Download
+                      {t("download")}
                     </a>
                   ) : d.ready ? (
-                    <span className="text-sm text-muted-foreground">Download unavailable right now</span>
+                    <span className="text-sm text-muted-foreground">{t("downloadUnavailable")}</span>
                   ) : null}
                 </li>
               );
@@ -135,7 +152,7 @@ export default async function MyVideosPage() {
 
         <p className="mt-8 text-sm text-muted-foreground">
           <Link href={FACESTUDIO_V_LAUNCH} className="font-medium text-primary underline-offset-4 hover:underline">
-            Make a new video
+            {t("newVideo")}
           </Link>
         </p>
       </div>

@@ -1,0 +1,32 @@
+name: Translation coverage
+
+# Tells the owner by email when English was added without a translation. It does not block a deploy: Vercel builds on its own.
+on:
+  push:
+    branches: [release]
+    paths:
+      - "messages/**"
+      - "public/i18n/**"
+      - "public/face-studio/**"
+      - "public/headswap-pro/**"
+      - "public/image-edit/**"
+      - "app/credits/**"
+      - "app/my-images/**"
+      - "app/facestudio-v/videos/**"
+      - "app/auth/**"
+      - "scripts/check-i18n-coverage.mjs"
+      - "scripts/i18n-left-in-english.txt"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/check-i18n-coverage.mjs

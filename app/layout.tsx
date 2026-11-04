@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { QuickStart } from "./components/quick-start";
 import { LocalAppsNotice } from "./components/local-apps-notice";
+import { LanguagePrompt } from "./components/language-prompt";
 import { AnalyticsEvents } from "./components/analytics-events";
 import { FeedbackButton } from "./components/feedback-button";
 import { DEFAULT_LOCALE, isAppLocale, type AppLocale } from "@/lib/i18n/locales";
@@ -448,6 +449,7 @@ export default async function RootLayout({
             <Toaster />
             <QuickStart />
             <LocalAppsNotice />
+            <LanguagePrompt />
             <AnalyticsEvents />
             <FeedbackButton />
           </ThemeProvider>

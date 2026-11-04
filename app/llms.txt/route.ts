@@ -1,4 +1,5 @@
 import { BLOG_POSTS } from "@/lib/blog-posts";
+import { DEFAULT_LOCALE, LOCALES, LOCALE_LABELS, TRANSLATED_PAGES, type AppLocale } from "@/lib/i18n/locales";
 import { appReleases } from "@/lib/release-data";
 import {
   FACE_SWAP_CREDITS,
@@ -27,6 +28,14 @@ import { SIGNED_APPS_PHRASE } from "@/lib/download-hashes";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS } from "@/lib/headswap-pro";
 
 const BASE = "https://nanopocket.ai";
+const TRANSLATED_PAGE_NAMES: Record<string, string> = {
+  "/face-swap": "online face swap overview",
+  "/facestudio-v": FACESTUDIO_V_NAME,
+  "/face-studio": "Nano FaceStudio Online",
+  "/image-edit": IMAGE_EDIT_NAME,
+  "/headswap-pro": "Nano HeadSwap Pro",
+};
+
 const LAST_UPDATED = new Date().toISOString().slice(0, 10);
 
 // llms.txt — emerging discovery standard for LLM crawlers (llmstxt.org).
@@ -217,12 +226,15 @@ function buildLlmsTxt(): string {
     ),
   ]);
 
-  const localised = section("Localised entry points", [
-    bullet("/zh-CN", "NanoPocket — 简体中文首页", "Simplified Chinese homepage. Native-quality translation. Optimised for Baidu and DeepSeek discovery."),
-    bullet("/zh-CN/face-swap", "免费在线 AI 换脸 (zh-CN)", "Native-Chinese landing for the in-browser face-swap demos."),
-    bullet("/ja/face-swap", "AI 顔交換 (ja)", "Japanese landing for the in-browser face-swap demos."),
-    bullet("/ko/face-swap", "AI 얼굴 바꾸기 (ko)", "Korean landing for the in-browser face-swap demos."),
-  ]);
+  // From TRANSLATED_PAGES, so a page is listed here the day its translation ships.
+  const localised = section(
+    "Other languages",
+    (LOCALES.filter((l) => l !== DEFAULT_LOCALE) as AppLocale[]).map((locale) => {
+      const pages = Object.keys(TRANSLATED_PAGES).filter((p) => p !== "/" && TRANSLATED_PAGES[p].includes(locale));
+      const links = pages.map((p) => `[${TRANSLATED_PAGE_NAMES[p] ?? p}](${BASE}/${locale}${p})`).join(", ");
+      return bullet(`/${locale}`, `${LOCALE_LABELS[locale]} (${locale}) home`, `The site in this language: ${links}. Prices, refund terms and legal text stay in English.`);
+    }),
+  );
 
   const policies = section("Policies & legal", [
     bullet("/privacy", "Privacy Policy", "What is collected, why, retention timelines, GDPR/CCPA rights, online demo handling. Dated."),
