@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import { privateJson, requireJobOwner } from "@/lib/facestudio-gate";
 import { getJobStatus, upstreamString } from "@/lib/facestudio-server";
 import { captureHold, getCreditAccount, releaseHold } from "@/lib/credits-server";
-import { WATERMARK_MISSING_BODY, owesMissingWatermark } from "@/lib/facestudio-watermark";
+import { WATERMARK_MISSING_BODY as RENDER_NOT_FINISHED_BODY, owesMissingWatermark } from "@/lib/facestudio-watermark";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -24,6 +24,11 @@ interface RouteContext {
  * Safe to poll repeatedly. `credit_capture` and `credit_release` are both
  * keyed on the hold, so the second and later reports of the same terminal
  * state change nothing.
+ *
+ * A settled render is answered from its hold. RunPod forgets a job some time
+ * after it ends, and the page asks again about the last job whenever it is
+ * reopened in the next 24 hours; the gateway reports a forgotten job as a 502,
+ * which the page takes for a blip and retries.
  */
 export async function GET(_req: NextRequest, ctx: RouteContext) {
   const { jobId } = await ctx.params;
@@ -31,6 +36,33 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
   const gate = await requireJobOwner(jobId);
   if (!gate.ok) return gate.response;
   const { userId, hold } = gate;
+
+  // Captured only after the render was seen to land, watermark included, and
+  // its image is read from storage, so nothing is left to ask the gateway.
+  if (hold.status === "captured") {
+    const account = await getCreditAccount(userId);
+    return privateJson(
+      {
+        status: "done",
+        state: "done",
+        ok: true,
+        progress_pct: 1,
+        ...(hold.estimate?.watermark === true ? { watermarked: true } : {}),
+        credits_charged: 0,
+        balance: account.balance,
+        available: account.available,
+      },
+      200
+    );
+  }
+
+  if (hold.status === "released") {
+    const account = await getCreditAccount(userId);
+    return privateJson(
+      { ...RENDER_NOT_FINISHED_BODY, credits_charged: 0, balance: account.balance, available: account.available },
+      200
+    );
+  }
 
   let upstream;
   try {
@@ -44,6 +76,16 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
     return privateJson(
       { detail: "Could not reach the render service. Retrying." },
       502
+    );
+  }
+
+  // The sweeper freed this hold, so a render can still land after it; once the
+  // gateway has no answer either there is nothing left to wait for.
+  if (hold.status === "expired" && upstream.status >= 500) {
+    const account = await getCreditAccount(userId);
+    return privateJson(
+      { ...RENDER_NOT_FINISHED_BODY, credits_charged: 0, balance: account.balance, available: account.available },
+      200
     );
   }
 
@@ -64,7 +106,7 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
     }
     const account = await getCreditAccount(userId);
     return privateJson(
-      { ...WATERMARK_MISSING_BODY, credits_charged: 0, balance: account.balance, available: account.available },
+      { ...RENDER_NOT_FINISHED_BODY, credits_charged: 0, balance: account.balance, available: account.available },
       200
     );
   }
