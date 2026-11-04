@@ -336,5 +336,11 @@
   ", then come back and try again.": " 후 돌아와서 다시 시도하세요.",
   "Could not read the progress of your swap. Reload the page: if it finished, it is saved and the credits are settled automatically.": "교체 진행 상황을 읽을 수 없습니다. 페이지를 새로 고치세요. 완료되었다면 결과가 저장되어 있고 크레딧은 자동으로 정산됩니다.",
   "Face Studio is temporarily unavailable. Please try again in a few minutes.": "Face Studio를 일시적으로 사용할 수 없습니다. 몇 분 후 다시 시도해 주세요.",
-  "Sign in to NanoPocket.ai to swap heads.": "머리를 교체하려면 NanoPocket.ai에 로그인하세요."
+  "Sign in to NanoPocket.ai to swap heads.": "머리를 교체하려면 NanoPocket.ai에 로그인하세요.",
+  "Face or head swap in a video · from {n} credits": "동영상 얼굴·머리 교체 · {n} 크레딧부터",
+  "Whole head swap in a photo · {n} credits": "사진 머리 전체 교체 · {n} 크레딧",
+  "Face swap in a photo · from {n} credits": "사진 얼굴 교체 · {n} 크레딧부터",
+  "Edit a photo by describing it · {n} credits": "글로 설명해 사진 편집 · {n} 크레딧",
+  "Also with your {n} credits:": "{n} 크레딧으로 할 수 있는 것:",
+  "See all tools": "모든 도구 보기"
 }

@@ -199,7 +199,8 @@
       "account": "계정",
       "credits": "크레딧",
       "inviteFriends": "친구 초대",
-      "signOut": "로그아웃"
+      "signOut": "로그아웃",
+      "yourTools": "내 도구"
     },
     "footer": {
       "demo": "데모",
@@ -337,6 +338,30 @@
       "download": "다운로드",
       "downloadUnavailable": "지금은 다운로드할 수 없습니다",
       "billing": "만들어진 동영상은 결제되며, 삭제된 뒤에는 환불되지 않습니다. 만들지 못했거나 취소한 동영상은 결제되지 않습니다."
+    },
+    "start": {
+      "title": "내 도구",
+      "titleNew": "무엇부터 해 볼까요?",
+      "credits": "{n} 크레딧이 있습니다.",
+      "notEnough": "이 크레딧으로는 아직 어떤 도구도 쓸 수 없습니다.",
+      "buy": "크레딧 구매",
+      "notTried": "아직 안 써 봄",
+      "notTriedTool": "아직 안 써 본 도구: {tool}.",
+      "popular": "가장 인기",
+      "try": "해 보기",
+      "open": "열기",
+      "price": "{price} 크레딧",
+      "priceFrom": "{price} 크레딧부터",
+      "enough": "{price} 크레딧 · {count}회 가능",
+      "tools": {
+        "video": "동영상 얼굴·머리 교체",
+        "head": "사진 머리 전체 교체",
+        "face": "사진 얼굴 교체",
+        "edit": "글로 설명해 사진 편집"
+      },
+      "recent": "최근 작업",
+      "desktop": "데스크톱 앱",
+      "failed": "크레딧을 불러오지 못했습니다. 도구는 그대로 쓸 수 있습니다."
     }
   },
   "Home": {

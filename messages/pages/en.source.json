@@ -1267,6 +1267,12 @@
     ", then come back and try again.",
     "Could not read the progress of your swap. Reload the page: if it finished, it is saved and the credits are settled automatically.",
     "Face Studio is temporarily unavailable. Please try again in a few minutes.",
-    "Sign in to NanoPocket.ai to swap heads."
+    "Sign in to NanoPocket.ai to swap heads.",
+    "Face or head swap in a video · from {n} credits",
+    "Whole head swap in a photo · {n} credits",
+    "Face swap in a photo · from {n} credits",
+    "Edit a photo by describing it · {n} credits",
+    "Also with your {n} credits:",
+    "See all tools"
   ]
 }

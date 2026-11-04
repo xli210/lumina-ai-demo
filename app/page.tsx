@@ -4,6 +4,7 @@ import { ShieldCheck } from "lucide-react";
 import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
 import { Navbar } from "./components/navbar";
 import { WhatsNewBar } from "./components/whats-new-bar";
+import { ContinueBar } from "./components/continue-bar";
 import { HeroSection } from "./components/hero-section";
 import { AnnouncementSection } from "./components/announcement-section";
 import { DemoSection } from "./components/demo-section";
@@ -80,6 +81,7 @@ export default function Page() {
       />
       <Navbar />
       <WhatsNewBar />
+      <ContinueBar offsetClass="px-4 pt-[6.25rem] -mb-16 sm:pt-[6.75rem] sm:-mb-20" />
       <HeroSection />
       <AnnouncementSection />
       <AtAGlanceSection />

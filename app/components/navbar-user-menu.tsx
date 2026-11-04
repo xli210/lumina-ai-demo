@@ -12,7 +12,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User as UserIcon, LogOut, Shield, Coins, Gift } from "lucide-react";
+import { User as UserIcon, LogOut, Shield, Coins, Gift, LayoutGrid } from "lucide-react";
+import { START_PATH } from "@/lib/start-tools";
 
 export function NavbarUserMenu({
   user,
@@ -65,6 +66,10 @@ export function NavbarUserMenu({
           <p className="text-xs text-muted-foreground">{user.email}</p>
         </div>
         <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => router.push(START_PATH)}>
+          <LayoutGrid className="mr-2 h-4 w-4" />
+          {t("yourTools")}
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => router.push("/account")}>
           <UserIcon className="mr-2 h-4 w-4" />
           {t("account")}

@@ -40,6 +40,8 @@ export const FACESTUDIO_V_DEMO = FACESTUDIO_V_PAGE;
 
 /** The credit service name: holds for this product are recorded under it. */
 export const FACESTUDIO_V_SERVICE = "facestudio-v";
+/** A Fast clip has cost at least this much (holds since 10/26). A real price depends on the clip and is shown before it starts. */
+export const FACESTUDIO_V_MIN_CREDITS = 25;
 
 /** The modes the studio page can send with a reservation, and what each is called to people. */
 export const FACESTUDIO_V_MODES: Record<string, string> = {

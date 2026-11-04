@@ -351,7 +351,8 @@
       "account": "账号",
       "credits": "积分",
       "inviteFriends": "邀请好友",
-      "signOut": "退出登录"
+      "signOut": "退出登录",
+      "yourTools": "你的工具"
     },
     "footer": {
       "demo": "演示",
@@ -489,6 +490,30 @@
       "download": "下载",
       "downloadUnavailable": "暂时无法下载",
       "billing": "已生成的视频会收费,视频被删除后不予退款。未能生成或被你取消的视频,绝不收费。"
+    },
+    "start": {
+      "title": "你的工具",
+      "titleNew": "想先试哪一个？",
+      "credits": "你有 {n} 积分。",
+      "notEnough": "这些积分还不够用任何工具。",
+      "buy": "购买积分",
+      "notTried": "还没试过",
+      "notTriedTool": "还没试过：{tool}。",
+      "popular": "最多人用",
+      "try": "试一试",
+      "open": "打开",
+      "price": "{price} 积分",
+      "priceFrom": "{price} 积分起",
+      "enough": "{price} 积分 · 够用 {count} 次",
+      "tools": {
+        "video": "视频换脸或换头",
+        "head": "照片换整个头",
+        "face": "照片换脸",
+        "edit": "用文字描述来修图"
+      },
+      "recent": "最近的作品",
+      "desktop": "桌面版",
+      "failed": "暂时读取不到积分，工具仍可正常使用。"
     }
   }
 }

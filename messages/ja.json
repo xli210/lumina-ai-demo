@@ -199,7 +199,8 @@
       "account": "アカウント",
       "credits": "クレジット",
       "inviteFriends": "友だちを招待",
-      "signOut": "ログアウト"
+      "signOut": "ログアウト",
+      "yourTools": "ツール"
     },
     "footer": {
       "demo": "デモ",
@@ -337,6 +338,30 @@
       "download": "ダウンロード",
       "downloadUnavailable": "現在ダウンロードできません",
       "billing": "作成された動画には料金がかかり、削除された後は返金されません。作成できなかった動画や、キャンセルした動画に料金がかかることはありません。"
+    },
+    "start": {
+      "title": "ツール",
+      "titleNew": "最初に何を試しますか？",
+      "credits": "{n} クレジットあります。",
+      "notEnough": "このクレジットでは、まだどのツールも使えません。",
+      "buy": "クレジットを購入",
+      "notTried": "未体験",
+      "notTriedTool": "未体験：{tool}。",
+      "popular": "一番人気",
+      "try": "試す",
+      "open": "開く",
+      "price": "{price} クレジット",
+      "priceFrom": "{price} クレジットから",
+      "enough": "{price} クレジット・{count} 回分",
+      "tools": {
+        "video": "動画の顔・頭の入れ替え",
+        "head": "写真の頭全体の入れ替え",
+        "face": "写真の顔の入れ替え",
+        "edit": "文章で指示して写真を編集"
+      },
+      "recent": "最近の作品",
+      "desktop": "デスクトップアプリ",
+      "failed": "クレジットを読み込めませんでした。ツールはそのまま使えます。"
     }
   },
   "Home": {

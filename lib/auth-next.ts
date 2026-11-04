@@ -14,6 +14,9 @@
  * fall back to the Site URL and break the sign-in.
  */
 
+/** Where sign-in ends when nothing asked for another page: the tools. (On 11/4, 63% of new accounts had never tried one.) */
+export const AFTER_SIGN_IN = "/start";
+
 export const NEXT_COOKIE = "np_next";
 /** An hour: long enough to find the confirmation email and click it. */
 export const NEXT_COOKIE_MAX_AGE_S = 60 * 60;

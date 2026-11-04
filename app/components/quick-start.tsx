@@ -33,6 +33,7 @@ const QUIET_PREFIXES = [
   "/admin",
   "/checkout",
   "/credits",
+  "/start",
 ];
 const AUTO_OPENED_KEY = "nanopocket_quick_start_opened";
 const AUTO_OPEN_AFTER_MS = 4000;

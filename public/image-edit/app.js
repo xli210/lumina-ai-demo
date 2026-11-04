@@ -607,6 +607,7 @@ function finish(v, r) {
     kind: r.kind, info: r.info, timing: r.timing, warn: r.warn, prompt: r.prompt, seed: r.seed, bbox: r.bbox });
   if (v.id === S.current) { S.view = "compare"; S.cmp = v.bbox ? (v.bbox[0] + v.bbox[2]) / 2 : 0.5; }
   toast(`${v.title} is ready${r.warn ? " (see the note above the image)" : ""}.`, "ok");
+  if (window.npNextTools) window.npNextTools($("nextTools"), "edit");
 }
 async function cancelCurrent() {
   const v = cur();

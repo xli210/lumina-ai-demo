@@ -199,7 +199,8 @@
       "account": "Compte",
       "credits": "Crédits",
       "inviteFriends": "Inviter des amis",
-      "signOut": "Se déconnecter"
+      "signOut": "Se déconnecter",
+      "yourTools": "Vos outils"
     },
     "footer": {
       "demo": "Démo",
@@ -337,6 +338,30 @@
       "download": "Télécharger",
       "downloadUnavailable": "Téléchargement indisponible pour le moment",
       "billing": "Une vidéo réalisée est facturée, et elle n'est plus remboursée une fois supprimée. Les vidéos qui n'ont pas pu être réalisées, ou que vous avez annulées, ne sont jamais facturées."
+    },
+    "start": {
+      "title": "Vos outils",
+      "titleNew": "Que voulez-vous essayer en premier ?",
+      "credits": "Vous avez {n} crédits.",
+      "notEnough": "Ce n’est pas encore assez pour un outil.",
+      "buy": "Acheter des crédits",
+      "notTried": "Pas encore essayé",
+      "notTriedTool": "Pas encore essayé : {tool}.",
+      "popular": "Le plus utilisé",
+      "try": "Essayer",
+      "open": "Ouvrir",
+      "price": "{price} crédits",
+      "priceFrom": "à partir de {price} crédits",
+      "enough": "{price} crédits · suffisant pour {count}",
+      "tools": {
+        "video": "Échanger un visage ou une tête dans une vidéo",
+        "head": "Échanger la tête entière sur une photo",
+        "face": "Échanger le visage sur une photo",
+        "edit": "Modifier une photo en la décrivant"
+      },
+      "recent": "Vos créations récentes",
+      "desktop": "Applications de bureau",
+      "failed": "Impossible de lire vos crédits pour le moment. Les outils fonctionnent quand même."
     }
   },
   "Home": {

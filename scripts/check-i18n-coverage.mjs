@@ -28,8 +28,8 @@ const LOCALES = ["zh-CN", "ja", "ko", "es", "pt-BR", "de", "fr"];
 const WRITTEN_ELSEWHERE = { video: ["zh-CN"], headswap: ["zh-CN", "ja"] };
 const BASELINE = path.join(ROOT, "scripts", "i18n-left-in-english.txt");
 
-const TOOL_SOURCES = ["public/face-studio/index.html", "public/face-studio/app.js", "public/headswap-pro/index.html", "public/image-edit/index.html", "public/image-edit/app.js"];
-const PAGE_SOURCES = ["app/credits", "app/my-images", "app/facestudio-v/videos", "app/auth", "app/download", "app/checkout"];
+const TOOL_SOURCES = ["public/face-studio/index.html", "public/face-studio/app.js", "public/headswap-pro/index.html", "public/image-edit/index.html", "public/image-edit/app.js", "public/next-tools.js"];
+const PAGE_SOURCES = ["app/start", "app/credits", "app/my-images", "app/facestudio-v/videos", "app/auth", "app/download", "app/checkout"];
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), "utf-8");
 const readJson = (p) => JSON.parse(read(p));

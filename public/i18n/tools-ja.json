@@ -337,5 +337,11 @@
   ", then come back and try again.": "してから、戻ってもう一度お試しください。",
   "Could not read the progress of your swap. Reload the page: if it finished, it is saved and the credits are settled automatically.": "スワップの進行状況を読み取れませんでした。ページを再読み込みしてください。完了していれば結果は保存され、クレジットは自動で精算されます。",
   "Face Studio is temporarily unavailable. Please try again in a few minutes.": "Face Studio は一時的に利用できません。数分後にもう一度お試しください。",
-  "Sign in to NanoPocket.ai to swap heads.": "ヘッドスワップを行うには NanoPocket.ai にサインインしてください。"
+  "Sign in to NanoPocket.ai to swap heads.": "ヘッドスワップを行うには NanoPocket.ai にサインインしてください。",
+  "Face or head swap in a video · from {n} credits": "動画の顔・頭の入れ替え · {n} クレジットから",
+  "Whole head swap in a photo · {n} credits": "写真の頭全体の入れ替え · {n} クレジット",
+  "Face swap in a photo · from {n} credits": "写真の顔の入れ替え · {n} クレジットから",
+  "Edit a photo by describing it · {n} credits": "文章で指示して写真を編集 · {n} クレジット",
+  "Also with your {n} credits:": "{n} クレジットでできること：",
+  "See all tools": "すべてのツールを見る"
 }

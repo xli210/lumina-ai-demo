@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script src="/i18n/tools.js?v=2"></script>
+<script src="/i18n/tools.js?v=3"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nano HeadSwap Pro</title>
 <meta name="robots" content="noindex,follow">
@@ -317,6 +317,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg>
         <span>Now try it on a video. <span id="videoNudgeCredits"></span>Video FaceSwap 2.0 Online swaps a face or the whole head in a clip, and shows the price before it starts. <a href="/facestudio-v/launch" target="_blank" rel="noopener" onclick="window.gtag&&gtag('event','video_nudge_click',{from:'headswap'})">Try a video</a></span>
       </div>
+      <div id="nextTools" hidden></div>
       <div class="stage" id="stage"></div>
       <div class="thumbs" id="thumbs"></div>
     </div>
@@ -346,6 +347,7 @@ function updateVideoNudge() {
   const ok = S.done && typeof S.available === "number" && S.available >= VIDEO_MIN_CREDITS;
   $("videoNudge").hidden = !ok;
   if (ok) $("videoNudgeCredits").textContent = `You have ${S.available} credits, enough for a short clip in Fast mode. `;
+  if (S.done && window.npNextTools) window.npNextTools($("nextTools"), "head", ["video"]);
 }
 if (window.HS_PRICING_URL) { $("wmLink").href = window.HS_PRICING_URL; $("wmLink2").href = window.HS_PRICING_URL; }
 
@@ -792,5 +794,6 @@ update();
 recoverJob();
 </script>
 <script src="/invite-button.js" defer></script>
+<script src="/next-tools.js" defer></script>
 </body>
 </html>

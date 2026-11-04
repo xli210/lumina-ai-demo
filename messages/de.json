@@ -199,7 +199,8 @@
       "account": "Konto",
       "credits": "Credits",
       "inviteFriends": "Freunde einladen",
-      "signOut": "Abmelden"
+      "signOut": "Abmelden",
+      "yourTools": "Deine Tools"
     },
     "footer": {
       "demo": "Demo",
@@ -337,6 +338,30 @@
       "download": "Herunterladen",
       "downloadUnavailable": "Download gerade nicht verfügbar",
       "billing": "Ein Video, das erstellt wurde, wird berechnet, und nach dem Löschen wird es nicht erstattet. Videos, die nicht erstellt werden konnten oder die du abgebrochen hast, werden nie berechnet."
+    },
+    "start": {
+      "title": "Deine Tools",
+      "titleNew": "Was möchtest du zuerst ausprobieren?",
+      "credits": "Du hast {n} Credits.",
+      "notEnough": "Das reicht noch für kein Tool.",
+      "buy": "Credits kaufen",
+      "notTried": "Noch nicht probiert",
+      "notTriedTool": "Noch nicht probiert: {tool}.",
+      "popular": "Am beliebtesten",
+      "try": "Ausprobieren",
+      "open": "Öffnen",
+      "price": "{price} Credits",
+      "priceFrom": "ab {price} Credits",
+      "enough": "{price} Credits · reicht für {count}",
+      "tools": {
+        "video": "Gesicht oder Kopf im Video tauschen",
+        "head": "Ganzen Kopf im Foto tauschen",
+        "face": "Gesicht im Foto tauschen",
+        "edit": "Foto per Beschreibung bearbeiten"
+      },
+      "recent": "Deine letzten Arbeiten",
+      "desktop": "Desktop-Apps",
+      "failed": "Deine Credits konnten gerade nicht geladen werden. Die Tools funktionieren trotzdem."
     }
   },
   "Home": {

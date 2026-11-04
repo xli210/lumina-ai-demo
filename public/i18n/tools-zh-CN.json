@@ -337,5 +337,11 @@
   ", then come back and try again.": ",然后回到这里再试一次。",
   "Could not read the progress of your swap. Reload the page: if it finished, it is saved and the credits are settled automatically.": "无法读取换头进度。请刷新页面:如果已经完成,结果已保存,积分也会自动结算。",
   "Face Studio is temporarily unavailable. Please try again in a few minutes.": "Face Studio 暂时不可用,请过几分钟再试。",
-  "Sign in to NanoPocket.ai to swap heads.": "请登录 NanoPocket.ai 后换头。"
+  "Sign in to NanoPocket.ai to swap heads.": "请登录 NanoPocket.ai 后换头。",
+  "Face or head swap in a video · from {n} credits": "视频换脸或换头 · {n} 积分起",
+  "Whole head swap in a photo · {n} credits": "照片换整个头 · {n} 积分",
+  "Face swap in a photo · from {n} credits": "照片换脸 · {n} 积分起",
+  "Edit a photo by describing it · {n} credits": "用文字描述来修图 · {n} 积分",
+  "Also with your {n} credits:": "你的 {n} 积分还可以用来：",
+  "See all tools": "查看全部工具"
 }

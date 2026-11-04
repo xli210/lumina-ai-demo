@@ -53,7 +53,7 @@ const CACHEABLE_PREFIXES = [
 // sign up or spend credits; handing one to every anonymous page view (crawlers
 // never keep it) would also stop the CDN from caching those pages.
 const DEVICE_COOKIE_PREFIXES = [
-  '/auth', '/face-studio/', '/image-edit/', '/credits', '/account', '/checkout',
+  '/auth', '/face-studio/', '/image-edit/', '/credits', '/account', '/start', '/checkout',
   '/download', '/api/facestudio', '/api/imageedit', '/api/credits',
 ]
 

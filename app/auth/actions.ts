@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { cookies, headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
-import { NEXT_COOKIE, NEXT_COOKIE_MAX_AGE_S, safeNext } from "@/lib/auth-next";
+import { AFTER_SIGN_IN, NEXT_COOKIE, NEXT_COOKIE_MAX_AGE_S, safeNext } from "@/lib/auth-next";
 
 // ──────────────────────────────────────────────────────────────────
 // Site-URL detection
@@ -101,7 +101,7 @@ export async function login(formData: FormData) {
     redirect(`/auth/login?error=${encodeURIComponent(friendlyError(error.message))}`);
   }
 
-  redirect(safeNext(formData.get("next")) ?? "/account");
+  redirect(safeNext(formData.get("next")) ?? AFTER_SIGN_IN);
 }
 
 // ──────────────────────────────────────────────────────────────────

@@ -12,6 +12,7 @@ import {
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
+import { ContinueBar } from "../components/continue-bar";
 import { Button } from "@/components/ui/button";
 import { OnlineToolCards } from "./online-tools";
 import {
@@ -151,6 +152,7 @@ export default async function LocalizedHomePage({ params }: PageProps) {
       />
 
       <Navbar />
+      <ContinueBar offsetClass="px-4 pt-16 -mb-20 sm:-mb-24" />
 
       {/* Hero */}
       <section className="relative px-6 pt-28 pb-12 sm:pt-32 sm:pb-16">

@@ -199,7 +199,8 @@
       "account": "Conta",
       "credits": "Créditos",
       "inviteFriends": "Convidar amigos",
-      "signOut": "Sair"
+      "signOut": "Sair",
+      "yourTools": "Suas ferramentas"
     },
     "footer": {
       "demo": "Demonstração",
@@ -337,6 +338,30 @@
       "download": "Baixar",
       "downloadUnavailable": "Download indisponível no momento",
       "billing": "Um vídeo que foi feito é cobrado, e não é reembolsado depois de apagado. Vídeos que não puderam ser feitos, ou que você cancelou, nunca são cobrados."
+    },
+    "start": {
+      "title": "Suas ferramentas",
+      "titleNew": "O que você quer testar primeiro?",
+      "credits": "Você tem {n} créditos.",
+      "notEnough": "Ainda não dá para usar nenhuma ferramenta.",
+      "buy": "Comprar créditos",
+      "notTried": "Ainda não testada",
+      "notTriedTool": "Ainda não testada: {tool}.",
+      "popular": "A mais usada",
+      "try": "Testar",
+      "open": "Abrir",
+      "price": "{price} créditos",
+      "priceFrom": "a partir de {price} créditos",
+      "enough": "{price} créditos · dá para {count}",
+      "tools": {
+        "video": "Trocar rosto ou cabeça em um vídeo",
+        "head": "Trocar a cabeça inteira em uma foto",
+        "face": "Trocar o rosto em uma foto",
+        "edit": "Editar uma foto descrevendo o que quer"
+      },
+      "recent": "Seus trabalhos recentes",
+      "desktop": "Apps para desktop",
+      "failed": "Não conseguimos ler seus créditos agora. As ferramentas continuam funcionando."
     }
   },
   "Home": {

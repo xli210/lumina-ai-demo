@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
-import { NEXT_COOKIE, safeNext } from "@/lib/auth-next";
+import { AFTER_SIGN_IN, NEXT_COOKIE, safeNext } from "@/lib/auth-next";
 
 /**
  * Map raw Supabase/PKCE errors to user-friendly messages.
@@ -25,7 +25,7 @@ export async function GET(request: Request) {
   // Query string first, then the cookie set before the provider / email trip.
   const jar = await cookies();
   const safeDest =
-    safeNext(searchParams.get("next")) ?? safeNext(jar.get(NEXT_COOKIE)?.value) ?? "/account";
+    safeNext(searchParams.get("next")) ?? safeNext(jar.get(NEXT_COOKIE)?.value) ?? AFTER_SIGN_IN;
   const errorParam = searchParams.get("error");
   const errorDescription = searchParams.get("error_description");
 

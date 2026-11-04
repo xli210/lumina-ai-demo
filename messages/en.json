@@ -339,7 +339,8 @@
       "account": "Account",
       "credits": "Credits",
       "inviteFriends": "Invite friends",
-      "signOut": "Sign Out"
+      "signOut": "Sign Out",
+      "yourTools": "Your tools"
     },
     "footer": {
       "demo": "Demo",
@@ -477,6 +478,30 @@
       "download": "Download",
       "downloadUnavailable": "Download unavailable right now",
       "billing": "A video that was made is charged, and it is not refunded once it has been deleted. Videos that could not be made, or that you cancelled, are never charged."
+    },
+    "start": {
+      "title": "Your tools",
+      "titleNew": "What do you want to try first?",
+      "credits": "You have {n} credits.",
+      "notEnough": "That is not enough for a tool yet.",
+      "buy": "Buy credits",
+      "notTried": "Not tried yet",
+      "notTriedTool": "Not tried yet: {tool}.",
+      "popular": "Most popular",
+      "try": "Try it",
+      "open": "Open",
+      "price": "{price} credits",
+      "priceFrom": "from {price} credits",
+      "enough": "{price} credits · enough for {count}",
+      "tools": {
+        "video": "Face or head swap in a video",
+        "head": "Whole head swap in a photo",
+        "face": "Face swap in a photo",
+        "edit": "Edit a photo by describing it"
+      },
+      "recent": "Your recent work",
+      "desktop": "Desktop apps",
+      "failed": "Could not read your credits just now. The tools still work."
     }
   }
 }

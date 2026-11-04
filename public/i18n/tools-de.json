@@ -336,5 +336,11 @@
   ", then come back and try again.": " und komm dann zurück, um es erneut zu versuchen.",
   "Could not read the progress of your swap. Reload the page: if it finished, it is saved and the credits are settled automatically.": "Der Fortschritt deines Tauschs konnte nicht gelesen werden. Lade die Seite neu: Falls er fertig ist, ist er gespeichert, und die Credits werden automatisch abgerechnet.",
   "Face Studio is temporarily unavailable. Please try again in a few minutes.": "Face Studio ist vorübergehend nicht verfügbar. Bitte versuche es in ein paar Minuten erneut.",
-  "Sign in to NanoPocket.ai to swap heads.": "Melde dich bei NanoPocket.ai an, um Köpfe zu tauschen."
+  "Sign in to NanoPocket.ai to swap heads.": "Melde dich bei NanoPocket.ai an, um Köpfe zu tauschen.",
+  "Face or head swap in a video · from {n} credits": "Gesicht oder Kopf im Video tauschen · ab {n} Credits",
+  "Whole head swap in a photo · {n} credits": "Ganzen Kopf im Foto tauschen · {n} Credits",
+  "Face swap in a photo · from {n} credits": "Gesicht im Foto tauschen · ab {n} Credits",
+  "Edit a photo by describing it · {n} credits": "Foto per Beschreibung bearbeiten · {n} Credits",
+  "Also with your {n} credits:": "Mit deinen {n} Credits geht auch:",
+  "See all tools": "Alle Tools ansehen"
 }

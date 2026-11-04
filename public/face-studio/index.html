@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <script src="/i18n/tools.js?v=2"></script>
+  <script src="/i18n/tools.js?v=3"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nanopocket FaceSwap Pro</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -307,12 +307,7 @@
         </div>
 
         <!-- Cross-link: people looking at a result are the most engaged we have -->
-        <p class="next-step">
-          Something else to fix in the photo? Remove an object, change the text on a sign,
-          or relight the scene by describing it:
-          <a href="/image-edit?utm_source=face-studio&amp;utm_medium=result&amp;utm_campaign=cross-link"
-             target="_blank" rel="noopener">Nano ImageEdit 2.0 Online &rarr;</a>
-        </p>
+        <div id="next-tools" hidden></div>
       </div>
     </section>
 
@@ -330,5 +325,6 @@
   <script src="app.js"></script>
 <a href="/contact" target="_blank" rel="noopener" style="position:fixed;right:16px;bottom:16px;z-index:40;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(15,18,24,.92);color:#e8eef5;font:500 14px/1 system-ui,-apple-system,Segoe UI,sans-serif;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.35)">&#9998; Feedback</a>
 <script src="/invite-button.js" defer></script>
+<script src="/next-tools.js" defer></script>
 </body>
 </html>

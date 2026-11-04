@@ -199,7 +199,8 @@
       "account": "Cuenta",
       "credits": "Créditos",
       "inviteFriends": "Invitar amigos",
-      "signOut": "Cerrar sesión"
+      "signOut": "Cerrar sesión",
+      "yourTools": "Tus herramientas"
     },
     "footer": {
       "demo": "Demo",
@@ -337,6 +338,30 @@
       "download": "Descargar",
       "downloadUnavailable": "Descarga no disponible en este momento",
       "billing": "Se cobra un vídeo que se ha hecho, y no se reembolsa una vez eliminado. Los vídeos que no se pudieron hacer, o que cancelaste, nunca se cobran."
+    },
+    "start": {
+      "title": "Tus herramientas",
+      "titleNew": "¿Qué quieres probar primero?",
+      "credits": "Tienes {n} créditos.",
+      "notEnough": "Aún no alcanza para ninguna herramienta.",
+      "buy": "Comprar créditos",
+      "notTried": "Sin probar",
+      "notTriedTool": "Sin probar: {tool}.",
+      "popular": "La más usada",
+      "try": "Probar",
+      "open": "Abrir",
+      "price": "{price} créditos",
+      "priceFrom": "desde {price} créditos",
+      "enough": "{price} créditos · alcanza para {count}",
+      "tools": {
+        "video": "Cambiar cara o cabeza en un vídeo",
+        "head": "Cambiar la cabeza entera en una foto",
+        "face": "Cambiar la cara en una foto",
+        "edit": "Editar una foto describiéndolo"
+      },
+      "recent": "Tus trabajos recientes",
+      "desktop": "Aplicaciones de escritorio",
+      "failed": "No pudimos leer tus créditos ahora. Las herramientas siguen funcionando."
     }
   },
   "Home": {

@@ -1222,6 +1222,7 @@
       if (ok) document.getElementById("video-nudge-credits").textContent =
         `You have ${creditsAvailable.toLocaleString("en-US")} credits, enough for a short clip in Fast mode. `;
     }
+    if (window.npNextTools) window.npNextTools(document.getElementById("next-tools"), "face", ["video"]);
     resultSection.hidden = false;
     progressBar.style.width = "100%";
     resetFeedback();

@@ -9,6 +9,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 const PROTECTED_PATH_PREFIXES = [
   '/protected',
   '/account',
+  '/start',
   '/download',
   '/admin',
   '/private-demos',
