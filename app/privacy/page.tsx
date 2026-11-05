@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 
 /** How long online-tool uploads and results are kept: used in the table and in section 4. */
 const ONLINE_RETENTION =
-  "Video FaceSwap 2.0 Online: uploads are deleted within 24 hours, and a finished video is deleted 24 hours after it is made, or 7 days after if the account has added credits. Nano FaceStudio Online, Nano HeadSwap Pro and Nano ImageEdit 2.0 Online: uploads and results are kept in private storage (Cloudflare R2 object storage or the GPU servers' disks), reachable only through signed links that expire within an hour, so the result can be downloaded. They are not yet deleted automatically after a fixed period; they are deleted on request (tech@nanopocket.ai) and with the account. Never used to train models.";
+  "Video FaceSwap 2.5 Online: uploads are deleted within 24 hours, and a finished video is deleted 24 hours after it is made, or 7 days after if the account has added credits. Nano FaceStudio Online, Nano HeadSwap Pro and Nano ImageEdit 2.0 Online: uploads and results are kept in private storage (Cloudflare R2 object storage or the GPU servers' disks), reachable only through signed links that expire within an hour, so the result can be downloaded. They are not yet deleted automatically after a fixed period; they are deleted on request (tech@nanopocket.ai) and with the account. Never used to train models.";
 
 interface DataCategory {
   category: string;
@@ -76,7 +76,7 @@ const DATA_CATEGORIES: DataCategory[] = [
   {
     category: "Online tool uploads and results",
     items:
-      "Photos and videos uploaded to the online tools (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.0 Online, formerly Video FaceSwap Online, and Nano ImageEdit 2.0 Online), the results made from them, and the face data derived from them while a job runs (see section 4).",
+      "Photos and videos uploaded to the online tools (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.5 Online, formerly Video FaceSwap Online, and Nano ImageEdit 2.0 Online), the results made from them, and the face data derived from them while a job runs (see section 4).",
     purpose:
       "Carry out the swap or edit the user asked for and let the user download the result.",
     basis:
@@ -421,7 +421,7 @@ export default function PrivacyPage() {
             4. Online tools: what happens to uploaded photos, videos and faces
           </h2>
           <p className="mb-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
-            The online tools (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.0 Online and
+            The online tools (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.5 Online and
             Nano ImageEdit 2.0 Online) are the only NanoPocket surfaces that receive user-uploaded
             photos and videos. The desktop apps process everything on the user&apos;s own machine.
             We treat online-tool content as follows:
@@ -436,7 +436,7 @@ export default function PrivacyPage() {
             <li>
               <strong className="text-foreground">Face data.</strong> To swap a face, the models
               detect the faces in a file and derive numerical representations of facial features
-              from them (face embeddings). On Video FaceSwap 2.0 Online the same kind of measure is used
+              from them (face embeddings). On Video FaceSwap 2.5 Online the same kind of measure is used
               to show how closely a result matches the reference photo. Face data is used only to
               carry out the job the user asked for. It is never used to identify anyone, never
               compared against a database of people, never sold, and never kept as a separate record

@@ -90,7 +90,7 @@ const SYSTEM_REQS: SystemReq[] = [
     status: "Stable",
   },
   {
-    product: "Video FaceSwap 2.0 Online",
+    product: "Video FaceSwap 2.5 Online",
     href: "/facestudio-v",
     os: "Any modern browser, signed-in NanoPocket account, paid in credits",
     gpu: "Hosted GPU (no local hardware required)",
@@ -182,7 +182,7 @@ const PRIVACY_CLAIMS: PrivacyClaim[] = [
   {
     question: "Is my source media uploaded?",
     answer:
-      "Desktop apps: No. Every photo, video, and prompt stays on the user's local disk; the model runs on the user's GPU. Online tools: photos and videos are uploaded to GPU servers operated by NanoPocket, never used to train any model, and kept only as long as the Privacy Policy states (Video FaceSwap 2.0 Online deletes uploads within 24 hours and finished videos after 24 hours, or after 7 days for an account that has added credits; the other tools keep them in private storage until deleted on request or with the account).",
+      "Desktop apps: No. Every photo, video, and prompt stays on the user's local disk; the model runs on the user's GPU. Online tools: photos and videos are uploaded to GPU servers operated by NanoPocket, never used to train any model, and kept only as long as the Privacy Policy states (Video FaceSwap 2.5 Online deletes uploads within 24 hours and finished videos after 24 hours, or after 7 days for an account that has added credits; the other tools keep them in private storage until deleted on request or with the account).",
   },
   {
     question: "Is content used to train models?",
@@ -202,7 +202,7 @@ const PRIVACY_CLAIMS: PrivacyClaim[] = [
   {
     question: "How long is data retained?",
     answer:
-      "Account data (email, license, machine activation records) is retained while the account exists; deletion on request is supported via tech@nanopocket.ai. Online-tool uploads and results: Video FaceSwap 2.0 Online deletes uploads within 24 hours and a finished video 24 hours after it is made (7 days for an account that has added credits); Nano FaceStudio Online, Nano HeadSwap Pro and Nano ImageEdit 2.0 Online keep them in private storage until they are deleted on request or with the account. See the Privacy Policy, section 2.",
+      "Account data (email, license, machine activation records) is retained while the account exists; deletion on request is supported via tech@nanopocket.ai. Online-tool uploads and results: Video FaceSwap 2.5 Online deletes uploads within 24 hours and a finished video 24 hours after it is made (7 days for an account that has added credits); Nano FaceStudio Online, Nano HeadSwap Pro and Nano ImageEdit 2.0 Online keep them in private storage until they are deleted on request or with the account. See the Privacy Policy, section 2.",
   },
   {
     question: "Where are servers located?",
@@ -320,8 +320,8 @@ const RETENTION_TABLE: RetentionRow[] = [
   },
   {
     category: "Online-tool uploads and results",
-    duration: "Video FaceSwap 2.0 Online: 24 hours (finished videos 7 days for an account that has added credits). Other online tools: until deleted on request or with the account",
-    trigger: "Video made (Video FaceSwap 2.0 Online); deletion request or account deletion (other tools)",
+    duration: "Video FaceSwap 2.5 Online: 24 hours (finished videos 7 days for an account that has added credits). Other online tools: until deleted on request or with the account",
+    trigger: "Video made (Video FaceSwap 2.5 Online); deletion request or account deletion (other tools)",
   },
   {
     category: "Feedback & survey responses",
@@ -558,7 +558,7 @@ const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     title: "Online demo capacity at peak hours",
-    product: "Video FaceSwap 2.0 Online",
+    product: "Video FaceSwap 2.5 Online",
     detail:
       "Requests are queued on a single GPU, so a clip may wait for its turn. The price is shown before you start, and a video that fails is refunded.",
     href: "/facestudio-v",
@@ -717,7 +717,7 @@ const trustFaqJsonLd = {
       name: "Which products are stable vs. coming soon?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Stable today: Nano ImageEnh Pro 3.0, VideoEnhance, VideoGen, ImageEdit, FacialEdit, ImageTryon, FaceSwap (legacy), and Nano FaceStudio Pro 1.0 (Windows now, macOS to follow), plus four online tools: Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.0 Online and Nano ImageEdit 2.0 Online. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap.",
+        text: "Stable today: Nano ImageEnh Pro 3.0, VideoEnhance, VideoGen, ImageEdit, FacialEdit, ImageTryon, FaceSwap (legacy), and Nano FaceStudio Pro 1.0 (Windows now, macOS to follow), plus four online tools: Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.5 Online and Nano ImageEdit 2.0 Online. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap.",
       },
     },
     {
