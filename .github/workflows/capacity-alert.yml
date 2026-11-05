@@ -1,0 +1,51 @@
+name: GPU capacity alert
+
+on:
+  schedule:
+    # Every 5 minutes (GitHub may delay it a few minutes under load).
+    - cron: "*/5 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: capacity-alert
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts
+
+      # What was mailed last time, so the same trouble is not mailed every 5 minutes. A cache entry cannot be overwritten, so each run saves
+      # a new one and the next run restores the newest.
+      - name: Restore the last state
+        uses: actions/cache/restore@v4
+        with:
+          path: capacity_state.json
+          key: capacity-state-${{ github.run_id }}
+          restore-keys: capacity-state-
+
+      - name: Check the GPUs and mail when they run short
+        env:
+          RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
+          STUDIO_ACCESS_TOKEN: ${{ secrets.STUDIO_ACCESS_TOKEN }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_TO: ${{ secrets.ALERT_TO }}
+          ALERT_FROM: ${{ secrets.ALERT_FROM }}
+          ALERT_DISCORD_WEBHOOK: ${{ secrets.ALERT_DISCORD_WEBHOOK }}
+          STATE_FILE: capacity_state.json
+        run: python scripts/capacity_alert.py
+
+      - name: Save the state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: capacity_state.json
+          key: capacity-state-${{ github.run_id }}
