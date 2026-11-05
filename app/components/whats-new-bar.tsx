@@ -31,7 +31,7 @@ const ITEMS: WhatsNewItem[] = [
     labelClassName: "bg-rose-100 text-rose-700 ring-rose-200",
     icon: Video,
     iconClassName: "text-rose-600",
-    text: `${FACESTUDIO_V_NAME} — engine breakthrough in Fast and Best quality, built for motion: dance, heads thrown back, hands and hair across the face · 2× faster`,
+    text: `${FACESTUDIO_V_NAME} — new: Headswap Fast, the whole head about 40% faster and for about 35% fewer credits than Headswap Best`,
     href: "/facestudio-v",
   },
   {

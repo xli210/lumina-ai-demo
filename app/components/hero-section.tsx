@@ -243,7 +243,7 @@ export function HeroSection() {
                   tabIndex={feature === "facestudio-v" ? 0 : -1}
                   className="text-xs font-medium text-white/85 underline-offset-4 hover:text-white hover:underline sm:text-sm"
                 >
-                  See 14 examples
+                  See examples
                 </Link>
               </div>
             </div>
