@@ -5,6 +5,7 @@ import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { TERMS_EFFECTIVE_DATE, TERMS_VERSION } from "@/lib/terms-version";
 import { REFERRAL_FRIEND_CREDITS, REFERRAL_REWARD_CREDITS } from "@/lib/referral";
+import { SOCIAL_REWARD_CREDITS } from "@/lib/social-reward";
 
 const PAGE_URL = "https://nanopocket.ai/terms";
 const EFFECTIVE_DATE = TERMS_EFFECTIVE_DATE;
@@ -13,7 +14,7 @@ const POLICY_VERSION = TERMS_VERSION;
 export const metadata: Metadata = {
   title: "Terms of Service — NanoPocket",
   description:
-    `NanoPocket Terms of Service — license terms, billing, refunds and EU/UK withdrawal rights, invite rewards, acceptable use, AI-generated content, misuse reports, warranty disclaimer, governing law. Effective ${TERMS_EFFECTIVE_DATE}, version ${TERMS_VERSION}.`,
+    `NanoPocket Terms of Service — license terms, billing, refunds and EU/UK withdrawal rights, invite and post rewards, acceptable use, AI-generated content, misuse reports, warranty disclaimer, governing law. Effective ${TERMS_EFFECTIVE_DATE}, version ${TERMS_VERSION}.`,
   keywords: [
     "NanoPocket terms of service",
     "NanoPocket EULA",
@@ -113,7 +114,7 @@ export default function TermsPage() {
               ["Online tools", "demos"],
               ["Billing", "billing"],
               ["Refunds & withdrawal", "refunds"],
-              ["Invite rewards", "referrals"],
+              ["Invite and post rewards", "referrals"],
               ["Acceptable use", "aup"],
               ["AI-generated content", "ai-content"],
               ["Reporting misuse", "report"],
@@ -282,7 +283,7 @@ export default function TermsPage() {
           </p>
         </Section>
 
-        <Section id="referrals" title="6. Invite rewards">
+        <Section id="referrals" title="6. Invite and post rewards">
           <p className="mb-3">
             An account can share its invite link (Account, then Invite friends). When someone opens
             a new NanoPocket account through that link within 30 days of following it, and later
@@ -307,6 +308,29 @@ export default function TermsPage() {
             <li>
               NanoPocket may change or end the programme at any time. Rewards already earned are
               kept.
+            </li>
+          </ul>
+          <p className="mb-3 mt-4">
+            <strong>Post rewards.</strong> An account that has used an online tool can submit a link
+            to its own public post about NanoPocket (Account, then Post about NanoPocket). If
+            NanoPocket approves the post, the account receives {SOCIAL_REWARD_CREDITS} credits, once.
+          </p>
+          <ul className="list-disc space-y-1.5 pl-5">
+            <li>One reward per person and per account. The same post cannot be used twice.</li>
+            <li>
+              The post must be public, be about your own real use of NanoPocket, say that you received
+              credits for it, and say that any result shown is AI-generated. It does not have to be
+              positive, and you must say what you honestly think.
+            </li>
+            <li>
+              It must follow the acceptable use rules in section 7 and the rules of the platform
+              where you post it. Only use your own face, or faces you have permission to use.
+            </li>
+            <li>Posts on Reddit do not qualify. NanoPocket decides whether a post qualifies.</li>
+            <li>Reward credits are free credits: they have no cash value and are not refundable.</li>
+            <li>
+              Rewards obtained through several accounts or by breaking these rules may be removed.
+              NanoPocket may change or end the programme at any time.
             </li>
           </ul>
         </Section>
@@ -469,6 +493,7 @@ export default function TermsPage() {
             constitutes acceptance of the new Terms.
           </p>
           <p>
+            Version 1.4 (2026-11-04) adds the optional post reward in section 6 and changes nothing else.
             Version 1.3 adds the adult-only age requirement, credit refunds and the EU/UK right of
             withdrawal, invite rewards, the AI-generated content rules and misuse reporting, and
             extends the acceptable use policy. It applies to accounts opened from 2026-10-30 and to

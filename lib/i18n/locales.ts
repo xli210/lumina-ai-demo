@@ -88,7 +88,7 @@ export const TRANSLATED_PAGES: Record<string, readonly AppLocale[]> = {
 export const LOCALE_COOKIE = "np_locale";
 
 /** Pages shown in the visitor's language at their usual address, with no locale prefix. */
-const COOKIE_LOCALE_PATHS = ["/auth", "/start", "/credits", "/my-images", "/facestudio-v/videos", "/download", "/checkout"];
+const COOKIE_LOCALE_PATHS = ["/auth", "/account", "/start", "/credits", "/my-images", "/facestudio-v/videos", "/download", "/checkout"];
 
 export function usesLocaleCookie(pathname: string): boolean {
   return COOKIE_LOCALE_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));

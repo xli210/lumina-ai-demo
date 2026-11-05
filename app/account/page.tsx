@@ -6,8 +6,10 @@ import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { AccountProfile } from "./account-profile";
 import { InviteFriends } from "./invite-friends";
+import { SocialRewardCard } from "./social-reward-card";
 import { getOrCreateReferralCode, getReferralStats } from "@/lib/referral-server";
 import { referralLink } from "@/lib/referral";
+import { getSocialRewardState } from "@/lib/social-reward-server";
 
 export const metadata: Metadata = { robots: { index: false, follow: true } };
 
@@ -28,9 +30,10 @@ export default async function AccountPage() {
     .eq("id", user.id)
     .single();
 
-  const [code, stats] = await Promise.all([
+  const [code, stats, postReward] = await Promise.all([
     getOrCreateReferralCode(user.id),
     getReferralStats(user.id),
+    getSocialRewardState(user.id),
   ]);
 
   return (
@@ -58,6 +61,7 @@ export default async function AccountPage() {
         {code && (
           <InviteFriends link={referralLink(code)} signups={stats.signups} rewarded={stats.rewarded} />
         )}
+        {postReward && <SocialRewardCard {...postReward} />}
         <AccountProfile user={user} profile={profile} />
       </div>
       <Footer />

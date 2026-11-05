@@ -5,8 +5,8 @@ import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 
 const PAGE_URL = "https://nanopocket.ai/privacy";
-const EFFECTIVE_DATE = "2026-10-30";
-const POLICY_VERSION = "1.1";
+const EFFECTIVE_DATE = "2026-11-04";
+const POLICY_VERSION = "1.2";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -95,8 +95,8 @@ const DATA_CATEGORIES: DataCategory[] = [
   {
     category: "Invite rewards",
     items:
-      "Your invite code. For an account opened through an invite link: which account invited it, when, and whether the reward was paid.",
-    purpose: "Run the invite rewards described in the Terms (section 6) and stop self-invites.",
+      "Your invite code. For an account opened through an invite link: which account invited it, when, and whether the reward was paid. If you submit a post for a post reward: its link, whether it was approved, and who reviewed it.",
+    purpose: "Run the invite and post rewards described in the Terms (section 6) and stop self-invites and repeat claims.",
     basis: "Contract performance, legitimate interest in preventing abuse (GDPR Art. 6(1)(b),(f)).",
     retention: "While the accounts involved exist; deleted with either account.",
   },
@@ -623,6 +623,7 @@ export default function PrivacyPage() {
             reflected in the version number above.
           </p>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            Version 1.2 (2026-11-04) adds the link you submit for a post reward.
             Version 1.1 (2026-10-30) corrects how online-tool files are stored and for how long,
             describes the face data the tools derive and the US state biometric notice, adds
             credits and job records, invite rewards and Render as a subprocessor, sets the minimum
