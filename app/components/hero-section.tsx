@@ -30,11 +30,12 @@ interface HeroSlide {
 
 const demoSlides: HeroSlide[] = [
   {
-    src: "/videos/hero-facestudio-v.mp4",
-    poster: "/videos/hero-facestudio-v-poster.jpg",
+    src: "/videos/hero-headswap-2-5.mp4",
+    srcSmall: "/videos/hero-headswap-2-5-sm.mp4",
+    poster: "/videos/hero-headswap-2-5-poster.jpg",
     type: "video",
-    alt: "Video FaceSwap 2.5 Online: a scan line sweeps across a video and the woman's face is replaced with the reference face, everything else as filmed",
-    prompt: "Video face swap: one face replaced, the rest as filmed. AI-generated test render on stock footage",
+    alt: "Video FaceSwap 2.5 Online: a line sweeps across three stage performers and each one's whole head, hair included, is replaced with the one in the reference photo, everything else as filmed",
+    prompt: "Video head swap: the whole head replaced, the rest as filmed. AI-generated test render on stock footage",
     model: FACESTUDIO_V_NAME,
     tag: "Video Face Swap",
     feature: "facestudio-v",
@@ -224,7 +225,7 @@ export function HeroSection() {
                 <span className="hidden sm:inline">{`· Version ${FACESTUDIO_V_VERSION}`}</span>
               </p>
               <p className="text-balance text-base font-bold leading-tight tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl">
-                Swap one face in a video.
+                Swap a face or the whole head.
                 <span className="hidden text-sky-200 sm:block">Leave the rest as filmed.</span>
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3">

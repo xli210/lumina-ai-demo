@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { ArrowLeft, TriangleAlert } from "lucide-react";
 
 import { createClient } from "@/lib/supabase/server";
+import { FACESTUDIO_V_MODES } from "@/lib/facestudio-v";
 import { Navbar } from "../../components/navbar";
 import { Footer } from "../../components/footer";
 import {
@@ -547,7 +548,7 @@ function Dashboard({
           <Breakdown
             headers={["Mode", "Jobs", "Credits reserved"]}
             rows={summary.by_mode.map((m) => [
-              m.mode,
+              FACESTUDIO_V_MODES[m.mode] ?? m.mode,
               fmtCredits(m.jobs),
               fmtCredits(m.credits_reserved),
             ])}
