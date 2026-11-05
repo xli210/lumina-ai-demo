@@ -39,6 +39,8 @@ export interface ToolPageCopy {
 }
 
 export interface VideoPageCopy {
+  /** The 2.5 section; the English page's strings, public/facestudio-v/index.html. */
+  v25: Record<string, string>;
   title: string;
   description: string;
   keywords: string[];

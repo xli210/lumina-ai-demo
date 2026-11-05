@@ -11,12 +11,12 @@
     "kicker": "Ferramenta online",
     "h1": "Face swap em vídeo com IA: só muda a pessoa que você escolher",
     "lead1": "Envie um vídeo e a foto de um rosto e clique na pessoa que quer mudar. O rosto ou a cabeça inteira é substituído em todos os quadros, enquanto todos os outros, o fundo e o som original ficam como foram filmados.",
-    "lead2": "A versão {version} é um novo motor feito para vídeos com muito movimento, como dança. Ângulos extremos, coisas passando pela frente do rosto e giros rápidos não atrapalham, e a troca está cerca de duas vezes mais rápida. {grant} créditos grátis no cadastro permitem testar um clipe curto primeiro.",
+    "lead2": "Desde a versão 2.0, funciona com um novo motor feito para vídeos com muito movimento, como dança. Ângulos extremos, coisas passando pela frente do rosto e giros rápidos não atrapalham, e a troca de rosto está cerca de duas vezes mais rápida. Novidade da 2.5: Headswap Fast, a cabeça inteira, cerca de 40% mais rápido e com cerca de 35% menos créditos que o Headswap Best. {grant} créditos grátis no cadastro permitem testar um clipe curto primeiro.",
     "ctaOpen": "Abrir o face swap em vídeo",
     "ctaGuide": "Ler o guia (em inglês)",
     "accountNote": "Você precisa de uma conta grátis da NanoPocket. As telas do estúdio estão no seu idioma. Última verificação: {date}",
-    "newHeading": "O que há de novo na {version}: um motor feito para o movimento",
-    "newBody": "Dança é o tipo de vídeo mais difícil para um face swap: a cabeça inclina para trás, cabelo e mangas passam pela frente do rosto, a câmera gira e as luzes do palco mudam de cor. A {version} calcula de novo, em cada quadro, onde o rosto está, para onde aponta e o que há na frente dele. Em cada par abaixo, “Original” é o vídeo de origem e “{version}” é o resultado, feito com uma única foto de referência, sem máscaras manuais nem keyframes. Esta atualização vale para os modos Fast e Best quality; o modo Whole head não mudou.",
+    "newHeading": "O motor desde a 2.0: feito para o movimento",
+    "newBody": "Dança é o tipo de vídeo mais difícil para um face swap: a cabeça inclina para trás, cabelo e mangas passam pela frente do rosto, a câmera gira e as luzes do palco mudam de cor. O motor calcula de novo, em cada quadro, onde o rosto está, para onde aponta e o que há na frente dele. Em cada par abaixo, “Original” é o vídeo de origem e “{version}” é o resultado, feito com uma única foto de referência, sem máscaras manuais nem keyframes. Este motor é usado nos modos de troca de rosto Fast e Best quality; as trocas de cabeça têm modos próprios, Headswap Best e Headswap Fast.",
     "features": [
       {
         "tag": "OCCLUSION-AWARE",
@@ -147,7 +147,7 @@
     "topupHeading": "Recarregue uma vez: sem marca d'água, duração total, primeiro na fila",
     "topupPoints": [
       "{grant} créditos grátis no cadastro permitem testar um clipe de até 5 segundos, com marca d'água em movimento.",
-      "Depois de uma recarga, os novos vídeos saem sem marca d'água, podem ter até 60 segundos (12 no Whole head) e passam à frente das contas grátis na fila."
+      "Depois de uma recarga, os novos vídeos saem sem marca d'água, podem ter até 60 segundos (12 nas trocas de cabeça) e passam à frente das contas grátis na fila."
     ],
     "topupPricing": "Preços",
     "ctaMake": "Começar a fazer um vídeo",
@@ -159,7 +159,7 @@
       },
       {
         "q": "Qual pode ser a duração de um vídeo?",
-        "a": "Até 60 segundos em Fast e Best quality, e até 12 segundos em Whole head. Nossas GPUs são limitadas, então uma conta que nunca recarregou faz clipes de até 5 segundos (2 segundos em Whole head), e eles esperam atrás dos clipes das contas que já recarregaram. Um vídeo mais longo não é recusado: o estúdio usa a primeira parte ou a parte que você escolher, e avisa qual antes de você pagar."
+        "a": "Até 60 segundos em Fast e Best quality, e até 12 segundos nas trocas de cabeça. Nossas GPUs são limitadas, então uma conta que nunca recarregou faz clipes de até 5 segundos (2 segundos nas trocas de cabeça), e eles esperam atrás dos clipes das contas que já recarregaram. Um vídeo mais longo não é recusado: o estúdio usa a primeira parte ou a parte que você escolher, e avisa qual antes de você pagar."
       },
       {
         "q": "Por que meu vídeo tem marca d'água?",
@@ -182,7 +182,37 @@
         "a": "Sim. As telas do estúdio estão no seu idioma."
       }
     ],
-    "english": "Versão em inglês"
+    "english": "Versão em inglês",
+    "v25": {
+      "navNew": "Novidades da 2.5",
+      "announce": "Headswap Fast: a cabeça inteira, cerca de 40% mais rápido e com cerca de 35% menos créditos.",
+      "ctaNew": "Ver as novidades da 2.5",
+      "ctaTry": "Testar o Video FaceSwap 2.5 Online",
+      "versionBadge": "VERSÃO 2.5.0",
+      "h2": "Headswap Fast.",
+      "h2sub": "A cabeça inteira, mais rápido e com menos créditos.",
+      "lead": "Cabelo e formato da cabeça também, cerca de 40% mais rápido e com cerca de 35% menos créditos que o Headswap Best, o novo nome do antigo modo Whole head.",
+      "quality": "A qualidade pode ser um pouco inferior à do Headswap Best.",
+      "ctaFast": "Testar o Headswap Fast",
+      "speedRow": "Tempo para 100 quadros",
+      "speedNote": "Medido nas nossas GPUs com os modelos já carregados.",
+      "limit": "As trocas de cabeça vão até 12 s em uma conta paga e 2 s em uma conta grátis.",
+      "eyebrow20": "O motor de movimento, desde a 2.0",
+      "tryIt": "Testar",
+      "watchCrew": "Ver uma dança em grupo",
+      "modes": "Nas trocas de rosto Fast e Best quality desde a 2.0. As trocas de cabeça têm seus dois modos próprios: Headswap Best e Headswap Fast.",
+      "engine20": "A versão 2.0 refez o motor em torno disso: em cada quadro, calcula de novo onde o rosto está, para onde aponta e o que há na frente dele.",
+      "crewH": "Um grupo de dança.",
+      "crewSub": "Uma foto, uma só dançarina.",
+      "note20": "A versão 2.0.0 melhorou os modos Fast e Best quality; as trocas de cabeça não fizeram parte dessa atualização. “Before 2.0” é o motor anterior com o mesmo clipe e o mesmo rosto de referência. Vídeos e fotos de referência: Pexels (uso gratuito); os rostos usados aqui pertencem a modelos de banco de imagens. Troque apenas um rosto que você tenha permissão para usar. Feito no modo Fast, sem marca d'água. Velocidade: a etapa de troca de rosto em uma NVIDIA RTX 4080 SUPER, quatro clipes de 720p a 1080p, com resultado idêntico quadro a quadro; o tempo de upscaling não mudou. Cintilação: variação entre quadros nos nossos clipes de teste em close, de 17 a 34% menor que antes.",
+      "enhCaption": "O mesmo quadro, a mesma troca. Esquerda: só a troca. Direita: depois do aprimoramento facial por difusão.",
+      "fastEnhancer": "Na troca de rosto, o modo Fast usa um aprimorador mais leve: segundos em vez de minutos.",
+      "engModes": "Modos",
+      "engBestFor": "Clipes curtos, até 12 s (2 s em uma conta grátis)",
+      "watermark": "Vídeos de uma conta que nunca recarregou levam uma marca da NanoPocket que se move lentamente. Nossa capacidade de GPU é limitada, então essa conta faz vídeos de até 5 s apenas (trocas de cabeça: uma amostra de 2 s, 50 créditos com o Headswap Fast ou 80 com o Headswap Best) e espera atrás das contas que já recarregaram. Recarregue uma vez e seus novos vídeos saem limpos, com até 60 s (trocas de cabeça: 12 s), e seus vídeos prontos ficam guardados por 7 dias em vez de 24 horas. Créditos grátis do cadastro e testes não contam como recarga.",
+      "metaDescription": "Troque online o rosto ou a cabeça inteira de uma pessoa em um vídeo; os demais e o som ficam como foram filmados. Novidade da 2.5: Headswap Fast, cerca de 40% mais rápido e com cerca de 35% menos créditos que o Headswap Best. 100 créditos grátis no cadastro; o preço aparece antes.",
+      "shareTitle": "Video FaceSwap 2.5 Online: troque um rosto ou uma cabeça inteira em qualquer vídeo"
+    }
   },
   "faceStudio": {
     "title": "Troca de rosto grátis em fotos de grupo, online: até {max} rostos",

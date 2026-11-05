@@ -210,7 +210,7 @@ What that does and does not include:
 | Have an NVIDIA card (6 GB or more) and swap often | Run it locally: free, private, no per-clip cost |
 | Have no suitable card, or want a quick one-off | Online: ${starterPrice} once removes the watermark |
 | Just want to see how it looks | The free credits, knowing the result is marked |
-| Need a video head swap | Online, in [Video FaceSwap 2.0 Online](/facestudio-v) |
+| Need a video head swap | Online, in [Video FaceSwap 2.5 Online](/facestudio-v) |
 
 ## A warning about "free" claims
 

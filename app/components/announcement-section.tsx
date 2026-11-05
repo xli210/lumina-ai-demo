@@ -541,7 +541,7 @@ export function AnnouncementSection() {
             lede={FACESTUDIO_V_TAGLINE}
             points={FACESTUDIO_V_POINTS}
             priceLine="Paid in credits, priced before you start · new accounts start with free credits · top up once to remove the watermark"
-            cta={{ href: FACESTUDIO_V_LAUNCH, label: "Try Video FaceSwap 2.0 Online" }}
+            cta={{ href: FACESTUDIO_V_LAUNCH, label: "Try Video FaceSwap 2.5 Online" }}
             learnMore={{ href: FACESTUDIO_V_DEMO, label: "Learn more", plain: true }}
           />
 

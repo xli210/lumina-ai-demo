@@ -43,7 +43,7 @@ export const VIDEO_FACE_SWAP_GUIDE_POSTS: BlogPost[] = [
       "swap face in video no experience",
       "replace face in video",
       "Video FaceSwap Online",
-      "Video FaceSwap 2.0 Online",
+      "Video FaceSwap 2.5 Online",
     ],
     image: {
       src: `${MEDIA}/profile_turn_poster.jpg`,
@@ -84,7 +84,7 @@ If you are unsure, start with face swap: it is faster and cheaper, and it keeps 
 
 ${COST}
 
-If a video fails, or you cancel it while it is still waiting, the credits are returned; once it has started being made it can no longer be cancelled, and a Whole head video cannot be cancelled once you press Create. Requests are queued on a GPU, so a clip may wait for its turn.
+If a video fails, or you cancel it while it is still waiting, the credits are returned; once it has started being made it can no longer be cancelled, and a Headswap video cannot be cancelled once you press Create. Requests are queued on a GPU, so a clip may wait for its turn.
 
 ${WATERMARK}
 

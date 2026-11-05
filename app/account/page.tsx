@@ -49,7 +49,7 @@ export default async function AccountPage() {
             <Link href="/facestudio-v/videos" className="font-medium text-primary underline-offset-4 hover:underline">
               My videos
             </Link>
-            <span className="text-muted-foreground"> (Video FaceSwap 2.0 Online: kept 24 hours, 7 days once you have added credits)</span>
+            <span className="text-muted-foreground"> (Video FaceSwap 2.5 Online: kept 24 hours, 7 days once you have added credits)</span>
           </p>
           <p className="mt-1 text-sm">
             <Link href="/my-images" className="font-medium text-primary underline-offset-4 hover:underline">

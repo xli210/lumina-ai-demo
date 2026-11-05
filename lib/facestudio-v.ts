@@ -1,5 +1,5 @@
 /**
- * Video FaceSwap 2.0 Online (Video FaceSwap Online until 1.1.0): NanoPocket's queued video face swap, officially
+ * Video FaceSwap 2.5 Online (Video FaceSwap Online until 1.1.0): NanoPocket's queued video face swap, officially
  * released as version 1.1.0 (it ran as a three-day preview and a one-week trial
  * first), now at 2.0.0. One source for the name, the wording and the on/off switch, so the
  * homepage card, the What's new bar, the landing page, llms.txt and the
@@ -21,11 +21,14 @@
  * Safe to import from middleware, server and client code: plain data only.
  */
 
-export const FACESTUDIO_V_NAME = "Video FaceSwap 2.0 Online";
+export const FACESTUDIO_V_NAME = "Video FaceSwap 2.5 Online";
 /** What it was called through 1.1.0, for old queries and for what was made on that version. */
 export const FACESTUDIO_V_FORMER_NAME = "Video FaceSwap Online";
-/** 2.0.0 (Fast and Best quality modes; Whole head unchanged): a new face-swap engine (glasses kept sharp, nothing showing through a hand, eyes that follow the clip, steadier close-ups, about twice as fast). 1.1.0 was the official release: hard footage and the watermark policy. */
-export const FACESTUDIO_V_VERSION = "2.0.0";
+/** 2.0.0 (Fast and Best quality modes; the head swap unchanged): a new face-swap engine (glasses kept sharp, nothing showing through a hand, eyes that follow the clip, steadier close-ups, about twice as fast). 1.1.0 was the official release: hard footage and the watermark policy. */
+/** 2.5.0: Headswap Fast, the head swap at 4 steps, faster and cheaper; the old head swap mode is now called Headswap Best. */
+export const FACESTUDIO_V_VERSION = "2.5.0";
+/** The version of the face-swap engine: what the before/after pairs and the engine's claims speak of. */
+export const FACESTUDIO_V_ENGINE_VERSION = "2.0.0";
 /** The version the published examples and the measured figures were made with: they keep this label until they are re-made. */
 export const FACESTUDIO_V_MEASURED_VERSION = "1.1.0";
 /** How the examples and the measured figures are labelled: the name and version they were made under. */
@@ -47,7 +50,8 @@ export const FACESTUDIO_V_MIN_CREDITS = 25;
 export const FACESTUDIO_V_MODES: Record<string, string> = {
   fast: "Fast",
   quality: "Best quality",
-  head: "Whole head",
+  head: "Headswap Best",
+  head_fast: "Headswap Fast",
   enhance_fast: "Fast enhance",
   enhance_best: "Best-quality enhance",
 };
@@ -73,6 +77,7 @@ export const FACESTUDIO_V_TAGLINE =
   "Replace one person's face, or their whole head, in a video. Everyone else and the original sound stay as filmed.";
 
 export const FACESTUDIO_V_POINTS = [
+  "New in 2.5: Headswap Fast, about 40% faster and about 35% fewer credits than Headswap Best; quality may be slightly lower",
   "Face swap or whole-head swap on video",
   "Pick which person changes in a multi-person clip",
   "The original sound is kept, and detail is restored after the swap",
@@ -82,7 +87,7 @@ export const FACESTUDIO_V_POINTS = [
 
 export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
   {
-    q: "What is Video FaceSwap 2.0 Online?",
+    q: "What is Video FaceSwap 2.5 Online?",
     a: `${FACESTUDIO_V_NAME} is a video face swap from NanoPocket. You give it a video and a photo of the face you want; it replaces one person in every frame and leaves everyone and everything else as it was filmed. Version ${FACESTUDIO_V_VERSION} is the current release: it is available to registered NanoPocket users and paid for in credits.`,
   },
   {
@@ -91,11 +96,11 @@ export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
   },
   {
     q: "How much does it cost?",
-    a: "Each video is paid for in NanoPocket credits. The studio works out the price from the mode, the output size, the length of the clip and how many people are swapped, and shows it before you start. For example, a 10-second 1080p clip in Fast mode is about 20 credits; Best quality and Whole head cost more, and 4K costs twice what 1080p does. If a video fails, or you cancel it while it is still waiting, the credits are returned; once it has started being made it can no longer be cancelled, and a Whole head video cannot be cancelled once you press Create. New accounts start with free credits.",
+    a: "Each video is paid for in NanoPocket credits. The studio works out the price from the mode, the output size, the length of the clip and how many people are swapped, and shows it before you start. For example, a 10-second 1080p clip in Fast mode is about 20 credits; Best quality and Headswap cost more, and 4K costs twice what 1080p does. If a video fails, or you cancel it while it is still waiting, the credits are returned; once it has started being made it can no longer be cancelled, and a Headswap video cannot be cancelled once you press Create. New accounts start with free credits.",
   },
   {
     q: "How long can my clip be?",
-    a: "Up to 60 seconds in Fast and Best quality, and up to 12 seconds in Whole head. Our GPU capacity is limited, so an account that has never topped up credits makes videos of up to 5 seconds in Fast and Best quality, and a 2-second Whole head clip for 80 credits, and its videos wait behind those of accounts that have. Topping up credits once gives the full lengths, a place at the front of the line, and keeps your finished videos for 7 days instead of 24 hours. Limits count a clip by its frames, at 30 frames per second at most: a 60 fps clip counts as twice as long as it plays. A longer video is not refused: the studio uses the first part of it, or the part you choose, exactly as you uploaded it (nothing is re-encoded), and tells you which part before you pay.",
+    a: "Up to 60 seconds in Fast and Best quality, and up to 12 seconds in Headswap Best and Headswap Fast. Our GPU capacity is limited, so an account that has never topped up credits makes videos of up to 5 seconds in Fast and Best quality, and a 2-second Headswap clip for 80 credits, and its videos wait behind those of accounts that have. Topping up credits once gives the full lengths, a place at the front of the line, and keeps your finished videos for 7 days instead of 24 hours. Limits count a clip by its frames, at 30 frames per second at most: a 60 fps clip counts as twice as long as it plays. A longer video is not refused: the studio uses the first part of it, or the part you choose, exactly as you uploaded it (nothing is re-encoded), and tells you which part before you pay.",
   },
   {
     q: "Why is there a watermark on my video, and how do I remove it?",

@@ -151,7 +151,7 @@ export default function TestResultsPage() {
           <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground">Five hard cases</h2>
           <p className="mb-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
             Separate from the averages, we rendered five clips we chose because other face swaps tend to fail on them, in Fast mode. You
-            can watch each one before and after on the <Link href="/facestudio-v#hard" className={link}>product page</Link>.
+            can watch two of them before and after on the <Link href="/facestudio-v#hard" className={link}>product page</Link>.
           </p>
           <ul className="mb-10 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
             {HARD_CASES.map((c) => (

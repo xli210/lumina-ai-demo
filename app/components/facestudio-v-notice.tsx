@@ -14,7 +14,7 @@ import {
 } from "@/lib/facestudio-v";
 
 /**
- * A one-time reminder for signed-in users while the Video FaceSwap 2.0 Online
+ * A one-time reminder for signed-in users while the Video FaceSwap 2.5 Online
  * preview is open. It reads the session in the browser (like the navbar), so
  * every page's HTML stays identical for everyone and CDN caching is unaffected.
  * Shown once per browser: marked as seen the moment it appears.
@@ -86,7 +86,7 @@ export function FacestudioVNotice() {
           onClick={() => setVisible(false)}
           className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-sm font-medium text-black hover:bg-neutral-100"
         >
-          Try Video FaceSwap 2.0 Online
+          Try Video FaceSwap 2.5 Online
           <ArrowRight className="h-4 w-4" />
         </Link>
         <Link

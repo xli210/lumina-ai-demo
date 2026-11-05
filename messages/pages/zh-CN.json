@@ -1,4 +1,36 @@
 {
+  "video": {
+    "v25": {
+      "navNew": "2.5 新功能",
+      "announce": "Headswap Fast:换整个头,速度快约 40%,积分少约 35%。",
+      "ctaNew": "看看 2.5 有什么新功能",
+      "ctaTry": "试用 Video FaceSwap 2.5 Online",
+      "versionBadge": "版本 2.5.0",
+      "h2": "Headswap Fast。",
+      "h2sub": "换整个头,更快,积分更少。",
+      "lead": "发型和头型也一起换,比 Headswap Best 快约 40%,积分少约 35%。Headswap Best 是原来“换头(Whole head)”模式的新名字。",
+      "quality": "画质可能略低于 Headswap Best。",
+      "ctaFast": "试用 Headswap Fast",
+      "speedRow": "处理 100 帧的时间",
+      "speedNote": "在我们的 GPU 上、模型已加载的情况下测得。",
+      "limit": "换头在付费账号上最长 12 秒,在免费账号上最长 2 秒。",
+      "eyebrow20": "动态引擎,始于 2.0",
+      "tryIt": "试一试",
+      "watchCrew": "看一段群舞",
+      "modes": "从 2.0 起用于 Fast 和 Best quality 换脸模式。换头有自己的两个模式:Headswap Best 和 Headswap Fast。",
+      "engine20": "2.0 版围绕这些情况重建了引擎:每一帧都重新判断脸在哪、朝哪、前面挡着什么。",
+      "crewH": "一支舞团。",
+      "crewSub": "一张照片,只换一位舞者。",
+      "note20": "2.0.0 版升级了 Fast 和 Best quality 模式,换头不在这次更新之内。“Before 2.0”是同一段视频、同一张参考脸在旧引擎上的结果。视频和参考照片来自 Pexels(可免费使用);这里换上的脸都属于图库模特。只替换你有权使用的脸。以 Fast 模式渲染,无水印。速度:换脸这一步,在 NVIDIA RTX 4080 SUPER 上处理四段 720p–1080p 视频,输出逐帧相同;放大时间不变。闪烁:在我们的特写测试视频上,帧间变化比之前低 17–34%。",
+      "enhCaption": "同一帧,同一次换脸。左:只有换脸。右:经过扩散模型面部增强之后。",
+      "fastEnhancer": "换脸的 Fast 模式使用更轻的增强器:几秒,而不是几分钟。",
+      "engModes": "模式",
+      "engBestFor": "短视频,最长 12 秒(免费账号 2 秒)",
+      "watermark": "从未充值的账号做出的视频带有缓慢移动的 NanoPocket 标记。我们的 GPU 有限,所以这类账号的视频最长 5 秒(换头可试 2 秒,Headswap Fast 50 积分,Headswap Best 80 积分),并排在已充值账号之后。充值一次,新做的视频就没有水印,最长 60 秒(换头 12 秒),完成的视频保留 7 天而不是 24 小时。注册赠送的免费积分和试用不算充值。",
+      "metaDescription": "在线替换视频中某一个人的脸或整个头,其他人和声音保持原样。2.5 新功能:Headswap Fast,比 Headswap Best 快约 40%,积分少约 35%。注册送 100 免费积分,开始前先显示价格。",
+      "shareTitle": "Video FaceSwap 2.5 Online:替换任意视频中的脸或整个头"
+    }
+  },
   "faceStudio": {
     "title": "免费在线合影换脸:最多 {max} 张脸",
     "description": "免费开始:注册送 {grant} 积分,够做 {swaps} 次换脸。一张照片最多换 {max} 张脸,也可以换整个头,并保留挡在脸前的头发、手、眼镜和首饰。完整分辨率,无需订阅。",

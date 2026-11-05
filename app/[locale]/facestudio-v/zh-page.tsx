@@ -6,8 +6,10 @@ import { Footer } from "../../components/footer";
 import { Button } from "@/components/ui/button";
 import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
-import { FACESTUDIO_V_LAUNCH, FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
+import { FACESTUDIO_V_ENGINE_VERSION, FACESTUDIO_V_LAUNCH, FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
 import { VIDEO_EXAMPLES_PATH, isoDuration, videoExample, videoExamplePath } from "@/lib/video-examples";
+import zhCopy from "@/messages/pages/zh-CN.json";
+import { New25Section } from "./new25-section";
 
 // Video FaceSwap Online in Chinese. The English page is static HTML (public/facestudio-v/index.html);
 // every price, limit and rule here is the one stated there and in FACESTUDIO_V_FAQ (lib/facestudio-v.ts).
@@ -18,7 +20,7 @@ const PATH = "/zh-CN/facestudio-v";
 const PAGE_URL = `${BASE}${PATH}`;
 const LAST_VERIFIED = "2026-10-30";
 
-const TITLE = "AI 视频换脸在线免费试用:换脸、换头,保留原声 — Video FaceSwap 2.0 Online";
+const TITLE = "AI 视频换脸在线免费试用:换脸、换头,保留原声 — Video FaceSwap 2.5 Online";
 const DESCRIPTION = `在线视频换脸:上传视频和一张人脸照片,只替换你选的那个人的脸或整个头,其他人和原声保持不变。注册送 ${SIGNUP_GRANT_CREDITS} 免费积分,可以先试一段短视频;之后按视频用积分付费,开始前先显示价格,失败自动退回。`;
 
 export const metadata: Metadata = {
@@ -82,7 +84,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "视频最长可以多长?",
-    a: "快速和最佳质量模式最长 60 秒,换头最长 12 秒。我们的 GPU 有限,从未充值过的账号每段视频最长 5 秒(换头是 2 秒、80 积分),并且排在充值用户后面;充值一次就能用完整时长并优先处理。更长的视频不会被拒绝,工作室会截取开头或你选的那一段,并在付费前告诉你。",
+    a: "快速和最佳质量模式最长 60 秒,换头最长 12 秒。我们的 GPU 有限,从未充值过的账号每段视频最长 5 秒(换头是 2 秒,Headswap Best 80 积分、Headswap Fast 50 积分),并且排在充值用户后面;充值一次就能用完整时长并优先处理。更长的视频不会被拒绝,工作室会截取开头或你选的那一段,并在付费前告诉你。",
   },
   {
     q: "为什么视频上有水印?",
@@ -167,7 +169,7 @@ export default function ZhVideoFaceSwapPage() {
           </h1>
           <p className="mb-6 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             上传一段视频和一张人脸照片,点选要换的人。它会在每一帧里替换这个人的脸或整个头,其他人、背景和原声都保持拍摄时的样子。
-            {FACESTUDIO_V_VERSION} 是一次引擎级突破:为跳舞这类高动态视频而生,大仰角、遮挡、高速旋转都能稳住,换脸速度快一倍。注册送 {SIGNUP_GRANT_CREDITS} 免费积分,可以先试一段短视频。
+            {FACESTUDIO_V_ENGINE_VERSION} 是一次引擎级突破:为跳舞这类高动态视频而生,大仰角、遮挡、高速旋转都能稳住,换脸速度快一倍。注册送 {SIGNUP_GRANT_CREDITS} 免费积分,可以先试一段短视频。
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <Button asChild size="lg" className="rounded-full bg-foreground text-background">
@@ -185,11 +187,13 @@ export default function ZhVideoFaceSwapPage() {
         </div>
       </section>
 
+      <New25Section c={zhCopy.video.v25} original="原片" pricingHref="/zh-CN/pricing" pricingLabel="价格" />
+
       <section className="px-6 pb-14">
         <div className="mx-auto max-w-5xl">
-          <h2 className="mb-2 text-2xl font-bold tracking-tight text-foreground">{FACESTUDIO_V_VERSION} 重大突破:为动态而生的换脸引擎</h2>
+          <h2 className="mb-2 text-2xl font-bold tracking-tight text-foreground">{FACESTUDIO_V_ENGINE_VERSION} 重大突破:为动态而生的换脸引擎</h2>
           <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-            跳舞是换脸最难的素材:头往后仰、头发和袖子扫过脸、镜头旋转、舞台光变色。{FACESTUDIO_V_VERSION} 换上新引擎,每一帧都重新判断脸在哪、朝哪、前面挡着什么。下面每组标着「原片」的是原视频,标着「{FACESTUDIO_V_VERSION}」的是换脸结果,每段只用一张参考照片,不需要手动遮罩或关键帧。本次更新针对 Fast(快速)和 Best quality(高质量)两个模式;换头(Whole head)模式保持不变。
+            跳舞是换脸最难的素材:头往后仰、头发和袖子扫过脸、镜头旋转、舞台光变色。{FACESTUDIO_V_ENGINE_VERSION} 换上新引擎,每一帧都重新判断脸在哪、朝哪、前面挡着什么。下面每组标着「原片」的是原视频,标着「{FACESTUDIO_V_ENGINE_VERSION}」的是换脸结果,每段只用一张参考照片,不需要手动遮罩或关键帧。本次更新针对 Fast(快速)和 Best quality(高质量)两个模式;换头(Whole head)模式保持不变。
           </p>
           <ul className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {NEW_IN_2.map(({ tag, title, body }) => (
@@ -204,7 +208,7 @@ export default function ZhVideoFaceSwapPage() {
             {PAIRS_2.map(({ slug, title, before }) => (
               <li key={slug} className="overflow-hidden rounded-2xl border border-border/60 bg-background/60">
                 <div className="grid grid-cols-1 gap-1 bg-black sm:grid-cols-2">
-                  {[["before", before], ["after", FACESTUDIO_V_VERSION]].map(([side, label]) => (
+                  {[["before", before], ["after", FACESTUDIO_V_ENGINE_VERSION]].map(([side, label]) => (
                     <figure key={side} className="relative m-0">
                       <video
                         src={`/facestudio-v/media/v2/${slug}_${side}.mp4`}
@@ -235,12 +239,12 @@ export default function ZhVideoFaceSwapPage() {
       <section className="px-6 pb-14">
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-2 text-2xl font-bold tracking-tight text-foreground">细节放大:之前的引擎哪里出错</h2>
-          <p className="mb-6 text-sm leading-relaxed text-muted-foreground">每组标着「2.0 之前」的是之前的引擎,标着「{FACESTUDIO_V_VERSION}」的是新版,同一段素材、同一张参考照片、同一帧。</p>
+          <p className="mb-6 text-sm leading-relaxed text-muted-foreground">每组标着「2.0 之前」的是之前的引擎,标着「{FACESTUDIO_V_ENGINE_VERSION}」的是新版,同一段素材、同一张参考照片、同一帧。</p>
           <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {PRECISION_2.map(({ slug, title, look }) => (
               <li key={slug}>
                 <div className="grid grid-cols-1 gap-1 overflow-hidden rounded-2xl bg-black sm:grid-cols-2">
-                  {[["before", "2.0 之前"], ["after", FACESTUDIO_V_VERSION]].map(([side, label]) => (
+                  {[["before", "2.0 之前"], ["after", FACESTUDIO_V_ENGINE_VERSION]].map(([side, label]) => (
                     <figure key={side} className="relative m-0">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={`/facestudio-v/media/v2/prec_${slug}_${side}.jpg?v=2`} alt={`${label}:${title}`} loading="lazy" className="aspect-square w-full object-cover" />
@@ -376,7 +380,7 @@ export default function ZhVideoFaceSwapPage() {
             <li><Link className="text-primary underline-offset-4 hover:underline" href="/zh-CN/guides/how-to-swap-faces-in-a-group-photo">合照怎么换脸?多人照片换脸教程</Link></li>
           </ul>
           <p className="mt-6 text-xs text-muted-foreground">
-            English: <Link href={FACESTUDIO_V_PAGE} hrefLang="en" className="underline-offset-4 hover:underline">Video FaceSwap 2.0 Online</Link>
+            English: <Link href={FACESTUDIO_V_PAGE} hrefLang="en" className="underline-offset-4 hover:underline">Video FaceSwap 2.5 Online</Link>
           </p>
         </div>
       </section>

@@ -43,7 +43,7 @@ export function classify(h: Pick<HoldRow, "status" | "estimate">): Outcome {
 
 export const SERVICE_LABELS: Record<string, string> = {
   facestudio: "Nano FaceStudio Online",
-  "facestudio-v": "Video FaceSwap 2.0 Online",
+  "facestudio-v": "Video FaceSwap 2.5 Online",
   imageedit: "Image Edit Online",
   "headswap-pro": "Nano HeadSwap Pro",
 };
@@ -75,7 +75,8 @@ export function modeOf(h: Pick<HoldRow, "service" | "estimate">): string {
 const VIDEO_MODE_LABELS: Record<string, string> = {
   fast: "Fast",
   quality: "Best quality",
-  head: "Whole head",
+  head: "Headswap Best",
+  head_fast: "Headswap Fast",
   enhance_fast: "Fast enhance",
   enhance_best: "Best-quality enhance",
 };

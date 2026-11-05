@@ -359,7 +359,8 @@
       "video": "動画",
       "modeFast": "高速",
       "modeQuality": "最高画質",
-      "modeHead": "頭部全体",
+      "modeHead": "Headswap Best",
+      "modeHeadFast": "Headswap Fast",
       "modeEnhanceFast": "高速補正",
       "modeEnhanceBest": "最高画質の補正",
       "ready": "完成しました。{time}後に削除されます。",
@@ -421,7 +422,7 @@
       "items": [
         {
           "title": "動きに強い動画の顔入れ替え",
-          "body": "Video FaceSwap 2.0 Online は、頭の向きが変わっても、手や髪が顔を横切っても、動きが速くても顔を追い続けます。入れ替わるのは選んだ人だけで、元の音声はそのまま残ります。"
+          "body": "Video FaceSwap 2.5 Online は、頭の向きが変わっても、手や髪が顔を横切っても、動きが速くても顔を追い続けます。入れ替わるのは選んだ人だけで、元の音声はそのまま残ります。"
         },
         {
           "title": "1枚の写真で複数の顔を",

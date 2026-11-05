@@ -34,6 +34,7 @@ const MODE_KEYS = {
   fast: "modeFast",
   quality: "modeQuality",
   head: "modeHead",
+  head_fast: "modeHeadFast",
   enhance_fast: "modeEnhanceFast",
   enhance_best: "modeEnhanceBest",
 } as const;

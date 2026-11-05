@@ -359,7 +359,8 @@
       "video": "동영상",
       "modeFast": "빠른 모드",
       "modeQuality": "최고 품질",
-      "modeHead": "머리 전체",
+      "modeHead": "Headswap Best",
+      "modeHeadFast": "Headswap Fast",
       "modeEnhanceFast": "빠른 향상",
       "modeEnhanceBest": "최고 품질 향상",
       "ready": "완료. {time} 후 삭제됩니다.",
@@ -421,7 +422,7 @@
       "items": [
         {
           "title": "움직임에 강한 동영상 얼굴 바꾸기",
-          "body": "Video FaceSwap 2.0 Online은 고개를 돌리거나, 손과 머리카락이 얼굴을 가로지르거나, 빠르게 움직여도 얼굴을 놓치지 않습니다. 고른 사람만 바꾸고 원본 소리는 그대로 유지합니다."
+          "body": "Video FaceSwap 2.5 Online은 고개를 돌리거나, 손과 머리카락이 얼굴을 가로지르거나, 빠르게 움직여도 얼굴을 놓치지 않습니다. 고른 사람만 바꾸고 원본 소리는 그대로 유지합니다."
         },
         {
           "title": "사진 한 장에 여러 얼굴",

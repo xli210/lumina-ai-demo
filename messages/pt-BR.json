@@ -359,7 +359,8 @@
       "video": "Vídeo",
       "modeFast": "Rápido",
       "modeQuality": "Melhor qualidade",
-      "modeHead": "Cabeça inteira",
+      "modeHead": "Headswap Best",
+      "modeHeadFast": "Headswap Fast",
       "modeEnhanceFast": "Aprimoramento rápido",
       "modeEnhanceBest": "Aprimoramento de melhor qualidade",
       "ready": "Pronto. Será apagado em {time}.",
@@ -421,7 +422,7 @@
       "items": [
         {
           "title": "Face swap em vídeo feito para o movimento",
-          "body": "O Video FaceSwap 2.0 Online acompanha o rosto em giros de cabeça, com mãos e cabelo passando pela frente e em movimentos rápidos. Ele muda só a pessoa que você escolher e mantém o som original."
+          "body": "O Video FaceSwap 2.5 Online acompanha o rosto em giros de cabeça, com mãos e cabelo passando pela frente e em movimentos rápidos. Ele muda só a pessoa que você escolher e mantém o som original."
         },
         {
           "title": "Vários rostos em uma foto",

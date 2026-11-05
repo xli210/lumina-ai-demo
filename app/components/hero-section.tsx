@@ -33,7 +33,7 @@ const demoSlides: HeroSlide[] = [
     src: "/videos/hero-facestudio-v.mp4",
     poster: "/videos/hero-facestudio-v-poster.jpg",
     type: "video",
-    alt: "Video FaceSwap 2.0 Online: a scan line sweeps across a video and the woman's face is replaced with the reference face, everything else as filmed",
+    alt: "Video FaceSwap 2.5 Online: a scan line sweeps across a video and the woman's face is replaced with the reference face, everything else as filmed",
     prompt: "Video face swap: one face replaced, the rest as filmed. AI-generated test render on stock footage",
     model: FACESTUDIO_V_NAME,
     tag: "Video Face Swap",
@@ -211,7 +211,7 @@ export function HeroSection() {
             style={{ opacity: feature ? 0.1 : 1 }}
           />
 
-          {/* Left-aligned copy for the Video FaceSwap 2.0 Online clip, the first slide: its left quarter is left empty for this. On phones it keeps only the badge, the first line and the button. */}
+          {/* Left-aligned copy for the Video FaceSwap 2.5 Online clip, the first slide: its left quarter is left empty for this. On phones it keeps only the badge, the first line and the button. */}
           <div
             className="pointer-events-none absolute inset-0 flex items-center px-6 transition-opacity duration-1000 sm:px-10 lg:px-16"
             style={{ opacity: feature === "facestudio-v" ? 1 : 0 }}
@@ -232,7 +232,7 @@ export function HeroSection() {
                   <Link href={FACESTUDIO_V_LAUNCH} tabIndex={feature === "facestudio-v" ? 0 : -1}>
                     <Button size="sm" className="gap-1.5 rounded-full bg-white px-4 text-black hover:bg-neutral-100 sm:px-6">
                       <span className="sm:hidden">Try it now</span>
-                      <span className="hidden sm:inline">Try Video FaceSwap 2.0 Online</span>
+                      <span className="hidden sm:inline">Try Video FaceSwap 2.5 Online</span>
                       <ArrowRight className="h-4 w-4" />
                     </Button>
                   </Link>

@@ -135,7 +135,7 @@ const data: ComparisonData = {
     },
     {
       q: "Is NanoPocket local or in the cloud?",
-      a: "Both, depending on the tool. The online tools (Nano FaceStudio Online, Video FaceSwap 2.0 Online, Nano ImageEdit 2.0 Online) run on NanoPocket's GPUs, so your upload is processed on NanoPocket's servers. The desktop apps run on your own NVIDIA GPU on Windows, and the free ones do not upload your source media. If a file must not leave your computer, use a desktop app.",
+      a: "Both, depending on the tool. The online tools (Nano FaceStudio Online, Video FaceSwap 2.5 Online, Nano ImageEdit 2.0 Online) run on NanoPocket's GPUs, so your upload is processed on NanoPocket's servers. The desktop apps run on your own NVIDIA GPU on Windows, and the free ones do not upload your source media. If a file must not leave your computer, use a desktop app.",
     },
     {
       q: "How much does NanoPocket cost?",

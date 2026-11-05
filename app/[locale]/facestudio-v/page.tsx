@@ -9,9 +9,10 @@ import { Button } from "@/components/ui/button";
 import { hreflangAlternates, isAppLocale, translatedOrEnglish, TRANSLATED_PAGES, type AppLocale } from "@/lib/i18n/locales";
 import { fillCopy, pageCopy, type VideoPageCopy } from "@/lib/i18n/page-copy";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
-import { FACESTUDIO_V_LAUNCH, FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
+import { FACESTUDIO_V_ENGINE_VERSION, FACESTUDIO_V_LAUNCH, FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
 import { VIDEO_EXAMPLES_PATH, isoDuration, videoExample, videoExamplePath } from "@/lib/video-examples";
 import ZhVideoFaceSwapPage, { metadata as zhMetadata } from "./zh-page";
+import { New25Section } from "./new25-section";
 
 // Video FaceSwap Online in the other languages. The English page is static HTML (public/facestudio-v/index.html); Chinese
 // has its own page (./zh-page.tsx), which also carries the price and refund detail the others link to instead.
@@ -23,7 +24,7 @@ const PAIRS = ["dance", "pitch", "group_sleeves", "smoke", "sun"];
 const PRECISION = ["angle", "hand"];
 const CLIPS = ["profile-turn", "hand-glasses", "arm-across", "head-back-hands", "profile-back"];
 
-const VALUES = { grant: SIGNUP_GRANT_CREDITS, version: FACESTUDIO_V_VERSION, name: FACESTUDIO_V_NAME, date: LAST_VERIFIED };
+const VALUES = { grant: SIGNUP_GRANT_CREDITS, version: FACESTUDIO_V_ENGINE_VERSION, name: FACESTUDIO_V_NAME, date: LAST_VERIFIED };
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -127,6 +128,8 @@ export default async function LocalizedVideoFaceSwapPage({ params }: PageProps) 
         </div>
       </section>
 
+      <New25Section c={c.v25} original={c.before} pricingHref={translatedOrEnglish("/pricing", locale)} pricingLabel={c.topupPricing} />
+
       <section className="px-6 pb-14">
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-2 text-2xl font-bold tracking-tight text-foreground">{c.newHeading}</h2>
@@ -144,7 +147,7 @@ export default async function LocalizedVideoFaceSwapPage({ params }: PageProps) 
             {PAIRS.map((slug) => (
               <li key={slug} className="overflow-hidden rounded-2xl border border-border/60 bg-background/60">
                 <div className="grid grid-cols-1 gap-1 bg-black sm:grid-cols-2">
-                  {[["before", c.before], ["after", FACESTUDIO_V_VERSION]].map(([side, label]) => (
+                  {[["before", c.before], ["after", FACESTUDIO_V_ENGINE_VERSION]].map(([side, label]) => (
                     <figure key={side} className="relative m-0">
                       <video
                         src={`/facestudio-v/media/v2/${slug}_${side}.mp4`}
@@ -178,7 +181,7 @@ export default async function LocalizedVideoFaceSwapPage({ params }: PageProps) 
             {PRECISION.map((slug) => (
               <li key={slug}>
                 <div className="grid grid-cols-1 gap-1 overflow-hidden rounded-2xl bg-black sm:grid-cols-2">
-                  {[["before", c.beforeTwo], ["after", FACESTUDIO_V_VERSION]].map(([side, label]) => (
+                  {[["before", c.beforeTwo], ["after", FACESTUDIO_V_ENGINE_VERSION]].map(([side, label]) => (
                     <figure key={side} className="relative m-0">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={`/facestudio-v/media/v2/prec_${slug}_${side}.jpg?v=2`} alt={`${label}: ${c.precision[slug].title}`} loading="lazy" className="aspect-square w-full object-cover" />

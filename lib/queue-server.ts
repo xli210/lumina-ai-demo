@@ -102,7 +102,7 @@ async function facestudioBackend(): Promise<Backend> {
 }
 
 async function studioBackend(): Promise<Backend> {
-  const name = "Video FaceSwap 2.0 Online (studio)";
+  const name = "Video FaceSwap 2.5 Online (studio)";
   const h = (await studioHealth()) as { swap?: { queue?: Record<string, unknown>; available?: boolean } } | null;
   if (!h) return down(name, "studio did not answer");
   const q = h.swap?.queue ?? {};
@@ -115,8 +115,8 @@ async function studioBackend(): Promise<Backend> {
 
 /** The studio's two GPU vendors, one line each. */
 async function videoVendors(): Promise<Backend[]> {
-  const ownName = "Video FaceSwap 2.0 Online: RTX 5090";
-  const cloudName = "Video FaceSwap 2.0 Online: RunPod";
+  const ownName = "Video FaceSwap 2.5 Online: RTX 5090";
+  const cloudName = "Video FaceSwap 2.5 Online: RunPod";
   const v = await studioVendors();
   if (!v) return [down(ownName, "studio did not answer"), down(cloudName, "studio did not answer")];
   const o = v.own;
