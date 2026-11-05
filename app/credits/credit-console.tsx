@@ -32,6 +32,7 @@ import {
   formatPackPrice,
   totalCredits,
   type CreditPack,
+  type RepeatTopUpOffer,
 } from "@/lib/credit-packs";
 import {
   formatCredits,
@@ -284,6 +285,51 @@ function PackCard({
   );
 }
 
+/** Whole dollars when it is a whole number of them. */
+function formatUsd(cents: number): string {
+  return `$${(cents / 100).toFixed(cents % 100 === 0 ? 0 : 2)}`;
+}
+
+/** For someone buying Starter again: what they have paid lately against one bigger pack. */
+function RepeatOfferCard({
+  offer,
+  disabled,
+  onBuy,
+}: {
+  offer: RepeatTopUpOffer;
+  disabled: boolean;
+  onBuy: (pack: CreditPack) => void;
+}) {
+  const t = useTranslations("Ui.credits");
+  const pack = findCreditPack(offer.packId);
+  if (!pack) return null;
+  const price = formatPackPrice(pack);
+  return (
+    <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-primary/40 bg-primary/5 p-4">
+      <div className="min-w-0 flex-1 text-sm">
+        <p className="font-medium text-foreground">
+          {t("repeatOfferSpent", {
+            spent: formatUsd(offer.spentCents),
+            credits: offer.credits.toLocaleString("en-US"),
+          })}
+        </p>
+        <p className="mt-1 text-muted-foreground">
+          {t("repeatOfferCompare", {
+            price,
+            pack: pack.name,
+            total: totalCredits(pack).toLocaleString("en-US"),
+            more: offer.moreCredits.toLocaleString("en-US"),
+            extra: formatUsd(offer.moreCents),
+          })}
+        </p>
+      </div>
+      <Button type="button" disabled={disabled} onClick={() => onBuy(pack)} className="rounded-full">
+        {t("repeatOfferBuy", { price, pack: pack.name })}
+      </Button>
+    </div>
+  );
+}
+
 function Statement({ entries }: { entries: CreditLedgerEntry[] }) {
   const t = useTranslations("Ui.credits");
   const locale = useLocale();
@@ -333,12 +379,17 @@ export function CreditConsole({
   account: initialAccount,
   initialLedger,
   recommendedPackId,
+  repeatOffer,
+  source,
   autoRecharge,
   autoRechargeReady,
 }: {
   account: CreditAccountState;
   initialLedger: CreditLedgerEntry[];
   recommendedPackId?: string;
+  repeatOffer: RepeatTopUpOffer | null;
+  /** How the person reached this page, kept on the purchase. */
+  source: string;
   autoRecharge: AutoRechargeView | null;
   /** False until migration 018 exists in the database: then the feature is not offered at all. */
   autoRechargeReady: boolean;
@@ -349,6 +400,7 @@ export function CreditConsole({
   const [account, setAccount] = useState(initialAccount);
   const [ledger, setLedger] = useState(initialLedger);
   const [selectedPack, setSelectedPack] = useState<CreditPack | null>(null);
+  const [clicked, setClicked] = useState<"card" | "repeat_offer">("card");
   // The auto top-up box at checkout. Never ticked for the person.
   const [autoOn, setAutoOn] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
@@ -427,9 +479,16 @@ export function CreditConsole({
   const fetchClientSecret = useCallback(async () => {
     if (!selectedPack) throw new Error("No pack selected");
     try {
-      const secret = await startCreditCheckoutSession(selectedPack.id, autoRechargeReady && autoOn);
+      const secret = await startCreditCheckoutSession(selectedPack.id, autoRechargeReady && autoOn, {
+        source,
+        recommended: recommendedPackId,
+        offerPack: repeatOffer?.packId,
+        clicked,
+      });
       trackEvent("begin_checkout", {
         auto_recharge: autoOn,
+        source,
+        clicked,
         currency: "USD",
         value: selectedPack.priceInCents / 100,
         items: [
@@ -449,7 +508,7 @@ export function CreditConsole({
       setCheckoutError(message);
       throw err;
     }
-  }, [selectedPack, autoOn, autoRechargeReady]);
+  }, [selectedPack, autoOn, autoRechargeReady, source, recommendedPackId, repeatOffer, clicked]);
 
   function closeCheckout() {
     setSelectedPack(null);
@@ -484,17 +543,32 @@ export function CreditConsole({
             </p>
           </div>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {CREDIT_PACKS.map((pack) => (
-              <PackCard
-                key={pack.id}
-                pack={pack}
+          <>
+            {repeatOffer && (
+              <RepeatOfferCard
+                offer={repeatOffer}
                 disabled={confirming}
-                onSelect={setSelectedPack}
-                recommended={pack.id === recommendedPackId}
+                onBuy={(pack) => {
+                  setClicked("repeat_offer");
+                  setSelectedPack(pack);
+                }}
               />
-            ))}
-          </div>
+            )}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {CREDIT_PACKS.map((pack) => (
+                <PackCard
+                  key={pack.id}
+                  pack={pack}
+                  disabled={confirming}
+                  onSelect={(chosen) => {
+                    setClicked("card");
+                    setSelectedPack(chosen);
+                  }}
+                  recommended={pack.id === recommendedPackId}
+                />
+              ))}
+            </div>
+          </>
         )}
         <p className="mt-4 text-xs text-muted-foreground">
           1 credit = $0.01. Credits pay for hosted cloud processing only —
@@ -576,7 +650,7 @@ export function CreditConsole({
                 // Remounting per pack and per auto top-up choice is required: the
                 // provider caches the client secret it was created with, so a change
                 // without a new key would pay for the previous one.
-                key={`${selectedPack.id}:${autoOn}`}
+                key={`${selectedPack.id}:${autoOn}:${clicked}`}
                 stripe={stripePromise}
                 options={{ fetchClientSecret }}
               >

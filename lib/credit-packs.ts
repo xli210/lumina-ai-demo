@@ -129,9 +129,73 @@ export function suggestPack(shortfall: number): CreditPack {
   return CREDIT_PACKS.find((pack) => totalCredits(pack) >= shortfall) ?? CREDIT_PACKS[CREDIT_PACKS.length - 1];
 }
 
-/** The credits page with that pack marked as the one to buy. */
-export function topUpPath(pack: CreditPack): string {
-  return `/credits?pack=${pack.id}`;
+/** The credits page with that pack marked as the one to buy. `from` names the prompt, recorded on the purchase. */
+export function topUpPath(pack: CreditPack, from?: string): string {
+  return `/credits?pack=${pack.id}${from ? `&from=${from}` : ""}`;
+}
+
+/** A label from a link or a form, as stored in checkout metadata. Anything else is dropped. */
+export function cleanTopUpLabel(raw: unknown): string | null {
+  return typeof raw === "string" && /^[A-Za-z0-9_:/.-]{1,80}$/.test(raw) ? raw : null;
+}
+
+/** What the page knows about how a checkout came about, kept on the purchase. */
+export interface TopUpAttribution {
+  /** The prompt's `from`, else the page the person came from. */
+  source?: string;
+  /** The pack the prompt recommended. */
+  recommended?: string;
+  /** The pack the repeat top-up line put forward, if it was on the page. */
+  offerPack?: string;
+  /** "repeat_offer" when bought from that line, "card" when from a pack card. */
+  clicked?: string;
+}
+
+/** A credit pack bought recently and not reversed. */
+export interface RecentPurchase {
+  packId: string;
+  paidCents: number;
+  /** Everything it added, bonus included. */
+  credits: number;
+  at: number;
+}
+
+/** What the repeat top-up line says: the person's own recent total against one bigger pack. */
+export interface RepeatTopUpOffer {
+  spentCents: number;
+  credits: number;
+  packId: string;
+  moreCents: number;
+  moreCredits: number;
+}
+
+/** How far back purchases count towards the repeat top-up line. */
+export const REPEAT_OFFER_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
+
+/** The line stays away for this long after a purchase, so nobody is sold to the moment they have paid. */
+const REPEAT_OFFER_QUIET_MS = 15 * 60 * 1000;
+
+/**
+ * Only for someone who has already bought Starter in the last 7 days: a first purchase still leads
+ * with the cheapest pack (see `suggestPack`). The pack put forward is the smallest that costs more
+ * than they have paid in that time, and both the extra credits and the extra money are stated.
+ */
+export function repeatTopUpOffer(recent: readonly RecentPurchase[], now: number): RepeatTopUpOffer | null {
+  const inWindow = recent.filter((p) => now - p.at < REPEAT_OFFER_WINDOW_MS);
+  if (!inWindow.some((p) => p.packId === "starter")) return null;
+  if (inWindow.some((p) => now - p.at < REPEAT_OFFER_QUIET_MS)) return null;
+
+  const spentCents = inWindow.reduce((sum, p) => sum + p.paidCents, 0);
+  const credits = inWindow.reduce((sum, p) => sum + p.credits, 0);
+  const pack = CREDIT_PACKS.find((p) => p.priceInCents > spentCents);
+  if (!pack || totalCredits(pack) <= credits) return null;
+  return {
+    spentCents,
+    credits,
+    packId: pack.id,
+    moreCents: pack.priceInCents - spentCents,
+    moreCredits: totalCredits(pack) - credits,
+  };
 }
 
 /**

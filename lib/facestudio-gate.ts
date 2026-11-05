@@ -139,7 +139,7 @@ export async function requireSpendableBalance(): Promise<FaceStudioGate> {
           available: account.available,
           shortfall: DETECT_MIN_BALANCE - account.available,
           suggested_pack: suggestPack(0).id,
-          topup_url: topUpPath(suggestPack(0)),
+          topup_url: topUpPath(suggestPack(0), "fs_free_used"),
         },
         402
       ),

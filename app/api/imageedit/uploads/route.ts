@@ -52,7 +52,7 @@ export async function POST() {
         required: IMAGEEDIT_CREDITS_PER_EDIT,
         available,
         suggested_pack: suggestPack(0).id,
-        topup_url: topUpPath(suggestPack(0)),
+        topup_url: topUpPath(suggestPack(0), "ie_low"),
       },
       402
     );

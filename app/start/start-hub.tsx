@@ -54,7 +54,7 @@ export function StartHub() {
           <>
             {" "}
             {t("notEnough")}{" "}
-            <Link href="/credits" className="font-medium text-primary underline-offset-4 hover:underline">
+            <Link href="/credits?from=start" className="font-medium text-primary underline-offset-4 hover:underline">
               {t("buy")}
             </Link>
           </>

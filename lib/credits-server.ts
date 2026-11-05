@@ -1,6 +1,7 @@
 import "server-only";
 
 import { createAdminClient } from "@/lib/supabase/admin";
+import type { RecentPurchase } from "@/lib/credit-packs";
 import { longestWindowDays, topUpAllowed, type TopUpLimit } from "@/lib/free-topup";
 import { createClient as createSessionClient } from "@/lib/supabase/server";
 import {
@@ -300,6 +301,46 @@ export async function hasEverPurchased(userId: string): Promise<boolean> {
     .limit(1);
   if (error) throw new Error(`Failed to read purchases: ${error.message}`);
   return (data?.length ?? 0) > 0;
+}
+
+/**
+ * Credit packs bought since a moment, bonus included, leaving out any payment that was reversed.
+ * Grouped on the payment intent in the idempotency key (see the key builders in lib/credits.ts).
+ */
+export async function recentCreditPurchases(userId: string, since: Date): Promise<RecentPurchase[]> {
+  const supabase = createAdminClient();
+  const { data, error } = await supabase
+    .from("credit_ledger")
+    .select("amount, kind, reference, idempotency_key, created_at")
+    .eq("user_id", userId)
+    .in("kind", ["purchase", "bonus", "reversal"])
+    .like("idempotency_key", "stripe:%")
+    .gte("created_at", since.toISOString());
+  if (error) throw new Error(`Failed to read purchases: ${error.message}`);
+
+  const byIntent = new Map<string, { purchase?: RecentPurchase; bonus: number; reversed: boolean }>();
+  for (const row of data ?? []) {
+    const intent = String(row.idempotency_key).split(":")[1];
+    const entry = byIntent.get(intent) ?? { bonus: 0, reversed: false };
+    byIntent.set(intent, entry);
+    const reference = (row.reference ?? {}) as Record<string, unknown>;
+    const amount = Number(row.amount);
+    if (row.kind === "reversal") entry.reversed = true;
+    else if (row.kind === "bonus") entry.bonus += amount;
+    else
+      entry.purchase = {
+        packId: String(reference.pack_id ?? "unknown"),
+        paidCents: Number(reference.amount_total ?? amount),
+        credits: amount,
+        at: new Date(String(row.created_at)).getTime(),
+      };
+  }
+
+  const purchases: RecentPurchase[] = [];
+  for (const { purchase, bonus, reversed } of byIntent.values()) {
+    if (purchase && !reversed) purchases.push({ ...purchase, credits: purchase.credits + bonus });
+  }
+  return purchases;
 }
 
 /* ------------------------------------------------------------------ */

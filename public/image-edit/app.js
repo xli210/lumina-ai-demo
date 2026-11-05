@@ -134,7 +134,7 @@ async function api(path, opts = {}) {
   return r.json();
 }
 function showError(e) {
-  if (e && e.status === 402) toast(e.message, "err", { href: (e.body && e.body.topup_url) || "/credits?pack=starter", label: "Buy credits" });
+  if (e && e.status === 402) toast(e.message, "err", { href: (e.body && e.body.topup_url) || "/credits?pack=starter&from=ie_low", label: "Buy credits" });
   else toast(e.message, "err");
 }
 const cur = () => S.byId[S.current];
@@ -563,7 +563,7 @@ async function submit(body, parent, tool, baseTitle) {
     const resp = await api(`${API}/edit`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
     const jobs = resp.jobs;
     setCredits(resp.available);
-    if (resp.warning) toast(resp.warning, "err", { href: "/credits", label: "Buy credits" });
+    if (resp.warning) toast(resp.warning, "err", { href: "/credits?from=ie_warning", label: "Buy credits" });
     let first = null;
     jobs.forEach((j, k) => {
       const n = S.versions.length;

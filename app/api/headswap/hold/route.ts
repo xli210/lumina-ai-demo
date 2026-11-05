@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
           available: hold.available,
           shortfall,
           suggested_pack: pack.id,
-          topup_url: topUpPath(pack),
+          topup_url: topUpPath(pack, "hs_low"),
         },
         402
       );

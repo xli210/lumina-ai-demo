@@ -10,10 +10,12 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { disableAutoRecharge } from "@/lib/auto-recharge";
 import { TERMS_VERSION } from "@/lib/terms-version";
 import {
+  cleanTopUpLabel,
   findCreditPack,
   formatPackPrice,
   totalCredits,
   type CreditPack,
+  type TopUpAttribution,
 } from "@/lib/credit-packs";
 
 /**
@@ -100,10 +102,14 @@ function buildLineItem(
  * `autoRecharge` is the person's tick of the auto top-up box. It asks Stripe to keep the card for
  * later charges and records, in the metadata the webhook reads, that they agreed and to which
  * version of the terms. Nothing is switched on until the payment has been made.
+ *
+ * `attribution` says which prompt led here. It only labels the purchase for our own reading, so
+ * what the browser sends is cleaned and never decides anything.
  */
 export async function startCreditCheckoutSession(
   packId: string,
-  autoRecharge = false
+  autoRecharge = false,
+  attribution: TopUpAttribution = {}
 ): Promise<string> {
   const pack = findCreditPack(packId);
   if (!pack) {
@@ -120,6 +126,16 @@ export async function startCreditCheckoutSession(
   }
 
   const customerId = await resolveStripeCustomer(user.id, user.email);
+
+  const labels: Record<string, string> = {};
+  const addLabel = (key: string, raw: unknown) => {
+    const label = cleanTopUpLabel(raw);
+    if (label) labels[key] = label;
+  };
+  addLabel("source", attribution.source);
+  addLabel("recommended_pack", attribution.recommended);
+  addLabel("offer_pack", attribution.offerPack);
+  addLabel("clicked", attribution.clicked);
 
   const headersList = await headers();
   const origin =
@@ -150,6 +166,7 @@ export async function startCreditCheckoutSession(
       supabase_user_id: user.id,
       base_credits: String(pack.priceInCents),
       bonus_credits: String(pack.bonusCredits),
+      ...labels,
       ...(autoRecharge
         ? {
             auto_recharge: "1",

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
-import { ensureSignupGrant, listCreditLedger } from "@/lib/credits-server";
+import { ensureSignupGrant, listCreditLedger, recentCreditPurchases } from "@/lib/credits-server";
 import { getFreeClaimOutcome } from "@/lib/free-claim";
 import { getStripe } from "@/lib/stripe";
-import { findCreditPack, suggestPack } from "@/lib/credit-packs";
+import { REPEAT_OFFER_WINDOW_MS, cleanTopUpLabel, findCreditPack, repeatTopUpOffer, suggestPack } from "@/lib/credit-packs";
 import { getAutoRecharge } from "@/lib/auto-recharge";
 import Link from "next/link";
 import { Navbar } from "../components/navbar";
@@ -43,6 +44,27 @@ async function paidCheckout(sessionId: string | undefined, userId: string) {
   } catch {
     return null;
   }
+}
+
+/** How the person got here, for the purchase record: the prompt's `from`, else the page they came from. */
+function arrivedFrom(from: string | undefined, referer: string | null, host: string | null): string {
+  const named = cleanTopUpLabel(from);
+  if (named) return named;
+  if (!referer) return "direct";
+  try {
+    const url = new URL(referer);
+    return url.host === host ? (cleanTopUpLabel(`page:${url.pathname}`) ?? "page:other") : "external";
+  } catch {
+    return "direct";
+  }
+}
+
+/** The repeat top-up line. Never fatal, and not shown to anyone auto top-up already buys for. */
+async function repeatOfferFor(userId: string, autoRechargeOn: boolean) {
+  if (autoRechargeOn) return null;
+  const now = Date.now();
+  const recent = await recentCreditPurchases(userId, new Date(now - REPEAT_OFFER_WINDOW_MS)).catch(() => []);
+  return repeatTopUpOffer(recent, now);
 }
 
 export default async function CreditsPage({
@@ -86,6 +108,9 @@ export default async function CreditsPage({
   const needed = Number(params.need);
   const recommended = (Number.isFinite(needed) && needed > 0 ? suggestPack(Math.min(needed, 1_000_000)) : findCreditPack(params.pack))?.id;
   const fromStudio = params.from === "studio";
+  const requestHeaders = await headers();
+  const source = arrivedFrom(params.from, requestHeaders.get("referer"), requestHeaders.get("host"));
+  const repeatOffer = await repeatOfferFor(user.id, autoRecharge?.enabled === true);
   const t = await getTranslations("Ui.credits");
 
   return (
@@ -140,6 +165,8 @@ export default async function CreditsPage({
           account={account}
           initialLedger={ledger}
           recommendedPackId={recommended}
+          repeatOffer={repeatOffer}
+          source={source}
           autoRecharge={autoRecharge}
           autoRechargeReady={autoRechargeReady}
         />

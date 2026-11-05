@@ -117,6 +117,11 @@ async function handleCreditTopup(
     session_id: session.id,
     payment_intent_id: paymentIntentId,
     amount_total: collected,
+    // Which prompt led to this purchase, as set in startCreditCheckoutSession.
+    from: session.metadata?.source ?? null,
+    recommended_pack: session.metadata?.recommended_pack ?? null,
+    offer_pack: session.metadata?.offer_pack ?? null,
+    clicked: session.metadata?.clicked ?? null,
   };
 
   const purchase = await grantCredits({

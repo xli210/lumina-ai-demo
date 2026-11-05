@@ -74,7 +74,7 @@ export function NavbarUserMenu({
           <UserIcon className="mr-2 h-4 w-4" />
           {t("account")}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => router.push("/credits")}>
+        <DropdownMenuItem onClick={() => router.push("/credits?from=menu")}>
           <Coins className="mr-2 h-4 w-4" />
           {t("credits")}
         </DropdownMenuItem>

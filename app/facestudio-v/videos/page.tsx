@@ -96,7 +96,7 @@ export default async function MyVideosPage() {
               {" "}
               {t.rich("addCredits", {
                 credits: (chunks) => (
-                  <Link href="/credits" className="font-medium text-primary underline-offset-4 hover:underline">
+                  <Link href="/credits?from=video_keep" className="font-medium text-primary underline-offset-4 hover:underline">
                     {chunks}
                   </Link>
                 ),
