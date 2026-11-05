@@ -166,6 +166,11 @@ def main(env=os.environ):
         state = json.load(open(path))
     except Exception:                                      # noqa: BLE001
         state = {}
+    if env.get("SEND_TEST_MAIL") == "true":                # "Run workflow" with the box ticked: proves the mail (or Discord) reaches the operators
+        ok = send(env, "[TEST] GPU capacity alert", ["This is a test from the capacity alert. If you can read it, real alerts will reach you too."])
+        print("test mail:", "sent" if ok else "NOT sent: check RESEND_API_KEY, ALERT_TO and that the sending domain is verified in Resend")
+        if not ok:
+            return 1
     readings = read_all(env)
     for name, (level, reason, _) in readings.items():
         print("{:9} {:38} {}".format(level, name, reason))

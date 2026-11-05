@@ -4,7 +4,12 @@ on:
   schedule:
     # Every 5 minutes (GitHub may delay it a few minutes under load).
     - cron: "*/5 * * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      send_test_mail:
+        description: "Send a test mail to the operators"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -41,6 +46,7 @@ jobs:
           ALERT_FROM: ${{ secrets.ALERT_FROM }}
           ALERT_DISCORD_WEBHOOK: ${{ secrets.ALERT_DISCORD_WEBHOOK }}
           STATE_FILE: capacity_state.json
+          SEND_TEST_MAIL: ${{ inputs.send_test_mail }}
         run: python scripts/capacity_alert.py
 
       - name: Save the state
