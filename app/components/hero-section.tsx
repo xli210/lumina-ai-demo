@@ -30,9 +30,9 @@ interface HeroSlide {
 
 const demoSlides: HeroSlide[] = [
   {
-    src: "/videos/hero-headswap-2-5.mp4",
-    srcSmall: "/videos/hero-headswap-2-5-sm.mp4",
-    poster: "/videos/hero-headswap-2-5-poster.jpg",
+    src: "/videos/hero-headswap-2-5.mp4?v=2",
+    srcSmall: "/videos/hero-headswap-2-5-sm.mp4?v=2",
+    poster: "/videos/hero-headswap-2-5-poster.jpg?v=2",
     type: "video",
     alt: "Video FaceSwap 2.5 Online: a line sweeps across three stage performers and each one's whole head, hair included, is replaced with the one in the reference photo, everything else as filmed",
     prompt: "Video head swap: the whole head replaced, the rest as filmed. AI-generated test render on stock footage",
