@@ -6,6 +6,7 @@ import { ArrowLeft, Check, Lock, ImagePlus, Video, Sparkles, Wand2 } from "lucid
 import Checkout from "../components/checkout";
 import { PRODUCTS } from "@/lib/products";
 import { tr, type Strings } from "@/lib/i18n/strings";
+import { BusinessContact } from "../components/business-contact";
 
 const iconMap: Record<string, typeof Sparkles> = {
   "nano-imageedit": ImagePlus,
@@ -109,6 +110,7 @@ export function CheckoutContent({ strings }: { strings: Strings }) {
                 ))}
               </div>
             </div>
+            <BusinessContact strings={strings} compact className="mt-4 px-1" />
           </div>
 
           <div className="lg:col-span-3">

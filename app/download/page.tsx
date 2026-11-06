@@ -16,6 +16,7 @@ import { PRODUCTS } from "@/lib/products";
 import { getLocale } from "next-intl/server";
 import type { AppLocale } from "@/lib/i18n/locales";
 import { pageStrings } from "@/lib/i18n/strings";
+import { BusinessContact } from "../components/business-contact";
 
 /** Re-rendered every 10 minutes, so a launch price leaves the page soon after it ends. */
 export const revalidate = 600;
@@ -49,6 +50,9 @@ export default async function DownloadPage() {
       <NewVersionNotice strings={strings} />
       <AppCards strings={strings} locale={locale} />
       <SystemRequirements strings={strings} />
+      <div className="mx-auto max-w-5xl px-6 pb-8">
+        <BusinessContact strings={strings} />
+      </div>
       <ReleaseNotes />
       <Footer />
     </main>

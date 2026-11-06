@@ -842,6 +842,9 @@
     "english": "Lire la page complète en anglais"
   },
   "strings": {
+    "Buying for a team or a business?": "Vous achetez pour une équipe ou une entreprise ?",
+    "Larger credit volumes, licences for several people, custom work or an API: tell us what you need and we will reply by email.": "Volumes de crédits plus importants, licences pour plusieurs personnes, développement sur mesure ou API : dites-nous ce dont vous avez besoin, nous vous répondrons par e-mail.",
+    "Contact sales": "Contacter l'équipe commerciale",
     "This product is free!": "Ce produit est gratuit !",
     "{name} doesn't require payment. Head to the download page to claim your free license.": "{name} ne demande aucun paiement. Rendez-vous sur la page de téléchargement pour récupérer votre licence gratuite.",
     "Go to Download": "Aller au téléchargement",

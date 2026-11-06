@@ -715,6 +715,9 @@
     "english": "英語の詳しいページを読む"
   },
   "strings": {
+    "Buying for a team or a business?": "チームや法人でのご購入ですか？",
+    "Larger credit volumes, licences for several people, custom work or an API: tell us what you need and we will reply by email.": "まとまった量のクレジット、複数人分のライセンス、カスタム開発、API などのご相談は、ご要望をお送りください。メールでご返信します。",
+    "Contact sales": "営業に問い合わせる",
     "This product is free!": "この製品は無料です。",
     "{name} doesn't require payment. Head to the download page to claim your free license.": "{name} のお支払いは不要です。ダウンロードページで無料ライセンスを受け取ってください。",
     "Go to Download": "ダウンロードへ",

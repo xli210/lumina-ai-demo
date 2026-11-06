@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
+import { BusinessContact } from "@/app/components/business-contact";
 import { CREDIT_PACKS, bonusPercent, totalCredits } from "@/lib/credit-packs";
 import { PRODUCTS } from "@/lib/products";
 import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
@@ -281,6 +282,8 @@ export default function PricingPage() {
             checksum and signature are on <Link href="/verify" className={textLink}>/verify</Link>.
           </p>
         </section>
+
+        <BusinessContact className="mb-16" />
 
         <section id="faq">
           <h2 className={h2}>Questions</h2>

@@ -532,6 +532,9 @@
     "english": "阅读完整英文页面"
   },
   "strings": {
+    "Buying for a team or a business?": "为团队或企业购买？",
+    "Larger credit volumes, licences for several people, custom work or an API: tell us what you need and we will reply by email.": "需要更大量的积分、多人授权、定制开发或 API？告诉我们你的需求，我们会通过邮件回复。",
+    "Contact sales": "联系销售",
     "This product is free!": "此产品免费!",
     "{name} doesn't require payment. Head to the download page to claim your free license.": "{name} 无需付费。请前往下载页领取你的免费授权。",
     "Go to Download": "前往下载",

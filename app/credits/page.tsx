@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import type { AppLocale } from "@/lib/i18n/locales";
+import { pageStrings } from "@/lib/i18n/strings";
+import { BusinessContact } from "../components/business-contact";
 import { createClient } from "@/lib/supabase/server";
 import { ensureSignupGrant, listCreditLedger, recentCreditPurchases } from "@/lib/credits-server";
 import { getFreeClaimOutcome } from "@/lib/free-claim";
@@ -112,6 +115,7 @@ export default async function CreditsPage({
   const source = arrivedFrom(params.from, requestHeaders.get("referer"), requestHeaders.get("host"));
   const repeatOffer = await repeatOfferFor(user.id, autoRecharge?.enabled === true);
   const t = await getTranslations("Ui.credits");
+  const strings = await pageStrings((await getLocale()) as AppLocale);
 
   return (
     <main className="relative min-h-screen">
@@ -179,6 +183,7 @@ export default async function CreditsPage({
             {t("freeAppsLink")}
           </Link>
         </div>
+        <BusinessContact strings={strings} className="mt-4" />
       </div>
       <Footer />
     </main>
