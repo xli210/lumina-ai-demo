@@ -5,8 +5,8 @@ import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 
 const PAGE_URL = "https://nanopocket.ai/privacy";
-const EFFECTIVE_DATE = "2026-11-04";
-const POLICY_VERSION = "1.2";
+const EFFECTIVE_DATE = "2026-11-05";
+const POLICY_VERSION = "1.3";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -32,6 +32,9 @@ export const metadata: Metadata = {
       "What we collect, why, where it goes, how long we keep it, and your GDPR / CCPA rights.",
   },
 };
+
+/** First day a product-update email may be sent: 14 days after version 1.3, as section 11 promises. */
+const PRODUCT_EMAIL_START = "2026-11-19";
 
 /** How long online-tool uploads and results are kept: used in the table and in section 4. */
 const ONLINE_RETENTION =
@@ -99,6 +102,16 @@ const DATA_CATEGORIES: DataCategory[] = [
     purpose: "Run the invite and post rewards described in the Terms (section 6) and stop self-invites and repeat claims.",
     basis: "Contract performance, legitimate interest in preventing abuse (GDPR Art. 6(1)(b),(f)).",
     retention: "While the accounts involved exist; deleted with either account.",
+  },
+  {
+    category: "Product update emails",
+    items:
+      "The email address on your account and whether you have unsubscribed. The email service also records whether each email was delivered, and may record whether it was opened or a link in it was clicked.",
+    purpose: `Occasional emails, no more than a few a month, about new NanoPocket products and features, sent from ${PRODUCT_EMAIL_START}. Every one has an unsubscribe link, and unsubscribing does not affect your account or the emails needed to run it (sign-in codes, receipts, licence and policy notices).`,
+    basis:
+      "Legitimate interest in telling users about similar products of ours (GDPR Art. 6(1)(f)), and the rules on emailing existing customers. You can object at any time by unsubscribing; we then stop.",
+    retention:
+      "While the account exists. If you unsubscribe, we keep the address on a do-not-email list so it is not added again.",
   },
   {
     category: "Feedback & survey responses",
@@ -174,6 +187,12 @@ const SUBPROCESSORS: Subprocessor[] = [
     purpose: "Hosts the gateways that pass online-tool jobs between nanopocket.ai and the GPU servers.",
     region: "US.",
     policy: "https://render.com/privacy",
+  },
+  {
+    name: "Resend, Inc.",
+    purpose: "Sends email: sign-in codes and links, and product update emails, with their unsubscribe handling.",
+    region: "US.",
+    policy: "https://resend.com/legal/privacy-policy",
   },
   {
     name: "Google LLC (Google Analytics 4)",
@@ -527,6 +546,10 @@ export default function PrivacyPage() {
             <li>Right to data portability (Art. 20) — export in JSON format.</li>
             <li>Right to object to processing on legitimate-interest grounds (Art. 21).</li>
             <li>
+              Right to stop marketing email (Art. 21(2)) — use the unsubscribe link in any product
+              update email, or write to us; we stop without asking why.
+            </li>
+            <li>
               Right to lodge a complaint with a supervisory authority (e.g. CNIL, ICO, BfDI). We
               encourage users to contact us first; we will not retaliate against complainants.
             </li>
@@ -623,6 +646,9 @@ export default function PrivacyPage() {
             reflected in the version number above.
           </p>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            Version 1.3 (2026-11-05) adds product update emails, which start no earlier than{" "}
+            {PRODUCT_EMAIL_START} and can be unsubscribed from at any time, and lists Resend, which
+            already sent sign-in emails, as a subprocessor.
             Version 1.2 (2026-11-04) adds the link you submit for a post reward.
             Version 1.1 (2026-10-30) corrects how online-tool files are stored and for how long,
             describes the face data the tools derive and the US state biometric notice, adds
