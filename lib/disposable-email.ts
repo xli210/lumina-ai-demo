@@ -27,6 +27,15 @@ const DISPOSABLE_DOMAINS: ReadonlySet<string> = new Set([
   "bookgame.org",
   "37xiao.com",
   "moblha.com",
+  // Found 2026-11-05 while building the email list: random local parts only.
+  "gmeenramy.com",
+  "olipii.com",
+  "findize.com",
+  "deertees.com",
+  "48hr.email",
+  "cloud-temp.com",
+  "emailinbo.live",
+  "onmailflare.com",
   // Long-lived public services.
   "10minutemail.com",
   "10minutemail.net",
