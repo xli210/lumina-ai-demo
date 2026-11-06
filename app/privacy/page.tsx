@@ -33,8 +33,8 @@ export const metadata: Metadata = {
   },
 };
 
-/** First day a product-update email may be sent: 14 days after version 1.3, as section 11 promises. */
-const PRODUCT_EMAIL_START = "2026-11-19";
+/** First day a product-update email may be sent. Moved up from 2026-11-19 (14 days after version 1.3) on the owner's decision of 2026-11-06. */
+const PRODUCT_EMAIL_START = "2026-11-06";
 
 /** How long online-tool uploads and results are kept: used in the table and in section 4. */
 const ONLINE_RETENTION =
