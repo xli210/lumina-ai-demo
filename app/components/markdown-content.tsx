@@ -126,12 +126,30 @@ export function renderMarkdown(content: string) {
         </h2>
       );
     } else if (line.startsWith("- **")) {
-      const match = line.match(/^- \*\*(.*?)\*\*:?\s*(.*)/);
+      // A bold lead-in, then the rest. The colon is the source's own: "**Term**: text" and
+      // "**Term:** text" both read "Term: text", and "**Term** is ..." stays a sentence. It used to
+      // add ": " after every lead-in, which turned that last kind into "Term: is ..." and doubled a
+      // colon written inside the bold. The lead-in may itself be a link.
+      const match = line.match(/^- \*\*(.*?)\*\*(.*)/);
       if (match) {
+        const term = match[1];
+        let rest = match[2];
+        let sep = "";
+        if (/^\s*[:：]/.test(rest)) {
+          rest = rest.replace(/^\s*[:：]\s*/, "");
+          sep = rest ? ": " : ":";
+        } else if (/^\S/.test(rest)) {
+          sep = "";
+        } else {
+          rest = rest.trimStart();
+          // No space after Chinese punctuation (。：，) closing the lead-in.
+          sep = rest && !/[　-〿＀-￯]$/.test(term) ? " " : "";
+        }
         elements.push(
           <li key={i} className="ml-4 mb-2 text-sm text-muted-foreground list-disc">
-            <strong className="text-foreground">{match[1]}</strong>
-            {match[2] ? <>: {renderInline(match[2], `li${i}`)}</> : null}
+            <strong className="text-foreground">{renderInline(term, `lt${i}`)}</strong>
+            {sep}
+            {rest ? renderInline(rest, `li${i}`) : null}
           </li>
         );
       }
