@@ -66,6 +66,44 @@ export async function getAutoRecharge(userId: string): Promise<AutoRecharge | nu
   };
 }
 
+/**
+ * When `auto_recharge_claim` will next allow a charge, or null if it would allow one now. Counts the
+ * attempts the way migration 022 does: in the last 24 hours everything except failures from before
+ * the current consent, in the last 30 days everything. Shown on /credits, so that "Auto top-up is on"
+ * does not leave someone waiting for a charge the limits will not make yet.
+ */
+export async function autoRechargeBlockedUntil(userId: string): Promise<string | null> {
+  const admin = createAdminClient();
+  const { data: row, error: rowError } = await admin
+    .from("auto_recharge")
+    .select("enabled, consented_at")
+    .eq("user_id", userId)
+    .maybeSingle();
+  if (rowError) throw new Error(`Failed to read auto top-up: ${rowError.message}`);
+  if (!row?.enabled) return null;
+
+  const now = Date.now();
+  const day = 24 * 60 * 60 * 1000;
+  const { data: attempts, error } = await admin
+    .from("auto_recharge_attempts")
+    .select("status, created_at")
+    .eq("user_id", userId)
+    .gt("created_at", new Date(now - 30 * day).toISOString())
+    .order("created_at", { ascending: false });
+  if (error) throw new Error(`Failed to read auto top-up attempts: ${error.message}`);
+
+  const consentedAt = Date.parse(row.consented_at);
+  const times = (attempts ?? []).map((a) => ({ at: Date.parse(a.created_at), failed: a.status === "failed" }));
+  // Newest first: the Nth newest counted attempt is the one whose expiry frees a slot.
+  const today = times.filter((a) => a.at > now - day && !(a.failed && a.at < consentedAt));
+  let until = 0;
+  if (today.length >= AUTO_RECHARGE_MAX_PER_DAY) until = Math.max(until, today[AUTO_RECHARGE_MAX_PER_DAY - 1].at + day);
+  if (times.length >= AUTO_RECHARGE_MAX_PER_MONTH) {
+    until = Math.max(until, times[AUTO_RECHARGE_MAX_PER_MONTH - 1].at + 30 * day);
+  }
+  return until > now ? new Date(until).toISOString() : null;
+}
+
 /** Turn it on, or move it to a new pack and card. Called once the purchase that agreed to it has been paid. */
 export async function enableAutoRecharge(params: {
   userId: string;

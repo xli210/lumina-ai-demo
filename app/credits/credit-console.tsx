@@ -83,6 +83,8 @@ export interface AutoRechargeView {
   packId: string;
   enabled: boolean;
   disabledReason: string | null;
+  /** When the daily or 30-day limit next allows an automatic charge, if it does not now. */
+  blockedUntil?: string | null;
 }
 
 /** Why an auto top-up that was switched off by us, rather than by the person, was switched off. */
@@ -127,6 +129,14 @@ function AutoRechargeCard({ setting }: { setting: AutoRechargeView | null }) {
             plus {AUTO_RECHARGE_EXTRA_BONUS_PERCENT}% extra). At most {AUTO_RECHARGE_MAX_PER_DAY} a day and{" "}
             {AUTO_RECHARGE_MAX_PER_MONTH} in 30 days. Stripe emails a receipt each time.
           </p>
+          {setting.blockedUntil && (
+            // The time is rendered in the server's zone, then the browser's: the text may differ once.
+            <p className="mt-1 text-xs font-medium text-amber-600" suppressHydrationWarning>
+              The limit has been reached, so the next automatic top-up can happen from{" "}
+              {formatWhen(setting.blockedUntil, "en-US")}.
+              Until then, buy a pack below if you need credits now.
+            </p>
+          )}
         </div>
         <Button type="button" variant="outline" disabled={busy} onClick={turnOff} className="rounded-full">
           {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : "Turn off"}
@@ -147,7 +157,9 @@ function AutoRechargeCard({ setting }: { setting: AutoRechargeView | null }) {
       </p>
       {paused && (
         <p className="mt-1 text-xs font-medium text-amber-600">
-          Auto top-up was switched off because {paused}. Tick the box when you next buy credits to turn it back on.
+          Auto top-up was switched off because {paused}, and no further automatic charge will be tried. Your
+          credits and jobs are not affected. To turn it back on, buy a pack below with the box ticked; you can use
+          a different card.
         </p>
       )}
       <p className="mt-1 text-xs text-muted-foreground">

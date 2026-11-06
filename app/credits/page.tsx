@@ -10,7 +10,7 @@ import { ensureSignupGrant, listCreditLedger, recentCreditPurchases } from "@/li
 import { getFreeClaimOutcome } from "@/lib/free-claim";
 import { getStripe } from "@/lib/stripe";
 import { REPEAT_OFFER_WINDOW_MS, cleanTopUpLabel, findCreditPack, repeatTopUpOffer, suggestPack } from "@/lib/credit-packs";
-import { getAutoRecharge } from "@/lib/auto-recharge";
+import { autoRechargeBlockedUntil, getAutoRecharge } from "@/lib/auto-recharge";
 import Link from "next/link";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
@@ -104,6 +104,10 @@ export default async function CreditsPage({
   } catch {
     autoRechargeReady = false;
   }
+  // When the limits next allow an automatic charge, if they do not now. Never fatal.
+  const autoRechargeBlocked = autoRecharge?.enabled
+    ? await autoRechargeBlockedUntil(user.id).catch(() => null)
+    : null;
   const params = await searchParams;
   const purchase = await paidCheckout(params.session_id, user.id);
   // Set by a tool's "not enough credits" link: the pack its message recommended.
@@ -171,7 +175,7 @@ export default async function CreditsPage({
           recommendedPackId={recommended}
           repeatOffer={repeatOffer}
           source={source}
-          autoRecharge={autoRecharge}
+          autoRecharge={autoRecharge ? { ...autoRecharge, blockedUntil: autoRechargeBlocked } : null}
           autoRechargeReady={autoRechargeReady}
         />
         <div className="mt-8 rounded-2xl border border-border bg-card/40 p-5">
