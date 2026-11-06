@@ -16,7 +16,7 @@ export function StyleTransferDemo() {
         <div className="flex flex-col items-center gap-1.5">
           <div className="relative overflow-hidden rounded-xl border border-white/10 shadow-lg" style={{ width: 240, height: 240 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={SOURCE} alt="Source photo" className="h-full w-full object-cover" draggable={false} />
+            <img loading="lazy" decoding="async" src={SOURCE} alt="Source photo" className="h-full w-full object-cover" draggable={false} />
             <div className="absolute bottom-1.5 left-1.5 rounded-full bg-black/50 backdrop-blur-sm px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white/80">
               Photo
             </div>
@@ -30,7 +30,7 @@ export function StyleTransferDemo() {
         <div className="flex flex-col items-center gap-1.5">
           <div className="relative overflow-hidden rounded-xl border border-white/10 shadow-lg" style={{ width: 240, height: 240 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={STYLE_REF} alt="Style reference" className="h-full w-full object-cover" draggable={false} />
+            <img loading="lazy" decoding="async" src={STYLE_REF} alt="Style reference" className="h-full w-full object-cover" draggable={false} />
             <div className="absolute bottom-1.5 left-1.5 rounded-full bg-black/50 backdrop-blur-sm px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white/80">
               Style
             </div>
@@ -57,7 +57,7 @@ export function StyleTransferDemo() {
           style={{ width: 400, height: 400 }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <img loading="lazy" decoding="async"
             src={SOURCE}
             alt="Original"
             className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
@@ -65,7 +65,7 @@ export function StyleTransferDemo() {
             draggable={false}
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <img loading="lazy" decoding="async"
             src={RESULT}
             alt="Stylized result"
             className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"

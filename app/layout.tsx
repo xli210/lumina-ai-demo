@@ -11,6 +11,7 @@ import { LocalAppsNotice } from "./components/local-apps-notice";
 import { LanguagePrompt } from "./components/language-prompt";
 import { AnalyticsEvents } from "./components/analytics-events";
 import { FeedbackButton } from "./components/feedback-button";
+import { NavigationProgress } from "./components/navigation-progress";
 import { DEFAULT_LOCALE, isAppLocale, type AppLocale } from "@/lib/i18n/locales";
 import { demoAvailabilityEn } from "@/lib/demo-availability";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
@@ -452,6 +453,7 @@ export default async function RootLayout({
             <LanguagePrompt />
             <AnalyticsEvents />
             <FeedbackButton />
+            <NavigationProgress />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

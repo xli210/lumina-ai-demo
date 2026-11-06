@@ -15,7 +15,7 @@ export function FaceSwapDemo() {
       <div className="flex shrink-0 flex-col items-center gap-3">
         <div className="relative overflow-hidden rounded-lg border border-white/10 shadow-lg" style={{ width: 140, height: 180 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={FACE} alt="Source face" className="h-full w-full object-cover" draggable={false} />
+          <img loading="lazy" decoding="async" src={FACE} alt="Source face" className="h-full w-full object-cover" draggable={false} />
           <div className="absolute bottom-1 left-1 rounded bg-black/50 backdrop-blur-sm px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white/80">
             Face
           </div>
@@ -27,7 +27,7 @@ export function FaceSwapDemo() {
 
         <div className="relative overflow-hidden rounded-lg border border-white/10 shadow-lg" style={{ width: 140, height: 200 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={BODY} alt="Target body" className="h-full w-full object-cover" draggable={false} />
+          <img loading="lazy" decoding="async" src={BODY} alt="Target body" className="h-full w-full object-cover" draggable={false} />
           <div className="absolute bottom-1 left-1 rounded bg-black/50 backdrop-blur-sm px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white/80">
             Target
           </div>
@@ -52,7 +52,7 @@ export function FaceSwapDemo() {
           style={{ width: 460, height: 580 }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <img loading="lazy" decoding="async"
             src={BODY}
             alt="Original body"
             className="absolute inset-0 h-full w-full object-cover"
@@ -60,7 +60,7 @@ export function FaceSwapDemo() {
           />
 
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <img loading="lazy" decoding="async"
             src={RESULT}
             alt="Face swap result"
             className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"

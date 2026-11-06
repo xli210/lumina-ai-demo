@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { BeforeAfterSlider } from "./before-after-slider";
 import { FaceSwapDemo } from "./demos/face-swap-demo";
@@ -167,10 +167,8 @@ function hintIcon(type: FeatureType) {
 export function FeatureShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [visibleSet, setVisibleSet] = useState<Set<number>>(new Set());
-  const [parallaxOffsets, setParallaxOffsets] = useState<number[]>(
-    () => new Array(features.length).fill(0),
-  );
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const glowRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -209,22 +207,32 @@ export function FeatureShowcase() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  const handleScroll = useCallback(() => {
-    const offsets = sectionRefs.current.map((el) => {
-      if (!el) return 0;
-      const rect = el.getBoundingClientRect();
-      const viewH = window.innerHeight;
-      const progress = (viewH - rect.top) / (viewH + rect.height);
-      return (progress - 0.5) * 60;
-    });
-    setParallaxOffsets(offsets);
-  }, []);
-
+  // The background glow drifts with the scroll. It is written straight to the DOM once per
+  // frame: keeping it in state re-rendered all eight demos on every scroll event.
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const viewH = window.innerHeight;
+      sectionRefs.current.forEach((el, i) => {
+        const glow = glowRefs.current[i];
+        if (!el || !glow) return;
+        const rect = el.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > viewH) return;
+        const progress = (viewH - rect.top) / (viewH + rect.height);
+        glow.style.transform = `translateY(${(progress - 0.5) * 60}px)`;
+      });
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    update();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
 
   return (
     <section id="showcase-features" className="relative">
@@ -272,12 +280,12 @@ export function FeatureShowcase() {
 
             <div className="pointer-events-none absolute inset-0">
               <div
+                ref={(el) => { glowRefs.current[i] = el; }}
                 className="absolute inset-0 opacity-20 transition-transform duration-100 ease-out will-change-transform"
                 style={{
                   background: `radial-gradient(ellipse at ${
                     i % 2 === 0 ? "30% 50%" : "70% 50%"
                   }, hsl(${210 + i * 18}, 60%, 25%) 0%, transparent 70%)`,
-                  transform: `translateY(${parallaxOffsets[i] ?? 0}px)`,
                 }}
               />
             </div>

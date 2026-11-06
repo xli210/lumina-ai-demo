@@ -50,7 +50,7 @@ export function UpscaleDemo() {
       onPointerMove={handleMove}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <img loading="lazy" decoding="async"
         src={LOW}
         alt="Low resolution original"
         className="absolute inset-0 h-full w-full object-cover"

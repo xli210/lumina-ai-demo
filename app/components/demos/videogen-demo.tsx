@@ -26,7 +26,7 @@ export function VideoGenDemo() {
         }`}
         style={{ width: 180, height: 240 }}
       >
-        <img
+        <img loading="lazy" decoding="async"
           src="/images/demos/videogen-ref.jpg"
           alt="Reference image"
           className="h-full w-full object-cover"

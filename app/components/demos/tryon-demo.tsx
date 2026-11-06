@@ -18,7 +18,7 @@ export function TryonDemo() {
           style={{ width: 300, height: 440 }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <img loading="lazy" decoding="async"
             src={MODEL}
             alt="Model"
             className="h-full w-full object-cover transition-opacity duration-500"
@@ -51,7 +51,7 @@ export function TryonDemo() {
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <img loading="lazy" decoding="async"
             src={CLOTHES}
             alt="Clothing item"
             className="h-full w-full object-contain drop-shadow-2xl"
@@ -76,7 +76,7 @@ export function TryonDemo() {
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={RESULT} alt="Try-on result" className="h-full w-full object-cover" draggable={false} />
+          <img loading="lazy" decoding="async" src={RESULT} alt="Try-on result" className="h-full w-full object-cover" draggable={false} />
           <div className="absolute bottom-2 left-2 rounded-full bg-black/50 backdrop-blur-sm px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white/80">
             Result
           </div>

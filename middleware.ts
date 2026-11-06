@@ -142,10 +142,11 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
+     * - images and videos - .svg, .png, .jpg, .jpeg, .gif, .webp, .avif, .mp4, .webm
+     *   (a video plays as many range requests, and each one used to check the session)
      * - api/webhooks (Stripe webhooks need to bypass auth)
      * - api/license (desktop app API calls)
      */
-    '/((?!_next/static|_next/image|favicon.ico|api/webhooks|api/license|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|api/webhooks|api/license|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|mp4|webm)$).*)',
   ],
 }

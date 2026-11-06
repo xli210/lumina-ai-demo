@@ -37,7 +37,7 @@ export function EditDemo() {
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <img loading="lazy" decoding="async"
                 src={v.src}
                 alt={v.prompt}
                 className="h-full w-full object-cover transition-transform duration-500"

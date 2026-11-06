@@ -82,6 +82,16 @@ const nextConfig = {
           "/:section(blog|compare|release-notes|docs|face-swap|zh-CN|ja|ko)/:rest*",
         headers: [PUBLIC_CACHE],
       },
+      {
+        // Pictures and videos in public/ were sent with max-age=0, so a returning visitor's
+        // browser asked about every one again. A day, not a year: some files are replaced
+        // under the same name (bump ?v= on the reference when it must show at once).
+        source:
+          "/:dir(images|videos|email|face-studio|facestudio-v|headswap-pro|image-edit)/:rest*(jpg|jpeg|png|webp|avif|gif|svg|mp4|webm)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+        ],
+      },
     ];
   },
 }

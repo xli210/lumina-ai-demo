@@ -42,7 +42,7 @@ export function FacialEditDemo() {
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <img loading="lazy" decoding="async"
                 src={img.src}
                 alt={img.label}
                 className="h-full w-full object-cover transition-transform duration-500"
