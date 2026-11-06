@@ -122,6 +122,14 @@ export function HeroSection() {
 
   useEffect(() => {
     const slide = demoSlides[activeSlide];
+    // Only the playing slide and the one after it load; the rest show their poster until
+    // then. Browsers were buffering every slide's video on arrival, several megabytes for
+    // visitors who never see them.
+    const next = videoRefs.current[(activeSlide + 1) % demoSlides.length];
+    if (next && next.preload !== "auto") {
+      next.preload = "auto";
+      if (next.readyState === 0) next.load();
+    }
     if (slide.type === "video") {
       const vid = videoRefs.current[activeSlide];
       if (vid) {
@@ -176,7 +184,7 @@ export function HeroSection() {
                   ref={(el) => { videoRefs.current[i] = el; }}
                   src={slide.srcSmall ? undefined : slide.src}
                   poster={slide.poster}
-                  preload={i === 0 ? "auto" : "metadata"}
+                  preload={i === 0 ? "auto" : "none"}
                   muted
                   playsInline
                   onEnded={handleVideoEnd}
