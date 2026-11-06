@@ -1,6 +1,7 @@
 import { IMAGE_EDIT_GUIDE_POSTS } from "@/lib/blog-posts-image-edit";
 import { VIDEO_FACE_SWAP_GUIDE_POSTS } from "@/lib/blog-posts-video-face-swap";
 import { FACE_SWAP_ANSWER_POSTS } from "@/lib/blog-posts-face-swap-answers";
+import { DIFFUSION_HEAD_SWAP_POSTS } from "@/lib/blog-posts-diffusion-head-swap";
 
 export interface BlogPost {
   slug: string;
@@ -18,6 +19,7 @@ export interface BlogPost {
 }
 
 export const BLOG_POSTS: BlogPost[] = [
+  ...DIFFUSION_HEAD_SWAP_POSTS,
   ...VIDEO_FACE_SWAP_GUIDE_POSTS,
   ...FACE_SWAP_ANSWER_POSTS,
   ...IMAGE_EDIT_GUIDE_POSTS,
