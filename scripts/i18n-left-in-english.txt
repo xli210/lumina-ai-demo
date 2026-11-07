@@ -72,6 +72,7 @@ Still being made
 Still starting up (
 Supabase limits password reset emails. Please wait a few minutes before trying again.
 That photo is {n} MB. The limit is
+The limit has been reached, so the next automatic top-up can happen from
 Top up from $5
 Top up once, from $5
 Try Again
