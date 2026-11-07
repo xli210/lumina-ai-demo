@@ -107,8 +107,14 @@ const NOT_AFFILIATED = [
   },
 ];
 
+// The same profiles as the Organization sameAs in app/layout.tsx: both declare #organization, so
+// they must agree, or a search engine sees two different lists for one entity.
 const SAME_AS = [
   { label: "NanoPocket on Discord", url: "https://discord.gg/bNfPjfUDAn" },
+  { label: "NanoPocket on X", url: "https://x.com/NanoPocket_ai" },
+  { label: "NanoPocket on GitHub", url: "https://github.com/Nanopocket-ai" },
+  { label: "NanoPocket on YouTube", url: "https://www.youtube.com/@NanoPocket_ai" },
+  { label: "NanoPocket on Hugging Face", url: "https://huggingface.co/Nanopocket-ai" },
   { label: "Trust & Transparency", url: "https://nanopocket.ai/trust" },
   { label: "Verify (auditable artefacts)", url: "https://nanopocket.ai/verify" },
   {
