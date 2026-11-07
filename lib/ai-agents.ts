@@ -32,9 +32,9 @@ export function matchAiAgent(userAgent: string | null): AiAgentMatch | null {
   return null;
 }
 
-/** Pages, and llms.txt: assets, API calls and Next internals are not what an answer cites. */
+/** Pages, llms.txt and facts.json: assets, API calls and Next internals are not what an answer cites. */
 export function isRecordablePath(pathname: string): boolean {
   if (pathname.startsWith("/api/") || pathname.startsWith("/_next/") || pathname.startsWith("/admin")) return false;
-  if (/^\/llms(?:-full)?\.txt$/.test(pathname)) return true;
+  if (/^\/llms(?:-full)?\.txt$/.test(pathname) || pathname === "/facts.json") return true;
   return !/\.(?:js|css|map|ico|json|woff2?|ttf|xml|txt|pdf|zip|exe)$/i.test(pathname);
 }
