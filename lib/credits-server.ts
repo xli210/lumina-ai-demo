@@ -595,6 +595,30 @@ export async function holdCredits(params: {
   ttlSeconds?: number;
   estimate?: Record<string, unknown>;
 }): Promise<CreditHoldResult> {
+  const first = await tryHold(params);
+  if (first.ok || first.reason !== "insufficient_credits") return first;
+
+  // Auto top-up is otherwise only noticed when a job settles (captureHold). A balance already too
+  // low to start a job never gets there, so someone who turned it on was still stopped and had to
+  // buy by hand (seen 2026-11-06). Try it here, under the same threshold and limits, and reserve
+  // again once if it added credits. A top-up that fails or is not due leaves the 402 as it was.
+  const { maybeAutoRecharge } = await import("@/lib/auto-recharge");
+  // What credit_hold measured, from its own two numbers, so a missing field can never read as 0.
+  if (first.required === undefined || first.shortfall === undefined) return first;
+  const available = first.required - first.shortfall;
+  if (first.required <= 0 || first.shortfall <= 0 || available < 0) return first;
+  if (!(await maybeAutoRecharge(params.userId, available))) return first;
+  return tryHold(params);
+}
+
+async function tryHold(params: {
+  userId: string;
+  amount: number;
+  service: string;
+  jobRef?: string;
+  ttlSeconds?: number;
+  estimate?: Record<string, unknown>;
+}): Promise<CreditHoldResult> {
   const supabase = createAdminClient();
   const { data, error } = await supabase.rpc("credit_hold", {
     p_user_id: params.userId,

@@ -253,18 +253,19 @@ function reasonFor(code: string | undefined): AutoRechargeReason {
 }
 
 /**
- * Call after a job settles with the balance now available. Buys the person's pack again if they
- * turned auto top-up on and the balance is below its threshold. Never throws.
+ * Call after a job settles, or when a job cannot be reserved, with the balance now available. Buys
+ * the person's pack again if they turned auto top-up on and the balance is below its threshold.
+ * Returns true only when the credits are already in the balance. Never throws.
  */
-export async function maybeAutoRecharge(userId: string, available: number): Promise<void> {
+export async function maybeAutoRecharge(userId: string, available: number): Promise<boolean> {
   // The common case: a balance nobody would top up at. No database read.
-  if (available >= AUTO_RECHARGE_MAX_THRESHOLD) return;
+  if (available >= AUTO_RECHARGE_MAX_THRESHOLD) return false;
 
   try {
     const setting = await getAutoRecharge(userId);
-    if (!setting?.enabled) return;
+    if (!setting?.enabled) return false;
     const pack = findCreditPack(setting.packId);
-    if (!pack || available >= autoRechargeThreshold(pack)) return;
+    if (!pack || available >= autoRechargeThreshold(pack)) return false;
 
     const admin = createAdminClient();
     const { data: claim, error: claimError } = await admin.rpc("auto_recharge_claim", {
@@ -277,7 +278,7 @@ export async function maybeAutoRecharge(userId: string, available: number): Prom
     const result = new Map(Object.entries((claim ?? {}) as Record<string, unknown>));
     if (result.get("claimed") !== true) {
       console.log(`[auto-recharge] ${userId} not charged: ${String(result.get("reason"))}`);
-      return;
+      return false;
     }
     const attemptId = String(result.get("attempt_id"));
     const paymentMethodId = String(result.get("payment_method_id"));
@@ -291,7 +292,7 @@ export async function maybeAutoRecharge(userId: string, available: number): Prom
     if (typeof customerId !== "string" || customerId.length === 0) {
       await settleAttempt(attemptId, "failed", { failureCode: "no_customer" });
       await disableAutoRecharge(userId, "no_payment_method");
-      return;
+      return false;
     }
     const email = (await admin.auth.admin.getUserById(userId)).data.user?.email;
 
@@ -328,12 +329,13 @@ export async function maybeAutoRecharge(userId: string, available: number): Prom
       // (Stripe unreachable) leaves the setting on; the frequency limit still applies.
       if (isCardProblem) await disableAutoRecharge(userId, reasonFor(e.code));
       console.error("[auto-recharge] charge failed:", userId, e.code ?? e.type, e.message);
-      return;
+      return false;
     }
 
     if (pi.status === "succeeded") {
       await creditAutoRecharge(pi);
       console.log(`[auto-recharge] ${userId} topped up ${pack.id} (${pi.id})`);
+      return true;
     } else if (pi.status === "processing") {
       // Still settling: leave the attempt pending and the setting on. The payment_intent.succeeded
       // webhook credits it, or payment_failed turns the setting off.
@@ -348,4 +350,5 @@ export async function maybeAutoRecharge(userId: string, available: number): Prom
     const message = err instanceof Error ? err.message : "Unknown error";
     console.error("[auto-recharge] failed:", userId, message);
   }
+  return false;
 }
