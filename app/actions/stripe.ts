@@ -5,6 +5,7 @@ import { PRODUCTS } from '../../lib/products'
 import { createClient } from '@/lib/supabase/server'
 import { cookies, headers } from 'next/headers'
 import { LOCALE_COOKIE, negotiateLocale, stripeLocale } from '@/lib/i18n/locales'
+import { firstTouchMetadata, recordFirstTouch } from '@/lib/first-touch-server'
 
 export async function startCheckoutSession(productId: string) {
   console.log('[Stripe] startCheckoutSession called for product:', productId)
@@ -39,6 +40,9 @@ export async function startCheckoutSession(productId: string) {
 
   console.log('[Stripe] Origin for return_url:', origin)
 
+  if (user) await recordFirstTouch(user.id)
+  const firstTouch = await firstTouchMetadata()
+
   try {
     const session = await stripe.checkout.sessions.create({
       ui_mode: 'embedded',
@@ -61,6 +65,7 @@ export async function startCheckoutSession(productId: string) {
       metadata: {
         product_id: product.id,
         ...(user ? { supabase_user_id: user.id } : {}),
+        ...firstTouch,
       },
     })
 

@@ -5,8 +5,8 @@ import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 
 const PAGE_URL = "https://nanopocket.ai/privacy";
-const EFFECTIVE_DATE = "2026-11-05";
-const POLICY_VERSION = "1.3";
+const EFFECTIVE_DATE = "2026-11-07";
+const POLICY_VERSION = "1.4";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -513,7 +513,12 @@ export default function PrivacyPage() {
             another party, and is not used for advertising or analytics. If you arrive through a
             friend&apos;s invite link, a third first-party cookie, <code>np_ref</code>, holds that
             friend&apos;s invite code for 30 days so the invite reward can be paid if you open an
-            account and buy credits. Google Analytics 4 sets analytics cookies to measure traffic
+            account and buy credits. A fourth first-party cookie, <code>np_ft</code>, records for
+            90 days where this browser first came from: the referring website&apos;s name, the first
+            page opened, any utm tags on the link and the time of that visit. If you open an account
+            or pay, that record is stored with the account and the payment, so we can tell which
+            websites and assistants bring people who use and buy our tools. It holds nothing that
+            identifies you and is not shared or used for advertising. Google Analytics 4 sets analytics cookies to measure traffic
             and which sources lead to sign-ups and purchases; GA4 does not log or store IP
             addresses. You can block or delete these cookies in your browser settings, or opt out
             of Google Analytics with Google&apos;s browser add-on
@@ -646,6 +651,8 @@ export default function PrivacyPage() {
             reflected in the version number above.
           </p>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            Version 1.4 (2026-11-07) adds the <code>np_ft</code> cookie, which records where a
+            browser first came from and is kept with the account and its payments.
             Version 1.3 (2026-11-05) adds product update emails, which start no earlier than{" "}
             {PRODUCT_EMAIL_START} and can be unsubscribed from at any time, and lists Resend, which
             already sent sign-in emails, as a subprocessor.

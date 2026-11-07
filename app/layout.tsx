@@ -10,6 +10,7 @@ import { QuickStart } from "./components/quick-start";
 import { LocalAppsNotice } from "./components/local-apps-notice";
 import { LanguagePrompt } from "./components/language-prompt";
 import { AnalyticsEvents } from "./components/analytics-events";
+import { FirstTouch } from "./components/first-touch";
 import { FeedbackButton } from "./components/feedback-button";
 import { NavigationProgress } from "./components/navigation-progress";
 import { DEFAULT_LOCALE, isAppLocale, type AppLocale } from "@/lib/i18n/locales";
@@ -452,6 +453,7 @@ export default async function RootLayout({
             <LocalAppsNotice />
             <LanguagePrompt />
             <AnalyticsEvents />
+            <FirstTouch />
             <FeedbackButton />
             <NavigationProgress />
           </ThemeProvider>

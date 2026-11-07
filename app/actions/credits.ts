@@ -8,6 +8,7 @@ import { getStripe } from "@/lib/stripe";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { disableAutoRecharge } from "@/lib/auto-recharge";
+import { firstTouchMetadata, recordFirstTouch } from "@/lib/first-touch-server";
 import { TERMS_VERSION } from "@/lib/terms-version";
 import {
   cleanTopUpLabel,
@@ -137,6 +138,9 @@ export async function startCreditCheckoutSession(
   addLabel("offer_pack", attribution.offerPack);
   addLabel("clicked", attribution.clicked);
 
+  await recordFirstTouch(user.id);
+  const firstTouch = await firstTouchMetadata();
+
   const headersList = await headers();
   const origin =
     headersList.get("origin") ||
@@ -167,6 +171,7 @@ export async function startCreditCheckoutSession(
       base_credits: String(pack.priceInCents),
       bonus_credits: String(pack.bonusCredits),
       ...labels,
+      ...firstTouch,
       ...(autoRecharge
         ? {
             auto_recharge: "1",

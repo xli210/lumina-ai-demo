@@ -417,6 +417,10 @@ export async function ensureSignupGrant(
 
   if (data) return getCreditAccount(userId);
 
+  // A new account (no welcome grant yet, granted or refused below): note where it first came from.
+  const { recordFirstTouch } = await import("@/lib/first-touch-server");
+  await recordFirstTouch(userId);
+
   try {
     const prior = await getFreeClaimOutcome(userId);
     if (prior && !isAllowedOutcome(prior)) return getCreditAccount(userId);
