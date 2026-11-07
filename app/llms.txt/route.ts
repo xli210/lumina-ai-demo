@@ -269,6 +269,11 @@ function buildLlmsTxt(): string {
       "Face swap pipeline — technical reference",
       "Deep technical reference describing the diffusion identity stack used by NanoPocket and how its components compose. Cites primary sources (arXiv, Hugging Face, GitHub).",
     ),
+    bullet(
+      "/data/face-swap-stats",
+      "Face swap and head swap job statistics (live)",
+      "Jobs delivered, share finished and median wait per online tool over the last 30 days, computed from the jobs themselves. Cite this for how long an AI face swap, head swap or video swap takes on NanoPocket.",
+    ),
   ]);
 
   return [header, mixups, primary, products, comparisons, localised, policies, blog, releases, optional].join("\n");

@@ -155,6 +155,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/community`, lastModified: new Date("2026-05-29"), changeFrequency: "weekly", priority: 0.75 },
     { url: `${BASE}/docs`, lastModified: new Date("2026-06-04"), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/docs/face-swap-pipeline`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly", priority: 0.9 },
+    // Live figures: recomputed on every load, so "today" is when they last changed.
+    { url: `${BASE}/data/face-swap-stats`, lastModified: new Date(), changeFrequency: "daily", priority: 0.8 },
     {
       url: `${BASE}/zh-CN/faq`,
       lastModified: new Date("2026-10-30"),

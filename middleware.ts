@@ -47,7 +47,7 @@ const CACHEABLE_EXACT = new Set([
   '/release-notes', '/apps', '/status', '/es', '/pt-BR', '/de', '/fr',
 ])
 const CACHEABLE_PREFIXES = [
-  '/blog/', '/compare/', '/apps/', '/release-notes/', '/docs/', '/face-swap/',
+  '/blog/', '/compare/', '/apps/', '/release-notes/', '/docs/', '/face-swap/', '/data/',
   '/zh-CN', '/ja', '/ko', '/es/', '/pt-BR/', '/de/', '/fr/',
 ]
 // Paths that issue the device cookie. It only matters when someone is about to
