@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { startCreditCheckoutSession, turnOffAutoRecharge } from "../actions/credits";
 import { trackEvent } from "@/lib/analytics";
+import { InvoiceToggle } from "../components/invoice-toggle";
 import {
   AUTO_RECHARGE_EXTRA_BONUS_PERCENT,
   AUTO_RECHARGE_MAX_PER_DAY,
@@ -427,6 +428,8 @@ export function CreditConsole({
   const [clicked, setClicked] = useState<"card" | "repeat_offer">("card");
   // The auto top-up box at checkout. Never ticked for the person.
   const [autoOn, setAutoOn] = useState(false);
+  // "I need an invoice", for a buyer who has to file one. Never ticked for the person.
+  const [invoiceOn, setInvoiceOn] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [confirming, setConfirming] = useState(false);
   const confirmStarted = useRef(false);
@@ -508,7 +511,7 @@ export function CreditConsole({
         recommended: recommendedPackId,
         offerPack: repeatOffer?.packId,
         clicked,
-      });
+      }, invoiceOn);
       trackEvent("begin_checkout", {
         auto_recharge: autoOn,
         source,
@@ -532,7 +535,7 @@ export function CreditConsole({
       setCheckoutError(message);
       throw err;
     }
-  }, [selectedPack, autoOn, autoRechargeReady, source, recommendedPackId, repeatOffer, clicked]);
+  }, [selectedPack, autoOn, invoiceOn, autoRechargeReady, source, recommendedPackId, repeatOffer, clicked]);
 
   function closeCheckout() {
     setSelectedPack(null);
@@ -671,11 +674,12 @@ export function CreditConsole({
                 </span>
               </label>
               )}
+              <InvoiceToggle checked={invoiceOn} onChange={setInvoiceOn} />
               <EmbeddedCheckoutProvider
                 // Remounting per pack and per auto top-up choice is required: the
                 // provider caches the client secret it was created with, so a change
                 // without a new key would pay for the previous one.
-                key={`${selectedPack.id}:${autoOn}:${clicked}`}
+                key={`${selectedPack.id}:${autoOn}:${invoiceOn}:${clicked}`}
                 stripe={stripePromise}
                 options={{ fetchClientSecret }}
               >

@@ -6,8 +6,10 @@ import { createClient } from '@/lib/supabase/server'
 import { cookies, headers } from 'next/headers'
 import { LOCALE_COOKIE, negotiateLocale, stripeLocale } from '@/lib/i18n/locales'
 import { firstTouchMetadata, recordFirstTouch } from '@/lib/first-touch-server'
+import { invoiceCheckoutParams } from '@/lib/checkout-invoice'
 
-export async function startCheckoutSession(productId: string) {
+// `invoice`: the buyer ticked "I need an invoice" (lib/checkout-invoice.ts).
+export async function startCheckoutSession(productId: string, invoice = false) {
   console.log('[Stripe] startCheckoutSession called for product:', productId)
 
   const product = PRODUCTS.find((p) => p.id === productId)
@@ -62,10 +64,12 @@ export async function startCheckoutSession(productId: string) {
         },
       ],
       mode: 'payment',
+      ...(invoice ? invoiceCheckoutParams(product.name, false) : {}),
       metadata: {
         product_id: product.id,
         ...(user ? { supabase_user_id: user.id } : {}),
         ...firstTouch,
+        ...(invoice ? { invoice: '1' } : {}),
       },
     })
 

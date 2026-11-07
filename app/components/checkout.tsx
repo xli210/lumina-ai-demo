@@ -10,16 +10,18 @@ import { AlertTriangle } from 'lucide-react'
 
 import { startCheckoutSession } from '../actions/stripe'
 import { tr, type Strings } from '@/lib/i18n/strings'
+import { InvoiceToggle } from './invoice-toggle'
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null
 
 export default function Checkout({ productId, strings = {} }: { productId: string; strings?: Strings }) {
   const [error, setError] = useState<string | null>(null)
+  const [invoice, setInvoice] = useState(false)
 
   const fetchClientSecret = useCallback(async () => {
     try {
-      const secret = await startCheckoutSession(productId)
+      const secret = await startCheckoutSession(productId, invoice)
       if (!secret) throw new Error('No client secret returned')
       return secret
     } catch (err) {
@@ -27,7 +29,7 @@ export default function Checkout({ productId, strings = {} }: { productId: strin
       setError(msg)
       throw err
     }
-  }, [productId])
+  }, [productId, invoice])
 
   if (!stripePromise) {
     return (
@@ -60,7 +62,10 @@ export default function Checkout({ productId, strings = {} }: { productId: strin
 
   return (
     <div id="checkout">
+      <InvoiceToggle checked={invoice} onChange={setInvoice} className="mb-3" />
       <EmbeddedCheckoutProvider
+        // A new session when the invoice choice changes: the provider keeps the secret it began with.
+        key={String(invoice)}
         stripe={stripePromise}
         options={{ fetchClientSecret }}
       >

@@ -9,6 +9,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { disableAutoRecharge } from "@/lib/auto-recharge";
 import { firstTouchMetadata, recordFirstTouch } from "@/lib/first-touch-server";
+import { invoiceCheckoutParams } from "@/lib/checkout-invoice";
 import { TERMS_VERSION } from "@/lib/terms-version";
 import {
   cleanTopUpLabel,
@@ -106,11 +107,15 @@ function buildLineItem(
  *
  * `attribution` says which prompt led here. It only labels the purchase for our own reading, so
  * what the browser sends is cleaned and never decides anything.
+ *
+ * `invoice` is the "I need an invoice" tick: Stripe collects the billing address and any tax number
+ * and emails a numbered invoice after payment (lib/checkout-invoice.ts).
  */
 export async function startCreditCheckoutSession(
   packId: string,
   autoRecharge = false,
-  attribution: TopUpAttribution = {}
+  attribution: TopUpAttribution = {},
+  invoice = false
 ): Promise<string> {
   const pack = findCreditPack(packId);
   if (!pack) {
@@ -162,6 +167,7 @@ export async function startCreditCheckoutSession(
           payment_intent_data: { setup_future_usage: "off_session" as const },
         }
       : {}),
+    ...(invoice ? invoiceCheckoutParams(`${pack.name} credit pack, ${totalCredits(pack).toLocaleString("en-US")} credits`, true) : {}),
     metadata: {
       // The webhook dispatches on this. Absent it, a session is treated as
       // the legacy one-time app purchase.
@@ -172,6 +178,7 @@ export async function startCreditCheckoutSession(
       bonus_credits: String(pack.bonusCredits),
       ...labels,
       ...firstTouch,
+      ...(invoice ? { invoice: "1" } : {}),
       ...(autoRecharge
         ? {
             auto_recharge: "1",
