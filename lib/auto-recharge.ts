@@ -10,6 +10,9 @@ import {
   AUTO_RECHARGE_MAX_PER_DAY,
   AUTO_RECHARGE_MAX_PER_MONTH,
   AUTO_RECHARGE_MAX_THRESHOLD,
+  AUTO_RECHARGE_MAX_USD_PER_DAY,
+  AUTO_RECHARGE_MAX_USD_PER_MONTH,
+  autoRechargeLimitsByAmount,
   autoRechargeExtraBonus,
   autoRechargeThreshold,
   findCreditPack,
@@ -46,6 +49,8 @@ export interface AutoRecharge {
   packId: string;
   enabled: boolean;
   disabledReason: AutoRechargeReason | null;
+  /** The terms version the person agreed to; it decides which limits apply (migration 023). */
+  termsVersion: string | null;
 }
 
 const METADATA_KIND = "credit_topup";
@@ -54,7 +59,7 @@ const METADATA_KIND = "credit_topup";
 export async function getAutoRecharge(userId: string): Promise<AutoRecharge | null> {
   const { data, error } = await createAdminClient()
     .from("auto_recharge")
-    .select("pack_id, enabled, disabled_reason")
+    .select("pack_id, enabled, disabled_reason, terms_version")
     .eq("user_id", userId)
     .maybeSingle();
   if (error) throw new Error(`Failed to read auto top-up: ${error.message}`);
@@ -63,20 +68,23 @@ export async function getAutoRecharge(userId: string): Promise<AutoRecharge | nu
     packId: data.pack_id,
     enabled: data.enabled === true,
     disabledReason: (data.disabled_reason as AutoRechargeReason | null) ?? null,
+    termsVersion: data.terms_version ?? null,
   };
 }
 
 /**
  * When `auto_recharge_claim` will next allow a charge, or null if it would allow one now. Counts the
- * attempts the way migration 022 does: in the last 24 hours everything except failures from before
- * the current consent, in the last 30 days everything. Shown on /credits, so that "Auto top-up is on"
- * does not leave someone waiting for a charge the limits will not make yet.
+ * attempts the way migration 023 does. Failures from before the current consent never count in the
+ * last 24 hours. Under Terms 1.5 and later, the sums in dollars must leave room for the pack's price
+ * ($100 a day, $1,000 in 30 days, failures from before the consent left out of both); earlier
+ * consents keep the counts (1 a day, 3 in 30 days, every attempt in 30 days). Shown on /credits, so
+ * that "Auto top-up is on" does not leave someone waiting for a charge the limits will not make yet.
  */
 export async function autoRechargeBlockedUntil(userId: string): Promise<string | null> {
   const admin = createAdminClient();
   const { data: row, error: rowError } = await admin
     .from("auto_recharge")
-    .select("enabled, consented_at")
+    .select("enabled, consented_at, terms_version, pack_id")
     .eq("user_id", userId)
     .maybeSingle();
   if (rowError) throw new Error(`Failed to read auto top-up: ${rowError.message}`);
@@ -86,14 +94,41 @@ export async function autoRechargeBlockedUntil(userId: string): Promise<string |
   const day = 24 * 60 * 60 * 1000;
   const { data: attempts, error } = await admin
     .from("auto_recharge_attempts")
-    .select("status, created_at")
+    .select("status, created_at, amount_cents")
     .eq("user_id", userId)
     .gt("created_at", new Date(now - 30 * day).toISOString())
     .order("created_at", { ascending: false });
   if (error) throw new Error(`Failed to read auto top-up attempts: ${error.message}`);
 
   const consentedAt = Date.parse(row.consented_at);
-  const times = (attempts ?? []).map((a) => ({ at: Date.parse(a.created_at), failed: a.status === "failed" }));
+  const times = (attempts ?? []).map((a) => ({
+    at: Date.parse(a.created_at),
+    failed: a.status === "failed",
+    cents: Number(a.amount_cents) || 0,
+  }));
+
+  if (autoRechargeLimitsByAmount(row.terms_version)) {
+    const price = findCreditPack(row.pack_id)?.priceInCents ?? 0;
+    const counted = times.filter((a) => !(a.failed && a.at < consentedAt));
+    // Oldest first: drop attempts as they age out until what is left plus this charge fits the cap.
+    const freeAt = (window: number, capCents: number) => {
+      const inWindow = counted.filter((a) => a.at > now - window).sort((x, y) => x.at - y.at);
+      let sum = inWindow.reduce((total, a) => total + a.cents, 0);
+      let at = 0;
+      for (const a of inWindow) {
+        if (sum + price <= capCents) break;
+        sum -= a.cents;
+        at = a.at + window;
+      }
+      return at;
+    };
+    const until = Math.max(
+      freeAt(day, AUTO_RECHARGE_MAX_USD_PER_DAY * 100),
+      freeAt(30 * day, AUTO_RECHARGE_MAX_USD_PER_MONTH * 100)
+    );
+    return until > now ? new Date(until).toISOString() : null;
+  }
+
   // Newest first: the Nth newest counted attempt is the one whose expiry frees a slot.
   const today = times.filter((a) => a.at > now - day && !(a.failed && a.at < consentedAt));
   let until = 0;

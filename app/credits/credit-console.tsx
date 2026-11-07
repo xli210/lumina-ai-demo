@@ -24,8 +24,11 @@ import {
   AUTO_RECHARGE_EXTRA_BONUS_PERCENT,
   AUTO_RECHARGE_MAX_PER_DAY,
   AUTO_RECHARGE_MAX_PER_MONTH,
+  AUTO_RECHARGE_MAX_USD_PER_DAY,
+  AUTO_RECHARGE_MAX_USD_PER_MONTH,
   CREDIT_PACKS,
   autoRechargeCredits,
+  autoRechargeLimitsByAmount,
   autoRechargeThreshold,
   bonusPercent,
   findCreditPack,
@@ -83,8 +86,17 @@ export interface AutoRechargeView {
   packId: string;
   enabled: boolean;
   disabledReason: string | null;
+  /** The terms version the person agreed to: it decides which limits apply. */
+  termsVersion?: string | null;
   /** When the daily or 30-day limit next allows an automatic charge, if it does not now. */
   blockedUntil?: string | null;
+}
+
+/** The limits as the person was shown them: in dollars from Terms 1.5, in charges before that. */
+function autoRechargeLimitsText(termsVersion: string | null | undefined): string {
+  return autoRechargeLimitsByAmount(termsVersion)
+    ? `At most $${AUTO_RECHARGE_MAX_USD_PER_DAY} a day and $${AUTO_RECHARGE_MAX_USD_PER_MONTH.toLocaleString("en-US")} in 30 days.`
+    : `At most ${AUTO_RECHARGE_MAX_PER_DAY} a day and ${AUTO_RECHARGE_MAX_PER_MONTH} in 30 days.`;
 }
 
 /** Why an auto top-up that was switched off by us, rather than by the person, was switched off. */
@@ -126,8 +138,8 @@ function AutoRechargeCard({ setting }: { setting: AutoRechargeView | null }) {
           <p className="mt-1 text-xs text-muted-foreground">
             When your balance drops below {autoRechargeThreshold(pack).toLocaleString("en-US")} credits we charge your
             saved card {formatPackPrice(pack)} and add {formatCredits(autoRechargeCredits(pack))} (the {pack.name} pack
-            plus {AUTO_RECHARGE_EXTRA_BONUS_PERCENT}% extra). At most {AUTO_RECHARGE_MAX_PER_DAY} a day and{" "}
-            {AUTO_RECHARGE_MAX_PER_MONTH} in 30 days. Stripe emails a receipt each time.
+            plus {AUTO_RECHARGE_EXTRA_BONUS_PERCENT}% extra). {autoRechargeLimitsText(setting.termsVersion)} Stripe
+            emails a receipt each time.
           </p>
           {setting.blockedUntil && (
             // The time is rendered in the server's zone, then the browser's: the text may differ once.
@@ -648,8 +660,9 @@ export function CreditConsole({
                   <span className="font-medium text-foreground">Auto top-up (optional).</span> When my balance drops
                   below {autoRechargeThreshold(selectedPack).toLocaleString("en-US")} credits, charge this card{" "}
                   {formatPackPrice(selectedPack)} for another {selectedPack.name} pack and add{" "}
-                  {formatCredits(autoRechargeCredits(selectedPack))} ({AUTO_RECHARGE_EXTRA_BONUS_PERCENT}% extra). At most{" "}
-                  {AUTO_RECHARGE_MAX_PER_DAY} a day and {AUTO_RECHARGE_MAX_PER_MONTH} in 30 days. I can turn it off at
+                  {formatCredits(autoRechargeCredits(selectedPack))} ({AUTO_RECHARGE_EXTRA_BONUS_PERCENT}% extra). At most $
+                  {AUTO_RECHARGE_MAX_USD_PER_DAY} a day and ${AUTO_RECHARGE_MAX_USD_PER_MONTH.toLocaleString("en-US")} in
+                  30 days. I can turn it off at
                   any time on this page. Card payments only. See the{" "}
                   <a href="/terms#billing" target="_blank" rel="noreferrer" className="underline underline-offset-2">
                     terms

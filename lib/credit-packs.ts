@@ -92,9 +92,29 @@ export const AUTO_RECHARGE_EXTRA_BONUS_PERCENT = 2;
 /** It buys again when the available balance falls below this share of the pack's credits. */
 export const AUTO_RECHARGE_THRESHOLD_SHARE = 0.2;
 
-/** At most this many auto top-ups in 24 hours and in 30 days. Enforced in migration 018. */
+/**
+ * Limits for auto top-up turned on under Terms 1.4 or earlier: at most this many charges in 24 hours
+ * and in 30 days (migration 018). Still applied to those settings, because it is what those people
+ * were shown; the application passes them to `auto_recharge_claim`.
+ */
 export const AUTO_RECHARGE_MAX_PER_DAY = 1;
 export const AUTO_RECHARGE_MAX_PER_MONTH = 3;
+
+/**
+ * Limits for auto top-up turned on under Terms 1.5 or later, in dollars: at most this much charged in
+ * 24 hours (the largest pack, Studio) and in 30 days. Enforced in migration 023, which holds the same
+ * numbers; change both together.
+ */
+export const AUTO_RECHARGE_MAX_USD_PER_DAY = 100;
+export const AUTO_RECHARGE_MAX_USD_PER_MONTH = 1000;
+
+/** True when a consent recorded under this terms version gets the dollar limits (1.5 and later). */
+export function autoRechargeLimitsByAmount(termsVersion: string | null | undefined): boolean {
+  const match = /^(\d+)\.(\d+)$/.exec(termsVersion ?? "");
+  if (!match) return false;
+  const [major, minor] = [Number(match[1]), Number(match[2])];
+  return major > 1 || (major === 1 && minor >= 5);
+}
 
 /** The extra credits an auto top-up of this pack adds. */
 export function autoRechargeExtraBonus(pack: CreditPack): number {

@@ -208,8 +208,10 @@ export default function TermsPage() {
               ticking its box when you buy a credit pack. Doing so lets us keep the card you pay
               with and, when your available balance drops below 20% of that pack&apos;s credits,
               charge it for another pack of the same size and add the credits, with 2% of the
-              pack&apos;s price in extra credits on every automatic top-up. We charge at most once
-              in any 24 hours and three times in any 30 days, Stripe emails a receipt each time,
+              pack&apos;s price in extra credits on every automatic top-up. We charge at most $100 in
+              any 24 hours and $1,000 in any 30 days (if you turned auto top-up on before
+              2026-11-06: at most once in any 24 hours and three times in any 30 days, until you
+              turn it on again), Stripe emails a receipt each time,
               and the setting is shown on your{" "}
               <Link href="/credits" className="text-indigo-500 underline-offset-4 hover:underline">
                 credits page
@@ -493,6 +495,9 @@ export default function TermsPage() {
             constitutes acceptance of the new Terms.
           </p>
           <p>
+            Version 1.5 (2026-11-06) sets the auto top-up limits in dollars ($100 in 24 hours, $1,000 in
+            30 days) for auto top-up turned on from that date; settings made earlier keep the previous
+            limits, and nothing else changes.
             Version 1.4 (2026-11-04) adds the optional post reward in section 6 and changes nothing else.
             Version 1.3 adds the adult-only age requirement, credit refunds and the EU/UK right of
             withdrawal, invite rewards, the AI-generated content rules and misuse reporting, and
