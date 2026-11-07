@@ -1,6 +1,7 @@
 import { updateSession } from '@/lib/supabase/middleware'
 import { LOCALES, DEFAULT_LOCALE, LOCALE_COOKIE, negotiateLocale, usesLocaleCookie } from '@/lib/i18n/locales'
-import { NextResponse, type NextRequest } from 'next/server'
+import { NextResponse, type NextFetchEvent, type NextRequest } from 'next/server'
+import { isRecordablePath, matchAiAgent } from '@/lib/ai-agents'
 import { facestudioVIsOpen } from '@/lib/facestudio-v'
 import {
   DEVICE_COOKIE,
@@ -65,7 +66,36 @@ function isCacheablePublicPage(request: NextRequest): boolean {
   return CACHEABLE_EXACT.has(p) || CACHEABLE_PREFIXES.some((x) => p.startsWith(x))
 }
 
-export async function middleware(request: NextRequest) {
+// An AI assistant opening a page (lib/ai-agents.ts): one row in ai_fetches (scripts/024), written
+// after the response is on its way. A failed write is dropped; it must never slow or break a page.
+function recordAiFetch(request: NextRequest, event: NextFetchEvent): void {
+  const match = matchAiAgent(request.headers.get('user-agent'))
+  if (!match || request.method !== 'GET') return
+  const path = request.nextUrl.pathname
+  if (!isRecordablePath(path)) return
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!url || !key) return
+  event.waitUntil(
+    fetch(`${url}/rest/v1/ai_fetches`, {
+      method: 'POST',
+      headers: {
+        apikey: key,
+        authorization: `Bearer ${key}`,
+        'content-type': 'application/json',
+        prefer: 'return=minimal',
+      },
+      body: JSON.stringify({ agent: match.agent, kind: match.kind, path: path.slice(0, 300) }),
+    }).then(
+      () => undefined,
+      () => undefined,
+    ),
+  )
+}
+
+export async function middleware(request: NextRequest, event: NextFetchEvent) {
+  recordAiFetch(request, event)
+
   const indexNow = indexNowResponse(request.nextUrl.pathname)
   if (indexNow) return indexNow
 
