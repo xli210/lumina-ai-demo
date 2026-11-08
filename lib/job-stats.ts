@@ -20,8 +20,11 @@ export const JOB_STATS_WINDOW_DAYS = 30;
 /** A tool with fewer jobs in the window than this is not reported: its percentages would mislead. */
 export const JOB_STATS_MIN_JOBS = 50;
 
-const SERVICES: ReadonlyArray<{ service: string; name: string; href: string; kind: string }> = [
+/** `modes` makes a row a part of its tool's row: those jobs only, and left out of the page's totals. */
+const SERVICES: ReadonlyArray<{ service: string; name: string; href: string; kind: string; modes?: readonly string[] }> = [
   { service: "facestudio-v", name: FACESTUDIO_V_NAME, href: "/facestudio-v", kind: "Video face swap and head swap" },
+  { service: "facestudio-v", name: "Headswap Best", href: "/video-head-swap", kind: "of which: video head swap", modes: ["head"] },
+  { service: "facestudio-v", name: "Headswap Fast", href: "/video-head-swap", kind: "of which: video head swap, faster", modes: ["head_fast"] },
   { service: "headswap-pro", name: HEADSWAP_PRO_NAME, href: "/headswap-pro", kind: "Photo head swap" },
   { service: "facestudio", name: FACE_STUDIO_NAME, href: "/face-studio", kind: "Photo face swap" },
   { service: "imageedit", name: IMAGEEDIT_NAME, href: "/image-edit", kind: "Photo editing" },
@@ -37,6 +40,7 @@ export interface ServiceStats {
   /** Delivered as a share of jobs that have ended (still-open jobs are left out), 0 to 1. */
   deliveredShare: number | null;
   people: number;
+  modes?: readonly string[];
   medianSeconds: number | null;
   p90Seconds: number | null;
 }
@@ -55,6 +59,7 @@ interface HoldRow {
   user_id: string;
   created_at: string;
   settled_at: string | null;
+  estimate: { mode?: unknown } | null;
 }
 
 function percentile(sorted: number[], p: number): number | null {
@@ -78,7 +83,7 @@ export async function getJobStats(): Promise<JobStats> {
   for (let offset = 0; offset < 100_000; offset += page) {
     const { data, error } = await admin
       .from("credit_holds")
-      .select("service, status, user_id, created_at, settled_at")
+      .select("service, status, user_id, created_at, settled_at, estimate")
       .gte("created_at", from.toISOString())
       .order("created_at", { ascending: true })
       .range(offset, offset + page - 1);
@@ -89,7 +94,9 @@ export async function getJobStats(): Promise<JobStats> {
 
   const kept = rows.filter((r) => !excluded.has(r.user_id));
   const services = SERVICES.map((s) => {
-    const mine = kept.filter((r) => r.service === s.service);
+    const mine = kept.filter(
+      (r) => r.service === s.service && (!s.modes || (typeof r.estimate?.mode === "string" && s.modes.includes(r.estimate.mode)))
+    );
     const delivered = mine.filter((r) => r.status === "captured");
     const ended = mine.filter((r) => r.status !== "open");
     const seconds = delivered
@@ -112,7 +119,7 @@ export async function getJobStats(): Promise<JobStats> {
     from: from.toISOString(),
     to: to.toISOString(),
     services,
-    totalDelivered: services.reduce((sum, s) => sum + s.delivered, 0),
+    totalDelivered: services.filter((s) => !s.modes).reduce((sum, s) => sum + s.delivered, 0),
     totalPeople: new Set(kept.filter((r) => services.some((s) => s.service === r.service)).map((r) => r.user_id)).size,
   };
 }

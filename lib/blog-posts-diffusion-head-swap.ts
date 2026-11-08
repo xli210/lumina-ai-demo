@@ -99,7 +99,7 @@ The price of that is real: diffusion runs many steps per image on a large GPU, s
 Video is harder than a photo: the head has to stay the same person in every frame, follow the movement and never flicker. The video studio offers two kinds of swap:
 
 - **Face swap**: the identity changes, and the video keeps the original hair, head shape and expression. Best for dialogue, interviews and long clips, up to 60 seconds.
-- **Head swap**: the face, hair and head shape change, and the video keeps the body, clothes, background and everyone else. It comes in **Headswap Best** and **Headswap Fast**. Fast is about 40% faster and uses about 35% fewer credits than Best; its quality may be slightly lower. Head swap clips are up to 12 seconds.
+- **Head swap**: the face, hair and head shape change, and the video keeps the body, clothes, background and everyone else. It comes in **Headswap Best** and **Headswap Fast**. Fast is about 40% faster and uses about 35% fewer credits than Best; its quality may be slightly lower. Head swap clips are up to 12 seconds. The two are compared on the [video head swap page](/video-head-swap).
 
 Every result also goes through a diffusion face enhancement that rebuilds skin texture, eyes, teeth and hair edges, then it is delivered at 1080p or 4K with the original sound.
 

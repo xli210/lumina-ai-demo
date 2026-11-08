@@ -44,7 +44,7 @@ function indexNowResponse(pathname: string): NextResponse | null {
 const CACHEABLE_EXACT = new Set([
   '/', '/about', '/pricing', '/blog', '/face-swap', '/image-edit', '/compare', '/trust',
   '/security', '/privacy', '/terms', '/best-face-swap-app-2026', '/docs',
-  '/release-notes', '/apps', '/status', '/es', '/pt-BR', '/de', '/fr',
+  '/release-notes', '/apps', '/status', '/es', '/pt-BR', '/de', '/fr', '/video-head-swap',
 ])
 const CACHEABLE_PREFIXES = [
   '/blog/', '/compare/', '/apps/', '/release-notes/', '/docs/', '/face-swap/', '/data/',

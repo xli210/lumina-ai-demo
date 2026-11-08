@@ -107,7 +107,7 @@ export default async function FaceSwapStatsPage() {
                   </thead>
                   <tbody>
                     {stats.services.map((s) => (
-                      <tr key={s.service} className="border-b border-border/50 last:border-0">
+                      <tr key={s.name} className="border-b border-border/50 last:border-0">
                         <td className="px-4 py-3">
                           <Link href={s.href} className="font-medium text-foreground hover:text-primary">{s.name}</Link>
                           <div className="text-xs text-muted-foreground">{s.kind}</div>
