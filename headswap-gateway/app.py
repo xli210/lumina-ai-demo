@@ -51,6 +51,11 @@ Photos and heads go to R2 (HS_INPUT_PREFIX) and reach the worker as short-lived 
 RunPod stay tiny whatever the photo size. Detection and swaps are RunPod async jobs polled by the page through this
 server, so no request here waits through a GPU cold start (proxies such as Cloudflare cut requests at ~100 s).
 State is in memory: run one instance (photos are kept HS_PHOTO_TTL seconds; the page re-uploads after that).
+
+Lab card (trial, HS_LAB_WORKER=1): a job may run on a lab GPU that is lent to us while its owner does not use it (lab_worker/). It goes there only when that
+worker's heartbeat in R2 (HS_LAB_PREFIX, default headswap/labq) is fresh and says it is free; otherwise, and whenever the worker does not take it within HS_LAB_CLAIM_S,
+goes quiet, fails or gives the card back, the same input goes to RunPod (remote_queue.Hybrid, the video studio's hybrid queue). Job ids at the lab start with "q-".
+Off without a deploy: put the object <HS_LAB_PREFIX>/disabled in the bucket (delete it to turn the lab back on). Unset HS_LAB_WORKER: RunPod only, as before.
 """
 import base64
 import contextvars
@@ -58,6 +63,7 @@ import hashlib
 import hmac
 import json
 import os
+import random
 import re
 import sys
 import threading
@@ -73,6 +79,8 @@ from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+
+import remote_queue
 
 RUNPOD_KEY = os.environ["RUNPOD_API_KEY"]
 ENDPOINT = os.environ["RUNPOD_ENDPOINT_ID"]
@@ -100,6 +108,10 @@ s3 = boto3.client("s3", endpoint_url=os.environ["R2_ENDPOINT"], region_name="aut
                   aws_access_key_id=os.environ["R2_ACCESS_KEY_ID"], aws_secret_access_key=os.environ["R2_SECRET_ACCESS_KEY"])
 session = requests.Session()
 session.headers.update({"Authorization": f"Bearer {RUNPOD_KEY}", "Content-Type": "application/json"})
+LAB = os.environ.get("HS_LAB_WORKER", "0").strip() == "1"
+LAB_PREFIX = os.environ.get("HS_LAB_PREFIX", "headswap/labq").strip("/")
+LAB_PIPELINE = "headswap"          # what the lab worker's heartbeat says it can do
+LAB_SHARE = max(0.0, min(1.0, float(os.environ.get("HS_LAB_SHARE", "1"))))      # how much of the traffic is offered to the lab card
 
 PHOTOS = {}        # photo id -> {"key", "job", "t", "faces", "width", "height", "default_face", "error", "rid", "uid"}
 UPLOADS = {}       # object key -> {"uid", "kind", "t", "size"}: what this server has issued an upload link for
@@ -335,10 +347,17 @@ def key_from_url(url: str):
     return path[len(BUCKET) + 1:] if path.startswith(BUCKET + "/") else None
 
 
-def rp_run(inp: dict) -> str:
+def rp_run(inp: dict, lab_ok: bool = True) -> str:
     inp = {**inp, "request_id": getattr(_ctx, "rid", None)}
     if getattr(_ctx, "uid", None):
         inp["user"] = _ctx.uid
+    if HYBRID is not None and lab_ok and random.random() < LAB_SHARE:
+        # this share of the jobs asks for the lab card, which takes them when its worker is up and free; RunPod otherwise (a warm-up is for RunPod's workers only)
+        return HYBRID.submit({**inp, "pipeline": LAB_PIPELINE})
+    return _rp_submit(inp)
+
+
+def _rp_submit(inp: dict) -> str:
     t = time.time()
     try:
         r = session.post(f"{RP}/run", json={"input": inp}, timeout=30)
@@ -356,6 +375,30 @@ def rp_run(inp: dict) -> str:
 
 
 def rp_status(jid: str) -> dict:
+    if HYBRID is None:
+        return _rp_status(jid)
+    try:
+        if jid.startswith(remote_queue.ID_MARK) or jid in HYBRID.back:
+            with _HYBRID_LOCK:          # two polls of one job at once must not send it to RunPod twice
+                s = dict(HYBRID.status(jid))
+        else:
+            s = dict(HYBRID.status(jid))
+    except Exception as e:  # noqa: BLE001  (the bucket or RunPod hiccuped while moving a job: ask again on the next poll)
+        jlog("lab_status_error", level="warning", job=jid, error=repr(e))
+        return {"status": "UNREACHABLE"}
+    if jid.startswith(remote_queue.ID_MARK) and isinstance(s.get("output"), dict) and s.get("status") in ("COMPLETED", "FAILED"):
+        lab = s["output"].get("lab") or {}            # RunPod's timing fields, for the logs
+        info = HYBRID.jobs.get(jid) or {}
+        if lab.get("exec_s") is not None:
+            s["executionTime"] = int(1000 * lab["exec_s"])
+            if info.get("t0"):
+                s["delayTime"] = max(0, int(1000 * (time.time() - info["t0"] - lab["exec_s"])))
+    if jid.startswith(remote_queue.ID_MARK) and s.get("status") == "CANCELLED" and jid not in HYBRID.jobs:
+        s["status"] = "LOST"            # made before this gateway restarted and gone from the bucket
+    return s
+
+
+def _rp_status(jid: str) -> dict:
     try:
         r = session.get(f"{RP}/status/{jid}", timeout=30)
     except requests.RequestException as e:
@@ -367,6 +410,42 @@ def rp_status(jid: str) -> dict:
         jlog("runpod_error", level="warning", call="status", job=jid, http=r.status_code, body=r.text[:300])
         return {"status": "UNREACHABLE"}
     return r.json()
+
+
+class _RunPod:
+    """The four calls remote_queue.Hybrid makes of the cloud side."""
+
+    def submit(self, payload: dict) -> str:
+        return _rp_submit({k: v for k, v in payload.items() if k not in ("pipeline", "warmup")})
+
+    def status(self, jid: str) -> dict:
+        return _rp_status(jid)
+
+    def cancel(self, jid: str) -> None:
+        try:
+            session.post(f"{RP}/cancel/{jid}", timeout=15)
+        except requests.RequestException:
+            pass
+
+    def health(self) -> dict:
+        return session.get(f"{RP}/health", timeout=10).json()
+
+
+HYBRID = None
+_HYBRID_LOCK = threading.Lock()
+if LAB:
+    HYBRID = remote_queue.Hybrid(
+        _RunPod(), remote_queue.Queue(s3, BUCKET, LAB_PREFIX), pipelines=(LAB_PIPELINE,),
+        alive_s=float(os.environ.get("HS_LAB_ALIVE_S", 30)), claim_s=float(os.environ.get("HS_LAB_CLAIM_S", 15)),
+        max_depth=1, back_s=float(os.environ.get("HS_LAB_BACK_S", 120)), stall_s=float(os.environ.get("HS_LAB_STALL_S", 600)))
+
+
+def vendor(jid: str) -> str:
+    """Where a job ran: "lab" | "runpod", with how it moved ("lab>runpod", "runpod>lab")."""
+    if HYBRID is None:
+        return "runpod"
+    v, moved = HYBRID.vendor_of(jid)
+    return {"own_to_cloud": "lab>runpod", "cloud_to_own": "runpod>lab"}.get(moved, "lab" if v == "own" else "runpod")
 
 
 def slim(status: dict) -> dict:
@@ -414,7 +493,13 @@ def health():
         h = session.get(f"{RP}/health", timeout=10).json()
     except Exception:  # noqa: BLE001
         h = None
-    return {"status": "ready", "endpoint": ENDPOINT, "runpod": h, "photos": len(PHOTOS), "jobs": len(JOBS),
+    lab = None
+    if HYBRID is not None:
+        try:
+            lab = HYBRID.own_status()
+        except Exception:  # noqa: BLE001
+            lab = {"error": "the bucket could not be read"}
+    return {"status": "ready", "endpoint": ENDPOINT, "runpod": h, "lab": lab, "photos": len(PHOTOS), "jobs": len(JOBS),
             "watermark_mode": WATERMARK_MODE, "entitlement_secret_set": bool(ENTITLEMENT_SECRET), "ticket_required": TICKET_REQUIRED, "file_uploads": ALLOW_FILE_UPLOADS, "model": MODEL_ID}
 
 
@@ -426,7 +511,7 @@ def warm():
     if time.time() - _last_warm[0] > 60:
         _last_warm[0] = time.time()
         try:
-            rp_run({"action": "detect", "photo": WARM_PNG})
+            rp_run({"action": "detect", "photo": WARM_PNG}, lab_ok=False)
         except Exception:  # noqa: BLE001
             pass
     return {"ok": True}
@@ -516,7 +601,7 @@ def photo_status(pid: str):
         # the worker leaves out null fields: default_face is missing when no face was found
         st.update(faces=out.get("faces") or [], width=out["width"], height=out["height"],
                   default_face=out.get("default_face"))
-        jlog("photo_detected", request_id=st.get("rid"), photo=pid, job=st["job"], faces=len(st["faces"]),
+        jlog("photo_detected", request_id=st.get("rid"), photo=pid, job=st["job"], vendor=vendor(st["job"]), faces=len(st["faces"]),
              elapsed_s=elapsed,
              queue_s=round((s.get("delayTime") or 0) / 1000, 1), exec_s=round((s.get("executionTime") or 0) / 1000, 1))
     elif s["status"] == "COMPLETED":
@@ -589,7 +674,7 @@ async def swap(request: Request, photo_id: str = Form(...), face: int = Form(0),
     with LOCK:
         JOBS[jid] = {"t": time.time(), "n": n, "photo": photo_id, "watermark": wm, "uid": uid, "rid": _ctx.rid,
                      "done": False, "last": None, "hold": (str(ticket["hold"]) if ticket else None)}
-    jlog("swap_submitted", job=jid, photo=photo_id, face=face, faces=len(st["faces"]), variations=n, seed=seed,
+    jlog("swap_submitted", job=jid, vendor=vendor(jid), photo=photo_id, face=face, faces=len(st["faces"]), variations=n, seed=seed,
          watermark=wm, watermark_reason=reason, head_bytes=head_bytes, model=MODEL_ID, hold=(str(ticket["hold"]) if ticket else None))
     return {"job": jid, "watermark": wm, "model": MODEL_ID, "variations": n}
 
@@ -637,7 +722,7 @@ def job(jid: str):
                             "download_url": link(k, 86400, f"headswap-pro-{i + 1}.png") if k else r["url"]})
         if first:
             w = out.get("worker") or {}
-            jlog("swap_done", job=jid, **timing, model=MODEL_ID, billable_images=len(results), results=len(results),
+            jlog("swap_done", job=jid, vendor=vendor(jid), **timing, model=MODEL_ID, billable_images=len(results), results=len(results),
                  pipeline=out.get("pipeline"),
                  watermarked=bool(out.get("watermarked")), model_total_s=out.get("total_s"), gpu=w.get("gpu"),
                  worker_job_number=w.get("job_number"), waited_for_startup_s=w.get("waited_for_startup_s"))
