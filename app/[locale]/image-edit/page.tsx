@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { ToolLanding } from "../tool-landing";
+import { SpotEditNav } from "@/app/components/spotedit-nav";
 import { hreflangAlternates, isAppLocale, TRANSLATED_PAGES, type AppLocale } from "@/lib/i18n/locales";
 import { fillCopy, pageCopy } from "@/lib/i18n/page-copy";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
@@ -47,6 +48,7 @@ export default async function LocalizedImageEditPage({ params }: PageProps) {
 
   return (
     <ToolLanding
+      nav={<SpotEditNav />}
       locale={locale}
       name={IMAGEEDIT_NAME}
       copy={c}

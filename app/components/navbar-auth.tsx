@@ -26,7 +26,7 @@ type AuthState = { user: User | null; isAdmin: boolean };
 // Remembered across client-side navigations so the bar does not flicker.
 let lastKnown: AuthState | null = null;
 
-export function NavbarAuth() {
+export function NavbarAuth({ menu = true }: { menu?: boolean }) {
   const [state, setState] = useState<AuthState | null>(lastKnown);
 
   useEffect(() => {
@@ -103,7 +103,7 @@ export function NavbarAuth() {
           </Link>
         </>
       )}
-      <MobileNav isLoggedIn={!!user} />
+      {menu && <MobileNav isLoggedIn={!!user} />}
     </div>
   );
 }

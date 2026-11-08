@@ -27,12 +27,12 @@ import { LocaleSwitcher } from "./locale-switcher";
  * page behind it.
  */
 
-// Same tools and order as the desktop bar, plus AI Image Edit, which the desktop bar has no room for.
+// Same tools and order as the desktop bar.
 const PRIMARY = [
   { href: "/face-swap", key: "photoFaceSwap" },
   { href: "/headswap-pro", key: "photoHeadSwap", isNew: true },
   { href: "/facestudio-v", key: "videoFaceSwap", isNew: true },
-  { href: "/image-edit", key: "aiImageEdit" },
+  { href: "/image-edit", key: "aiImageEdit", isNew: true },
 ];
 
 const SECONDARY = [

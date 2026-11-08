@@ -73,7 +73,8 @@ const ITEMS: WhatsNewItem[] = [
 // v10: it is now named Video FaceSwap 2.5 Online.
 // v11: the equipment-upgrade notice (Face Studio and HeadSwap Pro); v12: it is taken off, so a bar dismissed under it shows again.
 // v13: Video FaceSwap 2.5 Online.
-const STORAGE_KEY = "nanopocket_whats_new_dismissed_v13";
+// v14: SpotEdit.
+const STORAGE_KEY = "nanopocket_whats_new_dismissed_v14";
 
 const dollars = (cents: number) => `$${(cents / 100).toFixed(2)}`;
 

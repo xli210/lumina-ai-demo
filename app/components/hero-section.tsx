@@ -6,12 +6,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_LAUNCH, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
 import { HEADSWAP_PRO_NAME, HEADSWAP_PRO_TAGLINE } from "@/lib/headswap-pro";
+import { IMAGEEDIT_NAME } from "@/lib/imageedit";
 import {
   ArrowRight,
   Download,
   Play,
   UserRoundCog,
   Video,
+  Wand2,
 } from "lucide-react";
 
 interface HeroSlide {
@@ -25,7 +27,7 @@ interface HeroSlide {
   tag: string;
   poster?: string;
   /** Slide with its own left-aligned copy instead of the shared headline. */
-  feature?: "facestudio-v" | "headswap-pro";
+  feature?: "facestudio-v" | "headswap-pro" | "spotedit";
 }
 
 const demoSlides: HeroSlide[] = [
@@ -39,6 +41,15 @@ const demoSlides: HeroSlide[] = [
     model: FACESTUDIO_V_NAME,
     tag: "Video Face Swap",
     feature: "facestudio-v",
+  },
+  {
+    src: "/images/spotedit/hero-wedding.jpg",
+    type: "image",
+    alt: "SpotEdit: a wedding photo split in two, with the blurry guest on the left in the original and the foreground cleared in the edited half",
+    prompt: "SpotEdit: only the spot you name changes",
+    model: IMAGEEDIT_NAME,
+    tag: "Photo Retouching",
+    feature: "spotedit",
   },
   {
     src: "/headswap-pro/hero-posters.mp4",
@@ -195,7 +206,8 @@ export function HeroSection() {
                   <div
                     className="relative h-full w-full"
                     style={{
-                      transform: activeSlide === i ? "scale(1.12)" : "scale(1)",
+                      // The split on SpotEdit's slide has labels that sit on it, so that slide holds still.
+                      transform: activeSlide === i && !slide.feature ? "scale(1.12)" : "scale(1)",
                       transition: activeSlide === i
                         ? "transform 6s cubic-bezier(0.25, 0, 0.25, 1)"
                         : "none",
@@ -207,6 +219,8 @@ export function HeroSection() {
                       fill
                       className="object-cover"
                       priority={i === 0}
+                      // Only the slide showing and the one after it load, as with the videos, so it is never blank when it fades in.
+                      loading={i === 0 ? undefined : activeSlide === i || (activeSlide + 1) % demoSlides.length === i ? "eager" : "lazy"}
                       sizes="100vw"
                     />
                   </div>
@@ -290,6 +304,68 @@ export function HeroSection() {
             </div>
           </div>
 
+          {/* SpotEdit: the slide is the before and after, so the labels sit on its split. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-6 left-[60%] flex -translate-x-1/2 gap-2 transition-opacity duration-1000 sm:bottom-12"
+            style={{ opacity: feature === "spotedit" ? 1 : 0 }}
+          >
+            <span className="rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-white sm:px-3 sm:py-1 sm:text-xs">Before</span>
+            <span className="rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-white sm:px-3 sm:py-1 sm:text-xs">After</span>
+          </div>
+
+          <div
+            className="pointer-events-none absolute left-8 top-8 hidden max-w-[calc(100%-4rem)] transition-opacity duration-1000 sm:flex"
+            style={{ opacity: feature === "spotedit" ? 1 : 0 }}
+            aria-hidden={feature !== "spotedit"}
+          >
+            <div className="pointer-events-auto flex max-w-md flex-col items-start gap-2.5 rounded-2xl border border-white/20 bg-black/55 px-4 py-3 backdrop-blur-md sm:px-5 sm:py-4">
+              <p className="inline-flex items-center gap-2 text-sm font-semibold text-white sm:text-base">
+                <span className="inline-flex items-center gap-1 rounded-full bg-sky-500 px-2 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide">
+                  <Wand2 className="h-3 w-3" />
+                  New
+                </span>
+                {IMAGEEDIT_NAME}
+              </p>
+              <p className="text-balance text-lg font-bold leading-tight text-white md:text-2xl">
+                Retouch at full resolution. Only the spot you name changes.
+              </p>
+              <div className="flex items-center gap-4">
+                <Link href="/image-edit/launch" tabIndex={feature === "spotedit" ? 0 : -1}>
+                  <Button size="sm" className="gap-1.5 rounded-full bg-white px-4 text-black hover:bg-neutral-100 sm:px-5">
+                    Edit your photo
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link
+                  href="/image-edit#proof"
+                  tabIndex={feature === "spotedit" ? 0 : -1}
+                  className="text-xs font-medium text-white/85 underline-offset-4 hover:text-white hover:underline sm:text-sm"
+                >
+                  See the pixel check
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="absolute left-3 top-3 transition-opacity duration-1000 sm:hidden"
+            style={{ opacity: feature === "spotedit" ? 1 : 0, pointerEvents: feature === "spotedit" ? "auto" : "none" }}
+            aria-hidden={feature !== "spotedit"}
+          >
+            <Link
+              href="/image-edit"
+              tabIndex={feature === "spotedit" ? 0 : -1}
+              className="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-xs font-semibold text-black shadow-lg"
+            >
+              <span className="rounded-full bg-sky-500 px-1.5 py-0.5 text-[9px] font-bold uppercase leading-none tracking-wide text-white">
+                New
+              </span>
+              Try {IMAGEEDIT_NAME}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+
           {/* Phones: one small button in the bottom-left corner, above the slide dots. */}
           <div
             className="absolute bottom-7 left-3 transition-opacity duration-1000 sm:hidden"
@@ -317,7 +393,7 @@ export function HeroSection() {
               A whole AI studio, right in your pocket
             </h1>
             <p className="mb-7 hidden max-w-2xl text-balance text-center text-sm text-white/85 sm:block sm:text-base md:text-lg">
-              Face swap and photo editing in your browser, free to start. Or download the
+              Face swap and full-resolution photo retouching in your browser, free to start. Or download the
               desktop apps and run everything offline on your own GPU.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">

@@ -1,5 +1,7 @@
 "use client";
 
+import NextImage from "next/image";
+import { SPOTEDIT_PROOF } from "@/lib/image-edit-examples";
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import {
@@ -31,6 +33,7 @@ import { FACE_SWAP_CREDITS } from "@/lib/face-studio-facts";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 import {
   IMAGEEDIT_CREDITS_PER_EDIT,
+  IMAGEEDIT_MAX_MP,
   IMAGEEDIT_NAME,
 } from "@/lib/imageedit";
 import {
@@ -429,6 +432,47 @@ function FeedbackBlock({
   );
 }
 
+/** SpotEdit is for a different reader from the swaps above: someone who has to be able to trust the rest of the photo. */
+function SpotEditSpotlight() {
+  return (
+    <div className="glass-strong grid gap-8 overflow-hidden rounded-3xl border border-primary/10 p-6 sm:p-10 md:grid-cols-2 md:items-center">
+      <div>
+        <p className="mb-3 text-sm font-medium uppercase tracking-widest text-primary">For retouchers and designers</p>
+        <h3 className="mb-3 text-balance text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          Only the spot you name changes.
+        </h3>
+        <p className="mb-6 text-pretty text-muted-foreground">
+          Subtract the result from your original: the pixels outside the edit are identical. Your photo comes back at
+          its original size, up to {IMAGEEDIT_MAX_MP} MP.
+        </p>
+        <Link href="/image-edit#proof" className={textLink}>
+          See the pixel check
+          <span aria-hidden>→</span>
+        </Link>
+      </div>
+      <div className="grid grid-cols-3 gap-3">
+        {[
+          { src: SPOTEDIT_PROOF.before, label: "Original" },
+          { src: SPOTEDIT_PROOF.after, label: "Result" },
+          { src: SPOTEDIT_PROOF.diff, label: "Changed pixels" },
+        ].map((p) => (
+          <figure key={p.label}>
+            <NextImage
+              src={p.src}
+              alt={`${p.label}: ${SPOTEDIT_PROOF.prompt}`}
+              width={SPOTEDIT_PROOF.width}
+              height={SPOTEDIT_PROOF.height}
+              unoptimized
+              className="h-auto w-full rounded-xl"
+            />
+            <figcaption className="mt-2 text-center text-xs text-muted-foreground">{p.label}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function AnnouncementSection() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [votes, setVotes] = useState<Record<string, Vote>>({});
@@ -533,6 +577,19 @@ export function AnnouncementSection() {
           />
 
           <ProductCard
+            icon={Wand2}
+            pill="New"
+            live
+            highlight="Full-resolution retouching"
+            title={IMAGEEDIT_NAME}
+            lede="Describe the change and get your photo back at full resolution. Add, remove, replace, or change the text on a sign."
+            points={IMAGEEDIT_POINTS}
+            priceLine={`From ${IMAGEEDIT_CREDITS_PER_EDIT} credits per edit`}
+            cta={{ href: "/image-edit/launch", label: "Open the editor" }}
+            learnMore={{ href: "/image-edit", label: "Learn more" }}
+          />
+
+          <ProductCard
             icon={Video}
             pill={FACESTUDIO_V_TAG}
             live
@@ -562,18 +619,10 @@ export function AnnouncementSection() {
               onSubmit={(vote) => submitVote(FACESTUDIO_ID, vote)}
             />
           </ProductCard>
+        </div>
 
-          <ProductCard
-            icon={Wand2}
-            pill="Live"
-            live
-            title={IMAGEEDIT_NAME}
-            lede="Describe the change and get your photo back at full resolution. Add, remove, replace, or change the text on a sign."
-            points={IMAGEEDIT_POINTS}
-            priceLine={`From ${IMAGEEDIT_CREDITS_PER_EDIT} credits per edit`}
-            cta={{ href: "/image-edit/launch", label: "Open the editor" }}
-            learnMore={{ href: "/image-edit", label: "Learn more" }}
-          />
+        <div className="mt-6">
+          <SpotEditSpotlight />
         </div>
 
         <div className="mt-6">

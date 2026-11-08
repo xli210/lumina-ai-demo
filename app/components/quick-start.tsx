@@ -56,7 +56,7 @@ const NEW_TOOLS = [
 // Same labels as the menu (mobile-nav.tsx).
 const MORE_TOOLS = [
   { href: "/face-swap", icon: ScanFace, label: "Photo Face Swap" },
-  { href: "/image-edit", icon: Wand2, label: "AI Image Edit" },
+  { href: "/image-edit", icon: Wand2, label: "SpotEdit" },
   { href: "/download", icon: Download, label: "Desktop apps" },
 ];
 
@@ -80,7 +80,8 @@ export function QuickStart() {
   // null until the session has been read: the links depend on it.
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
   const [open, setOpen] = useState(false);
-  const quiet = QUIET_PREFIXES.some((p) => pathname.startsWith(p));
+  // SpotEdit's public pages speak to retouchers, and this button offers them face swaps.
+  const quiet = QUIET_PREFIXES.some((p) => pathname.startsWith(p)) || pathname.endsWith("/image-edit");
 
   useEffect(() => {
     let cancelled = false;

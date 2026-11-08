@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, Check } from "lucide-react";
 
-import { Navbar } from "@/app/components/navbar";
+import { SpotEditNav } from "@/app/components/spotedit-nav";
 import { Footer } from "@/app/components/footer";
 import { BeforeAfterSlider } from "@/app/components/before-after-slider";
 import {
@@ -162,7 +162,7 @@ export default function ImageEditLanding() {
       {[softwareJsonLd, webPageJsonLd, faqJsonLd, howToJsonLd, breadcrumbJsonLd].map((data, i) => (
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
       ))}
-      <Navbar />
+      <SpotEditNav sections />
 
       {/* Hero */}
       <section className="px-6 pb-16 pt-32">
@@ -339,28 +339,6 @@ export default function ImageEditLanding() {
               </details>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Related */}
-      <section className="px-6 pb-24">
-        <div className="mx-auto max-w-3xl">
-          <p className={eyebrow}>Also from NanoPocket</p>
-          <h2 className="mb-4 text-2xl font-bold tracking-tight text-foreground">Related tools</h2>
-          <ul className="space-y-3 text-sm sm:text-base">
-            <li>
-              <Link href="/facestudio-v" className={textLink}>
-                Video FaceSwap 2.5 Online
-              </Link>
-              <span className="text-muted-foreground"> for swapping a face in a video</span>
-            </li>
-            <li>
-              <Link href="/face-studio" className={textLink}>
-                Nano FaceStudio Online
-              </Link>
-              <span className="text-muted-foreground"> for swapping up to six faces in one photo</span>
-            </li>
-          </ul>
         </div>
       </section>
 

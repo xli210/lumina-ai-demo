@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { translatedOrEnglish, type AppLocale } from "@/lib/i18n/locales";
+import { IMAGEEDIT_NAME } from "@/lib/imageedit";
 import { Wordmark } from "./wordmark";
 import { NavbarAuth } from "./navbar-auth";
 
@@ -33,7 +34,7 @@ export function Navbar() {
             className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
           >
             {t("photoHeadSwap")}
-            <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white lg:inline">
+            <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white min-[1440px]:inline">
               {t("new")}
             </span>
           </Link>
@@ -42,7 +43,16 @@ export function Navbar() {
             className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
           >
             {t("videoFaceSwap")}
-            <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white lg:inline">
+            <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white min-[1440px]:inline">
+              {t("new")}
+            </span>
+          </Link>
+          <Link
+            href={translatedOrEnglish("/image-edit", locale)}
+            className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
+          >
+            {IMAGEEDIT_NAME}
+            <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white xl:inline">
               {t("new")}
             </span>
           </Link>

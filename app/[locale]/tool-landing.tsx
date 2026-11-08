@@ -29,6 +29,7 @@ export function ToolLanding({
   englishHref,
   jsonLd,
   wideExamples = false,
+  nav,
 }: {
   locale: AppLocale;
   name: string;
@@ -39,6 +40,8 @@ export function ToolLanding({
   jsonLd: object[];
   /** One pair per row, for whole-window screenshots whose detail is lost when small. */
   wideExamples?: boolean;
+  /** Replaces the site's usual bar. */
+  nav?: React.ReactNode;
 }) {
   const items: TitleBody[] = copy.features ?? copy.tools ?? [];
   const itemsHeading = copy.featuresHeading ?? copy.toolsHeading ?? "";
@@ -48,7 +51,7 @@ export function ToolLanding({
       {jsonLd.map((d, i) => (
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(d) }} />
       ))}
-      <Navbar />
+      {nav ?? <Navbar />}
 
       <section className="px-6 pt-28 pb-12 sm:pt-32">
         <div className="mx-auto max-w-5xl">
