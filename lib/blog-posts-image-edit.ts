@@ -95,7 +95,7 @@ Two runs can differ. If an edge looks soft or the pattern behind the object repe
 
 - [How to replace an object in a photo with AI](/blog/replace-objects-in-photos-with-ai)
 - [How to change the text on a sign in a photo with AI](/blog/change-text-in-photos-with-ai)
-- [AI retouching vs Photoshop: keeping every other pixel](/blog/ai-retouching-vs-photoshop)
+- [Pixel-exact AI retouching vs Photoshop, Nano Banana and FLUX](/blog/ai-retouching-vs-photoshop)
 
 The street photo is "Parked Panek car, Batuty street, Warsaw.jpg" from Wikimedia Commons, licensed CC BY-SA 4.0; the edited version is shared under the same licence.`,
   },

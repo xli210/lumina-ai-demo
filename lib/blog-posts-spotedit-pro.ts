@@ -13,17 +13,19 @@ import {
 import { creditsForPhoto } from "@/lib/imageedit";
 
 /**
- * SpotEdit against Photoshop, for retouchers. The question it answers is the one a professional asks
- * an assistant: can AI take over retouching without touching the rest of the file?
+ * SpotEdit against Photoshop, Nano Banana and FLUX, for retouchers. The question it answers is the one
+ * a professional asks an assistant: can AI take over retouching without touching the rest of the file?
  *
  * Manual Photoshop and Generative Fill also leave pixels outside a selection alone, so that alone is
- * not the difference from Photoshop: it is the difference from editors that re-render the whole image.
- * Against Photoshop the post argues the work saved, and hands over a test anyone can run. It does not
- * say the edited area is generated at native resolution, which nothing in the repo documents.
+ * not the difference from Photoshop: it is the difference from models that re-render the whole image,
+ * which the post names, with published figures. Against Photoshop it argues the work saved and native
+ * resolution (confirmed by the owner on 2026-11-08), and hands over a test anyone can run.
  *
  * SpotEdit's figures come from lib/image-edit-facts.ts and lib/image-edit-examples.ts. Adobe's were read
  * on 2026-11-08: the price and monthly credits from Adobe's plans page; the resolution from a reply by
- * Adobe staff (July 2025) and PhotoshopCAFE (February 2026), so the text says "reported".
+ * Adobe staff (July 2025) and PhotoshopCAFE (February 2026), so the text says "reported". Nano Banana
+ * and FLUX figures were read the same day from Agent Banana (arXiv 2602.09084v2, Table 2), Black Forest
+ * Labs' help centre and Google's image generation docs. We have not run those models ourselves.
  */
 
 const creditsFor = (s: string) => {
@@ -38,14 +40,16 @@ const caseRows = [SPOTEDIT_HERO, ...SPOTEDIT_EXAMPLES]
 export const SPOTEDIT_PRO_POSTS: BlogPost[] = [
   {
     slug: "ai-retouching-vs-photoshop",
-    title: "AI Retouching vs Photoshop: Keep Every Other Pixel",
+    title: "Pixel-Exact AI Retouching vs Photoshop, Nano Banana, FLUX",
     description:
-      "Can AI replace Photoshop for retouching? What SpotEdit takes over, how to prove the background stayed pixel-identical, and what Photoshop still does better.",
+      "Can AI replace Photoshop for retouching? SpotEdit vs Photoshop, Nano Banana and FLUX on native resolution, background drift and a pixel check you can run.",
     date: "2026-11-08",
     keywords: [
       "AI retouching vs Photoshop",
       "Photoshop alternative for retouching",
       "Generative Fill alternative",
+      "Nano Banana background changes",
+      "FLUX Kontext alternative for retouching",
       "edit part of a photo without changing the rest",
       "pixel-identical AI photo editing",
       "SpotEdit",
@@ -64,7 +68,7 @@ export const SPOTEDIT_PRO_POSTS: BlogPost[] = [
     },
     content: `## The short answer
 
-AI can now take over one part of a retoucher's day: the isolated, local fix. Removing a guest, changing a jacket, cleaning up a detail. [${IMAGE_EDIT_NAME}](/image-edit) does that from one sentence, returns the photo at its original size up to ${IMAGE_EDIT_MAX_MP} MP, and leaves every pixel outside the edit identical to the file you uploaded.
+AI can now take over one part of a retoucher's day: the isolated, local fix. Removing a guest, changing a jacket, cleaning up a detail. [${IMAGE_EDIT_NAME}](/image-edit) does that from one sentence, works at your photo's native resolution up to ${IMAGE_EDIT_MAX_MP} MP, and leaves every pixel outside the edit identical to the file you uploaded.
 
 It does not replace Photoshop as a whole. Layered composites, colour grading, 16-bit work and batch actions still belong there. The practical change is the order of work: do the spot fixes by description, then bring the file into Photoshop only if it still needs something Photoshop is uniquely good at.
 
@@ -72,22 +76,41 @@ It does not replace Photoshop as a whole. Layered composites, colour grading, 16
 
 Because a delivered photo has already been approved. Skin, grain, sharpening and the grade are the photographer's work, and a client notices when they drift.
 
-Many AI editors take the whole image, generate a new one and return that. Even where the picture looks the same, the pixels are new. Researchers have documented the effect: [a study of Stable Diffusion inpainting](https://arxiv.org/abs/2306.04632) found distortion even in regions that were not being edited, worst on fine structure such as text, and [a NeurIPS 2026 paper](https://neurips.cc/virtual/2026/poster/151149) documents quality degrading over repeated edits.
+General AI image models take the whole image, generate a new one and return that. Even where the picture looks the same, the pixels are new. Researchers have documented the effect: [a study of Stable Diffusion inpainting](https://arxiv.org/abs/2306.04632) found distortion even in regions that were not being edited, worst on fine structure such as text, and [a NeurIPS 2026 paper](https://neurips.cc/virtual/2026/poster/151149) documents quality degrading over repeated edits.
 
 ${IMAGE_EDIT_NAME} is built the other way round. The editor reports the area it edited, and everything outside that area comes back as it was. Since each edit leaves the rest alone, a second or third edit adds no drift outside the areas you changed.
 
+## Do Nano Banana and FLUX keep the background?
+
+Not pixel for pixel. Google's Nano Banana and Black Forest Labs' FLUX are excellent image models, but they resample the image they are given, and that shows in independent tests.
+
+[Agent Banana](https://arxiv.org/abs/2602.09084), a 2026 research paper, tested editors on 96 three-turn sessions with 4K images and measured the background separately from the edit. It describes end-to-end models that "resample the entire image", and one of its figures shows Nano Banana Pro distorting original details because it edits globally.
+
+| | Nano Banana Pro | FLUX.1 Kontext [Pro] | ${IMAGE_EDIT_NAME} |
+|---|---|---|---|
+| Background PSNR in that test (higher is better) | 26.62 dB | 25.98 dB | Not in that test |
+| Background SSIM in that test (1.0 is identical) | 0.72 | 0.74 | Not in that test |
+| Pixels outside the edit | Resampled | Resampled | Identical to the upload |
+| Output size | [Named tiers up to 4K](https://aistudio.google.com/docs/image-generation) | [A fixed 1 MP](https://help.bfl.ai/articles/8531149640-what-are-the-resolution-limits), in multiples of 32 px | Native: your exact size, up to ${IMAGE_EDIT_MAX_MP} MP |
+
+A perfect copy has infinite PSNR and an SSIM of 1.0, so those scores mean the background really did change. The paper's own method, designed for this problem, reached 28.40 dB and 0.84. FLUX.2 raises the ceiling to [4 MP, and resizes larger inputs automatically](https://help.bfl.ai/articles/8531149640-what-are-the-resolution-limits).
+
+Size matters as much as drift. A 30 MP wedding frame cannot come back from a 1 MP model at its original size, and any later enlargement invents detail. ${IMAGE_EDIT_NAME} does not change the resolution at any step: nothing is scaled down, scaled up or rebuilt from a smaller version, including inside the edit.
+
+To be fair to these models: we have not run them on the same photos ourselves, and the paper's test is not a test of ${IMAGE_EDIT_NAME}. They are also better at things ${IMAGE_EDIT_NAME} does not try to do, such as restyling an image or changing a whole scene. In the same table Nano Banana Pro scored 0.911 for following the instruction, ahead of Kontext's 0.845. The pixel check further down works on any editor's output of the same size, so you can compare them on your own files.
+
 ## How do the options compare?
 
-| | Manual Photoshop | Photoshop Generative Fill | Whole-image AI editors | ${IMAGE_EDIT_NAME} |
+| | Manual Photoshop | Photoshop Generative Fill | Nano Banana, FLUX | ${IMAGE_EDIT_NAME} |
 |---|---|---|---|---|
 | What you do | Select, mask, clone, heal, blend | Make a selection, write a prompt | Write a prompt | Write a prompt; painting an area is optional |
-| Pixels outside the edit | Unchanged | Unchanged outside the selection | Usually regenerated | Identical to the upload |
-| Size of the result | Your document | Your document; each generation is reported at 1K to 2K | Depends on the tool, often limited | Your photo's size, up to ${IMAGE_EDIT_MAX_MP} MP |
+| Pixels outside the edit | Unchanged | Unchanged outside the selection | Resampled, so they can drift | Identical to the upload |
+| Size of the result | Your document | Your document; each generation is reported at 1K to 2K | 1 MP to 4K, depending on the model | Native, up to ${IMAGE_EDIT_MAX_MP} MP |
 | Layers and bit depth | Full layers, up to 32-bit | Generative layer in your document | Flattened image | Flattened 8-bit PNG |
-| Time for a spot fix | Depends on the fix and your skill | Seconds to generate, plus the selection | Seconds to minutes | ${IMAGE_EDIT_WARM_SECONDS} |
+| Time for a spot fix | Depends on the fix and your skill | Seconds to generate, plus the selection | Varies by service | ${IMAGE_EDIT_WARM_SECONDS} |
 | Cost | Photoshop subscription | Subscription plus generative credits | Varies | ${IMAGE_EDIT_PRICE_TEXT} |
 
-Generative Fill deserves a fair reading, because it is the real competitor here. It also leaves everything outside your selection alone. Its limit shows on large areas: an [Adobe staff reply in July 2025](https://community.adobe.com/questions-712/what-is-the-max-resolution-for-generative-fill-in-photoshop-in-2025-1181021) put it at 1024 × 1024 per generation, and [PhotoshopCAFE reported in February 2026](https://photoshopcafe.com/?p=66244) that a newer model reaches 2048 × 2048, with larger selections stretched to fit. Adobe offers Enhance Detail and Generative Upscale to compensate. Adobe's single-app plan was listed at [US$22.99 a month, billed annually, with 25 generative credits a month](https://www.adobe.com/products/photoshop/plans.html) when this was written. Check Adobe's pages for current figures.
+Generative Fill deserves a fair reading, because it is the real competitor here. It also leaves everything outside your selection alone. Its limit shows on large areas: an [Adobe staff reply in July 2025](https://community.adobe.com/questions-712/what-is-the-max-resolution-for-generative-fill-in-photoshop-in-2025-1181021) put it at 1024 × 1024 per generation, and [PhotoshopCAFE reported in February 2026](https://photoshopcafe.com/?p=66244) that a newer model reaches 2048 × 2048, with larger selections stretched to fit. Adobe offers Enhance Detail and Generative Upscale to compensate. ${IMAGE_EDIT_NAME} has no such step, because it works at the native resolution of your file. Adobe's single-app plan was listed at [US$22.99 a month, billed annually, with 25 generative credits a month](https://www.adobe.com/products/photoshop/plans.html) when this was written. Check Adobe's pages for current figures.
 
 ## What work does it take off your hands?
 
@@ -158,6 +181,6 @@ There is no subscription, and credits never expire. You pay per finished edit, b
 - [How to replace an object in a photo with AI](/blog/replace-objects-in-photos-with-ai)
 - [How to change the text on a sign in a photo with AI](/blog/change-text-in-photos-with-ai)
 
-Figures for ${IMAGE_EDIT_NAME} are from November 2026. The sample photos are from Unsplash, shown resized. Photoshop, Generative Fill and Adobe are trademarks of Adobe; NanoPocket is not affiliated with Adobe.`,
+Figures for ${IMAGE_EDIT_NAME} are from November 2026. The sample photos are from Unsplash, shown resized. Photoshop, Generative Fill and Adobe are trademarks of Adobe. Nano Banana is a Google product and FLUX is from Black Forest Labs. NanoPocket is not affiliated with any of them. Other companies' figures were read on 2026-11-08 from the sources linked above.`,
   },
 ];

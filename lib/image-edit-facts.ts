@@ -220,5 +220,5 @@ export const IMAGE_EDIT_GUIDES: readonly { slug: string; title: string }[] = [
   { slug: "remove-objects-from-photos-with-ai", title: "How to remove an object from a photo with AI" },
   { slug: "replace-objects-in-photos-with-ai", title: "How to replace an object in a photo with AI" },
   { slug: "change-text-in-photos-with-ai", title: "How to change the text on a sign in a photo with AI" },
-  { slug: "ai-retouching-vs-photoshop", title: "AI retouching vs Photoshop: keeping every other pixel" },
+  { slug: "ai-retouching-vs-photoshop", title: "Pixel-exact AI retouching vs Photoshop, Nano Banana and FLUX" },
 ];
