@@ -64,9 +64,6 @@ Watermark: an account that has never bought credits gets the NanoPocket.ai mark,
 results of those accounts cannot be edited further. A marked job whose result comes back
 unmarked is failed and refunded (`toEditJob`).
 
-GPU cost: 39-66 s per edit on an H100 at $5.39/h ($0.06-0.10), plus the worker's start
-and its idle timeout (120 s, about $0.18) when nothing else keeps it busy.
-
 ---
 
 ## 3. Limits and behaviour

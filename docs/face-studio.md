@@ -15,11 +15,11 @@ needed editing. Built from `facestudio_handoff/`, with the changes in
 
 **Per swapped face, not per photo.**
 
-| Unit | Credits | USD | GPU cost | Margin |
-| --- | --- | --- | --- | --- |
-| Face swap, per face | 10 | $0.10 | ~$0.006–0.008 | ~92% |
-| Head swap | 20 | $0.20 | ~$0.010–0.016 | ~85% |
-| Detection | free | — | ~$0.001 | — |
+| Unit | Credits | USD |
+| --- | --- | --- |
+| Face swap, per face | 10 | $0.10 |
+| Head swap | 20 | $0.20 |
+| Detection | free | — |
 
 A render costs the rate times the number of **reference photos supplied** —
 not faces detected. Swapping one person out of a group of six costs the same
@@ -78,7 +78,7 @@ published in fourteen files, including the homepage FAQ's `FAQPage` JSON-LD
 and `/trust`, and `free online face swap` is a keyword the product pages rank
 on. A paid-only tool would have meant rewriting all of it — and two of those
 files are currently empty in the working tree, so two CTAs would have gone on
-saying "Try free online" while charging. A free tier costs ~$0.024 of GPU per
+saying "Try free online" while charging. A free tier costs GPU time per
 top-up and keeps every published claim true.
 
 Implemented as a `promo` grant through `ensureDailyAllowance`, not as a
@@ -97,7 +97,7 @@ not as a volume discount.
 
 ### Why detection is free but gated
 
-Detection costs ~$0.001 of GPU, so it is cheap but not free to us. Rather than
+Detection uses GPU time, so it is cheap but not free to us. Rather than
 add a rate-limit table, `detect` and `uploads` require a balance of at least
 the cheapest render (`DETECT_MIN_BALANCE`). Detecting faces is only useful as
 a prelude to rendering, so a user who cannot afford a render has no

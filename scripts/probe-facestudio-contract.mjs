@@ -9,7 +9,7 @@
  * drifted from README_INTEGRATION.md §4, the console breaks in ways that look
  * like frontend bugs, and this is much cheaper to read than that.
  *
- * Costs about $0.001 of GPU per run.
+ * Uses a little GPU time per run.
  *
  * Needs, from the gateway's own environment:
  *   RUNPOD_API_KEY, RUNPOD_ENDPOINT_ID,

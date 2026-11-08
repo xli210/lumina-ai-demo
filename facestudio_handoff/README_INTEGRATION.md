@@ -189,22 +189,21 @@ hour.
   needs to keep the photo's storage key between detect and generate. In
   `server.py` that key is the `detection_id`.
 
-## 7. Speed and cost
+## 7. Speed
 
-These figures are for 4000-px photos on a warm A40, at $0.00034 per GPU second.
+These figures are for 4000-px photos on a warm A40.
 
-| Step | Time | GPU cost |
-|---|---|---|
-| detect | 2–6 s | ≈ $0.001 |
-| face swap | 17–25 s | ≈ $0.006–0.008 |
-| head swap | 30–47 s | ≈ $0.010–0.016 |
+| Step | Time |
+|---|---|
+| detect | 2–6 s |
+| face swap | 17–25 s |
+| head swap | 30–47 s |
 
-- With no traffic there are 0 workers, and the cost is $0.
+- With no traffic there are 0 workers.
 - The first request after a quiet period waits for a worker to start, which
   takes about 1–20 s. `/v5/api/visit` starts one when the page opens to hide
   that wait.
-- A worker stays on for 30 s after its last job, which costs about $0.01 per
-  burst of use.
+- A worker stays on for 30 s after its last job.
 
 ## 8. What you'll receive separately (never commit these)
 

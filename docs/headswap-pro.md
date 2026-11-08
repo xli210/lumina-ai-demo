@@ -30,7 +30,7 @@ headswap-gateway/app.py  (Render, one instance)  ──►  RunPod GPU (already 
 - Settlement never trusts the page: `/api/headswap/settle` asks the gateway for the job and charges
   `20 credits x billable_images`, capped at what was reserved. A failed job, or one owed a watermark that came back without
   it, is released. A swap whose tab was closed is settled the next time the account reserves credits.
-- Price: `HEADSWAP_PRO_CREDITS_PER_IMAGE = 20` ($0.20). GPU cost measured by the maintainers is $0.011 to $0.04 an image.
+- Price: `HEADSWAP_PRO_CREDITS_PER_IMAGE = 20` ($0.20).
   It is the same as one head swap in Face Studio; change the constant to reprice.
 
 ## Secrets (come from the GPU maintainer, never committed)

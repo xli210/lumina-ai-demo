@@ -41,10 +41,9 @@ export function isFaceStudioMode(v: unknown): v is FaceStudioMode {
  * between one and six times the cost, which is both unprofitable at the top
  * end and overpriced at the bottom.
  *
- * Derived from the measured GPU cost in README_INTEGRATION.md §7 at $0.00034
- * per GPU second: a single-face swap runs 17-25 s (~$0.006-0.008) and a head
- * swap 30-47 s (~$0.010-0.016). Head swap is twice face swap because it costs
- * roughly twice as much to produce, which keeps the margin flat across both
+ * A single-face swap runs 17-25 s and a head swap 30-47 s. Head swap is twice
+ * face swap because it costs roughly twice as much to produce, which keeps the
+ * margin flat across both
  * instead of subsidising head swaps out of face swap revenue.
  *
  * Detection is free; see the reasoning on DETECT_MIN_BALANCE below.
@@ -93,7 +92,7 @@ export const FACESTUDIO_MIN_PRICE = Math.min(
 
 /**
  * Detection is free, but it is not costless: it occupies a GPU for 2-6 s
- * (~$0.001). Rather than add a separate rate-limit table, detect requires
+ * Rather than add a separate rate-limit table, detect requires
  * enough balance to pay for the cheapest render — detecting faces is only
  * useful as a prelude to generating, so a user who cannot afford a render has
  * no legitimate reason to be detecting, and a user who can is self-limiting
@@ -105,7 +104,7 @@ export const DETECT_MIN_BALANCE = FACESTUDIO_MIN_PRICE;
  * What a signed-in account is topped up to, free, when it runs low.
  *
  * 30 credits is three face swaps or one Nano ImageEdit, costing us at most
- * ~$0.05 of GPU. It tops the balance *up to* this figure rather than adding to
+ * GPU time. It tops the balance *up to* this figure rather than adding to
  * it, which is why it is safe: an account that sat idle for a hundred days
  * still arrives with 30, not 3,000. The consequence is that someone holding a
  * balance above 30 receives nothing, which is intended: the free tier exists so

@@ -13,7 +13,7 @@ export const HEADSWAP_PRO_NAME = "Nano HeadSwap Pro";
 export const HEADSWAP_PRO_TAGLINE = "Starring you.";
 export const HEADSWAP_PRO_SERVICE = "headswap-pro";
 
-/** Credits for one delivered image (1 credit = $0.01). The GPU costs us $0.011 to $0.04 an image. */
+/** Credits for one delivered image (1 credit = $0.01). */
 export const HEADSWAP_PRO_CREDITS_PER_IMAGE = 20;
 export const HEADSWAP_PRO_MAX_VARIATIONS = 4;
 export const HEADSWAP_PRO_HOLD_TTL_SECONDS = 60 * 60;

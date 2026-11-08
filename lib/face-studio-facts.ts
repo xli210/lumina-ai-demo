@@ -9,7 +9,7 @@
  * from here rather than restating numbers in prose.
  *
  * Every figure is measured or contractual, not aspirational:
- *   - throughput and GPU cost: facestudio_handoff/README_INTEGRATION.md §7
+ *   - throughput: facestudio_handoff/README_INTEGRATION.md §7
  *   - prices: FACESTUDIO_PRICE_PER_FACE in lib/facestudio.ts (per FACE,
  *     not per render — the worker runs one diffusion pass per face)
  *   - competitor prices: vendor pricing pages, checked September 2026

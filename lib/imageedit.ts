@@ -21,10 +21,6 @@ export const IMAGEEDIT_SERVICE = "imageedit";
 /**
  * Credits per finished edit, by the photo's size: [up to this many MP, credits].
  * A failed edit costs nothing, and "Try another version" is a new edit.
- *
- * The GPU time of the edit itself is 39-66 s on an H100 ($0.06-0.10). A person's
- * first edit after a quiet period also pays for the worker starting and for its
- * idle timeout. Credits bring in $0.0077-0.0091 each after Stripe.
  */
 export const IMAGEEDIT_CREDIT_TIERS: ReadonlyArray<readonly [maxMp: number, credits: number]> = [
   [12, 30],
