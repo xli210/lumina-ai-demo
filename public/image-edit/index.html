@@ -479,8 +479,8 @@ function setBrush(on) {
   $("brushBtn").classList.toggle("on", on && !S.erase); $("brushBtn").setAttribute("aria-pressed", on);
   $("eraseBtn").classList.toggle("on", S.erase);
   ["eraseBtn", "sizeWrap", "clearBtn"].forEach((id) => { $(id).hidden = !on && !S.painted; });
-  $("brushHint").textContent = on ? "Paint over the part you want changed. Only that area will be edited."
-    : S.painted ? "Only the painted area will change." : "";
+  $("brushHint").textContent = on ? "Paint over the part you want changed. The edit stays there, with a soft blend at its edge."
+    : S.painted ? "The edit stays in the painted area." : "";
 }
 $("brushBtn").onclick = () => { if (S.brush && !S.erase) setBrush(false); else { S.erase = false; setBrush(true); } };
 $("eraseBtn").onclick = () => { S.erase = !S.erase || !S.brush; setBrush(true); };
@@ -514,7 +514,7 @@ function update() {
     : !S.fileUrl ? "Upload a photo to start."
     : !S.photo ? "Uploading your photo…"
     : !promptEl.value.trim() ? "Describe the change, then press Edit (or Enter)."
-    : S.painted ? "Ready · only the painted area can change." : "Ready.";
+    : S.painted ? "Ready · the edit stays in the painted area." : "Ready.";
 }
 
 // ---------- run

@@ -1,5 +1,5 @@
 /**
- * Nano ImageEdit 2.0 Online contract — safe to import from both client and server.
+ * SpotEdit (online, formerly Nano ImageEdit 2.0 Online) contract — safe to import from both client and server.
  *
  * A prompt-driven photo editor that changes only the part of the photo the
  * prompt names and returns the photo at its full resolution. The model is
@@ -13,7 +13,7 @@
  * Nothing secret lives here. See docs/image-edit.md.
  */
 
-export const IMAGEEDIT_NAME = "Nano ImageEdit 2.0 Online";
+export const IMAGEEDIT_NAME = "SpotEdit";
 
 /** `service` on credit holds and ledger rows. */
 export const IMAGEEDIT_SERVICE = "imageedit";
@@ -66,8 +66,8 @@ export const IMAGEEDIT_MAX_UPLOAD_MB = 120;
 /** Presigned upload lifetime. */
 export const IMAGEEDIT_UPLOAD_TTL_SECONDS = 15 * 60;
 
-/** Presigned full-resolution download lifetime. */
-export const IMAGEEDIT_FILE_TTL_SECONDS = 24 * 60 * 60;
+/** Presigned result lifetime. The privacy policy promises links that expire within an hour. */
+export const IMAGEEDIT_FILE_TTL_SECONDS = 60 * 60;
 
 /** RunPod job ids, e.g. `53e40671-8baa-479d-a46b-c413bb7083a8-u1`. */
 export function isImageEditJobId(v: unknown): v is string {

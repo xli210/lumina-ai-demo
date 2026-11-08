@@ -163,14 +163,14 @@ export interface ImageEditFact {
 
 /** The short, quotable table near the top of the page. */
 export const IMAGE_EDIT_KEY_FACTS: readonly ImageEditFact[] = [
-  { label: "What it is", value: "A browser photo editor you drive with text instructions" },
+  { label: "What it is", value: "Full-resolution photo retouching by text instruction, in the browser" },
   { label: "Price", value: `By photo size: ${IMAGE_EDIT_PRICE_TEXT}. Paid per finished edit` },
   { label: "Free credits", value: `New accounts start with ${IMAGE_EDIT_WELCOME_CREDITS} credits, one grant per person` },
   { label: "Failed edits", value: "Not charged" },
   { label: "Subscription", value: "None. Credits never expire" },
   { label: "Speed", value: `${IMAGE_EDIT_WARM_SECONDS}; first edit after idle ${IMAGE_EDIT_COLD_START}` },
-  { label: "Output", value: `Lossless PNG at the size you upload, up to ${IMAGE_EDIT_MAX_MP} MP. Accounts that have never bought credits get a watermark` },
-  { label: "Outside the edit", value: "Only the part you name is changed; the rest of the photo is kept as it was" },
+  { label: "Output", value: `8-bit lossless PNG at the size you upload, up to ${IMAGE_EDIT_MAX_MP} MP. Accounts that have never bought credits get a watermark` },
+  { label: "Outside the edit", value: "Unchanged, down to the pixel: the area the editor reports as edited is the only area that differs" },
   { label: "Needs", value: "A free NanoPocket account and a modern browser. Nothing to install" },
 ];
 
@@ -178,6 +178,7 @@ export const IMAGE_EDIT_KEY_FACTS: readonly ImageEditFact[] = [
 export const IMAGE_EDIT_LIMITS: readonly string[] = [
   "It is generative, so two runs of the same instruction can differ. Each new version is a new edit.",
   `It is not instant: ${IMAGE_EDIT_WARM_SECONDS} per edit, and a cold GPU adds ${IMAGE_EDIT_COLD_START}.`,
+  "Results are 8-bit. A 16-bit file comes back as 8-bit.",
   `Photos over ${IMAGE_EDIT_MAX_MP} MP or ${IMAGE_EDIT_MAX_UPLOAD_MB} MB are refused rather than scaled down. Accounts that have never bought credits get a watermark.`,
   "It edits still photos only. There is no video editing, no batch mode and no public API.",
   "It does not swap faces. For that, use Nano FaceStudio Online.",
@@ -199,7 +200,7 @@ export const IMAGE_EDIT_FAQ: readonly ImageEditFaq[] = [
   },
   {
     q: "Does it change parts of the photo I did not ask to edit?",
-    a: "It is built not to. Only the part you name is changed and the rest of the photo is kept as it was. To be sure, paint over the part that may change, then compare before and after with the slider.",
+    a: "No. The editor reports how much of the photo it edited, and the pixels outside that area are identical to your original. We checked this by comparing a result with its original pixel by pixel. If you paint an area, the edit stays there, with a soft blend at its edge. A watermark on a free account's result is the one addition.",
   },
   {
     q: "How do I remove an object from a photo with AI?",
@@ -220,6 +221,18 @@ export const IMAGE_EDIT_FAQ: readonly ImageEditFaq[] = [
   {
     q: "What resolution do I get back?",
     a: `The edited photo at the resolution you uploaded, as a lossless PNG, up to ${IMAGE_EDIT_MAX_MP} MP. It is never scaled down. Accounts that have never bought credits get a NanoPocket.ai watermark; buy credits once and every result is clean.`,
+  },
+  {
+    q: "Do I own the results? Can I use them for client work?",
+    a: "You keep all rights to what you make, subject to our Acceptable Use policy, as our Terms state. Only edit photos you have the right to use.",
+  },
+  {
+    q: "Are my photos used to train AI models?",
+    a: "No. Uploads and results are never used to train models. They are kept in private storage, reached only through signed links that expire within an hour, and are deleted on request (tech@nanopocket.ai) or with your account.",
+  },
+  {
+    q: "Are the colour profile and metadata kept?",
+    a: "Yes: in our test the ICC profile and EXIF of the original came through to the result. Results are 8-bit RGB PNGs.",
   },
   {
     q: `Is ${IMAGE_EDIT_NAME} the same as the Nano ImageEdit desktop app?`,

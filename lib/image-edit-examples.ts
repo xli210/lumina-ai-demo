@@ -154,6 +154,46 @@ export const IMAGE_EDIT_EXAMPLES: readonly ImageEditExample[] = [
   },
 ];
 
+/** The SpotEdit cases shown on /image-edit: real edits, with the request that was run and the original's size. */
+export interface SpotEditExample {
+  id: string;
+  title: string;
+  prompt: string;
+  before: string;
+  after: string;
+  width: number;
+  height: number;
+  /** The original photo; the files here are resized for the page. */
+  size: string;
+}
+
+const SPOTEDIT_DIR = "/images/spotedit";
+const spot = (id: string, title: string, prompt: string, width: number, height: number, size: string): SpotEditExample => ({
+  id, title, prompt, width, height, size, before: `${SPOTEDIT_DIR}/${id}_before.jpg`, after: `${SPOTEDIT_DIR}/${id}_after.jpg`,
+});
+
+export const SPOTEDIT_HERO = spot("wedding", "Clear the view at a wedding", "Remove the blurry guests in the foreground on the left and right edges, so the bride and groom are clearly visible.", 1500, 1000, "6720 × 4480 · 30 MP");
+
+export const SPOTEDIT_EXAMPLES: readonly SpotEditExample[] = [
+  spot("group", "Remove someone from a group photo", "Remove the man on the right side of the photo, fill in the background naturally.", 1500, 1000, "3936 × 2624 · 10 MP"),
+  spot("photobomber", "Remove a photobomber", "Remove the man in the orange jacket taking a photo in the foreground.", 1000, 1500, "4000 × 6000 · 24 MP"),
+  spot("suit", "Casual photo to headshot", "Change his white T-shirt to a navy blue suit jacket with a white dress shirt.", 1000, 1500, "3569 × 5354 · 19 MP"),
+  spot("jacket", "Try a new look", "Change the denim jacket to a black leather jacket, keep the white hoodie.", 1000, 1500, "3456 × 5184 · 18 MP"),
+  spot("braces", "Remove braces", "Remove the braces from her teeth, natural clean white teeth.", 1034, 1500, "3456 × 5184 · 18 MP · close-up"),
+];
+
+/** A live edit compared with its input, pixel by pixel. Figures as measured on 2026-11-08, no watermark. */
+export const SPOTEDIT_PROOF = {
+  before: `${SPOTEDIT_DIR}/proof_before.jpg`,
+  after: `${SPOTEDIT_DIR}/proof_after.jpg`,
+  diff: `${SPOTEDIT_DIR}/proof_diff.png`,
+  width: 1000,
+  height: 1500,
+  prompt: "Remove the man on the right",
+  reportedEditedPct: 25.61,
+  identicalPct: 74.39,
+};
+
 export const IMAGE_EDIT_OG = {
   src: `${DIR}/og-image-edit.jpg`,
   width: 1200,

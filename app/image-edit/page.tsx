@@ -1,73 +1,67 @@
 import type { Metadata } from "next";
 import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, Check } from "lucide-react";
 
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
 import { BeforeAfterSlider } from "@/app/components/before-after-slider";
-import { BLOG_POSTS } from "@/lib/blog-posts";
 import {
   IMAGE_EDIT_FAQ,
-  IMAGE_EDIT_GUIDES,
   IMAGE_EDIT_KEY_FACTS,
   IMAGE_EDIT_LAUNCHED,
   IMAGE_EDIT_LIMITS,
+  IMAGE_EDIT_MAX_MP,
   IMAGE_EDIT_NAME,
   IMAGE_EDIT_PRICE_CREDITS,
   IMAGE_EDIT_STEPS,
-  IMAGE_EDIT_TOOLS,
   IMAGE_EDIT_URL,
-  IMAGE_EDIT_WARM_SECONDS,
   IMAGE_EDIT_WELCOME_CREDITS,
 } from "@/lib/image-edit-facts";
-import { IMAGE_EDIT_EXAMPLES, IMAGE_EDIT_OG } from "@/lib/image-edit-examples";
-import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
+import { SPOTEDIT_EXAMPLES, SPOTEDIT_HERO, SPOTEDIT_PROOF } from "@/lib/image-edit-examples";
 
 /**
- * /image-edit: the public, indexable page for Nano ImageEdit 2.0 Online.
+ * /image-edit: the public, indexable page for SpotEdit.
  *
  * The editor itself is at /image-edit/launch behind sign-in (middleware
  * protects the `/image-edit/` prefix, not this page, so crawlers can read it).
- * Every figure comes from lib/image-edit-facts.ts, so this page, its JSON-LD,
- * /llms.txt and the guides under /blog cannot disagree. The before/after
- * examples are real edits made with the product; the prompt shown under each
- * is the one that was run. See docs/image-edit.md and docs/GEO-PLAYBOOK.md.
+ * Every figure comes from lib/image-edit-facts.ts and lib/image-edit-examples.ts,
+ * so this page, its JSON-LD and /llms.txt cannot disagree. The cases are real
+ * edits; the request shown under each is the one that was run.
  */
 
 const LAUNCH = "/image-edit/launch";
 // The site template appends " | NanoPocket", so keep this short enough to survive it (~60 characters shown in results).
-const TITLE = `Free AI Photo Editor Online by Text: ${IMAGE_EDIT_NAME}`;
-const DESCRIPTION = `Remove, replace or add objects, change text on signs, relight, change the season or restore old photos by describing the edit. Full-resolution PNG, the rest of the photo stays identical. ${IMAGE_EDIT_WELCOME_CREDITS} free credits on sign-up (${Math.floor(IMAGE_EDIT_WELCOME_CREDITS / IMAGE_EDIT_PRICE_CREDITS)} edits), then ${IMAGE_EDIT_PRICE_CREDITS} credits per edit; no watermark, no subscription.`;
+const TITLE = `Full-Resolution AI Photo Retouching: ${IMAGE_EDIT_NAME}`;
+const TAGLINE = "only the spot you name changes";
+const DESCRIPTION = `Retouch photos by describing the change. Results come back at full size, up to ${IMAGE_EDIT_MAX_MP} MP, and every pixel outside the edit is identical to your original. From ${IMAGE_EDIT_PRICE_CREDITS} credits per edit, no subscription, ${IMAGE_EDIT_WELCOME_CREDITS} free credits on sign-up.`;
+const OG = { src: SPOTEDIT_HERO.after, width: SPOTEDIT_HERO.width, height: SPOTEDIT_HERO.height, alt: `${IMAGE_EDIT_NAME}: ${SPOTEDIT_HERO.title}` };
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   keywords: [
-    "AI photo editor online",
-    "edit photos with text prompts",
-    "remove objects from photos AI",
-    "replace object in photo AI",
-    "change text in image AI",
-    "restore old photos AI",
-    "colorize old photos online",
-    "change season in photo AI",
-    "AI photo editor no subscription",
-    "Nano ImageEdit",
+    "full resolution AI photo editing",
+    "AI retouching for professionals",
+    "edit part of a photo with AI",
+    "generative fill alternative",
+    "remove objects from high resolution photos",
+    "SpotEdit",
   ],
   alternates: { canonical: "/image-edit", languages: hreflangAlternates("https://nanopocket.ai", "/image-edit", TRANSLATED_PAGES["/image-edit"]) },
   openGraph: {
     type: "website",
     url: IMAGE_EDIT_URL,
-    title: `${IMAGE_EDIT_NAME}: describe the edit, keep the rest of the photo`,
+    title: `${IMAGE_EDIT_NAME}: ${TAGLINE}`,
     description: DESCRIPTION,
-    images: [{ url: IMAGE_EDIT_OG.src, width: IMAGE_EDIT_OG.width, height: IMAGE_EDIT_OG.height, alt: IMAGE_EDIT_OG.alt }],
+    images: [{ url: OG.src, width: OG.width, height: OG.height, alt: OG.alt }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${IMAGE_EDIT_NAME}: describe the edit, keep the rest of the photo`,
+    title: `${IMAGE_EDIT_NAME}: ${TAGLINE}`,
     description: DESCRIPTION,
-    images: [IMAGE_EDIT_OG.src],
+    images: [OG.src],
   },
 };
 
@@ -78,18 +72,17 @@ const softwareJsonLd = {
   "@type": "SoftwareApplication",
   "@id": `${IMAGE_EDIT_URL}#software`,
   name: IMAGE_EDIT_NAME,
-  alternateName: "Nano ImageEdit Online",
+  alternateName: "Nano ImageEdit 2.0 Online",
   url: IMAGE_EDIT_URL,
   description: DESCRIPTION,
   applicationCategory: "MultimediaApplication",
   applicationSubCategory: "Photo editor",
   operatingSystem: "Web browser",
-  softwareVersion: "2.0",
   datePublished: IMAGE_EDIT_LAUNCHED,
   inLanguage: "en",
-  featureList: IMAGE_EDIT_TOOLS.map((t) => `${t.name}: ${t.summary}`),
-  screenshot: IMAGE_EDIT_EXAMPLES.map((e) => abs(e.after)),
-  image: abs(IMAGE_EDIT_OG.src),
+  featureList: [`Full-resolution output up to ${IMAGE_EDIT_MAX_MP} MP`, "Pixels outside the edit stay identical", "Edit by text instruction, with an optional brush"],
+  screenshot: [SPOTEDIT_HERO, ...SPOTEDIT_EXAMPLES].map((e) => abs(e.after)),
+  image: abs(OG.src),
   offers: [
     {
       "@type": "Offer",
@@ -97,7 +90,7 @@ const softwareJsonLd = {
       name: "Free to start",
       price: "0",
       priceCurrency: "USD",
-      description: `New accounts get free credits. Then ${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit, prepaid in credits that never expire. Failed and cancelled edits are refunded.`,
+      description: `New accounts get free credits. Then from ${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit, prepaid in credits that never expire. A failed edit is not charged.`,
       url: IMAGE_EDIT_URL,
     },
   ],
@@ -113,8 +106,8 @@ const webPageJsonLd = {
   description: DESCRIPTION,
   inLanguage: "en",
   datePublished: IMAGE_EDIT_LAUNCHED,
-  dateModified: IMAGE_EDIT_EXAMPLES.length ? "2026-10-05" : IMAGE_EDIT_LAUNCHED,
-  primaryImageOfPage: { "@type": "ImageObject", url: abs(IMAGE_EDIT_OG.src), width: IMAGE_EDIT_OG.width, height: IMAGE_EDIT_OG.height },
+  dateModified: "2026-11-08",
+  primaryImageOfPage: { "@type": "ImageObject", url: abs(OG.src), width: OG.width, height: OG.height },
   about: { "@id": `${IMAGE_EDIT_URL}#software` },
   isPartOf: { "@type": "WebSite", name: "NanoPocket", url: "https://nanopocket.ai" },
 };
@@ -134,7 +127,7 @@ const howToJsonLd = {
   "@type": "HowTo",
   name: `How to edit a photo by describing the change with ${IMAGE_EDIT_NAME}`,
   description:
-    "Add a photo, choose a tool, describe the edit in plain words, and download the full-resolution result.",
+    "Add a photo, describe the edit in plain words, and download the full-resolution result.",
   totalTime: "PT2M",
   supply: [{ "@type": "HowToSupply", name: "A photo" }],
   tool: [{ "@type": "HowToTool", name: "A modern web browser" }],
@@ -156,21 +149,6 @@ const breadcrumbJsonLd = {
   ],
 };
 
-const SAMPLE_CREDITS: { file: string; title: string; url: string; license: string }[] = [
-  { file: "lake2", title: "Glencoe Lochan reflections 3 20211022.jpg", url: "https://commons.wikimedia.org/wiki/File:Glencoe_Lochan_reflections_3_20211022.jpg", license: "CC BY-SA 3.0" },
-  { file: "park2", title: "Dülmen, Merfeld, Von-Galen-Park -- 2013 -- 2367.jpg", url: "https://commons.wikimedia.org/wiki/File:D%C3%BClmen,_Merfeld,_Von-Galen-Park_--_2013_--_2367.jpg", license: "CC BY-SA 4.0" },
-  { file: "room", title: "A table in The Round Table Cafe at Winchester Great Hall 2026-07-12.jpg", url: "https://commons.wikimedia.org/wiki/File:A_table_in_The_Round_Table_Cafe_at_Winchester_Great_Hall_2026-07-12.jpg", license: "CC0" },
-  { file: "fruit", title: "Fruit Bowl (4880797613).jpg", url: "https://commons.wikimedia.org/wiki/File:Fruit_Bowl_(4880797613).jpg", license: "CC BY 2.0" },
-  { file: "cars", title: "Parked Panek car, Batuty street, Warsaw.jpg", url: "https://commons.wikimedia.org/wiki/File:Parked_Panek_car,_Batuty_street,_Warsaw.jpg", license: "CC BY-SA 4.0" },
-  { file: "barber", title: "Barber Storefront with Flag - panoramio.jpg", url: "https://commons.wikimedia.org/wiki/File:Barber_Storefront_with_Flag_-_panoramio.jpg", license: "CC BY-SA 3.0" },
-  { file: "trends", title: "Citi Trends Storefront Logo.jpg", url: "https://commons.wikimedia.org/wiki/File:Citi_Trends_Storefront_Logo.jpg", license: "CC BY-SA 4.0" },
-  { file: "houses", title: "Cape Town (ZA), Wale Street -- 2024 -- 3544.jpg", url: "https://commons.wikimedia.org/wiki/File:Cape_Town_(ZA),_Wale_Street_--_2024_--_3544.jpg", license: "CC BY-SA 4.0" },
-  { file: "park", title: "A garden path and lawn Gibberd Garden Essex England.JPG", url: "https://commons.wikimedia.org/wiki/File:A_garden_path_and_lawn_Gibberd_Garden_Essex_England.JPG", license: "CC BY-SA 4.0" },
-  { file: "glassplate", title: "Five photographs of Center Street looking east, Monroe, Ohio, 1910 (DPLA)", url: "https://commons.wikimedia.org/wiki/File:Five_photographs_of_Center_Street_looking_east,_Monroe,_Ohio,_1910_February_18_-_DPLA_-_2d4294c2bedb8ac377730ee383ef4b1b_(page_1).jpg", license: "Public domain" },
-  { file: "sepia", title: "Jerald Schaitberger … Columbus Circle, October 8, 1910 (LOC cph.3a01149)", url: "https://commons.wikimedia.org/wiki/File:Jerald_Schaitberger_of_416_W._57th_St._N.Y._who_helps_an_older_boy_sell_papers_until_10_P.M._on_Columbus_Circle._7_yrs._old._9-30_P.M.,_October_8,_1910._LOC_cph.3a01149.jpg", license: "Public domain" },
-  { file: "hangar", title: "Bazalgette Lancaster FM-159 (51067883253).jpg", url: "https://commons.wikimedia.org/wiki/File:Bazalgette_Lancaster_FM-159_(51067883253).jpg", license: "CC BY 2.0" },
-];
-
 const eyebrow = "mb-3 text-sm font-medium uppercase tracking-widest text-primary";
 const h2 = "mb-4 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl";
 const lede = "max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg";
@@ -179,8 +157,6 @@ const primaryButton =
 const textLink = "font-medium text-primary underline-offset-4 hover:underline";
 
 export default function ImageEditLanding() {
-  const guides = IMAGE_EDIT_GUIDES.filter((g) => BLOG_POSTS.some((p) => p.slug === g.slug));
-
   return (
     <main className="relative min-h-screen">
       {[softwareJsonLd, webPageJsonLd, faqJsonLd, howToJsonLd, breadcrumbJsonLd].map((data, i) => (
@@ -190,28 +166,40 @@ export default function ImageEditLanding() {
 
       {/* Hero */}
       <section className="px-6 pb-16 pt-32">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="mx-auto max-w-5xl text-center">
           <p className={eyebrow}>{IMAGE_EDIT_NAME}</p>
-          <h1 className="mb-5 text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
-            Edit photos by describing the change.
+          <h1 className="mx-auto mb-5 max-w-4xl text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
+            Retouch at full resolution. Only the spot you name changes.
           </h1>
           <p className={`${lede} mx-auto mb-8`}>
-            An AI photo editor in your browser. Remove or replace objects, rewrite the text on a sign, relight a scene,
-            change the season or restore an old print, then download the full-resolution PNG. Everything you don&apos;t
-            ask to change stays pixel-identical.
+            Describe the change and get your photo back at its original size, up to {IMAGE_EDIT_MAX_MP} MP. Every pixel
+            outside the edit is identical to the file you uploaded, so the result is ready to deliver.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
             <Link href={LAUNCH} className={primaryButton}>
-              Open the editor <ArrowRight className="h-4 w-4" />
+              Edit your photo <ArrowRight className="h-4 w-4" />
             </Link>
-            <a href="#examples" className={textLink}>
-              See real examples ↓
+            <a href="#proof" className={textLink}>
+              See the pixel check ↓
             </a>
           </div>
           <p className="mt-5 text-xs text-muted-foreground">
-            {IMAGE_EDIT_PRICE_CREDITS} credits per edit · free credits for new accounts · failed
-            edits refunded · no subscription
+            From {IMAGE_EDIT_PRICE_CREDITS} credits per edit · free credits for new accounts · failed edits not charged
+            · no subscription
           </p>
+          <figure className="glass-strong mt-12 overflow-hidden rounded-3xl border border-primary/10 text-left">
+            <BeforeAfterSlider
+              before={SPOTEDIT_HERO.before}
+              after={SPOTEDIT_HERO.after}
+              alt={SPOTEDIT_HERO.title}
+              width={SPOTEDIT_HERO.width}
+              height={SPOTEDIT_HERO.height}
+            />
+            <figcaption className="p-5 sm:p-6">
+              <p className="mb-1 text-sm font-medium text-foreground">&ldquo;{SPOTEDIT_HERO.prompt}&rdquo;</p>
+              <p className="text-xs text-muted-foreground">Original {SPOTEDIT_HERO.size} · same size out</p>
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -230,84 +218,71 @@ export default function ImageEditLanding() {
         </div>
       </section>
 
-      {/* Real examples */}
+      {/* The pixel check */}
+      <section id="proof" className="scroll-mt-24 px-6 pb-24">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-10 text-center">
+            <p className={eyebrow}>The pixel check</p>
+            <h2 className={h2}>Don&apos;t take our word for it. Subtract the two images.</h2>
+            <p className={`${lede} mx-auto`}>
+              A real result compared with its original, pixel by pixel. White marks every pixel that differs by even one
+              level. Black pixels are exactly the same.
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              { src: SPOTEDIT_PROOF.before, label: "Original" },
+              { src: SPOTEDIT_PROOF.after, label: "Result" },
+              { src: SPOTEDIT_PROOF.diff, label: "Changed pixels" },
+            ].map((p) => (
+              <figure key={p.label} className="glass-strong overflow-hidden rounded-3xl border border-primary/10">
+                <Image
+                  src={p.src}
+                  alt={`${p.label}: ${SPOTEDIT_PROOF.prompt}`}
+                  width={SPOTEDIT_PROOF.width}
+                  height={SPOTEDIT_PROOF.height}
+                  unoptimized
+                  className="h-auto w-full"
+                />
+                <figcaption className="p-4 text-center text-sm font-medium text-foreground">{p.label}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-muted-foreground">
+            Request: &ldquo;{SPOTEDIT_PROOF.prompt}&rdquo;. The editor reported {SPOTEDIT_PROOF.reportedEditedPct}% of the
+            photo as edited, and {SPOTEDIT_PROOF.identicalPct}% of its pixels came back identical to the original.
+          </p>
+        </div>
+      </section>
+
+      {/* Cases */}
       <section id="examples" className="scroll-mt-24 px-6 pb-24">
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 text-center">
-            <p className={eyebrow}>Real results</p>
-            <h2 className={h2}>Drag to compare. Every one is a real edit.</h2>
-            <p className={`${lede} mx-auto`}>
-              Each pair is a photo edited with the instruction under it, unretouched. The percentage is how much of the
-              image the editor reports as changed; for object edits it confirms the rest is identical.
-            </p>
+            <p className={eyebrow}>Real photos</p>
+            <h2 className={h2}>One request each. Drag to compare.</h2>
+            <p className={`${lede} mx-auto`}>Every result came back at the photo&apos;s original size.</p>
           </div>
-
           <div className="grid gap-8 md:grid-cols-2 md:items-start">
-            {IMAGE_EDIT_EXAMPLES.map((e, i) => (
+            {SPOTEDIT_EXAMPLES.map((e, i) => (
               <figure
                 key={e.id}
                 className={`glass-strong overflow-hidden rounded-3xl border border-primary/10 ${
-                  i === IMAGE_EDIT_EXAMPLES.length - 1 && IMAGE_EDIT_EXAMPLES.length % 2 === 1 ? "md:col-span-2" : ""
+                  i === 0 ? "md:col-span-2" : ""
                 }`}
               >
-                <BeforeAfterSlider
-                  before={e.before}
-                  after={e.after}
-                  alt={e.alt}
-                  width={e.width}
-                  height={e.height}
-                />
+                <BeforeAfterSlider before={e.before} after={e.after} alt={e.title} width={e.width} height={e.height} />
                 <figcaption className="p-5 sm:p-6">
-                  <div className="mb-2 flex flex-wrap items-center gap-2">
-                    <a
-                      href={`#${e.toolId}`}
-                      className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
-                    >
-                      {e.toolName}
-                    </a>
-                    {e.editedPct !== undefined && (
-                      <span className="text-xs text-muted-foreground">
-                        {e.editedPct}% of the image changed · the rest identical
-                      </span>
-                    )}
-                  </div>
-                  <p className="mb-2 text-sm font-medium text-foreground">&ldquo;{e.prompt}&rdquo;</p>
-                  <p className="text-xs leading-relaxed text-muted-foreground">
-                    Photo:{" "}
-                    <a href={e.credit.url} target="_blank" rel="noopener noreferrer" className={textLink}>
-                      {e.credit.title}
-                    </a>
-                    , {e.credit.license}.
-                    {e.credit.license.startsWith("CC BY-SA") && " The edited version is shared under the same licence."}
-                  </p>
+                  <h3 className="mb-1 font-semibold text-foreground">{e.title}</h3>
+                  <p className="mb-2 text-sm text-foreground">&ldquo;{e.prompt}&rdquo;</p>
+                  <p className="text-xs text-muted-foreground">Original {e.size} · same size out</p>
                 </figcaption>
               </figure>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Tools */}
-      <section id="tools" className="scroll-mt-24 px-6 pb-24">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-12 text-center">
-            <p className={eyebrow}>Eight tools</p>
-            <h2 className={h2}>Say what you want in plain words.</h2>
-          </div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {IMAGE_EDIT_TOOLS.map((t) => (
-              <article key={t.id} id={t.id} className="glass-strong scroll-mt-28 rounded-3xl border border-primary/10 p-6">
-                <h3 className="mb-2 text-lg font-bold text-foreground">{t.name}</h3>
-                <p className="mb-4 text-sm leading-relaxed text-muted-foreground">{t.summary}</p>
-                <p className="mb-3 rounded-xl bg-muted/50 px-3 py-2 font-mono text-xs leading-relaxed text-foreground">
-                  {t.example}
-                </p>
-                <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
-                  {t.scope === "region" ? "Rest of the photo stays identical" : "Changes the whole photo"}
-                </p>
-              </article>
-            ))}
-          </div>
+          <p className="mt-8 text-center text-xs text-muted-foreground">
+            Sample photos from Unsplash, shown resized. Each edit was made by {IMAGE_EDIT_NAME} with the request shown.
+          </p>
         </div>
       </section>
 
@@ -315,7 +290,7 @@ export default function ImageEditLanding() {
       <section id="how-it-works" className="scroll-mt-24 px-6 pb-24">
         <div className="mx-auto max-w-3xl">
           <p className={eyebrow}>How it works</p>
-          <h2 className={h2}>From photo to result in about {IMAGE_EDIT_WARM_SECONDS}.</h2>
+          <h2 className={h2}>Upload, describe, deliver.</h2>
           <ol className="mt-8 space-y-6">
             {IMAGE_EDIT_STEPS.map((s, i) => (
               <li key={s.name} className="flex gap-4">
@@ -367,74 +342,25 @@ export default function ImageEditLanding() {
         </div>
       </section>
 
-      {/* Audience pages: the long-tail routes into this product */}
+      {/* Related */}
       <section className="px-6 pb-24">
-        <div className="mx-auto max-w-5xl">
-          <p className={eyebrow}>Who it is for</p>
-          <h2 className={h2}>Made for work where the rest of the photo must stay put.</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {IMAGE_EDIT_USE_CASES.map((u) => (
-              <Link
-                key={u.slug}
-                href={`/use-cases/${u.slug}`}
-                className="glass-strong rounded-3xl border border-primary/10 p-5 transition-shadow hover:shadow-lg"
-              >
-                <h3 className="mb-1 text-base font-semibold text-foreground">{u.name}</h3>
-                <p className="text-sm text-muted-foreground">{u.whoFor}</p>
+        <div className="mx-auto max-w-3xl">
+          <p className={eyebrow}>Also from NanoPocket</p>
+          <h2 className="mb-4 text-2xl font-bold tracking-tight text-foreground">Related tools</h2>
+          <ul className="space-y-3 text-sm sm:text-base">
+            <li>
+              <Link href="/facestudio-v" className={textLink}>
+                Video FaceSwap 2.5 Online
               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Guides + related: the internal links this page needs */}
-      <section className="px-6 pb-24">
-        <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2">
-          {guides.length > 0 && (
-            <div>
-              <p className={eyebrow}>Guides</p>
-              <h2 className="mb-4 text-2xl font-bold tracking-tight text-foreground">Step-by-step</h2>
-              <ul className="space-y-3 text-sm sm:text-base">
-                {guides.map((g) => (
-                  <li key={g.slug}>
-                    <Link href={`/blog/${g.slug}`} className={textLink}>
-                      {g.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          <div>
-            <p className={eyebrow}>Also from NanoPocket</p>
-            <h2 className="mb-4 text-2xl font-bold tracking-tight text-foreground">Related tools</h2>
-            <ul className="space-y-3 text-sm sm:text-base">
-              <li>
-                <Link href="/facestudio-v" className={textLink}>
-                  Video FaceSwap 2.5 Online
-                </Link>
-                <span className="text-muted-foreground"> for swapping a face in a video (version 2.0.0)</span>
-              </li>
-              <li>
-                <Link href="/face-studio" className={textLink}>
-                  Nano FaceStudio Online
-                </Link>
-                <span className="text-muted-foreground"> for swapping up to six faces in one photo</span>
-              </li>
-              <li>
-                <Link href="/apps/nano-imageedit" className={textLink}>
-                  Nano ImageEdit (desktop)
-                </Link>
-                <span className="text-muted-foreground"> to generate and edit images locally on your own GPU</span>
-              </li>
-              <li>
-                <Link href="/apps/nano-imageenh-pro" className={textLink}>
-                  Nano ImageEnh Pro
-                </Link>
-                <span className="text-muted-foreground"> for upscaling and restoring images locally</span>
-              </li>
-            </ul>
-          </div>
+              <span className="text-muted-foreground"> for swapping a face in a video</span>
+            </li>
+            <li>
+              <Link href="/face-studio" className={textLink}>
+                Nano FaceStudio Online
+              </Link>
+              <span className="text-muted-foreground"> for swapping up to six faces in one photo</span>
+            </li>
+          </ul>
         </div>
       </section>
 
@@ -442,35 +368,15 @@ export default function ImageEditLanding() {
       <section className="px-6 pb-24">
         <div className="glass-strong mx-auto max-w-3xl rounded-3xl border border-primary/10 p-8 text-center sm:p-10">
           <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            Try it on your own photo.
+            Check it on your own photo.
           </h2>
           <p className="mx-auto mb-6 max-w-xl text-sm text-muted-foreground sm:text-base">
-            Sign in, drop in a photo and describe the change. {IMAGE_EDIT_PRICE_CREDITS} credits
-            per edit; an edit that fails costs nothing.
+            Sign in, drop in a photo and describe the change. From {IMAGE_EDIT_PRICE_CREDITS} credits per edit; an edit
+            that fails costs nothing.
           </p>
           <Link href={LAUNCH} className={primaryButton}>
-            Open the editor <ArrowRight className="h-4 w-4" />
+            Edit your photo <ArrowRight className="h-4 w-4" />
           </Link>
-        </div>
-      </section>
-
-      <section id="sample-credits" className="scroll-mt-24 px-6 pb-20">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="mb-2 text-lg font-bold tracking-tight text-foreground">Photo credits</h2>
-          <p className="mb-3 text-sm text-muted-foreground">
-            The sample photos in the editor and the examples above come from Wikimedia Commons and are shown resized.
-            Edited versions of CC BY-SA images are shared under the same licence.
-          </p>
-          <ul className="space-y-1 text-xs text-muted-foreground">
-            {SAMPLE_CREDITS.map((c) => (
-              <li key={c.file}>
-                <a href={c.url} className="underline underline-offset-2" target="_blank" rel="noopener noreferrer">
-                  {c.title}
-                </a>{" "}
-                — {c.license}
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 

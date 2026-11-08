@@ -288,8 +288,8 @@ export function toEditJob(
       job: {
         id: jobId,
         status: "done",
-        url: output.url,
-        // A named download that lasts a day, rather than the worker's own link.
+        // Our own links rather than the worker's, for the lifetime the privacy policy states.
+        url: key ? signFile(key.replace(/\.png$/, ".jpg")) : output.url,
         download_url: key ? signFile(key, "spotedit.png") : output.png_url,
         // "Keep editing this" names it; a marked result stays out of that (userMayEdit).
         result_key: key && output.watermarked !== true ? key : undefined,
