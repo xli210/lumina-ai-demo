@@ -2,115 +2,788 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script src="/i18n/tools.js?v=3"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nano ImageEdit 2.0 Online — NanoPocket</title>
-<meta name="robots" content="noindex">
-<link rel="stylesheet" href="/image-edit/style.css?v=1">
+<title>Nanopocket SpotEdit</title>
+<link rel="icon" href="/image-edit/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- base.css: the shared Face Studio / HeadSwap look (black, white accents, glass cards, Outfit) -->
+<link rel="stylesheet" href="/image-edit/base.css?v=2">
+<style>
+main { max-width: 960px; }
+.editor { margin-top: 28px; }
+.upload-zone { min-height: 340px; }
+.upload-zone.filled { padding: 12px; min-height: 0; }
+
+/* photo + brush */
+.paint { position: relative; display: inline-block; line-height: 0; max-width: 100%; touch-action: none; }
+.paint img { display: block; max-width: 100%; max-height: 62vh; border-radius: var(--radius-md); }
+.paint canvas { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: var(--radius-md); pointer-events: none;
+  opacity: 0.55; }
+.paint.brushing canvas { pointer-events: auto; cursor: crosshair; }
+.toolbar { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.tool { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--border-card); background: var(--bg-card); color: var(--text-secondary); font-size: 0.85rem;
+  transition: all var(--transition); }
+.tool:hover { color: #fff; border-color: rgba(255,255,255,.35); }
+.tool.on { background: #fff; color: #000; border-color: #fff; }
+.tool:disabled { opacity: .4; cursor: not-allowed; }
+.size { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.8rem; }
+.size input { width: 110px; accent-color: #fff; }
+.brush-hint { margin-top: 8px; text-align: center; font-size: 0.8rem; color: var(--text-muted); min-height: 1.3em; }
+
+/* prompt */
+.prompt-box { margin-top: 22px; display: flex; gap: 10px; align-items: stretch; }
+.prompt-box textarea { flex: 1; min-height: 56px; max-height: 180px; resize: vertical; padding: 14px 18px; font: inherit;
+  font-size: 1rem; color: #fff; background: var(--bg-card); border: 1px solid var(--border-card); border-radius: var(--radius-md);
+  outline: none; transition: border-color var(--transition); }
+.prompt-box textarea:focus { border-color: var(--border-active); }
+.prompt-box textarea::placeholder { color: var(--text-muted); }
+.prompt-box .btn-generate { min-width: 150px; padding: 0 32px; white-space: nowrap; }
+.btn-generate .cost { font-weight: 400; opacity: .7; }
+.price-row { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 14px 0 0; padding: 0; }
+.price-row li { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border-card); font-size: .8rem; color: var(--text-muted); }
+.price-row b { color: #fff; font-weight: 600; }
+.examples { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 12px; }
+.examples button { border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); color: var(--text-muted);
+  border-radius: 999px; padding: 5px 12px; font-size: 0.8rem; cursor: pointer; transition: all var(--transition); }
+.examples button:hover { color: #fff; border-color: rgba(255,255,255,.35); }
+.btn-ghost { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; font-size: 0.85rem; font-weight: 500;
+  color: #fff; background: transparent; border: 1px solid rgba(255,255,255,.2); border-radius: 50px; cursor: pointer;
+  transition: all var(--transition); }
+.btn-ghost:hover { border-color: #fff; }
+.btn-ghost:disabled { opacity: .4; cursor: not-allowed; }
+@media (max-width: 760px) {
+  .prompt-box { flex-direction: column; }
+  .prompt-box .btn-generate { width: 100%; padding: 14px; }
+}
+</style>
 </head>
-<body>
-<header class="topbar">
-  <a class="brand" href="/image-edit" style="color:inherit;text-decoration:none"><span class="logo"></span>Nano ImageEdit 2.0 Online</a>
-  <div class="docinfo" id="docinfo"></div>
-  <div class="top-actions">
-    <button class="icon-btn" id="undoBtn" title="Undo (Ctrl+Z)" disabled><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></button>
-    <button class="icon-btn" id="redoBtn" title="Redo (Ctrl+Shift+Z)" disabled><svg viewBox="0 0 24 24"><path d="m15 14 5-5-5-5"/><path d="M20 9H9a5 5 0 0 0 0 10h3"/></svg></button>
-    <a class="btn ghost" id="creditsPill" href="/credits?from=ie_pill" title="Your credits. Failed edits are refunded.">… credits</a>
-    <button class="btn ghost" id="newBtn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New photo</button>
-    <a class="btn primary disabled" id="downloadBtn" download><svg viewBox="0 0 24 24"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Download</a>
+<body id="top">
+
+<header class="site-header">
+  <div class="logo">
+    <a href="https://nanopocket.ai/" target="_blank" rel="noopener"><img src="/image-edit/logo.png" alt="NanoPocket.ai" class="logo-img"></a>
+    <h1>SpotEdit <a href="https://nanopocket.ai/" target="_blank" rel="noopener" class="logo-brand">- NanoPocket.ai</a></h1>
+  </div>
+  <p class="site-subtitle">Describe the change. Only that spot is edited, at your photo's full resolution &mdash; everything else stays exactly the same.
+    <span class="model-tag" title="Model">spotedit</span></p>
+  <p class="site-subtitle sub2">No matter how large your photo is &mdash; from 1K to 8K, it is never downsized.</p>
+  <ul class="perks">
+    <li><span class="dot"></span>Only that spot changes</li>
+    <li><span class="dot"></span>Full resolution, up to 49 MP</li>
+    <li><span class="dot"></span>Faces stay the same person</li>
+    <li><span class="dot"></span>About a minute</li>
+  </ul>
+  <div class="hero-cta">
+    <a class="btn-generate jump-edit" href="#editor">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg>
+      Edit your photo</a>
+    <a class="see-ex" href="#showcase">or see examples first</a>
   </div>
 </header>
 
-<main class="workspace">
-  <nav class="rail" id="rail"></nav>
 
-  <aside class="panel" id="panel"></aside>
-
-  <section class="stage">
-    <div class="stage-top">
-      <div class="seg" id="viewSeg">
-        <button data-view="result" class="on">Result</button>
-        <button data-view="compare">Compare</button>
-        <button data-view="before">Before</button>
-        <button data-view="changes">Changes</button>
+<section class="showcase" id="showcase">
+  <div class="sec-head">
+    <h2>Real photos, one request each</h2>
+    <p>Drag the line to compare. Every result came back at the photo&rsquo;s original size, with nothing else touched.</p>
+  </div>
+  <div class="sc-grid">
+    <figure class="sc-card wide">
+      <div class="ba" style="--pos:50%">
+        <img src="/image-edit/showcase/wedding_before.jpg" alt="Clear the view at a wedding, before" loading="lazy" draggable="false">
+        <div class="ba-after"><img src="/image-edit/showcase/wedding_after.jpg" alt="Clear the view at a wedding, after" loading="lazy" draggable="false"></div>
+        <span class="ba-tag l">Before</span><span class="ba-tag r">After</span>
+        <div class="ba-handle" role="slider" tabindex="0" aria-label="Compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span></span></div>
       </div>
-      <div class="spacer"></div>
-      <div class="zoom">
-        <button class="icon-btn sm" id="zoomOut" title="Zoom out"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
-        <button class="zoom-val" id="zoomVal" title="Fit to screen (F)">Fit</button>
-        <button class="icon-btn sm" id="zoomIn" title="Zoom in"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
-        <button class="btn tiny" id="zoom100" title="Actual pixels (1)">100%</button>
+      <figcaption>
+        <div class="sc-title">Clear the view at a wedding</div>
+        <p class="sc-prompt">&ldquo;Remove the blurry guests in the foreground on the left and right edges, so the bride and groom are clearly visible.&rdquo;</p>
+        <div class="sc-foot"><span class="sc-size">6720 &times; 4480 &middot; 30 MP &middot; same size out</span>
+          <button type="button" class="sc-try" data-prompt="Remove the blurry guests in the foreground on the left and right edges, so the bride and groom are clearly visible.">Try this request</button></div>
+      </figcaption>
+    </figure>
+    <figure class="sc-card wide">
+      <div class="ba" style="--pos:50%">
+        <img src="/image-edit/showcase/group_before.jpg" alt="Remove someone from a group photo, before" loading="lazy" draggable="false">
+        <div class="ba-after"><img src="/image-edit/showcase/group_after.jpg" alt="Remove someone from a group photo, after" loading="lazy" draggable="false"></div>
+        <span class="ba-tag l">Before</span><span class="ba-tag r">After</span>
+        <div class="ba-handle" role="slider" tabindex="0" aria-label="Compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span></span></div>
+      </div>
+      <figcaption>
+        <div class="sc-title">Remove someone from a group photo</div>
+        <p class="sc-prompt">&ldquo;Remove the man on the right side of the photo, fill in the background naturally.&rdquo;</p>
+        <div class="sc-foot"><span class="sc-size">3936 &times; 2624 &middot; 10 MP &middot; same size out</span>
+          <button type="button" class="sc-try" data-prompt="Remove the man on the right side of the photo, fill in the background naturally.">Try this request</button></div>
+      </figcaption>
+    </figure>
+    <figure class="sc-card ">
+      <div class="ba" style="--pos:50%">
+        <img src="/image-edit/showcase/photobomber_before.jpg" alt="Remove a photobomber, before" loading="lazy" draggable="false">
+        <div class="ba-after"><img src="/image-edit/showcase/photobomber_after.jpg" alt="Remove a photobomber, after" loading="lazy" draggable="false"></div>
+        <span class="ba-tag l">Before</span><span class="ba-tag r">After</span>
+        <div class="ba-handle" role="slider" tabindex="0" aria-label="Compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span></span></div>
+      </div>
+      <figcaption>
+        <div class="sc-title">Remove a photobomber</div>
+        <p class="sc-prompt">&ldquo;Remove the man in the orange jacket taking a photo in the foreground.&rdquo;</p>
+        <div class="sc-foot"><span class="sc-size">4000 &times; 6000 &middot; 24 MP &middot; same size out</span>
+          <button type="button" class="sc-try" data-prompt="Remove the man in the orange jacket taking a photo in the foreground.">Try this request</button></div>
+      </figcaption>
+    </figure>
+    <figure class="sc-card ">
+      <div class="ba" style="--pos:50%">
+        <img src="/image-edit/showcase/suit_before.jpg" alt="Casual photo to headshot, before" loading="lazy" draggable="false">
+        <div class="ba-after"><img src="/image-edit/showcase/suit_after.jpg" alt="Casual photo to headshot, after" loading="lazy" draggable="false"></div>
+        <span class="ba-tag l">Before</span><span class="ba-tag r">After</span>
+        <div class="ba-handle" role="slider" tabindex="0" aria-label="Compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span></span></div>
+      </div>
+      <figcaption>
+        <div class="sc-title">Casual photo to headshot</div>
+        <p class="sc-prompt">&ldquo;Change his white T-shirt to a navy blue suit jacket with a white dress shirt.&rdquo;</p>
+        <div class="sc-foot"><span class="sc-size">3569 &times; 5354 &middot; 19 MP &middot; same size out</span>
+          <button type="button" class="sc-try" data-prompt="Change his white T-shirt to a navy blue suit jacket with a white dress shirt.">Try this request</button></div>
+      </figcaption>
+    </figure>
+    <figure class="sc-card ">
+      <div class="ba" style="--pos:50%">
+        <img src="/image-edit/showcase/jacket_before.jpg" alt="Try a new look, before" loading="lazy" draggable="false">
+        <div class="ba-after"><img src="/image-edit/showcase/jacket_after.jpg" alt="Try a new look, after" loading="lazy" draggable="false"></div>
+        <span class="ba-tag l">Before</span><span class="ba-tag r">After</span>
+        <div class="ba-handle" role="slider" tabindex="0" aria-label="Compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span></span></div>
+      </div>
+      <figcaption>
+        <div class="sc-title">Try a new look</div>
+        <p class="sc-prompt">&ldquo;Change the denim jacket to a black leather jacket, keep the white hoodie.&rdquo;</p>
+        <div class="sc-foot"><span class="sc-size">3456 &times; 5184 &middot; 18 MP &middot; same size out</span>
+          <button type="button" class="sc-try" data-prompt="Change the denim jacket to a black leather jacket, keep the white hoodie.">Try this request</button></div>
+      </figcaption>
+    </figure>
+    <figure class="sc-card ">
+      <div class="ba" style="--pos:50%">
+        <img src="/image-edit/showcase/braces_before.jpg" alt="Remove braces, before" loading="lazy" draggable="false">
+        <div class="ba-after"><img src="/image-edit/showcase/braces_after.jpg" alt="Remove braces, after" loading="lazy" draggable="false"></div>
+        <span class="ba-tag l">Before</span><span class="ba-tag r">After</span>
+        <div class="ba-handle" role="slider" tabindex="0" aria-label="Compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span></span></div>
+      </div>
+      <figcaption>
+        <div class="sc-title">Remove braces</div>
+        <p class="sc-prompt">&ldquo;Remove the braces from her teeth, natural clean white teeth.&rdquo;</p>
+        <div class="sc-foot"><span class="sc-size">3456 &times; 5184 &middot; 18 MP &middot; close-up &middot; same size out</span>
+          <button type="button" class="sc-try" data-prompt="Remove the braces from her teeth, natural clean white teeth.">Try this request</button></div>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="why">
+  <div class="sec-head"><h2>Why SpotEdit</h2></div>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div>
+      <h3>Only the spot you name changes</h3>
+      <p>Everything else stays pixel-identical. No surprise smoothing, no new background, no &ldquo;improved&rdquo; colors.</p></div>
+    <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></div>
+      <h3>Never downsized</h3>
+      <p>From 1K to 8K, up to 49 MP. You get back the exact size you uploaded, ready to print.</p></div>
+    <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></div>
+      <h3>Same person, same face</h3>
+      <p>Faces, skin texture and expressions are kept. The people in your photo still look like themselves.</p></div>
+    <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg></div>
+      <h3>Just describe it</h3>
+      <p>Type the change in plain words. Want to be precise? Brush over the spot. Results in about a minute.</p></div>
+  </div>
+</section>
+
+<section class="uses">
+  <div class="sec-head"><h2>What people use it for</h2>
+    <p>The photo fixes people ask for most, done in one step.</p></div>
+  <div class="use-grid">
+    <div class="use"><h3>Group &amp; event photos</h3><p>Remove someone from a group shot, or the guests and phones blocking the moment.</p>
+      <span class="use-ex">&ldquo;Remove the man on the right&rdquo;</span></div>
+    <div class="use"><h3>Travel photos</h3><p>Remove photobombers, strangers and the crowd behind you.</p>
+      <span class="use-ex">&ldquo;Remove the people in the background&rdquo;</span></div>
+    <div class="use"><h3>Outfits &amp; headshots</h3><p>Turn a casual photo into a professional headshot, or try a new color or jacket.</p>
+      <span class="use-ex">&ldquo;Change the T-shirt to a navy suit&rdquo;</span></div>
+    <div class="use"><h3>Portrait touch-ups</h3><p>Braces, glasses glare, blemishes, harsh shadows. Only that spot is fixed.</p>
+      <span class="use-ex">&ldquo;Remove the glare on his glasses&rdquo;</span></div>
+    <div class="use"><h3>Better scenes</h3><p>Gray sky to blue, clutter and parked cars cleared from the background.</p>
+      <span class="use-ex">&ldquo;Make the gray sky blue&rdquo;</span></div>
+    <div class="use cta"><h3>Your photo next</h3><p>Upload any photo up to 49 MP and describe the change.</p>
+      <a class="btn-generate cta-btn" href="#editor">Start editing</a></div>
+  </div>
+  <p class="credit">Sample photos from Unsplash. Each edit was made by SpotEdit with the request shown.</p>
+</section>
+
+<main id="editor">
+  <div class="sec-head"><h2>Edit your photo</h2><p>Upload, describe the change, done. Any size from 1K to 8K, up to 49 MP.</p>
+    <ul class="price-row" aria-label="Price per edit">
+      <li><b>30</b> credits &middot; up to 12 MP</li>
+      <li><b>40</b> credits &middot; up to 24 MP</li>
+      <li><b>50</b> credits &middot; up to 49 MP</li>
+      <li id="balanceRow" hidden>Your balance: <b id="balance"></b></li>
+    </ul></div>
+  <div class="info-notice" id="wmNotice" hidden>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+    <span>Free version: results carry a <strong>NanoPocket.ai</strong> watermark. <a id="wmLink" href="/credits">Buy credits</a> once and every result is watermark-free.</span>
+  </div>
+
+  <section class="editor">
+    <div class="upload-zone" id="drop" tabindex="0" role="button" aria-label="Upload a photo">
+      <input type="file" id="fileInput" accept="image/jpeg,image/png,image/tiff,image/webp">
+      <div class="upload-placeholder" id="empty">
+        <div class="upload-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="36" height="36" rx="4"/><circle cx="18" cy="18" r="4"/><path d="M6 34 L16 24 L26 34 L36 22 L42 28"/></svg></div>
+        <span class="upload-label">Upload a photo</span>
+        <span class="upload-hint">Drag &amp; drop, paste or click &middot; JPEG, PNG, TIFF or WebP &middot; 1K to 8K, up to 49 MP</span>
       </div>
     </div>
 
-    <div class="viewport" id="viewport">
-      <div class="canvas" id="canvas">
-        <img id="imgBase" alt="">
-        <img id="imgTop" alt="">
-        <canvas id="maskCanvas"></canvas>
-        <div class="cmp-line" id="cmpLine"><div class="cmp-knob"><svg viewBox="0 0 24 24"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg></div></div>
-        <div class="cmp-tag left">Before</div><div class="cmp-tag right">After</div>
-      </div>
-      <div class="brush-cursor" id="brushCursor"></div>
-
-      <div class="empty" id="empty">
-        <div class="drop" id="drop">
-          <div class="drop-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg></div>
-          <h2>Edit a photo at full resolution</h2>
-          <p>Drop an image here, paste it (Ctrl+V), or <button class="link" id="browseBtn">browse your files</button></p>
-          <p class="muted">Everything you don't ask to change stays pixel-identical to your photo.</p>
-        </div>
-        <div class="samples-title">Or start with a sample <a class="link" href="/image-edit#sample-credits" target="_blank" rel="noopener" style="font-weight:400">(photo credits)</a></div>
-        <div class="samples" id="samples"></div>
-      </div>
-
-      <div class="jobcard hidden" id="jobcard">
-        <div class="job-row"><div class="spinner"></div><div class="job-stage" id="jobStage">Starting…</div><div class="job-eta" id="jobEta"></div></div>
-        <div class="bar"><div id="jobBar"></div></div>
-        <div class="job-row sub"><span id="jobSub"></span><button class="link danger" id="jobCancel">Cancel</button></div>
-      </div>
-      <div class="resultbar hidden" id="strip"></div>
-      <div class="banner hidden" id="banner"></div>
-      <div id="nextTools" hidden></div>
+    <div class="toolbar" id="toolbar" hidden>
+      <button class="tool" id="brushBtn" type="button" aria-pressed="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18.4 2.6a2 2 0 0 1 2.9 2.9L12 14.8 9.2 12z"/><path d="M9 14c-2 0-4 1.5-4 4 0 1-.5 2-2 2 1 1.5 3 2 5 2 3 0 5-2 5-4.5"/></svg>
+        Brush an area <span style="opacity:.6">(optional)</span></button>
+      <button class="tool" id="eraseBtn" type="button" aria-pressed="false" hidden>Erase</button>
+      <label class="size" id="sizeWrap" hidden>Size <input type="range" id="size" min="1" max="12" value="4"></label>
+      <button class="tool" id="clearBtn" type="button" hidden>Clear</button>
+      <button class="tool" id="replaceBtn" type="button">Another photo</button>
     </div>
+    <p class="brush-hint" id="brushHint"></p>
 
-    <div class="promptbar" id="promptbar">
-      <div class="chips" id="chips"></div>
-      <div class="prompt-box">
-        <textarea id="prompt" rows="2" placeholder="Describe the edit…"></textarea>
-        <div class="prompt-actions">
-          <div class="var" title="How many variations to generate">
-            <span>Variations</span>
-            <div class="seg small" id="varSeg"><button class="on">1</button><button>2</button><button>3</button><button>4</button></div>
-          </div>
-          <label style="display:flex;gap:8px;align-items:flex-start;flex-basis:100%;font-size:12px;line-height:1.45;color:var(--muted);cursor:pointer"><input type="checkbox" id="rightsOk" style="margin-top:2px;flex-shrink:0;cursor:pointer"><span>I have the right to edit this photo, including any people in it: they are me, or they have agreed. <a href="/terms#aup" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">Acceptable use</a></span></label>
-          <button class="btn primary big" id="genBtn"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg><span id="genLabel">Generate</span><kbd>Ctrl ↵</kbd></button>
-          <div class="low-credits" id="lowCredits" hidden>
-            <span id="lowCreditsText">You are out of credits.</span>
-            Packs start at $5, no subscription, and failed edits are refunded.
-            <a class="btn primary" href="/credits?from=imageedit">Buy credits</a>
-            <a class="link" href="/apps/nano-imageedit" target="_blank" rel="noopener">Prefer to pay once and run it on your own GPU?</a>
-          </div>
-        </div>
-      </div>
+    <div class="prompt-box">
+      <textarea id="prompt" rows="1" maxlength="2000" placeholder="Describe the change…"></textarea>
+      <button class="btn-generate" id="go" disabled><span id="goLabel">Edit</span></button>
+    </div>
+    <div class="examples" id="examples">
+      <button type="button">Remove the person on the right</button>
+      <button type="button">Remove the people in the background</button>
+      <button type="button">Change his T-shirt to a navy suit jacket with a white shirt</button>
+      <button type="button">Remove the braces from her teeth</button>
+      <button type="button">Remove the glare on the glasses</button>
+      <button type="button">Make the gray sky blue</button>
+    </div>
+    <p class="action-hint" id="hint" style="text-align:center">Upload a photo to start.</p>
+    <div class="error-box" id="errorBox" hidden></div>
+  </section>
+
+  <section class="v5-progress-section" id="progress" hidden>
+    <div class="v5-progress-card">
+      <div class="v5-progress-bar-wrap"><div class="v5-progress-bar" id="bar"></div></div>
+      <div class="v5-progress-meta"><span class="desc" id="progDesc">Starting…</span><span id="progTime">0 s</span></div>
     </div>
   </section>
 
-  <aside class="history">
-    <div class="history-head">Versions <span class="muted" id="histCount"></span></div>
-    <div class="history-list" id="history"><div class="muted pad">Your edits appear here. Click any version to view it or keep editing from it.</div></div>
-    <div class="shortcuts">
-      <b>Shortcuts</b>
-      <span>Drag to move · scroll to zoom · <kbd>Esc</kbd> stop painting</span>
-      <span><kbd>B</kbd> brush <kbd>E</kbd> erase <kbd>[</kbd><kbd>]</kbd> size <kbd>Space</kbd> hold to move</span>
-      <span><kbd>\</kbd> hold for before <kbd>C</kbd> compare <kbd>F</kbd> fit <kbd>1</kbd> 100%</span>
+  <section class="result-section" id="resultSection" hidden>
+    <div class="result-card">
+      <div class="result-header">
+        <h2>Result</h2>
+        <div class="result-actions">
+          <span class="result-time" id="meta"></span>
+          <button class="btn-ghost" id="again" type="button">Try another version</button>
+          <button class="btn-ghost" id="useResult" type="button" title="Edit this result further">Keep editing this</button>
+          <a class="btn-download" id="download" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download full resolution
+          </a>
+        </div>
+      </div>
+      <div class="info-notice wm-note" id="wmResult" hidden>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        <span>This free result carries a watermark. <a id="wmLink2" href="/credits">Buy credits</a> and edit again for a clean image.</span>
+      </div>
+      <div class="stage" id="stage"></div>
     </div>
-  </aside>
+  </section>
 </main>
 
-<input type="file" id="fileInput" accept="image/*" hidden>
-<div class="toasts" id="toasts"></div>
-<script src="/next-tools.js"></script>
-<script src="/image-edit/app.js?v=1"></script>
+<a class="float-edit" id="floatEdit" href="#editor" hidden>Edit your photo</a>
+
+<footer class="site-footer">
+  <p>SpotEdit &mdash; Powered by <a href="https://nanopocket.ai/" target="_blank" rel="noopener">NanoPocket.ai</a></p>
+  <div class="legal-disclaimer">
+    <p><strong>Disclaimer:</strong> Only edit photos you have the right to use. Users are responsible for ensuring their use
+      of this technology complies with applicable laws and the rights of third parties.</p>
+  </div>
+</footer>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const S = { photo: null, file: null, fileUrl: null, job: null, t0: 0, last: null, brush: false, erase: false, painted: false, credits: null };
+
+// ---------- errors
+function report(where, err) { console.warn("[spotedit]", where, err); }
+window.addEventListener("error", (e) => report("window.onerror", e.error || e.message));
+window.addEventListener("unhandledrejection", (e) => report("unhandledrejection", e.reason));
+class ApiError extends Error { constructor(msg, status, topup) { super(msg); this.status = status; this.topup = topup; } }
+async function api(url, opts = {}) {
+  let r;
+  try {
+    r = await fetch(url, opts.body === undefined ? opts : { ...opts, headers: { "Content-Type": "application/json" }, body: JSON.stringify(opts.body) });
+  } catch (e) { report("network " + url, e); throw new ApiError("Can't reach the server. Check your connection and try again.", 0); }
+  let body = null;
+  try { body = await r.json(); } catch (e) {}
+  if (r.status === 401) { location.href = "/auth/login?next=/image-edit/launch"; }
+  if (!r.ok) throw new ApiError((body && body.detail) || `Request failed (${r.status})`, r.status, body && body.topup_url);
+  return body;
+}
+function showError(msg, topup) {
+  $("errorBox").innerHTML = escapeHtml(msg) + (topup ? ` <a href="${escapeHtml(topup)}">Buy credits</a>` : "");
+  $("errorBox").hidden = false;
+}
+function clearError() { $("errorBox").hidden = true; }
+function escapeHtml(s) { return String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+// ---------- start: watermark notice and balance
+function showBalance(n) {
+  if (typeof n !== "number") return;
+  $("balance").textContent = n.toLocaleString("en-US") + " credits"; $("balanceRow").hidden = false;
+}
+(async () => {
+  try { const e = await api("/api/imageedit/me"); $("wmNotice").hidden = !e.watermark; showBalance(e.available); } catch (e) {}
+})();
+// the gateway sleeps when idle: wake it while the person chooses a photo
+fetch("/api/imageedit/warm", { method: "POST" }).catch(() => {});
+// wake a GPU once a photo is chosen (not on page open: most visitors only look at the examples).
+// The gateway also limits this.
+let _warmAt = 0;
+function warmGpu() {
+  if (Date.now() - _warmAt < 60 * 1000) return;
+  _warmAt = Date.now();
+  fetch("/api/imageedit/warm", { method: "POST", headers: { "Content-Type": "application/json" }, body: '{"gpu":true}' }).catch(() => {});
+}
+
+// ---------- photo
+const drop = $("drop"), input = $("fileInput");
+drop.addEventListener("click", () => { if (!drop.classList.contains("filled")) input.click(); });
+drop.addEventListener("keydown", (e) => { if (!drop.classList.contains("filled") && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); input.click(); } });
+input.addEventListener("change", () => { if (input.files[0]) onPhoto(input.files[0]); input.value = ""; });
+["dragenter", "dragover"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("dragover"); }));
+["dragleave", "drop"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("dragover"); }));
+drop.addEventListener("drop", (e) => { const f = e.dataTransfer.files[0]; if (f && f.type.startsWith("image/")) onPhoto(f); });
+document.addEventListener("paste", (e) => {
+  const f = [...(e.clipboardData?.files || [])].find((x) => x.type.startsWith("image/"));
+  if (f && !S.job) onPhoto(f);
+});
+$("replaceBtn").onclick = () => { if (!S.job) input.click(); };
+
+// largest photo accepted (the gateway checks the same limit, also for files the browser can't open, e.g. TIFF)
+const MAX_MP = 49;
+const MAX_UPLOAD_MB = 120;
+// credits per edit by photo size (the gateway's SE_CREDIT_TIERS decides; /api/photo returns the real number).
+// MP is rounded to a whole number, so a 4032 x 3024 iPhone photo (12.2 MP) is 12 MP.
+const CREDIT_TIERS = [[12, 30], [24, 40], [49, 50]];
+function creditsFor(w, h) {
+  const mp = Math.round(w * h / 1e6);
+  for (const [top, c] of CREDIT_TIERS) if (mp <= top) return c;
+  return CREDIT_TIERS[CREDIT_TIERS.length - 1][1];
+}
+function photoSize(file) {
+  return new Promise((res) => {
+    const u = URL.createObjectURL(file), im = new Image();
+    im.onload = () => { res([im.naturalWidth, im.naturalHeight]); URL.revokeObjectURL(u); };
+    im.onerror = () => { res(null); URL.revokeObjectURL(u); };
+    im.src = u;
+  });
+}
+
+async function onPhoto(file) {
+  if (S.job) return;
+  const wh = await photoSize(file);
+  if (wh && wh[0] * wh[1] > MAX_MP * 1e6) {
+    showError(`This photo is ${(wh[0] * wh[1] / 1e6).toFixed(1)} MP (${wh[0]} × ${wh[1]}). The maximum is ${MAX_MP} MP ` +
+      `(for example 8064 × 6048, an iPhone 48 MP photo). Please choose a smaller size.`);
+    $("errorBox").scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+  if (file.size > MAX_UPLOAD_MB * 1024 * 1024) {
+    showError(`This file is over ${MAX_UPLOAD_MB} MB. Please choose a smaller one.`);
+    $("errorBox").scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+  S.photo = null; S.file = file; S.last = null; clearError();
+  S.credits = wh ? creditsFor(wh[0], wh[1]) : null;
+  warmGpu();   // start a GPU while the photo uploads and the user writes the request
+  if (S.fileUrl && S.fileUrl.startsWith("blob:")) URL.revokeObjectURL(S.fileUrl);
+  showPhoto(URL.createObjectURL(file));
+  $("resultSection").hidden = true;
+  const busy = document.createElement("div"); busy.className = "busy";
+  busy.innerHTML = `<div><div class="spinner"></div>Uploading…</div>`;
+  drop.appendChild(busy);
+  const token = (S.upToken = {});
+  try {
+    const up = await api("/api/imageedit/uploads", { method: "POST" });
+    if (token !== S.upToken) return;
+    // ends with the upload link's own lifetime, so a stalled upload does not spin for ever
+    const put = await fetch(up.put_url, { method: "PUT", body: file, signal: AbortSignal.timeout(15 * 60 * 1000) })
+      .catch((e) => { report("upload", e); throw new ApiError("The upload did not finish. Check your connection and try again.", 0); });
+    if (!put.ok) throw new ApiError(`The upload failed (${put.status}). Please try again.`, put.status);
+    if (token !== S.upToken) return;
+    const d = await api("/api/imageedit/photo", { method: "POST", body: { key: up.key } });
+    if (token !== S.upToken) return;
+    S.photo = d;
+    if (d.credits) S.credits = d.credits;
+  } catch (err) {
+    if (token !== S.upToken) return;
+    showError(err.message, err.topup);
+  } finally {
+    if (token === S.upToken) busy.remove();
+    update();
+  }
+}
+
+function showPhoto(url) {
+  S.fileUrl = url;
+  drop.classList.add("filled");
+  drop.querySelectorAll(".paint,.busy").forEach((n) => n.remove());
+  $("empty").hidden = true;
+  const wrap = document.createElement("div"); wrap.className = "paint";
+  wrap.innerHTML = `<img alt="Your photo"><canvas></canvas>`;
+  drop.appendChild(wrap);
+  const img = wrap.querySelector("img");
+  img.onload = () => setupBrush(wrap, img);
+  img.onerror = () => { showError("This browser can't show this file. The edit still works; use JPEG or PNG to see and brush it."); };
+  img.src = S.fileUrl;
+  $("toolbar").hidden = false;
+  update();
+}
+
+// ---------- optional brush: the painted area is the only part allowed to change
+let ctx = null, canvas = null, drawing = false, lastPt = null;
+function setupBrush(wrap, img) {
+  canvas = wrap.querySelector("canvas");
+  const s = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight));
+  canvas.width = Math.max(1, Math.round(img.naturalWidth * s)); canvas.height = Math.max(1, Math.round(img.naturalHeight * s));
+  ctx = canvas.getContext("2d");
+  S.painted = false; setBrush(false);
+  const pt = (e) => { const r = canvas.getBoundingClientRect(); return [(e.clientX - r.left) * canvas.width / r.width, (e.clientY - r.top) * canvas.height / r.height]; };
+  const radius = () => (+$("size").value / 100) * Math.hypot(canvas.width, canvas.height) / 4;
+  const stroke = (a, b) => {
+    ctx.globalCompositeOperation = S.erase ? "destination-out" : "source-over";
+    ctx.strokeStyle = ctx.fillStyle = "rgb(96,165,250)"; ctx.lineCap = ctx.lineJoin = "round"; ctx.lineWidth = 2 * radius();
+    ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+    if (!S.erase) S.painted = true;
+  };
+  canvas.onpointerdown = (e) => { if (!S.brush) return; drawing = true; canvas.setPointerCapture(e.pointerId); lastPt = pt(e); stroke(lastPt, lastPt); };
+  canvas.onpointermove = (e) => { if (!drawing) return; const p = pt(e); stroke(lastPt, p); lastPt = p; };
+  canvas.onpointerup = canvas.onpointercancel = () => { drawing = false; if (S.erase) S.painted = hasPaint(); update(); };
+}
+function hasPaint() {
+  if (!ctx) return false;
+  const d = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  for (let i = 3; i < d.length; i += 16) if (d[i]) return true;
+  return false;
+}
+function setBrush(on) {
+  S.brush = on; if (!on) S.erase = false;
+  const wrap = drop.querySelector(".paint"); if (wrap) wrap.classList.toggle("brushing", on);
+  $("brushBtn").classList.toggle("on", on && !S.erase); $("brushBtn").setAttribute("aria-pressed", on);
+  $("eraseBtn").classList.toggle("on", S.erase);
+  ["eraseBtn", "sizeWrap", "clearBtn"].forEach((id) => { $(id).hidden = !on && !S.painted; });
+  $("brushHint").textContent = on ? "Paint over the part you want changed. Only that area will be edited."
+    : S.painted ? "Only the painted area will change." : "";
+}
+$("brushBtn").onclick = () => { if (S.brush && !S.erase) setBrush(false); else { S.erase = false; setBrush(true); } };
+$("eraseBtn").onclick = () => { S.erase = !S.erase || !S.brush; setBrush(true); };
+$("clearBtn").onclick = () => { if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height); S.painted = false; setBrush(S.brush); update(); };
+function maskData() {
+  if (!S.painted || !ctx) return Promise.resolve(null);
+  const m = document.createElement("canvas"); m.width = canvas.width; m.height = canvas.height;
+  const c = m.getContext("2d"); c.fillStyle = "#000"; c.fillRect(0, 0, m.width, m.height);
+  c.globalCompositeOperation = "source-over";
+  const src = ctx.getImageData(0, 0, canvas.width, canvas.height), out = c.getImageData(0, 0, m.width, m.height);
+  for (let i = 0; i < src.data.length; i += 4) if (src.data[i + 3] > 0) { out.data[i] = out.data[i + 1] = out.data[i + 2] = 255; }
+  c.putImageData(out, 0, 0);
+  return Promise.resolve(m.toDataURL("image/png"));
+}
+
+// ---------- prompt
+const promptEl = $("prompt");
+promptEl.addEventListener("input", () => { promptEl.style.height = "auto"; promptEl.style.height = Math.min(180, promptEl.scrollHeight + 2) + "px"; update(); });
+promptEl.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); run(-1); } });
+$("examples").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; promptEl.value = b.textContent; promptEl.dispatchEvent(new Event("input")); promptEl.focus(); });
+
+function update() {
+  const ready = S.photo && promptEl.value.trim() && !S.job;
+  $("go").disabled = !ready && !S.job;
+  $("go").classList.toggle("processing", !!S.job);
+  $("goLabel").innerHTML = S.job ? `<span class="spinner"></span> Editing…`
+    : S.credits ? `Edit <span class="cost">· ${S.credits} credits</span>` : "Edit";
+  $("again").title = S.credits ? `Costs ${S.credits} credits` : "";
+  $("again").disabled = $("useResult").disabled = !!S.job;
+  $("hint").textContent = S.job ? "Usually about a minute. The first edit after a quiet period can take several minutes while a GPU starts."
+    : !S.fileUrl ? "Upload a photo to start."
+    : !S.photo ? "Uploading your photo…"
+    : !promptEl.value.trim() ? "Describe the change, then press Edit (or Enter)."
+    : S.painted ? "Ready · only the painted area can change." : "Ready.";
+}
+
+// ---------- run
+$("go").onclick = () => run(-1);
+$("again").onclick = () => run(-1);
+async function run(seed) {
+  if (S.job || !S.photo || !promptEl.value.trim()) return;
+  const mask = await maskData();
+  clearError(); setBrush(false);
+  S.t0 = Date.now(); S.job = "starting"; update();
+  showProgress("Starting…", 0);
+  try {
+    const { job, available } = await api("/api/imageedit/edit", { method: "POST", body: { key: S.photo.id, prompt: promptEl.value.trim(), seed, mask } });
+    S.job = job; S.failures = 0; showBalance(available); update(); poll();
+  } catch (err) {
+    S.job = null; update(); hideProgress(); showError(err.message, err.topup);
+  }
+}
+
+async function poll() {
+  let j;
+  try { j = await api(`/api/imageedit/jobs/${S.job}`); S.failures = 0; }
+  catch (err) {
+    // a network or gateway blip says nothing about the edit, which is still running
+    if ((err.status === 0 || err.status >= 500) && ++S.failures < 90) { setTimeout(poll, 3000); return; }
+    S.job = null; update(); hideProgress(); showError(err.message); return;
+  }
+  // three plain stages only: in the queue, editing, finalizing (the full-resolution pass and saving)
+  if (j.status === "queued") showProgress("Waiting in queue…", 0.02);
+  else if (j.status === "running") {
+    const fin = j.phase === "Rendering at full resolution" || j.phase === "Saving";
+    const f = fin ? (j.phase === "Saving" ? 0.93 : 0.75)
+      : j.phase === "Editing" && j.steps ? 0.06 + 0.6 * j.step / j.steps : 0.05;
+    showProgress(fin ? "Finalizing…" : "Editing…", f);
+  } else if (j.status === "done") {
+    S.job = null; S.last = j; showBalance(j.available); update(); hideProgress(); renderResult(j); return;
+  } else if (j.status === "error") {
+    S.job = null; showBalance(j.available); update(); hideProgress(); showError(j.error || "Something went wrong."); return;
+  }
+  setTimeout(poll, 2000);
+}
+function showProgress(desc, frac) {
+  $("progress").hidden = false;
+  $("progDesc").textContent = desc;
+  $("progTime").textContent = Math.round((Date.now() - S.t0) / 1000) + " s";
+  $("bar").style.width = Math.max(3, Math.round(100 * Math.min(1, frac))) + "%";
+}
+function hideProgress() { $("progress").hidden = true; }
+
+// ---------- result viewer: a before / after slider, or side by side. One zoom moves both images together.
+const FULLRES_MAX_PX = 60e6;        // above this the full PNG is too heavy for a browser tab; zoom stays on the preview
+let VIEW_MODE = "slider";
+try { if (localStorage.getItem("se_view") === "split") VIEW_MODE = "split"; } catch (e) {}
+let onViewResize = null;
+window.addEventListener("resize", () => onViewResize && onViewResize());
+
+const ZOOMBAR = `<div class="zoombar" role="toolbar" aria-label="Zoom">
+      <button type="button" data-z="out" aria-label="Zoom out">&minus;</button>
+      <span class="zlevel">Fit</span>
+      <button type="button" data-z="in" aria-label="Zoom in">+</button>
+      <button type="button" data-z="px" title="Actual pixels">1:1</button>
+      <button type="button" data-z="fit" title="Fit to view">Fit</button>
+    </div>
+    <span class="zhint">Zoom in to check details</span>`;
+
+function renderResult(j) {
+  $("resultSection").hidden = false;
+  // zoom state in fractions of the frame, so it carries over when switching between slider and side by side
+  S.view = { s: 1, nx: 0, ny: 0, pct: 50, hi: false };
+  drawViewer(j);
+  const a = $("download"); a.href = j.download_url || j.url; a.download = "spotedit.png";
+  $("wmResult").hidden = !j.watermarked;
+  // a watermarked result is not offered for further editing (the watermark would become part of the photo)
+  $("useResult").hidden = !!j.watermarked;
+  $("meta").textContent = `${Math.round((Date.now() - S.t0) / 1000)} s · ${j.width} × ${j.height} px`;
+  $("resultSection").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function drawViewer(j) {
+  const stage = $("stage"), split = VIEW_MODE === "split";
+  stage.innerHTML = `<div class="seg viewmode" role="group" aria-label="View">
+      <button type="button" data-v="slider" class="${split ? "" : "on"}" aria-pressed="${!split}">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/><path d="m9 10-2 2 2 2M15 10l2 2-2 2"/></svg>Slider</button>
+      <button type="button" data-v="split" class="${split ? "on" : ""}" aria-pressed="${split}">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="9" height="14" rx="1.5"/><rect x="13" y="5" width="9" height="14" rx="1.5"/></svg>Side by side</button>
+    </div>` + (split
+    ? `<div class="viewer split">
+        <div class="pane"><img class="zimg before-img" alt="Original"><span class="lbl l">Before</span></div>
+        <div class="pane"><img class="zimg after-img" alt="Result"><span class="lbl l">After</span></div>
+        ${ZOOMBAR}</div>`
+    : `<div class="viewer compare">
+        <img class="zimg after-img" alt="Result">
+        <div class="before"><img class="zimg before-img" alt="Original"></div>
+        <div class="line"></div>
+        <div class="knob" tabindex="0" role="slider" aria-label="Compare original and result" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg>
+        </div>
+        <span class="lbl l">Before</span><span class="lbl r">After</span>
+        ${ZOOMBAR}</div>`);
+  stage.querySelector(".viewmode").onclick = (e) => {
+    const v = e.target.closest("button")?.dataset.v;
+    if (!v || v === VIEW_MODE) return;
+    VIEW_MODE = v; try { localStorage.setItem("se_view", v); } catch (err) {}
+    drawViewer(j);
+  };
+  const root = stage.querySelector(".viewer");
+  root.querySelector(".after-img").src = S.view.hi ? j.download_url : j.url;
+  root.querySelector(".before-img").src = S.fileUrl;
+  bindViewer(root, j, split);
+}
+
+function bindViewer(root, j, split) {
+  const Z = S.view;
+  const imgs = [...root.querySelectorAll(".zimg")], after = root.querySelector(".after-img");
+  const frames = split ? [...root.querySelectorAll(".pane")] : [root];
+  const aspect = () => (j.width && j.height) ? j.width / j.height : (after.naturalWidth / after.naturalHeight || 1.5);
+  // side by side: both panes get the same size, side by side on wide screens and stacked on narrow ones
+  const layout = () => {
+    if (!split) return;
+    const W = $("stage").clientWidth - 32, a = aspect(), stacked = W < 560;
+    root.classList.toggle("stacked", stacked);
+    let w = stacked ? Math.min(W, 0.42 * innerHeight * a) : Math.min((W - 10) / 2, 0.72 * innerHeight * a);
+    w = Math.max(80, Math.floor(w));
+    frames.forEach((f) => { f.style.width = w + "px"; f.style.height = Math.round(w / a) + "px"; });
+  };
+  const box = (f) => (f || frames[0]).getBoundingClientRect();
+  // the zoom at which one photo pixel is one device pixel ("1:1")
+  const pxScale = () => Math.max(1, (j.width || after.naturalWidth) / (box().width * devicePixelRatio));
+  const maxScale = () => Math.max(4, pxScale() * 2);
+  const apply = () => {
+    const r = box();
+    if (!r.width) return;
+    Z.s = Math.max(1, Math.min(maxScale(), Z.s));
+    Z.nx = Math.min(0, Math.max(1 - Z.s, Z.nx));        // the photo always covers the frame
+    Z.ny = Math.min(0, Math.max(1 - Z.s, Z.ny));
+    const t = `translate(${Z.nx * r.width}px, ${Z.ny * r.height}px) scale(${Z.s})`;
+    imgs.forEach((im) => { im.style.transform = t; });
+    root.classList.toggle("zoomed", Z.s > 1.001);
+    root.querySelector(".zlevel").textContent = Z.s <= 1.001 ? "Fit" : Math.round(100 * Z.s / pxScale()) + "%";
+    // past the preview's own resolution, swap in the full-resolution PNG (once)
+    if (!Z.hi && j.download_url && after.naturalWidth && Z.s * r.width * devicePixelRatio > after.naturalWidth * 1.05 &&
+        (j.width * j.height || 0) <= FULLRES_MAX_PX) {
+      Z.hi = true;
+      const hi = new Image(); hi.onload = () => { after.src = hi.src; }; hi.src = j.download_url;
+    }
+  };
+  const zoomAt = (factor, cx, cy) => {        // cx, cy: the point in the frame (px) that stays put
+    const r = box(), s0 = Z.s;
+    Z.s = Math.max(1, Math.min(maxScale(), Z.s * factor));
+    Z.nx = (cx - (cx - Z.nx * r.width) * Z.s / s0) / r.width;
+    Z.ny = (cy - (cy - Z.ny * r.height) * Z.s / s0) / r.height;
+    apply();
+  };
+  const setPct = (pct) => {
+    if (split) return;
+    pct = Math.max(0, Math.min(100, pct));
+    root.querySelector(".before").style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+    root.querySelector(".line").style.left = pct + "%";
+    const k = root.querySelector(".knob"); k.style.left = pct + "%"; k.setAttribute("aria-valuenow", Math.round(pct));
+    Z.pct = pct;
+  };
+  const frameOf = (e) => frames.find((f) => f.contains(e.target)) || frames[0];
+  const local = (e, f) => { const r = box(f); return [e.clientX - r.left, e.clientY - r.top]; };
+  const pts = new Map(); let mode = null, last = null, pinch0 = null, gf = frames[0];
+  root.addEventListener("pointerdown", (e) => {
+    if (e.target.closest(".zoombar")) return;
+    if (pts.size === 0) gf = frameOf(e);
+    root.setPointerCapture(e.pointerId); pts.set(e.pointerId, local(e, gf));
+    if (pts.size === 2) {                     // two fingers: pinch zoom
+      const [p, q] = [...pts.values()]; mode = "pinch";
+      pinch0 = { d: Math.hypot(p[0] - q[0], p[1] - q[1]) || 1, s: Z.s, nx: Z.nx, ny: Z.ny, c: [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2] };
+      return;
+    }
+    // slider: the knob always moves the divider; elsewhere the divider when not zoomed, panning when zoomed
+    mode = !split && (e.target.closest(".knob") || Z.s <= 1.001) ? "slide" : "pan";
+    last = local(e, gf);
+    if (mode === "slide") setPct(100 * last[0] / box().width);
+  });
+  root.addEventListener("pointermove", (e) => {
+    if (!pts.has(e.pointerId)) return;
+    const p = local(e, gf); pts.set(e.pointerId, p);
+    if (mode === "pinch" && pts.size === 2) {
+      const [p1, q1] = [...pts.values()];
+      const f = Math.hypot(p1[0] - q1[0], p1[1] - q1[1]) / pinch0.d;
+      Z.s = pinch0.s; Z.nx = pinch0.nx; Z.ny = pinch0.ny; zoomAt(f, pinch0.c[0], pinch0.c[1]);
+    } else if (mode === "slide") setPct(100 * p[0] / box().width);
+    else if (mode === "pan") {
+      const r = box(); Z.nx += (p[0] - last[0]) / r.width; Z.ny += (p[1] - last[1]) / r.height; last = p; apply();
+    }
+  });
+  const end = (e) => { pts.delete(e.pointerId); if (pts.size === 0) mode = null; };
+  root.addEventListener("pointerup", end); root.addEventListener("pointercancel", end);
+  // ctrl/cmd + wheel (and trackpad pinch) zooms; a plain wheel scrolls the page unless already zoomed in
+  root.addEventListener("wheel", (e) => {
+    if (!(e.ctrlKey || e.metaKey || Z.s > 1.001) || e.target.closest(".zoombar")) return;
+    e.preventDefault(); const [x, y] = local(e, frameOf(e)); zoomAt(Math.exp(-e.deltaY * 0.0025), x, y);
+  }, { passive: false });
+  root.addEventListener("dblclick", (e) => {
+    if (e.target.closest(".zoombar")) return;
+    const [x, y] = local(e, frameOf(e));
+    if (Z.s > 1.001) { Z.s = 1; Z.nx = Z.ny = 0; apply(); } else zoomAt(Math.max(1.5, pxScale()), x, y);   // to 1:1
+  });
+  root.querySelector(".zoombar").addEventListener("click", (e) => {
+    const z = e.target.closest("button")?.dataset.z; if (!z) return;
+    const r = box(), cx = r.width / 2, cy = r.height / 2;
+    if (z === "in") zoomAt(1.6, cx, cy);
+    else if (z === "out") zoomAt(1 / 1.6, cx, cy);
+    else if (z === "px") zoomAt(pxScale() / Z.s, cx, cy);
+    else { Z.s = 1; Z.nx = Z.ny = 0; apply(); }
+  });
+  if (!split) root.querySelector(".knob").addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") { setPct(Z.pct - 5); e.preventDefault(); }
+    if (e.key === "ArrowRight") { setPct(Z.pct + 5); e.preventDefault(); }
+  });
+  after.addEventListener("load", () => { layout(); apply(); });
+  onViewResize = () => { layout(); apply(); };
+  layout(); setPct(Z.pct); apply();
+}
+
+// ---------- keep editing: the full-resolution result becomes the new photo
+$("useResult").onclick = async () => {
+  if (!S.last || S.job || !S.last.result_key) return;
+  const last = S.last, btn = $("useResult"); btn.disabled = true; btn.textContent = "Loading…";
+  try {
+    const d = await api("/api/imageedit/photo", { method: "POST", body: { key: last.result_key } });
+    S.upToken = {}; S.photo = d; S.credits = d.credits; S.last = null;
+    promptEl.value = ""; promptEl.dispatchEvent(new Event("input"));
+    showPhoto(last.url);
+    $("resultSection").hidden = true;
+    drop.scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch (e) { report("keep_editing", e); showError(e.message, e.topup); }
+  finally { btn.disabled = false; btn.textContent = "Keep editing this"; }
+};
+
+update();
+
+// ---------- showcase: before/after sliders and "Try this request"
+document.querySelectorAll(".ba").forEach((ba) => {
+  const h = ba.querySelector(".ba-handle");
+  const set = (p) => { p = Math.max(0, Math.min(100, p)); ba.style.setProperty("--pos", p + "%"); h.setAttribute("aria-valuenow", Math.round(p)); };
+  const at = (e) => { const r = ba.getBoundingClientRect(); set((e.clientX - r.left) / r.width * 100); };
+  let drag = false;
+  ba.addEventListener("pointerdown", (e) => { drag = true; ba.setPointerCapture(e.pointerId); at(e); });
+  ba.addEventListener("pointermove", (e) => { if (drag || e.pointerType === "mouse") at(e); });
+  ba.addEventListener("pointerup", () => { drag = false; });
+  ba.addEventListener("pointercancel", () => { drag = false; });
+  h.addEventListener("keydown", (e) => {
+    const v = parseFloat(ba.style.getPropertyValue("--pos")) || 50;
+    if (e.key === "ArrowLeft") { set(v - 5); e.preventDefault(); }
+    if (e.key === "ArrowRight") { set(v + 5); e.preventDefault(); }
+  });
+});
+document.querySelectorAll(".sc-try").forEach((b) => b.addEventListener("click", () => {
+  promptEl.value = b.dataset.prompt + " Keep everything else in the image exactly the same.";
+  promptEl.dispatchEvent(new Event("input"));
+  document.querySelector(".editor").scrollIntoView({ behavior: "smooth", block: "start" });
+  setTimeout(() => promptEl.focus({ preventScroll: true }), 500);
+}));
+
+// ---------- floating jump button: shown while the editor is off screen
+(() => {
+  const fb = $("floatEdit"), ed = document.querySelector(".editor");
+  if (!("IntersectionObserver" in window)) return;
+  new IntersectionObserver(([e]) => { fb.hidden = e.isIntersecting || window.scrollY < 200; }, { threshold: 0.05 }).observe(ed);
+  window.addEventListener("scroll", () => {
+    const r = ed.getBoundingClientRect();
+    fb.hidden = window.scrollY < 200 || (r.top < innerHeight && r.bottom > 0) || !$("resultSection").hidden;
+  }, { passive: true });
+})();
+</script>
 </body>
 </html>

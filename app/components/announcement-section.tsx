@@ -570,7 +570,7 @@ export function AnnouncementSection() {
             title={IMAGEEDIT_NAME}
             lede="Describe the change and get your photo back at full resolution. Add, remove, replace, restyle or restore."
             points={IMAGEEDIT_POINTS}
-            priceLine={`${IMAGEEDIT_CREDITS_PER_EDIT} credits per edit`}
+            priceLine={`From ${IMAGEEDIT_CREDITS_PER_EDIT} credits per edit`}
             cta={{ href: "/image-edit/launch", label: "Open the editor" }}
             learnMore={{ href: "/image-edit", label: "Learn more" }}
           />

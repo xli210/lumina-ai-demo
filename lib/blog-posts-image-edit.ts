@@ -1,7 +1,7 @@
 import type { BlogPost } from "@/lib/blog-posts";
 import {
   IMAGE_EDIT_COLD_START,
-  IMAGE_EDIT_MAX_SIDE,
+  IMAGE_EDIT_MAX_MP,
   IMAGE_EDIT_NAME,
   IMAGE_EDIT_PRICE_CREDITS,
   IMAGE_EDIT_WARM_SECONDS,
@@ -23,12 +23,12 @@ const IMG = "/images/image-edit";
 
 const cta = {
   title: `Try it on your own photo`,
-  body: `${IMAGE_EDIT_NAME} costs ${IMAGE_EDIT_PRICE_CREDITS} credits per edit, and an edit that fails is refunded. New accounts get free credits.`,
+  body: `${IMAGE_EDIT_NAME} costs from ${IMAGE_EDIT_PRICE_CREDITS} credits per edit, and an edit that fails is refunded. New accounts get free credits.`,
   href: "/image-edit",
   label: "Open Nano ImageEdit 2.0 Online",
 };
 
-const common = `Prices and times on this page are those of ${IMAGE_EDIT_NAME} on the day it was written: ${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit, usually ${IMAGE_EDIT_WARM_SECONDS}, with the first edit after a quiet period taking ${IMAGE_EDIT_COLD_START}.`;
+const common = `Prices and times on this page are those of ${IMAGE_EDIT_NAME} on the day it was written: from ${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit, usually ${IMAGE_EDIT_WARM_SECONDS}, with the first edit after a quiet period taking ${IMAGE_EDIT_COLD_START}.`;
 
 export const IMAGE_EDIT_GUIDE_POSTS: BlogPost[] = [
   {
@@ -57,7 +57,7 @@ Open a photo in [${IMAGE_EDIT_NAME}](/image-edit), choose the Remove tool, name 
 
 ## What you need
 
-- A photo (JPEG, PNG or WebP, up to 40 MB). Anything larger than ${IMAGE_EDIT_MAX_SIDE} px on the long side is scaled down in your browser before editing.
+- A photo (JPEG, PNG, TIFF or WebP, up to ${IMAGE_EDIT_MAX_MP} MP). It is never scaled down.
 - A free NanoPocket account. New accounts start with free credits.
 - About a minute. ${common}
 
@@ -147,7 +147,7 @@ The lesson applies to any replacement: if an object has a part that is easy to m
 
 ## What it costs
 
-${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit. A failed or cancelled edit is refunded in full.
+from ${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit. A failed or cancelled edit is refunded in full.
 
 ## Related guides
 
@@ -208,7 +208,7 @@ One thing to look at: the original sign mixes two letter styles, a script for "L
 
 ## Cost and limits
 
-${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit; refunded if it fails. It edits text in still photos. It is not a tool for forging documents, and you should only edit images you have the right to change.
+from ${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit; refunded if it fails. It edits text in still photos. It is not a tool for forging documents, and you should only edit images you have the right to change.
 
 ## Related guides
 
@@ -263,13 +263,13 @@ A black-and-white photograph does not record colour. The model chooses colours t
 
 ## Tips for restoring damaged prints
 
-- **Scan at a good resolution.** The editor works on up to ${IMAGE_EDIT_MAX_SIDE} px on the long side, so a larger scan is scaled down first.
+- **Scan at a good resolution.** The editor takes up to ${IMAGE_EDIT_MAX_MP} MP and never scales a photo down.
 - **Do restore first, then colourise,** as two edits, if the print is badly damaged. You can chain an edit from any earlier version.
 - **Keep the original file.** Download the result as a PNG and keep your scan alongside it.
 
 ## Cost
 
-${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit; refunded if it fails or you cancel.
+from ${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit; refunded if it fails or you cancel.
 
 ## Related guides
 

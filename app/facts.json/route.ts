@@ -15,7 +15,7 @@ import {
 import { FACESTUDIO_MAX_FACES, FREE_TOPUP_CREDITS } from "@/lib/facestudio";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_MIN_CREDITS, FACESTUDIO_V_MODES, FACESTUDIO_V_PRICE_LINE } from "@/lib/facestudio-v";
 import { HEADSWAP_PRO_NAME, HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS } from "@/lib/headswap-pro";
-import { IMAGEEDIT_NAME, IMAGEEDIT_CREDITS_PER_EDIT, IMAGEEDIT_MAX_VARIATIONS } from "@/lib/imageedit";
+import { IMAGEEDIT_NAME, IMAGEEDIT_CREDIT_TIERS } from "@/lib/imageedit";
 import { PRODUCTS } from "@/lib/products";
 
 const BASE = "https://nanopocket.ai";
@@ -107,8 +107,7 @@ function buildFacts() {
         name: IMAGEEDIT_NAME,
         url: `${BASE}/image-edit`,
         does: "Edits a photo from a written instruction.",
-        price_credits_per_edit: IMAGEEDIT_CREDITS_PER_EDIT,
-        max_variations_per_edit: IMAGEEDIT_MAX_VARIATIONS,
+        price_credits_per_edit_by_photo_size: IMAGEEDIT_CREDIT_TIERS.map(([up_to_mp, credits]) => ({ up_to_mp, credits })),
       },
     ],
     desktop_apps: PRODUCTS.map((p) => ({

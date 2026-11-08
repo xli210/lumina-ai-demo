@@ -6,6 +6,7 @@ import { findHoldByJobRef, type CreditHoldRecord } from "@/lib/credits-server";
 import {
   callUpstream,
   isFaceStudioConfigured,
+  upstreamString,
   type UpstreamResult,
 } from "@/lib/facestudio-server";
 import { privateJson } from "@/lib/facestudio-gate";
@@ -18,10 +19,8 @@ import {
 import {
   IMAGEEDIT_FILE_TTL_SECONDS,
   IMAGEEDIT_NAME,
-  IMAGEEDIT_SAMPLES,
   IMAGEEDIT_SERVICE,
   IMAGEEDIT_UPLOAD_TTL_SECONDS,
-  estimatedSeconds,
   isImageEditJobId,
 } from "@/lib/imageedit";
 import type { NextResponse } from "next/server";
@@ -38,19 +37,18 @@ import type { NextResponse } from "next/server";
  *     signs every upload and download URL itself, so no image byte passes
  *     through a Vercel function (their bodies cap at 4.5 MB).
  *
- * Storage layout, all under `imageedit/` in that bucket:
+ * Storage layout, in that bucket:
  *
- *   src/<user>/src_<12 hex>.png       an uploaded photo
- *   out/<user>/<hold id>/<name>       one edit's results, written by the worker
- *   samples/<name>.png                the sample photos
+ *   spotedit/input/<user>/src_<12 hex>_photo          an uploaded photo
+ *   spotedit/output/<yyyymmdd>/<job id>/spotedit.png  one edit's result, written by the worker
  *
- * The user id in every path is what makes ownership checkable from the key
- * alone. The output folder is named after the credit hold, which exists
- * before the job does, so it can be chosen up front and recovered later from
- * the hold that also proves who started the job.
+ * The user id in an input path, and the job id in an output path (a job has a
+ * credit hold that says who started it), are what make ownership checkable
+ * from the key alone.
  */
 
-const ROOT = "imageedit";
+const INPUT_ROOT = "spotedit/input";
+const RESULT_KEY = /^spotedit\/output\/\d{8}\/([A-Za-z0-9-]{8,80})\/spotedit\.png$/;
 
 export function imageEditStorage(): R2Config | null {
   return r2DownloadsConfig();
@@ -68,40 +66,23 @@ function userSegment(userId: string): string {
   return userId.toLowerCase();
 }
 
-function holdSegment(holdId: string): string {
-  const seg = holdId.replace(/-/g, "").toLowerCase();
-  if (!/^[0-9a-f]{32}$/.test(seg)) throw new Error("unexpected hold id shape");
-  return seg;
-}
-
 export function newSourceKey(userId: string): { id: string; key: string } {
   const id = `src_${randomBytes(6).toString("hex")}`;
-  return { id, key: `${ROOT}/src/${userSegment(userId)}/${id}.png` };
+  return { id, key: `${INPUT_ROOT}/${userSegment(userId)}/${id}_photo` };
 }
 
-export function outPrefixFor(userId: string, holdId: string): string {
-  return `${ROOT}/out/${userSegment(userId)}/${holdSegment(holdId)}`;
-}
-
-export function sampleKey(name: string): string | null {
-  return (IMAGEEDIT_SAMPLES as readonly string[]).includes(name)
-    ? `${ROOT}/samples/${name}.png`
-    : null;
-}
-
-/** May this user edit the image stored at `key`? Their uploads, their results, or a sample. */
-export function userMayEdit(userId: string, key: unknown): key is string {
-  if (typeof key !== "string" || key.includes("..")) return false;
+/**
+ * May this user edit the image stored at `key`? Their uploads, or the result of
+ * their own edit. A watermarked result is not: the mark would become part of
+ * the photo.
+ */
+export async function userMayEdit(userId: string, key: string): Promise<boolean> {
   const u = userSegment(userId);
-  if (new RegExp(`^${ROOT}/src/${u}/src_[0-9a-f]{12}\\.png$`).test(key)) return true;
-  if (new RegExp(`^${ROOT}/out/${u}/[0-9a-f]{32}/[A-Za-z0-9_]{1,64}\\.png$`).test(key)) return true;
-  const sample = /^imageedit\/samples\/([a-z0-9]{1,32})\.png$/.exec(key);
-  return !!sample && sampleKey(sample[1]) === key;
-}
-
-/** A result file name as the worker writes them: `edit_…png`, `mask_…jpg`. */
-export function isResultFileName(name: string): boolean {
-  return /^[A-Za-z0-9_]{1,64}(_t)?\.(png|jpg)$/.test(name);
+  if (new RegExp(`^${INPUT_ROOT}/${u}/src_[0-9a-f]{12}_photo$`).test(key)) return true;
+  const result = RESULT_KEY.exec(key);
+  if (!result) return false;
+  const hold = await findHoldByJobRef(IMAGEEDIT_SERVICE, result[1]);
+  return hold?.user_id === userId && hold.estimate?.watermark === false;
 }
 
 export function signUpload(key: string): string {
@@ -119,21 +100,65 @@ export function signFile(key: string, downloadAs?: string): string {
   });
 }
 
+/** The storage key inside a URL the worker returned, if it is one of its results. */
+export function resultKeyFromUrl(url: string, bucket: string): string | null {
+  let path: string;
+  try {
+    path = decodeURIComponent(new URL(url).pathname).replace(/^\/+/, "");
+  } catch {
+    return null;
+  }
+  const key = path.startsWith(`${bucket}/`) ? path.slice(bucket.length + 1) : path;
+  return RESULT_KEY.test(key) ? key : null;
+}
+
 /* -------------------------------------------------------------------------- */
 /* Gateway                                                                     */
 /* -------------------------------------------------------------------------- */
 
+export type PhotoProbe =
+  | { ok: true; width: number; height: number }
+  | { ok: false; status: number; detail: string };
+
+/** The photo's real size, read from the file. May throw when the gateway cannot be reached. */
+export async function probePhoto(key: string, timeoutMs: number): Promise<PhotoProbe> {
+  const up = await callUpstream("/ie/api/probe", {
+    method: "POST",
+    json: { url: signFile(key) },
+    timeoutMs,
+  });
+  const { width, height } = up.body;
+  if (up.status === 200 && typeof width === "number" && typeof height === "number") {
+    return { ok: true, width, height };
+  }
+  const detail = upstreamString(up.body, "detail");
+  return up.status >= 400 && up.status < 500 && detail
+    ? { ok: false, status: up.status, detail }
+    : { ok: false, status: 502, detail: "Could not read the photo. Please try again." };
+}
+
 export async function startEdit(params: {
   srcKey: string;
-  outPrefix: string;
-  req: Record<string, unknown>;
+  prompt: string;
+  seed: number;
+  watermark: boolean;
+  mask: string | null;
+  requestId: string;
+  userId: string;
 }): Promise<UpstreamResult> {
   return callUpstream("/ie/api/run", {
     method: "POST",
-    json: { src_key: params.srcKey, out_prefix: params.outPrefix, req: params.req },
-    // Long enough for a sleeping gateway to wake (about 32 s measured) and then
-    // queue the job. The route's own limit is 60 s, so this stays below it.
-    timeoutMs: 50_000,
+    json: {
+      photo_url: signFile(params.srcKey),
+      prompt: params.prompt,
+      seed: params.seed,
+      watermark: params.watermark,
+      mask: params.mask,
+      request_id: params.requestId,
+      user: params.userId,
+    },
+    // The route's own limit is 60 s and a probe comes first, so this stays below it.
+    timeoutMs: 30_000,
   });
 }
 
@@ -141,13 +166,6 @@ export async function getEditStatus(jobId: string): Promise<UpstreamResult> {
   return callUpstream(`/ie/api/status/${encodeURIComponent(jobId)}`, {
     method: "GET",
     timeoutMs: 20_000,
-  });
-}
-
-export async function cancelEdit(jobId: string): Promise<UpstreamResult> {
-  return callUpstream(`/ie/api/cancel/${encodeURIComponent(jobId)}`, {
-    method: "POST",
-    timeoutMs: 15_000,
   });
 }
 
@@ -198,33 +216,36 @@ export async function requireEditOwner(
 }
 
 /* -------------------------------------------------------------------------- */
-/* RunPod status -> the console's job view                                     */
+/* RunPod status -> the page's job view                                        */
 /* -------------------------------------------------------------------------- */
 
-export interface ConsoleJob {
+export interface EditJob {
   id: string;
-  status: "queued" | "running" | "done" | "error" | "cancelled";
-  stage: string;
-  step: number;
-  steps: number;
-  eta?: number;
-  waiting?: boolean;
+  status: "queued" | "running" | "done" | "error";
+  phase?: string;
+  step?: number;
+  steps?: number;
   error?: string;
-  result?: Record<string, unknown>;
+  url?: string;
+  download_url?: string;
+  result_key?: string;
+  width?: number;
+  height?: number;
+  seed?: number;
+  edited_pct?: number;
+  watermarked?: boolean;
+  credits?: number;
 }
 
-/** How far through an edit each stage the worker reports sits, for the ETA. */
-const STAGE_PROGRESS: Readonly<Record<string, number>> = {
-  "Reading your prompt": 0.02,
-  "Encoding your photo": 0.05,
-  "Decoding the result": 0.82,
-  "Aligning to your photo": 0.86,
-  "Blending the edit at full resolution": 0.92,
-  "Downloading the result": 0.98,
+const PHASES: Readonly<Record<string, string>> = {
+  loading: "Loading your photo",
+  editing: "Editing",
+  rendering: "Rendering at full resolution",
+  saving: "Saving",
 };
-/** Rough GPU cold start; only used while no worker has picked the job up. */
-const COLD_START_S = 60;
-const GENERIC_ERROR = "Something went wrong with this edit. Please try again.";
+const GENERIC_ERROR = "Something went wrong with this edit. Please try again. You have not been charged.";
+/** The worker's own message is meant for the user, except for these. */
+const INTERNAL_ERROR_CODES = new Set(["internal", "gpu_out_of_memory"]);
 
 function asRecord(v: unknown): Record<string, unknown> | null {
   return typeof v === "object" && v !== null && !Array.isArray(v)
@@ -232,123 +253,76 @@ function asRecord(v: unknown): Record<string, unknown> | null {
     : null;
 }
 
-/**
- * Point every `/files/<name>` URL in a worker result at our file route, and
- * give each image object the storage key a follow-up edit needs.
- */
-function rewriteResult(
-  value: unknown,
-  jobId: string,
-  outPrefix: string
-): unknown {
-  if (typeof value === "string" && value.startsWith("/files/")) {
-    const name = value.slice("/files/".length);
-    return isResultFileName(name)
-      ? `/api/imageedit/files/${encodeURIComponent(jobId)}/${name}`
-      : null;
-  }
-  if (Array.isArray(value)) return value.map((v) => rewriteResult(v, jobId, outPrefix));
-  const rec = asRecord(value);
-  if (!rec) return value;
-
-  const out: Record<string, unknown> = {};
-  for (const [k, v] of Object.entries(rec)) out[k] = rewriteResult(v, jobId, outPrefix);
-
-  // An image object: { id, w, h, url, thumb, png }.
-  if (typeof rec.id === "string" && typeof rec.png === "string" && /^[A-Za-z0-9_]{1,64}$/.test(rec.id)) {
-    out.key = `${outPrefix}/${rec.id}.png`;
-    out.png = `${out.png}?download=1`;
-  }
-  return out;
+function num(v: unknown): number | undefined {
+  return typeof v === "number" ? v : undefined;
 }
 
 /**
  * Translate RunPod's job status into what the page polls for. `terminal` says
  * whether the reservation should now be settled, and how.
  */
-export function toConsoleJob(
+export function toEditJob(
   jobId: string,
   body: Record<string, unknown>,
-  ctx: { createdAt: string; outPrefix: string }
-): { job: ConsoleJob; terminal: "done" | "error" | "cancelled" | null } {
+  ctx: { credits: number; mustBeWatermarked: boolean; resultKey: (pngUrl: string) => string | null }
+): { job: EditJob; terminal: "done" | "error" | "cancelled" | null } {
   const status = typeof body.status === "string" ? body.status : "";
   const output = asRecord(body.output);
-  const elapsed = Math.max(0, (Date.now() - Date.parse(ctx.createdAt)) / 1000);
 
-  const stage = typeof output?.stage === "string" ? output.stage : "";
-  const step = typeof output?.step === "number" ? output.step : 0;
-  const steps = typeof output?.steps === "number" && output.steps > 0 ? output.steps : 24;
-  const est = estimatedSeconds(steps);
-
-  if (status === "IN_QUEUE" || (status === "IN_PROGRESS" && !stage)) {
+  if (status === "IN_PROGRESS") {
+    const phase = typeof output?.phase === "string" ? PHASES[output.phase] : undefined;
     return {
-      job: {
-        id: jobId,
-        status: "queued",
-        stage: "Queue",
-        step: 0,
-        steps,
-        waiting: true,
-        eta: Math.round(Math.max(5, COLD_START_S + est - elapsed)),
-      },
+      job: { id: jobId, status: "running", phase: phase ?? "Starting", step: num(output?.step) ?? 0, steps: num(output?.steps) ?? 0 },
       terminal: null,
     };
   }
 
-  if (status === "IN_PROGRESS") {
-    const progress =
-      stage === "Generating the edit" ? 0.08 + 0.72 * (step / steps) : STAGE_PROGRESS[stage] ?? 0.1;
+  if (status === "COMPLETED" && output?.ok === true && typeof output.url === "string" && typeof output.png_url === "string") {
+    // A free account's result without the mark is never handed over.
+    if (ctx.mustBeWatermarked && output.watermarked !== true) {
+      console.error(`[imageedit] CRITICAL job ${jobId} came back without the watermark it needed`);
+      return { job: { id: jobId, status: "error", error: GENERIC_ERROR }, terminal: "error" };
+    }
+    const key = ctx.resultKey(output.png_url);
     return {
       job: {
         id: jobId,
-        status: "running",
-        stage,
-        step,
-        steps,
-        eta: Math.round(Math.max(1, est * (1 - progress))),
+        status: "done",
+        url: output.url,
+        // A named download that lasts a day, rather than the worker's own link.
+        download_url: key ? signFile(key, "spotedit.png") : output.png_url,
+        // "Keep editing this" names it; a marked result stays out of that (userMayEdit).
+        result_key: key && output.watermarked !== true ? key : undefined,
+        width: num(output.width),
+        height: num(output.height),
+        seed: num(output.seed),
+        edited_pct: num(output.edited_pct),
+        watermarked: output.watermarked === true,
+        credits: ctx.credits,
       },
-      terminal: null,
+      terminal: "done",
     };
   }
 
   if (status === "COMPLETED" && output) {
-    if (typeof output.error === "string") {
-      // The worker's own messages ("Describe the edit first.") are meant for
-      // the user; a Python exception is not.
-      const internal = /^\w+(Error|Exception)\b/.test(output.error) || output.error.includes("bad request");
-      if (internal) console.error(`[imageedit] worker error on ${jobId}:`, output.error.slice(0, 500));
-      return {
-        job: { id: jobId, status: "error", stage: "", step: 0, steps, error: internal ? GENERIC_ERROR : output.error },
-        terminal: "error",
-      };
+    const code = typeof output.error_code === "string" ? output.error_code : "";
+    const message = typeof output.error_message === "string" ? output.error_message : "";
+    if (!message || INTERNAL_ERROR_CODES.has(code)) {
+      console.error(`[imageedit] worker error on ${jobId}:`, code, JSON.stringify(output).slice(0, 500));
+      return { job: { id: jobId, status: "error", error: GENERIC_ERROR }, terminal: "error" };
     }
-    const result = asRecord(output.result);
-    if (result) {
-      const rewritten = asRecord(rewriteResult(result, jobId, ctx.outPrefix)) ?? {};
-      const timing = asRecord(rewritten.timing) ?? {};
-      rewritten.timing = { ...timing, total: Math.round(elapsed) };
-      return {
-        job: { id: jobId, status: "done", stage: "", step: steps, steps, result: rewritten },
-        terminal: "done",
-      };
-    }
+    return { job: { id: jobId, status: "error", error: `${message} You have not been charged.` }, terminal: "error" };
   }
 
   if (status === "CANCELLED") {
-    return { job: { id: jobId, status: "cancelled", stage: "", step: 0, steps }, terminal: "cancelled" };
+    return { job: { id: jobId, status: "error", error: "This edit was cancelled. You have not been charged." }, terminal: "cancelled" };
   }
 
   if (status === "FAILED" || status === "TIMED_OUT" || status === "COMPLETED") {
     console.error(`[imageedit] job ${jobId} ${status}:`, JSON.stringify(body.error ?? body.output ?? "").slice(0, 500));
-    return {
-      job: { id: jobId, status: "error", stage: "", step: 0, steps, error: GENERIC_ERROR },
-      terminal: "error",
-    };
+    return { job: { id: jobId, status: "error", error: GENERIC_ERROR }, terminal: "error" };
   }
 
-  // Unknown or transient status: keep the page polling.
-  return {
-    job: { id: jobId, status: "queued", stage: "Queue", step: 0, steps, waiting: true, eta: Math.round(Math.max(5, est)) },
-    terminal: null,
-  };
+  // IN_QUEUE, or an unknown or transient status: keep the page polling.
+  return { job: { id: jobId, status: "queued", phase: "Waiting for a GPU" }, terminal: null };
 }

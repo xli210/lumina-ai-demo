@@ -6,7 +6,7 @@ import { hreflangAlternates, isAppLocale, TRANSLATED_PAGES, type AppLocale } fro
 import { fillCopy, pageCopy } from "@/lib/i18n/page-copy";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { IMAGE_EDIT_EXAMPLES } from "@/lib/image-edit-examples";
-import { IMAGEEDIT_CREDITS_PER_EDIT, IMAGEEDIT_NAME } from "@/lib/imageedit";
+import { IMAGEEDIT_NAME, IMAGEEDIT_PRICE_RANGE } from "@/lib/imageedit";
 
 // Nano ImageEdit 2.0 Online in the other languages. The English page is app/image-edit/page.tsx.
 
@@ -14,7 +14,7 @@ const BASE = "https://nanopocket.ai";
 const PATH = "/image-edit";
 const EXAMPLE_IDS = ["text-barber", "replace-fruit", "remove-cars", "restore-sepia"];
 
-const VALUES = { grant: SIGNUP_GRANT_CREDITS, edit: IMAGEEDIT_CREDITS_PER_EDIT };
+const VALUES = { grant: SIGNUP_GRANT_CREDITS, edit: IMAGEEDIT_PRICE_RANGE };
 
 interface PageProps {
   params: Promise<{ locale: string }>;

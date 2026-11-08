@@ -12,8 +12,8 @@ sit behind nanopocket.ai's Next.js app on Vercel:
     4.5 MB and photos run to 40 MB, so the browser uploads straight to R2
     using a presigned PUT minted by POST /v5/api/uploads, and detect/generate
     take storage keys instead of files. That also means this service never
-    touches image bytes on the way in, so it needs no image library and no
-    request-size headroom.
+    touches image bytes on the way in, so it needs no request-size headroom.
+    (Pillow is here only to read the size in a photo's header, for Image Edit.)
 
   * The detect wait is bounded well below the caller's function timeout, so a
     stuck GPU produces a readable error instead of a platform 504 with no body.
@@ -37,6 +37,7 @@ from __future__ import annotations
 import argparse
 import base64
 import http.client
+import io
 import json
 import os
 import re
@@ -53,6 +54,7 @@ from botocore.exceptions import ClientError
 from fastapi import APIRouter, Depends, FastAPI, HTTPException
 from fastapi.responses import JSONResponse, Response
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from PIL import Image
 from pydantic import BaseModel, Field, StrictBool
 
 
@@ -576,44 +578,111 @@ def v5_feedback(body: FeedbackRequest):
 
 
 # ---------------------------------------------------------------------------
-# Nano ImageEdit Online
+# Nano ImageEdit Online (the SpotEdit model)
 #
 # Same token and RunPod account as Face Studio, different endpoint. No image
-# bytes pass through here: the Vercel app signs R2 URLs itself (lib/r2-sign.ts)
-# and the worker reads and writes the bucket directly, so this router only
-# relays job JSON. See docs/image-edit.md.
+# bytes are posted here: the Vercel app signs R2 URLs itself (lib/r2-sign.ts)
+# and the worker reads and writes the bucket directly. The one exception is
+# /probe, which reads the start of a photo through its signed URL, because the
+# price depends on the photo's real size and the browser cannot be trusted to
+# say what that is. See docs/image-edit.md.
 # ---------------------------------------------------------------------------
 IMAGEEDIT_ENDPOINT_ID = os.environ.get("IMAGEEDIT_ENDPOINT_ID", "8zekyhvth8nfp6")
-# Keys the Vercel app minted. Interpolated into storage paths by the worker, so
-# nothing outside imageedit/ and nothing with ".." may get through.
-_IE_SRC_KEY = re.compile(r"^imageedit/(src|out|samples)/[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+){0,3}\.png$")
-_IE_OUT_PREFIX = re.compile(r"^imageedit/out/[A-Za-z0-9_-]+/[A-Za-z0-9_-]+$")
-_IE_TOOLS = {"magic", "add", "remove", "replace", "text", "style", "season", "restore"}
+_IE_MAX_PIXELS = 49_000_000
+_IE_MIN_SIDE = 256
+_IE_MAX_UPLOAD_BYTES = 120 * 1024 * 1024
+# Enough for every header but a TIFF whose directory is at the end of the file.
+_IE_PROBE_BYTES = 2 * 1024 * 1024
+_IE_FORMATS = {"JPEG", "MPO", "PNG", "TIFF", "WEBP"}
 # RunPod rejects a /run body over 10 MB; the brush mask is the only large field.
-_IE_MAX_REQ_BYTES = 8 * 1024 * 1024
+_IE_MAX_MASK_CHARS = 4_000_000
+# Waking a GPU bills it until its idle timeout, so a page that only looks must
+# not be able to keep one running.
+_IE_WARM_EVERY_S = 60
+_IE_WARMS_PER_USER_HOUR = 6
+_ie_warm_lock = threading.Lock()
+_ie_warm_last = [0.0]
+_ie_warms: dict[str, list[float]] = {}
+
+# The gateway only ever reads headers, and limits the size itself.
+Image.MAX_IMAGE_PIXELS = None
 
 ie = APIRouter(prefix="/ie/api", dependencies=[Depends(require_token)])
 
 
+class ImageEditProbeRequest(BaseModel):
+    url: str
+
+
 class ImageEditRunRequest(BaseModel):
-    src_key: str
-    out_prefix: str
-    req: dict
+    photo_url: str
+    prompt: str = Field(min_length=1, max_length=2000)
+    seed: int = -1
+    watermark: StrictBool
+    mask: str | None = Field(default=None, max_length=_IE_MAX_MASK_CHARS)
+    request_id: str = Field(max_length=80)
+    user: str = Field(max_length=80)
+
+
+class ImageEditWarmRequest(BaseModel):
+    user: str = Field(max_length=80)
+
+
+def _ie_read(url: str, first_bytes: int | None) -> tuple[bytes, int]:
+    """(the bytes read, the size of the whole object)."""
+    headers = {"User-Agent": "nanopocket-gateway"}
+    if first_bytes:
+        headers["Range"] = f"bytes=0-{first_bytes - 1}"
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=30) as r:
+            data = r.read(_IE_MAX_UPLOAD_BYTES + 1)
+            content_range = r.headers.get("Content-Range") or ""
+            total = int(content_range.rsplit("/", 1)[1]) if "/" in content_range else len(data)
+            return data, total
+    except urllib.error.HTTPError as e:
+        raise HTTPException(404 if e.code in (403, 404, 416) else 502,
+                            "That photo is not available any more. Upload it again.")
+    except (urllib.error.URLError, OSError, ValueError):
+        raise HTTPException(502, "Could not read the photo. Please try again.")
+
+
+def _ie_header(data: bytes) -> tuple[int, int, str] | None:
+    try:
+        with Image.open(io.BytesIO(data)) as im:
+            return im.size[0], im.size[1], im.format or ""
+    except Exception:  # noqa: BLE001 - any file Pillow cannot read is simply not a photo
+        return None
+
+
+@ie.post("/probe")
+def ie_probe(body: ImageEditProbeRequest):
+    """The photo's real size. The caller prices the edit from it."""
+    data, total = _ie_read(body.url, _IE_PROBE_BYTES)
+    if total > _IE_MAX_UPLOAD_BYTES:
+        raise HTTPException(413, f"This photo is over {_IE_MAX_UPLOAD_BYTES >> 20} MB.")
+    header = _ie_header(data)
+    if header is None and total > len(data):
+        header = _ie_header(_ie_read(body.url, None)[0])
+    if header is None or header[2] not in _IE_FORMATS:
+        raise HTTPException(400, "This file is not a photo we can read. Use JPEG, PNG, TIFF or WebP.")
+    w, h, _fmt = header
+    if w * h > _IE_MAX_PIXELS:
+        raise HTTPException(413, f"This photo is {w * h / 1e6:.1f} MP ({w} x {h}). "
+                                 f"The limit is {_IE_MAX_PIXELS / 1e6:.0f} MP: please choose a smaller size.")
+    if min(w, h) < _IE_MIN_SIDE:
+        raise HTTPException(400, f"The photo must be at least {_IE_MIN_SIDE} px on each side.")
+    return {"width": w, "height": h}
 
 
 @ie.post("/run")
 def ie_run(body: ImageEditRunRequest):
-    if not _IE_SRC_KEY.match(body.src_key) or ".." in body.src_key:
-        raise HTTPException(400, "Unknown source image; upload the photo again.")
-    if not _IE_OUT_PREFIX.match(body.out_prefix):
-        raise HTTPException(400, "Bad output location.")
-    if body.req.get("tool") not in _IE_TOOLS:
-        raise HTTPException(400, "Unknown tool.")
-    if len(json.dumps(body.req)) > _IE_MAX_REQ_BYTES:
-        raise HTTPException(413, "The brush mask is too large.")
-    job = runpod("POST", "/run", {"input": {
-        "src_key": body.src_key, "out_prefix": body.out_prefix, "req": body.req,
-    }}, timeout=30, endpoint=IMAGEEDIT_ENDPOINT_ID)
+    job_input = {
+        "action": "edit", "photo": body.photo_url, "prompt": body.prompt, "seed": body.seed,
+        "watermark": body.watermark, "request_id": body.request_id, "user": body.user,
+    }
+    if body.mask:
+        job_input["mask"] = body.mask
+    job = runpod("POST", "/run", {"input": job_input}, timeout=30, endpoint=IMAGEEDIT_ENDPOINT_ID)
     if not job.get("id"):
         raise HTTPException(502, "The edit could not be queued.")
     return {"job_id": job["id"]}
@@ -623,17 +692,29 @@ def ie_run(body: ImageEditRunRequest):
 def ie_status(job_id: str):
     st = runpod("GET", f"/status/{check_job_id(job_id)}", timeout=20,
                 endpoint=IMAGEEDIT_ENDPOINT_ID)
-    # Passed through as-is; the Vercel app maps it to the console's job view
+    # Passed through as-is; the Vercel app maps it to the page's job view
     # and settles the credit hold. delayTime/executionTime are RunPod's queue
     # and billed milliseconds, kept for cost tracking.
     return {k: st.get(k) for k in ("id", "status", "output", "error", "delayTime", "executionTime")}
 
 
-@ie.post("/cancel/{job_id}")
-def ie_cancel(job_id: str):
-    runpod("POST", f"/cancel/{check_job_id(job_id)}", timeout=15,
-           endpoint=IMAGEEDIT_ENDPOINT_ID)
-    return {"ok": True}
+@ie.post("/warm")
+def ie_warm(body: ImageEditWarmRequest):
+    """Start a GPU once a person with credits has chosen a photo. Never an error: it only saves waiting."""
+    now = time.time()
+    with _ie_warm_lock:
+        recent = [t for t in _ie_warms.get(body.user, []) if now - t < 3600]
+        if now - _ie_warm_last[0] < _IE_WARM_EVERY_S or len(recent) >= _IE_WARMS_PER_USER_HOUR:
+            return {"started": False}
+        _ie_warm_last[0] = now
+        _ie_warms[body.user] = recent + [now]
+        for user in [u for u, ts in _ie_warms.items() if now - ts[-1] >= 3600]:
+            del _ie_warms[user]
+    try:
+        runpod("POST", "/run", {"input": {"action": "ping"}}, timeout=15, endpoint=IMAGEEDIT_ENDPOINT_ID)
+    except (GatewayError, HTTPException):
+        return {"started": False}
+    return {"started": True}
 
 
 @app.get("/healthz")

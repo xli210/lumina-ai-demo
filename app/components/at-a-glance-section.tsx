@@ -45,7 +45,7 @@ const TOOLS = [
     name: IMAGEEDIT_NAME,
     href: "/image-edit",
     what: "Photo editing by text. Describe the change, such as removing an object or changing the background.",
-    price: `${IMAGEEDIT_CREDITS_PER_EDIT} credits per edit`,
+    price: `From ${IMAGEEDIT_CREDITS_PER_EDIT} credits per edit`,
   },
 ] as const;
 

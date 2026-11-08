@@ -4,9 +4,10 @@ import { privateJson } from "@/lib/facestudio-gate";
 import { captureHold, getCreditAccount, releaseHold } from "@/lib/credits-server";
 import {
   getEditStatus,
-  outPrefixFor,
+  imageEditStorage,
   requireEditOwner,
-  toConsoleJob,
+  resultKeyFromUrl,
+  toEditJob,
 } from "@/lib/imageedit-server";
 import { IMAGEEDIT_SERVICE } from "@/lib/imageedit";
 
@@ -19,9 +20,9 @@ interface RouteContext {
 }
 
 /**
- * GET /api/imageedit/jobs/{jobId} -> the console's job view (+ available)
+ * GET /api/imageedit/jobs/{jobId} -> the page's job view (+ available)
  *
- * Polled about once a second, and where the reservation is settled: charged
+ * Polled every two seconds, and where the reservation is settled: charged
  * when the edit lands, returned in full when it fails or is cancelled. Both
  * are keyed on the hold, so polling a finished job again changes nothing.
  */
@@ -44,23 +45,28 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
     return privateJson({ detail: "Could not read the edit's status. Retrying." }, 502);
   }
 
-  const { job, terminal } = toConsoleJob(jobId, upstream.body, {
-    createdAt: hold.created_at,
-    outPrefix: outPrefixFor(userId, hold.id),
+  const bucket = imageEditStorage()?.bucket ?? "";
+  const { job, terminal } = toEditJob(jobId, upstream.body, {
+    credits: hold.amount,
+    // Anything but a recorded "no mark needed" means the mark is needed.
+    mustBeWatermarked: hold.estimate?.watermark !== false,
+    resultKey: (pngUrl) => resultKeyFromUrl(pngUrl, bucket),
   });
 
   if (terminal && hold.status === "open") {
     try {
       if (terminal === "done") {
         const billed = upstream.body.executionTime;
+        const queued = upstream.body.delayTime;
         await captureHold({
           holdId: hold.id,
           actualAmount: hold.amount,
           reference: {
             service: IMAGEEDIT_SERVICE,
             job_ref: jobId,
-            // RunPod's billed milliseconds, so cost per edit can be measured.
+            // RunPod's milliseconds, so cost per edit and cold starts can be measured.
             billed_ms: typeof billed === "number" ? billed : null,
+            queued_ms: typeof queued === "number" ? queued : null,
           },
         });
       } else {

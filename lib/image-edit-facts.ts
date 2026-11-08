@@ -18,9 +18,11 @@
 import { CREDITS_PER_USD, SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import {
   IMAGEEDIT_CREDITS_PER_EDIT,
-  IMAGEEDIT_MAX_SIDE,
-  IMAGEEDIT_MAX_VARIATIONS,
+  IMAGEEDIT_MAX_MP,
+  IMAGEEDIT_MAX_UPLOAD_MB,
   IMAGEEDIT_NAME,
+  IMAGEEDIT_PRICE_RANGE,
+  IMAGEEDIT_PRICE_TEXT,
 } from "@/lib/imageedit";
 
 export const IMAGE_EDIT_NAME = IMAGEEDIT_NAME;
@@ -31,15 +33,16 @@ export const IMAGE_EDIT_PRICE_CREDITS = IMAGEEDIT_CREDITS_PER_EDIT;
 export const IMAGE_EDIT_PRICE_USD = IMAGEEDIT_CREDITS_PER_EDIT / CREDITS_PER_USD;
 export const IMAGE_EDIT_PRICE_USD_TEXT = `$${IMAGE_EDIT_PRICE_USD.toFixed(2)}`;
 export const IMAGE_EDIT_WELCOME_CREDITS = SIGNUP_GRANT_CREDITS;
-export const IMAGE_EDIT_MAX_SIDE = IMAGEEDIT_MAX_SIDE;
-export const IMAGE_EDIT_MAX_VARIATIONS = IMAGEEDIT_MAX_VARIATIONS;
+export const IMAGE_EDIT_PRICE_TEXT = IMAGEEDIT_PRICE_TEXT;
+export const IMAGE_EDIT_PRICE_RANGE = IMAGEEDIT_PRICE_RANGE;
+export const IMAGE_EDIT_MAX_MP = IMAGEEDIT_MAX_MP;
 
-/** Measured on 2026-10-01 on an H100: 26-32 s billed, 30-50 s wall. */
-export const IMAGE_EDIT_WARM_SECONDS = "30 to 50 seconds";
-/** A GPU is started on demand; the first edit after ~60 s idle waits for it. */
-export const IMAGE_EDIT_COLD_START = "one to two minutes longer";
+/** Measured on 2026-11-07 on an H100: 39-66 s of GPU time, from 2 to 48 MP. */
+export const IMAGE_EDIT_WARM_SECONDS = "40 to 70 seconds";
+/** A GPU is started on demand; the first edit after two minutes idle waits for it. */
+export const IMAGE_EDIT_COLD_START = "several minutes longer";
 
-export const IMAGE_EDIT_MAX_UPLOAD_MB = 40;
+export const IMAGE_EDIT_MAX_UPLOAD_MB = IMAGEEDIT_MAX_UPLOAD_MB;
 
 export interface ImageEditTool {
   /** Anchor on the page, and a stable key. */
@@ -137,19 +140,19 @@ export interface ImageEditStep {
 export const IMAGE_EDIT_STEPS: readonly ImageEditStep[] = [
   {
     name: "Sign in and add a photo",
-    text: `Sign in to NanoPocket, then drop in a photo (up to ${IMAGE_EDIT_MAX_UPLOAD_MB} MB), paste one, or pick a sample. Photos are scaled down to ${IMAGE_EDIT_MAX_SIDE} px on the long side in the browser before upload.`,
+    text: `Sign in to NanoPocket, then drop in a photo or paste one: JPEG, PNG, TIFF or WebP, up to ${IMAGE_EDIT_MAX_MP} MP and ${IMAGE_EDIT_MAX_UPLOAD_MB} MB. It is never scaled down.`,
   },
   {
-    name: "Choose a tool and describe the change",
-    text: "Pick Remove, Replace, Add, Text, Magic Edit, Light & Style, Season or Restore and say what you want in plain words. For the object tools, you can paint over the area to limit where the change may land.",
+    name: "Describe the change",
+    text: "Say what you want in plain words. To be precise, paint over the part of the photo that may change.",
   },
   {
-    name: "Generate",
-    text: `Press Generate. It usually takes ${IMAGE_EDIT_WARM_SECONDS}; the first edit after a quiet period takes ${IMAGE_EDIT_COLD_START} while a GPU starts. Ask for up to ${IMAGE_EDIT_MAX_VARIATIONS} variations at once if you want to choose.`,
+    name: "Edit",
+    text: `Press Edit. It usually takes ${IMAGE_EDIT_WARM_SECONDS}; the first edit after a quiet period takes ${IMAGE_EDIT_COLD_START} while a GPU starts. Not quite right? Try another version.`,
   },
   {
     name: "Compare, refine and download",
-    text: "Switch between Result, Compare, Before and Changes to see exactly what moved. Chain another edit from any version, undo, or download the full-resolution PNG.",
+    text: "Drag the before and after slider, or view the two side by side, and zoom in to check the details. Keep editing the result, or download the full-resolution PNG.",
   },
 ];
 
@@ -161,25 +164,23 @@ export interface ImageEditFact {
 /** The short, quotable table near the top of the page. */
 export const IMAGE_EDIT_KEY_FACTS: readonly ImageEditFact[] = [
   { label: "What it is", value: "A browser photo editor you drive with text instructions" },
-  { label: "Price", value: `${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit; each variation is one edit` },
+  { label: "Price", value: `By photo size: ${IMAGE_EDIT_PRICE_TEXT}. Paid per finished edit` },
   { label: "Free credits", value: `New accounts start with ${IMAGE_EDIT_WELCOME_CREDITS} credits, one grant per person` },
-  { label: "Failed or cancelled edits", value: "Refunded in full, automatically" },
+  { label: "Failed edits", value: "Not charged" },
   { label: "Subscription", value: "None. Credits never expire" },
   { label: "Speed", value: `${IMAGE_EDIT_WARM_SECONDS}; first edit after idle ${IMAGE_EDIT_COLD_START}` },
-  { label: "Output", value: `Lossless PNG at the size you upload, up to ${IMAGE_EDIT_MAX_SIDE} px on the long side` },
-  { label: "Outside the edit", value: "For Remove, Replace, Add, Text and Magic Edit, every pixel outside the edited area is kept identical, and the editor confirms it" },
+  { label: "Output", value: `Lossless PNG at the size you upload, up to ${IMAGE_EDIT_MAX_MP} MP. Accounts that have never bought credits get a watermark` },
+  { label: "Outside the edit", value: "Only the part you name is changed; the rest of the photo is kept as it was" },
   { label: "Needs", value: "A free NanoPocket account and a modern browser. Nothing to install" },
 ];
 
 /** Said plainly, because assistants quote limits as readily as strengths. */
 export const IMAGE_EDIT_LIMITS: readonly string[] = [
-  "It is generative, so two runs of the same instruction can differ. Ask for variations and pick one.",
-  "Light & Style, Season and Restore change the whole photo by design. They keep your detail where they can and let you choose how much of the original to keep, but they are not pixel-identical.",
+  "It is generative, so two runs of the same instruction can differ. Each new version is a new edit.",
   `It is not instant: ${IMAGE_EDIT_WARM_SECONDS} per edit, and a cold GPU adds ${IMAGE_EDIT_COLD_START}.`,
-  `Photos larger than ${IMAGE_EDIT_MAX_SIDE} px on the long side are scaled down before editing. Uploads are limited to ${IMAGE_EDIT_MAX_UPLOAD_MB} MB.`,
+  `Photos over ${IMAGE_EDIT_MAX_MP} MP or ${IMAGE_EDIT_MAX_UPLOAD_MB} MB are refused rather than scaled down. Accounts that have never bought credits get a watermark.`,
   "It edits still photos only. There is no video editing, no batch mode and no public API.",
   "It does not swap faces. For that, use Nano FaceStudio Online.",
-  "When an edit changes nothing, or far more than you asked, the editor says so rather than presenting it as a success.",
 ];
 
 export interface ImageEditFaq {
@@ -190,35 +191,35 @@ export interface ImageEditFaq {
 export const IMAGE_EDIT_FAQ: readonly ImageEditFaq[] = [
   {
     q: `What is ${IMAGE_EDIT_NAME}?`,
-    a: `${IMAGE_EDIT_NAME} is a browser-based AI photo editor from NanoPocket. You upload a photo, pick a tool (Remove, Replace, Add, Text, Magic Edit, Light & Style, Season or Restore), describe the change in plain words, and get the edited photo back at full resolution. It launched on ${IMAGE_EDIT_LAUNCHED} and runs on NanoPocket-hosted GPUs, so there is nothing to install.`,
+    a: `${IMAGE_EDIT_NAME} is a browser-based AI photo editor from NanoPocket. You upload a photo, describe the change in plain words, and get the edited photo back at full resolution, with only that part changed. It launched on ${IMAGE_EDIT_LAUNCHED} and runs on NanoPocket-hosted GPUs, so there is nothing to install.`,
   },
   {
     q: `How much does ${IMAGE_EDIT_NAME} cost?`,
-    a: `${IMAGE_EDIT_PRICE_CREDITS} credits per finished edit, paid with prepaid credits that never expire. Each variation counts as a separate edit. New accounts start with ${IMAGE_EDIT_WELCOME_CREDITS} free credits, one grant per person. An edit that fails or that you cancel is refunded in full. There is no subscription.`,
+    a: `It depends on the photo's size: ${IMAGE_EDIT_PRICE_TEXT}, paid with prepaid credits that never expire. Each new version counts as a separate edit. New accounts start with ${IMAGE_EDIT_WELCOME_CREDITS} free credits, one grant per person. An edit that fails is not charged. There is no subscription.`,
   },
   {
     q: "Does it change parts of the photo I did not ask to edit?",
-    a: "Not for the object tools. With Remove, Replace, Add, Text and Magic Edit, every pixel outside the edited area is kept identical to your photo, and the editor shows how much of the image changed and confirms the rest is untouched. Light & Style, Season and Restore change the whole photo by design.",
+    a: "It is built not to. Only the part you name is changed and the rest of the photo is kept as it was. To be sure, paint over the part that may change, then compare before and after with the slider.",
   },
   {
     q: "How do I remove an object from a photo with AI?",
-    a: "Open the Remove tool, name what to remove (for example \"the bicycle leaning on the wall\"), optionally paint over it to limit where the change can land, and press Generate. The background behind the object is filled in to match the scene, and the rest of the photo is left as it was.",
+    a: "Upload the photo, say what to remove (for example \"Remove the bicycle leaning on the wall\"), optionally paint over it to limit where the change can land, and press Edit. The background behind the object is filled in to match the scene, and the rest of the photo is left as it was.",
   },
   {
     q: "Can it change the text on a sign or label in a photo?",
-    a: "Yes. The Text tool takes the current text and the new text and rewrites it, keeping the original lettering style and perspective.",
+    a: "Yes. Say which words to change and what they should say instead.",
   },
   {
     q: "Can it restore or colourise an old photograph?",
-    a: "Yes. The Restore tool removes scratches and stains, repairs faded contrast and can colourise a black-and-white print with natural colours. It changes the whole image, so compare the result with your original before replacing it.",
+    a: "Yes. Describe the repair, for example removing scratches or adding natural colours. It can change the whole image, so compare the result with your original before replacing it.",
   },
   {
     q: "How long does an edit take?",
-    a: `Usually ${IMAGE_EDIT_WARM_SECONDS}. The first edit after a quiet period takes ${IMAGE_EDIT_COLD_START}, because a GPU is started on demand. Several variations of one edit run one after another.`,
+    a: `Usually ${IMAGE_EDIT_WARM_SECONDS}. The first edit after a quiet period takes ${IMAGE_EDIT_COLD_START}, because a GPU is started on demand.`,
   },
   {
     q: "What resolution do I get back?",
-    a: `The edited photo at the resolution you uploaded, as a lossless PNG, up to ${IMAGE_EDIT_MAX_SIDE} px on the long side. Larger photos are scaled down to that in the browser before editing. There is no watermark.`,
+    a: `The edited photo at the resolution you uploaded, as a lossless PNG, up to ${IMAGE_EDIT_MAX_MP} MP. It is never scaled down. Accounts that have never bought credits get a NanoPocket.ai watermark; buy credits once and every result is clean.`,
   },
   {
     q: `Is ${IMAGE_EDIT_NAME} the same as the Nano ImageEdit desktop app?`,

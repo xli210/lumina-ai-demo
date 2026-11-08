@@ -5,7 +5,7 @@ import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACE_STUDIO_NAME, FACE_SWAP_CREDITS, HEAD_SWAP_CREDITS } from "@/lib/face-studio-facts";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE } from "@/lib/facestudio-v";
-import { IMAGEEDIT_CREDITS_PER_EDIT, IMAGEEDIT_NAME } from "@/lib/imageedit";
+import { IMAGEEDIT_NAME, IMAGEEDIT_PRICE_RANGE } from "@/lib/imageedit";
 import { translatedOrEnglish, type AppLocale } from "@/lib/i18n/locales";
 
 /**
@@ -21,7 +21,7 @@ export const PRICE_PARAMS = {
   face: FACE_SWAP_CREDITS,
   head: HEAD_SWAP_CREDITS,
   hsp: HEADSWAP_PRO_CREDITS_PER_IMAGE,
-  edit: IMAGEEDIT_CREDITS_PER_EDIT,
+  edit: IMAGEEDIT_PRICE_RANGE,
 };
 
 const accents = {
