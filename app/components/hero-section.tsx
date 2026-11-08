@@ -43,9 +43,11 @@ const demoSlides: HeroSlide[] = [
     feature: "facestudio-v",
   },
   {
-    src: "/images/spotedit/hero-wedding.jpg",
-    type: "image",
-    alt: "SpotEdit: a wedding photo split in two, with the blurry guest on the left in the original and the foreground cleared in the edited half",
+    src: "/videos/hero-spotedit.mp4",
+    srcSmall: "/videos/hero-spotedit-sm.mp4",
+    poster: "/videos/hero-spotedit-poster.jpg",
+    type: "video",
+    alt: "SpotEdit reel: a line of light sweeps across real photos and each named edit appears behind it, blurry guests cleared from a wedding, a man removed from a group, a T-shirt turned into a suit, braces removed",
     prompt: "SpotEdit: only the spot you name changes",
     model: IMAGEEDIT_NAME,
     tag: "Photo Retouching",
@@ -206,8 +208,7 @@ export function HeroSection() {
                   <div
                     className="relative h-full w-full"
                     style={{
-                      // The split on SpotEdit's slide has labels that sit on it, so that slide holds still.
-                      transform: activeSlide === i && !slide.feature ? "scale(1.12)" : "scale(1)",
+                      transform: activeSlide === i ? "scale(1.12)" : "scale(1)",
                       transition: activeSlide === i
                         ? "transform 6s cubic-bezier(0.25, 0, 0.25, 1)"
                         : "none",
@@ -302,16 +303,6 @@ export function HeroSection() {
                 </Link>
               </div>
             </div>
-          </div>
-
-          {/* SpotEdit: the slide is the before and after, so the labels sit on its split. */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute bottom-6 left-[60%] flex -translate-x-1/2 gap-2 transition-opacity duration-1000 sm:bottom-12"
-            style={{ opacity: feature === "spotedit" ? 1 : 0 }}
-          >
-            <span className="rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-white sm:px-3 sm:py-1 sm:text-xs">Before</span>
-            <span className="rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-white sm:px-3 sm:py-1 sm:text-xs">After</span>
           </div>
 
           <div
