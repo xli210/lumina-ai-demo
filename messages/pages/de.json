@@ -136,7 +136,7 @@
       {
         "label": "Längster Clip",
         "face": "60 Sekunden (5 Sekunden mit einem kostenlosen Konto)",
-        "head": "12 Sekunden (2 Sekunden mit einem kostenlosen Konto)"
+        "head": "12 Sekunden (3 Sekunden mit einem kostenlosen Konto)"
       },
       {
         "label": "Ideal für",
@@ -159,7 +159,7 @@
       },
       {
         "q": "Wie lang darf ein Video sein?",
-        "a": "Bis zu 60 Sekunden in Fast und Best quality und bis zu 12 Sekunden beim Kopftausch. Unsere GPUs sind begrenzt, deshalb erstellt ein Konto, das noch nie aufgeladen hat, Clips von bis zu 5 Sekunden (2 Sekunden beim Kopftausch), und diese warten hinter denen von Konten, die aufgeladen haben. Ein längeres Video wird nicht abgelehnt: Das Studio verwendet den ersten Teil oder den Teil, den du auswählst, und sagt dir vor dem Bezahlen, welchen."
+        "a": "Bis zu 60 Sekunden in Fast und Best quality und bis zu 12 Sekunden beim Kopftausch. Unsere GPUs sind begrenzt, deshalb erstellt ein Konto, das noch nie aufgeladen hat, Clips von bis zu 5 Sekunden (3 Sekunden beim Kopftausch), und diese warten hinter denen von Konten, die aufgeladen haben. Ein längeres Video wird nicht abgelehnt: Das Studio verwendet den ersten Teil oder den Teil, den du auswählst, und sagt dir vor dem Bezahlen, welchen."
       },
       {
         "q": "Warum ist auf meinem Video ein Wasserzeichen?",
@@ -196,7 +196,7 @@
       "ctaFast": "Headswap Fast testen",
       "speedRow": "Zeit für 100 Frames",
       "speedNote": "Gemessen auf unseren GPUs mit bereits geladenen Modellen.",
-      "limit": "Der Kopftausch läuft bis zu 12 s auf einem bezahlten Konto und 2 s auf einem kostenlosen.",
+      "limit": "Der Kopftausch läuft bis zu 12 s auf einem bezahlten Konto und 3 s auf einem kostenlosen.",
       "eyebrow20": "Die Motion-Engine, seit 2.0",
       "tryIt": "Testen",
       "watchCrew": "Einen Gruppentanz ansehen",
@@ -208,8 +208,8 @@
       "enhCaption": "Derselbe Frame, derselbe Tausch. Links: nur der Tausch. Rechts: nach der Gesichtsverbesserung per Diffusion.",
       "fastEnhancer": "Beim Face Swap nutzt der Modus Fast eine leichtere Verbesserung: Sekunden statt Minuten.",
       "engModes": "Modi",
-      "engBestFor": "Kurze Clips, bis zu 12 s (2 s auf einem kostenlosen Konto)",
-      "watermark": "Videos von einem Konto, das noch nie aufgeladen hat, tragen ein langsam wanderndes NanoPocket-Zeichen. Unsere GPU-Kapazität ist begrenzt, deshalb erstellt ein solches Konto nur Videos bis 5 s (Kopftausch: eine Kostprobe von 2 s, 50 Credits mit Headswap Fast oder 80 mit Headswap Best) und wartet hinter Konten, die aufgeladen haben. Lade einmal auf, und deine neuen Videos sind ohne Zeichen, bis zu 60 s lang (Kopftausch: 12 s), und fertige Videos werden 7 Tage statt 24 Stunden aufbewahrt. Kostenlose Anmelde-Credits und Testphasen zählen nicht als Aufladung.",
+      "engBestFor": "Kurze Clips, bis zu 12 s (3 s auf einem kostenlosen Konto)",
+      "watermark": "Videos von einem Konto, das noch nie aufgeladen hat, tragen ein langsam wanderndes NanoPocket-Zeichen. Unsere GPU-Kapazität ist begrenzt, deshalb erstellt ein solches Konto nur Videos bis 5 s (Kopftausch: eine Kostprobe von 3 s, 50 Credits mit Headswap Fast oder 80 mit Headswap Best) und wartet hinter Konten, die aufgeladen haben. Lade einmal auf, und deine neuen Videos sind ohne Zeichen, bis zu 60 s lang (Kopftausch: 12 s), und fertige Videos werden 7 Tage statt 24 Stunden aufbewahrt. Kostenlose Anmelde-Credits und Testphasen zählen nicht als Aufladung.",
       "metaDescription": "Tausche online das Gesicht oder den ganzen Kopf einer Person in einem Video; alle anderen und der Ton bleiben wie gefilmt. Neu in 2.5: Headswap Fast, etwa 40 % schneller und mit etwa 35 % weniger Credits als Headswap Best. 100 kostenlose Credits bei der Anmeldung, der Preis wird vorher angezeigt.",
       "shareTitle": "Video FaceSwap 2.5 Online: ein Gesicht oder den ganzen Kopf in jedem Video tauschen"
     }

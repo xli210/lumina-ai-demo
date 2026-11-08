@@ -278,7 +278,7 @@
       { "label": "Replaces", "face": "The face", "head": "The face, hair and head shape" },
       { "label": "Keeps", "face": "The original hair, head shape and expression", "head": "The body, clothes, background and everyone else" },
       { "label": "Speed", "face": "A few seconds for the swap, then restoration and upscaling", "head": "A few minutes for a few seconds of video" },
-      { "label": "Longest clip", "face": "60 seconds (5 seconds on a free account)", "head": "12 seconds (2 seconds on a free account)" },
+      { "label": "Longest clip", "face": "60 seconds (5 seconds on a free account)", "head": "12 seconds (3 seconds on a free account)" },
       { "label": "Best for", "face": "Talking, interviews and longer clips", "head": "A new look, short shots" }
     ],
     "topupHeading": "Top up once: no watermark, full length, first in line",
@@ -291,7 +291,7 @@
     "faqHeading": "Frequently asked questions",
     "faq": [
       { "q": "Is video face swap free?", "a": "You can start for free. Every new account gets {grant} credits once, enough to try a short clip. After that, each video is paid for in credits. There is no subscription, and the cost is shown before you start." },
-      { "q": "How long can a video be?", "a": "Up to 60 seconds in Fast and Best quality, and up to 12 seconds for head swaps. Our GPUs are limited, so an account that has never topped up makes clips of up to 5 seconds (2 seconds for head swaps), and these wait behind those of accounts that have. A longer video is not refused: the studio uses the first part or the part you choose, and tells you which before you pay." },
+      { "q": "How long can a video be?", "a": "Up to 60 seconds in Fast and Best quality, and up to 12 seconds for head swaps. Our GPUs are limited, so an account that has never topped up makes clips of up to 5 seconds (3 seconds for head swaps), and these wait behind those of accounts that have. A longer video is not refused: the studio uses the first part or the part you choose, and tells you which before you pay." },
       { "q": "Why is there a watermark on my video?", "a": "Videos from an account that has never topped up credits carry a slowly moving, semi-transparent NanoPocket mark. After one top-up, the videos you make have no watermark. Free sign-up credits do not count as a top-up, and a finished video keeps the mark it was made with." },
       { "q": "What is the difference between a face swap and a whole-head swap?", "a": "A face swap replaces only the face and keeps the original hair, head shape and expression, which suits talking, interviews and longer clips. A whole-head swap takes the face, hair and head shape from the reference photo and leaves the body, clothes, background and other people alone, which suits short shots." },
       { "q": "Can I swap any face I like?", "a": "Only a face you have the right to use. The studio asks you to confirm this before it starts. Do not publish face swap videos of real people without their permission." },
@@ -312,7 +312,7 @@
       "ctaFast": "Try Headswap Fast",
       "speedRow": "Time for 100 frames",
       "speedNote": "Measured on our GPUs with the models already loaded.",
-      "limit": "Head swaps run up to 12 s on a paid account and 2 s on a free one.",
+      "limit": "Head swaps run up to 12 s on a paid account and 3 s on a free one.",
       "eyebrow20": "The motion engine, since 2.0",
       "tryIt": "Try it",
       "watchCrew": "Watch a crew dance",
@@ -324,8 +324,8 @@
       "enhCaption": "Same frame, same swap. Left: the swap alone. Right: after diffusion face enhancement.",
       "fastEnhancer": "In face swap, Fast mode uses a lighter enhancer: seconds instead of minutes.",
       "engModes": "Modes",
-      "engBestFor": "Short clips, up to 12 s (2 s on a free account)",
-      "watermark": "Videos made on an account that has never topped up carry a slowly moving NanoPocket mark. Our GPU capacity is limited, so such an account makes videos of up to 5 s only (head swaps: a 2 s taste, 50 credits with Headswap Fast or 80 with Headswap Best), and waits behind accounts that have topped up. Top up once and your new videos come out clean, up to 60 s (head swaps: 12 s), and your finished videos are kept for 7 days instead of 24 hours. Free sign-up credits and trials do not count as a top-up.",
+      "engBestFor": "Short clips, up to 12 s (3 s on a free account)",
+      "watermark": "Videos made on an account that has never topped up carry a slowly moving NanoPocket mark. Our GPU capacity is limited, so such an account makes videos of up to 5 s only (head swaps: a 3 s taste, 50 credits with Headswap Fast or 80 with Headswap Best), and waits behind accounts that have topped up. Top up once and your new videos come out clean, up to 60 s (head swaps: 12 s), and your finished videos are kept for 7 days instead of 24 hours. Free sign-up credits and trials do not count as a top-up.",
       "metaDescription": "Swap one person's face or whole head in a video online; everyone else and the sound stay as filmed. New in 2.5: Headswap Fast, about 40% faster and about 35% fewer credits than Headswap Best. 100 free sign-up credits to start, price shown first.",
       "shareTitle": "Video FaceSwap 2.5 Online: swap a face or a whole head in any video"
     }

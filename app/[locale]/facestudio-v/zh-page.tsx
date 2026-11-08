@@ -84,7 +84,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "视频最长可以多长?",
-    a: "快速和最佳质量模式最长 60 秒,换头最长 12 秒。我们的 GPU 有限,从未充值过的账号每段视频最长 5 秒(换头是 2 秒,Headswap Best 80 积分、Headswap Fast 50 积分),并且排在充值用户后面;充值一次就能用完整时长并优先处理。更长的视频不会被拒绝,工作室会截取开头或你选的那一段,并在付费前告诉你。",
+    a: "快速和最佳质量模式最长 60 秒,换头最长 12 秒。我们的 GPU 有限,从未充值过的账号每段视频最长 5 秒(换头是 3 秒,Headswap Best 80 积分、Headswap Fast 50 积分),并且排在充值用户后面;充值一次就能用完整时长并优先处理。更长的视频不会被拒绝,工作室会截取开头或你选的那一段,并在付费前告诉你。",
   },
   {
     q: "为什么视频上有水印?",
@@ -329,7 +329,7 @@ export default function ZhVideoFaceSwapPage() {
                 <tr className="border-t border-border/60"><td className="px-4 py-3 font-medium text-foreground">替换</td><td className="px-4 py-3">脸</td><td className="px-4 py-3">脸、发型和头型</td></tr>
                 <tr className="border-t border-border/60"><td className="px-4 py-3 font-medium text-foreground">保留</td><td className="px-4 py-3">原来的发型、头型和表情</td><td className="px-4 py-3">身体、衣服、背景和其他人</td></tr>
                 <tr className="border-t border-border/60"><td className="px-4 py-3 font-medium text-foreground">速度</td><td className="px-4 py-3">换脸几秒,再修复和放大</td><td className="px-4 py-3">几秒钟的视频需要几分钟</td></tr>
-                <tr className="border-t border-border/60"><td className="px-4 py-3 font-medium text-foreground">最长</td><td className="px-4 py-3">60 秒(免费账号 5 秒)</td><td className="px-4 py-3">12 秒(免费账号 2 秒)</td></tr>
+                <tr className="border-t border-border/60"><td className="px-4 py-3 font-medium text-foreground">最长</td><td className="px-4 py-3">60 秒(免费账号 5 秒)</td><td className="px-4 py-3">12 秒(免费账号 3 秒)</td></tr>
                 <tr className="border-t border-border/60"><td className="px-4 py-3 font-medium text-foreground">适合</td><td className="px-4 py-3">对话、采访、较长的片段</td><td className="px-4 py-3">换造型、短镜头</td></tr>
               </tbody>
             </table>

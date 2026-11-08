@@ -43,7 +43,7 @@ const COMPARISON: ReadonlyArray<{ label: string; best: string; fast: string }> =
   { label: "5 s clip", best: "149 credits", fast: "102 credits" },
   { label: "10 s clip", best: "218 credits", fast: "143 credits" },
   { label: "12 s clip", best: "245 credits", fast: "159 credits" },
-  { label: "2 s clip, account that has never topped up", best: "80 credits", fast: "50 credits" },
+  { label: "3 s clip, account that has never topped up", best: "80 credits", fast: "50 credits" },
 ];
 
 const CLIPS = [
@@ -67,7 +67,7 @@ const FAQ = [
   },
   {
     q: "How long can the clip be?",
-    a: "Up to 12 seconds on an account that has topped up credits, and 2 seconds on an account that never has. A clip is counted by its frames, at 30 frames per second at most, so a 60 fps clip counts as twice as long as it plays. For longer clips, a face swap runs up to 60 seconds.",
+    a: "Up to 12 seconds on an account that has topped up credits, and 3 seconds on an account that never has. A clip is counted by its frames, at 30 frames per second at most, so a 60 fps clip counts as twice as long as it plays. For longer clips, a face swap runs up to 60 seconds.",
   },
   {
     q: "How long does it take?",
@@ -79,7 +79,7 @@ const FAQ = [
   },
   {
     q: "Can I try it for free?",
-    a: `New accounts start with ${SIGNUP_GRANT_CREDITS} free credits, enough for a 2-second head swap. Videos from an account that has never topped up carry a moving NanoPocket watermark; one top-up removes it from later videos and unlocks the full 12 seconds.`,
+    a: `New accounts start with ${SIGNUP_GRANT_CREDITS} free credits, enough for a 3-second head swap. Videos from an account that has never topped up carry a moving NanoPocket watermark; one top-up removes it from later videos and unlocks the full 12 seconds.`,
   },
 ];
 

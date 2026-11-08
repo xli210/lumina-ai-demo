@@ -136,7 +136,7 @@
       {
         "label": "Clip más largo",
         "face": "60 segundos (5 segundos con una cuenta gratuita)",
-        "head": "12 segundos (2 segundos con una cuenta gratuita)"
+        "head": "12 segundos (3 segundos con una cuenta gratuita)"
       },
       {
         "label": "Ideal para",
@@ -159,7 +159,7 @@
       },
       {
         "q": "¿Cuánto puede durar un vídeo?",
-        "a": "Hasta 60 segundos en Fast y Best quality, y hasta 12 segundos en los cambios de cabeza. Nuestras GPU son limitadas, así que una cuenta que nunca ha recargado crea clips de hasta 5 segundos (2 segundos en los cambios de cabeza), y estos esperan detrás de los de las cuentas que sí lo han hecho. Un vídeo más largo no se rechaza: el estudio usa la primera parte o la parte que elijas, y te dice cuál antes de pagar."
+        "a": "Hasta 60 segundos en Fast y Best quality, y hasta 12 segundos en los cambios de cabeza. Nuestras GPU son limitadas, así que una cuenta que nunca ha recargado crea clips de hasta 5 segundos (3 segundos en los cambios de cabeza), y estos esperan detrás de los de las cuentas que sí lo han hecho. Un vídeo más largo no se rechaza: el estudio usa la primera parte o la parte que elijas, y te dice cuál antes de pagar."
       },
       {
         "q": "¿Por qué mi vídeo tiene una marca de agua?",
@@ -196,7 +196,7 @@
       "ctaFast": "Probar Headswap Fast",
       "speedRow": "Tiempo para 100 fotogramas",
       "speedNote": "Medido en nuestras GPU con los modelos ya cargados.",
-      "limit": "Los cambios de cabeza llegan a 12 s en una cuenta de pago y a 2 s en una gratuita.",
+      "limit": "Los cambios de cabeza llegan a 12 s en una cuenta de pago y a 3 s en una gratuita.",
       "eyebrow20": "El motor de movimiento, desde la 2.0",
       "tryIt": "Probar",
       "watchCrew": "Ver un baile en grupo",
@@ -208,8 +208,8 @@
       "enhCaption": "El mismo fotograma, el mismo cambio. Izquierda: solo el cambio. Derecha: tras la mejora facial por difusión.",
       "fastEnhancer": "En el cambio de cara, el modo Fast usa un mejorador más ligero: segundos en lugar de minutos.",
       "engModes": "Modos",
-      "engBestFor": "Clips cortos, hasta 12 s (2 s en una cuenta gratuita)",
-      "watermark": "Los vídeos de una cuenta que nunca ha recargado llevan una marca de NanoPocket que se mueve lentamente. Nuestra capacidad de GPU es limitada, así que esa cuenta solo crea vídeos de hasta 5 s (cambios de cabeza: una prueba de 2 s, 50 créditos con Headswap Fast u 80 con Headswap Best) y espera detrás de las cuentas que han recargado. Recarga una vez y tus vídeos nuevos saldrán limpios, de hasta 60 s (cambios de cabeza: 12 s), y tus vídeos terminados se guardarán 7 días en lugar de 24 horas. Los créditos gratis del registro y las pruebas no cuentan como recarga.",
+      "engBestFor": "Clips cortos, hasta 12 s (3 s en una cuenta gratuita)",
+      "watermark": "Los vídeos de una cuenta que nunca ha recargado llevan una marca de NanoPocket que se mueve lentamente. Nuestra capacidad de GPU es limitada, así que esa cuenta solo crea vídeos de hasta 5 s (cambios de cabeza: una prueba de 3 s, 50 créditos con Headswap Fast u 80 con Headswap Best) y espera detrás de las cuentas que han recargado. Recarga una vez y tus vídeos nuevos saldrán limpios, de hasta 60 s (cambios de cabeza: 12 s), y tus vídeos terminados se guardarán 7 días en lugar de 24 horas. Los créditos gratis del registro y las pruebas no cuentan como recarga.",
       "metaDescription": "Cambia online la cara o la cabeza entera de una persona en un vídeo; los demás y el sonido quedan como se grabaron. Novedad de la 2.5: Headswap Fast, aproximadamente un 40% más rápido y con aproximadamente un 35% menos de créditos que Headswap Best. 100 créditos gratis al registrarte; el precio se muestra antes.",
       "shareTitle": "Video FaceSwap 2.5 Online: cambia una cara o una cabeza entera en cualquier vídeo"
     }

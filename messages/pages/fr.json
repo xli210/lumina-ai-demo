@@ -136,7 +136,7 @@
       {
         "label": "Durée maximale",
         "face": "60 secondes (5 secondes avec un compte gratuit)",
-        "head": "12 secondes (2 secondes avec un compte gratuit)"
+        "head": "12 secondes (3 secondes avec un compte gratuit)"
       },
       {
         "label": "Idéal pour",
@@ -159,7 +159,7 @@
       },
       {
         "q": "Quelle peut être la durée d'une vidéo ?",
-        "a": "Jusqu'à 60 secondes en Fast et Best quality, et jusqu'à 12 secondes pour un échange de tête. Nos GPU étant limités, un compte qui n'a jamais rechargé crée des clips de 5 secondes maximum (2 secondes pour un échange de tête), et ceux-ci passent après ceux des comptes qui ont rechargé. Une vidéo plus longue n'est pas refusée : le studio utilise le début ou la partie que vous choisissez, et vous indique laquelle avant que vous payiez."
+        "a": "Jusqu'à 60 secondes en Fast et Best quality, et jusqu'à 12 secondes pour un échange de tête. Nos GPU étant limités, un compte qui n'a jamais rechargé crée des clips de 5 secondes maximum (3 secondes pour un échange de tête), et ceux-ci passent après ceux des comptes qui ont rechargé. Une vidéo plus longue n'est pas refusée : le studio utilise le début ou la partie que vous choisissez, et vous indique laquelle avant que vous payiez."
       },
       {
         "q": "Pourquoi y a-t-il un filigrane sur ma vidéo ?",
@@ -196,7 +196,7 @@
       "ctaFast": "Essayer Headswap Fast",
       "speedRow": "Temps pour 100 images",
       "speedNote": "Mesuré sur nos GPU, modèles déjà chargés.",
-      "limit": "L'échange de tête va jusqu'à 12 s sur un compte payant et 2 s sur un compte gratuit.",
+      "limit": "L'échange de tête va jusqu'à 12 s sur un compte payant et 3 s sur un compte gratuit.",
       "eyebrow20": "Le moteur de mouvement, depuis la 2.0",
       "tryIt": "Essayer",
       "watchCrew": "Voir une danse de groupe",
@@ -208,8 +208,8 @@
       "enhCaption": "La même image, le même échange. À gauche : l'échange seul. À droite : après l'amélioration du visage par diffusion.",
       "fastEnhancer": "En face swap, le mode Fast utilise un améliorateur plus léger : quelques secondes au lieu de minutes.",
       "engModes": "Modes",
-      "engBestFor": "Clips courts, jusqu'à 12 s (2 s sur un compte gratuit)",
-      "watermark": "Les vidéos d'un compte qui n'a jamais rechargé portent une marque NanoPocket qui se déplace lentement. Notre capacité GPU étant limitée, un tel compte ne crée que des vidéos de 5 s maximum (échange de tête : un aperçu de 2 s, 50 crédits avec Headswap Fast ou 80 avec Headswap Best) et passe après les comptes qui ont rechargé. Rechargez une fois : vos nouvelles vidéos sortent sans marque, jusqu'à 60 s (échange de tête : 12 s), et vos vidéos terminées sont conservées 7 jours au lieu de 24 heures. Les crédits gratuits d'inscription et les essais ne comptent pas comme une recharge.",
+      "engBestFor": "Clips courts, jusqu'à 12 s (3 s sur un compte gratuit)",
+      "watermark": "Les vidéos d'un compte qui n'a jamais rechargé portent une marque NanoPocket qui se déplace lentement. Notre capacité GPU étant limitée, un tel compte ne crée que des vidéos de 5 s maximum (échange de tête : un aperçu de 3 s, 50 crédits avec Headswap Fast ou 80 avec Headswap Best) et passe après les comptes qui ont rechargé. Rechargez une fois : vos nouvelles vidéos sortent sans marque, jusqu'à 60 s (échange de tête : 12 s), et vos vidéos terminées sont conservées 7 jours au lieu de 24 heures. Les crédits gratuits d'inscription et les essais ne comptent pas comme une recharge.",
       "metaDescription": "Échangez en ligne le visage ou la tête entière d'une personne dans une vidéo ; les autres et le son restent tels que filmés. Nouveau dans la 2.5 : Headswap Fast, environ 40 % plus rapide et environ 35 % de crédits en moins que Headswap Best. 100 crédits gratuits à l'inscription, prix affiché avant de commencer.",
       "shareTitle": "Video FaceSwap 2.5 Online : échangez un visage ou une tête entière dans n'importe quelle vidéo"
     }
