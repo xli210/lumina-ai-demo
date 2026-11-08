@@ -27,7 +27,7 @@ const PROTECTED_PATH_PREFIXES = [
   // The /api/facestudio routes enforce their own auth and credit checks, and
   // that is what actually protects the GPU.
   '/face-studio/',
-  // Nano ImageEdit 2.0 Online: same split. /image-edit (landing) is public,
+  // SpotEdit: same split. /image-edit (landing) is public,
   // /image-edit/ (launch route, console, its assets and samples) needs a session.
   '/image-edit/',
   // Video FaceSwap Online: the page at /facestudio-v and its media are public

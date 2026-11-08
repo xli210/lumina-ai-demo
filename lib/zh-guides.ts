@@ -310,7 +310,7 @@ export const ZH_GUIDES: ZhGuide[] = [
 
 ## 还要知道一点
 
-能让编辑区域以外的每个像素都保持一致的在线照片编辑器 [Nano ImageEdit 2.0 Online](/image-edit) 是浏览器产品。桌面版 Nano ImageEdit 是另一个应用,是本地的 GAN and diffusion models 图像生成器,没有这个模式。
+能让编辑区域以外的每个像素都保持一致的在线照片编辑器 [SpotEdit](/image-edit) 是浏览器产品。桌面版 Nano ImageEdit 是另一个应用,是本地的 GAN and diffusion models 图像生成器,没有这个模式。
 
 ## 相关文章
 
@@ -405,7 +405,7 @@ export const ZH_GUIDES: ZhGuide[] = [
 ## 让结果更自然的小技巧
 
 - 参考照片和合照里的人脸朝向接近时,效果最好。
-- 光线差别很大时,换脸后可以用 [Nano ImageEdit 2.0 Online](/image-edit) 用一句话调整整体色调。
+- 光线差别很大时,换脸后需要在修图软件里调整整体色调。
 - 只换你有权使用的脸,不要在未经本人同意的情况下发布。
 
 ## 相关文章

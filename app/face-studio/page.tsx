@@ -616,7 +616,7 @@ export default function FaceStudioLandingPage() {
                 <span className="text-muted-foreground"> swaps a face in a video (version 2.0.0)</span>
               </li>
               <li>
-                <Link href="/image-edit" className={textLink}>Nano ImageEdit 2.0 Online</Link>
+                <Link href="/image-edit" className={textLink}>SpotEdit</Link>
                 <span className="text-muted-foreground"> to fix anything else in the photo by describing it</span>
               </li>
               <li>

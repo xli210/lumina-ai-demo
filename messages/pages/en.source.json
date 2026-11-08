@@ -370,46 +370,79 @@
     "english": "English version"
   },
   "imageEdit": {
-    "title": "AI Photo Editor Online: Edit a Photo by Describing the Change",
-    "description": "Edit a photo by describing the change: remove or add objects, replace things, change the text on a sign, relight a scene, change the season or restore an old photo. Everything you did not ask to change stays as it was. {grant} free credits on sign-up.",
+    "title": "SpotEdit: Full-Resolution AI Photo Retouching by Text",
+    "description": "Retouch a photo by describing the change. It comes back at full size, up to 49 MP, and every pixel outside the edit is identical to your original. {grant} free credits on sign-up.",
     "kicker": "Online tool · in your browser",
-    "h1": "Describe the edit. Keep the rest of the photo.",
-    "lead": "Upload a photo and say what should change: remove an object, replace something, change the text on a sign or relight the scene. For object edits, everything outside the edit stays identical to your original photo, and the result comes back at full resolution with no watermark.",
-    "cta": "Open Nano ImageEdit 2.0 Online",
-    "note": "Free NanoPocket account required. {grant} free credits on sign-up, {edit} credits per edit.",
+    "h1": "Retouch at full resolution. Only the spot you name changes.",
+    "lead": "Upload a photo and say what should change: remove a person or an object, replace something, or change the text on a sign. Your photo comes back at its original size, and everything outside the edit is identical to the file you uploaded.",
+    "cta": "Open SpotEdit",
+    "note": "Free NanoPocket account required. {grant} free credits on sign-up, {edit} credits per edit depending on the photo's size.",
     "promptNote": "The editing model is tested with English instructions, so write them in English for the most reliable results.",
     "examplesHeading": "Real results",
     "beforeLabel": "Before",
     "afterLabel": "After",
     "examples": {
-      "text-barber": "The sign's text changed, with the same 3D lettering style.",
-      "replace-fruit": "A banana replaced by a bunch of purple grapes, in the same place.",
-      "remove-cars": "Parked cars removed, with the background behind them filled in.",
-      "restore-sepia": "An old, damaged photo repaired and colourised."
+      "wedding": "Blurry guests in the foreground removed, so the couple can be seen.",
+      "group": "One person removed from a group photo, with the background filled in.",
+      "photobomber": "A photobomber removed from the foreground.",
+      "suit": "A T-shirt changed to a suit jacket and shirt."
     },
     "toolsHeading": "What it can do",
     "tools": [
-      { "title": "Magic Edit", "body": "Paint over an area and describe what it should become, or describe a change to the whole photo." },
-      { "title": "Add", "body": "Add a new object to the photo." },
-      { "title": "Remove", "body": "Remove objects or people. The background behind them is filled in naturally." },
-      { "title": "Replace", "body": "Swap one object for another in the same place." },
-      { "title": "Text", "body": "Change the text on signs, packaging or posters, keeping the original font style and perspective." },
-      { "title": "Light & Style", "body": "Relight or colour-grade the whole photo. Only colour and light change." },
-      { "title": "Season", "body": "Change the season of a scene: autumn leaves, winter snow, spring blossom." },
-      { "title": "Restore", "body": "Repair old or damaged photos: remove scratches and stains, fix the contrast and colourise." }
+      {
+        "title": "Only that spot changes",
+        "body": "The rest of the photo is left alone, down to the pixel."
+      },
+      {
+        "title": "Full resolution",
+        "body": "From 1K to 8K, up to 49 MP. Your photo is never scaled down."
+      },
+      {
+        "title": "Optional brush",
+        "body": "Paint over the part that may change. The edit stays there, with a soft blend at its edge."
+      },
+      {
+        "title": "Ready for your workflow",
+        "body": "A lossless PNG at your photo's size. In our test the colour profile and EXIF were kept."
+      }
     ],
     "stepsHeading": "How it works",
     "steps": [
-      { "title": "Add a photo", "body": "Drop it in, paste it or browse your files. You can also start from a sample." },
-      { "title": "Choose a tool and describe the edit", "body": "Fill in what should change, and paint an area if you want to limit where it happens. You can ask for up to 4 variations." },
-      { "title": "Compare and download", "body": "Compare before and after, keep editing from any version, and download the full-resolution result." }
+      {
+        "title": "Add a photo",
+        "body": "Drop it in, paste it or browse your files. JPEG, PNG, TIFF or WebP."
+      },
+      {
+        "title": "Describe the change",
+        "body": "Write what should change, and paint an area if you want to limit where it happens."
+      },
+      {
+        "title": "Compare and download",
+        "body": "Compare before and after, zoom in to check the details, and download the full-resolution PNG."
+      }
     ],
     "faqHeading": "Frequently asked questions",
     "faq": [
-      { "q": "Is it free?", "a": "You can start for free with the {grant} credits every new account gets. After that, each finished edit costs {edit} credits, with no subscription." },
-      { "q": "Is there a watermark?", "a": "No. Results from Nano ImageEdit 2.0 Online do not carry a watermark." },
-      { "q": "Do I need to install anything?", "a": "No. It runs in your browser, and the work happens on our GPUs." },
-      { "q": "Can I edit any photo?", "a": "Only photos you have the right to edit, including any people in them: they are you, or they have agreed." }
+      {
+        "q": "Is it free?",
+        "a": "You can start for free with the {grant} credits every new account gets. After that, each finished edit costs {edit} credits depending on the photo's size, with no subscription. A failed edit is not charged."
+      },
+      {
+        "q": "Is there a watermark?",
+        "a": "Accounts that have never bought credits get a NanoPocket.ai watermark. Buy credits once and every result is clean."
+      },
+      {
+        "q": "Do I need to install anything?",
+        "a": "No. It runs in your browser, and the work happens on our GPUs."
+      },
+      {
+        "q": "Are my photos used to train AI models?",
+        "a": "No. Uploads and results are never used to train models, and you keep all rights to what you make."
+      },
+      {
+        "q": "Can I edit any photo?",
+        "a": "Only photos you have the right to edit, including any people in them: they are you, or they have agreed."
+      }
     ],
     "pricingLink": "Prices",
     "english": "English version"
@@ -599,7 +632,7 @@
     "videoPay": "Priced per video from the mode, output size, clip length and number of people, and shown before you start.",
     "videoNote": "A 10-second 1080p clip in Fast mode is about 20 credits. Requests are queued.",
     "imageEditPay": "{edit} credits per edit.",
-    "imageEditNote": "Lossless PNG, no watermark. For the object tools, every pixel outside the edit stays identical.",
+    "imageEditNote": "Lossless PNG at full resolution. Accounts that have never bought credits get a watermark. Every pixel outside the edit stays identical.",
     "packsHeading": "Credit packs",
     "packsNote": "Buy credits when you need them. 1 credit is $0.01, and bigger packs add bonus credits. Credits are bought on the credits page.",
     "packsLink": "Go to the credits page",
@@ -1039,7 +1072,32 @@
     "Don't like it",
     "Dislike",
     "Thanks for the feedback!",
-    "Something else to fix in the photo? Remove an object, change the text on a sign, or relight the scene by describing it:",
+    "Something else to fix in the photo? Remove an object or change the text on a sign by describing it:",
+    "Another photo",
+    "Brush an area",
+    "Describe the change…",
+    "Download full resolution",
+    "Drag & drop, paste or click · JPEG, PNG, TIFF or WebP · 1K to 8K, up to 49 MP",
+    "Edit this result further",
+    "Edit your photo",
+    "Keep editing this",
+    "Paint over the part you want changed. The edit stays there, with a soft blend at its edge.",
+    "Ready · the edit stays in the painted area.",
+    "The edit stays in the painted area.",
+    "Side by side",
+    "Start editing",
+    "The upload did not finish. Check your connection and try again.",
+    "This browser can't show this file. The edit still works; use JPEG or PNG to see and brush it.",
+    "Try another version",
+    "Try this request",
+    "Upload a photo to start.",
+    "Uploading your photo…",
+    "Usually about a minute. The first edit after a quiet period can take several minutes while a GPU starts.",
+    "Waiting in queue…",
+    "Your balance:",
+    "Zoom in to check details",
+    "Compare before and after",
+    "Upload, describe the change, done. Any size from 1K to 8K, up to 49 MP.",
     "Out of credits · Buy more",
     "{n} credits · Top up",
     "You are out of credits.",

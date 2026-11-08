@@ -290,86 +290,74 @@
     "english": "Englische Version"
   },
   "imageEdit": {
-    "title": "KI-Bildbearbeitung online: Foto bearbeiten, indem du die Änderung beschreibst",
-    "description": "Bearbeite ein Foto, indem du die Änderung beschreibst: Objekte entfernen oder hinzufügen, Dinge ersetzen, den Text auf einem Schild ändern, eine Szene neu ausleuchten, die Jahreszeit wechseln oder ein altes Foto restaurieren. Alles, was du nicht ändern wolltest, bleibt, wie es war. {grant} kostenlose Credits bei der Anmeldung.",
+    "title": "SpotEdit: KI-Fotoretusche in voller Auflösung per Text",
+    "description": "Retuschieren Sie ein Foto, indem Sie die Änderung beschreiben. Es kommt in voller Größe zurück, bis 49 MP, und jedes Pixel außerhalb der Bearbeitung bleibt identisch mit dem Original. {grant} Gratis-Credits bei der Anmeldung.",
     "kicker": "Online-Tool · im Browser",
-    "h1": "Beschreibe die Änderung. Der Rest des Fotos bleibt.",
-    "lead": "Lade ein Foto hoch und sag, was sich ändern soll: ein Objekt entfernen, etwas ersetzen, den Text auf einem Schild ändern oder die Szene neu ausleuchten. Bei Objektänderungen bleibt alles außerhalb der Bearbeitung identisch mit deinem Originalfoto, und das Ergebnis kommt in voller Auflösung und ohne Wasserzeichen zurück.",
-    "cta": "Nano ImageEdit 2.0 Online öffnen",
-    "note": "Kostenloses NanoPocket-Konto erforderlich. {grant} kostenlose Credits bei der Anmeldung, {edit} Credits pro Bearbeitung.",
+    "h1": "Retusche in voller Auflösung. Nur die genannte Stelle ändert sich.",
+    "lead": "Laden Sie ein Foto hoch und sagen Sie, was sich ändern soll: eine Person oder ein Objekt entfernen, etwas ersetzen oder den Text auf einem Schild ändern. Ihr Foto kommt in Originalgröße zurück, und alles außerhalb der Bearbeitung ist identisch mit der hochgeladenen Datei.",
+    "cta": "SpotEdit öffnen",
+    "note": "Kostenloses NanoPocket-Konto erforderlich. {grant} Gratis-Credits bei der Anmeldung, {edit} Credits pro Bearbeitung je nach Fotogröße.",
     "promptNote": "Das Bearbeitungsmodell ist mit englischen Anweisungen getestet. Schreibe sie also auf Englisch, um die zuverlässigsten Ergebnisse zu erhalten.",
     "examplesHeading": "Echte Ergebnisse",
     "beforeLabel": "Vorher",
     "afterLabel": "Nachher",
     "examples": {
-      "text-barber": "Der Text des Schilds wurde geändert, im selben 3D-Schriftstil.",
-      "replace-fruit": "Eine Banane, ersetzt durch eine Traube violetter Beeren, an derselben Stelle.",
-      "remove-cars": "Geparkte Autos entfernt, der Hintergrund dahinter aufgefüllt.",
-      "restore-sepia": "Ein altes, beschädigtes Foto repariert und koloriert."
+      "wedding": "Unscharfe Gäste im Vordergrund entfernt, damit das Paar zu sehen ist.",
+      "group": "Eine Person aus einem Gruppenfoto entfernt, der Hintergrund ergänzt.",
+      "photobomber": "Einen Fotobomber aus dem Vordergrund entfernt.",
+      "suit": "T-Shirt in Sakko und Hemd geändert."
     },
     "toolsHeading": "Was es kann",
     "tools": [
       {
-        "title": "Magic Edit",
-        "body": "Male über einen Bereich und beschreibe, was daraus werden soll, oder beschreibe eine Änderung am ganzen Foto."
+        "title": "Nur diese Stelle ändert sich",
+        "body": "Der Rest des Fotos bleibt unberührt, bis aufs Pixel."
       },
       {
-        "title": "Hinzufügen",
-        "body": "Füge dem Foto ein neues Objekt hinzu."
+        "title": "Volle Auflösung",
+        "body": "Von 1K bis 8K, bis 49 MP. Ihr Foto wird nie verkleinert."
       },
       {
-        "title": "Entfernen",
-        "body": "Entferne Objekte oder Personen. Der Hintergrund dahinter wird natürlich aufgefüllt."
+        "title": "Optionaler Pinsel",
+        "body": "Malen Sie den Bereich an, der sich ändern darf. Die Bearbeitung bleibt dort, mit weichem Übergang am Rand."
       },
       {
-        "title": "Ersetzen",
-        "body": "Tausche ein Objekt an derselben Stelle gegen ein anderes."
-      },
-      {
-        "title": "Text",
-        "body": "Ändere den Text auf Schildern, Verpackungen oder Postern, wobei Schriftstil und Perspektive erhalten bleiben."
-      },
-      {
-        "title": "Licht & Stil",
-        "body": "Leuchte das ganze Foto neu aus oder ändere seine Farbstimmung. Nur Farbe und Licht ändern sich."
-      },
-      {
-        "title": "Jahreszeit",
-        "body": "Ändere die Jahreszeit einer Szene: Herbstlaub, Winterschnee, Frühlingsblüte."
-      },
-      {
-        "title": "Restaurieren",
-        "body": "Repariere alte oder beschädigte Fotos: Kratzer und Flecken entfernen, Kontrast korrigieren und kolorieren."
+        "title": "Bereit für Ihren Workflow",
+        "body": "Verlustfreies PNG in der Größe Ihres Fotos. In unserem Test blieben Farbprofil und EXIF erhalten."
       }
     ],
     "stepsHeading": "So funktioniert’s",
     "steps": [
       {
         "title": "Foto hinzufügen",
-        "body": "Zieh es hinein, füge es ein oder durchsuche deine Dateien. Du kannst auch mit einem Beispiel beginnen."
+        "body": "Hineinziehen, einfügen oder auswählen. JPEG, PNG, TIFF oder WebP."
       },
       {
-        "title": "Tool wählen und Änderung beschreiben",
-        "body": "Gib an, was sich ändern soll, und male einen Bereich, wenn du die Stelle eingrenzen möchtest. Du kannst bis zu 4 Varianten anfordern."
+        "title": "Änderung beschreiben",
+        "body": "Schreiben Sie, was sich ändern soll, und malen Sie einen Bereich an, um es einzugrenzen."
       },
       {
         "title": "Vergleichen und herunterladen",
-        "body": "Vergleiche Vorher und Nachher, bearbeite von jeder Version aus weiter und lade das Ergebnis in voller Auflösung herunter."
+        "body": "Vergleichen Sie Vorher und Nachher, prüfen Sie Details per Zoom und laden Sie das PNG in voller Auflösung herunter."
       }
     ],
     "faqHeading": "Häufige Fragen",
     "faq": [
       {
         "q": "Ist es kostenlos?",
-        "a": "Du kannst kostenlos starten, mit den {grant} Credits, die jedes neue Konto erhält. Danach kostet jede fertige Bearbeitung {edit} Credits, ohne Abo."
+        "a": "Sie können kostenlos mit den {grant} Credits starten, die jedes neue Konto erhält. Danach kostet jede fertige Bearbeitung je nach Fotogröße {edit} Credits, ohne Abo. Eine fehlgeschlagene Bearbeitung wird nicht berechnet."
       },
       {
         "q": "Gibt es ein Wasserzeichen?",
-        "a": "Nein. Ergebnisse von Nano ImageEdit 2.0 Online tragen kein Wasserzeichen."
+        "a": "Konten, die noch nie Credits gekauft haben, erhalten ein NanoPocket.ai-Wasserzeichen. Einmal Credits kaufen, und jedes Ergebnis ist sauber."
       },
       {
         "q": "Muss ich etwas installieren?",
         "a": "Nein. Es läuft in deinem Browser, und die Arbeit erledigen unsere GPUs."
+      },
+      {
+        "q": "Werden meine Fotos zum Training von KI-Modellen verwendet?",
+        "a": "Nein. Uploads und Ergebnisse werden nie zum Training von Modellen verwendet, und alle Rechte an Ihren Ergebnissen bleiben bei Ihnen."
       },
       {
         "q": "Kann ich jedes beliebige Foto bearbeiten?",
@@ -612,7 +600,7 @@
     "videoPay": "Der Preis pro Video richtet sich nach Modus, Ausgabegröße, Cliplänge und Anzahl der Personen und wird vor dem Start angezeigt.",
     "videoNote": "Ein 10-Sekunden-Clip in 1080p im Schnellmodus kostet etwa 20 Credits. Anfragen werden in eine Warteschlange gestellt.",
     "imageEditPay": "{edit} Credits pro Bearbeitung.",
-    "imageEditNote": "Verlustfreies PNG, kein Wasserzeichen. Bei den Objekt-Tools bleibt jedes Pixel außerhalb der Bearbeitung identisch.",
+    "imageEditNote": "Verlustfreies PNG in voller Auflösung. Konten, die noch nie Credits gekauft haben, erhalten ein Wasserzeichen. Jedes Pixel außerhalb der Bearbeitung bleibt identisch.",
     "packsHeading": "Credit-Pakete",
     "packsNote": "Kaufe Credits, wenn du sie brauchst. 1 Credit kostet $0.01, und größere Pakete enthalten Bonus-Credits. Credits kaufst du auf der Credits-Seite.",
     "packsLink": "Zur Credits-Seite",

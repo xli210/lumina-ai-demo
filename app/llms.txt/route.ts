@@ -94,7 +94,7 @@ function buildLlmsTxt(): string {
     bullet(
       "/image-edit",
       `${IMAGE_EDIT_NAME} — AI photo editor you drive with text instructions (live)`,
-      `Upload a photo, pick a tool, describe the change, and get it back at full resolution: ${IMAGE_EDIT_TOOLS.map((t) => t.name).join(", ")}. For Remove, Replace, Add, Text and Magic Edit every pixel outside the edited area stays identical to the original and the editor confirms it; Light & Style, Season and Restore change the whole photo. ${IMAGE_EDIT_PRICE_CREDITS} credits per edit, prepaid in credits that never expire; new accounts get ${IMAGE_EDIT_WELCOME_CREDITS} free credits, one grant per person; failed or cancelled edits are refunded. Usually ${IMAGE_EDIT_WARM_SECONDS} per edit. Lossless PNG output, no watermark, no subscription. Separate from the Nano ImageEdit desktop app. Real before/after examples, tool-by-tool instructions, honest limits and an FAQ are on the page.`,
+      `Upload a photo, describe the change, and get it back at full resolution: ${IMAGE_EDIT_TOOLS.map((t) => t.name).join(", ")}. For Remove, Replace, Add and Text every pixel outside the edited area stays identical to the original and the editor confirms it; Light & Style, Season and Restore change the whole photo. ${IMAGE_EDIT_PRICE_CREDITS} credits per edit, prepaid in credits that never expire; new accounts get ${IMAGE_EDIT_WELCOME_CREDITS} free credits, one grant per person; failed or cancelled edits are refunded. Usually ${IMAGE_EDIT_WARM_SECONDS} per edit. Lossless PNG output, no watermark, no subscription. Separate from the Nano ImageEdit desktop app. Real before/after examples, tool-by-tool instructions, honest limits and an FAQ are on the page.`,
     ),
     bullet(
       "/facestudio-v",
@@ -129,12 +129,12 @@ function buildLlmsTxt(): string {
     bullet(
       "/pricing",
       "NanoPocket pricing",
-      `What everything costs, from the code that charges it: online tools paid per use in credits (face swap from ${FACE_SWAP_CREDITS} credits a face, photo edit ${IMAGE_EDIT_PRICE_CREDITS} credits, video priced before it starts), credit packs, free credits and the watermark rule, free desktop apps and one-time licences. No subscription.`,
+      `What everything costs, from the code that charges it: online tools paid per use in credits (face swap from ${FACE_SWAP_CREDITS} credits a face, photo edit from ${IMAGE_EDIT_PRICE_CREDITS} credits, video priced before it starts), credit packs, free credits and the watermark rule, free desktop apps and one-time licences. No subscription.`,
     ),
     bullet(
       "/use-cases",
       `${IMAGE_EDIT_NAME} use cases`,
-      `Four audience pages with real edits and stated limits: ${IMAGE_EDIT_USE_CASES.map((u) => `${u.name} (${BASE}/use-cases/${u.slug})`).join("; ")}.`,
+      `Three audience pages with real edits and stated limits: ${IMAGE_EDIT_USE_CASES.map((u) => `${u.name} (${BASE}/use-cases/${u.slug})`).join("; ")}.`,
     ),
     bullet(
       "/face-swap",

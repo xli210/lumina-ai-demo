@@ -54,7 +54,7 @@ const FACTS = [
   `Free top-ups after a first purchase: an account that has bought credits is topped back up to ${FREE_TOPUP_CREDITS} free credits (${FREE_RENDERS_PER_TOPUP} photo swaps) whenever it runs low.`,
   "Free desktop apps: Nano FaceSwap, Nano FacialEdit and Nano ImageTryon are free for good; the paid apps have a 7-day free trial.",
   "No subscription. Credits are prepaid and never expire. A job that fails is refunded in full.",
-  "Face, head and video swaps from an account that has never bought credits carry a NanoPocket watermark; one purchase removes it. Image edits have no watermark.",
+  "Face, head and video swaps from an account that has never bought credits carry a NanoPocket watermark; one purchase removes it. The same goes for photo edits.",
   "The online tools run in any modern browser. Nothing to install and no GPU needed.",
   "The desktop apps run offline on your own NVIDIA GPU (Windows) and are sold as one-time licences.",
 ];

@@ -202,7 +202,7 @@ const PRIVACY_CLAIMS: PrivacyClaim[] = [
   {
     question: "How long is data retained?",
     answer:
-      "Account data (email, license, machine activation records) is retained while the account exists; deletion on request is supported via tech@nanopocket.ai. Online-tool uploads and results: Video FaceSwap 2.5 Online deletes uploads within 24 hours and a finished video 24 hours after it is made (7 days for an account that has added credits); Nano FaceStudio Online, Nano HeadSwap Pro and Nano ImageEdit 2.0 Online keep them in private storage until they are deleted on request or with the account. See the Privacy Policy, section 2.",
+      "Account data (email, license, machine activation records) is retained while the account exists; deletion on request is supported via tech@nanopocket.ai. Online-tool uploads and results: Video FaceSwap 2.5 Online deletes uploads within 24 hours and a finished video 24 hours after it is made (7 days for an account that has added credits); Nano FaceStudio Online, Nano HeadSwap Pro and SpotEdit keep them in private storage until they are deleted on request or with the account. See the Privacy Policy, section 2.",
   },
   {
     question: "Where are servers located?",
@@ -717,7 +717,7 @@ const trustFaqJsonLd = {
       name: "Which products are stable vs. coming soon?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Stable today: Nano ImageEnh Pro 3.0, VideoEnhance, VideoGen, ImageEdit, FacialEdit, ImageTryon, FaceSwap (legacy), and Nano FaceStudio Pro 1.0 (Windows now, macOS to follow), plus four online tools: Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.5 Online and Nano ImageEdit 2.0 Online. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap.",
+        text: "Stable today: Nano ImageEnh Pro 3.0, VideoEnhance, VideoGen, ImageEdit, FacialEdit, ImageTryon, FaceSwap (legacy), and Nano FaceStudio Pro 1.0 (Windows now, macOS to follow), plus four online tools: Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.5 Online and SpotEdit. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap.",
       },
     },
     {

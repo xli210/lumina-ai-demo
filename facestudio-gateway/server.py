@@ -578,7 +578,7 @@ def v5_feedback(body: FeedbackRequest):
 
 
 # ---------------------------------------------------------------------------
-# Nano ImageEdit Online (the SpotEdit model)
+# SpotEdit (the SpotEdit model)
 #
 # Same token and RunPod account as Face Studio, different endpoint. No image
 # bytes are posted here: the Vercel app signs R2 URLs itself (lib/r2-sign.ts)

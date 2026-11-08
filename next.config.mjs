@@ -36,6 +36,9 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // SpotEdit is built to change one spot: colourising and restoring old photos did not work in our tests.
+      { source: "/blog/restore-and-colorize-old-photos-with-ai", destination: "/image-edit", permanent: true },
+      { source: "/use-cases/old-family-photos", destination: "/use-cases", permanent: true },
       // "Nano FaceSwap Pro 2.0" never shipped as a desktop product; its pages
       // described Nano FaceStudio Online (browser) and Nano FaceStudio Pro
       // (desktop). Send old links and search results to the real pages.

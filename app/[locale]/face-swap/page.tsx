@@ -109,7 +109,7 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
         "Photo face swap, up to six faces in one photo",
         "Photo head swap (Nano HeadSwap Pro)",
         "Video face and head swap (Video FaceSwap 2.5 Online)",
-        "Photo editing by text (Nano ImageEdit 2.0 Online)",
+        "Photo editing by text (SpotEdit)",
         "GAN and diffusion models",
         "Browser-only — no install, no GPU required on user's device",
       ],

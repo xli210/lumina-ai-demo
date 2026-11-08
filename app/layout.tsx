@@ -175,7 +175,7 @@ export default async function RootLayout({
               },
               image: "https://nanopocket.ai/og-image.jpg",
               slogan: "AI face swap in your browser or on your own GPU. Free to start, no subscription.",
-              description: `NanoPocket makes AI face swap and photo tools. In the browser: Video FaceSwap 2.5 Online (swap a face or whole head in a video), Nano FaceStudio Online (up to six faces in one photo), Nano HeadSwap Pro (whole-head swap in a photo) and Nano ImageEdit 2.0 Online (edit a photo by describing the change), free to start with ${SIGNUP_GRANT_CREDITS} sign-up credits and paid per use in credits after that. On the desktop: apps for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) that run 100% on the user's GPU, three of them free and the rest one-time licences. No subscriptions.`,
+              description: `NanoPocket makes AI face swap and photo tools. In the browser: Video FaceSwap 2.5 Online (swap a face or whole head in a video), Nano FaceStudio Online (up to six faces in one photo), Nano HeadSwap Pro (whole-head swap in a photo) and SpotEdit (edit a photo by describing the change), free to start with ${SIGNUP_GRANT_CREDITS} sign-up credits and paid per use in credits after that. On the desktop: apps for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) that run 100% on the user's GPU, three of them free and the rest one-time licences. No subscriptions.`,
               disambiguatingDescription:
                 "NanoPocket is an independent product company at nanopocket.ai. It is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, nanobnana, or any other Nano-prefixed website that wraps Google's Gemini 2.5 Flash Image API. NanoPocket's face swap runs on its own GAN and diffusion models (on NanoPocket's GPUs online, on the user's GPU on desktop), not on Google's API.",
               contactPoint: [
@@ -244,7 +244,7 @@ export default async function RootLayout({
                   },
                   {
                     "@type": "Offer",
-                    name: "Nano ImageEdit 2.0 Online",
+                    name: "SpotEdit",
                     url: "https://nanopocket.ai/image-edit",
                   },
                   {

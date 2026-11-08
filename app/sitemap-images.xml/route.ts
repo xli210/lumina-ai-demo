@@ -39,7 +39,7 @@ const IMAGE_GROUPS: PageImageGroup[] = [
     images: [
       {
         src: `${BASE}${IMAGE_EDIT_OG.src}`,
-        title: "Nano ImageEdit 2.0 Online: edit photos by describing the change",
+        title: "SpotEdit: edit photos by describing the change",
         caption: IMAGE_EDIT_OG.alt,
         license: LICENSE,
       },

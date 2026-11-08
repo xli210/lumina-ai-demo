@@ -26,7 +26,7 @@ import {
 import type { NextResponse } from "next/server";
 
 /**
- * Server-side plumbing for Nano ImageEdit 2.0 Online.
+ * Server-side plumbing for SpotEdit.
  *
  * Reuses two things that already exist rather than adding credentials:
  *

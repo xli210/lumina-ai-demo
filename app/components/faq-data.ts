@@ -20,7 +20,7 @@ export const HOME_FAQS: readonly { question: string; answer: string }[] = [
   {
     question: "Can I try it without downloading anything?",
     answer:
-      "Yes. Four tools run in your browser: Nano FaceStudio Online swaps up to six faces in one photo, Nano HeadSwap Pro puts a whole new head (face and hair) into a photo, Video FaceSwap 2.5 Online swaps a face or head in a video, and Nano ImageEdit 2.0 Online edits a photo by describing the change. They need only a free account; new accounts start with free credits, and failed jobs are refunded. The desktop apps are for working offline on your own GPU.",
+      "Yes. Four tools run in your browser: Nano FaceStudio Online swaps up to six faces in one photo, Nano HeadSwap Pro puts a whole new head (face and hair) into a photo, Video FaceSwap 2.5 Online swaps a face or head in a video, and SpotEdit edits a photo by describing the change. They need only a free account; new accounts start with free credits, and failed jobs are refunded. The desktop apps are for working offline on your own GPU.",
   },
   {
     question: "What GPU do I need to run these apps?",

@@ -1,5 +1,5 @@
 /**
- * Canonical facts about Nano ImageEdit 2.0 Online: the single source every
+ * Canonical facts about SpotEdit: the single source every
  * surface quotes (the /image-edit page and its JSON-LD, /llms.txt,
  * /llms-full.txt, the guides under /blog).
  *
@@ -9,7 +9,7 @@
  * sources agree on. Add or change a fact here and let the surfaces render it.
  *
  * Every figure below was measured or read from the product, not estimated:
- * timings from real jobs on 2026-10-01, limits from lib/imageedit.ts and the
+ * timings from real jobs in November 2026, limits from lib/imageedit.ts and the
  * editor's own code. Do not add a claim that has not been tried.
  *
  * Safe to import from the client and the server.
@@ -65,13 +65,13 @@ export const IMAGE_EDIT_TOOLS: readonly ImageEditTool[] = [
     summary:
       "Remove objects or people. The background behind them is filled in to match the scene.",
     scope: "region",
-    example: "Remove the parked grey car, revealing the road behind it.",
+    example: "Remove the grey hatchback parked next to the white car.",
     searchPhrase: "remove objects from photos with AI",
   },
   {
     id: "replace-objects",
     name: "Replace",
-    summary: "Swap one object for another, in the same place and the same light.",
+    summary: "Swap one object for another, in the same place.",
     scope: "region",
     example: "Replace the banana with a bunch of purple grapes.",
     searchPhrase: "replace an object in a photo with AI",
@@ -79,8 +79,7 @@ export const IMAGE_EDIT_TOOLS: readonly ImageEditTool[] = [
   {
     id: "add-objects",
     name: "Add",
-    summary:
-      "Add a new object. It is placed and lit to match the scene; paint an area to limit where it can go.",
+    summary: "Add a new object to the scene. Paint an area to limit where it can go.",
     scope: "region",
     example: "Add a small red wooden canoe on the calm water.",
     searchPhrase: "add objects to a photo with AI",
@@ -88,47 +87,18 @@ export const IMAGE_EDIT_TOOLS: readonly ImageEditTool[] = [
   {
     id: "change-text",
     name: "Text",
-    summary:
-      "Change the words on a sign, label or poster, keeping the original lettering style and perspective.",
+    summary: "Change the words on a sign, label or poster, in the style of the original lettering.",
     scope: "region",
     example: 'Change the text "Latin Barber Shop" to "Nano Barber Shop".',
     searchPhrase: "change text in an image with AI",
   },
   {
-    id: "magic-edit",
-    name: "Magic Edit",
-    summary:
-      "Paint over an area and describe what it should become, or describe a change to the whole photo.",
-    scope: "region",
-    example: "Make it bright red.",
-    searchPhrase: "AI photo editor with a brush",
-  },
-  {
-    id: "light-and-style",
-    name: "Light & Style",
-    summary:
-      "Relight or colour-grade the whole photo: golden hour, moonlit night, foggy morning, blue hour, teal and orange, black and white film.",
-    scope: "whole",
-    example: "Change the lighting to golden hour just before sunset.",
-    searchPhrase: "change the lighting of a photo with AI",
-  },
-  {
     id: "change-season",
     name: "Season",
-    summary:
-      "Turn a summer photo into autumn, winter snow or spring blossom. New leaves and snow come from the model; the structure of the scene is kept.",
+    summary: "Change the season of a scene. This rebuilds the whole photo rather than one spot.",
     scope: "whole",
-    example: "Change the season to autumn.",
-    searchPhrase: "change the season in a photo with AI",
-  },
-  {
-    id: "restore-photos",
-    name: "Restore",
-    summary:
-      "Repair old or damaged photos: remove scratches and stains, fix faded contrast, and colourise.",
-    scope: "whole",
-    example: "Colorize this old photograph with natural, realistic colors.",
-    searchPhrase: "restore and colorize old photos with AI",
+    example: "Change the season to winter with snow on the ground and trees.",
+    searchPhrase: "change the season of a photo with AI",
   },
 ];
 
@@ -180,6 +150,7 @@ export const IMAGE_EDIT_LIMITS: readonly string[] = [
   `It is not instant: ${IMAGE_EDIT_WARM_SECONDS} per edit, and a cold GPU adds ${IMAGE_EDIT_COLD_START}.`,
   "Results are 8-bit. A 16-bit file comes back as 8-bit.",
   `Photos over ${IMAGE_EDIT_MAX_MP} MP or ${IMAGE_EDIT_MAX_UPLOAD_MB} MB are refused rather than scaled down. Accounts that have never bought credits get a watermark.`,
+  "It is not the tool for colourising an old photo or relighting a scene. In our tests a colourising request changed only a small part of the picture, and a golden-hour request changed almost nothing.",
   "It edits still photos only. There is no video editing, no batch mode and no public API.",
   "It does not swap faces. For that, use Nano FaceStudio Online.",
 ];
@@ -212,7 +183,7 @@ export const IMAGE_EDIT_FAQ: readonly ImageEditFaq[] = [
   },
   {
     q: "Can it restore or colourise an old photograph?",
-    a: "Yes. Describe the repair, for example removing scratches or adding natural colours. It can change the whole image, so compare the result with your original before replacing it.",
+    a: "Not reliably. In our tests a request to colourise a 1910 photograph coloured one coat and left the rest sepia, and a request to remove scratches cleaned up only part of the damage. It is built to change one spot, so use a dedicated restoration tool for that.",
   },
   {
     q: "How long does an edit take?",
@@ -249,5 +220,4 @@ export const IMAGE_EDIT_GUIDES: readonly { slug: string; title: string }[] = [
   { slug: "remove-objects-from-photos-with-ai", title: "How to remove an object from a photo with AI" },
   { slug: "replace-objects-in-photos-with-ai", title: "How to replace an object in a photo with AI" },
   { slug: "change-text-in-photos-with-ai", title: "How to change the text on a sign in a photo with AI" },
-  { slug: "restore-and-colorize-old-photos-with-ai", title: "How to restore and colourise old photos with AI" },
 ];

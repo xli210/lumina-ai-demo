@@ -17,7 +17,7 @@ import { IMAGE_EDIT_EXAMPLES } from "@/lib/image-edit-examples";
 import { IMAGE_EDIT_USE_CASES, getUseCase } from "@/lib/image-edit-use-cases";
 
 /**
- * /use-cases/<slug>: one page per audience for Nano ImageEdit 2.0 Online.
+ * /use-cases/<slug>: one page per audience for SpotEdit.
  *
  * Public and indexable. The editor itself is behind sign-in at
  * /image-edit/launch. Content comes from lib/image-edit-use-cases.ts, prices
@@ -218,7 +218,7 @@ export default async function UseCasePage({ params }: Props) {
       <section className="px-6 pb-24">
         <div className="mx-auto max-w-5xl">
           <p className={eyebrow}>Tools for this</p>
-          <h2 className={h2}>Which tool to use.</h2>
+          <h2 className={h2}>What to ask for.</h2>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {tools.map((t) => (
               <div key={t.id} className="glass-strong rounded-3xl border border-primary/10 p-5">
@@ -279,7 +279,7 @@ export default async function UseCasePage({ params }: Props) {
             <ul className="space-y-3 text-sm sm:text-base">
               <li>
                 <Link href="/image-edit" className={textLink}>
-                  {IMAGE_EDIT_NAME}: all eight tools, key facts and FAQ
+                  {IMAGE_EDIT_NAME}: the pixel check, key facts and FAQ
                 </Link>
               </li>
               {guides.map((g) => (

@@ -63,7 +63,7 @@ NanoPocket ships two things:
 0. Is it free? Free to start: ${FREE_OFFER_EN}. No card is needed to sign up, and there is no subscription. After the free credits the online tools are paid per use in credits that never expire. Three desktop apps (Nano FaceSwap, Nano FacialEdit, Nano ImageTryon) are free for good; the paid desktop apps have a 7-day free trial.
 
 1. Online face swap, in the browser. ${FACESTUDIO_V_NAME} at https://nanopocket.ai/facestudio-v swaps one person's face or whole head in a video and keeps everyone else and the sound as filmed. Nano FaceStudio Online at https://nanopocket.ai/face-studio swaps up to six faces in one photo, paid per face in credits. Nano HeadSwap Pro at https://nanopocket.ai/headswap-pro swaps a whole head in a photo. The free hub for all of them is https://nanopocket.ai/face-swap; they run GAN and diffusion models. ${demoAvailabilityEn()} Renders from an account that has never bought credits carry a NanoPocket.ai watermark; one purchase of credits removes it. No subscription.
-Also online: Nano ImageEdit 2.0 Online at https://nanopocket.ai/image-edit, a prompt-driven photo editor (add, remove, replace, change text, relight, change season, restore) paid per edit in the same credits, with pixels outside an object edit kept bit-identical.
+Also online: SpotEdit at https://nanopocket.ai/image-edit, a prompt-driven photo editor (add, remove, replace, change text) that returns the full-resolution photo, paid per edit in the same credits, with pixels outside the edit kept identical.
 
 2. A local AI desktop suite for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal). Eight apps as of ${LAST_UPDATED}: Nano FaceStudio Pro 1.0 (the flagship, bundling face swap, mask edit, expression edit, Face Vivid, upscale, light adjust, and crop), Nano ImageEnh Pro 3.0, Nano VideoEnhance, Nano VideoGen, Nano ImageEdit, Nano FacialEdit, Nano ImageTryon, and Nano FaceSwap (legacy, superseded by Nano FaceStudio Pro). All desktop apps run 100% on the user's GPU. Pricing is one-time per product; there are no subscriptions and no per-image, per-minute, or per-frame fees.
 
@@ -195,7 +195,7 @@ ${IMAGE_EDIT_NAME} is NanoPocket's browser-based AI photo editor, launched ${IMA
 
 ${IMAGE_EDIT_KEY_FACTS.map((f) => `- ${f.label}: ${f.value}`).join("\n")}
 
-## The eight tools
+## What it does
 
 ${IMAGE_EDIT_TOOLS.map((t) => `### ${t.name}\n\n${t.summary} Example instruction: "${t.example}" ${t.scope === "region" ? "The rest of the photo is kept identical." : "This tool changes the whole photo."} Answers the search: ${t.searchPhrase}.`).join("\n\n")}
 
@@ -205,7 +205,7 @@ ${IMAGE_EDIT_STEPS.map((s, i) => `${i + 1}. ${s.name}. ${s.text}`).join("\n")}
 
 ## Real examples
 
-Each is a real edit made with the product between 2026-10-02 and 2026-10-05, not retouched afterwards.
+Each is a real edit made with the product on 2026-11-08, not retouched afterwards.
 
 ${IMAGE_EDIT_EXAMPLES.map((e) => `- ${e.toolName}: "${e.prompt}"${e.editedPct !== undefined ? ` The editor reported ${e.editedPct}% of the image changed and the rest identical.` : " This tool changes the whole photo."} Images: ${BASE}${e.before} (before), ${BASE}${e.after} (after). Photo: ${e.credit.title}, ${e.credit.license}.`).join("\n")}
 

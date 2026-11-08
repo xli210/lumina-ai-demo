@@ -78,7 +78,7 @@ const HEADSWAP_PRO_POINTS = [
 const IMAGEEDIT_POINTS = [
   "Add, remove or replace objects",
   "Change the text on signs",
-  "Relight, restyle, change the season",
+  "Full resolution, up to 49 MP",
   "Everything else stays pixel-identical",
 ];
 
@@ -568,7 +568,7 @@ export function AnnouncementSection() {
             pill="Live"
             live
             title={IMAGEEDIT_NAME}
-            lede="Describe the change and get your photo back at full resolution. Add, remove, replace, restyle or restore."
+            lede="Describe the change and get your photo back at full resolution. Add, remove, replace, or change the text on a sign."
             points={IMAGEEDIT_POINTS}
             priceLine={`From ${IMAGEEDIT_CREDITS_PER_EDIT} credits per edit`}
             cta={{ href: "/image-edit/launch", label: "Open the editor" }}

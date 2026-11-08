@@ -9,7 +9,7 @@ import { IMAGE_EDIT_EXAMPLES } from "@/lib/image-edit-examples";
 import { IMAGE_EDIT_USE_CASES } from "@/lib/image-edit-use-cases";
 
 const TITLE = "AI Photo Editing Use Cases";
-const DESCRIPTION = `What ${IMAGE_EDIT_NAME} is used for: real estate listings, old family photos, signs and posters, travel and street photos. Each page shows real edits and says what the tool will not do.`;
+const DESCRIPTION = `What ${IMAGE_EDIT_NAME} is used for: real estate listings, signs and posters, travel and street photos. Each page shows real edits and says what the tool will not do.`;
 
 export const metadata: Metadata = {
   title: TITLE,

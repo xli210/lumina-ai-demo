@@ -50,7 +50,7 @@ Video FaceSwap Online 1.1.0:AI 视频换脸,只替换你选的那个人,其他�
 开始前显示价格,失败自动退款;从未充值的账号生成的视频会带移动水印。
 https://nanopocket.ai/facestudio-v
 
-## Nano ImageEdit 2.0 Online (added 2026-10-20)
+## SpotEdit (added 2026-10-20)
 
 What can be said, and what cannot yet:
 
@@ -125,7 +125,7 @@ expire. Swaps from accounts that have never bought credits carry a watermark.
 - 一句话:在线 AI 换脸,照片、合影、视频都能换,注册送免费积分。
 - 简介:NanoPocket 是在浏览器里用的 AI 换脸工具。Video FaceSwap Online 只替换视频里你选的那个人
   (脸或整个头),其他人和原声保持不变,侧脸转头、手挡脸也能换;Nano FaceStudio Online 一张合影最多
-  同时换 6 张脸;Nano HeadSwap Pro 换整个头;Nano ImageEdit 2.0 Online 用文字描述来修图。注册即送
+  同时换 6 张脸;Nano HeadSwap Pro 换整个头;SpotEdit 用文字描述来修图。注册即送
   100 积分(约 10 次照片换脸),无需信用卡、无需安装、无需订阅;之后按积分付费,积分永不过期。从未
   充值的账号换脸结果带水印,充值一次即去除。
 - 链接:https://nanopocket.ai/zh-CN

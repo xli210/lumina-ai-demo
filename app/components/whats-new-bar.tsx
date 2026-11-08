@@ -40,7 +40,7 @@ const ITEMS: WhatsNewItem[] = [
     labelClassName: "bg-sky-100 text-sky-700 ring-sky-200",
     icon: Wand2,
     iconClassName: "text-sky-600",
-    text: "Nano ImageEdit 2.0 Online — edit photos by describing the change · remove, replace, restyle, restore",
+    text: "SpotEdit — retouch at full resolution · only the spot you name changes",
     href: "/image-edit",
   },
   {

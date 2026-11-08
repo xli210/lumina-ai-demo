@@ -290,86 +290,74 @@
     "english": "Versión en inglés"
   },
   "imageEdit": {
-    "title": "Editor de fotos con IA online: edita una foto describiendo el cambio",
-    "description": "Edita una foto describiendo el cambio: quita o añade objetos, reemplaza cosas, cambia el texto de un cartel, modifica la luz de una escena, cambia la estación o restaura una foto antigua. Todo lo que no pidas cambiar se queda como estaba. {grant} créditos gratis al registrarte.",
+    "title": "SpotEdit: retoque de fotos con IA a resolución completa",
+    "description": "Retoca una foto describiendo el cambio. Vuelve a tamaño completo, hasta 49 MP, y cada píxel fuera de la edición es idéntico al original. {grant} créditos gratis al registrarte.",
     "kicker": "Herramienta online · en tu navegador",
-    "h1": "Describe la edición. Conserva el resto de la foto.",
-    "lead": "Sube una foto y di qué debe cambiar: quitar un objeto, reemplazar algo, cambiar el texto de un cartel o modificar la luz de la escena. En las ediciones de objetos, todo lo que queda fuera de la edición sigue idéntico a tu foto original, y el resultado llega a resolución completa y sin marca de agua.",
-    "cta": "Abrir Nano ImageEdit 2.0 Online",
-    "note": "Necesitas una cuenta gratuita de NanoPocket. {grant} créditos gratis al registrarte, {edit} créditos por edición.",
+    "h1": "Retoca a resolución completa. Solo cambia lo que nombras.",
+    "lead": "Sube una foto y di qué debe cambiar: quitar una persona o un objeto, reemplazar algo o cambiar el texto de un cartel. Tu foto vuelve a su tamaño original y todo lo que queda fuera de la edición es idéntico al archivo que subiste.",
+    "cta": "Abrir SpotEdit",
+    "note": "Necesitas una cuenta gratuita de NanoPocket. {grant} créditos gratis al registrarte, {edit} créditos por edición según el tamaño de la foto.",
     "promptNote": "El modelo de edición se ha probado con instrucciones en inglés, así que escríbelas en inglés para obtener resultados más fiables.",
     "examplesHeading": "Resultados reales",
     "beforeLabel": "Antes",
     "afterLabel": "Después",
     "examples": {
-      "text-barber": "El texto del cartel ha cambiado, con el mismo estilo de letras en 3D.",
-      "replace-fruit": "Un plátano reemplazado por un racimo de uvas moradas, en el mismo sitio.",
-      "remove-cars": "Coches aparcados eliminados, con el fondo que había detrás reconstruido.",
-      "restore-sepia": "Una foto antigua y dañada, reparada y coloreada."
+      "wedding": "Invitados borrosos del primer plano eliminados para que se vea a la pareja.",
+      "group": "Una persona eliminada de una foto de grupo, con el fondo completado.",
+      "photobomber": "Un intruso eliminado del primer plano.",
+      "suit": "Una camiseta cambiada por americana y camisa."
     },
     "toolsHeading": "Qué puede hacer",
     "tools": [
       {
-        "title": "Edición mágica",
-        "body": "Pinta sobre una zona y describe en qué debe convertirse, o describe un cambio para toda la foto."
+        "title": "Solo cambia ese punto",
+        "body": "El resto de la foto no se toca, hasta el último píxel."
       },
       {
-        "title": "Añadir",
-        "body": "Añade un objeto nuevo a la foto."
+        "title": "Resolución completa",
+        "body": "De 1K a 8K, hasta 49 MP. Tu foto nunca se reduce."
       },
       {
-        "title": "Quitar",
-        "body": "Quita objetos o personas. El fondo que hay detrás se rellena de forma natural."
+        "title": "Pincel opcional",
+        "body": "Pinta la parte que puede cambiar. La edición se queda ahí, con un borde suave."
       },
       {
-        "title": "Reemplazar",
-        "body": "Cambia un objeto por otro en el mismo sitio."
-      },
-      {
-        "title": "Texto",
-        "body": "Cambia el texto de carteles, envases o pósteres, conservando el estilo de la fuente y la perspectiva originales."
-      },
-      {
-        "title": "Luz y estilo",
-        "body": "Cambia la iluminación o la gradación de color de toda la foto. Solo cambian el color y la luz."
-      },
-      {
-        "title": "Estación",
-        "body": "Cambia la estación de una escena: hojas de otoño, nieve de invierno, flores de primavera."
-      },
-      {
-        "title": "Restaurar",
-        "body": "Repara fotos antiguas o dañadas: quita arañazos y manchas, corrige el contraste y añade color."
+        "title": "Lista para tu flujo de trabajo",
+        "body": "PNG sin pérdida al tamaño de tu foto. En nuestra prueba se conservaron el perfil de color y el EXIF."
       }
     ],
     "stepsHeading": "Cómo funciona",
     "steps": [
       {
         "title": "Añade una foto",
-        "body": "Suéltala aquí, pégala o búscala en tus archivos. También puedes empezar con una de ejemplo."
+        "body": "Arrástrala, pégala o búscala en tus archivos. JPEG, PNG, TIFF o WebP."
       },
       {
-        "title": "Elige una herramienta y describe la edición",
-        "body": "Indica qué debe cambiar y pinta una zona si quieres limitar dónde ocurre. Puedes pedir hasta 4 variaciones."
+        "title": "Describe el cambio",
+        "body": "Escribe qué debe cambiar y pinta una zona si quieres limitar dónde ocurre."
       },
       {
         "title": "Compara y descarga",
-        "body": "Compara el antes y el después, sigue editando desde cualquier versión y descarga el resultado a resolución completa."
+        "body": "Compara antes y después, amplía para revisar los detalles y descarga el PNG a resolución completa."
       }
     ],
     "faqHeading": "Preguntas frecuentes",
     "faq": [
       {
         "q": "¿Es gratis?",
-        "a": "Puedes empezar gratis con los {grant} créditos que recibe cada cuenta nueva. Después, cada edición terminada cuesta {edit} créditos, sin suscripción."
+        "a": "Puedes empezar gratis con los {grant} créditos que recibe cada cuenta nueva. Después, cada edición terminada cuesta {edit} créditos según el tamaño de la foto, sin suscripción. Una edición fallida no se cobra."
       },
       {
         "q": "¿Hay marca de agua?",
-        "a": "No. Los resultados de Nano ImageEdit 2.0 Online no llevan marca de agua."
+        "a": "Las cuentas que nunca han comprado créditos reciben una marca de agua de NanoPocket.ai. Compra créditos una vez y todos los resultados saldrán limpios."
       },
       {
         "q": "¿Tengo que instalar algo?",
         "a": "No. Funciona en tu navegador y el trabajo se hace en nuestras GPU."
+      },
+      {
+        "q": "¿Se usan mis fotos para entrenar modelos de IA?",
+        "a": "No. Las fotos subidas y los resultados nunca se usan para entrenar modelos, y conservas todos los derechos sobre lo que creas."
       },
       {
         "q": "¿Puedo editar cualquier foto?",
@@ -612,7 +600,7 @@
     "videoPay": "El precio de cada vídeo depende del modo, el tamaño de salida, la duración del clip y el número de personas, y se muestra antes de empezar.",
     "videoNote": "Un clip de 10 segundos en 1080p en modo Rápido cuesta unos 20 créditos. Las solicitudes se ponen en cola.",
     "imageEditPay": "{edit} créditos por edición.",
-    "imageEditNote": "PNG sin pérdida y sin marca de agua. En las herramientas de objetos, cada píxel fuera de la edición queda idéntico.",
+    "imageEditNote": "PNG sin pérdida a resolución completa. Las cuentas que nunca han comprado créditos llevan marca de agua. Cada píxel fuera de la edición sigue idéntico.",
     "packsHeading": "Paquetes de créditos",
     "packsNote": "Compra créditos cuando los necesites. 1 crédito cuesta $0.01, y los paquetes más grandes añaden créditos de bonificación. Los créditos se compran en la página de créditos.",
     "packsLink": "Ir a la página de créditos",

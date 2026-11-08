@@ -290,86 +290,74 @@
     "english": "Version anglaise"
   },
   "imageEdit": {
-    "title": "Retouche photo IA en ligne : modifiez une photo en décrivant le changement",
-    "description": "Modifiez une photo en décrivant le changement : supprimez ou ajoutez des objets, remplacez des éléments, changez le texte d'une enseigne, modifiez l'éclairage ou la saison, ou restaurez une photo ancienne. Tout ce que vous n'avez pas demandé de changer reste tel quel. {grant} crédits gratuits à l'inscription.",
+    "title": "SpotEdit : retouche photo IA en pleine résolution par texte",
+    "description": "Retouchez une photo en décrivant le changement. Elle revient en pleine taille, jusqu'à 49 MP, et chaque pixel hors de la retouche est identique à l'original. {grant} crédits offerts à l'inscription.",
     "kicker": "Outil en ligne · dans votre navigateur",
-    "h1": "Décrivez la retouche. Gardez le reste de la photo.",
-    "lead": "Importez une photo et dites ce qui doit changer : supprimer un objet, remplacer un élément, changer le texte d'une enseigne ou modifier l'éclairage de la scène. Pour les retouches d'objets, tout ce qui se trouve hors de la retouche reste identique à votre photo d'origine, et le résultat revient en pleine résolution, sans filigrane.",
-    "cta": "Ouvrir Nano ImageEdit 2.0 Online",
-    "note": "Compte NanoPocket gratuit requis. {grant} crédits gratuits à l'inscription, {edit} crédits par retouche.",
+    "h1": "Retouchez en pleine résolution. Seul l'endroit nommé change.",
+    "lead": "Importez une photo et dites ce qui doit changer : retirer une personne ou un objet, remplacer quelque chose ou modifier le texte d'une enseigne. Votre photo revient à sa taille d'origine, et tout ce qui est hors de la retouche est identique au fichier importé.",
+    "cta": "Ouvrir SpotEdit",
+    "note": "Compte NanoPocket gratuit requis. {grant} crédits offerts à l'inscription, {edit} crédits par retouche selon la taille de la photo.",
     "promptNote": "Le modèle de retouche est testé avec des instructions en anglais : rédigez-les en anglais pour des résultats plus fiables.",
     "examplesHeading": "Résultats réels",
     "beforeLabel": "Avant",
     "afterLabel": "Après",
     "examples": {
-      "text-barber": "Le texte de l'enseigne a changé, avec le même style de lettres en 3D.",
-      "replace-fruit": "Une banane remplacée par une grappe de raisin noir, au même endroit.",
-      "remove-cars": "Les voitures garées ont disparu et l'arrière-plan derrière elles a été complété.",
-      "restore-sepia": "Une photo ancienne et abîmée, réparée et colorisée."
+      "wedding": "Invités flous du premier plan retirés pour dégager le couple.",
+      "group": "Une personne retirée d'une photo de groupe, l'arrière-plan complété.",
+      "photobomber": "Un intrus retiré du premier plan.",
+      "suit": "Un t-shirt changé en veste de costume et chemise."
     },
     "toolsHeading": "Ce que l'outil sait faire",
     "tools": [
       {
-        "title": "Retouche magique",
-        "body": "Peignez une zone et décrivez ce qu'elle doit devenir, ou décrivez un changement sur toute la photo."
+        "title": "Seul cet endroit change",
+        "body": "Le reste de la photo n'est pas touché, au pixel près."
       },
       {
-        "title": "Ajouter",
-        "body": "Ajoutez un nouvel objet à la photo."
+        "title": "Pleine résolution",
+        "body": "De 1K à 8K, jusqu'à 49 MP. Votre photo n'est jamais réduite."
       },
       {
-        "title": "Supprimer",
-        "body": "Supprimez des objets ou des personnes. L'arrière-plan derrière eux est complété naturellement."
+        "title": "Pinceau facultatif",
+        "body": "Peignez la zone qui peut changer. La retouche y reste, avec un bord adouci."
       },
       {
-        "title": "Remplacer",
-        "body": "Échangez un objet contre un autre, au même endroit."
-      },
-      {
-        "title": "Texte",
-        "body": "Changez le texte des enseignes, emballages ou affiches, en conservant le style de police et la perspective d'origine."
-      },
-      {
-        "title": "Lumière et style",
-        "body": "Modifiez l'éclairage ou l'étalonnage de toute la photo. Seules la couleur et la lumière changent."
-      },
-      {
-        "title": "Saison",
-        "body": "Changez la saison d'une scène : feuilles d'automne, neige d'hiver, floraison de printemps."
-      },
-      {
-        "title": "Restaurer",
-        "body": "Réparez des photos anciennes ou abîmées : supprimez les rayures et les taches, corrigez le contraste et colorisez."
+        "title": "Prête pour votre flux de travail",
+        "body": "PNG sans perte à la taille de votre photo. Dans notre test, le profil colorimétrique et l'EXIF ont été conservés."
       }
     ],
     "stepsHeading": "Comment ça marche",
     "steps": [
       {
         "title": "Ajoutez une photo",
-        "body": "Déposez-la, collez-la ou parcourez vos fichiers. Vous pouvez aussi partir d'un exemple."
+        "body": "Glissez-la, collez-la ou parcourez vos fichiers. JPEG, PNG, TIFF ou WebP."
       },
       {
-        "title": "Choisissez un outil et décrivez la retouche",
-        "body": "Indiquez ce qui doit changer, et peignez une zone si vous voulez limiter l'endroit concerné. Vous pouvez demander jusqu'à 4 variantes."
+        "title": "Décrivez le changement",
+        "body": "Écrivez ce qui doit changer, et peignez une zone pour limiter l'endroit où cela se produit."
       },
       {
         "title": "Comparez et téléchargez",
-        "body": "Comparez l'avant et l'après, continuez à retoucher depuis n'importe quelle version et téléchargez le résultat en pleine résolution."
+        "body": "Comparez l'avant et l'après, zoomez pour vérifier les détails et téléchargez le PNG en pleine résolution."
       }
     ],
     "faqHeading": "Questions fréquentes",
     "faq": [
       {
         "q": "Est-ce gratuit ?",
-        "a": "Vous pouvez commencer gratuitement avec les {grant} crédits offerts à chaque nouveau compte. Ensuite, chaque retouche terminée coûte {edit} crédits, sans abonnement."
+        "a": "Vous pouvez commencer gratuitement avec les {grant} crédits offerts à chaque nouveau compte. Ensuite, chaque retouche terminée coûte {edit} crédits selon la taille de la photo, sans abonnement. Une retouche échouée n'est pas facturée."
       },
       {
         "q": "Y a-t-il un filigrane ?",
-        "a": "Non. Les résultats de Nano ImageEdit 2.0 Online ne portent aucun filigrane."
+        "a": "Les comptes qui n'ont jamais acheté de crédits reçoivent un filigrane NanoPocket.ai. Achetez des crédits une fois et tous les résultats sont sans filigrane."
       },
       {
         "q": "Dois-je installer quelque chose ?",
         "a": "Non. L'outil fonctionne dans votre navigateur, et le traitement se fait sur nos GPU."
+      },
+      {
+        "q": "Mes photos servent-elles à entraîner des modèles d'IA ?",
+        "a": "Non. Les fichiers importés et les résultats ne servent jamais à entraîner des modèles, et vous gardez tous les droits sur ce que vous créez."
       },
       {
         "q": "Puis-je retoucher n'importe quelle photo ?",
@@ -612,7 +600,7 @@
     "videoPay": "Prix calculé par vidéo selon le mode, la taille de sortie, la durée du clip et le nombre de personnes, et affiché avant de commencer.",
     "videoNote": "Un clip de 10 secondes en 1080p en mode rapide coûte environ 20 crédits. Les demandes sont placées en file d'attente.",
     "imageEditPay": "{edit} crédits par retouche.",
-    "imageEditNote": "PNG sans perte, sans filigrane. Avec les outils d'objets, chaque pixel en dehors de la retouche reste identique.",
+    "imageEditNote": "PNG sans perte en pleine résolution. Les comptes qui n'ont jamais acheté de crédits reçoivent un filigrane. Chaque pixel hors de la retouche reste identique.",
     "packsHeading": "Packs de crédits",
     "packsNote": "Achetez des crédits quand vous en avez besoin. 1 crédit vaut 0,01 $, et les packs plus grands ajoutent des crédits bonus. Les crédits s'achètent sur la page des crédits.",
     "packsLink": "Aller à la page des crédits",

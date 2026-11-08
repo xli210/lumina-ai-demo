@@ -280,7 +280,7 @@ const NETWORK_ASSERTIONS: NetworkAssertion[] = [
     exception: "Same activation + update check exceptions as above.",
   },
   {
-    product: "Online tools (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.5 Online, Nano ImageEdit 2.0 Online)",
+    product: "Online tools (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.5 Online, SpotEdit)",
     expected:
       "Outbound HTTPS to NanoPocket's hosted GPUs is required by design — these are explicitly online services, not local ones.",
     exception: "n/a — this is the contract.",

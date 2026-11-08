@@ -165,7 +165,7 @@ export default function TermsPage() {
 
         <Section id="demos" title="3. Online tools">
           The online tools (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.5 Online and
-          Nano ImageEdit 2.0 Online) are available to every signed-in NanoPocket account. New
+          SpotEdit, formerly Nano ImageEdit 2.0 Online) are available to every signed-in NanoPocket account. New
           accounts receive free credits; beyond them, use is paid in prepaid credits as described
           on the Pricing page. They are best-effort, rate-limited services with no uptime SLA.
           Before a face is processed, the tools ask the user to confirm the right to use it.

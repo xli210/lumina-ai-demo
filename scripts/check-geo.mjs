@@ -42,7 +42,7 @@ const URLS_TO_CHECK = [
   // change that accidentally protects /face-studio itself would make the
   // flagship product invisible to every crawler. A 200 here is the guard.
   { path: "/face-studio", expectJsonLd: ["SoftwareApplication", "FAQPage", "HowTo", "BreadcrumbList"] },
-  // Nano ImageEdit 2.0 Online's public page. Same trap as /face-studio: the
+  // SpotEdit's public page. Same trap as /face-studio: the
   // editor lives under the auth-gated /image-edit/ prefix, so a middleware
   // change that protects the bare path would hide the product from crawlers.
   // Video FaceSwap Online: the public page of the limited preview. The studio and demo are behind sign-in.

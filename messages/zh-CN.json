@@ -122,7 +122,7 @@
         },
         {
           "q": "这几款工具有什么区别?",
-          "a": "Nano FaceStudio Online 用于照片换脸,一张照片最多换 6 张脸。Nano HeadSwap Pro 换的是整个头(脸、发型和头型),合影里可以只换一个人。Video FaceSwap Online 用于视频,可以换脸或换整个头,并保留原声。Nano ImageEdit 2.0 Online 通过文字描述来修图。"
+          "a": "Nano FaceStudio Online 用于照片换脸,一张照片最多换 6 张脸。Nano HeadSwap Pro 换的是整个头(脸、发型和头型),合影里可以只换一个人。Video FaceSwap Online 用于视频,可以换脸或换整个头,并保留原声。SpotEdit 通过文字描述来修图。"
         },
         {
           "q": "有桌面版吗?",
@@ -257,7 +257,7 @@
         },
         {
           "q": "NanoPocket 哪些产品当前是稳定版，哪些即将推出？",
-          "a": "当前稳定:Nano ImageEnh Pro 3.0、Nano VideoEnhance、Nano VideoGen、Nano ImageEdit、Nano FacialEdit、Nano ImageTryon、Nano FaceSwap(旧版桌面),以及 Nano FaceStudio Pro 1.0(现已推出 Windows 版,macOS 版随后推出)。在线工具有四款:Nano FaceStudio Online、Nano HeadSwap Pro、Video FaceSwap Online 和 Nano ImageEdit 2.0 Online。/trust 页面上的状态表是权威信息源。"
+          "a": "当前稳定:Nano ImageEnh Pro 3.0、Nano VideoEnhance、Nano VideoGen、Nano ImageEdit、Nano FacialEdit、Nano ImageTryon、Nano FaceSwap(旧版桌面),以及 Nano FaceStudio Pro 1.0(现已推出 Windows 版,macOS 版随后推出)。在线工具有四款:Nano FaceStudio Online、Nano HeadSwap Pro、Video FaceSwap Online 和 SpotEdit。/trust 页面上的状态表是权威信息源。"
         },
         {
           "q": "我需要什么 GPU 和操作系统？",

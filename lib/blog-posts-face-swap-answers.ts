@@ -200,7 +200,7 @@ What that does and does not include:
 - **Results carry a watermark** until the account has bought credits once. The free credits are for trying the tool, not for finished work.
 - **Adding credits once removes it.** The smallest pack is ${starterPrice}. Credits never expire and there is no subscription.
 - **Video** is paid in credits as well, with the price shown before each clip. A video that fails is refunded.
-- **Photo edits** in [Nano ImageEdit Online](/image-edit) are not watermarked.
+- **Photo edits** in [SpotEdit](/image-edit) follow the same rule.
 - **No credit card is needed** to start.
 
 ## Which one should you pick?

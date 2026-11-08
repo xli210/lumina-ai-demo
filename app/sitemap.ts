@@ -87,7 +87,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // of the hosted product, and because /api/demos/open?id=image — every
     // "Try online" button on the site — now lands on it.
     ...translatedEntries("/face-studio", "weekly", 0.95, "2026-10-30"),
-    // Nano ImageEdit 2.0 Online landing page; the editor itself is auth-gated.
+    // SpotEdit landing page; the editor itself is auth-gated.
     ...translatedEntries("/image-edit", "weekly", 0.95, "2026-10-30"),
     // Video FaceSwap Online 1.1.0: the public page of the release (its studio is behind sign-in).
     ...translatedEntries("/headswap-pro", "weekly", 0.9, "2026-10-30"),

@@ -5,14 +5,14 @@ import { ToolLanding } from "../tool-landing";
 import { hreflangAlternates, isAppLocale, TRANSLATED_PAGES, type AppLocale } from "@/lib/i18n/locales";
 import { fillCopy, pageCopy } from "@/lib/i18n/page-copy";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
-import { IMAGE_EDIT_EXAMPLES } from "@/lib/image-edit-examples";
+import { SPOTEDIT_EXAMPLES, SPOTEDIT_HERO } from "@/lib/image-edit-examples";
 import { IMAGEEDIT_NAME, IMAGEEDIT_PRICE_RANGE } from "@/lib/imageedit";
 
-// Nano ImageEdit 2.0 Online in the other languages. The English page is app/image-edit/page.tsx.
+// SpotEdit in the other languages. The English page is app/image-edit/page.tsx.
 
 const BASE = "https://nanopocket.ai";
 const PATH = "/image-edit";
-const EXAMPLE_IDS = ["text-barber", "replace-fruit", "remove-cars", "restore-sepia"];
+const EXAMPLES = [SPOTEDIT_HERO, ...SPOTEDIT_EXAMPLES.filter((e) => ["group", "photobomber", "suit"].includes(e.id))];
 
 const VALUES = { grant: SIGNUP_GRANT_CREDITS, edit: IMAGEEDIT_PRICE_RANGE };
 
@@ -52,7 +52,7 @@ export default async function LocalizedImageEditPage({ params }: PageProps) {
       copy={c}
       launchHref="/image-edit/launch"
       englishHref={PATH}
-      examples={IMAGE_EDIT_EXAMPLES.filter((e) => EXAMPLE_IDS.includes(e.id)).map((e) => ({
+      examples={EXAMPLES.map((e) => ({
         key: e.id,
         before: e.before,
         after: e.after,
