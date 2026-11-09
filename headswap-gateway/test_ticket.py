@@ -156,6 +156,39 @@ check("photo by key -> 200 and detection started", r.status_code == 200 and any(
 r = client.post("/api/photo", data={"key": photo_key()})
 check("photo without a sign-in token -> 401", r.status_code == 401)
 
+# ---- the same swap sent twice gets the job it already started
+head = upload("head"); photo_id = new_photo()
+data = {"photo_id": photo_id, "face": 0, "variations": 1, "head_key": head}
+tk = {"X-HS-Ticket": ticket(hold="again", n=1)}
+r1, sent = client.post("/api/swap", data=data, headers=tk), len(SENT)
+r2 = client.post("/api/swap", data=data, headers=tk)
+check("the same request twice -> the same job, one render", r1.status_code == 200 and r2.status_code == 200 and r2.json()["job"] == r1.json()["job"] and len(SENT) == sent)
+r = client.post("/api/swap", data={**data, "photo_id": new_photo()}, headers=tk)
+check("the ticket on another photo -> 409", r.status_code == 409)
+
+
+# ---- a lab job nobody is asking about is still looked after
+class StubHybrid:
+    claim_s = 15.0
+
+    def __init__(self):
+        self.asked, self.jobs = [], {"old": {"t0": 0.0, "moved": None}, "new": {"t0": 95.0, "moved": None}, "done": {"t0": 0.0, "moved": "x"}, "gone": {"t0": -2000.0, "moved": None}}
+
+    def now(self):
+        return 100.0
+
+    def status(self, jid):
+        self.asked.append(jid)
+        return {}
+
+
+stub, gw.HYBRID = StubHybrid(), None
+gw.sweep_lab_jobs()
+gw.HYBRID = stub
+gw.sweep_lab_jobs()
+gw.HYBRID = None
+check("the sweep asks only about unmoved jobs past the claim time", stub.asked == ["old"])
+
 # ---- the page keeps its upload keys across a restart of this service
 def post_photo(key, uid="u1"):
     return client.post("/api/photo", data={"key": key}, headers={"X-HS-Entitlement": ent(uid)})

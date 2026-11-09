@@ -464,6 +464,31 @@ if LAB:
         max_depth=1, back_s=float(os.environ.get("HS_LAB_BACK_S", 120)), stall_s=float(os.environ.get("HS_LAB_STALL_S", 600)))
 
 
+def sweep_lab_jobs():
+    """Sending a job the lab did not take to RunPod happens when somebody asks about it; a page that lost its connection stops asking, so this asks too."""
+    if HYBRID is None:
+        return
+    now = HYBRID.now()
+    for jid, info in list(HYBRID.jobs.items()):
+        if info.get("moved") or info.get("cancelled") or not HYBRID.claim_s < now - info["t0"] < 900:
+            continue
+        try:
+            with _HYBRID_LOCK:
+                HYBRID.status(jid)
+        except Exception as exc:  # noqa: BLE001
+            jlog("lab_sweep_failed", level="warning", job=jid, error=repr(exc)[:200])
+
+
+def _lab_sweeper():
+    while True:
+        time.sleep(10)
+        sweep_lab_jobs()
+
+
+if HYBRID is not None:
+    threading.Thread(target=_lab_sweeper, daemon=True).start()
+
+
 def vendor(jid: str) -> str:
     """Where a job ran: "lab" | "runpod", with how it moved ("lab>runpod", "runpod>lab")."""
     if HYBRID is None:
@@ -681,7 +706,12 @@ async def swap(request: Request, photo_id: str = Form(...), face: int = Form(0),
             raise HTTPException(402, "That is more images than were reserved. Please reload the page and try again.")
         with LOCK:
             if str(ticket["hold"]) in USED_TICKETS:
-                raise HTTPException(409, "This swap was already started.")
+                # the same request sent again (a phone's connection dropped before the answer came back): the page gets the job it already started
+                same = next((j for j, v in JOBS.items() if v.get("hold") == str(ticket["hold"]) and v.get("photo") == photo_id), None)
+                if same is None:
+                    raise HTTPException(409, "This swap was already started.")
+                jlog("swap_repeated", job=same, hold=str(ticket["hold"]))
+                return {"job": same, "watermark": JOBS[same]["watermark"], "model": MODEL_ID, "variations": JOBS[same]["n"]}
             USED_TICKETS[str(ticket["hold"])] = time.time()
     if head_key:
         head_key = uploaded_key(head_key, "head", uid)

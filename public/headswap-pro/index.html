@@ -399,6 +399,13 @@ async function api(url, opts = {}) {
   }
   return body;
 }
+// A phone's connection drops for a moment: calls that are safe to repeat try again before the person sees an error. Never /api/swap: that one spends a reservation.
+async function apiRetry(url, opts) {
+  for (let i = 0; ; i++) {
+    try { return await api(url, opts); }
+    catch (err) { if (err.status !== 0 || i === 2) throw err; await new Promise((r) => setTimeout(r, 1500 * (i + 1))); }
+  }
+}
 // The site's own API: credits are reserved, attached to the job and settled here. Same origin, so the sign-in cookie goes along.
 const PRICE = Number(window.HS_CREDITS_PER_IMAGE || 20);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -438,7 +445,7 @@ addEventListener("pagehide", () => {
 async function uploadFile(file, kind) {
   const ct = ["image/jpeg", "image/png", "image/webp"].includes(file.type) ? file.type : null;
   if (!ct) throw new ApiError("Please use a JPEG, PNG or WebP image.", 400, null);
-  const u = await api("/api/upload-url", { method: "POST", headers: { "Content-Type": "application/json" },
+  const u = await apiRetry("/api/upload-url", { method: "POST", headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ kind, content_type: ct, size: file.size }) });
   let r;
   try { r = await fetch(u.url, { method: "PUT", headers: u.headers, body: file }); }
@@ -467,7 +474,7 @@ function clearError() { $("errorBox").hidden = true; }
   $("authNotice").hidden = signedIn;
   if (signedIn) {
     try { const b = await (await fetch("/api/credits/balance", { credentials: "include" })).json(); showCredits(b.available); } catch (e) { showCredits(); }
-    try { const e = await api("/api/entitlement"); $("wmNotice").hidden = !e.watermark; } catch (e) {}
+    try { const e = await apiRetry("/api/entitlement"); $("wmNotice").hidden = !e.watermark; } catch (e) {}
     // (no GPU warm-up on opening: it queued with no GPU to run it, and cost GPU time when it ran)
   } else { showCredits(); }
 })();
@@ -514,11 +521,11 @@ async function onPhoto(file) {
     if (token !== S.photoToken) return;
     setStatus("Finding people…");
     const fd = new FormData(); fd.append("key", key);
-    const { id } = await api("/api/photo", { method: "POST", body: fd });
+    const { id } = await apiRetry("/api/photo", { method: "POST", body: fd });
     let d;
     for (;;) {                             // detection runs on the GPU: poll until it is done
       if (token !== S.photoToken) return;
-      d = await api(`/api/photo/${id}`);
+      d = await apiRetry(`/api/photo/${id}`);
       if (d.status === "done") break;
       if (d.status === "error") throw new ApiError(d.error || "The photo could not be checked.", 200, d.request_id);
       busy.innerHTML = `<div><div class="spinner"></div>${escapeHtml(d.phase || "Finding people")}…</div>`;
@@ -694,7 +701,7 @@ async function poll() {
     return;
   }
   emptyPolls = 0;
-  const kind = S.photo.faces.length > 1 ? "Group photo" : "Portrait";
+  const kind = S.photo && S.photo.faces.length > 1 ? "Group photo" : "Portrait";     // a new photo chosen while this swap runs clears S.photo
   if (j.status === "queued") {
     showProgress(`Waiting for the GPU… ${j.phase && j.phase !== "Waiting for a GPU" ? "· " + j.phase : ""}`, 0.02);
   } else if (j.status === "running") {
