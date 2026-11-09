@@ -368,5 +368,10 @@
   "Face swap in a photo · from {n} credits": "照片换脸 · {n} 积分起",
   "Edit a photo by describing it · {n} credits": "用文字描述来修图 · {n} 积分",
   "Also with your {n} credits:": "你的 {n} 积分还可以用来：",
-  "See all tools": "查看全部工具"
+  "See all tools": "查看全部工具",
+  "You can close this page. The result will be in My images.": "可以关闭此页面，结果会保存在“我的图片”中。",
+  "Open My images": "打开“我的图片”",
+  "Your earlier edit is still being made…": "你之前的编辑仍在处理中…",
+  "Your earlier edit": "你之前的编辑",
+  "This edit's result is no longer available.": "这次编辑的结果已无法获取。"
 }

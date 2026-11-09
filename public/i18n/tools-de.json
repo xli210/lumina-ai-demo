@@ -367,5 +367,10 @@
   "Face swap in a photo · from {n} credits": "Gesicht im Foto tauschen · ab {n} Credits",
   "Edit a photo by describing it · {n} credits": "Foto per Beschreibung bearbeiten · {n} Credits",
   "Also with your {n} credits:": "Mit deinen {n} Credits geht auch:",
-  "See all tools": "Alle Tools ansehen"
+  "See all tools": "Alle Tools ansehen",
+  "You can close this page. The result will be in My images.": "Du kannst diese Seite schließen. Das Ergebnis findest du unter Meine Bilder.",
+  "Open My images": "Meine Bilder öffnen",
+  "Your earlier edit is still being made…": "Deine frühere Bearbeitung läuft noch…",
+  "Your earlier edit": "Deine frühere Bearbeitung",
+  "This edit's result is no longer available.": "Das Ergebnis dieser Bearbeitung ist nicht mehr verfügbar."
 }

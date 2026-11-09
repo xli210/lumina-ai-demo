@@ -14,6 +14,7 @@ import {
   currentUserId,
   isImageEditConfigured,
   probePhoto,
+  settleOpenEdits,
   signInRequired,
   startEdit,
   userMayEdit,
@@ -86,7 +87,12 @@ export async function POST(request: NextRequest) {
       return privateJson({ detail: "That photo is not available any more. Upload it again." }, 400);
     }
     await provisionCredits(userId);
-    const open = await countOpenHolds(IMAGEEDIT_SERVICE, userId);
+    let open = await countOpenHolds(IMAGEEDIT_SERVICE, userId);
+    if (open >= IMAGEEDIT_MAX_OPEN_EDITS) {
+      // Edits whose page was closed are only settled when someone looks.
+      await settleOpenEdits(userId);
+      open = await countOpenHolds(IMAGEEDIT_SERVICE, userId);
+    }
     if (open >= IMAGEEDIT_MAX_OPEN_EDITS) {
       return privateJson(
         {
@@ -125,7 +131,7 @@ export async function POST(request: NextRequest) {
       amount: credits,
       service: IMAGEEDIT_SERVICE,
       ttlSeconds: IMAGEEDIT_HOLD_TTL_SECONDS,
-      estimate: { model: "spotedit", width: probe.width, height: probe.height, watermark, price_version: 3 },
+      estimate: { model: "spotedit", width: probe.width, height: probe.height, watermark, price_version: 3, src_key: parsed.key },
     });
   } catch (err: unknown) {
     console.error("[imageedit] hold failed:", err instanceof Error ? err.message : err);

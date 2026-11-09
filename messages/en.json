@@ -475,7 +475,7 @@
     },
     "myImages": {
       "title": "My images",
-      "subtitle": "Your pictures of the last {hours} hours from Nano FaceStudio Online and Nano HeadSwap Pro.",
+      "subtitle": "Your pictures of the last {hours} hours from Nano FaceStudio Online, Nano HeadSwap Pro and SpotEdit.",
       "notice": "Pictures are kept for about a day after they are made, then deleted for good: download the ones you want. A picture that was made is charged; one that could not be made is not. You can leave a page while its picture is made: it is here when you come back.",
       "addCredits": "<credits>Add credits</credits> once to run up to 3 pictures at a time instead of 1.",
       "failed": "Your images could not be loaded right now. Please try again in a minute.",

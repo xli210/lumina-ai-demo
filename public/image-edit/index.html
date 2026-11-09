@@ -59,6 +59,7 @@ main { max-width: 960px; }
   .prompt-box { flex-direction: column; }
   .prompt-box .btn-generate { width: 100%; padding: 14px; }
 }
+.viewer.after-only .before, .viewer.after-only .line, .viewer.after-only .knob, .viewer.after-only .lbl { display: none; }
 </style>
 </head>
 <body id="top">
@@ -224,6 +225,7 @@ main { max-width: 960px; }
       <li><b>50</b> credits &middot; up to 24 MP</li>
       <li><b>60</b> credits &middot; up to 49 MP</li>
       <li id="balanceRow" hidden>Your balance: <b id="balance"></b></li>
+      <li><a href="/my-images">My images</a></li>
     </ul></div>
   <div class="info-notice" id="wmNotice" hidden>
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
@@ -309,7 +311,7 @@ main { max-width: 960px; }
 
 <script>
 const $ = (id) => document.getElementById(id);
-const S = { photo: null, file: null, fileUrl: null, job: null, t0: 0, last: null, brush: false, erase: false, painted: false, credits: null };
+const S = { photo: null, file: null, fileUrl: null, job: null, t0: 0, last: null, brush: false, erase: false, painted: false, credits: null, recovered: false };
 
 // ---------- errors
 function report(where, err) { console.warn("[spotedit]", where, err); }
@@ -511,7 +513,8 @@ function update() {
     : S.credits ? `Edit <span class="cost">· ${S.credits} credits</span>` : "Edit";
   $("again").title = S.credits ? `Costs ${S.credits} credits` : "";
   $("again").disabled = $("useResult").disabled = !!S.job;
-  $("hint").textContent = S.job ? "Usually about a minute. The first edit after a quiet period can take several minutes while a GPU starts."
+  $("again").hidden = !S.photo;                 // an edit picked up from "My images" has no photo to run again
+  $("hint").innerHTML = S.job ? `<span>Usually about a minute. The first edit after a quiet period can take several minutes while a GPU starts.</span> <a href="/my-images">You can close this page. The result will be in My images.</a>`
     : !S.fileUrl ? "Upload a photo to start."
     : !S.photo ? "Uploading your photo…"
     : !promptEl.value.trim() ? "Describe the change, then press Edit (or Enter)."
@@ -525,13 +528,14 @@ async function run(seed) {
   if (S.job || !S.photo || !promptEl.value.trim()) return;
   const mask = await maskData();
   clearError(); setBrush(false);
-  S.t0 = Date.now(); S.job = "starting"; update();
+  S.t0 = Date.now(); S.job = "starting"; S.recovered = false; update();
   showProgress("Starting…", 0);
   try {
     const { job, available } = await api("/api/imageedit/edit", { method: "POST", body: { key: S.photo.id, prompt: promptEl.value.trim(), seed, mask } });
-    S.job = job; S.failures = 0; showBalance(available); update(); poll();
+    S.job = job; S.failures = 0; rememberJob(job); showBalance(available); update(); poll();
   } catch (err) {
     S.job = null; update(); hideProgress(); showError(err.message, err.topup);
+    if (err.status === 429) $("errorBox").insertAdjacentHTML("beforeend", ` <a href="/my-images">Open My images</a>`);
   }
 }
 
@@ -541,7 +545,7 @@ async function poll() {
   catch (err) {
     // a network or gateway blip says nothing about the edit, which is still running
     if ((err.status === 0 || err.status >= 500) && ++S.failures < 90) { setTimeout(poll, 3000); return; }
-    S.job = null; update(); hideProgress(); showError(err.message); return;
+    S.job = null; forgetJob(); update(); hideProgress(); showError(err.message); return;
   }
   // three plain stages only: in the queue, editing, finalizing (the full-resolution pass and saving)
   if (j.status === "queued") showProgress("Waiting in queue…", 0.02);
@@ -551,9 +555,9 @@ async function poll() {
       : j.phase === "Editing" && j.steps ? 0.06 + 0.6 * j.step / j.steps : 0.05;
     showProgress(fin ? "Finalizing…" : "Editing…", f);
   } else if (j.status === "done") {
-    S.job = null; S.last = j; showBalance(j.available); update(); hideProgress(); renderResult(j); return;
+    S.job = null; S.last = j; forgetJob(); showBalance(j.available); update(); hideProgress(); renderResult(j); return;
   } else if (j.status === "error") {
-    S.job = null; showBalance(j.available); update(); hideProgress(); showError(j.error || "Something went wrong."); return;
+    S.job = null; forgetJob(); showBalance(j.available); update(); hideProgress(); showError(j.error || "Something went wrong."); return;
   }
   setTimeout(poll, 2000);
 }
@@ -590,12 +594,13 @@ function renderResult(j) {
   $("wmResult").hidden = !j.watermarked;
   // a watermarked result is not offered for further editing (the watermark would become part of the photo)
   $("useResult").hidden = !!j.watermarked;
-  $("meta").textContent = `${Math.round((Date.now() - S.t0) / 1000)} s · ${j.width} × ${j.height} px`;
+  $("meta").innerHTML = `${S.recovered ? "<span>Your earlier edit</span>" : Math.round((Date.now() - S.t0) / 1000) + " s"} · ${j.width} × ${j.height} px`;
   $("resultSection").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function drawViewer(j) {
-  const stage = $("stage"), split = VIEW_MODE === "split";
+  // an edit reopened from "My images" may have no original to compare with
+  const before = S.fileUrl || j.before_url, stage = $("stage"), split = VIEW_MODE === "split" && !!before;
   stage.innerHTML = `<div class="seg viewmode" role="group" aria-label="View">
       <button type="button" data-v="slider" class="${split ? "" : "on"}" aria-pressed="${!split}">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/><path d="m9 10-2 2 2 2M15 10l2 2-2 2"/></svg>Slider</button>
@@ -606,7 +611,7 @@ function drawViewer(j) {
         <div class="pane"><img class="zimg before-img" alt="Original"><span class="lbl l">Before</span></div>
         <div class="pane"><img class="zimg after-img" alt="Result"><span class="lbl l">After</span></div>
         ${ZOOMBAR}</div>`
-    : `<div class="viewer compare">
+    : `<div class="viewer compare${before ? "" : " after-only"}">
         <img class="zimg after-img" alt="Result">
         <div class="before"><img class="zimg before-img" alt="Original"></div>
         <div class="line"></div>
@@ -621,9 +626,10 @@ function drawViewer(j) {
     VIEW_MODE = v; try { localStorage.setItem("se_view", v); } catch (err) {}
     drawViewer(j);
   };
+  stage.querySelector(".viewmode").hidden = !before;
   const root = stage.querySelector(".viewer");
   root.querySelector(".after-img").src = S.view.hi ? j.download_url : j.url;
-  root.querySelector(".before-img").src = S.fileUrl;
+  if (before) root.querySelector(".before-img").src = before;
   bindViewer(root, j, split);
 }
 
@@ -750,7 +756,48 @@ $("useResult").onclick = async () => {
   finally { btn.disabled = false; btn.textContent = "Keep editing this"; }
 };
 
+// ---------- an edit outlives the tab: its job is kept in this browser until it ends, and is in the link of "My images"
+const LAST_KEY = "nanopocket_spotedit_last";
+const ID_RE = /^[A-Za-z0-9-]{8,80}$/;
+function rememberJob(job) { try { localStorage.setItem(LAST_KEY, JSON.stringify({ job, at: Date.now() })); } catch (e) {} }
+function forgetJob() { try { localStorage.removeItem(LAST_KEY); } catch (e) {} }
+function jobToRecover() {
+  try {
+    const j = new URLSearchParams(location.search).get("job");
+    if (j && ID_RE.test(j)) return j;
+  } catch (e) {}
+  try {
+    const rec = JSON.parse(localStorage.getItem(LAST_KEY) || "null");
+    if (rec && ID_RE.test(rec.job) && Date.now() - rec.at < 24 * 3600 * 1000) return rec.job;
+  } catch (e) {}
+  return null;
+}
+async function recoverJob(tries = 0) {
+  const job = jobToRecover();
+  if (!job || S.job || S.file) return;
+  let j;
+  try { j = await api(`/api/imageedit/jobs/${job}`); }
+  catch (e) {
+    if (e.status === 404) forgetJob();                                           // not this account's
+    else if ((e.status === 0 || e.status >= 500) && tries < 20) setTimeout(() => recoverJob(tries + 1), 3000);   // the gateway may be waking up
+    return;
+  }
+  if (S.job || S.file || !j || !j.status) return;                                // the person has already started something else
+  S.recovered = true; S.t0 = Date.now();
+  if (j.status === "done") { S.last = j; forgetJob(); showBalance(j.available); update(); renderResult(j); return; }
+  if (j.status === "error") {
+    forgetJob(); showBalance(j.available); update(); showError(j.error || "Something went wrong.");
+    $("errorBox").scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+  S.job = job; S.failures = 0; update();                                         // queued or running: carry on as if the page had never closed
+  showProgress("Your earlier edit is still being made…", 0.03);
+  $("progress").scrollIntoView({ behavior: "smooth", block: "center" });
+  poll();
+}
+
 update();
+recoverJob();
 
 // ---------- showcase: before/after sliders and "Try this request"
 document.querySelectorAll(".ba").forEach((ba) => {

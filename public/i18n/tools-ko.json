@@ -367,5 +367,10 @@
   "Face swap in a photo · from {n} credits": "사진 얼굴 교체 · {n} 크레딧부터",
   "Edit a photo by describing it · {n} credits": "글로 설명해 사진 편집 · {n} 크레딧",
   "Also with your {n} credits:": "{n} 크레딧으로 할 수 있는 것:",
-  "See all tools": "모든 도구 보기"
+  "See all tools": "모든 도구 보기",
+  "You can close this page. The result will be in My images.": "이 페이지를 닫아도 됩니다. 결과는 '내 이미지'에 저장됩니다.",
+  "Open My images": "'내 이미지' 열기",
+  "Your earlier edit is still being made…": "이전 편집을 아직 처리하고 있습니다…",
+  "Your earlier edit": "이전 편집",
+  "This edit's result is no longer available.": "이 편집 결과는 더 이상 제공되지 않습니다."
 }

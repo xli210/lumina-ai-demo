@@ -1,8 +1,14 @@
 import "server-only";
 import { randomBytes } from "node:crypto";
 
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
-import { findHoldByJobRef, type CreditHoldRecord } from "@/lib/credits-server";
+import {
+  captureHold,
+  findHoldByJobRef,
+  releaseHold,
+  type CreditHoldRecord,
+} from "@/lib/credits-server";
 import {
   callUpstream,
   isFaceStudioConfigured,
@@ -18,6 +24,7 @@ import {
 } from "@/lib/r2-sign";
 import {
   IMAGEEDIT_FILE_TTL_SECONDS,
+  IMAGEEDIT_HOLD_TTL_SECONDS,
   IMAGEEDIT_NAME,
   IMAGEEDIT_SERVICE,
   IMAGEEDIT_UPLOAD_TTL_SECONDS,
@@ -235,6 +242,8 @@ export interface EditJob {
   edited_pct?: number;
   watermarked?: boolean;
   credits?: number;
+  /** The photo as it was before this edit, for a page that no longer has it. */
+  before_url?: string;
 }
 
 const PHASES: Readonly<Record<string, string>> = {
@@ -325,4 +334,180 @@ export function toEditJob(
 
   // IN_QUEUE, or an unknown or transient status: keep the page polling.
   return { job: { id: jobId, status: "queued", phase: "Waiting for a GPU" }, terminal: null };
+}
+
+/* -------------------------------------------------------------------------- */
+/* Reading and settling an edit, with or without its page open                 */
+/* -------------------------------------------------------------------------- */
+
+export interface EditReading {
+  job: EditJob;
+  terminal: "done" | "error" | "cancelled" | null;
+  billedMs: number | null;
+  queuedMs: number | null;
+}
+
+/** The finished file in storage. The worker files it under the UTC day it was written, which can be the day after the edit began. */
+async function storedResultKey(hold: CreditHoldRecord): Promise<string | null> {
+  const began = new Date(hold.created_at).getTime();
+  for (const t of [began, began + 24 * 3600 * 1000]) {
+    const day = new Date(t).toISOString().slice(0, 10).replace(/-/g, "");
+    const key = `spotedit/output/${day}/${hold.job_ref}/spotedit.png`;
+    try {
+      const r = await fetch(signFile(key), {
+        headers: { Range: "bytes=0-0" },
+        cache: "no-store",
+        signal: AbortSignal.timeout(4_000),
+      });
+      await r.body?.cancel();
+      if (r.ok) return key;
+    } catch (err: unknown) {
+      console.error("[imageedit] storage check failed:", err instanceof Error ? err.message : err);
+    }
+  }
+  return null;
+}
+
+function holdHasExpired(hold: CreditHoldRecord): boolean {
+  return Date.now() - new Date(hold.created_at).getTime() > IMAGEEDIT_HOLD_TTL_SECONDS * 1000;
+}
+
+function withBefore(job: EditJob, hold: CreditHoldRecord): EditJob {
+  const src = hold.estimate?.src_key;
+  return job.status === "done" && typeof src === "string" ? { ...job, before_url: signFile(src) } : job;
+}
+
+/**
+ * Where an edit stands. RunPod forgets a job about half an hour after it ends, so a person
+ * coming back later is answered from the file in storage. Null when nothing can be said yet.
+ */
+export async function readEdit(hold: CreditHoldRecord): Promise<EditReading | null> {
+  const jobId = hold.job_ref as string;
+  const bucket = imageEditStorage()?.bucket ?? "";
+
+  let upstream: UpstreamResult | null = null;
+  try {
+    upstream = await getEditStatus(jobId);
+  } catch (err: unknown) {
+    console.error("[imageedit] status fetch failed:", err instanceof Error ? err.message : err);
+  }
+
+  if (upstream && upstream.status < 400) {
+    const { job, terminal } = toEditJob(jobId, upstream.body, {
+      credits: hold.amount,
+      // Anything but a recorded "no mark needed" means the mark is needed.
+      mustBeWatermarked: hold.estimate?.watermark !== false,
+      resultKey: (pngUrl) => resultKeyFromUrl(pngUrl, bucket),
+    });
+    const { executionTime, delayTime } = upstream.body;
+    return {
+      job: withBefore(job, hold),
+      terminal,
+      // RunPod's milliseconds, so cost per edit and cold starts can be measured.
+      billedMs: typeof executionTime === "number" ? executionTime : null,
+      queuedMs: typeof delayTime === "number" ? delayTime : null,
+    };
+  }
+
+  const key = await storedResultKey(hold);
+  if (key) {
+    // The worker was told to mark this edit when the job was started, and the file is what it wrote.
+    const watermarked = hold.estimate?.watermark !== false;
+    const job: EditJob = {
+      id: jobId,
+      status: "done",
+      url: signFile(key.replace(/\.png$/, ".jpg")),
+      download_url: signFile(key, "spotedit.png"),
+      result_key: watermarked ? undefined : key,
+      width: num(hold.estimate?.width),
+      height: num(hold.estimate?.height),
+      watermarked,
+      credits: hold.amount,
+    };
+    return { job: withBefore(job, hold), terminal: "done", billedMs: null, queuedMs: null };
+  }
+
+  // Inside the reservation's lifetime this can be a blip. After it, there is no edit to wait for.
+  if (hold.status === "open" && !holdHasExpired(hold)) return null;
+  return {
+    job: {
+      id: jobId,
+      status: "error",
+      error: hold.status === "open" ? GENERIC_ERROR : "This edit's result is no longer available.",
+    },
+    terminal: "error",
+    billedMs: null,
+    queuedMs: null,
+  };
+}
+
+/** Charged when the edit landed, returned when it did not. Keyed on the hold, so settling twice changes nothing. */
+export async function settleEdit(hold: CreditHoldRecord, reading: EditReading): Promise<void> {
+  if (!reading.terminal || hold.status !== "open") return;
+  try {
+    if (reading.terminal === "done") {
+      await captureHold({
+        holdId: hold.id,
+        actualAmount: hold.amount,
+        reference: {
+          service: IMAGEEDIT_SERVICE,
+          job_ref: hold.job_ref,
+          billed_ms: reading.billedMs,
+          queued_ms: reading.queuedMs,
+        },
+      });
+    } else {
+      await releaseHold(hold.id, reading.terminal === "cancelled" ? "cancelled" : "edit_failed");
+    }
+  } catch (err: unknown) {
+    // The edit's outcome is still shown; the next reading retries settlement.
+    console.error(`[imageedit] settle (${reading.terminal}) failed:`, err instanceof Error ? err.message : err);
+  }
+}
+
+const HOLD_COLUMNS = "id, user_id, amount, status, service, job_ref, created_at, estimate";
+
+async function settleHolds(holds: CreditHoldRecord[]): Promise<void> {
+  await Promise.all(
+    holds.map(async (hold) => {
+      if (hold.job_ref) {
+        const reading = await readEdit(hold);
+        if (reading) await settleEdit(hold, reading);
+      } else if (holdHasExpired(hold)) {
+        // Reserved, but no job was ever tied to it.
+        await releaseHold(hold.id, "no_job").catch(() => undefined);
+      }
+    })
+  );
+}
+
+/**
+ * Settle this person's open edits. The page used to be the only thing that did, so
+ * someone who closed it stayed "running" with the credits reserved.
+ */
+export async function settleOpenEdits(userId: string): Promise<void> {
+  const { data, error } = await createAdminClient()
+    .from("credit_holds")
+    .select(HOLD_COLUMNS)
+    .eq("service", IMAGEEDIT_SERVICE)
+    .eq("user_id", userId)
+    .eq("status", "open")
+    .limit(10);
+  if (error) throw new Error(`Failed to list open edits: ${error.message}`);
+  await settleHolds((data ?? []) as CreditHoldRecord[]);
+}
+
+/** Everyone's oldest open edits, called before the expiry sweep, which cannot tell a made edit from one that never ran. */
+export async function settleStaleEdits(limit = 10): Promise<void> {
+  const { data, error } = await createAdminClient()
+    .from("credit_holds")
+    .select(HOLD_COLUMNS)
+    .eq("service", IMAGEEDIT_SERVICE)
+    .eq("status", "open")
+    .not("job_ref", "is", null)
+    .lt("created_at", new Date(Date.now() - 3 * 60 * 1000).toISOString())
+    .order("created_at", { ascending: true })
+    .limit(limit);
+  if (error) throw new Error(`Failed to list open edits: ${error.message}`);
+  await settleHolds((data ?? []) as CreditHoldRecord[]);
 }

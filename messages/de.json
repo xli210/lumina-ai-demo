@@ -335,7 +335,7 @@
     },
     "myImages": {
       "title": "Meine Bilder",
-      "subtitle": "Deine Bilder der letzten {hours} Stunden aus Nano FaceStudio Online und Nano HeadSwap Pro.",
+      "subtitle": "Deine Bilder der letzten {hours} Stunden aus Nano FaceStudio Online, Nano HeadSwap Pro und SpotEdit.",
       "notice": "Bilder werden nach der Erstellung etwa einen Tag lang aufbewahrt und dann endgültig gelöscht: Lade die herunter, die du behalten möchtest. Ein erstelltes Bild wird berechnet, eines, das nicht erstellt werden konnte, nicht. Du kannst die Seite während der Erstellung verlassen: Das Bild ist hier, wenn du zurückkommst.",
       "addCredits": "<credits>Kaufe einmal Credits</credits>, um bis zu 3 Bilder gleichzeitig statt nur 1 zu erstellen.",
       "failed": "Deine Bilder konnten gerade nicht geladen werden. Bitte versuche es in einer Minute erneut.",

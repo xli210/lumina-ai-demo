@@ -1,4 +1,5 @@
 import { countOpenHolds, hasEverPurchased, holdCredits, releaseExpiredHolds } from "@/lib/credits-server";
+import { settleStaleEdits } from "@/lib/imageedit-server";
 import { provisionCredits } from "@/lib/facestudio-gate";
 import {
   FSV_HOLD_TTL_SECONDS,
@@ -48,6 +49,7 @@ export async function POST(request: Request) {
     // sweep returns whatever has expired (it cannot tell a made video from one that never ran).
     await settleStaleHolds(10).catch(() => 0);
     await settleStaleHeadswapHolds(10).catch(() => 0);          // (the sweep below frees every service's expired holds: HeadSwap Pro's too, made or not)
+    await settleStaleEdits(10).catch(() => undefined);          // (and SpotEdit's)
     await releaseExpiredHolds(20).catch(() => 0);
     await provisionCredits(auth.userId);
 

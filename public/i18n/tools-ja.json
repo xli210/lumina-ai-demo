@@ -368,5 +368,10 @@
   "Face swap in a photo · from {n} credits": "写真の顔の入れ替え · {n} クレジットから",
   "Edit a photo by describing it · {n} credits": "文章で指示して写真を編集 · {n} クレジット",
   "Also with your {n} credits:": "{n} クレジットでできること：",
-  "See all tools": "すべてのツールを見る"
+  "See all tools": "すべてのツールを見る",
+  "You can close this page. The result will be in My images.": "このページは閉じても大丈夫です。結果は「マイ画像」に保存されます。",
+  "Open My images": "「マイ画像」を開く",
+  "Your earlier edit is still being made…": "以前の編集はまだ処理中です…",
+  "Your earlier edit": "以前の編集",
+  "This edit's result is no longer available.": "この編集の結果はもう利用できません。"
 }

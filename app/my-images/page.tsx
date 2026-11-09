@@ -11,7 +11,7 @@ import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
 
 /**
- * /my-images: the signed-in person's pictures of the last day from Nano FaceStudio Online and Nano HeadSwap Pro.
+ * /my-images: the signed-in person's pictures of the last day from Nano FaceStudio Online, Nano HeadSwap Pro and SpotEdit.
  *
  * Like /facestudio-v/videos: a person who closed the page while a GPU was starting finds the picture here. Each row opens the product with the
  * job in the link, and the product shows the picture when it is ready (lib/my-images-server.ts).
@@ -27,6 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
 const PRODUCT: Record<MyImage["product"], string> = {
   facestudio: "Nano FaceStudio Online",
   "headswap-pro": "Nano HeadSwap Pro",
+  spotedit: "SpotEdit",
 };
 
 export default async function MyImagesPage() {

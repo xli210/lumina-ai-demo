@@ -71,8 +71,11 @@ unmarked is failed and refunded (`toEditJob`).
 - JPEG, PNG, TIFF or WebP; at least 256 px per side; at most 49 MP and 120 MB.
 - An account can hold two edits at a time (`IMAGEEDIT_MAX_OPEN_EDITS`), because the
   endpoint has two workers.
-- A reservation lasts 30 minutes. An edit whose page was closed before it finished is
-  released by the sweeper, so it is not charged.
+- A reservation lasts 30 minutes. An edit whose page was closed is listed in "My images"
+  for a day and opens with `?job=`. It is settled when the person comes back, starts another
+  edit, or the expiry sweep runs (`settleOpenEdits`, `settleStaleEdits`): charged if the file
+  was made, returned if not. RunPod forgets a job about 30 minutes after it ends, so later
+  readings use the file in R2.
 - Starting a GPU from `/warm` needs a signed-in account that can pay for an edit; the
   gateway allows it once a minute overall and six times an hour per person.
 

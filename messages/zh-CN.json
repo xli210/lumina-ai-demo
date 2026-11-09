@@ -487,7 +487,7 @@
     },
     "myImages": {
       "title": "我的图片",
-      "subtitle": "最近 {hours} 小时内你用 Nano FaceStudio Online 和 Nano HeadSwap Pro 生成的图片。",
+      "subtitle": "最近 {hours} 小时内你用 Nano FaceStudio Online、Nano HeadSwap Pro 和 SpotEdit 生成的图片。",
       "notice": "图片生成后保留约一天,之后永久删除,请及时下载需要的图片。生成成功的图片会扣积分,未能生成的不扣。图片生成时你可以离开页面,回来后在这里就能找到。",
       "addCredits": "<credits>购买积分</credits>一次后,可同时生成最多 3 张图片,而不是 1 张。",
       "failed": "暂时无法加载你的图片,请过一分钟再试。",

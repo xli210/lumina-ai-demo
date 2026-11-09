@@ -335,7 +335,7 @@
     },
     "myImages": {
       "title": "マイ画像",
-      "subtitle": "Nano FaceStudio Online と Nano HeadSwap Pro で過去 {hours} 時間に作成した画像です。",
+      "subtitle": "Nano FaceStudio Online、Nano HeadSwap Pro、SpotEdit で過去 {hours} 時間に作成した画像です。",
       "notice": "画像は作成から約 1 日保存され、その後完全に削除されます。必要な画像はダウンロードしてください。作成できた画像には課金され、作成できなかった画像には課金されません。作成中にページを離れても、戻ればここで確認できます。",
       "addCredits": "<credits>クレジットを一度購入</credits>すると、同時に 1 枚ではなく最大 3 枚まで作成できます。",
       "failed": "現在、画像を読み込めません。1 分ほどしてからもう一度お試しください。",

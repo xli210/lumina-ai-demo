@@ -64,10 +64,9 @@ export async function startSummary(userId: string): Promise<StartSummary> {
   for (const r of rows) {
     if (recent.length >= RECENT_MAX || new Date(r.created_at).getTime() < since || !r.job_ref) continue;
     const tool = toolOf(r.service);
-    // Image edits live in their editor's own session, with no page to come back to.
     if (tool === "video") recent.push({ tool, createdAt: r.created_at, href: "/facestudio-v/videos" });
-    if (tool === "head" || tool === "face") {
-      const product = tool === "head" ? "headswap-pro" : "facestudio";
+    if (tool === "head" || tool === "face" || tool === "edit") {
+      const product = tool === "head" ? "headswap-pro" : tool === "edit" ? "spotedit" : "facestudio";
       recent.push({
         tool,
         createdAt: r.created_at,

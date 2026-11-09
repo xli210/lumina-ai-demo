@@ -335,7 +335,7 @@
     },
     "myImages": {
       "title": "Minhas imagens",
-      "subtitle": "Suas imagens das últimas {hours} horas no Nano FaceStudio Online e no Nano HeadSwap Pro.",
+      "subtitle": "Suas imagens das últimas {hours} horas no Nano FaceStudio Online, no Nano HeadSwap Pro e no SpotEdit.",
       "notice": "As imagens ficam guardadas por cerca de um dia depois de criadas e depois são apagadas definitivamente: baixe as que quiser. Uma imagem criada é cobrada; uma que não pôde ser criada, não. Você pode sair da página enquanto a imagem é criada: ela estará aqui quando voltar.",
       "addCredits": "<credits>Compre créditos</credits> uma vez para criar até 3 imagens ao mesmo tempo em vez de 1.",
       "failed": "Não foi possível carregar suas imagens agora. Tente novamente em um minuto.",
