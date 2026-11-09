@@ -1,8 +1,8 @@
-import { NextRequest } from "next/server";
+import { after, NextRequest } from "next/server";
 
 import { privateJson, provisionCredits } from "@/lib/facestudio-gate";
 import { callUpstream, isFaceStudioConfigured } from "@/lib/facestudio-server";
-import { currentUserId, signInRequired } from "@/lib/imageedit-server";
+import { currentUserId, settleStaleEdits, signInRequired } from "@/lib/imageedit-server";
 import { IMAGEEDIT_CREDITS_PER_EDIT } from "@/lib/imageedit";
 
 export const dynamic = "force-dynamic";
@@ -38,6 +38,12 @@ export async function POST(request: NextRequest) {
       }
       await callUpstream("/ie/api/warm", { method: "POST", json: { user: userId }, timeoutMs: 45_000 });
     } else {
+      // Edits whose page was closed, settled after the answer so the editor does not wait for them.
+      after(() =>
+        settleStaleEdits(5).catch((err: unknown) => {
+          console.error("[imageedit] settling stale edits failed:", err instanceof Error ? err.message : err);
+        })
+      );
       await callUpstream("/healthz", { method: "GET", timeoutMs: 45_000 });
     }
   } catch (err: unknown) {

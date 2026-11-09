@@ -8,6 +8,7 @@ import { Navbar } from "../../components/navbar";
 import { Footer } from "../../components/footer";
 import { getHolds } from "@/lib/reliability-server";
 import { getBackends, getWaiting, type Backend, type Waiting } from "@/lib/queue-server";
+import { settleStaleEdits } from "@/lib/imageedit-server";
 import {
   REASON_LABELS,
   WINDOWS,
@@ -221,6 +222,10 @@ export default async function ReliabilityPage({ searchParams }: { searchParams: 
   let truncated = false;
   let failure: string | null = null;
   try {
+    // So "Running" means running: a SpotEdit edit whose page was closed is otherwise settled only when someone returns.
+    await settleStaleEdits(20).catch((err: unknown) => {
+      console.error("[reliability] settling stale edits failed:", err instanceof Error ? err.message : err);
+    });
     ({ rows, truncated } = await getHolds(win));
   } catch (err: unknown) {
     failure = err instanceof Error ? err.message : "Unknown error";

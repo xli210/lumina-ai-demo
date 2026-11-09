@@ -468,17 +468,22 @@ export async function settleEdit(hold: CreditHoldRecord, reading: EditReading): 
 const HOLD_COLUMNS = "id, user_id, amount, status, service, job_ref, created_at, estimate";
 
 async function settleHolds(holds: CreditHoldRecord[]): Promise<void> {
-  await Promise.all(
+  const results = await Promise.allSettled(
     holds.map(async (hold) => {
       if (hold.job_ref) {
         const reading = await readEdit(hold);
         if (reading) await settleEdit(hold, reading);
       } else if (holdHasExpired(hold)) {
         // Reserved, but no job was ever tied to it.
-        await releaseHold(hold.id, "no_job").catch(() => undefined);
+        await releaseHold(hold.id, "no_job_started");
       }
     })
   );
+  results.forEach((r, i) => {
+    if (r.status === "rejected") {
+      console.error(`[imageedit] settling hold ${holds[i].id} failed:`, r.reason instanceof Error ? r.reason.message : r.reason);
+    }
+  });
 }
 
 /**
@@ -497,14 +502,17 @@ export async function settleOpenEdits(userId: string): Promise<void> {
   await settleHolds((data ?? []) as CreditHoldRecord[]);
 }
 
-/** Everyone's oldest open edits, called before the expiry sweep, which cannot tell a made edit from one that never ran. */
+/**
+ * Everyone's oldest open edits, so one whose page was closed does not wait for its owner to return. Called when
+ * the editor opens, when /admin/reliability is read, and before the expiry sweep, which cannot tell a made edit
+ * from one that never ran.
+ */
 export async function settleStaleEdits(limit = 10): Promise<void> {
   const { data, error } = await createAdminClient()
     .from("credit_holds")
     .select(HOLD_COLUMNS)
     .eq("service", IMAGEEDIT_SERVICE)
     .eq("status", "open")
-    .not("job_ref", "is", null)
     .lt("created_at", new Date(Date.now() - 3 * 60 * 1000).toISOString())
     .order("created_at", { ascending: true })
     .limit(limit);

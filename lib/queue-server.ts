@@ -32,7 +32,7 @@ export interface Backend {
   note: string | null;
 }
 
-const SERVICES = ["facestudio", "headswap-pro", "facestudio-v"] as const;
+const SERVICES = ["facestudio", "headswap-pro", "facestudio-v", "imageedit"] as const;
 
 /** Reservations still open in the last day (a reservation older than that was swept long ago). */
 export async function getWaiting(): Promise<Waiting[]> {

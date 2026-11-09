@@ -44,7 +44,7 @@ export function classify(h: Pick<HoldRow, "status" | "estimate">): Outcome {
 export const SERVICE_LABELS: Record<string, string> = {
   facestudio: "Nano FaceStudio Online",
   "facestudio-v": "Video FaceSwap 2.5 Online",
-  imageedit: "Image Edit Online",
+  imageedit: "SpotEdit",
   "headswap-pro": "Nano HeadSwap Pro",
 };
 
@@ -62,7 +62,8 @@ export function modeOf(h: Pick<HoldRow, "service" | "estimate">): string {
   }
   if (h.service === "imageedit") {
     const t = typeof e.tool === "string" ? e.tool : "";
-    return t ? t.charAt(0).toUpperCase() + t.slice(1) : "Unknown tool";
+    if (t) return t.charAt(0).toUpperCase() + t.slice(1);
+    return e.model === "spotedit" ? "SpotEdit" : "Unknown tool";
   }
   if (h.service === "facestudio-v") {
     const m = typeof e.mode === "string" ? e.mode : "";
@@ -231,6 +232,7 @@ export const REASON_LABELS: Record<string, string> = {
   price_mismatch: "Studio price did not match the reservation",
   studio_error: "Studio reported an error",
   studio_refunded: "Studio refunded the job",
+  no_job_started: "No job was started",
   studio_job_missing: "Studio no longer knew the job",
   gateway_job_missing: "Gateway no longer knew the job",
   unknown: "No reason recorded",
