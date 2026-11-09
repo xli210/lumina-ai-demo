@@ -118,8 +118,8 @@ export type SettleOutcome =
   | { status: "refunded"; reason: string }
   | { status: "held"; note?: string };
 
-/** A swap that never got as far as a job is given back after this long. */
-const NO_JOB_GRACE_MS = 10 * 60 * 1000;
+/** A swap that never got as far as a job is given back after this long: past a gateway cold start (about a minute) and the page's retries, and short because a free account has one slot. */
+const NO_JOB_GRACE_MS = 3 * 60 * 1000;
 
 /**
  * Charge or release one open reservation according to what the gateway says about its job.

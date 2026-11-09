@@ -399,7 +399,7 @@ async function api(url, opts = {}) {
   }
   return body;
 }
-// A phone's connection drops for a moment: calls that are safe to repeat try again before the person sees an error. Never /api/swap: that one spends a reservation.
+// A phone's connection drops for a moment: calls that are safe to repeat try again before the person sees an error. /api/swap is one of them: sent again with the same ticket, the gateway hands back the job it already started.
 async function apiRetry(url, opts) {
   for (let i = 0; ; i++) {
     try { return await api(url, opts); }
@@ -621,7 +621,7 @@ $("go").onclick = async () => {
     showProgress("Starting…", 0);
     const fd = new FormData();
     fd.append("photo_id", S.photo.id); fd.append("face", S.face); fd.append("variations", S.n); fd.append("head_key", S.headKey);
-    const { job } = await api("/api/swap", { method: "POST", body: fd, headers: { "X-HS-Ticket": hold.ticket } });
+    const { job } = await apiRetry("/api/swap", { method: "POST", body: fd, headers: { "X-HS-Ticket": hold.ticket } });
     S.job = job; update();
     rememberJob(job, hold.hold_id, S.photo.faces.length);
     // tie the reservation to the job; without it the swap could not be charged, so try hard
