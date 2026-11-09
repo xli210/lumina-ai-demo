@@ -196,3 +196,23 @@ export const PRODUCTS: Product[] = [
     masterKeyEnv: "LICENSE_MASTER_KEY_NANO_VIDEOGEN",
   },
 ]
+
+/**
+ * Products that desktop apps can activate but that are not on sale yet. They stay out of PRODUCTS
+ * because the pricing pages, checkout and facts.json list that array in full. priceInCents is
+ * never shown or charged while a product is here; moving it into PRODUCTS is what lists it.
+ */
+const UNLISTED_PRODUCTS: Product[] = [
+  {
+    id: "nano-facestudio-v-pro",
+    name: "Nano FaceStudio V Pro",
+    description: "Video face swap, enhancement and lip sync in a local desktop app.",
+    priceInCents: 0,
+    features: [],
+    maxActivations: 1,
+    masterKeyEnv: "LICENSE_MASTER_KEY_NANO_FACESTUDIO_V_PRO",
+  },
+]
+
+/** Every product a license can be activated for: the ones on sale and the unlisted ones. */
+export const ACTIVATABLE_PRODUCTS: Product[] = [...PRODUCTS, ...UNLISTED_PRODUCTS]

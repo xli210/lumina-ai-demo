@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { PRODUCTS } from "@/lib/products";
+import { ACTIVATABLE_PRODUCTS } from "@/lib/products";
 import crypto from "crypto";
 
 // Transport-key constants — must match the client-side _TK_SALT and _TK_PEPPER
@@ -36,7 +36,7 @@ function encryptMasterKey(masterKey: string, machineId: string): string {
  * Checks the per-product env var first, then falls back to the global key.
  */
 function getMasterKeyForProduct(productId: string): string | undefined {
-  const product = PRODUCTS.find((p) => p.id === productId);
+  const product = ACTIVATABLE_PRODUCTS.find((p) => p.id === productId);
   if (product) {
     const perProductKey = process.env[product.masterKeyEnv];
     if (perProductKey) return perProductKey;
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Validate that the product_id is a known product
-  const knownProduct = PRODUCTS.find((p) => p.id === product_id);
+  const knownProduct = ACTIVATABLE_PRODUCTS.find((p) => p.id === product_id);
   if (!knownProduct) {
     return NextResponse.json(
       { error: "Unknown product" },
