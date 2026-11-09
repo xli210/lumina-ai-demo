@@ -36,6 +36,15 @@ const DISPOSABLE_DOMAINS: ReadonlySet<string> = new Set([
   "cloud-temp.com",
   "emailinbo.live",
   "onmailflare.com",
+  // Found 2026-11-09: every address on them is a random string.
+  "ruutukf.com",
+  "emailkeep.com",
+  "en2ch.com",
+  "bankwen.com",
+  "boffweb.com",
+  "drtall.com",
+  "digeros.com",
+  "bwmyga.com",
   // Long-lived public services.
   "10minutemail.com",
   "10minutemail.net",
@@ -108,4 +117,20 @@ export function isDisposableEmail(email: string | null | undefined): boolean {
     domain = domain.slice(domain.indexOf(".") + 1);
   }
   return false;
+}
+
+/**
+ * The mailbox an address really delivers to: without a +tag, and on Gmail without dots.
+ * null when it is not an address.
+ */
+export function canonicalEmail(email: string | null | undefined): string | null {
+  const address = email?.trim().toLowerCase();
+  if (!address) return null;
+  const at = address.lastIndexOf("@");
+  if (at <= 0 || at === address.length - 1) return null;
+  const local = address.slice(0, at).split("+")[0];
+  const domain = address.slice(at + 1);
+  if (!local) return null;
+  if (domain === "gmail.com" || domain === "googlemail.com") return `${local.replace(/\./g, "")}@gmail.com`;
+  return `${local}@${domain}`;
 }

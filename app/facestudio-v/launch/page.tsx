@@ -4,6 +4,7 @@ import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { LOCALE_COOKIE, negotiateLocale } from "@/lib/i18n/locales";
+import { ensureSignupGrant } from "@/lib/credits-server";
 import { createClient } from "@/lib/supabase/server";
 import { signStudioToken, studioConfig, studioStatus } from "@/lib/facestudio-v-server";
 import {
@@ -51,6 +52,14 @@ export default async function FaceStudioVLaunch() {
 
   if (!facestudioVIsOpen()) {
     redirect("/facestudio-v");
+  }
+
+  // The studio is another address, so its calls to our API carry no device cookie. Settle the free credits
+  // here, where the cookie can be read; the studio's own call then finds the verdict already made.
+  try {
+    await ensureSignupGrant(user.id);
+  } catch (err: unknown) {
+    console.error("[facestudio-v] welcome credits before launch failed:", err instanceof Error ? err.message : err);
   }
 
   // Only ever send people to an https address we were configured with, and only

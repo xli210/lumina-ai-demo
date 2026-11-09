@@ -4,6 +4,7 @@ import { cookies, headers } from "next/headers";
 
 import { DEVICE_COOKIE, isDeviceId } from "@/lib/device-cookie";
 import { isDisposableEmail } from "@/lib/disposable-email";
+import { aliasOfClaimedMailbox } from "@/lib/free-claim-alias";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 /**
@@ -20,7 +21,8 @@ import { createAdminClient } from "@/lib/supabase/admin";
  *   - It stops the common case: several accounts made from one browser, or
  *     from one connection, to collect the free credits again.
  *   - It refuses addresses on throwaway-inbox domains (lib/disposable-email.ts),
- *     the usual companion of a VPN when someone farms accounts.
+ *     the usual companion of a VPN when someone farms accounts, and a +tag or
+ *     Gmail-dots spelling of a mailbox that already claimed.
  *   - It does not stop someone who changes network *and* clears cookies (a VPN
  *     plus a fresh browser profile). Nothing based on IP and cookies can. The
  *     next steps up are a CAPTCHA at signup (Supabase supports Turnstile) and
@@ -161,7 +163,16 @@ export async function claimFreeCredits(
 
   if (!options.grandfather) {
     const { data: found } = await supabase.auth.admin.getUserById(userId);
-    if (isDisposableEmail(found?.user?.email)) {
+    let refuseEmail = isDisposableEmail(found?.user?.email);
+    if (!refuseEmail) {
+      try {
+        refuseEmail = await aliasOfClaimedMailbox(supabase, userId, found?.user?.email);
+      } catch (err: unknown) {
+        // The device and network checks below still run.
+        console.error("[free-claim] alias check failed:", err instanceof Error ? err.message : err);
+      }
+    }
+    if (refuseEmail) {
       // Recorded like any other verdict (one per account), so it is asked once.
       const { error } = await supabase
         .from("free_credit_claims")
