@@ -129,12 +129,13 @@ const orgJsonLd = {
   "@id": "https://nanopocket.ai#organization",
   name: "NanoPocket",
   alternateName: ["Nano Pocket", "NanoPocket AI", "nanopocket.ai"],
+  legalName: "NanoPocket AI LLC",
   url: "https://nanopocket.ai",
   logo: "https://nanopocket.ai/wordmark.svg",
   description:
     "NanoPocket is an independent AI tools company building face swap, photo and video editing, image and video enhancement, and video generation tools, as online tools and as desktop apps for Windows.",
   disambiguatingDescription:
-    "NanoPocket is not Nano Banana, NanoBnana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed face-swap website that wraps Google's Gemini 2.5 Flash Image API. NanoPocket is an independent company at nanopocket.ai whose tools run on its own pipelines built from open-weight models, not on Google's API.",
+    "NanoPocket (legal name NanoPocket AI LLC) is a software company that makes AI image and video tools. It does not make nanotechnology products or physical goods. NanoPocket is not Nano Banana, NanoBnana, nanobanana.ai, nano-banana.com, or any other Nano-prefixed face-swap website that wraps Google's Gemini 2.5 Flash Image API. NanoPocket is an independent company at nanopocket.ai whose tools run on its own pipelines built from open-weight models, not on Google's API.",
   foundingDate: "2025",
   knowsAbout: [
     "Face swap",
