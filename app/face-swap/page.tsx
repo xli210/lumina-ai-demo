@@ -639,6 +639,23 @@ export default function FaceSwapPage() {
             </Link>
             .
           </p>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Head-to-head:{" "}
+            {[
+              ["facefusion", "FaceFusion"],
+              ["deepswap", "DeepSwap"],
+              ["reface", "Reface"],
+              ["akool", "Akool"],
+              ["magic-hour", "Magic Hour"],
+            ].map(([slug, name], i) => (
+              <span key={slug}>
+                {i > 0 ? " · " : ""}
+                <Link href={`/compare/nanopocket-vs-${slug}`} className="text-foreground underline-offset-2 hover:underline">
+                  NanoPocket vs {name}
+                </Link>
+              </span>
+            ))}
+          </p>
         </div>
       </section>
 

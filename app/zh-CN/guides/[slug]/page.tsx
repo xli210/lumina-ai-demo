@@ -97,12 +97,14 @@ export default async function ZhGuidePage({ params }: Props) {
               {guide.cta.label}
             </Link>
           </div>
-          <p className="mt-6 text-sm text-muted-foreground">
-            English version:{" "}
-            <Link href={`/blog/${guide.slug}`} className="text-primary underline-offset-4 hover:underline">
-              /blog/{guide.slug}
-            </Link>
-          </p>
+          {guide.english !== false && (
+            <p className="mt-6 text-sm text-muted-foreground">
+              English version:{" "}
+              <Link href={`/blog/${guide.slug}`} className="text-primary underline-offset-4 hover:underline">
+                /blog/{guide.slug}
+              </Link>
+            </p>
+          )}
         </div>
       </article>
       <Footer />
