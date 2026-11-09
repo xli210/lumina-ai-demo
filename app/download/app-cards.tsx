@@ -275,11 +275,14 @@ export function AppCards({ strings, locale }: { strings: Strings; locale: AppLoc
   const [downloading, setDownloading] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loadingLicenses, setLoadingLicenses] = useState(true);
+  // The page is public; a signed-out visitor is asked to sign in when they go to get or buy an app.
+  const [signedOut, setSignedOut] = useState(false);
 
   // Load existing licenses on mount so they survive page refreshes
   const loadExistingLicenses = useCallback(async () => {
     try {
       const res = await fetch("/api/license/my-licenses");
+      setSignedOut(res.status === 401);
       if (res.ok) {
         const data = await res.json();
         if (data.licenses) {
@@ -307,6 +310,16 @@ export function AppCards({ strings, locale }: { strings: Strings; locale: AppLoc
     return () => clearTimeout(timeout);
   }, [loadingLicenses]);
 
+  function sendToSignIn(next: string) {
+    window.location.href = `/auth/login?next=${encodeURIComponent(next)}`;
+  }
+
+  function handleBuy(productId: string) {
+    const checkout = `/checkout?product=${productId}`;
+    if (signedOut) sendToSignIn(checkout);
+    else window.location.href = checkout;
+  }
+
   async function handleGetLicense(appId: string) {
     setClaimingApp(appId);
     setErrors((prev) => ({ ...prev, [appId]: "" }));
@@ -317,6 +330,11 @@ export function AppCards({ strings, locale }: { strings: Strings; locale: AppLoc
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ product_id: appId }),
       });
+
+      if (res.status === 401) {
+        sendToSignIn(`/download#${appId}`);
+        return;
+      }
 
       const data = await res.json();
 
@@ -375,16 +393,6 @@ export function AppCards({ strings, locale }: { strings: Strings; locale: AppLoc
   function formatPrice(priceInCents: number) {
     if (priceInCents === 0) return t("Free");
     return `$${(priceInCents / 100).toFixed(2)}`;
-  }
-
-  if (loadingLicenses) {
-    return (
-      <section className="relative px-6 pb-16">
-        <div className="mx-auto max-w-5xl flex items-center justify-center py-16">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        </div>
-      </section>
-    );
   }
 
   return (
@@ -499,8 +507,15 @@ export function AppCards({ strings, locale }: { strings: Strings; locale: AppLoc
                   </div>
                 </div>
 
+                {/* Licences still loading: the card itself is already on the page for visitors and search engines */}
+                {loadingLicenses && (
+                  <div className="flex justify-center border-t border-border/50 py-6">
+                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                  </div>
+                )}
+
                 {/* License Key Section — no license yet */}
-                {!hasLicense && (
+                {!loadingLicenses && !hasLicense && (
                   <div className="border-t border-border/50 pt-6 mb-6">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                       <div className="flex-1">
@@ -556,9 +571,7 @@ export function AppCards({ strings, locale }: { strings: Strings; locale: AppLoc
                             <Button
                               variant="outline"
                               className="gap-2 rounded-full px-6"
-                              onClick={() =>
-                                (window.location.href = `/checkout?product=${app.productId}`)
-                              }
+                              onClick={() => handleBuy(app.productId)}
                             >
                               <ShoppingCart className="h-4 w-4" />
                               {t("Buy — {price}", { price: formatPrice(price) })}
@@ -585,9 +598,7 @@ export function AppCards({ strings, locale }: { strings: Strings; locale: AppLoc
                         ) : (
                           <Button
                             className={`gap-2 rounded-full px-8 bg-gradient-to-r ${app.gradient} text-white border-0 hover:opacity-90 shadow-md ${app.shadowColor}`}
-                            onClick={() =>
-                              (window.location.href = `/checkout?product=${app.productId}`)
-                            }
+                            onClick={() => handleBuy(app.productId)}
                           >
                             <ShoppingCart className="h-4 w-4" />
                             {t("Purchase — {price}", { price: formatPrice(price) })}
@@ -615,9 +626,7 @@ export function AppCards({ strings, locale }: { strings: Strings; locale: AppLoc
                         <Button
                           size="sm"
                           className="gap-1.5 rounded-full px-5 bg-gradient-to-r from-primary to-blue-400 text-white border-0 hover:opacity-90"
-                          onClick={() =>
-                            (window.location.href = `/checkout?product=${app.productId}`)
-                          }
+                          onClick={() => handleBuy(app.productId)}
                         >
                           <ShoppingCart className="h-3.5 w-3.5" />
                           {t("Upgrade — {price}", { price: formatPrice(price) })}
@@ -672,9 +681,7 @@ export function AppCards({ strings, locale }: { strings: Strings; locale: AppLoc
                         <Button
                           size="sm"
                           className="gap-1.5 rounded-full px-6 bg-gradient-to-r from-primary to-blue-400 text-white border-0 hover:opacity-90 shadow-md"
-                          onClick={() =>
-                            (window.location.href = `/checkout?product=${app.productId}`)
-                          }
+                          onClick={() => handleBuy(app.productId)}
                         >
                           <ShoppingCart className="h-3.5 w-3.5" />
                           {t("Purchase — {price}", { price: formatPrice(price) })}

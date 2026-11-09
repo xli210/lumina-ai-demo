@@ -850,7 +850,7 @@
     "Download Our Apps": "앱 다운로드",
     "Explore our suite of AI-powered tools. Each app is designed to run locally on your machine — no cloud dependency, full privacy.": "AI 기반 도구 모음을 살펴보세요. 모든 앱은 내 컴퓨터에서 로컬로 실행되도록 만들어져 클라우드에 의존하지 않으며 개인정보가 완전히 보호됩니다.",
     "Free trials included": "무료 체험 포함",
-    "Signed-in users only": "로그인한 사용자 전용",
+    "Sign in only when you download": "다운로드할 때만 로그인 필요",
     "Runs 100% locally": "100% 로컬 실행",
     "New versions are out for {n} of our local apps": "로컬 앱 {n}개의 새 버전이 나왔습니다",
     "Here is what changed in the latest version of each:": "각 앱의 최신 버전에서 달라진 점은 다음과 같습니다.",

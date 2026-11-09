@@ -10,7 +10,8 @@ const PROTECTED_PATH_PREFIXES = [
   '/protected',
   '/account',
   '/start',
-  '/download',
+  // /download itself is public so search engines can read it. /api/downloads and /api/license check the
+  // session and the licence themselves, and that is what protects the installers.
   '/admin',
   '/private-demos',
   '/api/private-demos',

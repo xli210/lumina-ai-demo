@@ -723,7 +723,7 @@
     "Download Our Apps": "アプリをダウンロード",
     "Explore our suite of AI-powered tools. Each app is designed to run locally on your machine — no cloud dependency, full privacy.": "AI を活用したツール群をご覧ください。どのアプリもお使いのコンピューター上でローカルに動作するよう作られており、クラウドに頼らず、プライバシーも守られます。",
     "Free trials included": "無料試用あり",
-    "Signed-in users only": "ログインしたユーザーのみ",
+    "Sign in only when you download": "ダウンロード時のみログインが必要",
     "Runs 100% locally": "100% ローカルで動作",
     "New versions are out for {n} of our local apps": "ローカルアプリのうち {n} 本の新バージョンを公開しました",
     "Here is what changed in the latest version of each:": "それぞれの最新バージョンでの変更点です:",

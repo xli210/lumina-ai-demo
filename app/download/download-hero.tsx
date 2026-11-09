@@ -43,7 +43,7 @@ export function DownloadHero({ strings }: { strings: Strings }) {
           <div className="h-4 w-px bg-border" />
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Shield className="h-4 w-4 text-primary" />
-            <span>{t("Signed-in users only")}</span>
+            <span>{t("Sign in only when you download")}</span>
           </div>
           <div className="h-4 w-px bg-border" />
           <div className="flex items-center gap-2 text-sm text-muted-foreground">

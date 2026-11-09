@@ -97,6 +97,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...VIDEO_EXAMPLES.map((v) => ({ url: `${BASE}${videoExamplePath(v)}`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly" as const, priority: 0.6 })),
     // The catalogue of desktop apps and the index of release notes: the parents of the per-app pages.
     { url: `${BASE}/apps`, lastModified: new Date("2026-10-21"), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE}/download`, lastModified: new Date("2026-11-09"), changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE}/video-face-swap-test-results`, lastModified: new Date("2026-10-24"), changeFrequency: "monthly", priority: 0.75 },
     { url: `${BASE}/video-head-swap`, lastModified: new Date("2026-11-08"), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/release-notes`, lastModified: new Date("2026-10-21"), changeFrequency: "weekly", priority: 0.7 },
