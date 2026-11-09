@@ -125,7 +125,7 @@ export async function POST(request: NextRequest) {
       amount: credits,
       service: IMAGEEDIT_SERVICE,
       ttlSeconds: IMAGEEDIT_HOLD_TTL_SECONDS,
-      estimate: { model: "spotedit", width: probe.width, height: probe.height, watermark, price_version: 2 },
+      estimate: { model: "spotedit", width: probe.width, height: probe.height, watermark, price_version: 3 },
     });
   } catch (err: unknown) {
     console.error("[imageedit] hold failed:", err instanceof Error ? err.message : err);

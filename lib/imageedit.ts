@@ -23,9 +23,9 @@ export const IMAGEEDIT_SERVICE = "imageedit";
  * A failed edit costs nothing, and "Try another version" is a new edit.
  */
 export const IMAGEEDIT_CREDIT_TIERS: ReadonlyArray<readonly [maxMp: number, credits: number]> = [
-  [12, 30],
-  [24, 40],
-  [49, 50],
+  [12, 40],
+  [24, 50],
+  [49, 60],
 ];
 
 /** The cheapest edit: what an account must hold to start, and the price quoted as "from". */

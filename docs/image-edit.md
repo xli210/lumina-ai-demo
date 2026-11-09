@@ -52,9 +52,9 @@ started it), are what `userMayEdit` checks. The bucket needs a lifecycle rule on
 
 | Photo | Credits per finished edit |
 |---|---|
-| up to 12 MP | 30 |
-| up to 24 MP | 40 |
-| up to 49 MP | 50 |
+| up to 12 MP | 40 |
+| up to 24 MP | 50 |
+| up to 49 MP | 60 |
 
 MP is rounded to a whole number first, so a 12.2 MP phone photo counts as 12 MP. The
 size comes from the stored file, never from the browser. "Try another version" is a new

@@ -220,9 +220,9 @@ main { max-width: 960px; }
 <main id="editor">
   <div class="sec-head"><h2>Edit your photo</h2><p>Upload, describe the change, done. Any size from 1K to 8K, up to 49 MP.</p>
     <ul class="price-row" aria-label="Price per edit">
-      <li><b>30</b> credits &middot; up to 12 MP</li>
-      <li><b>40</b> credits &middot; up to 24 MP</li>
-      <li><b>50</b> credits &middot; up to 49 MP</li>
+      <li><b>40</b> credits &middot; up to 12 MP</li>
+      <li><b>50</b> credits &middot; up to 24 MP</li>
+      <li><b>60</b> credits &middot; up to 49 MP</li>
       <li id="balanceRow" hidden>Your balance: <b id="balance"></b></li>
     </ul></div>
   <div class="info-notice" id="wmNotice" hidden>
@@ -370,9 +370,9 @@ $("replaceBtn").onclick = () => { if (!S.job) input.click(); };
 // largest photo accepted (the gateway checks the same limit, also for files the browser can't open, e.g. TIFF)
 const MAX_MP = 49;
 const MAX_UPLOAD_MB = 120;
-// credits per edit by photo size (the gateway's SE_CREDIT_TIERS decides; /api/photo returns the real number).
+// credits per edit by photo size (IMAGEEDIT_CREDIT_TIERS decides; /api/photo returns the real number).
 // MP is rounded to a whole number, so a 4032 x 3024 iPhone photo (12.2 MP) is 12 MP.
-const CREDIT_TIERS = [[12, 30], [24, 40], [49, 50]];
+const CREDIT_TIERS = [[12, 40], [24, 50], [49, 60]];
 function creditsFor(w, h) {
   const mp = Math.round(w * h / 1e6);
   for (const [top, c] of CREDIT_TIERS) if (mp <= top) return c;
