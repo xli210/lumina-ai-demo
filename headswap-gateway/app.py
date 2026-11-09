@@ -115,6 +115,7 @@ LAB_SHARE = max(0.0, min(1.0, float(os.environ.get("HS_LAB_SHARE", "1"))))      
 
 PHOTOS = {}        # photo id -> {"key", "job", "t", "faces", "width", "height", "default_face", "error", "rid", "uid"}
 UPLOADS = {}       # object key -> {"uid", "kind", "t", "size"}: what this server has issued an upload link for
+UPLOAD_KEY = re.compile(r"^%s/\d{8}/([0-9a-f]{32})_([0-9a-f]{24})_(photo|head)$" % re.escape(INPUT_PREFIX))
 USED_TICKETS = {}  # reservation id -> time it was used (a ticket pays for one swap)
 JOBS = {}          # RunPod job id -> {"t", "n", "photo", "watermark", "uid", "rid", "done"}
 LOCK = threading.Lock()
@@ -313,9 +314,32 @@ def put_input(data: bytes, name: str) -> str:
     return key
 
 
+def upload_tag(stem: str, kind: str, uid) -> str:
+    """Signs an upload's name for its kind and owner: UPLOADS is lost whenever Render restarts or wakes this service, the key in the page is not."""
+    return hmac.new(ENTITLEMENT_SECRET.encode(), f"upload.{stem}.{kind}.{uid or ''}".encode(), hashlib.sha256).hexdigest()[:24]
+
+
+def recovered_upload(key, kind: str, uid):
+    """The record of an upload issued before this server restarted, rebuilt from its signed key and the object in the bucket; None if it is not one."""
+    m = UPLOAD_KEY.match(key) if isinstance(key, str) and ENTITLEMENT_SECRET else None
+    if not m or m[3] != kind or not hmac.compare_digest(m[2], upload_tag(m[1], kind, uid)):
+        return None
+    try:
+        head = s3.head_object(Bucket=BUCKET, Key=key)
+    except Exception:  # noqa: BLE001  (not there: the browser never finished the PUT, or it was cleaned up)
+        return None
+    modified = head.get("LastModified")
+    if modified is not None and time.time() - modified.timestamp() > PHOTO_TTL:
+        return None
+    rec = {"uid": uid, "kind": kind, "t": time.time(), "size": head["ContentLength"]}
+    with LOCK:
+        UPLOADS[key] = rec
+    return rec
+
+
 def uploaded_key(key, kind: str, uid):
     """Check that `key` is an upload this server issued a link for (of this kind, for this user) and that it arrived whole."""
-    rec = UPLOADS.get(key) if isinstance(key, str) else None
+    rec = (UPLOADS.get(key) or recovered_upload(key, kind, uid)) if isinstance(key, str) else None
     if rec is None or rec["kind"] != kind:
         raise HTTPException(400, "This upload has expired. Please choose the file again.")
     if rec.get("uid") and uid and rec["uid"] != uid:
@@ -547,7 +571,8 @@ async def upload_url(request: Request):
     if size > MAX_UPLOAD:
         raise HTTPException(413, f"The {kind} is over {MAX_UPLOAD >> 20} MB.")
     gc()
-    key = f"{INPUT_PREFIX}/{time.strftime('%Y%m%d')}/{uuid.uuid4().hex}_{kind}"
+    stem = uuid.uuid4().hex
+    key = f"{INPUT_PREFIX}/{time.strftime('%Y%m%d')}/{stem}_{upload_tag(stem, kind, uid)}_{kind}"
     url = s3.generate_presigned_url("put_object", Params={"Bucket": BUCKET, "Key": key, "ContentType": ctype, "ContentLength": size},
                                     ExpiresIn=UPLOAD_TTL)
     with LOCK:

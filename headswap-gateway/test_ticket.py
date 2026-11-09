@@ -4,6 +4,7 @@
 No network: the RunPod and R2 calls are replaced, and the environment is filled with dummy values before the app is imported.
 """
 import base64
+import datetime
 import hashlib
 import hmac
 import json
@@ -23,6 +24,7 @@ gw.link = lambda *a, **k: "https://example.invalid/x"
 SENT = []
 gw.rp_run = lambda inp: (SENT.append(inp), "job-%d" % len(SENT))[1]
 STORED = {}      # object key -> size: what "arrived" in R2
+MODIFIED = {}    # object key -> extra fields of head_object
 
 
 class FakeS3:
@@ -32,7 +34,7 @@ class FakeS3:
     def head_object(self, Bucket, Key):
         if Key not in STORED:
             raise RuntimeError("404")
-        return {"ContentLength": STORED[Key]}
+        return {"ContentLength": STORED[Key], **MODIFIED.get(Key, {})}
 
     def delete_object(self, Bucket, Key):
         STORED.pop(Key, None)
@@ -153,6 +155,32 @@ r = client.post("/api/photo", data={"key": photo_key()}, headers={"X-HS-Entitlem
 check("photo by key -> 200 and detection started", r.status_code == 200 and any(i.get("action") == "detect" for i in SENT))
 r = client.post("/api/photo", data={"key": photo_key()})
 check("photo without a sign-in token -> 401", r.status_code == 401)
+
+# ---- the page keeps its upload keys across a restart of this service
+def post_photo(key, uid="u1"):
+    return client.post("/api/photo", data={"key": key}, headers={"X-HS-Entitlement": ent(uid)})
+
+
+k = upload("photo"); gw.UPLOADS.clear()
+check("upload from before a restart -> 200", post_photo(k).status_code == 200 and k in gw.UPLOADS)
+k = upload("photo", uid="u1"); gw.UPLOADS.clear()
+check("someone else's upload from before a restart -> 400", post_photo(k, uid="u2").status_code == 400)
+k = upload("head"); gw.UPLOADS.clear()
+check("a head key used as a photo after a restart -> 400", post_photo(k).status_code == 400)
+k = upload("photo", arrive=False); gw.UPLOADS.clear()
+check("an upload that never arrived, after a restart -> 400", post_photo(k).status_code == 400)
+k = gw.INPUT_PREFIX + "/20260101/" + "a" * 32 + "_" + "b" * 24 + "_photo"; STORED[k] = 3
+check("a key this server did not sign -> 400", post_photo(k).status_code == 400)
+k = gw.INPUT_PREFIX + "/20260101/" + "a" * 32 + "_photo"; STORED[k] = 3
+check("a key of the old form after a restart -> 400", post_photo(k).status_code == 400)
+k = upload("photo"); gw.UPLOADS.clear()
+MODIFIED[k] = {"LastModified": datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(seconds=gw.PHOTO_TTL + 60)}
+check("an upload older than the photo lifetime after a restart -> 400", post_photo(k).status_code == 400)
+head = upload("head"); photo_id = new_photo(); gw.UPLOADS.pop(head)
+r = client.post("/api/swap", data={"photo_id": photo_id, "face": 0, "variations": 1, "head_key": head},
+                headers={"X-HS-Ticket": ticket(hold="after-restart", n=1)})
+check("a swap with a head uploaded before a restart -> 200", r.status_code == 200)
+
 r = client.get("/api/health")
 check("health reports the switches", r.json().get("ticket_required") is True and r.json().get("file_uploads") is False)
 

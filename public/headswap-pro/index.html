@@ -418,11 +418,11 @@ function showCredits(available) {
     `Each image costs ${PRICE} credits; a failed swap costs nothing.`;
 }
 // Settle after the swap ends: the server asks the gateway how it went and charges what was delivered (or gives everything back).
-async function settle(hold) {
+async function settle(hold, abandon) {
   if (!hold) return;
   for (let i = 0; i < 5; i++) {
     try {
-      const r = await site("/api/headswap/settle", { hold_id: hold });
+      const r = await site("/api/headswap/settle", abandon ? { hold_id: hold, abandon: true } : { hold_id: hold });
       if (r.status !== "held") { if (r.available !== undefined) showCredits(r.available); return; }
     } catch (e) {}
     await sleep(1500);
@@ -624,7 +624,8 @@ $("go").onclick = async () => {
     }
     poll();
   } catch (err) {
-    if (hold) settle(hold.hold_id);       // the swap never started: the credits go back at once
+    // The gateway refused it, so no job exists: the credits go back at once. After a lost connection or a 5xx a job may exist, so the server's rules decide.
+    if (hold) settle(hold.hold_id, err.status >= 400 && err.status < 500 && err.status !== 409);
     S.job = null; update(); hideProgress();
     if (err.status === 401) { $("authNotice").hidden = false; $("authText").innerHTML = 'Sign in to NanoPocket.ai to swap heads. <a href="/auth/login?next=/headswap-pro/index.html">Sign in</a>'; showError("Please sign in to swap heads."); }
     else if (err.status === 402 && err.body && err.body.reason === "insufficient_credits") { showCredits(err.body.available); showTopUp(err.message, err.body.topup_url); }
