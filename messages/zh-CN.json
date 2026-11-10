@@ -498,6 +498,7 @@
       "before": "原图",
       "after": "编辑后",
       "compare": "拖动对比原图和编辑结果",
+      "variation": "变体",
       "open": "打开",
       "made": "已生成。{credits} 积分。",
       "making": "正在生成,或正在等待 GPU。打开即可查看。",

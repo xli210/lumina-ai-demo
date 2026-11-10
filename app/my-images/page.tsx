@@ -9,7 +9,7 @@ import { imageLink, imagesOf, MY_IMAGES_HOURS, type MyImage } from "@/lib/my-ima
 import { createClient } from "@/lib/supabase/server";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
-import { SpotEditResultView } from "./spotedit-result";
+import { ResultView } from "./result-view";
 
 /**
  * /my-images: the signed-in person's pictures of the last day from Nano FaceStudio Online, Nano HeadSwap Pro and SpotEdit.
@@ -109,25 +109,34 @@ export default async function MyImagesPage() {
                   </div>
                   <div className="mt-0.5 text-sm text-muted-foreground">{describe(i)}</div>
                 </div>
-                {i.edit ? (
+                {i.result ? (
                   <div className="flex gap-2">
-                    <a href={i.edit.download} className={buttonVariants({ size: "sm" })}>
+                    <a href={i.result.images[0].download} className={buttonVariants({ size: "sm" })}>
                       {t("download")}
                     </a>
-                    <a href={imageLink(i)} className={buttonVariants({ size: "sm", variant: "outline" })}>
-                      {t("openEditor")}
-                    </a>
+                    {/* SpotEdit's editor can keep editing the result; the other pages would only show it again. */}
+                    {i.product === "spotedit" ? (
+                      <a href={imageLink(i)} className={buttonVariants({ size: "sm", variant: "outline" })}>
+                        {t("openEditor")}
+                      </a>
+                    ) : null}
                   </div>
                 ) : (
                   <a href={imageLink(i)} className={buttonVariants({ size: "sm" })}>
                     {t("open")}
                   </a>
                 )}
-                {i.edit ? (
+                {i.result ? (
                   <div className="w-full">
-                    <SpotEditResultView
-                      edit={i.edit}
-                      labels={{ before: t("before"), after: t("after"), compare: t("compare") }}
+                    <ResultView
+                      result={i.result}
+                      labels={{
+                        before: t("before"),
+                        after: t("after"),
+                        compare: t("compare"),
+                        variation: t("variation"),
+                        download: t("download"),
+                      }}
                     />
                   </div>
                 ) : null}

@@ -346,6 +346,7 @@
       "before": "원본",
       "after": "편집 후",
       "compare": "드래그하여 원본과 편집 결과 비교",
+      "variation": "변형",
       "open": "열기",
       "made": "완료. {credits} 크레딧.",
       "making": "만드는 중이거나 GPU를 기다리는 중입니다. 열어서 확인하세요.",

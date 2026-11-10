@@ -346,6 +346,7 @@
       "before": "Avant",
       "after": "Après",
       "compare": "Faites glisser pour comparer l'original et la modification",
+      "variation": "Variante",
       "open": "Ouvrir",
       "made": "Créée. {credits} crédits.",
       "making": "En cours de création ou en attente d'un GPU. Ouvrez-la pour voir.",

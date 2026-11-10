@@ -248,6 +248,8 @@ export async function POST(req: NextRequest) {
         // Bumped whenever the pricing formula changes, so historical holds
         // stay interpretable when the rate no longer matches today's.
         price_version: 2,
+        // The photo as uploaded (the gateway's S3_INPUT_PREFIX), so "My images" can show it beside the result.
+        target_key: `${process.env.FACESTUDIO_INPUT_PREFIX || "facestudio/input"}/${parsed.detectionId}`,
         // Kept on the hold so the status and result routes can refuse a render
         // that was owed a mark and came back without one.
         ...(watermark === undefined ? {} : { watermark }),

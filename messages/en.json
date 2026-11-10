@@ -486,6 +486,7 @@
       "before": "Before",
       "after": "After",
       "compare": "Drag to compare the original and the edit",
+      "variation": "Variation",
       "open": "Open",
       "made": "Made. {credits} credits.",
       "making": "Being made, or waiting for a GPU. Open it to see.",
