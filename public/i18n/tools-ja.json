@@ -373,5 +373,10 @@
   "Open My images": "「マイ画像」を開く",
   "Your earlier edit is still being made…": "以前の編集はまだ処理中です…",
   "Your earlier edit": "以前の編集",
-  "This edit's result is no longer available.": "この編集の結果はもう利用できません。"
+  "This edit's result is no longer available.": "この編集の結果はもう利用できません。",
+  "Your recent edits": "最近の編集",
+  "All in My images": "すべて「マイ画像」に",
+  "From the last 24 hours. Pick one to compare it with the original, or download it.": "過去 24 時間の編集です。1 枚選んで元画像と比較するか、ダウンロードできます。",
+  "Your edit": "あなたの編集",
+  "Being made…": "処理中…"
 }

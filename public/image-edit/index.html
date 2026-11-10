@@ -60,6 +60,16 @@ main { max-width: 960px; }
   .prompt-box .btn-generate { width: 100%; padding: 14px; }
 }
 .viewer.after-only .before, .viewer.after-only .line, .viewer.after-only .knob, .viewer.after-only .lbl { display: none; }
+.recent-section { animation: none; }
+.recent-all { font-size: .85rem; color: var(--text-muted); }
+.recent-note { margin: 0 0 12px; font-size: .85rem; color: var(--text-muted); }
+.recent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; }
+.recent-item { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.recent-item button { padding: 0; border: 2px solid transparent; border-radius: 10px; overflow: hidden; background: rgba(255,255,255,.04); cursor: pointer; aspect-ratio: 1; }
+.recent-item button.on { border-color: var(--accent, #7c5cff); }
+.recent-item img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.recent-item .wait { display: grid; place-items: center; height: 100%; font-size: .8rem; color: var(--text-muted); text-align: center; padding: 8px; }
+.recent-item figcaption { display: flex; justify-content: space-between; gap: 6px; font-size: .78rem; color: var(--text-muted); }
 </style>
 </head>
 <body id="top">
@@ -295,6 +305,17 @@ main { max-width: 960px; }
         <span>This free result carries a watermark. <a id="wmLink2" href="/credits">Buy credits</a> and edit again for a clean image.</span>
       </div>
       <div class="stage" id="stage"></div>
+    </div>
+  </section>
+
+  <section class="result-section recent-section" id="recent" hidden>
+    <div class="result-card">
+      <div class="result-header">
+        <h2>Your recent edits</h2>
+        <a class="recent-all" href="/my-images">All in My images</a>
+      </div>
+      <p class="recent-note">From the last 24 hours. Pick one to compare it with the original, or download it.</p>
+      <div class="recent-grid" id="recentGrid"></div>
     </div>
   </section>
 </main>
@@ -555,7 +576,7 @@ async function poll() {
       : j.phase === "Editing" && j.steps ? 0.06 + 0.6 * j.step / j.steps : 0.05;
     showProgress(fin ? "Finalizing…" : "Editing…", f);
   } else if (j.status === "done") {
-    S.job = null; S.last = j; forgetJob(); showBalance(j.available); update(); hideProgress(); renderResult(j); return;
+    S.job = null; S.last = j; forgetJob(); showBalance(j.available); update(); hideProgress(); renderResult(j); loadRecent(); return;
   } else if (j.status === "error") {
     S.job = null; forgetJob(); showBalance(j.available); update(); hideProgress(); showError(j.error || "Something went wrong."); return;
   }
@@ -593,14 +614,14 @@ function renderResult(j) {
   const a = $("download"); a.href = j.download_url || j.url; a.download = "spotedit.png";
   $("wmResult").hidden = !j.watermarked;
   // a watermarked result is not offered for further editing (the watermark would become part of the photo)
-  $("useResult").hidden = !!j.watermarked;
-  $("meta").innerHTML = `${S.recovered ? "<span>Your earlier edit</span>" : Math.round((Date.now() - S.t0) / 1000) + " s"} · ${j.width} × ${j.height} px`;
+  $("useResult").hidden = !!j.watermarked || (j.listed && !j.result_key);
+  $("meta").innerHTML = `${S.recovered || j.listed ?"<span>Your earlier edit</span>" : Math.round((Date.now() - S.t0) / 1000) + " s"} · ${j.width} × ${j.height} px`;
   $("resultSection").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function drawViewer(j) {
-  // an edit reopened from "My images" may have no original to compare with
-  const before = S.fileUrl || j.before_url, stage = $("stage"), split = VIEW_MODE === "split" && !!before;
+  // an edit reopened from "My images" may have no original to compare with; one picked from the list is compared with its own
+  const before = j.listed ? j.before_url : S.fileUrl || j.before_url, stage = $("stage"), split = VIEW_MODE === "split" && !!before;
   stage.innerHTML = `<div class="seg viewmode" role="group" aria-label="View">
       <button type="button" data-v="slider" class="${split ? "" : "on"}" aria-pressed="${!split}">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/><path d="m9 10-2 2 2 2M15 10l2 2-2 2"/></svg>Slider</button>
@@ -802,8 +823,50 @@ async function recoverJob(tries = 0) {
   poll();
 }
 
+// ---------- recent edits: the account's edits of the last day, to look at again or download without leaving the editor
+async function loadRecent() {
+  let d;
+  try {
+    const r = await fetch("/api/imageedit/recent", { cache: "no-store" });
+    if (!r.ok) return;                                                           // signed out, or the list could not be read: no section
+    d = await r.json();
+  } catch (e) { return; }
+  const edits = (d.edits || []).filter((e) => e.result || e.status === "open");
+  $("recent").hidden = !edits.length;
+  const grid = $("recentGrid");
+  grid.innerHTML = "";
+  edits.forEach((e) => {
+    const fig = document.createElement("figure"); fig.className = "recent-item";
+    const btn = document.createElement("button"); btn.type = "button";
+    const cap = document.createElement("figcaption");
+    const when = document.createElement("span");
+    when.textContent = new Date(e.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    cap.appendChild(when);
+    if (e.result) {
+      const r = e.result, im = r.images[0];
+      const img = document.createElement("img"); img.src = im.preview; img.alt = "Your edit"; img.loading = "lazy";
+      btn.appendChild(img);
+      btn.onclick = () => {
+        grid.querySelectorAll("button.on").forEach((b) => b.classList.remove("on")); btn.classList.add("on");
+        S.last = { id: e.job, status: "done", url: im.preview, download_url: im.download, before_url: r.before, width: r.width, height: r.height,
+                   watermarked: !!r.watermarked, result_key: r.resultKey, listed: true };
+        renderResult(S.last);
+      };
+      const a = document.createElement("a"); a.href = im.download; a.textContent = "Download";
+      cap.appendChild(a);
+    } else {
+      btn.disabled = true;
+      const w = document.createElement("span"); w.className = "wait"; w.textContent = "Being made…";
+      btn.appendChild(w);
+    }
+    fig.append(btn, cap);
+    grid.appendChild(fig);
+  });
+}
+
 update();
 recoverJob();
+loadRecent();
 
 // ---------- showcase: before/after sliders and "Try this request"
 document.querySelectorAll(".ba").forEach((ba) => {

@@ -1146,6 +1146,15 @@ main {
   font-weight: 500;
 }
 
+/* "My images" in the header: where a picture made earlier is found again. */
+.fs-my-images {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #7fb8ff;
+  font-weight: 500;
+}
+
 /* A failed photo: outlined at the photo, with the reason under it and the work kept. */
 .v5-face-card.has-error {
   border-color: #f87171;

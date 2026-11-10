@@ -47,6 +47,9 @@ export interface ImageResult {
   before?: string;
   width?: number;
   height?: number;
+  /** SpotEdit: the result as the editor names it to keep editing; absent when it carries the mark. */
+  resultKey?: string;
+  watermarked?: boolean;
 }
 
 const PRODUCT_OF: Record<string, MyImage["product"]> = {
@@ -55,7 +58,7 @@ const PRODUCT_OF: Record<string, MyImage["product"]> = {
   [IMAGEEDIT_SERVICE]: "spotedit",
 };
 
-export async function imagesOf(userId: string, limit = 40): Promise<MyImage[]> {
+export async function imagesOf(userId: string, limit = 40, products: MyImage["product"][] = ["facestudio", "headswap-pro", "spotedit"]): Promise<MyImage[]> {
   // So the list says what was charged, and SpotEdit edits nobody is watching any more are not left "being made".
   await settleOpenEdits(userId).catch((err: unknown) => {
     console.error("[my-images] settling SpotEdit edits failed:", err instanceof Error ? err.message : err);
@@ -64,7 +67,7 @@ export async function imagesOf(userId: string, limit = 40): Promise<MyImage[]> {
   const { data, error } = await supabase
     .from("credit_holds")
     .select("id, user_id, amount, status, service, job_ref, created_at, estimate")
-    .in("service", Object.keys(PRODUCT_OF))
+    .in("service", Object.keys(PRODUCT_OF).filter((s) => products.includes(PRODUCT_OF[s])))
     .eq("user_id", userId)
     .not("job_ref", "is", null)
     .gt("created_at", new Date(Date.now() - MY_IMAGES_HOURS * 3600 * 1000).toISOString())
@@ -124,11 +127,15 @@ async function resultOf(hold: CreditHoldRecord): Promise<ImageResult | null> {
       const key = await storedResultKey(hold);
       if (!key) return null;
       const src = str(hold.estimate?.src_key);
+      // As readEdit decides it: the worker was told to mark the edit unless the hold says no mark was needed.
+      const watermarked = hold.estimate?.watermark !== false;
       return {
         images: [{ preview: sign(key.replace(/\.png$/, ".jpg")), download: sign(key, "spotedit.png") }],
         before: src ? sign(src) : undefined,
         width: num(hold.estimate?.width),
         height: num(hold.estimate?.height),
+        resultKey: watermarked ? undefined : key,
+        watermarked,
       };
     }
     case "facestudio": {
