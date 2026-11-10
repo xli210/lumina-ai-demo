@@ -12,7 +12,9 @@ import {
   getCreditSummary,
   getCreditTopUsers,
   getRecentOrders,
+  getTodaySpenders,
   type RecentOrder,
+  type TodaySpender,
 } from "@/lib/credits-server";
 import { findCreditPack } from "@/lib/credit-packs";
 import {
@@ -282,6 +284,74 @@ function RecentOrders({ orders }: { orders: RecentOrder[] }) {
   );
 }
 
+function TodaySpenders({ spenders }: { spenders: TodaySpender[] }) {
+  if (spenders.length === 0) {
+    return <p className="text-sm text-muted-foreground">No credits spent yet today.</p>;
+  }
+
+  return (
+    <div className="glass overflow-x-auto rounded-2xl">
+      <table className="w-full min-w-[820px] text-sm">
+        <thead>
+          <tr className="border-b border-border text-left">
+            <th className="px-5 py-3 font-semibold text-foreground">#</th>
+            <th className="px-5 py-3 font-semibold text-foreground">Account</th>
+            <th className="px-5 py-3 text-right font-semibold text-foreground">Spent today</th>
+            <th className="px-5 py-3 text-right font-semibold text-foreground">Jobs</th>
+            <th className="px-5 py-3 font-semibold text-foreground">Services</th>
+            <th className="px-5 py-3 font-semibold text-foreground">Paid?</th>
+            <th className="px-5 py-3 text-right font-semibold text-foreground">Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          {spenders.map((u, i) => {
+            const paying = u.credit_orders > 0 || u.licences > 0;
+            return (
+              <tr key={u.user_id} className="border-b border-border last:border-0">
+                <td className="px-5 py-3 tabular-nums text-muted-foreground">{i + 1}</td>
+                <td className="px-5 py-3">
+                  <span className="text-foreground">{u.email ?? u.display_name ?? "deleted account"}</span>
+                  <span className="mt-0.5 block font-mono text-[11px] text-muted-foreground">
+                    {u.display_name && u.email ? `${u.display_name} · ` : ""}
+                    {u.user_id.slice(0, 8)}
+                  </span>
+                </td>
+                <td className="px-5 py-3 text-right tabular-nums text-foreground">{fmtCredits(u.spent)}</td>
+                <td className="px-5 py-3 text-right tabular-nums text-muted-foreground">{u.jobs}</td>
+                <td className="px-5 py-3 text-xs text-muted-foreground">
+                  {u.services.map((s) => `${s.service} ${fmtCredits(s.credits)}`).join(" · ")}
+                </td>
+                <td className="px-5 py-3">
+                  {paying ? (
+                    <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-semibold text-emerald-500">
+                      Paid
+                    </span>
+                  ) : (
+                    <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-semibold text-muted-foreground">
+                      Free
+                    </span>
+                  )}
+                  <span className="mt-0.5 block text-[11px] text-muted-foreground">
+                    {[
+                      u.credit_orders > 0
+                        ? `${u.credit_orders} ${u.credit_orders === 1 ? "order" : "orders"} · $${(u.paid_cents / 100).toFixed(2)}`
+                        : null,
+                      u.licences > 0 ? `${u.licences} ${u.licences === 1 ? "licence" : "licences"}` : null,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")}
+                  </span>
+                </td>
+                <td className="px-5 py-3 text-right tabular-nums text-muted-foreground">{fmtCredits(u.balance)}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 function TopUsers({ users }: { users: CreditTopUser[] }) {
   if (users.length === 0) {
     return <p className="text-sm text-muted-foreground">No credit accounts yet.</p>;
@@ -358,17 +428,30 @@ function Dashboard({
   daily,
   users,
   orders,
+  spenders,
 }: {
   summary: CreditSummary;
   daily: CreditDailyRow[];
   users: CreditTopUser[];
   orders: RecentOrder[];
+  spenders: TodaySpender[] | null;
 }) {
   const all = summary.all_time;
   const win = summary.window;
 
   return (
     <div className="flex flex-col gap-12">
+      <Section
+        title="Today's top spenders"
+        note="Credits spent since midnight PT, before refunds, top 20. Paid means the account has bought credits or a desktop licence at least once."
+      >
+        {spenders === null ? (
+          <p className="text-sm text-muted-foreground">Could not load today&apos;s spenders.</p>
+        ) : (
+          <TodaySpenders spenders={spenders} />
+        )}
+      </Section>
+
       <Section
         title="Money"
         note="Revenue is net of refunds and excludes bonus credits, because a bonus was given away and a refund was given back. Neither is money you kept."
@@ -610,6 +693,7 @@ export default async function AdminCreditsPage() {
   let daily: CreditDailyRow[] = [];
   let users: CreditTopUser[] = [];
   let orders: RecentOrder[] = [];
+  let spenders: TodaySpender[] | null = null;
   let failure: string | null = null;
 
   try {
@@ -627,6 +711,11 @@ export default async function AdminCreditsPage() {
     orders = await getRecentOrders(10);
   } catch (err: unknown) {
     console.error("[admin/credits] recent orders failed:", err instanceof Error ? err.message : err);
+  }
+  try {
+    spenders = await getTodaySpenders(20);
+  } catch (err: unknown) {
+    console.error("[admin/credits] today's spenders failed:", err instanceof Error ? err.message : err);
   }
 
   return (
@@ -669,7 +758,7 @@ export default async function AdminCreditsPage() {
             </div>
           </div>
         ) : (
-          <Dashboard summary={summary} daily={daily} users={users} orders={orders} />
+          <Dashboard summary={summary} daily={daily} users={users} orders={orders} spenders={spenders} />
         )}
       </div>
       <Footer />

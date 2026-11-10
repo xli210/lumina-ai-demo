@@ -927,6 +927,138 @@ export async function getRecentOrders(limit = 10): Promise<RecentOrder[]> {
 }
 
 /* ------------------------------------------------------------------ */
+/* Today's spenders (admin)                                            */
+/* ------------------------------------------------------------------ */
+
+export interface TodaySpender {
+  user_id: string;
+  email: string | null;
+  display_name: string | null;
+  /** Credits spent today, before any refund. */
+  spent: number;
+  /** Spend entries today: one per settled job. */
+  jobs: number;
+  /** Credits spent today per service, largest first. */
+  services: { service: string; credits: number }[];
+  balance: number;
+  /** Credit purchases ever, and what they charged in USD cents. */
+  credit_orders: number;
+  paid_cents: number;
+  /** Desktop licences bought with a card (a trial or a test licence has no payment intent). */
+  licences: number;
+}
+
+/** Midnight in Los Angeles today, as an instant: the day the owner reads in. */
+export function startOfTodayPT(now = new Date()): Date {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Los_Angeles",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      timeZoneName: "shortOffset",
+    })
+      .formatToParts(now)
+      .map((p) => [p.type, p.value])
+  );
+  // "GMT-8" or "GMT-7"
+  const offset = Number(String(parts.timeZoneName).replace("GMT", "")) || 0;
+  const sign = offset <= 0 ? "-" : "+";
+  const hh = String(Math.abs(offset)).padStart(2, "0");
+  return new Date(`${parts.year}-${parts.month}-${parts.day}T00:00:00${sign}${hh}:00`);
+}
+
+/**
+ * Who spent the most credits since midnight PT, with whether they have ever paid: credit
+ * purchases (and what they charged) and desktop licences bought with a card.
+ * Service-role read: call it only from a page that has already checked for an admin.
+ */
+export async function getTodaySpenders(limit = 20): Promise<TodaySpender[]> {
+  const supabase = createAdminClient();
+  const since = startOfTodayPT().toISOString();
+
+  const byUser = new Map<string, { spent: number; jobs: number; services: Map<string, number> }>();
+  const PAGE = 1000;
+  for (let from = 0; ; from += PAGE) {
+    const { data, error } = await supabase
+      .from("credit_ledger")
+      .select("user_id, amount, reference")
+      .eq("kind", "spend")
+      .gte("created_at", since)
+      .order("id", { ascending: true })
+      .range(from, from + PAGE - 1);
+    if (error) throw new Error(`Failed to read today's spend: ${error.message}`);
+    for (const r of data ?? []) {
+      const id = r.user_id as string;
+      const service = (r.reference as { service?: string } | null)?.service ?? "unattributed";
+      const credits = Math.abs(Number(r.amount));
+      const u = byUser.get(id) ?? { spent: 0, jobs: 0, services: new Map<string, number>() };
+      u.spent += credits;
+      u.jobs += 1;
+      u.services.set(service, (u.services.get(service) ?? 0) + credits);
+      byUser.set(id, u);
+    }
+    if (!data || data.length < PAGE) break;
+  }
+
+  const top = Array.from(byUser.entries())
+    .sort((a, b) => b[1].spent - a[1].spent)
+    .slice(0, limit);
+  if (top.length === 0) return [];
+  const ids = top.map(([id]) => id);
+
+  const [{ data: purchases, error: pErr }, { data: licences, error: lErr }, { data: accounts, error: aErr }] =
+    await Promise.all([
+      supabase.from("credit_ledger").select("user_id, reference").eq("kind", "purchase").in("user_id", ids),
+      supabase.from("licenses").select("user_id").in("user_id", ids).not("stripe_payment_intent_id", "is", null),
+      supabase.from("credit_accounts").select("user_id, balance").in("user_id", ids),
+    ]);
+  if (pErr) throw new Error(`Failed to read purchases: ${pErr.message}`);
+  if (lErr) throw new Error(`Failed to read licences: ${lErr.message}`);
+  if (aErr) throw new Error(`Failed to read balances: ${aErr.message}`);
+
+  const paid = new Map<string, { orders: number; cents: number }>();
+  for (const p of purchases ?? []) {
+    const id = p.user_id as string;
+    const cents = Number((p.reference as { amount_total?: number } | null)?.amount_total ?? 0);
+    const x = paid.get(id) ?? { orders: 0, cents: 0 };
+    paid.set(id, { orders: x.orders + 1, cents: x.cents + cents });
+  }
+  const licenceCount = new Map<string, number>();
+  for (const l of licences ?? []) {
+    const id = l.user_id as string;
+    licenceCount.set(id, (licenceCount.get(id) ?? 0) + 1);
+  }
+  const balance = new Map<string, number>((accounts ?? []).map((a) => [a.user_id as string, Number(a.balance)]));
+
+  const who = new Map<string, { email: string | null; display_name: string | null }>();
+  await Promise.all(
+    ids.map(async (id) => {
+      const [{ data: u }, { data: p }] = await Promise.all([
+        supabase.auth.admin.getUserById(id),
+        supabase.from("profiles").select("display_name").eq("id", id).maybeSingle(),
+      ]);
+      who.set(id, { email: u?.user?.email ?? null, display_name: (p?.display_name as string | null) ?? null });
+    })
+  );
+
+  return top.map(([id, u]) => ({
+    user_id: id,
+    email: who.get(id)?.email ?? null,
+    display_name: who.get(id)?.display_name ?? null,
+    spent: u.spent,
+    jobs: u.jobs,
+    services: Array.from(u.services.entries())
+      .map(([service, credits]) => ({ service, credits }))
+      .sort((a, b) => b.credits - a.credits),
+    balance: balance.get(id) ?? 0,
+    credit_orders: paid.get(id)?.orders ?? 0,
+    paid_cents: paid.get(id)?.cents ?? 0,
+    licences: licenceCount.get(id) ?? 0,
+  }));
+}
+
+/* ------------------------------------------------------------------ */
 /* Stripe webhook de-duplication                                       */
 /* ------------------------------------------------------------------ */
 
