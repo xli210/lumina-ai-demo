@@ -298,10 +298,12 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
 }
 
 /* ---------- jump to the editor */
-.hero-cta { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.jump-edit { text-decoration: none; min-width: 0; padding: 14px 36px; }
-#editor { scroll-margin-top: 16px; padding-top: 40px; }
+#editor { scroll-margin-top: 16px; padding-top: 12px; }
+#showcase { scroll-margin-top: 16px; }
 .float-edit { position: fixed; right: 20px; bottom: 20px; z-index: 50; padding: 12px 22px; border-radius: 999px; background: #fff;
   color: #000; font-weight: 600; font-size: .9rem; text-decoration: none; box-shadow: 0 6px 24px rgba(0,0,0,.5); }
 .float-edit[hidden] { display: none; }
 @media (max-width: 600px) { .float-edit { left: 16px; right: 16px; text-align: center; bottom: 14px; } }
+
+/* On a phone the upload box comes first: the four perks would fill half the screen above it. */
+@media (max-width: 760px) { .perks { display: none; } }

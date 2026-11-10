@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- base.css: the shared Face Studio / HeadSwap look (black, white accents, glass cards, Outfit) -->
-<link rel="stylesheet" href="/image-edit/base.css?v=2">
+<link rel="stylesheet" href="/image-edit/base.css?v=3">
 <style>
 main { max-width: 960px; }
 .editor { margin-top: 28px; }
@@ -81,20 +81,106 @@ main { max-width: 960px; }
   </div>
   <p class="site-subtitle">Describe the change. Only that spot is edited, at your photo's full resolution &mdash; everything else stays exactly the same.
     <span class="model-tag" title="Model">spotedit</span></p>
-  <p class="site-subtitle sub2">No matter how large your photo is &mdash; from 1K to 8K, it is never downsized.</p>
   <ul class="perks">
     <li><span class="dot"></span>Only that spot changes</li>
     <li><span class="dot"></span>Full resolution, up to 49 MP</li>
     <li><span class="dot"></span>Faces stay the same person</li>
     <li><span class="dot"></span>About a minute</li>
   </ul>
-  <div class="hero-cta">
-    <a class="btn-generate jump-edit" href="#editor">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg>
-      Edit your photo</a>
-    <a class="see-ex" href="#showcase">or see examples first</a>
-  </div>
+  <a class="see-ex" href="#showcase">See examples of real edits &darr;</a>
 </header>
+
+<main id="editor">
+  <div class="sec-head"><h2>Edit your photo</h2><p>Upload, describe the change, done. Any size from 1K to 8K, up to 49 MP.</p>
+    <ul class="price-row" aria-label="Price per edit">
+      <li><b>40</b> credits &middot; up to 12 MP</li>
+      <li><b>50</b> credits &middot; up to 24 MP</li>
+      <li><b>60</b> credits &middot; up to 49 MP</li>
+      <li id="balanceRow" hidden>Your balance: <b id="balance"></b></li>
+      <li><a href="/my-images">My images</a></li>
+    </ul></div>
+  <div class="info-notice" id="wmNotice" hidden>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+    <span>Free version: results carry a <strong>NanoPocket.ai</strong> watermark. <a id="wmLink" href="/credits">Buy credits</a> once and every result is watermark-free.</span>
+  </div>
+
+  <section class="editor">
+    <div class="upload-zone" id="drop" tabindex="0" role="button" aria-label="Upload a photo">
+      <input type="file" id="fileInput" accept="image/jpeg,image/png,image/tiff,image/webp">
+      <div class="upload-placeholder" id="empty">
+        <div class="upload-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="36" height="36" rx="4"/><circle cx="18" cy="18" r="4"/><path d="M6 34 L16 24 L26 34 L36 22 L42 28"/></svg></div>
+        <span class="upload-label">Upload a photo</span>
+        <span class="upload-hint">Drag &amp; drop, paste or click &middot; JPEG, PNG, TIFF or WebP &middot; 1K to 8K, up to 49 MP</span>
+      </div>
+    </div>
+
+    <div class="toolbar" id="toolbar" hidden>
+      <button class="tool" id="brushBtn" type="button" aria-pressed="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18.4 2.6a2 2 0 0 1 2.9 2.9L12 14.8 9.2 12z"/><path d="M9 14c-2 0-4 1.5-4 4 0 1-.5 2-2 2 1 1.5 3 2 5 2 3 0 5-2 5-4.5"/></svg>
+        Brush an area <span style="opacity:.6">(optional)</span></button>
+      <button class="tool" id="eraseBtn" type="button" aria-pressed="false" hidden>Erase</button>
+      <label class="size" id="sizeWrap" hidden>Size <input type="range" id="size" min="1" max="12" value="4"></label>
+      <button class="tool" id="clearBtn" type="button" hidden>Clear</button>
+      <button class="tool" id="replaceBtn" type="button">Another photo</button>
+    </div>
+    <p class="brush-hint" id="brushHint"></p>
+
+    <div class="prompt-box">
+      <textarea id="prompt" rows="1" maxlength="2000" placeholder="Describe the change…"></textarea>
+      <button class="btn-generate" id="go" disabled><span id="goLabel">Edit</span></button>
+    </div>
+    <div class="examples" id="examples">
+      <button type="button">Remove the person on the right</button>
+      <button type="button">Remove the people in the background</button>
+      <button type="button">Change his T-shirt to a navy suit jacket with a white shirt</button>
+      <button type="button">Remove the braces from her teeth</button>
+      <button type="button">Remove the glare on the glasses</button>
+      <button type="button">Make the gray sky blue</button>
+    </div>
+    <p class="action-hint" id="hint" style="text-align:center">Upload a photo to start.</p>
+    <div class="error-box" id="errorBox" hidden></div>
+  </section>
+
+  <section class="v5-progress-section" id="progress" hidden>
+    <div class="v5-progress-card">
+      <div class="v5-progress-bar-wrap"><div class="v5-progress-bar" id="bar"></div></div>
+      <div class="v5-progress-meta"><span class="desc" id="progDesc">Starting…</span><span id="progTime">0 s</span></div>
+    </div>
+  </section>
+
+  <section class="result-section" id="resultSection" hidden>
+    <div class="result-card">
+      <div class="result-header">
+        <h2>Result</h2>
+        <div class="result-actions">
+          <span class="result-time" id="meta"></span>
+          <button class="btn-ghost" id="again" type="button">Try another version</button>
+          <button class="btn-ghost" id="useResult" type="button" title="Edit this result further">Keep editing this</button>
+          <a class="btn-download" id="download" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download full resolution
+          </a>
+        </div>
+      </div>
+      <div class="info-notice wm-note" id="wmResult" hidden>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        <span>This free result carries a watermark. <a id="wmLink2" href="/credits">Buy credits</a> and edit again for a clean image.</span>
+      </div>
+      <div class="stage" id="stage"></div>
+    </div>
+  </section>
+
+  <section class="result-section recent-section" id="recent" hidden>
+    <div class="result-card">
+      <div class="result-header">
+        <h2>Your recent edits</h2>
+        <a class="recent-all" href="/my-images">All in My images</a>
+      </div>
+      <p class="recent-note">From the last 24 hours. Pick one to compare it with the original, or download it.</p>
+      <div class="recent-grid" id="recentGrid"></div>
+    </div>
+  </section>
+</main>
 
 
 <section class="showcase" id="showcase">
@@ -228,97 +314,6 @@ main { max-width: 960px; }
   <p class="credit">Sample photos from Unsplash. Each edit was made by SpotEdit with the request shown.</p>
 </section>
 
-<main id="editor">
-  <div class="sec-head"><h2>Edit your photo</h2><p>Upload, describe the change, done. Any size from 1K to 8K, up to 49 MP.</p>
-    <ul class="price-row" aria-label="Price per edit">
-      <li><b>40</b> credits &middot; up to 12 MP</li>
-      <li><b>50</b> credits &middot; up to 24 MP</li>
-      <li><b>60</b> credits &middot; up to 49 MP</li>
-      <li id="balanceRow" hidden>Your balance: <b id="balance"></b></li>
-      <li><a href="/my-images">My images</a></li>
-    </ul></div>
-  <div class="info-notice" id="wmNotice" hidden>
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
-    <span>Free version: results carry a <strong>NanoPocket.ai</strong> watermark. <a id="wmLink" href="/credits">Buy credits</a> once and every result is watermark-free.</span>
-  </div>
-
-  <section class="editor">
-    <div class="upload-zone" id="drop" tabindex="0" role="button" aria-label="Upload a photo">
-      <input type="file" id="fileInput" accept="image/jpeg,image/png,image/tiff,image/webp">
-      <div class="upload-placeholder" id="empty">
-        <div class="upload-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="36" height="36" rx="4"/><circle cx="18" cy="18" r="4"/><path d="M6 34 L16 24 L26 34 L36 22 L42 28"/></svg></div>
-        <span class="upload-label">Upload a photo</span>
-        <span class="upload-hint">Drag &amp; drop, paste or click &middot; JPEG, PNG, TIFF or WebP &middot; 1K to 8K, up to 49 MP</span>
-      </div>
-    </div>
-
-    <div class="toolbar" id="toolbar" hidden>
-      <button class="tool" id="brushBtn" type="button" aria-pressed="false">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18.4 2.6a2 2 0 0 1 2.9 2.9L12 14.8 9.2 12z"/><path d="M9 14c-2 0-4 1.5-4 4 0 1-.5 2-2 2 1 1.5 3 2 5 2 3 0 5-2 5-4.5"/></svg>
-        Brush an area <span style="opacity:.6">(optional)</span></button>
-      <button class="tool" id="eraseBtn" type="button" aria-pressed="false" hidden>Erase</button>
-      <label class="size" id="sizeWrap" hidden>Size <input type="range" id="size" min="1" max="12" value="4"></label>
-      <button class="tool" id="clearBtn" type="button" hidden>Clear</button>
-      <button class="tool" id="replaceBtn" type="button">Another photo</button>
-    </div>
-    <p class="brush-hint" id="brushHint"></p>
-
-    <div class="prompt-box">
-      <textarea id="prompt" rows="1" maxlength="2000" placeholder="Describe the change…"></textarea>
-      <button class="btn-generate" id="go" disabled><span id="goLabel">Edit</span></button>
-    </div>
-    <div class="examples" id="examples">
-      <button type="button">Remove the person on the right</button>
-      <button type="button">Remove the people in the background</button>
-      <button type="button">Change his T-shirt to a navy suit jacket with a white shirt</button>
-      <button type="button">Remove the braces from her teeth</button>
-      <button type="button">Remove the glare on the glasses</button>
-      <button type="button">Make the gray sky blue</button>
-    </div>
-    <p class="action-hint" id="hint" style="text-align:center">Upload a photo to start.</p>
-    <div class="error-box" id="errorBox" hidden></div>
-  </section>
-
-  <section class="v5-progress-section" id="progress" hidden>
-    <div class="v5-progress-card">
-      <div class="v5-progress-bar-wrap"><div class="v5-progress-bar" id="bar"></div></div>
-      <div class="v5-progress-meta"><span class="desc" id="progDesc">Starting…</span><span id="progTime">0 s</span></div>
-    </div>
-  </section>
-
-  <section class="result-section" id="resultSection" hidden>
-    <div class="result-card">
-      <div class="result-header">
-        <h2>Result</h2>
-        <div class="result-actions">
-          <span class="result-time" id="meta"></span>
-          <button class="btn-ghost" id="again" type="button">Try another version</button>
-          <button class="btn-ghost" id="useResult" type="button" title="Edit this result further">Keep editing this</button>
-          <a class="btn-download" id="download" download>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download full resolution
-          </a>
-        </div>
-      </div>
-      <div class="info-notice wm-note" id="wmResult" hidden>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
-        <span>This free result carries a watermark. <a id="wmLink2" href="/credits">Buy credits</a> and edit again for a clean image.</span>
-      </div>
-      <div class="stage" id="stage"></div>
-    </div>
-  </section>
-
-  <section class="result-section recent-section" id="recent" hidden>
-    <div class="result-card">
-      <div class="result-header">
-        <h2>Your recent edits</h2>
-        <a class="recent-all" href="/my-images">All in My images</a>
-      </div>
-      <p class="recent-note">From the last 24 hours. Pick one to compare it with the original, or download it.</p>
-      <div class="recent-grid" id="recentGrid"></div>
-    </div>
-  </section>
-</main>
 
 <a class="float-edit" id="floatEdit" href="#editor" hidden>Edit your photo</a>
 
