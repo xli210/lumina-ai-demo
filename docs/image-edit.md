@@ -77,6 +77,10 @@ unmarked is failed and refunded (`toEditJob`).
   read, or before the expiry sweep (`settleStaleEdits`): charged if the file
   was made, returned if not. RunPod forgets a job about 30 minutes after it ends, so later
   readings use the file in R2.
+- A made edit is shown in its "My images" row itself, original and result under one slider,
+  with a download link, as "My videos" does, so seeing it does not depend on the editor, whose
+  page also follows an edit still being made. Opening an older edit with `?job=` leaves the
+  editor's memory of the edit being made alone.
 - Starting a GPU from `/warm` needs a signed-in account that can pay for an edit; the
   gateway allows it once a minute overall and six times an hour per person.
 

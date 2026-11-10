@@ -9,6 +9,7 @@ import { imageLink, imagesOf, MY_IMAGES_HOURS, type MyImage } from "@/lib/my-ima
 import { createClient } from "@/lib/supabase/server";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
+import { SpotEditResultView } from "./spotedit-result";
 
 /**
  * /my-images: the signed-in person's pictures of the last day from Nano FaceStudio Online, Nano HeadSwap Pro and SpotEdit.
@@ -108,9 +109,28 @@ export default async function MyImagesPage() {
                   </div>
                   <div className="mt-0.5 text-sm text-muted-foreground">{describe(i)}</div>
                 </div>
-                <a href={imageLink(i)} className={buttonVariants({ size: "sm" })}>
-                  {t("open")}
-                </a>
+                {i.edit ? (
+                  <div className="flex gap-2">
+                    <a href={i.edit.download} className={buttonVariants({ size: "sm" })}>
+                      {t("download")}
+                    </a>
+                    <a href={imageLink(i)} className={buttonVariants({ size: "sm", variant: "outline" })}>
+                      {t("openEditor")}
+                    </a>
+                  </div>
+                ) : (
+                  <a href={imageLink(i)} className={buttonVariants({ size: "sm" })}>
+                    {t("open")}
+                  </a>
+                )}
+                {i.edit ? (
+                  <div className="w-full">
+                    <SpotEditResultView
+                      edit={i.edit}
+                      labels={{ before: t("before"), after: t("after"), compare: t("compare") }}
+                    />
+                  </div>
+                ) : null}
               </li>
             ))}
           </ul>

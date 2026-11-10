@@ -760,7 +760,13 @@ $("useResult").onclick = async () => {
 const LAST_KEY = "nanopocket_spotedit_last";
 const ID_RE = /^[A-Za-z0-9-]{8,80}$/;
 function rememberJob(job) { try { localStorage.setItem(LAST_KEY, JSON.stringify({ job, at: Date.now() })); } catch (e) {} }
-function forgetJob() { try { localStorage.removeItem(LAST_KEY); } catch (e) {} }
+// With a job, only if it is the one remembered: opening an older edit from "My images" must not lose one still being made.
+function forgetJob(job) {
+  try {
+    if (job && (JSON.parse(localStorage.getItem(LAST_KEY) || "null") || {}).job !== job) return;
+    localStorage.removeItem(LAST_KEY);
+  } catch (e) {}
+}
 function jobToRecover() {
   try {
     const j = new URLSearchParams(location.search).get("job");
@@ -778,15 +784,15 @@ async function recoverJob(tries = 0) {
   let j;
   try { j = await api(`/api/imageedit/jobs/${job}`); }
   catch (e) {
-    if (e.status === 404) forgetJob();                                           // not this account's
+    if (e.status === 404) forgetJob(job);                                        // not this account's
     else if ((e.status === 0 || e.status >= 500) && tries < 20) setTimeout(() => recoverJob(tries + 1), 3000);   // the gateway may be waking up
     return;
   }
   if (S.job || S.file || !j || !j.status) return;                                // the person has already started something else
   S.recovered = true; S.t0 = Date.now();
-  if (j.status === "done") { S.last = j; forgetJob(); showBalance(j.available); update(); renderResult(j); return; }
+  if (j.status === "done") { S.last = j; forgetJob(job); showBalance(j.available); update(); renderResult(j); return; }
   if (j.status === "error") {
-    forgetJob(); showBalance(j.available); update(); showError(j.error || "Something went wrong.");
+    forgetJob(job); showBalance(j.available); update(); showError(j.error || "Something went wrong.");
     $("errorBox").scrollIntoView({ behavior: "smooth", block: "center" });
     return;
   }

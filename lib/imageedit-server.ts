@@ -348,7 +348,7 @@ export interface EditReading {
 }
 
 /** The finished file in storage. The worker files it under the UTC day it was written, which can be the day after the edit began. */
-async function storedResultKey(hold: CreditHoldRecord): Promise<string | null> {
+export async function storedResultKey(hold: CreditHoldRecord): Promise<string | null> {
   const began = new Date(hold.created_at).getTime();
   for (const t of [began, began + 24 * 3600 * 1000]) {
     const day = new Date(t).toISOString().slice(0, 10).replace(/-/g, "");
