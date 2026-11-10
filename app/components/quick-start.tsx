@@ -9,6 +9,7 @@ import { trackEvent } from "@/lib/analytics";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACESTUDIO_V_LAUNCH, FACESTUDIO_V_NAME } from "@/lib/facestudio-v";
 import { HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
+import { IMAGEEDIT_NAME } from "@/lib/imageedit";
 
 /**
  * The quick way into every tool, bottom right, for everyone. For signed-in visitors it opens by itself
@@ -16,9 +17,9 @@ import { HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
  * "Tools" button until they tap it. Closed, it stays as that button, so on a phone the tools are
  * always one tap away without the panel covering the page each time.
  *
- * Signed-out visitors are asked to sign up first: the two new tools need an account, so their links go
+ * Signed-out visitors are asked to sign up first: the new tools need an account, so their links go
  * through sign-up and come back to the tool. The older tools' links go to their pages, which are open
- * to everyone. Only the two new tools carry the New badge.
+ * to everyone. Only the new tools and models carry a badge; when a tool gets a new model, its line says so.
  *
  * The session is read in the browser, so every page's HTML stays the same for everyone.
  */
@@ -43,12 +44,21 @@ const NEW_TOOLS = [
     href: FACESTUDIO_V_LAUNCH,
     icon: Video,
     name: FACESTUDIO_V_NAME,
-    what: "Swap one face in a video, the rest as filmed.",
+    badge: "New model",
+    what: "New: Headswap Fast, the whole head in a video, faster and for fewer credits.",
+  },
+  {
+    href: "/image-edit/launch",
+    icon: Wand2,
+    name: IMAGEEDIT_NAME,
+    badge: "New",
+    what: "Retouch at full resolution; only the spot you name changes.",
   },
   {
     href: "/headswap-pro/index.html",
     icon: UserRoundCog,
     name: HEADSWAP_PRO_NAME,
+    badge: "New",
     what: "Put any head in any photo, group photos too.",
   },
 ];
@@ -56,7 +66,6 @@ const NEW_TOOLS = [
 // Same labels as the menu (mobile-nav.tsx).
 const MORE_TOOLS = [
   { href: "/face-swap", icon: ScanFace, label: "Photo Face Swap" },
-  { href: "/image-edit", icon: Wand2, label: "SpotEdit" },
   { href: "/download", icon: Download, label: "Desktop apps" },
 ];
 
@@ -146,7 +155,7 @@ export function QuickStart() {
         <LayoutGrid className="h-4 w-4 text-sky-200" />
         Tools
         <span className="rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide">
-          2 new
+          {NEW_TOOLS.length} new
         </span>
       </button>
     );
@@ -171,7 +180,7 @@ export function QuickStart() {
         <Sparkles className="h-3.5 w-3.5" />
         New
       </p>
-      <p className="pr-6 text-sm font-semibold">Two new tools, paid in credits</p>
+      <p className="pr-6 text-sm font-semibold">New tools and models, paid in credits</p>
       {!signedIn && (
         <Link
           href={signUpFor(pathname)}
@@ -185,7 +194,7 @@ export function QuickStart() {
         </Link>
       )}
       <ul className="mt-3 space-y-2">
-        {NEW_TOOLS.map(({ href, icon: Icon, name, what }) => (
+        {NEW_TOOLS.map(({ href, icon: Icon, name, badge, what }) => (
           <li key={href}>
             <Link
               href={signedIn ? href : signUpFor(href)}
@@ -197,7 +206,7 @@ export function QuickStart() {
                 <span className="flex items-center gap-1.5 text-sm font-medium">
                   <span className="truncate">{name}</span>
                   <span className="shrink-0 rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide">
-                    New
+                    {badge}
                   </span>
                 </span>
                 <span className="block text-xs text-white/70">{what}</span>
