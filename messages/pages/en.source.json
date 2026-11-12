@@ -1374,6 +1374,27 @@
     "Face swap in a photo · from {n} credits",
     "Edit a photo by describing it · {n} credits",
     "Also with your {n} credits:",
-    "See all tools"
+    "See all tools",
+    "How was this result?",
+    "👍 Good",
+    "👎 Not good",
+    "What went wrong? Pick any.",
+    "Anything we could do better? Pick any.",
+    "Doesn't look like the person",
+    "Looks fake or unnatural",
+    "Glitches, blur or seams",
+    "Flickers or jumps",
+    "Didn't do what I asked",
+    "The watermark",
+    "Too short",
+    "Took too long",
+    "Costs too many credits",
+    "Just trying it out",
+    "Nothing, it's great",
+    "Anything else? (optional)",
+    "Send",
+    "Thanks! We read every answer.",
+    "Could not send. Try again.",
+    "Thanks for rating this result."
   ]
 }

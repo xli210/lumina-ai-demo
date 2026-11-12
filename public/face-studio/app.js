@@ -1223,6 +1223,17 @@
         `You have ${creditsAvailable.toLocaleString("en-US")} credits, enough for a short clip in Fast mode. `;
     }
     if (window.npNextTools) window.npNextTools(document.getElementById("next-tools"), "face", ["video"]);
+    if (window.npResultFeedback) {
+      window.npResultFeedback(document.getElementById("result-rating"), {
+        service: "facestudio",
+        job: jobId,
+        kind: "photo",
+        watermark: watermarked === true,
+        detail: { seconds: Math.round(elapsed || 0) },
+        // The vendor still gets its like / dislike, as from the old bar.
+        onRate: (r) => sendFeedback(r === "good" ? "up" : "down"),
+      });
+    }
     resultSection.hidden = false;
     progressBar.style.width = "100%";
     resetFeedback();

@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <script src="/i18n/tools.js?v=3"></script>
+<script src="/result-feedback.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nanopocket SpotEdit</title>
 <link rel="icon" href="/image-edit/logo.png">
@@ -167,6 +168,7 @@ main { max-width: 960px; }
         <span>This free result carries a watermark. <a id="wmLink2" href="/credits">Buy credits</a> and edit again for a clean image.</span>
       </div>
       <div class="stage" id="stage"></div>
+      <div id="resultRating" hidden></div>
     </div>
   </section>
 
@@ -571,7 +573,7 @@ async function poll() {
       : j.phase === "Editing" && j.steps ? 0.06 + 0.6 * j.step / j.steps : 0.05;
     showProgress(fin ? "Finalizing…" : "Editing…", f);
   } else if (j.status === "done") {
-    S.job = null; S.last = j; forgetJob(); showBalance(j.available); update(); hideProgress(); renderResult(j); loadRecent(); return;
+    S.lastJob = S.job; S.job = null; S.last = j; forgetJob(); showBalance(j.available); update(); hideProgress(); renderResult(j); loadRecent(); return;
   } else if (j.status === "error") {
     S.job = null; forgetJob(); showBalance(j.available); update(); hideProgress(); showError(j.error || "Something went wrong."); return;
   }
@@ -612,6 +614,10 @@ function renderResult(j) {
   $("useResult").hidden = !!j.watermarked || (j.listed && !j.result_key);
   $("meta").innerHTML = `${S.recovered || j.listed ?"<span>Your earlier edit</span>" : Math.round((Date.now() - S.t0) / 1000) + " s"} · ${j.width} × ${j.height} px`;
   $("resultSection").scrollIntoView({ behavior: "smooth", block: "start" });
+  // "How was this result?", stored against this edit's job (public/result-feedback.js)
+  const job = j.listed ? j.id : S.lastJob;
+  if (window.npResultFeedback && job) window.npResultFeedback($("resultRating"), { service: "imageedit", job, kind: "edit", watermark: !!j.watermarked, detail: { width: j.width, height: j.height } });
+  else $("resultRating").hidden = true;
 }
 
 function drawViewer(j) {
@@ -806,7 +812,7 @@ async function recoverJob(tries = 0) {
   }
   if (S.job || S.file || !j || !j.status) return;                                // the person has already started something else
   S.recovered = true; S.t0 = Date.now();
-  if (j.status === "done") { S.last = j; forgetJob(job); showBalance(j.available); update(); renderResult(j); return; }
+  if (j.status === "done") { S.lastJob = job; S.last = j; forgetJob(job); showBalance(j.available); update(); renderResult(j); return; }
   if (j.status === "error") {
     forgetJob(job); showBalance(j.available); update(); showError(j.error || "Something went wrong.");
     $("errorBox").scrollIntoView({ behavior: "smooth", block: "center" });

@@ -318,6 +318,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg>
         <span>Now try it on a video. <span id="videoNudgeCredits"></span>Video FaceSwap 2.5 Online swaps a face or the whole head in a clip, and shows the price before it starts. <a href="/facestudio-v/launch" target="_blank" rel="noopener" onclick="window.gtag&&gtag('event','video_nudge_click',{from:'headswap'})">Try a video</a></span>
       </div>
+      <div id="resultRating" hidden></div>
       <div id="nextTools" hidden></div>
       <div class="stage" id="stage"></div>
       <div class="thumbs" id="thumbs"></div>
@@ -349,6 +350,11 @@ function updateVideoNudge() {
   $("videoNudge").hidden = !ok;
   if (ok) $("videoNudgeCredits").textContent = `You have ${S.available} credits, enough for a short clip in Fast mode. `;
   if (S.done && window.npNextTools) window.npNextTools($("nextTools"), "head", ["video"]);
+}
+// "How was this result?", stored against this swap's job (public/result-feedback.js)
+function rateResult(j) {
+  if (!window.npResultFeedback || !S.lastJob) return;
+  window.npResultFeedback($("resultRating"), { service: "headswap-pro", job: S.lastJob, kind: "photo", watermark: !!j.watermarked, detail: { variations: j.n || 1 } });
 }
 if (window.HS_PRICING_URL) { $("wmLink").href = window.HS_PRICING_URL; $("wmLink2").href = window.HS_PRICING_URL; }
 
@@ -623,7 +629,7 @@ $("go").onclick = async () => {
     const fd = new FormData();
     fd.append("photo_id", S.photo.id); fd.append("face", S.face); fd.append("variations", S.n); fd.append("head_key", S.headKey);
     const { job } = await apiRetry("/api/swap", { method: "POST", body: fd, headers: { "X-HS-Ticket": hold.ticket } });
-    S.job = job; update();
+    S.job = job; S.lastJob = job; update();
     rememberJob(job, hold.hold_id, S.photo.faces.length);
     // tie the reservation to the job; without it the swap could not be charged, so try hard
     for (let i = 0; i < 4; i++) {
@@ -666,14 +672,14 @@ async function recoverJob() {
   try { j = await api(`/api/job/${rec.job}`); } catch (e) { return; }              // not known any more (or no network): the page starts as an empty one
   if (!j || typeof j !== "object" || !j.status) return;
   S.photo = { faces: new Array(rec.faces).fill(0), id: null };                  // all poll() and update() read of the photo
-  S.t0 = Date.now(); S.done = false; S.hold = rec.hold;
+  S.t0 = Date.now(); S.done = false; S.hold = rec.hold; S.lastJob = rec.job;
   if (j.status === "done") {
     S.results = j.results || []; S.before = j.before;
     if (S.hold) { settle(S.hold); S.hold = null; }
     if (!S.results.length) { S.photo = null; return; }
     renderResult(0); renderThumbs();
     $("wmResult").hidden = !j.watermarked;
-    S.done = true; updateVideoNudge();
+    S.done = true; updateVideoNudge(); rateResult(j);
     $("meta").textContent = `Your earlier swap · ${S.results[0].size[0]} × ${S.results[0].size[1]} px` + (j.n > 1 ? ` · ${j.n} variations` : "");
     update();
     return;
@@ -722,7 +728,7 @@ async function poll() {
     S.job = null; update(); hideProgress();
     renderResult(S.sel ?? 0); renderThumbs();
     $("wmResult").hidden = !j.watermarked;
-    S.done = true; updateVideoNudge();
+    S.done = true; updateVideoNudge(); rateResult(j);
     $("meta").textContent = `${Math.round((Date.now() - S.t0) / 1000)} s · ${S.results[0].size[0]} × ${S.results[0].size[1]} px` +
       (j.n > 1 ? ` · ${j.n} variations` : "");
     return;
@@ -804,5 +810,6 @@ recoverJob();
 </script>
 <script src="/invite-button.js" defer></script>
 <script src="/next-tools.js" defer></script>
+<script src="/result-feedback.js" defer></script>
 </body>
 </html>
