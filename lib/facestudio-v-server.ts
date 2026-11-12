@@ -42,10 +42,15 @@ export type { StudioBilling, StudioJob };
 export const FSV_HOLD_TTL_SECONDS = 3 * 60 * 60;
 /**
  * Videos one account can have reserved (in line or rendering) at once. The studio holds each account to its own
- * limits (an account with credits 2 rendering + 3 waiting, a free one 1 + 1, counted by the account in the
- * entitlement); this is the larger of the two, so it never refuses what the studio would take.
+ * limits (a free one 1 rendering + 1 waiting; one with credits 2 + STUDIO_PAID_WAITING), counted by the account in
+ * the entitlement. These are at least the studio's, so the site never refuses what the studio would take: an account
+ * that has bought credits may put a batch of videos in line instead of being turned away.
  */
 export const FSV_MAX_OPEN = 5;
+export const FSV_MAX_OPEN_PAID = 12;
+export function fsvMaxOpen(paid: boolean): number {
+  return paid ? FSV_MAX_OPEN_PAID : FSV_MAX_OPEN;
+}
 /** Largest price one hold may ask for. The studio's own caps keep real prices far below it. */
 export const FSV_MAX_CREDITS = 2000;
 

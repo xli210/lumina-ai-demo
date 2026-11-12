@@ -4,7 +4,7 @@ import { provisionCredits } from "@/lib/facestudio-gate";
 import {
   FSV_HOLD_TTL_SECONDS,
   FSV_MAX_CREDITS,
-  FSV_MAX_OPEN,
+  fsvMaxOpen,
   reconcileOpenHolds,
   settleStaleHolds,
 } from "@/lib/facestudio-v-server";
@@ -53,8 +53,15 @@ export async function POST(request: Request) {
     await releaseExpiredHolds(20).catch(() => 0);
     await provisionCredits(auth.userId);
 
+    // An account that has bought credits may have more videos in line; a failed lookup keeps the free limit.
+    let paid = false;
+    try {
+      paid = await hasEverPurchased(auth.userId);
+    } catch (err: unknown) {
+      console.error("[facestudio-v] purchase lookup for the cap failed:", err instanceof Error ? err.message : err);
+    }
     const open = await countOpenHolds(FACESTUDIO_V_SERVICE, auth.userId);
-    if (open >= FSV_MAX_OPEN) {
+    if (open >= fsvMaxOpen(paid)) {
       return reply(
         request,
         { error: "You already have videos in line. Wait for them to finish first.", reason: "too_many_open" },
