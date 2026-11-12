@@ -36,6 +36,9 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // Addresses Google found linked from outside the site (Search Console 404s, 2026-11-11).
+      { source: "/faq", destination: "/#faq", permanent: true },
+      { source: "/face-swap-video", destination: "/facestudio-v", permanent: true },
       // SpotEdit is built to change one spot: colourising and restoring old photos did not work in our tests.
       { source: "/blog/restore-and-colorize-old-photos-with-ai", destination: "/image-edit", permanent: true },
       { source: "/use-cases/old-family-photos", destination: "/use-cases", permanent: true },
