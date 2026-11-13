@@ -25,6 +25,8 @@ export interface HoldRow {
   status: "open" | "captured" | "released" | "expired" | string;
   amount: number;
   estimate: Record<string, unknown> | null;
+  /** The job at the GPU side (HeadSwap Pro: the gateway's job id, which says where it ran). */
+  job_ref?: string | null;
   created_at: string;
 }
 
@@ -161,11 +163,19 @@ export function summarise(rows: HoldRow[]): Group[] {
   return out;
 }
 
-const VENDOR_LABELS: Record<string, string> = { own: "RTX 5090", cloud: "RunPod" };
+// "own" is the lab's GPU: the RTX 5090 (cs-300036-d) until 2026-11-11, two RTX 4090s (server-black) since 2026-11-13.
+const VENDOR_LABELS: Record<string, string> = { own: "Lab GPU", cloud: "RunPod" };
 const NO_VENDOR = "Vendor not recorded";
+/** A HeadSwap Pro job taken by the lab worker has a gateway id starting with this (headswap-gateway/remote_queue.py ID_MARK); RunPod's never do. */
+const LAB_JOB_MARK = "q-";
 
-/** Who ended up rendering a video (the studio says when the hold is settled). Older holds, and ones the sweeper freed, have no vendor. */
-export function vendorOf(h: Pick<HoldRow, "service" | "estimate">): string {
+/** Who rendered: a video, as the studio says when the hold is settled; a HeadSwap Pro swap, from its gateway job id (a lab job that moved
+ *  to RunPod keeps its lab id, so it counts for the lab). Older holds, and ones the sweeper freed, have no vendor. */
+export function vendorOf(h: Pick<HoldRow, "service" | "estimate" | "job_ref">): string {
+  if (h.service === "headswap-pro") {
+    const j = h.job_ref;
+    return typeof j === "string" && j ? (j.startsWith(LAB_JOB_MARK) ? VENDOR_LABELS.own : VENDOR_LABELS.cloud) : NO_VENDOR;
+  }
   if (h.service !== "facestudio-v") return "-";
   const v = h.estimate?.vendor;
   return typeof v === "string" ? VENDOR_LABELS[v] ?? v : NO_VENDOR;
@@ -173,15 +183,15 @@ export function vendorOf(h: Pick<HoldRow, "service" | "estimate">): string {
 
 export interface VendorSummary {
   groups: Group[];
-  /** Started on the 5090, which could not do them, and finished by RunPod: delivered, so they count for RunPod, but each is a fault of the 5090's. */
+  /** Video only: started on the lab GPU, which could not do them, and finished by RunPod: delivered, so they count for RunPod, but each is a fault of the lab GPU's. */
   ownToCloud: number;
-  /** Stuck in RunPod's queue and moved to the 5090. */
+  /** Video only: stuck in RunPod's queue and moved to the lab GPU. */
   cloudToOwn: number;
 }
 
-/** Video FaceSwap only: one row per vendor, and one per mode inside it. A video counts for the vendor that finished it. */
-export function summariseVendors(rows: HoldRow[]): VendorSummary {
-  const video = rows.filter((h) => h.service === "facestudio-v");
+/** One service (Video FaceSwap by default, or HeadSwap Pro): one row per vendor, and one per mode inside it. A render counts for the vendor that finished it. */
+export function summariseVendors(rows: HoldRow[], service = "facestudio-v"): VendorSummary {
+  const video = rows.filter((h) => h.service === service);
   const groups: Group[] = [];
   for (const vendor of [VENDOR_LABELS.own, VENDOR_LABELS.cloud, NO_VENDOR]) {
     const mine = video.filter((h) => vendorOf(h) === vendor);
