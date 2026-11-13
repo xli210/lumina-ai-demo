@@ -186,36 +186,6 @@ function Failures({ rows }: { rows: HoldRow[] }) {
   );
 }
 
-/** One row per GPU vendor, and one per mode inside it. */
-function VendorTable({ groups, empty }: { groups: Group[]; empty: string }) {
-  const th = "px-4 py-3 text-right font-semibold text-foreground";
-  if (groups.length === 0) return <p className="text-sm text-muted-foreground">{empty}</p>;
-  return (
-    <div className="glass overflow-x-auto rounded-2xl">
-      <table className="w-full min-w-[820px] text-sm">
-        <thead>
-          <tr className="border-b border-border text-left">
-            <th className="px-4 py-3 font-semibold text-foreground">Vendor / mode</th>
-            <th className={th}>Renders</th>
-            <th className={th}>Delivered</th>
-            <th className={th}>Failed</th>
-            <th className={th}>Cancelled</th>
-            <th className={th}>Expired</th>
-            <th className={th}>Running</th>
-            <th className={th}>Success</th>
-            <th className={th}>Error</th>
-          </tr>
-        </thead>
-        <tbody>
-          {groups.map((g) => (
-            <Row key={`${g.service}-${g.mode ?? "total"}`} g={g} />
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
 function Reasons({ groups }: { groups: Group[] }) {
   const totals: Tally["reasons"] = {};
   for (const g of groups) {
@@ -273,17 +243,7 @@ export default async function ReliabilityPage({ searchParams }: { searchParams: 
   const backends = await backendsP;
 
   const groups = summarise(rows);
-  const noVendors = { groups: [] as Group[], ownToCloud: 0, cloudToOwn: 0 };
-  let vendors = noVendors;
-  let headswapVendors = noVendors;
-  let vendorsFailed: string | null = null;
-  try {
-    vendors = summariseVendors(rows);
-    headswapVendors = summariseVendors(rows, "headswap-pro");
-  } catch (err: unknown) {
-    vendorsFailed = err instanceof Error ? err.message : "Unknown error";
-    console.error("[admin/reliability] vendor tables failed:", vendorsFailed);
-  }
+  const vendors = summariseVendors(rows);
   const overall = groups.filter((g) => g.mode === null);
   const sum = overall.reduce(
     (a, g) => ({ total: a.total + g.tally.total, success: a.success + g.tally.success, fail: a.fail + g.tally.system_failure }),
@@ -291,6 +251,7 @@ export default async function ReliabilityPage({ searchParams }: { searchParams: 
   );
   const overallRate = sum.success + sum.fail === 0 ? null : sum.success / (sum.success + sum.fail);
 
+  const th = "px-4 py-3 text-right font-semibold text-foreground";
   return (
     <main className="relative min-h-screen">
       <Navbar />
@@ -386,16 +347,34 @@ export default async function ReliabilityPage({ searchParams }: { searchParams: 
 
             <h2 className="mb-1 mt-10 text-xl font-bold text-foreground">Video FaceSwap by GPU vendor</h2>
             <p className="mb-4 text-sm text-muted-foreground">
-              A video counts for the vendor that finished it. The lab GPU was the RTX 5090 until 2026-11-11 and is an RTX 4090 since 2026-11-13. Handed from the lab GPU to RunPod: <span className={vendors.ownToCloud > 0 ? "font-semibold text-rose-500" : "text-foreground"}>{vendors.ownToCloud}</span> (delivered, so not failures above, but each is a fault of the lab GPU&apos;s). Moved from RunPod&apos;s queue to the lab GPU: <span className="text-foreground">{vendors.cloudToOwn}</span>.
+              A video counts for the vendor that finished it. Handed from the RTX 5090 to RunPod: <span className={vendors.ownToCloud > 0 ? "font-semibold text-rose-500" : "text-foreground"}>{vendors.ownToCloud}</span> (delivered, so not failures above, but each is a fault of the 5090&apos;s). Moved from RunPod&apos;s queue to the RTX 5090: <span className="text-foreground">{vendors.cloudToOwn}</span>.
             </p>
-            {vendorsFailed !== null && <p className="mb-2 text-sm text-amber-500">Vendor tables could not be worked out: {vendorsFailed}</p>}
-            <VendorTable groups={vendors.groups} empty="No videos in this window." />
-
-            <h2 className="mb-1 mt-10 text-xl font-bold text-foreground">HeadSwap Pro by GPU vendor</h2>
-            <p className="mb-4 text-sm text-muted-foreground">
-              From the gateway&apos;s job id: a swap the lab worker took (RTX 5090 GPU 0 until 2026-11-11, RTX 4090 GPU 1 since 2026-11-13) counts for the lab GPU, even when the lab handed it on to RunPod; the rest went straight to RunPod. A swap that never reached a job has no vendor.
-            </p>
-            <VendorTable groups={headswapVendors.groups} empty="No HeadSwap Pro swaps in this window." />
+            {vendors.groups.length === 0 ? (
+              <p className="text-sm text-muted-foreground">No videos in this window.</p>
+            ) : (
+              <div className="glass overflow-x-auto rounded-2xl">
+                <table className="w-full min-w-[820px] text-sm">
+                  <thead>
+                    <tr className="border-b border-border text-left">
+                      <th className="px-4 py-3 font-semibold text-foreground">Vendor / mode</th>
+                      <th className={th}>Renders</th>
+                      <th className={th}>Delivered</th>
+                      <th className={th}>Failed</th>
+                      <th className={th}>Cancelled</th>
+                      <th className={th}>Expired</th>
+                      <th className={th}>Running</th>
+                      <th className={th}>Success</th>
+                      <th className={th}>Error</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {vendors.groups.map((g) => (
+                      <Row key={`${g.service}-${g.mode ?? "total"}`} g={g} />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
             <h2 className="mb-3 mt-10 text-xl font-bold text-foreground">Why renders failed</h2>
             <Reasons groups={groups} />
