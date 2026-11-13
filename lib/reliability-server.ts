@@ -18,7 +18,7 @@ export async function getHolds(window: WindowKey): Promise<{ rows: HoldRow[]; tr
   for (let from = 0; from < MAX_ROWS; from += PAGE) {
     const { data, error } = await supabase
       .from("credit_holds")
-      .select("id, user_id, service, status, amount, estimate, job_ref, created_at")
+      .select("id, user_id, service, status, amount, estimate, created_at")
       .gte("created_at", since)
       .order("created_at", { ascending: false })
       .range(from, from + PAGE - 1);
