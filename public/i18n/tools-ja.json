@@ -320,6 +320,8 @@
   "You have {n} credits.": "{n} クレジットあります。",
   "Can't reach the server. Check your connection and try again.": "サーバーに接続できません。接続を確認してもう一度お試しください。",
   "Please use a JPEG, PNG or WebP image.": "JPEG、PNG、WebP の画像をお使いください。",
+  "Reading the HEIC photo…": "HEIC 写真を読み込んでいます…",
+  "We could not read this HEIC photo. Please save it as a JPEG and try again.": "この HEIC 写真を読み込めませんでした。JPEG で保存してからもう一度お試しください。",
   "The upload could not reach our storage. Check your connection and try again.": "アップロードがストレージに届きませんでした。接続を確認してもう一度お試しください。",
   "Nano HeadSwap Pro is not open yet. Please check back soon.": "Nano HeadSwap Pro はまだ公開されていません。しばらくしてからご確認ください。",
   "Finding people…": "人物を探しています…",

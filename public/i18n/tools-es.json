@@ -320,6 +320,8 @@
   "You have {n} credits.": "Tienes {n} créditos.",
   "Can't reach the server. Check your connection and try again.": "No se puede conectar con el servidor. Comprueba tu conexión y vuelve a intentarlo.",
   "Please use a JPEG, PNG or WebP image.": "Usa una imagen JPEG, PNG o WebP.",
+  "Reading the HEIC photo…": "Leyendo la foto HEIC…",
+  "We could not read this HEIC photo. Please save it as a JPEG and try again.": "No pudimos leer esta foto HEIC. Guárdala como JPEG e inténtalo de nuevo.",
   "The upload could not reach our storage. Check your connection and try again.": "La subida no pudo llegar a nuestro almacenamiento. Comprueba tu conexión y vuelve a intentarlo.",
   "Nano HeadSwap Pro is not open yet. Please check back soon.": "Nano HeadSwap Pro todavía no está abierto. Vuelve pronto.",
   "Finding people…": "Buscando personas…",

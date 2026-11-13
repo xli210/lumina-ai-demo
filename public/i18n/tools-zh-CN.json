@@ -320,6 +320,8 @@
   "You have {n} credits.": "你有 {n} 积分。",
   "Can't reach the server. Check your connection and try again.": "连不上服务器。请检查网络后重试。",
   "Please use a JPEG, PNG or WebP image.": "请使用 JPEG、PNG 或 WebP 图片。",
+  "Reading the HEIC photo…": "正在读取 HEIC 照片…",
+  "We could not read this HEIC photo. Please save it as a JPEG and try again.": "无法读取这张 HEIC 照片。请将它另存为 JPEG 后再试。",
   "The upload could not reach our storage. Check your connection and try again.": "上传的文件没能到达我们的存储。请检查网络后重试。",
   "Nano HeadSwap Pro is not open yet. Please check back soon.": "Nano HeadSwap Pro 还没有开放,请过段时间再来看看。",
   "Finding people…": "正在查找人物…",

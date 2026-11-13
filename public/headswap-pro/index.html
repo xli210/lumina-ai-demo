@@ -241,7 +241,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
       <div>
         <div class="upload-label-row"><b>Photo</b><span>body, pose and scene</span></div>
         <div class="upload-zone" id="photoDrop" tabindex="0" role="button" aria-label="Upload the photo">
-          <input type="file" id="photoInput" accept="image/*">
+          <input type="file" id="photoInput" accept="image/*,.heic,.heif">
           <div class="upload-placeholder" id="photoEmpty">
             <div class="upload-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="36" height="36" rx="4"/><circle cx="18" cy="18" r="4"/><path d="M6 34 L16 24 L26 34 L36 22 L42 28"/></svg></div>
             <span class="upload-label">Body / Group Photo</span>
@@ -253,7 +253,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
       <div>
         <div class="upload-label-row"><b>New head</b><span>identity and hair</span></div>
         <div class="upload-zone" id="headDrop" tabindex="0" role="button" aria-label="Upload the new head">
-          <input type="file" id="headInput" accept="image/*">
+          <input type="file" id="headInput" accept="image/*,.heic,.heif">
           <div class="upload-placeholder" id="headEmpty">
             <div class="upload-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="24" cy="20" rx="12" ry="14"/><path d="M14 30 c-3 4 -3 10 0 14 h20 c3 -4 3 -10 0 -14"/></svg></div>
             <span class="upload-label">Reference Head</span>
@@ -448,6 +448,41 @@ addEventListener("pagehide", () => {
   if (!S.hold) return;
   try { navigator.sendBeacon("/api/headswap/settle", new Blob([JSON.stringify({ hold_id: S.hold })], { type: "application/json" })); } catch (e) {}
 });
+// iPhones save photos as HEIC, which only Safari can draw and the GPU side does not read: such a photo becomes a JPEG here, before
+// it is uploaded. Safari decodes it itself; other browsers load heic2any (about 2.7 MB) the first time one is picked.
+const HEIC_LIB = "https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js";
+let heicLib = null;
+function isHeic(file) { return /hei[cf]/i.test(file.type) || /\.hei[cf]$/i.test(file.name || ""); }
+function isImage(file) { return file.type.startsWith("image/") || isHeic(file); }
+function loadHeicLib() {
+  return heicLib || (heicLib = new Promise((ok, no) => {
+    const s = document.createElement("script"); s.src = HEIC_LIB; s.async = true;
+    s.onload = () => (window.heic2any ? ok() : no(new Error("heic2any did not load")));
+    s.onerror = () => { heicLib = null; no(new Error("heic2any could not be fetched")); };
+    document.head.appendChild(s);
+  }));
+}
+async function uploadable(file) {
+  if (!isHeic(file)) return file;
+  const name = (file.name || "photo").replace(/\.[^.]*$/, "") + ".jpg";
+  try {
+    const bmp = await createImageBitmap(file);
+    const c = document.createElement("canvas"); c.width = bmp.width; c.height = bmp.height;
+    c.getContext("2d").drawImage(bmp, 0, 0);
+    if (bmp.close) bmp.close();
+    const blob = await new Promise((r) => c.toBlob(r, "image/jpeg", 0.92));
+    if (blob) return new File([blob], name, { type: "image/jpeg" });
+  } catch (e) {}                          // (not Safari: this browser cannot decode HEIC)
+  try {
+    await loadHeicLib();
+    let out = await window.heic2any({ blob: file, toType: "image/jpeg", quality: 0.92 });
+    if (Array.isArray(out)) out = out[0];   // (a burst or live photo: its first picture)
+    return new File([out], name, { type: "image/jpeg" });
+  } catch (e) {
+    report("heic convert", e, { bytes: file.size });
+    throw new ApiError("We could not read this HEIC photo. Please save it as a JPEG and try again.", 400, null);
+  }
+}
 // Files go straight to storage with a one-time link from the gateway, so the server in between never carries the image.
 async function uploadFile(file, kind) {
   const ct = ["image/jpeg", "image/png", "image/webp"].includes(file.type) ? file.type : null;
@@ -493,10 +528,10 @@ function dropzone(el, input, onFile) {
   input.addEventListener("change", () => { if (input.files[0]) onFile(input.files[0]); input.value = ""; });
   ["dragenter", "dragover"].forEach((ev) => el.addEventListener(ev, (e) => { e.preventDefault(); el.classList.add("dragover"); }));
   ["dragleave", "drop"].forEach((ev) => el.addEventListener(ev, (e) => { e.preventDefault(); el.classList.remove("dragover"); }));
-  el.addEventListener("drop", (e) => { const f = e.dataTransfer.files[0]; if (f && f.type.startsWith("image/")) onFile(f); });
+  el.addEventListener("drop", (e) => { const f = e.dataTransfer.files[0]; if (f && isImage(f)) onFile(f); });
 }
 document.addEventListener("paste", (e) => {
-  const f = [...(e.clipboardData?.files || [])].find((x) => x.type.startsWith("image/"));
+  const f = [...(e.clipboardData?.files || [])].find(isImage);
   if (!f) return;
   if (!S.photo) onPhoto(f); else onHead(f);
 });
@@ -515,7 +550,7 @@ async function onPhoto(file) {
   $("photoEmpty").hidden = true;
   const frame = document.createElement("div"); frame.className = "frame";
   frame.innerHTML = `<img alt="Uploaded photo">`;
-  frame.querySelector("img").src = URL.createObjectURL(file);
+  if (!isHeic(file)) frame.querySelector("img").src = URL.createObjectURL(file);
   drop.appendChild(frame);
   const busy = document.createElement("div"); busy.className = "busy";
   busy.innerHTML = `<div><div class="spinner"></div>Finding people…</div>`;
@@ -523,6 +558,12 @@ async function onPhoto(file) {
   setStatus("Finding people…");
   const token = (S.photoToken = {});      // a newer upload makes this one's polling stop
   try {
+    if (isHeic(file)) {
+      setStatus("Reading the HEIC photo…");
+      file = await uploadable(file);
+      if (token !== S.photoToken) return;
+      frame.querySelector("img").src = URL.createObjectURL(file);
+    }
     setStatus("Uploading…");
     const key = await uploadFile(file, "photo");
     if (token !== S.photoToken) return;
@@ -572,8 +613,15 @@ function drawFaces(frame) {
   else setStatus(`<b>${n} people</b> detected · swapping person <b>${S.face + 1}</b>. Click a face to choose someone else.`, "ok");
 }
 
-function onHead(file) {
+async function onHead(file) {
   S.head = file; S.headKey = null; clearError();
+  if (isHeic(file)) {
+    update();
+    const picked = file;
+    try { file = await uploadable(picked); } catch (err) { if (S.head === picked) { S.head = null; update(); showError(err.message); } return; }
+    if (S.head !== picked) return;       // another head was chosen meanwhile
+    S.head = file;
+  }
   uploadFile(file, "head").then((k) => { if (S.head === file) { S.headKey = k; update(); } })
     .catch((err) => { if (S.head === file) { S.head = null; S.headKey = null; $("headDrop").classList.remove("filled"); $("headDrop").querySelectorAll("img,.remove-btn").forEach((n) => n.remove()); $("headEmpty").hidden = false; update(); showError(err.message, err.requestId); } });
   const drop = $("headDrop");

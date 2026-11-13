@@ -1326,6 +1326,8 @@
     "You have {n} credits.",
     "Can't reach the server. Check your connection and try again.",
     "Please use a JPEG, PNG or WebP image.",
+    "Reading the HEIC photo…",
+    "We could not read this HEIC photo. Please save it as a JPEG and try again.",
     "The upload could not reach our storage. Check your connection and try again.",
     "Nano HeadSwap Pro is not open yet. Please check back soon.",
     "Finding people…",
