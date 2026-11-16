@@ -78,6 +78,7 @@ export const TRANSLATED_PAGES: Record<string, readonly AppLocale[]> = {
   "/apps/nano-facialedit": ALL_TRANSLATED,
   "/apps/nano-imagetryon": ALL_TRANSLATED,
   "/pricing": ALL_TRANSLATED,
+  "/head-swap": ["pt-BR"],
 };
 
 /**

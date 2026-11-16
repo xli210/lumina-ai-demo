@@ -204,7 +204,7 @@ export default function VideoHeadSwapPage() {
           <div className="mt-12 rounded-2xl border border-border bg-card p-6 text-sm leading-relaxed text-muted-foreground">
             <p>
               Working with a photo instead? <Link href="/headswap-pro" className="font-medium text-primary hover:underline">{HEADSWAP_PRO_NAME}</Link> is
-              our tool for images. How diffusion differs from a GAN is in{" "}
+              our tool for images, and <Link href="/head-swap" className="font-medium text-primary hover:underline">AI head swap online</Link> compares every head swap we offer, photo and video. How diffusion differs from a GAN is in{" "}
               <Link href="/blog/diffusion-head-swap-vs-gan-face-swap" className="font-medium text-primary hover:underline">Diffusion Head Swap vs GAN Face Swap</Link>,
               and live job figures are on the <Link href="/data/face-swap-stats" className="font-medium text-primary hover:underline">statistics page</Link>.
             </p>

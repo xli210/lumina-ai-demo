@@ -17,6 +17,14 @@ import { FACESTUDIO_V_NAME, FACESTUDIO_V_MIN_CREDITS, FACESTUDIO_V_MODES, FACEST
 import { HEADSWAP_PRO_NAME, HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS } from "@/lib/headswap-pro";
 import { IMAGEEDIT_NAME, IMAGEEDIT_CREDIT_TIERS } from "@/lib/imageedit";
 import { PRODUCTS } from "@/lib/products";
+import {
+  FREE_TIER,
+  FREE_VIDEO_FACE_SWAP_SECONDS,
+  FREE_VIDEO_HEAD_SWAP_BEST_CREDITS,
+  FREE_VIDEO_HEAD_SWAP_FAST_CREDITS,
+  FREE_VIDEO_HEAD_SWAP_SECONDS,
+  VIDEO_OUTPUT_SIZES,
+} from "@/lib/free-tier";
 
 const BASE = "https://nanopocket.ai";
 
@@ -69,6 +77,13 @@ function buildFacts() {
         max_usd_per_30_days: AUTO_RECHARGE_MAX_USD_PER_MONTH,
       },
     },
+    free_tier: {
+      summary: FREE_TIER.en.answer,
+      what_the_sign_up_credits_buy: FREE_TIER.en.rows,
+      shared_balance: FREE_TIER.en.shared,
+      limits: FREE_TIER.en.limits,
+      page: `${BASE}/face-swap#free`,
+    },
     online_tools: [
       {
         name: FACESTUDIO_V_NAME,
@@ -77,6 +92,9 @@ function buildFacts() {
         price: FACESTUDIO_V_PRICE_LINE,
         price_credits_from: FACESTUDIO_V_MIN_CREDITS,
         modes: Object.values(FACESTUDIO_V_MODES),
+        output_sizes: [...VIDEO_OUTPUT_SIZES],
+        output_sizes_note: "Every account, including one that has never topped up, can choose 1080p or 4K; 4K costs twice the credits of 1080p.",
+        max_clip_seconds_account_never_topped_up: FREE_VIDEO_FACE_SWAP_SECONDS,
         head_swap: {
           page: `${BASE}/video-head-swap`,
           model_type: "diffusion",
@@ -84,12 +102,14 @@ function buildFacts() {
           replaces: "face, hair and head shape",
           keeps: "body, clothes, background, other people and the original sound",
           max_clip_seconds: 12,
-          max_clip_seconds_account_never_topped_up: 2,
+          max_clip_seconds_account_never_topped_up: FREE_VIDEO_HEAD_SWAP_SECONDS,
+          credits_for_free_clip_at_1080p: { headswap_fast: FREE_VIDEO_HEAD_SWAP_FAST_CREDITS, headswap_best: FREE_VIDEO_HEAD_SWAP_BEST_CREDITS },
         },
       },
       {
         name: HEADSWAP_PRO_NAME,
         url: `${BASE}/headswap-pro`,
+        head_swap_guide: `${BASE}/head-swap`,
         does: "Swaps a whole head (face, hair and head shape) in a photo, rebuilt in the pose of the head it replaces.",
         model_type: "diffusion",
         price_credits_per_image: HEADSWAP_PRO_CREDITS_PER_IMAGE,

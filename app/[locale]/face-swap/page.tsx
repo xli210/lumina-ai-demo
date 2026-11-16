@@ -22,6 +22,8 @@ import {
   type AppLocale,
 } from "@/lib/i18n/locales";
 import { notFound } from "next/navigation";
+import { FREE_TIER } from "@/lib/free-tier";
+import { FreeTierBlock } from "../../components/free-tier-block";
 
 const BASE_URL = "https://nanopocket.ai";
 const PATH = "/face-swap";
@@ -83,7 +85,8 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
   const t = await getTranslations({ locale, namespace: "FaceSwap" });
 
   const compareRows = t.raw("compare.rows") as CompareRow[];
-  const faqs = t.raw("faq.items") as FaqItem[];
+  // Portuguese is where ChatGPT sent most new accounts in November, so it gets the free-tier answer first.
+  const faqs = locale === "pt-BR" ? [FREE_TIER["pt-BR"].faq, ...(t.raw("faq.items") as FaqItem[])] : (t.raw("faq.items") as FaqItem[]);
   const canonical = `${BASE_URL}/${locale}${PATH}`;
 
   const webPageJsonLd = {
@@ -193,6 +196,8 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {locale === "pt-BR" && <FreeTierBlock lang="pt-BR" />}
 
       {/* The online tools */}
       <section className="px-6 pb-12">
