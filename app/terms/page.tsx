@@ -253,9 +253,10 @@ export default function TermsPage() {
         <Section id="refunds" title="5. Refunds & the right of withdrawal">
           <ul className="list-disc space-y-2 pl-5">
             <li>
-              <strong className="text-foreground">Desktop apps.</strong> Every paid app includes a
-              7-day free trial without a credit card. Because the trial is the evaluation window,
-              app purchases are non-refundable after activation. A purchase that has not been used
+              <strong className="text-foreground">Desktop apps.</strong> Paid apps include a 7-day
+              free trial without a credit card, except Nano FaceStudio Pro, which has no trial: its
+              free online tools at nanopocket.ai/face-swap are the way to try it first. App purchases
+              are non-refundable after activation. A purchase that has not been used
               (zero activations and zero generations) may be refunded on request within 14 days of
               purchase. Free apps do not require a refund flow.
             </li>
@@ -495,6 +496,8 @@ export default function TermsPage() {
             constitutes acceptance of the new Terms.
           </p>
           <p>
+            Version 1.6 (2026-11-16) states that Nano FaceStudio Pro has no free trial, as it never
+            had one, and changes nothing else.
             Version 1.5 (2026-11-06) sets the auto top-up limits in dollars ($100 in 24 hours, $1,000 in
             30 days) for auto top-up turned on from that date; settings made earlier keep the previous
             limits, and nothing else changes.

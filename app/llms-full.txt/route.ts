@@ -240,7 +240,7 @@ Prepaid per render in credits, with a free allowance. Face swap ${FACE_SWAP_CRED
 
 ## Desktop apps
 
-One-time license per product. Machine-bound. No subscriptions, no per-image, per-minute, or per-frame fees. Each license activates on one machine. Free products give a permanent free license. Paid products include a 7-day free trial without a credit card.
+One-time license per product. Machine-bound. No subscriptions, no per-image, per-minute, or per-frame fees. Each license activates on one machine. Free products give a permanent free license. Paid products include a 7-day free trial without a credit card, except Nano FaceStudio Pro, which has no trial (its free online tools at /face-swap are the preview).
 
 License keys can be deactivated from the current machine and reactivated on a new machine. A force-takeover is available once per 30 days for cases where the old machine is lost.
 
@@ -250,7 +250,7 @@ Free for minor and patch releases (e.g. 1.0.4 → 1.0.5). Major version upgrades
 
 ## Refund
 
-Every paid app ships with a 7-day free trial without a credit card. Because of the full trial, purchases are non-refundable after activation. Free apps do not require a refund flow. Tax handling (VAT/GST/sales tax) is performed by Stripe at checkout based on the buyer's region.
+Paid apps include a 7-day free trial without a credit card, except Nano FaceStudio Pro, which has no trial. Desktop app purchases are non-refundable after activation; a purchase with zero activations and zero generations may be refunded on request within 14 days. Free apps do not require a refund flow. Tax handling (VAT/GST/sales tax) is performed by Stripe at checkout based on the buyer's region.
 
 Authoritative source: https://nanopocket.ai/trust and https://nanopocket.ai/terms.
 `;

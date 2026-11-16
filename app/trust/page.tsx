@@ -162,13 +162,13 @@ interface PricingTerm {
 
 const PRICING_TERMS: PricingTerm[] = [
   { label: "Pricing model", value: "One-time license per product. No subscriptions, no auto-renewal." },
-  { label: "Trial", value: "7-day free trial on every paid app. No credit card during trial." },
+  { label: "Trial", value: "7-day free trial on paid apps, no credit card needed. Nano FaceStudio Pro has no trial; its free online tools at /face-swap are the preview." },
   { label: "Free apps", value: "Permanent free license at no cost. No upsell, no time limit." },
   { label: "Activations per license", value: "1 machine per license by default. Force-takeover is supported on the user's account page." },
   { label: "Hidden charges", value: "None. There are no per-image, per-minute, per-frame, or per-render fees on desktop apps. Online demos are free for signed-in NanoPocket accounts." },
   { label: "Recurring fees", value: "None. The license does not expire and does not require a yearly renewal." },
   { label: "Future updates", value: "Minor and patch updates (e.g. 1.0.4 → 1.0.5) are included free for life. Major version upgrades (e.g. 3.0 → 4.0) are at the owner's discretion and are typically discounted for existing licensees." },
-  { label: "Refund policy", value: "Because every paid app ships with a full 7-day trial, purchases are non-refundable after activation. The trial is the canonical evaluation window." },
+  { label: "Refund policy", value: "Desktop app purchases are non-refundable after activation. A purchase with zero activations and zero generations may be refunded on request within 14 days." },
   { label: "Tax", value: "Stripe handles VAT/GST/sales tax based on the buyer's region at checkout." },
   { label: "Payment processor", value: "Stripe. NanoPocket never sees or stores raw payment-card data." },
 ];
@@ -701,7 +701,7 @@ const trustFaqJsonLd = {
       name: "What is the refund policy?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Every paid app includes a 7-day free trial without a credit card. Because the trial is the evaluation window, purchases are non-refundable after activation. Free apps do not require a refund flow.",
+        text: "Paid apps include a 7-day free trial without a credit card, except Nano FaceStudio Pro, which has no trial (its free online tools at /face-swap are the preview). Desktop app purchases are non-refundable after activation; a purchase with zero activations and zero generations may be refunded on request within 14 days. Free apps do not require a refund flow.",
       },
     },
     {
