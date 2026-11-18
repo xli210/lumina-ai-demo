@@ -26,6 +26,15 @@ interface WhatsNewItem {
 
 const ITEMS: WhatsNewItem[] = [
   {
+    id: "video-faceswap-sharper-face",
+    label: "NEW",
+    labelClassName: "bg-emerald-100 text-emerald-700 ring-emerald-200",
+    icon: ScanFace,
+    iconClassName: "text-emerald-600",
+    text: `${FACESTUDIO_V_NAME} — new: Sharper face for head swaps. Small or distant faces come out with real hair, skin and eye detail. +20% credits`,
+    href: "/facestudio-v",
+  },
+  {
     id: "nano-facestudio-v-trial",
     label: "NEW MODEL",
     labelClassName: "bg-rose-100 text-rose-700 ring-rose-200",
@@ -74,7 +83,8 @@ const ITEMS: WhatsNewItem[] = [
 // v11: the equipment-upgrade notice (Face Studio and HeadSwap Pro); v12: it is taken off, so a bar dismissed under it shows again.
 // v13: Video FaceSwap 2.5 Online.
 // v14: SpotEdit.
-const STORAGE_KEY = "nanopocket_whats_new_dismissed_v14";
+// v15: Sharper face for the video head swap.
+const STORAGE_KEY = "nanopocket_whats_new_dismissed_v15";
 
 const dollars = (cents: number) => `$${(cents / 100).toFixed(2)}`;
 
