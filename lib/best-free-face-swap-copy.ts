@@ -117,8 +117,7 @@ export const NANOPOCKET_ROW: SiteRow = {
 /**
  * The free Windows app (lib/products.ts nano-faceswap, priceInCents 0): no allowance, no clip cap, no watermark,
  * but a free account is needed to claim its licence key (app/api/license/claim), and it needs an NVIDIA GPU with
- * 6 GB or more. It is an inswapper_128-class swapper (see /apps/nano-faceswap limitations), so the page never
- * calls its output 4K-grade.
+ * 6 GB or more. Output keeps the input resolution, up to 4K (owner, 2026-11-19: it is not a 128-pixel model).
  */
 export const DESKTOP_ROW: SiteRow = {
   name: "Nano FaceSwap (free Windows app, by NanoPocket)",
@@ -134,8 +133,8 @@ export const DESKTOP_ROW: SiteRow = {
   },
   watermark: { en: "None", "pt-BR": "Nenhuma" },
   quality: {
-    en: "Keeps your file's size; the face is drawn by a 128-pixel-class model, so fine skin detail is softer than the online tools",
-    "pt-BR": "Mantém o tamanho do arquivo; o rosto é gerado por um modelo da classe de 128 pixels, então a pele fica menos detalhada que nas ferramentas online",
+    en: "HD: keeps your photo's or video's resolution, up to 4K",
+    "pt-BR": "HD: mantém a resolução da foto ou do vídeo, até 4K",
   },
   faces: { en: "Up to 6 faces in one photo or video", "pt-BR": "Até 6 rostos numa foto ou vídeo" },
   paid: {
@@ -176,7 +175,7 @@ export const BEST_FREE_COPY: Record<Lang, BestFreeCopy> = {
     tableNote: `"Not stated" means the site's own pages did not give that figure when we read them; we leave it blank rather than guess. Free terms change often: check the site before you rely on a number.`,
     pickHeading: "Which one to pick",
     picks: [
-      { term: "Unlimited and no watermark, photos and videos", text: "Nano FaceSwap, NanoPocket's free Windows app: no daily cap, no clip-length cap, no watermark, and your files stay on your PC. It needs an NVIDIA GPU with 6 GB or more and a free account for the licence key." },
+      { term: "Unlimited and no watermark, photos and videos", text: "Nano FaceSwap, NanoPocket's free Windows app: no daily cap, no clip-length cap, no watermark, up to 4K, and your files stay on your PC. It needs an NVIDIA GPU with 6 GB or more and a free account for the licence key." },
       { term: "A few photo swaps, no account, no watermark", text: "Magic Hour (5 a day, up to 3 faces) or Remaker." },
       { term: "Free video face swap in 1080p or 4K", text: `NanoPocket: a free account can make a ${FREE_VIDEO_FACE_SWAP_SECONDS}-second video face swap in 1080p or 4K with ${FACESTUDIO_V_NAME}, with a watermark. Magic Hour's free videos are 480p.` },
       { term: "Whole head with the hair, not just the face", text: `NanoPocket ${HEADSWAP_PRO_NAME} for photos (${HEAD_SWAPS} free) and Headswap Best or Fast for video (a ${FREE_VIDEO_HEAD_SWAP_SECONDS}-second clip free). Magic Hour also lists a free head swap for photos.` },
@@ -188,7 +187,6 @@ export const BEST_FREE_COPY: Record<Lang, BestFreeCopy> = {
       "You need an account: email sign-up, no card. Magic Hour, Remaker and PixNova let you try without one.",
       "Online, free results carry a NanoPocket watermark until the first top-up. Magic Hour and Remaker put none on free photos. The free Windows app has no watermark.",
       `Online, the free credits come once (${SIGNUP_GRANT_CREDITS} on sign-up), not every day. The free Windows app has no limit, but it needs an NVIDIA GPU, so it does not run on a phone, a Mac or most laptops without one.`,
-      "The free Windows app uses an older 128-pixel-class face model: fine skin detail is softer than in NanoPocket's online tools or the paid Nano FaceStudio Pro.",
     ],
     faqHeading: "Questions",
     faq: [
@@ -202,7 +200,7 @@ export const BEST_FREE_COPY: Record<Lang, BestFreeCopy> = {
       },
       {
         q: "Is there a free face swap with no limits?",
-        a: "Yes, if you have a Windows PC with an NVIDIA GPU (6 GB or more): Nano FaceSwap from NanoPocket is a free desktop app with no daily cap, no clip-length cap and no watermark, and it keeps your photos and videos on your PC. Online sites limit free use by day or by credits.",
+        a: "Yes, if you have a Windows PC with an NVIDIA GPU (6 GB or more): Nano FaceSwap from NanoPocket is a free desktop app with no daily cap, no clip-length cap and no watermark, in HD up to 4K, and it keeps your photos and videos on your PC. Online sites limit free use by day or by credits.",
       },
       {
         q: "Can I swap faces in a video for free in HD?",
@@ -228,7 +226,7 @@ export const BEST_FREE_COPY: Record<Lang, BestFreeCopy> = {
     tableNote: `"Não informado" quer dizer que as páginas do site não davam esse número quando lemos; deixamos em branco em vez de chutar. As condições grátis mudam muito: confira no site antes de contar com um número.`,
     pickHeading: "Qual escolher",
     picks: [
-      { term: "Ilimitado e sem marca d'água, em fotos e vídeos", text: "Nano FaceSwap, o app grátis da NanoPocket para Windows: sem limite por dia, sem limite de duração, sem marca d'água, e seus arquivos ficam no seu PC. Precisa de placa NVIDIA com 6 GB ou mais e de uma conta grátis para a chave de licença." },
+      { term: "Ilimitado e sem marca d'água, em fotos e vídeos", text: "Nano FaceSwap, o app grátis da NanoPocket para Windows: sem limite por dia, sem limite de duração, sem marca d'água, até 4K, e seus arquivos ficam no seu PC. Precisa de placa NVIDIA com 6 GB ou mais e de uma conta grátis para a chave de licença." },
       { term: "Algumas trocas de foto, sem conta, sem marca d'água", text: "Magic Hour (5 por dia, até 3 rostos) ou Remaker." },
       { term: "Troca de rosto em vídeo grátis em 1080p ou 4K", text: `NanoPocket: uma conta gratuita faz uma troca de rosto em vídeo de ${FREE_VIDEO_FACE_SWAP_SECONDS} segundos em 1080p ou 4K com o ${FACESTUDIO_V_NAME}, com marca d'água. Os vídeos grátis do Magic Hour são 480p.` },
       { term: "A cabeça inteira com o cabelo, não só o rosto", text: `NanoPocket ${HEADSWAP_PRO_NAME} para fotos (${HEAD_SWAPS} grátis) e Headswap Best ou Fast para vídeo (um clipe de ${FREE_VIDEO_HEAD_SWAP_SECONDS} segundos grátis). O Magic Hour também lista uma troca de cabeça grátis para fotos.` },
@@ -240,7 +238,6 @@ export const BEST_FREE_COPY: Record<Lang, BestFreeCopy> = {
       "Precisa de conta: cadastro com e-mail, sem cartão. Magic Hour, Remaker e PixNova deixam testar sem conta.",
       "Online, os resultados grátis têm a marca d'água da NanoPocket até a primeira recarga. Magic Hour e Remaker não colocam marca nas fotos grátis. O app grátis para Windows não tem marca d'água.",
       `Online, os créditos grátis vêm uma vez (${SIGNUP_GRANT_CREDITS} no cadastro), não todo dia. O app grátis para Windows não tem limite, mas precisa de placa NVIDIA, então não roda em celular, Mac ou na maioria dos notebooks sem essa placa.`,
-      "O app grátis para Windows usa um modelo de rosto mais antigo, da classe de 128 pixels: a pele fica menos detalhada que nas ferramentas online da NanoPocket ou no Nano FaceStudio Pro, que é pago.",
     ],
     faqHeading: "Perguntas",
     faq: [
@@ -254,7 +251,7 @@ export const BEST_FREE_COPY: Record<Lang, BestFreeCopy> = {
       },
       {
         q: "Existe troca de rosto grátis sem limite?",
-        a: "Sim, se você tem um PC com Windows e placa NVIDIA (6 GB ou mais): o Nano FaceSwap, da NanoPocket, é um app grátis sem limite por dia, sem limite de duração e sem marca d'água, e suas fotos e vídeos ficam no seu PC. Os sites online limitam o uso grátis por dia ou por créditos.",
+        a: "Sim, se você tem um PC com Windows e placa NVIDIA (6 GB ou mais): o Nano FaceSwap, da NanoPocket, é um app grátis sem limite por dia, sem limite de duração e sem marca d'água, em HD até 4K, e suas fotos e vídeos ficam no seu PC. Os sites online limitam o uso grátis por dia ou por créditos.",
       },
       {
         q: "Dá para trocar rosto em vídeo de graça em HD?",

@@ -69,6 +69,8 @@ const data: ProductLandingData = {
     additionalProperties: [
       { name: "Modes", value: "Single-face swap, multi-face (group) swap" },
       { name: "Media types", value: "Photos and video, in one app" },
+      { name: "Output resolution", value: "Keeps the input resolution, up to 4K" },
+      { name: "Usage limit", value: "None: no daily cap, no clip-length cap, no watermark" },
       { name: "Identity preservation", value: "Stable across frames in video mode" },
       { name: "GPU runtime", value: "Single NVIDIA GPU (CUDA), Windows 10/11" },
       { name: "Tested GPUs", value: "RTX 30, RTX 40, RTX 50 series" },
@@ -91,7 +93,6 @@ const data: ProductLandingData = {
         "Users who do not need the diffusion-grade identity of Nano FaceStudio",
       ],
       notRecommendedFor: [
-        "4K-grade single-portrait fidelity (use Nano FaceStudio Pro 1.0)",
         "Real-time webcam streaming (use Rope-Live)",
         "Apple Silicon Macs (Windows + NVIDIA only in v1.0.6)",
         "Any non-consensual likeness use — explicitly prohibited",
@@ -100,14 +101,9 @@ const data: ProductLandingData = {
     },
     limitations: [
       {
-        title: "128-pixel identity head ceiling",
-        detail:
-          "Like other inswapper_128-class swappers (Roop, FaceFusion, Rope, Reactor), identity is rendered at 128×128 then upscaled. Skin micro-detail loss is unavoidable at the model level — Nano FaceStudio Pro 1.0 and Nano FaceStudio Online use a diffusion identity head instead.",
-      },
-      {
         title: "Profile angles beyond 75° yaw",
         detail:
-          "Identity-similarity drops on near-profile shots because the inswapper backbone is trained on frontal-to-three-quarter views. Re-shoot at ≤60° yaw or move to the diffusion stack in Nano FaceStudio Pro 1.0.",
+          "Identity-similarity drops on near-profile shots because the face model is trained on frontal-to-three-quarter views. Re-shoot at ≤60° yaw or move to the diffusion stack in Nano FaceStudio Pro 1.0.",
       },
       {
         title: "Strong motion blur on video",
@@ -131,12 +127,6 @@ const data: ProductLandingData = {
       },
     ],
     evidence: [
-      {
-        label:
-          "InsightFace — inswapper_128 model card (GitHub, deepinsight/insightface)",
-        url: "https://github.com/deepinsight/insightface/tree/master/python-package",
-        note: "Identity-transfer backbone shared with Roop, FaceFusion, Rope, Reactor.",
-      },
       {
         label: "InsightFace — ArcFace recognition model",
         url: "https://github.com/deepinsight/insightface",
@@ -283,7 +273,7 @@ const data: ProductLandingData = {
     },
     {
       q: "Should I get this or Nano FaceStudio Pro 1.0?",
-      a: "Nano FaceSwap (this app) is the inswapper-class desktop swap, available today. Nano FaceStudio Pro 1.0 is the diffusion upgrade, with multi-face swap, mask edit, expression editing, Face Vivid, upscale, light adjust, and crop in one app. Nano FaceStudio Online, its browser edition, gives every signed-in NanoPocket account a free allowance of renders.",
+      a: "Nano FaceSwap (this app) is the free desktop face swap: photos and videos up to 4K, no usage limit and no watermark. Nano FaceStudio Pro 1.0 is the diffusion upgrade, with multi-face swap, mask edit, expression editing, Face Vivid, upscale, light adjust, and crop in one app. Nano FaceStudio Online, its browser edition, gives every signed-in NanoPocket account a free allowance of renders.",
     },
     {
       q: "Do my photos and videos stay private?",

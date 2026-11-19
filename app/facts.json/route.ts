@@ -93,7 +93,7 @@ function buildFacts() {
         watermark: "None",
         sign_up: "A free account to claim the free licence key; it then runs offline on the PC",
         needs: "Windows 10/11 and an NVIDIA GPU with 6 GB or more; no Mac, phone or browser version",
-        quality_note: "inswapper_128-class face model: fine skin detail is softer than the online diffusion tools or the paid Nano FaceStudio Pro",
+        output_resolution: "Keeps the input resolution, up to 4K",
       },
     },
     online_tools: [
