@@ -183,6 +183,27 @@
       }
     ],
     "english": "Version anglaise",
+    "small": {
+      "navNew": "Nouveau : petits visages",
+      "h2": "Petits visages, résultats nets.",
+      "h2sub": "Un visage lointain ne sort plus flou.",
+      "lead": "Quand le visage ne fait que quelques dizaines de pixels de haut, l'agrandissement a peu de matière et l'échange paraissait flou. Désormais, l'échange de tête dessine les petits visages avec plus de place, pour tout le monde et sans surcoût. Pour le résultat le plus net, cochez Visage plus net : après l'agrandissement, le visage est redessiné à la taille finale, et les cheveux, la peau et les yeux ressortent nets.",
+      "quality": "Visage plus net ajoute 20 % aux crédits de l'échange de tête et quelques minutes. Il est fait pour les petits visages ou les visages lointains ; un visage qui remplit déjà le cadre change peu.",
+      "cta": "Essayer sur un petit visage",
+      "before": "Échange de tête",
+      "after": "Avec Visage plus net",
+      "rowSmall": "Détail des petits visages",
+      "rowLarge": "Détail des grands visages",
+      "valLarge": "à peu près pareil",
+      "rowFlicker": "Scintillement",
+      "valFlicker": "pas plus qu'avant",
+      "rowTime": "Temps en plus, clip de 4 s",
+      "valTime": "environ 2 min",
+      "rowCredits": "Crédits en plus",
+      "valCredits": "+20 %, au moins 10",
+      "note": "Le même échange de tête et les mêmes images, sans et avec Visage plus net ; les deux sont des recadrages du résultat en 1080p. Le détail est une mesure de netteté sur nos propres clips de test, pas un benchmark.",
+      "suggest": "Vous avez fait un échange de tête et le visage est petit ? La page du résultat propose de le refaire avec Visage plus net."
+    },
     "v25": {
       "navNew": "Nouveau dans la 2.5",
       "announce": "Headswap Fast : la tête entière, environ 40 % plus rapide et environ 35 % de crédits en moins.",

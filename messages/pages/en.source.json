@@ -299,6 +299,27 @@
       { "q": "Is the studio in my language?", "a": "Yes. The studio's screens are in your language." }
     ],
     "english": "English version",
+    "small": {
+      "navNew": "New: small faces",
+      "h2": "Small faces, sharp results.",
+      "h2sub": "A distant face no longer comes out soft.",
+      "lead": "When the face is only a few dozen pixels tall, the upscale has little to work with and a swap used to look soft. Head swaps now give a small face more room to be drawn, for everyone, at no extra cost. For the sharpest result, tick Sharper face: after the upscale the face is drawn again at the full output size, so the hair, skin and eyes come out clear.",
+      "quality": "Sharper face adds 20% to the head swap's credits and a few minutes. It is made for small or distant faces; a face that already fills the frame changes little.",
+      "cta": "Try it on a small face",
+      "before": "Head swap",
+      "after": "With Sharper face",
+      "rowSmall": "Detail on small faces",
+      "rowLarge": "Detail on large faces",
+      "valLarge": "about the same",
+      "rowFlicker": "Flicker",
+      "valFlicker": "no more than before",
+      "rowTime": "Extra time, 4 s clip",
+      "valTime": "about 2 min",
+      "rowCredits": "Extra credits",
+      "valCredits": "+20%, at least 10",
+      "note": "The same head swap and the same frames, without and with Sharper face; both are crops of the 1080p result. Detail is a sharpness measure on our own test clips, not a benchmark.",
+      "suggest": "Made a head swap and the face came out small? The result page offers to make it again with Sharper face."
+    },
     "v25": {
       "navNew": "New in 2.5",
       "announce": "Headswap Fast: the whole head, about 40% faster and about 35% fewer credits.",

@@ -10,6 +10,7 @@ import { FACESTUDIO_V_ENGINE_VERSION, FACESTUDIO_V_LAUNCH, FACESTUDIO_V_NAME, FA
 import { VIDEO_EXAMPLES_PATH, isoDuration, videoExample, videoExamplePath } from "@/lib/video-examples";
 import zhCopy from "@/messages/pages/zh-CN.json";
 import { New25Section } from "./new25-section";
+import { SmallFacesSection } from "./small-faces-section";
 
 // Video FaceSwap Online in Chinese. The English page is static HTML (public/facestudio-v/index.html);
 // every price, limit and rule here is the one stated there and in FACESTUDIO_V_FAQ (lib/facestudio-v.ts).
@@ -186,6 +187,8 @@ export default function ZhVideoFaceSwapPage() {
           </p>
         </div>
       </section>
+
+      <SmallFacesSection c={zhCopy.video.small} />
 
       <New25Section c={zhCopy.video.v25} original="原片" pricingHref="/zh-CN/pricing" pricingLabel="价格" />
 

@@ -39,6 +39,8 @@ export interface ToolPageCopy {
 }
 
 export interface VideoPageCopy {
+  /** "Small faces, sharp results", right under the hero (./small-faces-section.tsx); the English page has its own, #small. */
+  small: Record<string, string>;
   /** The 2.5 section; the English page's strings, public/facestudio-v/index.html. */
   v25: Record<string, string>;
   title: string;

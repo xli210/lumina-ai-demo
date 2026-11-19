@@ -314,7 +314,7 @@ footer{padding-top:30px;color:var(--faint);font-size:12.5px;line-height:1.6;max-
 
 <header class="top"><div class="wrap">
   <a class="logo" href="/" title="Back to NanoPocket"><i></i>Video FaceSwap 2.5 Online</a>
-  <nav><a href="/">&larr; NanoPocket home</a><a href="#new25">New in 2.5</a><a href="#small">Small faces</a><a href="#hard">Results</a><a href="#how">How it works</a><a href="#choose">Choose who</a><a href="#features">Features</a><a href="#limits">Limits</a></nav>
+  <nav><a href="/">&larr; NanoPocket home</a><a href="#small">Small faces</a><a href="#new25">New in 2.5</a><a href="#hard">Results</a><a href="#how">How it works</a><a href="#choose">Choose who</a><a href="#features">Features</a><a href="#limits">Limits</a></nav>
   <a class="pill dark" href="#hard">See results</a>
 </div></header>
 
@@ -322,11 +322,11 @@ footer{padding-top:30px;color:var(--faint);font-size:12.5px;line-height:1.6;max-
 
 <!-- 1. what is this, in one sentence and one picture -->
 <div class="hero">
-  <a class="n25-flag" href="#new25"><b>New in 2.5</b><span>Headswap Fast: the whole head, about 40% faster and about 35% fewer credits.</span></a> <a class="n25-flag" href="#small"><b>New</b><span>Small or distant faces now come out sharp.</span></a><br>
+  <a class="n25-flag" href="#small"><b>New</b><span>Small or distant faces now come out sharp.</span></a> <a class="n25-flag" href="#new25"><b>New in 2.5</b><span>Headswap Fast: the whole head, about 40% faster and about 35% fewer credits.</span></a><br>
   <span class="kicker">Video face swap<span class="ver">VERSION 2.5.0</span></span>
   <h1>Swap any face in a video.</h1>
   <p class="sub">Give it a video and a photo of the face you want. It replaces one person, in every frame, and leaves everything else exactly as it was filmed. New accounts start with 100 free credits, enough to try a short clip.</p>
-  <div class="cta"><a class="pill white" href="#new25">See what&rsquo;s new in 2.5</a><a class="pill glass" href="#hard">See real results</a><a class="pill glass" href="#how">How it works</a><a class="pill blue" id="liveBtn" href="#choose" hidden>Try Video FaceSwap 2.5 Online</a><a class="pill glass" href="/video-face-swap-examples">All examples</a><a class="pill glass" href="/facestudio-v/videos">My videos</a></div>
+  <div class="cta"><a class="pill white" href="#small">New: sharp small faces</a><a class="pill glass" href="#new25">See what&rsquo;s new in 2.5</a><a class="pill glass" href="#hard">See real results</a><a class="pill glass" href="#how">How it works</a><a class="pill blue" id="liveBtn" href="#choose" hidden>Try Video FaceSwap 2.5 Online</a><a class="pill glass" href="/video-face-swap-examples">All examples</a><a class="pill glass" href="/facestudio-v/videos">My videos</a></div>
 
   <div class="formula" id="formula">
     <div class="tile photo"><img id="fRef" alt="Reference face"><span class="tag"><b>Reference face</b><small>a photo you upload</small></span></div>
@@ -337,6 +337,38 @@ footer{padding-top:30px;color:var(--faint);font-size:12.5px;line-height:1.6;max-
   </div>
   <div class="match" id="fMatch"></div>
 </div>
+
+<!-- 1a. new: small faces (2026-11-19), first after the hero -->
+<section id="small" class="v2p n25 sf">
+  <div class="phero">
+    <div class="phero-in">
+      <p class="peyebrow">New: small faces</p>
+      <h2>Small faces, sharp results.<span>A distant face no longer comes out soft.</span></h2>
+      <p class="n25-lead">When the face is only a few dozen pixels tall, the upscale has little to work with and a swap used to look soft. Head swaps now give a small face more room to be drawn, for everyone, at no extra cost. For the sharpest result, tick <b>Sharper face</b>: after the upscale the face is drawn again at the full output size, so the hair, skin and eyes come out clear.</p>
+      <p class="pquality">Sharper face adds 20% to the head swap&rsquo;s credits and a few minutes. It is made for small or distant faces; a face that already fills the frame changes little.</p>
+      <div class="pcta"><a class="pbtn" href="/facestudio-v/launch">Try it on a small face</a></div>
+    </div>
+  </div>
+  <div class="n25-g sf-g">
+    <div class="pmedia sf-v" data-pair>
+      <figure><video src="/facestudio-v/media/cmp/sf_now.mp4" poster="/facestudio-v/media/cmp/sf_now.jpg" muted loop playsinline preload="none"></video><figcaption>Head swap</figcaption></figure>
+      <figure class="on"><video src="/facestudio-v/media/cmp/sf_sharp.mp4" poster="/facestudio-v/media/cmp/sf_sharp.jpg" muted loop playsinline preload="none"></video><figcaption>With Sharper face</figcaption></figure>
+    </div>
+    <aside class="n25-p">
+      <table>
+        <tbody>
+          <tr><th scope="row">Detail on small faces</th><td class="f">1.4&ndash;2.1&times;</td></tr>
+          <tr><th scope="row">Detail on large faces</th><td>about the same</td></tr>
+          <tr><th scope="row">Flicker</th><td>no more than before</td></tr>
+          <tr><th scope="row">Extra time, 4 s clip</th><td>about 2 min</td></tr>
+          <tr><th scope="row">Extra credits</th><td>+20%, at least 10</td></tr>
+        </tbody>
+      </table>
+      <p>The same head swap and the same frames, without and with Sharper face; both are crops of the 1080p result. Detail is a sharpness measure on our own test clips, not a benchmark.</p>
+      <p>Made a head swap and the face came out small? The result page offers to make it again with Sharper face.</p>
+    </aside>
+  </div>
+</section>
 
 <!-- 1b. new in 2.5: Headswap Fast -->
 <section id="new25" class="v2p n25">
@@ -370,38 +402,6 @@ footer{padding-top:30px;color:var(--faint);font-size:12.5px;line-height:1.6;max-
       </table>
       <p>Measured on our GPUs with the models already loaded.</p>
       <p>Head swaps run up to 12 s on a paid account and 3 s on a free one. Every account, free or paid, can choose 1080p or 4K (4K costs twice the credits).</p>
-    </aside>
-  </div>
-</section>
-
-<!-- 1b2. new: small faces (2026-11-19) -->
-<section id="small" class="v2p n25 sf">
-  <div class="phero">
-    <div class="phero-in">
-      <p class="peyebrow">New: small faces</p>
-      <h2>Small faces, sharp results.<span>A distant face no longer comes out soft.</span></h2>
-      <p class="n25-lead">When the face is only a few dozen pixels tall, the upscale has little to work with and a swap used to look soft. Head swaps now give a small face more room to be drawn, for everyone, at no extra cost. For the sharpest result, tick <b>Sharper face</b>: after the upscale the face is drawn again at the full output size, so the hair, skin and eyes come out clear.</p>
-      <p class="pquality">Sharper face adds 20% to the head swap&rsquo;s credits and a few minutes. It is made for small or distant faces; a face that already fills the frame changes little.</p>
-      <div class="pcta"><a class="pbtn" href="/facestudio-v/launch">Try it on a small face</a></div>
-    </div>
-  </div>
-  <div class="n25-g sf-g">
-    <div class="pmedia sf-v" data-pair>
-      <figure><video src="/facestudio-v/media/cmp/sf_now.mp4" poster="/facestudio-v/media/cmp/sf_now.jpg" muted loop playsinline preload="none"></video><figcaption>Head swap</figcaption></figure>
-      <figure class="on"><video src="/facestudio-v/media/cmp/sf_sharp.mp4" poster="/facestudio-v/media/cmp/sf_sharp.jpg" muted loop playsinline preload="none"></video><figcaption>With Sharper face</figcaption></figure>
-    </div>
-    <aside class="n25-p">
-      <table>
-        <tbody>
-          <tr><th scope="row">Detail on small faces</th><td class="f">1.4&ndash;2.1&times;</td></tr>
-          <tr><th scope="row">Detail on large faces</th><td>about the same</td></tr>
-          <tr><th scope="row">Flicker</th><td>no more than before</td></tr>
-          <tr><th scope="row">Extra time, 4 s clip</th><td>about 2 min</td></tr>
-          <tr><th scope="row">Extra credits</th><td>+20%, at least 10</td></tr>
-        </tbody>
-      </table>
-      <p>The same head swap and the same frames, without and with Sharper face; both are crops of the 1080p result. Detail is a sharpness measure on our own test clips, not a benchmark.</p>
-      <p>Made a head swap and the face came out small? The result page offers to make it again with Sharper face.</p>
     </aside>
   </div>
 </section>

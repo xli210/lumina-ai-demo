@@ -183,6 +183,27 @@
       }
     ],
     "english": "Versão em inglês",
+    "small": {
+      "navNew": "Novidade: rostos pequenos",
+      "h2": "Rostos pequenos, resultados nítidos.",
+      "h2sub": "Um rosto distante não sai mais borrado.",
+      "lead": "Quando o rosto tem só algumas dezenas de pixels, o upscale tem pouco com que trabalhar e a troca costumava ficar borrada. Agora a troca de cabeça desenha rostos pequenos com mais espaço, para todos e sem custo extra. Para o resultado mais nítido, marque Rosto mais nítido: depois do upscale, o rosto é desenhado de novo no tamanho final, e o cabelo, a pele e os olhos saem nítidos.",
+      "quality": "Rosto mais nítido acrescenta 20% aos créditos da troca de cabeça e alguns minutos. Ele é feito para rostos pequenos ou distantes; um rosto que já ocupa o quadro muda pouco.",
+      "cta": "Teste com um rosto pequeno",
+      "before": "Troca de cabeça",
+      "after": "Com Rosto mais nítido",
+      "rowSmall": "Detalhe em rostos pequenos",
+      "rowLarge": "Detalhe em rostos grandes",
+      "valLarge": "praticamente igual",
+      "rowFlicker": "Cintilação",
+      "valFlicker": "não mais que antes",
+      "rowTime": "Tempo extra, clipe de 4 s",
+      "valTime": "cerca de 2 min",
+      "rowCredits": "Créditos extras",
+      "valCredits": "+20%, no mínimo 10",
+      "note": "A mesma troca de cabeça e os mesmos quadros, sem e com Rosto mais nítido; os dois são recortes do resultado em 1080p. O detalhe é uma medida de nitidez nos nossos próprios clipes de teste, não um benchmark.",
+      "suggest": "Fez uma troca de cabeça e o rosto saiu pequeno? A página do resultado oferece refazer com Rosto mais nítido."
+    },
     "v25": {
       "navNew": "Novidades da 2.5",
       "announce": "Headswap Fast: a cabeça inteira, cerca de 40% mais rápido e com cerca de 35% menos créditos.",

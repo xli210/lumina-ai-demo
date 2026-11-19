@@ -183,6 +183,27 @@
       }
     ],
     "english": "Englische Version",
+    "small": {
+      "navNew": "Neu: kleine Gesichter",
+      "h2": "Kleine Gesichter, scharfe Ergebnisse.",
+      "h2sub": "Ein Gesicht in der Ferne wird nicht mehr weich.",
+      "lead": "Ist das Gesicht nur ein paar Dutzend Pixel hoch, hat die Hochskalierung wenig, womit sie arbeiten kann, und ein Tausch wirkte bisher weich. Jetzt bekommt ein kleines Gesicht beim Kopftausch mehr Platz zum Zeichnen, für alle und ohne Aufpreis. Für das schärfste Ergebnis „Schärferes Gesicht“ ankreuzen: Nach der Hochskalierung wird das Gesicht in voller Ausgabegröße noch einmal gezeichnet, sodass Haare, Haut und Augen klar werden.",
+      "quality": "„Schärferes Gesicht“ kostet 20 % mehr Credits als der Kopftausch und dauert ein paar Minuten länger. Es ist für kleine oder entfernte Gesichter gedacht; ein Gesicht, das das Bild schon ausfüllt, ändert sich kaum.",
+      "cta": "Mit einem kleinen Gesicht testen",
+      "before": "Kopftausch",
+      "after": "Mit Schärferes Gesicht",
+      "rowSmall": "Details bei kleinen Gesichtern",
+      "rowLarge": "Details bei großen Gesichtern",
+      "valLarge": "etwa gleich",
+      "rowFlicker": "Flackern",
+      "valFlicker": "nicht mehr als vorher",
+      "rowTime": "Mehr Zeit, 4-s-Clip",
+      "valTime": "etwa 2 Min.",
+      "rowCredits": "Mehr Credits",
+      "valCredits": "+20 %, mindestens 10",
+      "note": "Derselbe Kopftausch und dieselben Frames, ohne und mit „Schärferes Gesicht“; beides sind Ausschnitte aus dem 1080p-Ergebnis. Details sind ein Schärfemaß auf unseren eigenen Testclips, kein Benchmark.",
+      "suggest": "Kopftausch gemacht und das Gesicht ist klein geraten? Die Ergebnisseite bietet an, ihn mit „Schärferes Gesicht“ noch einmal zu machen."
+    },
     "v25": {
       "navNew": "Neu in 2.5",
       "announce": "Headswap Fast: der ganze Kopf, etwa 40 % schneller und mit etwa 35 % weniger Credits.",

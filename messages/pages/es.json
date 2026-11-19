@@ -183,6 +183,27 @@
       }
     ],
     "english": "Versión en inglés",
+    "small": {
+      "navNew": "Novedad: rostros pequeños",
+      "h2": "Rostros pequeños, resultados nítidos.",
+      "h2sub": "Un rostro lejano ya no sale borroso.",
+      "lead": "Cuando el rostro mide solo unas decenas de píxeles, el escalado tiene poco con qué trabajar y el intercambio solía verse borroso. Ahora el cambio de cabeza dibuja los rostros pequeños con más espacio, para todos y sin coste extra. Para el resultado más nítido, marca Rostro más nítido: tras el escalado, el rostro se vuelve a dibujar al tamaño final, y el pelo, la piel y los ojos salen claros.",
+      "quality": "Rostro más nítido suma un 20 % a los créditos del cambio de cabeza y unos minutos. Está pensado para rostros pequeños o lejanos; un rostro que ya llena el encuadre cambia poco.",
+      "cta": "Pruébalo con un rostro pequeño",
+      "before": "Cambio de cabeza",
+      "after": "Con Rostro más nítido",
+      "rowSmall": "Detalle en rostros pequeños",
+      "rowLarge": "Detalle en rostros grandes",
+      "valLarge": "más o menos igual",
+      "rowFlicker": "Parpadeo",
+      "valFlicker": "no más que antes",
+      "rowTime": "Tiempo extra, clip de 4 s",
+      "valTime": "unos 2 min",
+      "rowCredits": "Créditos extra",
+      "valCredits": "+20 %, mínimo 10",
+      "note": "El mismo cambio de cabeza y los mismos fotogramas, sin y con Rostro más nítido; ambos son recortes del resultado en 1080p. El detalle es una medida de nitidez en nuestros propios clips de prueba, no un benchmark.",
+      "suggest": "¿Hiciste un cambio de cabeza y el rostro salió pequeño? La página del resultado te ofrece repetirlo con Rostro más nítido."
+    },
     "v25": {
       "navNew": "Novedades de la 2.5",
       "announce": "Headswap Fast: la cabeza entera, aproximadamente un 40% más rápido y con aproximadamente un 35% menos de créditos.",
