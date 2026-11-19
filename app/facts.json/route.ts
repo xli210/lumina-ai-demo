@@ -84,7 +84,7 @@ function buildFacts() {
       limits: FREE_TIER.en.limits,
       page: `${BASE}/face-swap#free`,
       compared_with_other_free_sites: `${BASE}/best-free-face-swap`,
-      not_included_on_free: "Online, an email sign-up is required, free results carry a watermark until the first top-up, and the credits are given once on sign-up, not daily. The free Windows app below has no watermark and no limit.",
+      not_included_on_free: "Online, an email sign-up is required, free results carry a watermark until the first top-up, and the credits are given once on sign-up, not daily. The free Windows apps below have no usage limit, and Nano FaceSwap has no watermark.",
       free_desktop_app: {
         name: "Nano FaceSwap",
         url: `${BASE}/apps/nano-faceswap`,
@@ -95,6 +95,10 @@ function buildFacts() {
         needs: "Windows 10/11 and an NVIDIA GPU with 6 GB or more; no Mac, phone or browser version",
         output_resolution: "Keeps the input resolution, up to 4K",
       },
+      other_free_desktop_apps: [
+        { name: "Nano FacialEdit", url: `${BASE}/apps/nano-facialedit`, price_usd: 0, usage_limit: "None", does: "Portrait editing: expression, smile, eyes, skin retouch, and a portrait face swap" },
+        { name: "Nano ImageTryon", url: `${BASE}/apps/nano-imagetryon`, price_usd: 0, usage_limit: "None", does: "Virtual try-on: a garment from any photo onto a person, keeping body shape, pose and lighting" },
+      ],
     },
     online_tools: [
       {

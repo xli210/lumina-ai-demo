@@ -696,7 +696,7 @@
   },
   "faceswap": {
     "title": "Nano FaceSwap: free local face swap for Windows",
-    "description": "Free desktop face swap for photos and video, on your own NVIDIA GPU. No fees per minute or per frame, and nothing is uploaded.",
+    "description": "Free desktop face swap for photos and video, on your own NVIDIA GPU. No fees per minute or per frame, and nothing is uploaded. No usage limit and no watermark, up to 4K.",
     "kicker": "Free desktop app",
     "h1": "Free face swap on your own computer",
     "lead": "Swap one face or several, in photos and in video, with one desktop app for Windows. It is free with a license key, has no fees per minute or per frame, and never uploads your files.",
@@ -742,6 +742,10 @@
     ],
     "faqHeading": "Questions",
     "faq": [
+      {
+        "q": "Is it really free? Is there a limit or a watermark?",
+        "a": "Yes, it is free. There is no daily limit, no limit on video length and no watermark, and photos and videos keep their resolution, up to 4K. You need a free NanoPocket account to get the license key."
+      },
       {
         "q": "Will it run on my computer?",
         "a": "Windows 10 or 11 with an NVIDIA GPU (GTX 1060 or newer, 4 GB of VRAM or more), and 8 GB of RAM. It does not run on Macs."
@@ -807,6 +811,10 @@
     "faqHeading": "Questions",
     "faq": [
       {
+        "q": "Is it really free? Is there a limit?",
+        "a": "Yes, it is free, with no usage limit and no fee per photo. You need a free NanoPocket account to get the license key."
+      },
+      {
         "q": "Will it run on my computer?",
         "a": "Windows 10 or 11 with an NVIDIA GPU (GTX 1060 or newer, 4 GB of VRAM or more), and 8 GB of RAM. It does not run on Macs."
       },
@@ -870,6 +878,10 @@
     ],
     "faqHeading": "Questions",
     "faq": [
+      {
+        "q": "Is it really free? Is there a limit?",
+        "a": "Yes, it is free, with no usage limit and no fee per photo. You need a free NanoPocket account to get the license key."
+      },
       {
         "q": "Will it run on my computer?",
         "a": "Windows 10 or 11 with an NVIDIA GPU (GTX 1060 or newer, 4 GB of VRAM or more), and 8 GB of RAM. It does not run on Macs."

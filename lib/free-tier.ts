@@ -95,7 +95,7 @@ export const FREE_TIER: Record<Lang, FreeTierCopy> = {
     shared: `The ${SIGNUP_GRANT_CREDITS} credits are one balance shared by all the tools, so each line shows what they buy if spent on that tool alone. A failed job costs nothing.`,
     limits: `On a free account: a watermark, videos up to ${FREE_VIDEO_FACE_SWAP_SECONDS} seconds (head swaps ${FREE_VIDEO_HEAD_SWAP_SECONDS} seconds), and videos wait behind accounts that have topped up. An email sign-up is needed. One top-up removes the watermark from new results and unlocks full lengths.`,
     comparison: `Many free tiers stop at 480p to 720p and cover one tool. Magic Hour's help centre, for example, says its Free plan is capped at lower resolutions (512 to 720 px) and keeps 4K for its Business plan (read 2026-11-16).`,
-    desktop: `Free for good, with no credits: the Windows desktop apps ${FREE_DESKTOP_APPS.join(", ")}.`,
+    desktop: `Free for good, with no credits and no usage limit: the Windows desktop apps ${FREE_DESKTOP_APPS.join(", ")}. Nano FaceSwap swaps faces in photos and videos up to 4K with no watermark. They need an NVIDIA GPU and a free account for the licence key.`,
     cta: "Create a free account",
     faq: {
       q: "Can I try NanoPocket for free in 1080p or 4K?",
@@ -136,7 +136,7 @@ export const FREE_TIER: Record<Lang, FreeTierCopy> = {
     shared: `Os ${SIGNUP_GRANT_CREDITS} créditos são um saldo único para todas as ferramentas; cada linha mostra o que eles rendem se usados só naquela ferramenta. Um trabalho que falha não custa nada.`,
     limits: `Numa conta gratuita: marca d'água, vídeos de até ${FREE_VIDEO_FACE_SWAP_SECONDS} segundos (troca de cabeça: ${FREE_VIDEO_HEAD_SWAP_SECONDS} segundos), e os vídeos esperam atrás das contas que já recarregaram. É preciso cadastro com e-mail. Uma recarga remove a marca d'água dos novos resultados e libera as durações completas.`,
     comparison: `Muitos planos gratuitos param em 480p a 720p e cobrem uma só ferramenta. A central de ajuda do Magic Hour, por exemplo, diz que o plano Free tem resolução limitada (512 a 720 px) e reserva o 4K para o plano Business (lido em 16/11/2026).`,
-    desktop: `Grátis para sempre, sem créditos: os apps para Windows ${FREE_DESKTOP_APPS.join(", ")}.`,
+    desktop: `Grátis para sempre, sem créditos e sem limite de uso: os apps para Windows ${FREE_DESKTOP_APPS.join(", ")}. O Nano FaceSwap troca rostos em fotos e vídeos até 4K, sem marca d'água. Precisam de placa NVIDIA e de uma conta grátis para a chave de licença.`,
     cta: "Criar conta grátis",
     faq: {
       q: "Dá para testar a NanoPocket de graça em 1080p ou 4K?",

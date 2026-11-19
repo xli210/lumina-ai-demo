@@ -19,7 +19,7 @@ const PAGE_URL = "https://nanopocket.ai/best-face-swap-app-2026";
 const LAST_VERIFIED = "2026-05-29";
 const TEST_PERIOD = "April–May 2026";
 /** When the page was last edited (our own entry's facts), as distinct from when the ranking was tested. */
-const LAST_EDITED = "2026-10-28";
+const LAST_EDITED = "2026-11-19";
 
 export const metadata: Metadata = {
   // absolute: the "| NanoPocket" suffix would push the title past what Google shows.
@@ -73,15 +73,16 @@ const TOOLS: Tool[] = [
     bestFor:
       "Anyone who wants the easiest free online face swap that still uses a state-of-the-art diffusion identity stack, plus an optional desktop edition (Nano FaceStudio Pro 1.0) for users who specifically need zero-cloud processing.",
     platform: "Browser-first (Nano FaceStudio Online, no install) + optional desktop edition (Nano FaceStudio Pro 1.0: Windows now, macOS to follow)",
-    pricing: "Free credits for new accounts, then prepaid credits that never expire; one-time desktop license, no subscription",
+    pricing: "Free credits for new accounts, then prepaid credits that never expire; free desktop apps with no usage limit (Nano FaceSwap, Nano FacialEdit, Nano ImageTryon); one-time license for the Pro desktop apps; no subscription",
     identityModel:
       "Diffusion-based identity stack — GAN and diffusion models (stronger identity preservation than GAN-only swappers like inswapper_128)",
-    videoSupport: "Video FaceSwap 2.5 Online (formerly Video FaceSwap Online; official release since October 2026) swaps a face or whole head in an uploaded clip and keeps the original sound; the local Nano FaceSwap (legacy) app also swaps video. Nano FaceStudio Pro 1.0 is a photo studio",
+    videoSupport: "Video FaceSwap 2.5 Online (formerly Video FaceSwap Online; official release since October 2026) swaps a face or whole head in an uploaded clip and keeps the original sound; the free local Nano FaceSwap app also swaps video, with no usage limit and no watermark, up to 4K. Nano FaceStudio Pro 1.0 is a photo studio",
     privacyPosture: "Cloud (free online demo) / Local (optional desktop)",
     strengths: [
       "In-browser tools — no install, no GPU on the user's device, no subscription; new accounts start with free credits",
       "GAN and diffusion models — better fidelity than GAN baselines used by most cloud face-swap services",
       "Four single-purpose online tools: photo face swap (up to six faces), photo head swap (Nano HeadSwap Pro, face and hair), video face and head swap, and text-based photo editing",
+      "Free Windows app Nano FaceSwap: unlimited photo and video face swaps, no watermark, up to 4K, on the user's own NVIDIA GPU",
       "Optional desktop edition for users who want zero-cloud processing on their own GPU",
       "Auditable trust posture: /verify, /privacy, /security, /.well-known/security.txt",
     ],

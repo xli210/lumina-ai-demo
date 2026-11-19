@@ -664,7 +664,7 @@
   },
   "faceswap": {
     "title": "Nano FaceSwap: troca de rosto local e grátis para Windows",
-    "description": "Troca de rosto grátis para desktop, em fotos e vídeos, na sua própria GPU NVIDIA. Sem cobrança por minuto ou por quadro, e nada é enviado.",
+    "description": "Troca de rosto grátis para desktop, em fotos e vídeos, na sua própria GPU NVIDIA. Sem cobrança por minuto ou por quadro, e nada é enviado. Sem limite de uso e sem marca d'água, até 4K.",
     "kicker": "App grátis para desktop",
     "h1": "Troca de rosto grátis no seu próprio computador",
     "lead": "Troque um rosto ou vários, em fotos e em vídeos, com um só app para desktop para Windows. Ele é grátis com uma chave de licença, não tem cobrança por minuto nem por quadro e nunca envia seus arquivos.",
@@ -710,6 +710,10 @@
     ],
     "faqHeading": "Perguntas",
     "faq": [
+      {
+        "q": "É grátis mesmo? Tem limite ou marca d'água?",
+        "a": "Sim, é grátis. Não há limite por dia, nem de duração do vídeo, nem marca d'água, e as fotos e os vídeos mantêm a resolução, até 4K. Você precisa de uma conta grátis da NanoPocket para pegar a chave de licença."
+      },
       {
         "q": "Vai rodar no meu computador?",
         "a": "Windows 10 ou 11 com uma GPU NVIDIA (GTX 1060 ou mais nova, 4 GB de VRAM ou mais) e 8 GB de RAM. Não roda em Macs."
@@ -775,6 +779,10 @@
     "faqHeading": "Perguntas",
     "faq": [
       {
+        "q": "É grátis mesmo? Tem limite?",
+        "a": "Sim, é grátis, sem limite de uso e sem taxa por foto. Você precisa de uma conta grátis da NanoPocket para pegar a chave de licença."
+      },
+      {
         "q": "Vai rodar no meu computador?",
         "a": "Windows 10 ou 11 com uma GPU NVIDIA (GTX 1060 ou mais nova, 4 GB de VRAM ou mais) e 8 GB de RAM. Não roda em Macs."
       },
@@ -838,6 +846,10 @@
     ],
     "faqHeading": "Perguntas",
     "faq": [
+      {
+        "q": "É grátis mesmo? Tem limite?",
+        "a": "Sim, é grátis, sem limite de uso e sem taxa por foto. Você precisa de uma conta grátis da NanoPocket para pegar a chave de licença."
+      },
       {
         "q": "Vai rodar no meu computador?",
         "a": "Windows 10 ou 11 com uma GPU NVIDIA (GTX 1060 ou mais nova, 4 GB de VRAM ou mais) e 8 GB de RAM. Não roda em Macs."

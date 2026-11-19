@@ -7,9 +7,9 @@ import {
 
 export const metadata: Metadata = {
   title:
-    "Nano FacialEdit — Local AI Portrait Retouch & Identity-Preserving Expression Editor",
+    "Free AI Portrait Editor for Windows: Expression Edit, Retouch & Face Swap | Nano FacialEdit",
   description:
-    "Nano FacialEdit is a local desktop portrait editor that performs identity-preserving expression editing — open eyes, soften frowns, lift smiles — and skin retouching on a single NVIDIA GPU. Every operation runs offline; no portrait is uploaded to any server.",
+    "Nano FacialEdit is a free desktop portrait editor for Windows, with no usage limit, that performs identity-preserving expression editing — open eyes, soften frowns, lift smiles — and skin retouching on a single NVIDIA GPU. Every operation runs offline; no portrait is uploaded to any server.",
   keywords: [
     "Nano FacialEdit",
     "AI portrait retouch",
@@ -71,7 +71,8 @@ const data: ProductLandingData = {
       { name: "GPU runtime", value: "Single NVIDIA GPU (CUDA), Windows 10/11" },
       { name: "Data handling", value: "100% local; source portraits never uploaded" },
       { name: "Network requirement", value: "Only for license activation" },
-      { name: "License model", value: "One-time, machine-bound; no per-portrait fees" },
+      { name: "License model", value: "Free, machine-bound license key; no per-portrait fees" },
+      { name: "Usage limit", value: "None" },
     ],
   },
   documentation: {
@@ -157,7 +158,7 @@ const data: ProductLandingData = {
     versionChip: "v1.0.3",
     title: "Nano",
     titleAccent: "FacialEdit",
-    lead: "Nano FacialEdit is a local desktop portrait editor that performs identity-preserving expression edits — open eyes, soften a frown, lift a smile — and skin retouching on a single NVIDIA GPU on Windows, with slider-driven control over each axis and zero portrait uploads.",
+    lead: "Nano FacialEdit is a free local desktop portrait editor that performs identity-preserving expression edits — open eyes, soften a frown, lift a smile — and skin retouching on a single NVIDIA GPU on Windows, with slider-driven control over each axis and zero portrait uploads.",
     parameters: [
       {
         value: "Identity-preserving",
@@ -180,7 +181,7 @@ const data: ProductLandingData = {
     { label: "Identity-preserving edits" },
     { label: "Local-only · GDPR-friendly" },
     { label: "Single-GPU NVIDIA CUDA" },
-    { label: "One-time license" },
+    { label: "Free license" },
   ],
   sections: [
     {
@@ -252,17 +253,21 @@ const data: ProductLandingData = {
       index: "06",
       eyebrow: "How it compares",
       title: "Facetune-class control, locally.",
-      lead: "Facetune, AirBrush, and Fotor AI run on phones with cloud-assisted models and a per-feature paywall. Nano FacialEdit runs on a desktop GPU, exposes continuous sliders for expression and smile, and bundles skin retouch and portrait face swap in a single one-time license.",
+      lead: "Facetune, AirBrush, and Fotor AI run on phones with cloud-assisted models and a per-feature paywall. Nano FacialEdit runs on a desktop GPU, exposes continuous sliders for expression and smile, and bundles skin retouch and portrait face swap in one free app.",
       bullets: [
         "Continuous sliders for expression and smile",
         "Skin retouch and face swap in one app",
-        "One-time license, no per-feature paywall",
+        "Free, no per-feature paywall",
         "Local NVIDIA GPU inference",
       ],
       hint: "vs Facetune · vs AirBrush",
     },
   ],
   faqs: [
+    {
+      q: "Is Nano FacialEdit really free? Is there a limit?",
+      a: "Yes, it is free, with no usage limit and no fee per portrait. You need a free NanoPocket account to get the license key; after activation it runs on your PC.",
+    },
     {
       q: "Can I open someone's closed eyes in a group photo?",
       a: "Yes. The eye-openness slider is a continuous control that can lift partially-closed or fully-closed eyes on a per-subject basis, while the identity loss keeps the rest of the face stable. There is no prompt to write — drag the slider.",
@@ -277,7 +282,7 @@ const data: ProductLandingData = {
     },
     {
       q: "How is this different from Facetune or Adobe Lightroom AI portrait?",
-      a: "Facetune runs on phones with cloud-assisted models and a per-feature paywall. Lightroom's portrait AI is a subscription bolt-on. Nano FacialEdit runs on a desktop NVIDIA GPU, exposes continuous sliders for expression and smile, bundles retouch and portrait face swap in one app, and ships a one-time license with no per-feature charges.",
+      a: "Facetune runs on phones with cloud-assisted models and a per-feature paywall. Lightroom's portrait AI is a subscription bolt-on. Nano FacialEdit runs on a desktop NVIDIA GPU, exposes continuous sliders for expression and smile, bundles retouch and portrait face swap in one app, and is free, with no per-feature charges.",
     },
     {
       q: "Do my portraits get uploaded?",
@@ -285,7 +290,7 @@ const data: ProductLandingData = {
     },
     {
       q: "Can I use it for client retouching?",
-      a: "Yes. The license is one-time and machine-bound, with no per-portrait fees. Retouched and expression-edited portraits can be used in commercial deliverables — editorial, e-commerce, marketing — under the standard Terms of Use. The user retains full output rights.",
+      a: "Yes. The app is free; its license key is machine-bound, and there are no per-portrait fees. Retouched and expression-edited portraits can be used in commercial deliverables — editorial, e-commerce, marketing — under the standard Terms of Use. The user retains full output rights.",
     },
     {
       q: "Does it work on group photos?",
@@ -294,7 +299,7 @@ const data: ProductLandingData = {
   ],
   closing: {
     title: "Install Nano FacialEdit.",
-    body: "Identity-preserving expression edits, slider-driven control over smile, brow, and eyes, and a portrait-grade face swap in the same app. Local NVIDIA GPU, one-time license.",
+    body: "Identity-preserving expression edits, slider-driven control over smile, brow, and eyes, and a portrait-grade face swap in the same app. Local NVIDIA GPU, free license.",
     primaryCta: { label: "Download for Windows", href: "/download" },
     secondaryCta: {
       label: "See Nano FaceStudio Pro 1.0",

@@ -66,6 +66,8 @@ export function freeAppPage(app: FreeApp) {
             inLanguage: locale,
             url: `${BASE}/${locale}${app.path}`,
             description: c.description,
+            isAccessibleForFree: true,
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
             publisher: { "@id": `${BASE}#organization` },
           },
           {

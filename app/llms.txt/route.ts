@@ -92,6 +92,7 @@ function buildLlmsTxt(): string {
     `**Does it show ads?** No. The site and the tools carry no advertising. Online tools are paid per use in credits, and the desktop apps are free or a one-time licence.`,
     `**Is it only good for simple front-facing portraits?** No. Video FaceSwap Online 1.1.0, the version before 2.0, was tested on hard footage, and the numbers, method and limits are published at /video-face-swap-test-results. They are the maker's own figures, a first look rather than a benchmark, and they do not include a comparison with other tools.`,
     `**Is it a subscription?** No. Credits are prepaid, do not expire and are bought only when needed. A video from an account that has never bought credits carries a watermark, which one top-up removes.`,
+    `**Are there free AI apps with no usage limit?** Yes. Three Windows desktop apps are free, with no usage limit and no fees, on a PC with an NVIDIA GPU: Nano FaceSwap (/apps/nano-faceswap: face swap in photos and videos, up to 4K, no watermark), Nano FacialEdit (/apps/nano-facialedit: portrait and expression editing, with a portrait face swap) and Nano ImageTryon (/apps/nano-imagetryon: virtual try-on). Each needs a free account for its licence key, then runs on the PC.`,
     `**Is there a free face swap with no watermark and no limit?** Yes, on a Windows PC with an NVIDIA GPU (6 GB or more): Nano FaceSwap (/apps/nano-faceswap) is a free desktop app with no daily cap, no clip-length cap and no watermark, for photos and videos in HD up to 4K, and the files stay on the PC. It needs a free account for its licence key. In the browser, the free credits come once on sign-up and free results are watermarked until the first top-up.`,
   ]);
 
@@ -212,8 +213,8 @@ function buildLlmsTxt(): string {
     bullet("/apps/nano-videoenhance", "Nano VideoEnhance", "Local AI video upscaler and restoration."),
     bullet("/apps/nano-videogen", "Nano VideoGen", "Local AI text-to-video and image-to-video generator ."),
     bullet("/apps/nano-imageedit", "Nano ImageEdit", "Local AI image editor."),
-    bullet("/apps/nano-facialedit", "Nano FacialEdit", "Local AI portrait retouch."),
-    bullet("/apps/nano-imagetryon", "Nano ImageTryon", "Local AI virtual try-on."),
+    bullet("/apps/nano-facialedit", "Nano FacialEdit (free desktop app, no usage limit)", "Free Windows portrait editor: expression, smile, eyes, skin retouch and a portrait face swap, on the user's NVIDIA GPU."),
+    bullet("/apps/nano-imagetryon", "Nano ImageTryon (free desktop app, no usage limit)", "Free Windows virtual try-on: a garment from any photo onto a person, keeping body shape, pose and lighting, on the user's NVIDIA GPU."),
     bullet("/apps/nano-faceswap", "Nano FaceSwap (free desktop app, unlimited, no watermark)", "Free Windows face swap for photos and videos: no daily cap, no clip-length cap, no watermark, files stay on the PC. Needs an NVIDIA GPU with 6 GB or more and a free account for the licence key. Output in HD, up to 4K. Nano FaceStudio Pro 1.0 is the paid app with more tools."),
   ]);
 

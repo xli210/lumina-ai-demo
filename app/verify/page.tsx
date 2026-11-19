@@ -275,7 +275,7 @@ const NETWORK_ASSERTIONS: NetworkAssertion[] = [
     exception: "Same activation + update check exceptions as above.",
   },
   {
-    product: "Nano FaceSwap (legacy desktop)",
+    product: "Nano FaceSwap (free desktop app)",
     expected: "Zero outbound traffic during swap.",
     exception: "Same activation + update check exceptions as above.",
   },

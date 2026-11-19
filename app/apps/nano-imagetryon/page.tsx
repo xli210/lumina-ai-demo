@@ -7,9 +7,9 @@ import {
 
 export const metadata: Metadata = {
   title:
-    "Nano ImageTryon — Local AI Virtual Try-On with Body & Pose Preservation",
+    "Free AI Virtual Try-On App for Windows: Body & Pose Preserved | Nano ImageTryon",
   description:
-    "Nano ImageTryon is a local desktop virtual try-on app. It transfers any garment from a reference photo onto a target subject while preserving body shape, pose, and lighting — running entirely on the user's NVIDIA GPU with no cloud upload of personal photos.",
+    "Nano ImageTryon is a free desktop virtual try-on app for Windows, with no usage limit. It transfers any garment from a reference photo onto a target subject while preserving body shape, pose, and lighting — running entirely on the user's NVIDIA GPU with no cloud upload of personal photos.",
   keywords: [
     "Nano ImageTryon",
     "AI virtual try-on",
@@ -71,7 +71,8 @@ const data: ProductLandingData = {
       { name: "GPU runtime", value: "Single NVIDIA GPU (CUDA), Windows 10/11" },
       { name: "Data handling", value: "100% local; personal photos never uploaded" },
       { name: "Network requirement", value: "Only for license activation" },
-      { name: "License model", value: "One-time, machine-bound; no per-photo fees" },
+      { name: "License model", value: "Free, machine-bound license key; no per-photo fees" },
+      { name: "Usage limit", value: "None" },
     ],
   },
   documentation: {
@@ -157,7 +158,7 @@ const data: ProductLandingData = {
     versionChip: "v1.0.1",
     title: "Nano",
     titleAccent: "ImageTryon",
-    lead: "Nano ImageTryon is a local desktop virtual try-on application that transfers any garment from a reference photo onto a target subject on a single NVIDIA GPU on Windows, preserving body shape, pose, and scene lighting without uploading any personal photo to the cloud.",
+    lead: "Nano ImageTryon is a free local desktop virtual try-on application that transfers any garment from a reference photo onto a target subject on a single NVIDIA GPU on Windows, preserving body shape, pose, and scene lighting without uploading any personal photo to the cloud.",
     parameters: [
       {
         value: "Any reference",
@@ -181,6 +182,7 @@ const data: ProductLandingData = {
     { label: "Local-only · GDPR-friendly" },
     { label: "Single-GPU NVIDIA CUDA" },
     { label: "Photo-realistic garment fit" },
+    { label: "Free license" },
   ],
   sections: [
     {
@@ -252,7 +254,7 @@ const data: ProductLandingData = {
       index: "06",
       eyebrow: "How it compares",
       title: "Doji-quality try-on, locally.",
-      lead: "Doji, Outfit Anyone, Kolors Virtual Try-On, and Fashn AI run server-side and require subject and garment photos to be uploaded. Nano ImageTryon runs locally on a single NVIDIA GPU with a one-time license, preserves subject body and pose, and handles scene-lighting transfer in the same single-pass run.",
+      lead: "Doji, Outfit Anyone, Kolors Virtual Try-On, and Fashn AI run server-side and require subject and garment photos to be uploaded. Nano ImageTryon is free and runs locally on a single NVIDIA GPU, preserves subject body and pose, and handles scene-lighting transfer in the same single-pass run.",
       bullets: [
         "Local processing on a single license",
         "Subject body and pose preserved",
@@ -263,6 +265,10 @@ const data: ProductLandingData = {
     },
   ],
   faqs: [
+    {
+      q: "Is Nano ImageTryon really free? Is there a limit?",
+      a: "Yes, it is free, with no usage limit and no fee per photo. You need a free NanoPocket account to get the license key; after activation it runs on your PC.",
+    },
     {
       q: "Can I try on clothes from any catalog photo?",
       a: "Yes. The reference can be a catalog shot, an e-commerce flat-lay, a street-fashion image, or a screenshot. No 3D garment asset and no fitting-room rig are required — two photos is all the pipeline needs.",
@@ -281,11 +287,11 @@ const data: ProductLandingData = {
     },
     {
       q: "How is this different from Doji or Outfit Anyone?",
-      a: "Doji, Outfit Anyone, Kolors Virtual Try-On, IDM-VTON, and Fashn AI run server-side and require both subject and garment photos to be uploaded. Nano ImageTryon runs locally on a single NVIDIA GPU on Windows with a one-time license; subject photos and reference garments stay on the user's machine.",
+      a: "Doji, Outfit Anyone, Kolors Virtual Try-On, IDM-VTON, and Fashn AI run server-side and require both subject and garment photos to be uploaded. Nano ImageTryon is free and runs locally on a single NVIDIA GPU on Windows; subject photos and reference garments stay on the user's machine.",
     },
     {
       q: "Can I use it for my online shop?",
-      a: "Yes. The license is one-time and machine-bound, with no per-photo fees. Generated try-on images can be used in commercial deliverables — e-commerce listings, lookbooks, marketing — under the standard Terms of Use. The user retains full output rights.",
+      a: "Yes. The app is free; its license key is machine-bound, and there are no per-photo fees. Generated try-on images can be used in commercial deliverables — e-commerce listings, lookbooks, marketing — under the standard Terms of Use. The user retains full output rights.",
     },
     {
       q: "What hardware do I need?",
@@ -294,7 +300,7 @@ const data: ProductLandingData = {
   ],
   closing: {
     title: "Install Nano ImageTryon.",
-    body: "Local virtual try-on with garment transfer, body and pose preservation, and scene-lighting transfer in one pass. NVIDIA GPU, one-time license, photos stay on disk.",
+    body: "Local virtual try-on with garment transfer, body and pose preservation, and scene-lighting transfer in one pass. NVIDIA GPU, free license, photos stay on disk.",
     primaryCta: { label: "Download for Windows", href: "/download" },
     secondaryCta: {
       label: "Read the release notes",

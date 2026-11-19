@@ -7,9 +7,9 @@ import {
 
 export const metadata: Metadata = {
   title:
-    "Free Local Face Swap for Windows: Nano FaceSwap (NVIDIA GPU)",
+    "Free Face Swap App for Windows: Unlimited, No Watermark, up to 4K | Nano FaceSwap",
   description:
-    "Nano FaceSwap is a free local desktop face-swap app for Windows. It swaps single or multiple faces in photos and videos on a single NVIDIA GPU, with a free license, no per-minute fees, and no cloud upload of source media.",
+    "Nano FaceSwap is a free desktop face swap app for Windows: unlimited photo and video swaps, no watermark, output up to 4K, single or multiple faces, on your own NVIDIA GPU. Free license key, no fees, nothing uploaded.",
   keywords: [
     "Nano FaceSwap",
     "desktop face swap",
@@ -255,6 +255,10 @@ const data: ProductLandingData = {
     },
   ],
   faqs: [
+    {
+      q: "Is Nano FaceSwap really free? Is there a limit or a watermark?",
+      a: "Yes, it is free. There is no daily limit, no limit on video length and no watermark, and photos and videos keep their resolution, up to 4K. You need a free NanoPocket account to get the license key; after activation it runs on your PC.",
+    },
     {
       q: "Will it run on my Windows laptop?",
       a: "If the laptop has an NVIDIA discrete GPU (GTX 1660 / RTX 30 / 40 / 50 class) and runs Windows 10 or 11, yes. The pipeline runs on a single GPU; integrated graphics (Intel UHD, AMD Radeon Graphics) are not supported. Apple Silicon is not in v1.0.6.",

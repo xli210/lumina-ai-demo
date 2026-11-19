@@ -146,7 +146,7 @@ const SYSTEM_REQS: SystemReq[] = [
     status: "Stable",
   },
   {
-    product: "Nano FaceSwap (legacy desktop)",
+    product: "Nano FaceSwap (free desktop app)",
     href: "/apps/nano-faceswap",
     os: "Windows 10/11",
     gpu: "NVIDIA CUDA, GTX 1660 / RTX 30+ tested",
@@ -163,7 +163,7 @@ interface PricingTerm {
 const PRICING_TERMS: PricingTerm[] = [
   { label: "Pricing model", value: "One-time license per product. No subscriptions, no auto-renewal." },
   { label: "Trial", value: "7-day free trial on paid apps, no credit card needed. Nano FaceStudio Pro has no trial; its free online tools at /face-swap are the preview." },
-  { label: "Free apps", value: "Permanent free license at no cost. No upsell, no time limit." },
+  { label: "Free apps", value: "Nano FaceSwap, Nano FacialEdit and Nano ImageTryon: permanent free license at no cost, no usage limit, no time limit, no upsell. Nano FaceSwap output has no watermark." },
   { label: "Activations per license", value: "1 machine per license by default. Force-takeover is supported on the user's account page." },
   { label: "Hidden charges", value: "None. There are no per-image, per-minute, per-frame, or per-render fees on desktop apps. Online demos are free for signed-in NanoPocket accounts." },
   { label: "Recurring fees", value: "None. The license does not expire and does not require a yearly renewal." },
@@ -550,13 +550,6 @@ const KNOWN_ISSUES: KnownIssue[] = [
     href: "/apps/nano-facestudio-pro",
   },
   {
-    title: "Inswapper-class identity ceiling on Nano FaceSwap (legacy)",
-    product: "Nano FaceSwap 1.0.6",
-    detail:
-      "Identity is rendered at 128×128 then upscaled (same pipeline as Roop / FaceFusion / Rope). The diffusion-grade replacement is Nano FaceStudio Pro 1.0.",
-    href: "/apps/nano-faceswap",
-  },
-  {
     title: "Online demo capacity at peak hours",
     product: "Video FaceSwap 2.5 Online",
     detail:
@@ -618,11 +611,6 @@ const CITATIONS: Citation[] = [
     label: "Choi et al. — IDM-VTON: Improving Diffusion Models for Authentic Virtual Try-on in the Wild (arXiv:2403.05139, 2024)",
     url: "https://arxiv.org/abs/2403.05139",
     note: "Reference architecture lineage for ImageTryon.",
-  },
-  {
-    label: "InsightFace — inswapper_128 model card (GitHub, deepinsight/insightface)",
-    url: "https://github.com/deepinsight/insightface",
-    note: "Identity backbone of legacy Nano FaceSwap; included for direct comparison vs the diffusion stack in Nano FaceStudio.",
   },
 ];
 
@@ -717,7 +705,7 @@ const trustFaqJsonLd = {
       name: "Which products are stable vs. coming soon?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Stable today: Nano ImageEnh Pro 3.0, VideoEnhance, VideoGen, ImageEdit, FacialEdit, ImageTryon, FaceSwap (legacy), and Nano FaceStudio Pro 1.0 (Windows now, macOS to follow), plus four online tools: Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.5 Online and SpotEdit. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap.",
+        text: "Stable today: Nano ImageEnh Pro 3.0, VideoEnhance, VideoGen, ImageEdit, FacialEdit, ImageTryon, FaceSwap (FaceSwap, FacialEdit and ImageTryon are free), and Nano FaceStudio Pro 1.0 (Windows now, macOS to follow), plus four online tools: Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.5 Online and SpotEdit. Apple Silicon ports for VideoEnhance, VideoGen, ImageEdit, FacialEdit, and ImageTryon are on the roadmap.",
       },
     },
     {
@@ -733,7 +721,7 @@ const trustFaqJsonLd = {
       name: "Is NanoPocket open source?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The model weights are open: Flux.1, LTX-2.3, InstantID, PuLID, IP-Adapter FaceID, Real-ESRGAN, and InsightFace inswapper_128 are all listed in the External references section. The desktop application binary is closed-source; that is what the one-time license covers.",
+        text: "The model weights are open: Flux.1, LTX-2.3, InstantID, PuLID, IP-Adapter FaceID and Real-ESRGAN are all listed in the External references section. The desktop application binary is closed-source; that is what the one-time license covers.",
       },
     },
     {

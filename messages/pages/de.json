@@ -664,7 +664,7 @@
   },
   "faceswap": {
     "title": "Nano FaceSwap: kostenloser lokaler Face Swap für Windows",
-    "description": "Kostenloser Desktop-Face-Swap für Fotos und Videos, auf deiner eigenen NVIDIA-GPU. Keine Gebühren pro Minute oder pro Frame, und nichts wird hochgeladen.",
+    "description": "Kostenloser Desktop-Face-Swap für Fotos und Videos, auf deiner eigenen NVIDIA-GPU. Keine Gebühren pro Minute oder pro Frame, und nichts wird hochgeladen. Ohne Nutzungslimit und ohne Wasserzeichen, bis 4K.",
     "kicker": "Kostenlose Desktop-App",
     "h1": "Kostenloser Face Swap auf deinem eigenen Computer",
     "lead": "Tausche ein Gesicht oder mehrere, in Fotos und in Videos, mit einer Desktop-App für Windows. Sie ist mit einem Lizenzschlüssel kostenlos, hat keine Gebühren pro Minute oder pro Frame und lädt deine Dateien nie hoch.",
@@ -710,6 +710,10 @@
     ],
     "faqHeading": "Fragen",
     "faq": [
+      {
+        "q": "Ist es wirklich kostenlos? Gibt es ein Limit oder ein Wasserzeichen?",
+        "a": "Ja, es ist kostenlos. Es gibt kein Tageslimit, keine Begrenzung der Videolänge und kein Wasserzeichen, und Fotos und Videos behalten ihre Auflösung, bis 4K. Für den Lizenzschlüssel brauchst du ein kostenloses NanoPocket-Konto."
+      },
       {
         "q": "Läuft sie auf meinem Computer?",
         "a": "Windows 10 oder 11 mit einer NVIDIA-GPU (GTX 1060 oder neuer, 4 GB VRAM oder mehr) und 8 GB RAM. Auf Macs läuft sie nicht."
@@ -775,6 +779,10 @@
     "faqHeading": "Fragen",
     "faq": [
       {
+        "q": "Ist es wirklich kostenlos? Gibt es ein Limit?",
+        "a": "Ja, es ist kostenlos, ohne Nutzungslimit und ohne Gebühr pro Foto. Für den Lizenzschlüssel brauchst du ein kostenloses NanoPocket-Konto."
+      },
+      {
         "q": "Läuft sie auf meinem Computer?",
         "a": "Windows 10 oder 11 mit einer NVIDIA-GPU (GTX 1060 oder neuer, 4 GB VRAM oder mehr) und 8 GB RAM. Auf Macs läuft sie nicht."
       },
@@ -838,6 +846,10 @@
     ],
     "faqHeading": "Fragen",
     "faq": [
+      {
+        "q": "Ist es wirklich kostenlos? Gibt es ein Limit?",
+        "a": "Ja, es ist kostenlos, ohne Nutzungslimit und ohne Gebühr pro Foto. Für den Lizenzschlüssel brauchst du ein kostenloses NanoPocket-Konto."
+      },
       {
         "q": "Läuft sie auf meinem Computer?",
         "a": "Windows 10 oder 11 mit einer NVIDIA-GPU (GTX 1060 oder neuer, 4 GB VRAM oder mehr) und 8 GB RAM. Auf Macs läuft sie nicht."
