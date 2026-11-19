@@ -6,7 +6,7 @@ import { FREE_TIER, FREE_TIER_COMPARISON_SOURCE } from "@/lib/free-tier";
  * "What you can try for free, and in what quality": the free credits, what they buy in each online tool
  * and the output size, as a table an AI answer can quote. Copy and figures are in lib/free-tier.ts.
  */
-export function FreeTierBlock({ lang, id = "free" }: { lang: "en" | "pt-BR"; id?: string }) {
+export function FreeTierBlock({ lang, id = "free", compareLink = true }: { lang: "en" | "pt-BR"; id?: string; compareLink?: boolean }) {
   const c = FREE_TIER[lang];
   return (
     <section id={id} className="px-6 pb-12">
@@ -42,6 +42,13 @@ export function FreeTierBlock({ lang, id = "free" }: { lang: "en" | "pt-BR"; id?
           </a>
         </p>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.desktop}</p>
+        {compareLink && (
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            <Link href={lang === "en" ? "/best-free-face-swap" : "/pt-BR/best-free-face-swap"} className="font-medium text-primary hover:underline">
+              {lang === "en" ? "Free face swap sites compared: Magic Hour, Remaker, PixNova, Vidnoz" : "Sites de troca de rosto grátis comparados: Magic Hour, Remaker, PixNova, Vidnoz"}
+            </Link>
+          </p>
+        )}
         <Link
           href="/auth/sign-up"
           className="mt-5 inline-flex items-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
