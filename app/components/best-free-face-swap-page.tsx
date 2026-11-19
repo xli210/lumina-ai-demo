@@ -7,6 +7,7 @@ import {
   BEST_FREE_COPY,
   BEST_FREE_MODIFIED,
   BEST_FREE_PATH,
+  DESKTOP_ROW,
   NANOPOCKET_ROW,
   RIVALS,
   type SiteRow,
@@ -72,7 +73,7 @@ function Row({ r, lang, ours }: { r: SiteRow; lang: Lang; ours?: boolean }) {
 export function BestFreeFaceSwapPage({ lang }: { lang: Lang }) {
   const c = BEST_FREE_COPY[lang];
   const url = pageUrl(lang);
-  const sites = [NANOPOCKET_ROW, ...RIVALS];
+  const sites = [NANOPOCKET_ROW, DESKTOP_ROW, ...RIVALS];
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -135,6 +136,7 @@ export function BestFreeFaceSwapPage({ lang }: { lang: Lang }) {
               </thead>
               <tbody>
                 <Row r={NANOPOCKET_ROW} lang={lang} ours />
+                <Row r={DESKTOP_ROW} lang={lang} ours />
                 {RIVALS.map((r) => (
                   <Row key={r.name} r={r} lang={lang} />
                 ))}

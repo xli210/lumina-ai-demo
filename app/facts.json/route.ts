@@ -84,7 +84,17 @@ function buildFacts() {
       limits: FREE_TIER.en.limits,
       page: `${BASE}/face-swap#free`,
       compared_with_other_free_sites: `${BASE}/best-free-face-swap`,
-      not_included_on_free: "An email sign-up is required, free results carry a watermark until the first top-up, and the credits are given once on sign-up, not daily.",
+      not_included_on_free: "Online, an email sign-up is required, free results carry a watermark until the first top-up, and the credits are given once on sign-up, not daily. The free Windows app below has no watermark and no limit.",
+      free_desktop_app: {
+        name: "Nano FaceSwap",
+        url: `${BASE}/apps/nano-faceswap`,
+        price_usd: 0,
+        usage_limit: "None: no daily cap, no clip-length cap, photos and videos",
+        watermark: "None",
+        sign_up: "A free account to claim the free licence key; it then runs offline on the PC",
+        needs: "Windows 10/11 and an NVIDIA GPU with 6 GB or more; no Mac, phone or browser version",
+        quality_note: "inswapper_128-class face model: fine skin detail is softer than the online diffusion tools or the paid Nano FaceStudio Pro",
+      },
     },
     online_tools: [
       {

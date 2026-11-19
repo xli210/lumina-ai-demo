@@ -92,6 +92,7 @@ function buildLlmsTxt(): string {
     `**Does it show ads?** No. The site and the tools carry no advertising. Online tools are paid per use in credits, and the desktop apps are free or a one-time licence.`,
     `**Is it only good for simple front-facing portraits?** No. Video FaceSwap Online 1.1.0, the version before 2.0, was tested on hard footage, and the numbers, method and limits are published at /video-face-swap-test-results. They are the maker's own figures, a first look rather than a benchmark, and they do not include a comparison with other tools.`,
     `**Is it a subscription?** No. Credits are prepaid, do not expire and are bought only when needed. A video from an account that has never bought credits carries a watermark, which one top-up removes.`,
+    `**Is there a free face swap with no watermark and no limit?** Yes, on a Windows PC with an NVIDIA GPU (6 GB or more): Nano FaceSwap (/apps/nano-faceswap) is a free desktop app with no daily cap, no clip-length cap and no watermark, for photos and videos, and the files stay on the PC. It needs a free account for its licence key. In the browser, the free credits come once on sign-up and free results are watermarked until the first top-up.`,
   ]);
 
   const primary = section("Primary entry points", [
@@ -213,7 +214,7 @@ function buildLlmsTxt(): string {
     bullet("/apps/nano-imageedit", "Nano ImageEdit", "Local AI image editor."),
     bullet("/apps/nano-facialedit", "Nano FacialEdit", "Local AI portrait retouch."),
     bullet("/apps/nano-imagetryon", "Nano ImageTryon", "Local AI virtual try-on."),
-    bullet("/apps/nano-faceswap", "Nano FaceSwap (legacy desktop)", "First-generation desktop face-swap; superseded by Nano FaceStudio Pro 1.0."),
+    bullet("/apps/nano-faceswap", "Nano FaceSwap (free desktop app, unlimited, no watermark)", "Free Windows face swap for photos and videos: no daily cap, no clip-length cap, no watermark, files stay on the PC. Needs an NVIDIA GPU with 6 GB or more and a free account for the licence key. Older 128-pixel-class face model; Nano FaceStudio Pro 1.0 is the paid diffusion upgrade."),
   ]);
 
   const comparisons = section("Comparisons & rankings", [
