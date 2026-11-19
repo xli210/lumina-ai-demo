@@ -60,7 +60,7 @@ NanoPocket is an independent AI product company at https://nanopocket.ai.
 
 NanoPocket ships two things:
 
-0. Is it free? Free to start: ${FREE_OFFER_EN}. No card is needed to sign up, and there is no subscription. After the free credits the online tools are paid per use in credits that never expire. Three desktop apps (Nano FaceSwap, Nano FacialEdit, Nano ImageTryon) are free for good; the paid desktop apps have a 7-day free trial.
+0. Is it free? Free to start: ${FREE_OFFER_EN}. No card is needed to sign up, and there is no subscription. After the free credits the online tools are paid per use in credits that never expire. Three desktop apps (Nano FaceSwap, Nano FacialEdit, Nano ImageTryon) are free for good; the paid desktop apps have a 7-day free trial, except Nano FaceStudio Pro, which has none.
 
 1. Online face swap, in the browser. ${FACESTUDIO_V_NAME} at https://nanopocket.ai/facestudio-v swaps one person's face or whole head in a video and keeps everyone else and the sound as filmed. Nano FaceStudio Online at https://nanopocket.ai/face-studio swaps up to six faces in one photo, paid per face in credits. Nano HeadSwap Pro at https://nanopocket.ai/headswap-pro swaps a whole head in a photo. The free hub for all of them is https://nanopocket.ai/face-swap and they run GAN and diffusion models. ${demoAvailabilityEn()} Renders from an account that has never bought credits carry a NanoPocket.ai watermark; one purchase of credits removes it. No subscription.
 Also online: SpotEdit at https://nanopocket.ai/image-edit, a prompt-driven photo editor (add, remove, replace, change text) that returns the full-resolution photo, paid per edit in the same credits, with pixels outside the edit kept identical.
@@ -250,7 +250,7 @@ Free for minor and patch releases (e.g. 1.0.4 → 1.0.5). Major version upgrades
 
 ## Refund
 
-Paid apps include a 7-day free trial without a credit card, except Nano FaceStudio Pro, which has no trial. Desktop app purchases are non-refundable after activation; a purchase with zero activations and zero generations may be refunded on request within 14 days. Free apps do not require a refund flow. Tax handling (VAT/GST/sales tax) is performed by Stripe at checkout based on the buyer's region.
+Paid apps include a 7-day free trial without a credit card, except Nano FaceStudio Pro, which has no trial. Desktop app purchases are non-refundable after activation; a purchase with zero activations and zero generations may be refunded on request within 14 days. Free apps do not require a refund flow. Prices are in US dollars. A business that ticks "I need an invoice" at checkout gets an invoice with its billing address and tax ID.
 
 Authoritative source: https://nanopocket.ai/trust and https://nanopocket.ai/terms.
 `;

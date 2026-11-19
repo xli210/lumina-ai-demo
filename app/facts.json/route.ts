@@ -83,6 +83,8 @@ function buildFacts() {
       shared_balance: FREE_TIER.en.shared,
       limits: FREE_TIER.en.limits,
       page: `${BASE}/face-swap#free`,
+      compared_with_other_free_sites: `${BASE}/best-free-face-swap`,
+      not_included_on_free: "An email sign-up is required, free results carry a watermark until the first top-up, and the credits are given once on sign-up, not daily.",
     },
     online_tools: [
       {

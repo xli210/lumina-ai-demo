@@ -154,6 +154,30 @@ const ENGLISH_COUNTERPART: Array<[RegExp, string]> = [
   [/^\/faq$/, "/face-swap"],
 ];
 
+/** Pages that exist only in Chinese, outside app/[locale] (app/zh-CN). */
+const ZH_ONLY = /^\/(faq|guides)(\/|$)/;
+
+/**
+ * Where an address with a language prefix goes when that language has no such page: the English page it
+ * stood for, so links and index entries left from removed translations (Bing and Search Console were
+ * still asking for /ko/faq, /ja/trust, /zh-CN/use-cases... in November 2026) land on a real page instead
+ * of a 404. Null when the address is a real translated page, a language's home, or has no prefix.
+ */
+export function untranslatedLocaleRedirect(pathname: string): string | null {
+  const m = pathname.match(/^\/(zh-CN|ja|ko|es|pt-BR|de|fr)(\/.*)?$/);
+  if (!m) return null;
+  const locale = m[1] as AppLocale;
+  const rest = (m[2] ?? "/").replace(/\/+$/, "") || "/";
+  if (rest === "/") return null;
+  if (locale === "zh-CN" && ZH_ONLY.test(rest)) return null;
+  const translated = Object.entries(TRANSLATED_PAGES).some(
+    ([p, locales]) => locales.includes(locale) && p !== "/" && (rest === p || rest.startsWith(`${p}/`)),
+  );
+  if (translated) return null;
+  const match = ENGLISH_COUNTERPART.find(([re]) => re.test(rest));
+  return match ? match[1] : rest;
+}
+
 /**
  * The address of the current page in `target`, or that language's landing page when the page has no
  * translation in it. `path` is the current path without its locale prefix; `from` is the current locale.

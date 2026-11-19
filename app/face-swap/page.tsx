@@ -33,6 +33,7 @@ import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
 import { demoAvailabilityEn } from "@/lib/demo-availability";
 import { FREE_TIER } from "@/lib/free-tier";
+import { BEST_FREE_COPY } from "@/lib/best-free-face-swap-copy";
 import { FreeTierBlock } from "../components/free-tier-block";
 
 const PAGE_URL = "https://nanopocket.ai/face-swap";
@@ -199,6 +200,7 @@ const COMPARE_ROWS: CompareRow[] = [
 
 const FAQS = [
   FREE_TIER.en.faq,
+  { q: BEST_FREE_COPY.en.faq[0].q, a: `${BEST_FREE_COPY.en.faq[0].a} The full comparison, with sources: /best-free-face-swap.` },
   {
     q: "Is the online face swap really free?",
     a: `Free to start: ${FREE_OFFER_EN}. No card is needed. Nano FaceStudio Online, the photo face swap, renders the free swaps at full resolution — the same output as a paid render apart from a small NanoPocket.ai watermark, which one top-up removes — and face detection is always free. Past that it is ${FACE_SWAP_CREDITS} credits per face replaced — one pass runs per face, so faces you leave alone are free — prepaid in credits that never expire, with no subscription and no auto-renewal. A render that fails is refunded in full automatically. Nano FaceStudio Pro 1.0, the local desktop version, is a separate, optional, one-time-purchase product; buying credits does not affect a desktop license and owning one does not consume credits.`,

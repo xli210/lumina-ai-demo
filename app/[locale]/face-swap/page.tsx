@@ -23,6 +23,7 @@ import {
 } from "@/lib/i18n/locales";
 import { notFound } from "next/navigation";
 import { FREE_TIER } from "@/lib/free-tier";
+import { BEST_FREE_COPY } from "@/lib/best-free-face-swap-copy";
 import { FreeTierBlock } from "../../components/free-tier-block";
 
 const BASE_URL = "https://nanopocket.ai";
@@ -86,7 +87,7 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
 
   const compareRows = t.raw("compare.rows") as CompareRow[];
   // Portuguese is where ChatGPT sent most new accounts in November, so it gets the free-tier answer first.
-  const faqs = locale === "pt-BR" ? [FREE_TIER["pt-BR"].faq, ...(t.raw("faq.items") as FaqItem[])] : (t.raw("faq.items") as FaqItem[]);
+  const faqs = locale === "pt-BR" ? [FREE_TIER["pt-BR"].faq, { q: BEST_FREE_COPY["pt-BR"].faq[0].q, a: `${BEST_FREE_COPY["pt-BR"].faq[0].a} A comparação completa, com as fontes: /pt-BR/best-free-face-swap.` }, ...(t.raw("faq.items") as FaqItem[])] : (t.raw("faq.items") as FaqItem[]);
   const canonical = `${BASE_URL}/${locale}${PATH}`;
 
   const webPageJsonLd = {

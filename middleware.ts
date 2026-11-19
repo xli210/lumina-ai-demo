@@ -1,5 +1,5 @@
 import { updateSession } from '@/lib/supabase/middleware'
-import { LOCALES, DEFAULT_LOCALE, LOCALE_COOKIE, negotiateLocale, usesLocaleCookie } from '@/lib/i18n/locales'
+import { LOCALES, DEFAULT_LOCALE, LOCALE_COOKIE, negotiateLocale, untranslatedLocaleRedirect, usesLocaleCookie } from '@/lib/i18n/locales'
 import { NextResponse, type NextFetchEvent, type NextRequest } from 'next/server'
 import { isRecordablePath, matchAiAgent } from '@/lib/ai-agents'
 import { facestudioVIsOpen } from '@/lib/facestudio-v'
@@ -98,6 +98,15 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
 
   const indexNow = indexNowResponse(request.nextUrl.pathname)
   if (indexNow) return indexNow
+
+  // A language prefix on a page that language does not have: the English page, not a 404.
+  const english = untranslatedLocaleRedirect(request.nextUrl.pathname)
+  if (english) {
+    const to = request.nextUrl.clone()
+    to.pathname = english.split('#')[0]
+    if (english.includes('#')) to.hash = english.split('#')[1]
+    return NextResponse.redirect(to, 308)
+  }
 
   // Video FaceSwap Online's studio: whenever facestudioVIsOpen() is false the
   // door (/facestudio-v/launch) is shut, whoever is signed in; the public page
