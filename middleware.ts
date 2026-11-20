@@ -171,6 +171,10 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
       'public, max-age=0, s-maxage=600, stale-while-revalidate=86400',
     )
   }
+  // Trial (2026-11-20), one page: the same CDN-only header as /security in next.config.mjs, set here.
+  if (request.nextUrl.pathname === '/privacy' && request.method === 'GET' && !response.headers.has('set-cookie')) {
+    response.headers.set('Vercel-CDN-Cache-Control', 'max-age=600, stale-while-revalidate=86400')
+  }
   return response
 }
 

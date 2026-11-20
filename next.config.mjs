@@ -79,6 +79,13 @@ const nextConfig = {
         headers: [PUBLIC_CACHE],
       },
       {
+        // Trial (2026-11-20): Next overwrites Cache-Control on dynamic pages with no-store, so the CDN
+        // never kept a page. Vercel-CDN-Cache-Control is read by Vercel's CDN only and never reaches
+        // the browser. Tried on one page first; see middleware.ts for the other route being tried.
+        source: "/security",
+        headers: [{ key: "Vercel-CDN-Cache-Control", value: "max-age=600, stale-while-revalidate=86400" }],
+      },
+      {
         // internal-preview reads the signed-in user on the server: never cached.
         source: "/apps/:rest((?!nano-facestudio-pro/internal-preview).*)",
         headers: [PUBLIC_CACHE],
