@@ -139,18 +139,35 @@ export function HeroSection() {
     // then. Browsers were buffering every slide's video on arrival, several megabytes for
     // visitors who never see them.
     const next = videoRefs.current[(activeSlide + 1) % demoSlides.length];
-    if (next && next.preload !== "auto") {
-      next.preload = "auto";
-      if (next.readyState === 0) next.load();
-    }
+    const warmNext = () => {
+      if (next && next.preload !== "auto") {
+        next.preload = "auto";
+        if (next.readyState === 0) next.load();
+      }
+    };
     if (slide.type === "video") {
       const vid = videoRefs.current[activeSlide];
-      if (vid) {
-        vid.currentTime = 0;
-        vid.play().catch(() => {});
+      if (!vid) {
+        warmNext();
+        return;
       }
-      return;
+      vid.currentTime = 0;
+      vid.play().catch(() => {});
+      // The next clip starts loading once this one is a third of the way in (or cannot play),
+      // so on a phone the clip on screen gets the whole connection first.
+      const onTime = () => {
+        if (!vid.duration || vid.currentTime >= vid.duration / 3) warmNext();
+      };
+      vid.addEventListener("timeupdate", onTime);
+      vid.addEventListener("error", warmNext);
+      const fallback = setTimeout(warmNext, 8000);
+      return () => {
+        vid.removeEventListener("timeupdate", onTime);
+        vid.removeEventListener("error", warmNext);
+        clearTimeout(fallback);
+      };
     }
+    warmNext();
 
     const tick = 50;
     const timer = setInterval(() => {
