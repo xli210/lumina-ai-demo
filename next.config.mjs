@@ -7,6 +7,19 @@ const PUBLIC_CACHE = {
   key: "Cache-Control",
   value: "public, max-age=0, s-maxage=600, stale-while-revalidate=86400",
 };
+// Next overwrites Cache-Control on these pages with no-store (the root layout reads the request
+// headers for the locale), so PUBLIC_CACHE alone never let the CDN keep a page and every view was
+// rendered again. Vercel-CDN-Cache-Control is read by Vercel's CDN only, is not sent to the browser,
+// and wins over Cache-Control there. Checked on /security (2026-11-20): HTML and the RSC payload are
+// kept apart (Vary), a different query string is a different entry, and a new deployment starts
+// with an empty cache. Only pages whose HTML is the same for every visitor may get it: signed-in
+// state, balances and live figures are fetched in the browser. Never add a page that reads cookies,
+// the signed-in user or a cookie-chosen language (lib/i18n/locales.ts COOKIE_LOCALE_PATHS), nor a
+// path that redirects signed-out visitors (lib/supabase/middleware.ts PROTECTED_PATH_PREFIXES).
+const PUBLIC_PAGE = [
+  PUBLIC_CACHE,
+  { key: "Vercel-CDN-Cache-Control", value: "max-age=600, stale-while-revalidate=86400" },
+];
 
 const nextConfig = {
   typescript: {
@@ -74,26 +87,27 @@ const nextConfig = {
       // read request headers as no-store, and the middleware's own Cache-Control is
       // overridden on Vercel, so it is set here. Keep in step with middleware.ts.
       {
+        // Exact pages. /image-edit and /face-studio only: their sub-paths need a session.
+        // /headswap-pro only: /headswap-pro/config.js is read fresh (no-store) on purpose.
+        // /status and /data/ are left out on purpose: they show live figures.
         source:
-          "/:path(|about|blog|face-swap|image-edit|compare|trust|security|privacy|terms|best-face-swap-app-2026|docs|release-notes|apps|status)",
-        headers: [PUBLIC_CACHE],
-      },
-      {
-        // Trial (2026-11-20): Next overwrites Cache-Control on dynamic pages with no-store, so the CDN
-        // never kept a page. Vercel-CDN-Cache-Control is read by Vercel's CDN only and never reaches
-        // the browser. Tried on one page first; see middleware.ts for the other route being tried.
-        source: "/security",
-        headers: [{ key: "Vercel-CDN-Cache-Control", value: "max-age=600, stale-while-revalidate=86400" }],
+          "/:path(|about|blog|face-swap|image-edit|face-studio|compare|trust|security|privacy|terms|best-face-swap-app-2026|best-free-face-swap|docs|release-notes|apps|pricing|headswap-pro|head-swap|video-head-swap|use-cases|video-face-swap-examples|video-face-swap-test-results|verify|business|contact|community)",
+        headers: PUBLIC_PAGE,
       },
       {
         // internal-preview reads the signed-in user on the server: never cached.
         source: "/apps/:rest((?!nano-facestudio-pro/internal-preview).*)",
-        headers: [PUBLIC_CACHE],
+        headers: PUBLIC_PAGE,
       },
       {
         source:
-          "/:section(blog|compare|release-notes|docs|face-swap|zh-CN|ja|ko)/:rest*",
-        headers: [PUBLIC_CACHE],
+          "/:section(blog|compare|release-notes|docs|face-swap|use-cases|video-face-swap-examples|head-swap)/:rest*",
+        headers: PUBLIC_PAGE,
+      },
+      {
+        // The translated pages (app/[locale]): landing pages only, none reads the visitor.
+        source: "/:locale(zh-CN|ja|ko|es|pt-BR|de|fr)/:rest*",
+        headers: PUBLIC_PAGE,
       },
       {
         // Pictures and videos in public/ were sent with max-age=0, so a returning visitor's
