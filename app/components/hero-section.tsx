@@ -7,10 +7,12 @@ import { Button } from "@/components/ui/button";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE, FACESTUDIO_V_LAUNCH, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
 import { HEADSWAP_PRO_NAME, HEADSWAP_PRO_TAGLINE } from "@/lib/headswap-pro";
 import { IMAGEEDIT_NAME } from "@/lib/imageedit";
+import { NEO_SALE_END } from "./neo-sale-badge";
 import {
   ArrowRight,
   Download,
   Play,
+  Sparkles,
   UserRoundCog,
   Video,
   Wand2,
@@ -27,10 +29,21 @@ interface HeroSlide {
   tag: string;
   poster?: string;
   /** Slide with its own left-aligned copy instead of the shared headline. */
-  feature?: "facestudio-v" | "headswap-pro" | "spotedit";
+  feature?: "neo" | "facestudio-v" | "headswap-pro" | "spotedit";
 }
 
 const demoSlides: HeroSlide[] = [
+  {
+    src: "/videos/hero-neo.mp4",
+    srcSmall: "/videos/hero-neo-sm.mp4",
+    poster: "/videos/hero-neo-poster.jpg",
+    type: "video",
+    alt: "Neo, NanoPocket's new video model: a cyan line sweeps across five clips and leaves behind the face of the person in the reference photo, a bar, rain, neon, a studio close-up and a face to camera",
+    prompt: "Neo: the face drawn again from your photo in every frame. Stock footage and photos",
+    model: "Neo",
+    tag: "Video Face Swap",
+    feature: "neo",
+  },
   {
     src: "/videos/hero-headswap-2-5.mp4?v=2",
     srcSmall: "/videos/hero-headswap-2-5-sm.mp4?v=2",
@@ -115,6 +128,9 @@ export function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const feature = demoSlides[activeSlide].feature;
+  // Neo's launch offer line, checked in the browser so it goes away by itself when the offer ends.
+  const [saleOn, setSaleOn] = useState(false);
+  useEffect(() => setSaleOn(Date.now() < NEO_SALE_END), []);
 
   // Pick the file for this screen before the first play: phones get the lighter one.
   useEffect(() => {
@@ -252,7 +268,45 @@ export function HeroSection() {
             style={{ opacity: feature ? 0.1 : 1 }}
           />
 
-          {/* Left-aligned copy for the Video FaceSwap 2.5 Online clip, the first slide: its left quarter is left empty for this. On phones it keeps only the badge, the first line and the button. */}
+          {/* Neo, the model behind Best quality: the first slide, left-aligned copy over the clip's darkened left side. On phones the badge, the line and the button. */}
+          <div
+            className="pointer-events-none absolute inset-0 flex items-center px-6 transition-opacity duration-1000 sm:px-10 lg:px-16"
+            style={{ opacity: feature === "neo" ? 1 : 0 }}
+            aria-hidden={feature !== "neo"}
+          >
+            <div className="pointer-events-auto max-w-[52%] sm:max-w-[38%]">
+              <p className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-cyan-300/50 bg-cyan-300/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-cyan-200 sm:mb-4 sm:text-xs">
+                <Sparkles className="h-3 w-3" />
+                New model · Neo
+              </p>
+              <p className="text-balance text-base font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
+                Finally, a face swap that actually looks like them.
+              </p>
+              <p className="mt-3 hidden max-w-md text-sm text-white/80 sm:block md:text-base">
+                Neo, our first in-house multi-step diffusion video model, now makes every Best quality video.
+              </p>
+              {saleOn && (
+                <p className="mt-3 hidden text-sm font-semibold text-amber-300 sm:block">Launch week: Neo videos cost 30% fewer credits, until Nov 28</p>
+              )}
+              <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3">
+                <Link href={FACESTUDIO_V_LAUNCH} tabIndex={feature === "neo" ? 0 : -1}>
+                  <Button size="sm" className="gap-1.5 rounded-full bg-white px-4 text-black hover:bg-neutral-100 sm:px-6">
+                    Try Neo
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link
+                  href="/neo"
+                  tabIndex={feature === "neo" ? 0 : -1}
+                  className="text-xs font-medium text-white/85 underline-offset-4 hover:text-white hover:underline sm:text-sm"
+                >
+                  Meet Neo
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Left-aligned copy for the Video FaceSwap 2.5 Online clip, the second slide: its left quarter is left empty for this. On phones it keeps only the badge, the first line and the button. */}
           <div
             className="pointer-events-none absolute inset-0 flex items-center px-6 transition-opacity duration-1000 sm:px-10 lg:px-16"
             style={{ opacity: feature === "facestudio-v" ? 1 : 0 }}

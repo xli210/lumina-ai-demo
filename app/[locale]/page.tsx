@@ -160,6 +160,19 @@ export default async function LocalizedHomePage({ params }: PageProps) {
       {/* Hero */}
       <section className="relative px-6 pt-28 pb-12 sm:pt-32 sm:pb-16">
         <div className="mx-auto max-w-5xl">
+          {/* Neo, the new model behind Best quality: the first thing in the hero, linking to its page. */}
+          {neo && (
+            <Link
+              href={translatedOrEnglish("/neo", locale)}
+              className="mb-6 flex w-fit max-w-full flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl border border-primary/40 bg-primary/10 px-4 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-primary/15 sm:text-base"
+            >
+              <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-bold text-primary-foreground">NEW MODEL · Neo</span>
+              <span>{neo.announceTitle}</span>
+              <span className="inline-flex items-center text-primary">
+                {neo.announceCta} <ArrowRight className="ml-1 h-4 w-4" />
+              </span>
+            </Link>
+          )}
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
             <Globe className="h-3.5 w-3.5" />
             {t("hero.kicker")}
