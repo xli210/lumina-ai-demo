@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, MessageSquareHeart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FACESTUDIO_V_LAUNCH } from "@/lib/facestudio-v";
+import { NeoSaleBadge } from "./neo-sale-badge";
 
 const MEDIA = "/facestudio-v/media/cmp";
 
@@ -18,6 +19,7 @@ export function NeoAnnouncement({ c, pageHref }: { c: Record<string, string>; pa
             <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-bold text-primary-foreground">NEW MODEL</span>
             {c.announceKicker}
           </p>
+          <NeoSaleBadge text={c.saleBadge} />
           <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl" style={{ textWrap: "balance" }}>
             {c.announceTitle}
           </h2>

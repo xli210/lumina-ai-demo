@@ -5,6 +5,7 @@ import { Footer } from "../components/footer";
 import { Button } from "@/components/ui/button";
 import { FACESTUDIO_V_LAUNCH, FACESTUDIO_V_NAME } from "@/lib/facestudio-v";
 import { NeoSection } from "../[locale]/facestudio-v/neo-section";
+import { NeoSaleBadge } from "../components/neo-sale-badge";
 
 /**
  * The Neo launch page, /neo in English (./page.tsx) and /<locale>/neo (app/[locale]/neo/page.tsx): the new model behind Best quality,
@@ -21,6 +22,9 @@ export function NeoPage({ c, videoHref }: { c: Record<string, string>; videoHref
             <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-bold text-primary-foreground">NEW MODEL</span>
             {c.announceKicker}
           </p>
+          <div>
+            <NeoSaleBadge text={c.saleBadge} />
+          </div>
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-5xl" style={{ textWrap: "balance" }}>
             {c.announceTitle}
           </h1>
