@@ -280,7 +280,7 @@ export function HeroSection() {
                 New model · Neo
               </p>
               <p className="text-balance text-base font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
-                Finally, a face swap that actually looks like them.
+                A thousand frames. One face.
               </p>
               <p className="mt-3 hidden max-w-md text-sm text-white/80 sm:block md:text-base">
                 Neo, our first in-house multi-step diffusion video model, now makes every Best quality video.
