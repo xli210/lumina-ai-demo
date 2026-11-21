@@ -280,10 +280,10 @@ export function HeroSection() {
                 New video model · Neo
               </p>
               <p className="text-balance text-base font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
-                Your video. Their face. Every frame.
+                Neo. Not swapped. Regenerated.
               </p>
               <p className="mt-3 hidden max-w-md text-sm text-white/80 sm:block md:text-base">
-                Neo, our first in-house multi-step diffusion video model, now makes every Best quality video.
+                Our first in-house diffusion video model redraws the face from your photo, frame by frame. Now behind every Best quality video.
               </p>
               {saleOn && (
                 <p className="mt-3 hidden text-sm font-semibold text-amber-300 sm:block">Launch week: Neo videos cost 30% fewer credits, until Nov 28</p>
