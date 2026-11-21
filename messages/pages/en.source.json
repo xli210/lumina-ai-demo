@@ -220,7 +220,7 @@
   },
   "video": {
     "neo": {
-      "navNew": "New model: Neo",
+      "navNew": "New video model: Neo",
       "h2": "We don't paste the face. We redraw it.",
       "h2sub": "Our first diffusion video model, trained and tuned in-house.",
       "lead": "Neo now powers Best quality. Instead of pasting a face onto each frame, it draws the face again from your photo, frame by frame, so what makes that face recognisable comes through: a beard, the shape of the jaw and nose, the lines around the eyes. The expressions, the light and the movement still come from your video.",
@@ -247,8 +247,8 @@
       "tip2": "Leave off the photo: sunglasses, face tattoos, piercings or jewellery on the face, heavy make-up or glitter, patterned light. Neo reads them as part of the face and draws them in.",
       "tip3": "In the video: Neo works on the face it can see. Frames where a hand or a microphone covers the face may stay as filmed, and a face that is very small in the frame changes little.",
       "tip4": "Time: about 6–7 minutes for a 10-second 1080p clip once it starts, longer than Fast.",
-      "announceKicker": "New model",
-      "announceTitle": "A thousand frames. One face.",
+      "announceKicker": "New video model",
+      "announceTitle": "Your video. Their face. Every frame.",
       "announceBody": "Neo is our first diffusion video model, trained and tuned in-house, and it now makes every Best quality video. It draws the face again from your photo in every frame, so the result looks like the person you chose.",
       "saleBadge": "Launch week: Neo videos cost 30% fewer credits, until Nov 28",
       "announceCta": "See the results",

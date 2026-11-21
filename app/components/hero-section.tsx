@@ -277,10 +277,10 @@ export function HeroSection() {
             <div className="pointer-events-auto max-w-[52%] sm:max-w-[38%]">
               <p className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-cyan-300/50 bg-cyan-300/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-cyan-200 sm:mb-4 sm:text-xs">
                 <Sparkles className="h-3 w-3" />
-                New model · Neo
+                New video model · Neo
               </p>
               <p className="text-balance text-base font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
-                A thousand frames. One face.
+                Your video. Their face. Every frame.
               </p>
               <p className="mt-3 hidden max-w-md text-sm text-white/80 sm:block md:text-base">
                 Neo, our first in-house multi-step diffusion video model, now makes every Best quality video.
