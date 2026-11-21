@@ -26,6 +26,15 @@ interface WhatsNewItem {
 
 const ITEMS: WhatsNewItem[] = [
   {
+    id: "video-faceswap-neo",
+    label: "NEW MODEL",
+    labelClassName: "bg-rose-100 text-rose-700 ring-rose-200",
+    icon: Sparkles,
+    iconClassName: "text-rose-600",
+    text: `${FACESTUDIO_V_NAME} — meet Neo, our first diffusion video model, now behind Best quality: the face is drawn again from your photo, so it looks like that person`,
+    href: "/facestudio-v#neo",
+  },
+  {
     id: "video-faceswap-sharper-face",
     label: "NEW",
     labelClassName: "bg-emerald-100 text-emerald-700 ring-emerald-200",
@@ -84,7 +93,8 @@ const ITEMS: WhatsNewItem[] = [
 // v13: Video FaceSwap 2.5 Online.
 // v14: SpotEdit.
 // v15: Sharper face for the video head swap.
-const STORAGE_KEY = "nanopocket_whats_new_dismissed_v15";
+// v16: Neo, the new model behind Best quality.
+const STORAGE_KEY = "nanopocket_whats_new_dismissed_v16";
 
 const dollars = (cents: number) => `$${(cents / 100).toFixed(2)}`;
 

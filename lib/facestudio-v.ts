@@ -49,7 +49,7 @@ export const FACESTUDIO_V_MIN_CREDITS = 25;
 /** The modes the studio page can send with a reservation, and what each is called to people. */
 export const FACESTUDIO_V_MODES: Record<string, string> = {
   fast: "Fast",
-  quality: "Best quality",
+  quality: "Neo (Best quality)",
   head: "Headswap Best",
   head_fast: "Headswap Fast",
   enhance_fast: "Fast enhance",
@@ -76,7 +76,25 @@ export const FACESTUDIO_V_PRICE_LINE =
 export const FACESTUDIO_V_TAGLINE =
   "Replace one person's face, or their whole head, in a video. Everyone else and the original sound stay as filmed.";
 
+/**
+ * Neo: the engine behind Best quality, NanoPocket's first diffusion video model (fine-tuned in-house from Wan2.1 1.3B, with our own
+ * distillation and acceleration; say "trained and tuned in-house", not "built from scratch"). It draws the face again from the photo in
+ * every frame. One person per video. The likeness figures: SFace cosine to the reference photo, mean over 100-frame cuts of four of our
+ * test clips, the same photo for both engines, with the shipped settings (Matrix swap_pipelines/docs/RELEASE_NEO.md).
+ */
+export const FACESTUDIO_V_NEO_NAME = "Neo";
+export const FACESTUDIO_V_NEO_LIKENESS = { before: "0.37", neo: "0.54" } as const;
+export const FACESTUDIO_V_NEO_LIKENESS_ROWS: readonly { clip: string; before: string; neo: string }[] = [
+  { clip: "Talking to camera, glasses", before: "0.39", neo: "0.61" },
+  { clip: "Pulling faces", before: "0.42", neo: "0.65" },
+  { clip: "Hands over the mouth", before: "0.41", neo: "0.50" },
+  { clip: "Laughing close-up", before: "0.27", neo: "0.39" },
+];
+/** Once it starts, a 10-second 1080p clip, on our GPU (the swap about 1 s a frame, then the enhancement). */
+export const FACESTUDIO_V_NEO_TIME_10S = "6–7 min";
+
 export const FACESTUDIO_V_POINTS = [
+  "New model: Neo now powers Best quality: the face is drawn again from your photo in every frame, so the result looks like that person (likeness 0.54 against 0.37 before, on our test clips)",
   "New in 2.5: Headswap Fast, about 40% faster and about 35% fewer credits than Headswap Best; quality may be slightly lower",
   "Face swap or whole-head swap on video",
   "Pick which person changes in a multi-person clip",
@@ -89,6 +107,10 @@ export const FACESTUDIO_V_FAQ: readonly { q: string; a: string }[] = [
   {
     q: "What is Video FaceSwap 2.5 Online?",
     a: `${FACESTUDIO_V_NAME} is a video face swap from NanoPocket. You give it a video and a photo of the face you want; it replaces one person in every frame and leaves everyone and everything else as it was filmed. Version ${FACESTUDIO_V_VERSION} is the current release: it is available to registered NanoPocket users and paid for in credits.`,
+  },
+  {
+    q: "What is Neo?",
+    a: "Neo is the model behind Best quality: NanoPocket's first diffusion video model, trained and tuned in-house. Rather than pasting a face onto each frame, it draws the face again from your photo in every frame, so the result looks more like the person in the photo; on four of our own test clips its likeness to the photo averaged 0.54, against 0.37 for the engine Best quality used before (scored 0 to 1 by an independent face-recognition model). The expressions, light and movement come from your video. It changes the face, not the hair or the head shape (Headswap does those), swaps one person per video, costs the same as Best quality did, and takes longer: about 6–7 minutes for a 10-second 1080p clip once it starts. For the closest likeness, use a sharp, evenly lit photo of a face turned to the camera, without sunglasses, face tattoos, face jewellery or heavy make-up.",
   },
   {
     q: "How do I get in?",

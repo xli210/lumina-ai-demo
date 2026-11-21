@@ -39,6 +39,8 @@ export interface ToolPageCopy {
 }
 
 export interface VideoPageCopy {
+  /** "Neo", the new model behind Best quality, first under the hero (./neo-section.tsx); the English page has its own, #neo. */
+  neo: Record<string, string>;
   /** "Small faces, sharp results", right under the hero (./small-faces-section.tsx); the English page has its own, #small. */
   small: Record<string, string>;
   /** The 2.5 section; the English page's strings, public/facestudio-v/index.html. */

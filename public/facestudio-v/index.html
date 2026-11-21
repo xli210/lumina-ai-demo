@@ -292,6 +292,34 @@ footer{padding-top:30px;color:var(--faint);font-size:12.5px;line-height:1.6;max-
 .n25 .pcta{margin-top:26px}
 .n25-g{position:relative;left:50%;transform:translateX(-50%);width:min(1560px,calc(100vw - 2*clamp(16px,4vw,32px)));margin-top:44px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;align-items:center}
 .pmedia.n25-v{grid-template-columns:repeat(3,minmax(0,1fr))}
+/* Neo: each clip is original | Neo side by side, the reference photo inset top right */
+.neo-g{display:grid;gap:10px;margin-top:44px}
+.neo-fb{margin:22px auto 0;max-width:62ch;padding:14px 18px;border:1px solid var(--line2);border-radius:16px;background:#0b0b0c;color:var(--ink2);font-size:15px;line-height:1.5;text-align:left}
+.neo-fb b{display:block;margin-bottom:4px;color:var(--ink)}
+.neo-row{display:grid;gap:10px}
+.neo-row.v{grid-template-columns:repeat(4,minmax(0,1fr))}
+.neo-row.h{grid-template-columns:repeat(2,minmax(0,1fr))}
+.neo-g figure{position:relative;margin:0;border-radius:18px;overflow:hidden;background:#0b0b0c;min-width:0}
+.neo-g video{width:100%;height:auto;display:block}
+.neo-g .vv{position:relative}
+.neo-g .lr{position:absolute;bottom:10px;left:10px;right:10px;display:flex;justify-content:space-between;pointer-events:none}
+.neo-g .lr span{padding:5px 10px;border-radius:999px;background:rgba(0,0,0,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font:500 12px/1 var(--disp);color:var(--ink)}
+.neo-g .lr span:last-child{background:rgba(245,245,247,.92);color:#000}
+.neo-g figcaption{padding:10px 4px 2px;font:500 13.5px/1.35 var(--disp);color:var(--ink2)}
+.neo-p{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:14px}
+.neo-p .box{border:1px solid var(--line2);border-radius:18px;padding:20px 22px;background:#0b0b0c;min-width:0;text-align:left}
+.neo-p h3{margin:0 0 10px;font:600 18px/1.25 var(--disp);color:var(--ink)}
+.neo-p p,.neo-p li{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.5}
+.neo-p ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.neo-p table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:14.5px}
+.neo-p th,.neo-p td{padding:7px 4px;border-top:1px solid var(--line2);text-align:right;color:var(--ink2);font-weight:400}
+.neo-p tr:first-child th,.neo-p tr:first-child td{border-top:0}
+.neo-p th[scope=row]{text-align:left}
+.neo-p thead th{font-weight:600;color:var(--ink)}
+.neo-p td.f,.neo-p th.f{color:var(--ink);font-weight:600}
+.neo-p tr.avg th,.neo-p tr.avg td{color:var(--ink);font-weight:600}
+.neo-p .note{margin-top:12px;font-size:13px;text-align:left}
+@media (max-width:900px){.neo-row.v{grid-template-columns:repeat(2,minmax(0,1fr))}.neo-row.h,.neo-p{grid-template-columns:1fr}}
 .n25-v figure{aspect-ratio:832/704}
 .sf-g{grid-template-columns:minmax(0,880px) 300px;justify-content:center}.pmedia.sf-v{grid-template-columns:repeat(2,minmax(0,1fr))}.sf-v figure{aspect-ratio:1/1}@media (max-width:1100px){.sf-g{grid-template-columns:minmax(0,1fr)}}
 .n25-p{padding:18px;border-radius:18px;background:#0b0b0c;box-shadow:inset 0 0 0 1px var(--hair)}
@@ -322,11 +350,11 @@ footer{padding-top:30px;color:var(--faint);font-size:12.5px;line-height:1.6;max-
 
 <!-- 1. what is this, in one sentence and one picture -->
 <div class="hero">
-  <a class="n25-flag" href="#small"><b>New</b><span>Small or distant faces now come out sharp.</span></a> <a class="n25-flag" href="#new25"><b>New in 2.5</b><span>Headswap Fast: the whole head, about 40% faster and about 35% fewer credits.</span></a><br>
+  <a class="n25-flag" href="#neo"><b>New model: Neo</b><span>Best quality now looks like the person in your photo.</span></a> <a class="n25-flag" href="#small"><b>New</b><span>Small or distant faces now come out sharp.</span></a> <a class="n25-flag" href="#new25"><b>New in 2.5</b><span>Headswap Fast: the whole head, about 40% faster and about 35% fewer credits.</span></a><br>
   <span class="kicker">Video face swap<span class="ver">VERSION 2.5.0</span></span>
   <h1>Swap any face in a video.</h1>
   <p class="sub">Give it a video and a photo of the face you want. It replaces one person, in every frame, and leaves everything else exactly as it was filmed. New accounts start with 100 free credits, enough to try a short clip.</p>
-  <div class="cta"><a class="pill white" href="#small">New: sharp small faces</a><a class="pill glass" href="#new25">See what&rsquo;s new in 2.5</a><a class="pill glass" href="#hard">See real results</a><a class="pill glass" href="#how">How it works</a><a class="pill blue" id="liveBtn" href="#choose" hidden>Try Video FaceSwap 2.5 Online</a><a class="pill glass" href="/video-face-swap-examples">All examples</a><a class="pill glass" href="/facestudio-v/videos">My videos</a></div>
+  <div class="cta"><a class="pill white" href="#neo">Neo: face swaps that finally look like them</a><a class="pill glass" href="#small">New: sharp small faces</a><a class="pill glass" href="#new25">See what&rsquo;s new in 2.5</a><a class="pill glass" href="#hard">See real results</a><a class="pill glass" href="#how">How it works</a><a class="pill blue" id="liveBtn" href="#choose" hidden>Try Video FaceSwap 2.5 Online</a><a class="pill glass" href="/video-face-swap-examples">All examples</a><a class="pill glass" href="/facestudio-v/videos">My videos</a></div>
 
   <div class="formula" id="formula">
     <div class="tile photo"><img id="fRef" alt="Reference face"><span class="tag"><b>Reference face</b><small>a photo you upload</small></span></div>
@@ -338,7 +366,60 @@ footer{padding-top:30px;color:var(--faint);font-size:12.5px;line-height:1.6;max-
   <div class="match" id="fMatch"></div>
 </div>
 
-<!-- 1a. new: small faces (2026-11-19), first after the hero -->
+<!-- 1. new model: Neo, the engine behind Best quality (launch draft 2026-11-20), first after the hero.
+     The likeness figures are SFace cosine to the reference photo, averaged over 100-frame cuts of our own test clips, the same photo
+     for both engines (swap_pipelines/docs/RELEASE_NEO.md in Matrix). The demo clips: Pexels stock footage and Pexels model photos. -->
+<section id="neo" class="v2p n25">
+  <div class="phero">
+    <div class="phero-in">
+      <p class="peyebrow">New model: Neo</p>
+      <h2>We don&rsquo;t paste the face. We redraw it.<span>Our first diffusion video model, trained and tuned in-house.</span></h2>
+      <p class="n25-lead">Neo now powers <b>Best quality</b>. Instead of pasting a face onto each frame, it draws the face again from your photo, frame by frame, so what makes that face recognisable comes through: a beard, the shape of the jaw and nose, the lines around the eyes. The expressions, the light and the movement still come from your video.</p>
+      <p class="pquality">Neo replaces the face, not the hair or the shape of the head (for those, use Headswap). It swaps one person per video and takes a few minutes longer than before. Best quality costs the same as it did, and a video that fails is refunded.</p>
+      <div class="neo-fb"><b>You told us, and we listened.</b> Many of you told us a swapped face did not look enough like the photo. We read every piece of feedback. Neo is our first answer, and we are still working on the quality of all our video models: keep telling us what you see.</div>
+      <div class="pcta"><a class="pbtn" href="/facestudio-v/launch">Try Neo</a> <a class="pbtn ghost" href="/neo">More about Neo</a> <a class="pbtn ghost" href="#neo-tips">Photo tips</a></div>
+    </div>
+  </div>
+  <div class="neo-g">
+    <div class="neo-row h">
+      <figure><div class="vv" data-pair><video src="/facestudio-v/media/cmp/neo_art_wig.mp4" poster="/facestudio-v/media/cmp/neo_art_wig.jpg" muted loop playsinline preload="none"></video><div class="lr"><span>Original</span><span>Neo</span></div></div><figcaption>Stage costume: the beard and face in the photo, the wig and the performance from the video</figcaption></figure>
+      <figure><div class="vv" data-pair><video src="/facestudio-v/media/cmp/neo_film_cry.mp4" poster="/facestudio-v/media/cmp/neo_film_cry.jpg" muted loop playsinline preload="none"></video><div class="lr"><span>Original</span><span>Neo</span></div></div><figcaption>Film scene: low light, a slow emotional take</figcaption></figure>
+    </div>
+    <div class="neo-row v">
+      <figure><div class="vv" data-pair><video src="/facestudio-v/media/cmp/neo_vlog_glasses.mp4" poster="/facestudio-v/media/cmp/neo_vlog_glasses.jpg" muted loop playsinline preload="none"></video><div class="lr"><span>Original</span><span>Neo</span></div></div><figcaption>Vlog: the photo&rsquo;s beard, the creator&rsquo;s own glasses</figcaption></figure>
+      <figure><div class="vv" data-pair><video src="/facestudio-v/media/cmp/neo_react_hands.mp4" poster="/facestudio-v/media/cmp/neo_react_hands.jpg" muted loop playsinline preload="none"></video><div class="lr"><span>Original</span><span>Neo</span></div></div><figcaption>Reaction: hands at the face</figcaption></figure>
+      <figure><div class="vv" data-pair><video src="/facestudio-v/media/cmp/neo_closeup_laugh.mp4" poster="/facestudio-v/media/cmp/neo_closeup_laugh.jpg" muted loop playsinline preload="none"></video><div class="lr"><span>Original</span><span>Neo</span></div></div><figcaption>Vertical close-up: a face that fills the frame</figcaption></figure>
+      <figure><div class="vv" data-pair><video src="/facestudio-v/media/cmp/neo_stage_singer.mp4" poster="/facestudio-v/media/cmp/neo_stage_singer.jpg" muted loop playsinline preload="none"></video><div class="lr"><span>Original</span><span>Neo</span></div></div><figcaption>Live music: stage light, a moustache from the photo</figcaption></figure>
+    </div>
+  </div>
+  <div class="neo-p">
+    <div class="box">
+      <h3>Likeness to the photo</h3>
+      <table>
+        <thead><tr><th></th><th scope="col">Best quality before</th><th scope="col" class="f">Neo</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Talking to camera, glasses</th><td>0.39</td><td class="f">0.61</td></tr>
+          <tr><th scope="row">Pulling faces</th><td>0.42</td><td class="f">0.65</td></tr>
+          <tr><th scope="row">Hands over the mouth</th><td>0.41</td><td class="f">0.50</td></tr>
+          <tr><th scope="row">Laughing close-up</th><td>0.27</td><td class="f">0.39</td></tr>
+          <tr class="avg"><th scope="row">Average</th><td>0.37</td><td class="f">0.54</td></tr>
+        </tbody>
+      </table>
+      <p class="note">How close the swapped face is to the reference photo, from 0 to 1, scored by an independent face-recognition model that neither engine was trained against. Four of our own test clips, the same photo for both engines; a measurement, not a benchmark.</p>
+    </div>
+    <div class="box" id="neo-tips">
+      <h3>For the closest likeness</h3>
+      <ul>
+        <li><b>The photo:</b> sharp and evenly lit, the face turned to the camera and not too small.</li>
+        <li><b>Leave off the photo:</b> sunglasses, face tattoos, piercings or jewellery on the face, heavy make-up or glitter, patterned light. Neo reads them as part of the face and draws them in.</li>
+        <li><b>In the video:</b> Neo works on the face it can see. Frames where a hand or a microphone covers the face may stay as filmed, and a face that is very small in the frame changes little.</li>
+        <li><b>Time:</b> about 6&ndash;7 minutes for a 10-second 1080p clip once it starts, longer than Fast.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 1a. new: small faces (2026-11-19) -->
 <section id="small" class="v2p n25 sf">
   <div class="phero">
     <div class="phero-in">
@@ -582,7 +663,7 @@ footer{padding-top:30px;color:var(--faint);font-size:12.5px;line-height:1.6;max-
   </div>
   <div class="engines">
     <div class="card eng"><span class="kicker" style="margin:0">Face swap</span><h3>The identity changes. The rest stays.</h3><p>Keeps the original hair, head shape and expression. Best for dialogue, interviews and long clips.</p>
-      <dl><dt>Replaces</dt><dd>The face</dd><dt>Keeps</dt><dd>Hair, head shape, expression</dd><dt>Speed</dt><dd>Seconds for the swap, then restore and upscale</dd><dt>Best for</dt><dd>Most clips, up to 60 s (5 s on a free account)</dd></dl></div>
+      <dl><dt>Replaces</dt><dd>The face</dd><dt>Keeps</dt><dd>Hair, head shape, expression</dd><dt>Speed</dt><dd>Fast: seconds for the swap. Best quality (Neo): a few minutes, the face drawn again in every frame</dd><dt>Best for</dt><dd>Most clips, up to 60 s (5 s on a free account)</dd></dl></div>
     <div class="card eng head"><span class="kicker" style="margin:0">Head swap</span><h3>The whole head changes.</h3><p>Hair, head shape and face all come from the reference. Best for new looks and short hero shots.</p>
       <dl><dt>Replaces</dt><dd>Face, hair and head shape</dd><dt>Keeps</dt><dd>Body, clothes, background, everyone else</dd><dt>Speed</dt><dd>Minutes for a few seconds of video</dd><dt>Modes</dt><dd>Headswap Best, Headswap Fast</dd><dt>Best for</dt><dd>Short clips, up to 12 s (3 s on a free account)</dd></dl></div>
   </div>

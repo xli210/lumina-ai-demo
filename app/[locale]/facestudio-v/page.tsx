@@ -14,6 +14,7 @@ import { VIDEO_EXAMPLES_PATH, isoDuration, videoExample, videoExamplePath } from
 import ZhVideoFaceSwapPage, { metadata as zhMetadata } from "./zh-page";
 import { New25Section } from "./new25-section";
 import { SmallFacesSection } from "./small-faces-section";
+import { NeoSection } from "./neo-section";
 
 // Video FaceSwap Online in the other languages. The English page is static HTML (public/facestudio-v/index.html); Chinese
 // has its own page (./zh-page.tsx), which also carries the price and refund detail the others link to instead.
@@ -128,6 +129,8 @@ export default async function LocalizedVideoFaceSwapPage({ params }: PageProps) 
           <p className="mt-3 text-xs text-muted-foreground">{c.accountNote}</p>
         </div>
       </section>
+
+      <NeoSection c={c.neo} />
 
       <SmallFacesSection c={c.small} />
 

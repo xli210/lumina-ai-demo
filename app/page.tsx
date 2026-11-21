@@ -7,6 +7,8 @@ import { WhatsNewBar } from "./components/whats-new-bar";
 import { ContinueBar } from "./components/continue-bar";
 import { HeroSection } from "./components/hero-section";
 import { AnnouncementSection } from "./components/announcement-section";
+import { NeoAnnouncement } from "./components/neo-announcement";
+import enCopy from "@/messages/pages/en.source.json";
 import { DemoSection } from "./components/demo-section";
 import { FeatureShowcase } from "./components/feature-showcase";
 import { ShowcaseSection } from "./components/showcase-section";
@@ -83,6 +85,7 @@ export default function Page() {
       <WhatsNewBar />
       <ContinueBar offsetClass="px-4 pt-[6.25rem] -mb-16 sm:pt-[6.75rem] sm:-mb-20" />
       <HeroSection />
+      <NeoAnnouncement c={enCopy.video.neo} pageHref="/neo" />
       <AnnouncementSection />
       <AtAGlanceSection />
       <DemoSection />

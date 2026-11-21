@@ -13,6 +13,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { ContinueBar } from "../components/continue-bar";
+import { NeoAnnouncement } from "../components/neo-announcement";
+import { pageCopy } from "@/lib/i18n/page-copy";
 import { Button } from "@/components/ui/button";
 import { OnlineToolCards } from "./online-tools";
 import {
@@ -107,6 +109,7 @@ export default async function LocalizedHomePage({ params }: PageProps) {
   setRequestLocale(locale satisfies AppLocale);
 
   const t = await getTranslations({ locale, namespace: "Home" });
+  const neo = (await pageCopy(locale)).video?.neo;
 
   const whyUsItems = t.raw("whyUs.items") as WhyUsItem[];
   const appsItems = t.raw("appsCatalog.items") as AppCatalogItem[];
@@ -204,6 +207,8 @@ export default async function LocalizedHomePage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {neo && <NeoAnnouncement c={neo} pageHref={translatedOrEnglish("/neo", locale)} />}
 
       {/* Why us */}
       <section className="border-y border-border/60 bg-muted/20 px-6 py-12 sm:py-16">

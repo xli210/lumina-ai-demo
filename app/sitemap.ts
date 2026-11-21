@@ -91,7 +91,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...translatedEntries("/image-edit", "weekly", 0.95, "2026-10-30"),
     // Video FaceSwap Online 1.1.0: the public page of the release (its studio is behind sign-in).
     ...translatedEntries("/headswap-pro", "weekly", 0.9, "2026-10-30"),
-    ...translatedEntries("/facestudio-v", "daily", 0.95, "2026-10-30"),
+    ...translatedEntries("/facestudio-v", "daily", 0.95, "2026-11-20"),
+    // Neo, the model behind Best quality: its own launch page.
+    ...translatedEntries("/neo", "weekly", 0.9, "2026-11-20"),
     // One watch page per example clip, so Google can index the videos (see lib/video-examples.ts).
     { url: `${BASE}${VIDEO_EXAMPLES_PATH}`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly", priority: 0.8 },
     ...VIDEO_EXAMPLES.map((v) => ({ url: `${BASE}${videoExamplePath(v)}`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly" as const, priority: 0.6 })),
