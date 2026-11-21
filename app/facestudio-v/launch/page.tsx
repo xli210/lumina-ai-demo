@@ -40,14 +40,20 @@ export const metadata: Metadata = {
   alternates: { canonical: "/facestudio-v" },
 };
 
-export default async function FaceStudioVLaunch() {
+/** Modes a link may open the studio with (?m=quality is "Try Neo"); anything else is ignored. */
+const LAUNCH_MODES = new Set(["fast", "quality", "head", "head_fast"]);
+
+export default async function FaceStudioVLaunch({ searchParams }: { searchParams: Promise<{ m?: string | string[] }> }) {
+  const asked = (await searchParams).m;
+  const mode = typeof asked === "string" && LAUNCH_MODES.has(asked) ? asked : null;
+  const self = mode ? `${FACESTUDIO_V_LAUNCH}?m=${mode}` : FACESTUDIO_V_LAUNCH;
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect(`/auth/login?next=${encodeURIComponent(FACESTUDIO_V_LAUNCH)}`);
+    redirect(`/auth/login?next=${encodeURIComponent(self)}`);
   }
 
   if (!facestudioVIsOpen()) {
@@ -72,7 +78,7 @@ export default async function FaceStudioVLaunch() {
     // short-lived signed token in the URL fragment (never sent to any server).
     // The studio is another address and cannot read our language cookie, so its language travels the same way.
     const lang = negotiateLocale((await cookies()).get(LOCALE_COOKIE)?.value, (await headers()).get("accept-language"));
-    redirect(`${cfg.origin}/?key=${encodeURIComponent(cfg.key)}#t=${signStudioToken(user.id)}&l=${encodeURIComponent(lang)}`);
+    redirect(`${cfg.origin}/?key=${encodeURIComponent(cfg.key)}#t=${signStudioToken(user.id)}&l=${encodeURIComponent(lang)}${mode ? `&m=${mode}` : ""}`);
   }
 
   const reason = status.ok ? "no_address" : status.reason;

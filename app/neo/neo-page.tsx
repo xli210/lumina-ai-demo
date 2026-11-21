@@ -31,7 +31,7 @@ export function NeoPage({ c, videoHref }: { c: Record<string, string>; videoHref
           <p className="mb-6 max-w-3xl text-base leading-relaxed text-foreground/85 sm:text-lg">{c.announceBody}</p>
           <div className="mb-8 flex flex-wrap items-center gap-3">
             <Button asChild size="lg" className="rounded-full bg-foreground text-background">
-              <Link href={FACESTUDIO_V_LAUNCH}>
+              <Link href={`${FACESTUDIO_V_LAUNCH}?m=quality`}>
                 {c.announceTry} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>

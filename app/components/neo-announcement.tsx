@@ -38,7 +38,7 @@ export function NeoAnnouncement({ c, pageHref }: { c: Record<string, string>; pa
               </Link>
             </Button>
             <Button asChild variant="outline" className="rounded-full">
-              <Link href={FACESTUDIO_V_LAUNCH}>{c.announceTry}</Link>
+              <Link href={`${FACESTUDIO_V_LAUNCH}?m=quality`}>{c.announceTry}</Link>
             </Button>
           </div>
         </div>

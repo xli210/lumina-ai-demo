@@ -92,7 +92,7 @@ export function NeoSection({ c }: { c: Record<string, string> }) {
         </div>
         <div className="mt-6">
           <Button asChild className="rounded-full bg-foreground text-background">
-            <Link href={FACESTUDIO_V_LAUNCH}>
+            <Link href={`${FACESTUDIO_V_LAUNCH}?m=quality`}>
               {c.cta} <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>

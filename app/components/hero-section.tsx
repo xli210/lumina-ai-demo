@@ -289,7 +289,7 @@ export function HeroSection() {
                 <p className="mt-3 hidden text-sm font-semibold text-amber-300 sm:block">Launch week: Neo videos cost 30% fewer credits, until Nov 28</p>
               )}
               <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3">
-                <Link href={FACESTUDIO_V_LAUNCH} tabIndex={feature === "neo" ? 0 : -1}>
+                <Link href={`${FACESTUDIO_V_LAUNCH}?m=quality`} tabIndex={feature === "neo" ? 0 : -1}>
                   <Button size="sm" className="gap-1.5 rounded-full bg-white px-4 text-black hover:bg-neutral-100 sm:px-6">
                     Try Neo
                     <ArrowRight className="h-4 w-4" />
