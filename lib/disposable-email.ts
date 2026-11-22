@@ -36,6 +36,10 @@ const DISPOSABLE_DOMAINS: ReadonlySet<string> = new Set([
   "cloud-temp.com",
   "emailinbo.live",
   "onmailflare.com",
+  // Found 2026-11-22: one farm, 34 accounts 11/19-11/22, no purchase; both
+  // domains receive mail on the same self-hosted server.
+  "thechiv.com",
+  "volhoo.com",
   // Found 2026-11-09: every address on them is a random string.
   "ruutukf.com",
   "emailkeep.com",
