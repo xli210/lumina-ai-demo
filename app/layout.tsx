@@ -35,8 +35,10 @@ const dmMono = DM_Mono({
 // site never ships with placeholder strings.
 const verificationOther: Record<string, string | string[]> = {};
 if (process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION) {
-  verificationOther["msvalidate.01"] =
-    process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
+  // The deploy value was pasted as Bing's whole <meta ... content="CODE" /> tag, which shipped the tag
+  // itself as the content. Keep only the code.
+  const raw = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION.trim();
+  verificationOther["msvalidate.01"] = raw.match(/content=["']?([A-Za-z0-9]+)/)?.[1] ?? raw;
 }
 if (process.env.NEXT_PUBLIC_BAIDU_SITE_VERIFICATION) {
   verificationOther["baidu-site-verification"] =
