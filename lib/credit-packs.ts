@@ -11,6 +11,7 @@
  */
 
 import { CREDITS_PER_USD } from "@/lib/credits";
+import { BLACK_FRIDAY_PACK_PERCENT_OFF, blackFridayOn, formatUsdCents } from "@/lib/black-friday";
 
 /**
  * Because 1 credit = $0.01, a pack's base credits and its price in cents
@@ -134,9 +135,36 @@ export function autoRechargeThreshold(pack: CreditPack): number {
 /** The highest threshold of any pack: a balance at or above it never needs a look at the database. */
 export const AUTO_RECHARGE_MAX_THRESHOLD = Math.max(...CREDIT_PACKS.map(autoRechargeThreshold));
 
-/** Price rendered for a card header, e.g. `$20`. */
-export function formatPackPrice(pack: CreditPack): string {
+/**
+ * Percent off this pack right now (the Black Friday sale, lib/black-friday.ts), 0 outside it.
+ * A sale never changes the credits in a pack, only the charge.
+ */
+export function packPercentOff(pack: CreditPack, now: number = Date.now()): number {
+  return blackFridayOn(now) ? BLACK_FRIDAY_PACK_PERCENT_OFF[pack.id] ?? 0 : 0;
+}
+
+/** What the pack is charged right now, in cents. */
+export function packChargeCents(pack: CreditPack, now: number = Date.now()): number {
+  return Math.round((pack.priceInCents * (100 - packPercentOff(pack, now))) / 100);
+}
+
+/**
+ * Credits a sale adds on top of the pack's own bonus, so the pack's total stays the same while the
+ * charge is smaller. The purchase entry can never exceed what was collected (one credit per cent;
+ * the webhook enforces it), so the part of the list price that was not paid is granted as bonus.
+ */
+export function packSaleBonusCredits(pack: CreditPack, now: number = Date.now()): number {
+  return pack.priceInCents - packChargeCents(pack, now);
+}
+
+/** The pack's list price, e.g. `$20`, whatever the sale. */
+export function formatPackListPrice(pack: CreditPack): string {
   return `$${(pack.priceInCents / CREDITS_PER_USD).toFixed(0)}`;
+}
+
+/** Price rendered for a card header, e.g. `$20`, or `$16` while the pack is on sale. */
+export function formatPackPrice(pack: CreditPack, now: number = Date.now()): string {
+  return formatUsdCents(packChargeCents(pack, now));
 }
 
 /**
@@ -207,13 +235,13 @@ export function repeatTopUpOffer(recent: readonly RecentPurchase[], now: number)
 
   const spentCents = inWindow.reduce((sum, p) => sum + p.paidCents, 0);
   const credits = inWindow.reduce((sum, p) => sum + p.credits, 0);
-  const pack = CREDIT_PACKS.find((p) => p.priceInCents > spentCents);
+  const pack = CREDIT_PACKS.find((p) => packChargeCents(p, now) > spentCents);
   if (!pack || totalCredits(pack) <= credits) return null;
   return {
     spentCents,
     credits,
     packId: pack.id,
-    moreCents: pack.priceInCents - spentCents,
+    moreCents: packChargeCents(pack, now) - spentCents,
     moreCredits: totalCredits(pack) - credits,
   };
 }

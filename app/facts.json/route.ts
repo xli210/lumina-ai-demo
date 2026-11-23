@@ -17,6 +17,8 @@ import { FACESTUDIO_V_NAME, FACESTUDIO_V_MIN_CREDITS, FACESTUDIO_V_MODES, FACEST
 import { HEADSWAP_PRO_NAME, HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS } from "@/lib/headswap-pro";
 import { IMAGEEDIT_NAME, IMAGEEDIT_CREDIT_TIERS } from "@/lib/imageedit";
 import { PRODUCTS } from "@/lib/products";
+import { BLACK_FRIDAY_ENDS_AT, BLACK_FRIDAY_STARTS_AT, blackFridayOn } from "@/lib/black-friday";
+import { packChargeCents, packPercentOff } from "@/lib/credit-packs";
 import {
   FREE_TIER,
   FREE_VIDEO_FACE_SWAP_SECONDS,
@@ -32,6 +34,12 @@ const BASE = "https://nanopocket.ai";
 const APP_PAGE: Record<string, string> = {
   "nano-image-tryon": "nano-imagetryon",
   nnanoimageenh: "nano-imageenh-pro",
+};
+
+/** Platforms per app, where it is not Windows only. */
+const PLATFORM: Record<string, string> = {
+  nnanoimageenh: "Windows, macOS (Apple Silicon)",
+  "nano-facestudio-pro": "Windows, macOS (Apple Silicon)",
 };
 
 /**
@@ -55,6 +63,11 @@ function buildFacts() {
       pricing: `${BASE}/pricing`,
       terms: `${BASE}/terms`,
     },
+    black_friday: {
+      runs: `${new Date(BLACK_FRIDAY_STARTS_AT).toISOString()} to ${new Date(BLACK_FRIDAY_ENDS_AT).toISOString()}`,
+      on_now: blackFridayOn(),
+      page: `${BASE}/black-friday`,
+    },
     credits: {
       credits_per_usd: CREDITS_PER_USD,
       expire: false,
@@ -67,6 +80,7 @@ function buildFacts() {
       packs: CREDIT_PACKS.map((p) => ({
         name: p.name,
         price_usd: usd(p.priceInCents),
+        ...(packPercentOff(p) > 0 ? { sale_price_usd: usd(packChargeCents(p)), sale_percent_off: packPercentOff(p) } : {}),
         credits: totalCredits(p),
         bonus_credits: p.bonusCredits,
       })),
@@ -149,8 +163,13 @@ function buildFacts() {
     desktop_apps: PRODUCTS.map((p) => ({
       name: p.name,
       url: `${BASE}/apps/${APP_PAGE[p.id] ?? p.id}`,
-      platform: "Windows",
+      platform: PLATFORM[p.id] ?? "Windows",
       price_usd: usd(p.priceInCents),
+      ...(p.originalPriceInCents && p.originalPriceInCents > p.priceInCents
+        ? p.promoKind === "launch"
+          ? { launch_price_until: p.promoValidUntil, price_usd_after_launch: usd(p.originalPriceInCents) }
+          : { sale_price_until: p.promoValidUntil, regular_price_usd: usd(p.originalPriceInCents) }
+        : {}),
       payment: p.priceInCents === 0 ? "free" : "one-time licence, no subscription",
       free_trial_days: p.trialDays ?? 0,
     })),

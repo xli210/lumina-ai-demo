@@ -1,3 +1,5 @@
+import { BlackFridayBanner } from "../components/black-friday-banner";
+import { blackFridayCopy } from "@/lib/black-friday-copy";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
@@ -156,6 +158,9 @@ export default async function LocalizedHomePage({ params }: PageProps) {
 
       <Navbar />
       <ContinueBar offsetClass="px-4 pt-16 -mb-20 sm:-mb-24" />
+      <div className="pt-20">
+        <BlackFridayBanner c={blackFridayCopy(locale).banner} href={translatedOrEnglish("/black-friday", locale)} />
+      </div>
 
       {/* Hero */}
       <section className="relative px-6 pt-28 pb-12 sm:pt-32 sm:pb-16">

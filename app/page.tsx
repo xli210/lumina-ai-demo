@@ -1,3 +1,5 @@
+import { BlackFridayBanner } from "./components/black-friday-banner";
+import { blackFridayCopy } from "@/lib/black-friday-copy";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
@@ -85,6 +87,7 @@ export default function Page() {
       <WhatsNewBar />
       <ContinueBar offsetClass="px-4 pt-[6.25rem] -mb-16 sm:pt-[6.75rem] sm:-mb-20" />
       <HeroSection />
+      <BlackFridayBanner c={blackFridayCopy("en").banner} href="/black-friday" />
       <NeoAnnouncement c={enCopy.video.neo} pageHref="/neo" />
       <AnnouncementSection />
       <AtAGlanceSection />

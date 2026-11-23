@@ -28,9 +28,20 @@ export const appReleases: AppRelease[] = [
     gradient: "from-primary to-blue-400",
     releases: [
       {
+        version: "1.2.0",
+        date: "November 23, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "feature", text: "Batch face swap: add any number of photos, pick one reference or virtual face, and swap them all in turn; faces are found in the background before you start" },
+          { type: "feature", text: "Group photos in a batch: choose one person, several or everyone; photos with no face are skipped and reported" },
+          { type: "feature", text: "Jobs queue while you keep editing other photos; stop the batch at any time, then export the selected results or all of them in one click" },
+          { type: "feature", text: "Native macOS app for Apple Silicon (M1 or newer, macOS 14+), with Metal acceleration; signed and notarized by Apple" },
+          { type: "improvement", text: "Already on 1.x on Windows? Install over it: your engine, models and license stay in place" },
+        ],
+      },
+      {
         version: "1.0.2",
         date: "October 12, 2026",
-        tag: "Latest",
         changes: [
           { type: "improvement", text: "Faster: the AI model now loads in the background as soon as the app opens, so the first face swap, upscale or head swap no longer waits about 30\u201340 seconds" },
           { type: "improvement", text: "Result images save faster, and first-time setup downloads faster on most connections (4 connections per file)" },
@@ -48,6 +59,24 @@ export const appReleases: AppRelease[] = [
           { type: "improvement", text: "Your activation now survives Windows updates, renaming your PC and hardware changes, and offline use has a proper grace period instead of logging you out after one failed check" },
           { type: "fix", text: "If the model files or your activation can\u2019t be read, the app repairs itself or asks for your key again; only one copy runs at a time and the AI engine always shuts down when you close the app" },
           { type: "improvement", text: "Uninstalling removes everything; updating keeps all your data" },
+        ],
+      },
+    ],
+  },
+  {
+    app: "Nano FaceStudio V Pro",
+    slug: "nano-facestudio-v-pro",
+    icon: Video,
+    gradient: "from-primary to-blue-400",
+    releases: [
+      {
+        version: "1.0.1",
+        date: "November 23, 2026",
+        tag: "Latest",
+        changes: [
+          { type: "feature", text: "First public release: video face swap on your own NVIDIA GPU, in Fast or Best quality, output in 1080p or 4K MP4 with the original sound" },
+          { type: "feature", text: "Enhance only (no swap), optional lip sync to an audio file, up to 5 photos of the face, and a batch queue of up to 50 videos" },
+          { type: "improvement", text: "Installer and app code-signed by NanoPocket AI LLC" },
         ],
       },
     ],

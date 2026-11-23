@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nano FaceStudio Pro 1.2: Batch Face Swap on Mac and Windows</title>
+<meta name="description" content="One reference, a whole set of photos. Nano FaceStudio Pro 1.2 adds batch input and batch face and head swap, and now runs on Apple Silicon Macs. Everything is processed on your own machine.">
+<meta property="og:title" content="Nano FaceStudio Pro 1.2: one face, the whole roll">
+<meta property="og:description" content="Batch face and head swap, now on Mac and Windows. Your photos stay on your machine.">
+<link rel="canonical" href="https://nanopocket.ai/apps/nano-facestudio-pro-1-2">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nanopocket.ai/apps/nano-facestudio-pro-1-2">
+<meta property="og:image" content="https://nanopocket.ai/facestudio-pro-1-2/assets/ui_04_running.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#100e0c; --ink-2:#1a1714; --ink-3:#2a2520;
+  --paper:#eee7d9; --paper-2:#ddd4c2; --paper-ink:#1b1713;
+  --dim:#a39a8b; --safe:#ee3b1d; --safe-deep:#7d1608; --ok:#9fcf7d;
+  --display:"Big Shoulders Display",Impact,"Arial Narrow",sans-serif;
+  --mono:"DM Mono",ui-monospace,Menlo,Consolas,monospace;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --gutter:clamp(16px,4vw,56px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--paper);font:400 17px/1.55 var(--body);overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3,p{margin:0}
+:focus-visible{outline:2px solid var(--safe);outline-offset:3px}
+.wrap{max-width:1440px;margin:0 auto;padding-inline:var(--gutter)}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.display{font-family:var(--display);font-weight:900;line-height:.88;letter-spacing:-.005em;text-transform:uppercase}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(16,14,12,.94);border-bottom:1px solid var(--ink-3)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:60px}
+.brand{font-weight:700;text-decoration:none;font-size:17px;white-space:nowrap}
+.bar nav{display:flex;align-items:center;gap:28px;font-size:14px}
+.bar nav a{text-decoration:none;color:var(--dim)}
+.bar nav a:hover{color:var(--paper)}
+.bar nav a.get{color:var(--ink);background:var(--paper);padding:8px 14px;font-weight:700}
+.bar nav a.get:hover{background:#fff;color:var(--ink)}
+
+/* buttons */
+.btn{display:inline-block;background:var(--safe);color:#160503;font-weight:700;text-decoration:none;padding:15px 24px;border:0;font-size:16px;font-family:var(--body);cursor:pointer}
+.btn:hover{background:#ff5433}
+.link{font-weight:500;text-underline-offset:4px}
+
+/* hero */
+.hero{padding-block:clamp(36px,5vw,72px) clamp(48px,6vw,88px)}
+.slug{display:flex;flex-wrap:wrap;gap:6px 22px;color:var(--dim);margin-bottom:24px}
+.slug b{color:var(--safe);font-weight:500}
+.hero h1{font-size:clamp(64px,10.4vw,172px)}
+.hero h1 span{display:block}
+.hero h1 .out{color:var(--safe)}
+.hero-grid{display:grid;grid-template-columns:minmax(260px,4fr) 9fr;gap:clamp(28px,4vw,64px);margin-top:clamp(28px,4vw,56px);align-items:start}
+.lede{font-size:clamp(19px,1.6vw,23px);line-height:1.4}
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px 22px;margin-top:26px}
+.price{margin-top:16px;color:var(--dim)}
+.offers{margin-top:8px;font-size:14px;color:var(--dim)}
+
+/* contact sheet */
+.sheet{background:var(--paper);color:var(--paper-ink);padding:clamp(10px,1.4vw,20px);transform:rotate(-.6deg);box-shadow:0 26px 60px rgba(0,0,0,.55)}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:2px 2px 10px;flex-wrap:wrap}
+.sheet-head button{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;background:var(--paper-ink);color:var(--paper);border:0;padding:8px 12px;cursor:pointer}
+.sheet-head button:hover{background:var(--safe-deep)}
+.frames{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(4px,.5vw,8px);background:#0c0b0a;padding:clamp(4px,.5vw,8px)}
+.frame{position:relative;aspect-ratio:1000/545;overflow:hidden;background:#222}
+.frame img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
+.frame .after{clip-path:inset(0 100% 0 0)}
+.frame.done .after{clip-path:inset(0);transition:clip-path .75s cubic-bezier(.6,0,.2,1)}
+.frame.skip img{filter:grayscale(1) brightness(.62)}
+.tag{position:absolute;left:5px;top:5px;z-index:2;background:rgba(12,11,10,.86);color:var(--paper);padding:2px 6px;font:500 clamp(9px,.75vw,11px)/1.4 var(--mono)}
+.state{position:absolute;right:5px;bottom:5px;z-index:2;background:rgba(12,11,10,.86);color:var(--dim);padding:2px 6px;font:500 clamp(9px,.75vw,11px)/1.4 var(--mono)}
+.frame.run .state{background:var(--safe);color:#160503}
+.frame.done .state{color:var(--ok)}
+.frame.ref{outline:3px solid var(--safe);outline-offset:-3px}
+.frame.ref .tag{background:var(--safe);color:#160503}
+.frame.skip::after{content:"";position:absolute;inset:0;background:linear-gradient(to top right,transparent calc(50% - 1.5px),var(--safe) calc(50% - 1.5px),var(--safe) calc(50% + 1.5px),transparent calc(50% + 1.5px))}
+.sheet-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 2px 0}
+
+/* what changed */
+.paper{background:var(--paper);color:var(--paper-ink)}
+.section{padding-block:clamp(64px,8vw,128px)}
+.kicker{color:var(--safe-deep);margin-bottom:14px;display:block}
+.dark .kicker{color:var(--safe)}
+h2.display{font-size:clamp(52px,8.2vw,132px)}
+.split-head{display:grid;grid-template-columns:7fr 4fr;gap:24px clamp(24px,5vw,80px);align-items:end;margin-bottom:clamp(32px,5vw,64px)}
+.ledger{width:100%;border-collapse:collapse;font-size:clamp(15px,1.25vw,18px)}
+.ledger th{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;text-align:left;padding:0 18px 12px 0;border-bottom:3px solid var(--paper-ink)}
+.ledger td{padding:17px 18px 17px 0;border-bottom:1px solid #b9ae98;vertical-align:top}
+.ledger td:first-child{font-weight:700;width:21%}
+.ledger td:nth-child(2){color:#71685a;width:31%;text-decoration:line-through;text-decoration-color:#b5452f;text-decoration-thickness:1px}
+.ledger td.keep{text-decoration:none}
+.ledger td:last-child{padding-right:0}
+section[id]{scroll-margin-top:60px}
+
+/* steps */
+.step{display:grid;grid-template-columns:minmax(240px,3fr) 8fr;gap:clamp(24px,4vw,64px);padding-block:clamp(32px,4vw,56px);border-top:1px solid var(--ink-3);align-items:start}
+.step:first-of-type{border-top:0}
+.step .txt{position:sticky;top:92px}
+.num{font-family:var(--display);font-weight:900;font-size:clamp(68px,7vw,112px);line-height:.85;color:var(--safe)}
+.step h3{font-size:clamp(23px,2vw,30px);line-height:1.12;margin:14px 0 10px}
+.step p{color:#c9c0b1}
+.shot{background:#000;padding:clamp(5px,.7vw,10px);border:1px solid var(--ink-3)}
+.shot figcaption{color:var(--dim);padding:9px 2px 1px}
+
+/* batch rules */
+.rules{display:grid;grid-template-columns:repeat(4,1fr);border-top:3px solid var(--paper);margin-top:clamp(36px,5vw,64px)}
+.rules div{padding:18px 20px 4px 0}
+.rules div+div{border-left:1px solid var(--ink-3);padding-left:20px}
+.rules b{display:block;font-size:18px;line-height:1.2;margin-bottom:6px}
+.rules p{color:var(--dim);font-size:15px}
+
+/* local */
+.local{background:var(--safe-deep);background:radial-gradient(120% 90% at 78% 0%,#c42a12 0,#7d1608 42%,#2a0a05 100%);color:#fff2e9}
+.local h2{font-size:clamp(62px,12vw,200px)}
+.local .kicker{color:#ffc7b4}
+.local-grid{display:grid;grid-template-columns:5fr 6fr;gap:clamp(32px,6vw,96px);margin-top:clamp(36px,5vw,72px)}
+.local .big{font-size:clamp(21px,2vw,29px);line-height:1.3}
+.reasons{list-style:none;margin:0;padding:0}
+.reasons li{padding:17px 0;border-top:1px solid rgba(255,235,220,.32)}
+.reasons li:last-child{border-bottom:1px solid rgba(255,235,220,.32)}
+.reasons b{display:block;font-size:19px;line-height:1.25}
+.reasons span{color:#ffd9ca;font-size:16px}
+.fine{margin-top:24px;font-size:15px;color:#ffd9ca}
+
+/* mac */
+.mac-grid{display:grid;grid-template-columns:6fr 5fr;gap:clamp(36px,6vw,96px);align-items:start}
+.spec{border:3px solid var(--paper-ink);background:#f6f0e4}
+.spec header{background:var(--paper-ink);color:var(--paper);padding:11px 16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.spec dl{margin:0}
+.spec dl div{display:grid;grid-template-columns:38% 1fr;gap:12px;padding:12px 16px;border-bottom:1px solid #c9bfab}
+.spec dl div:last-child{border-bottom:0}
+.spec dt{font:500 12px/1.7 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:#6d6455}
+.spec dd{margin:0;font-weight:700}
+.times{width:100%;border-collapse:collapse;margin-top:28px;font-size:16px}
+.times caption{text-align:left;padding-bottom:10px;color:#6d6455}
+.times th,.times td{text-align:left;padding:10px 12px 10px 0;border-bottom:1px solid #b9ae98}
+.times thead th{font:500 12px var(--mono);letter-spacing:.05em;text-transform:uppercase;border-bottom:2px solid var(--paper-ink)}
+.times tbody th{font-weight:500}
+.note{font-size:14px;color:#6d6455;margin-top:12px}
+.also{margin-top:26px;font-size:16px}
+
+/* faq + final */
+.faq{display:grid;grid-template-columns:4fr 8fr;gap:clamp(24px,5vw,80px)}
+.faq h2{font-size:clamp(46px,5.4vw,84px)}
+details{border-top:1px solid var(--ink-3);padding:17px 0}
+details:last-child{border-bottom:1px solid var(--ink-3)}
+summary{cursor:pointer;font-weight:700;font-size:19px;list-style-position:outside}
+details p{color:#c9c0b1;margin-top:9px;max-width:68ch}
+.final{border-top:1px solid var(--ink-3);text-align:left}
+.final h2{font-size:clamp(70px,13vw,216px)}
+.final h2 span{color:var(--safe)}
+.final .cta{margin-top:32px}
+footer{border-top:1px solid var(--ink-3);padding-block:26px;color:var(--dim);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px 32px;flex-wrap:wrap}
+footer a{margin-right:16px}
+
+@media (max-width:1000px){
+  .hero-grid,.split-head,.local-grid,.mac-grid,.faq{grid-template-columns:1fr}
+  .step{grid-template-columns:1fr}.step .txt{position:static}
+  .rules{grid-template-columns:1fr 1fr}.rules div:nth-child(3){border-left:0;padding-left:0}
+  .sheet{transform:none}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .bar nav a:not(.get){display:none}
+  .frames{grid-template-columns:repeat(2,1fr)}
+  .rules{grid-template-columns:1fr}.rules div+div{border-left:0;padding-left:0;border-top:1px solid var(--ink-3)}
+  .ledger thead{display:none}
+  .ledger,.ledger tbody,.ledger tr,.ledger td{display:block;width:auto!important}
+  .ledger tr{padding:14px 0;border-bottom:1px solid #b9ae98}
+  .ledger td{border:0;padding:1px 0}
+  .ledger td:nth-child(2){font-size:14px}
+  .spec dl div{grid-template-columns:1fr;gap:1px}
+  .btn{width:100%;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .frame.done .after{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="https://nanopocket.ai">NanoPocket</a>
+    <nav aria-label="Page">
+      <a href="#batch">Batch</a>
+      <a href="#local">Why local</a>
+      <a href="#mac">Mac</a>
+      <a class="get" href="/download#nano-facestudio-pro">Download</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero wrap">
+  <div class="slug mono">
+    <span>Nano FaceStudio Pro 1.2</span>
+    <b>New: batch swap</b>
+    <b>New: macOS</b>
+    <span>Runs on your machine</span>
+  </div>
+  <h1 class="display"><span>One face.</span><span class="out">The whole roll.</span></h1>
+
+  <div class="hero-grid">
+    <div>
+      <p class="lede">Drop in a whole shoot, pick one reference, and press Start. FaceStudio swaps every photo in turn on your own GPU, on Windows and now on Mac.</p>
+      <div class="cta">
+        <a class="btn" href="/download#nano-facestudio-pro">Get it for Mac or Windows</a>
+        <a class="link" href="#batch">See how batch works</a>
+      </div>
+      <p class="price mono" id="priceHero">$49.90 once until Dec 24 (Black Friday). Regular $69.90. No credits. No subscription.</p>
+      <p class="offers" id="bfLink"><a class="link" href="/black-friday">See all Black Friday offers</a></p>
+    </div>
+
+    <figure class="sheet" style="margin:0" aria-label="Contact sheet showing one reference swapped into a set of photos">
+      <div class="sheet-head">
+        <span class="mono" id="sheetStatus" role="status">Batch Face Swap: ready</span>
+        <button type="button" id="runBtn">Run batch</button>
+      </div>
+      <div class="frames">
+        <div class="frame ref"><img src="/facestudio-pro-1-2/assets/reference.jpg" alt="The reference portrait" width="1000" height="545"><span class="tag">Reference</span></div>
+        <div class="frame" data-job><img src="/facestudio-pro-1-2/assets/in_shoot_0142.jpg" alt="Original portrait 142" width="1000" height="545"><img class="after" src="/facestudio-pro-1-2/assets/out_shoot_0142.jpg" alt="Portrait 142 after the swap" width="1000" height="545"><span class="tag">0142 · 1 face</span><span class="state">in batch</span></div>
+        <div class="frame" data-job><img src="/facestudio-pro-1-2/assets/in_shoot_0143.jpg" alt="Original portrait 143" width="1000" height="545"><img class="after" src="/facestudio-pro-1-2/assets/out_shoot_0143.jpg" alt="Portrait 143 after the swap" width="1000" height="545"><span class="tag">0143 · 1 face</span><span class="state">in batch</span></div>
+        <div class="frame" data-job><img src="/facestudio-pro-1-2/assets/in_shoot_0145.jpg" alt="Original portrait 145" width="1000" height="545"><img class="after" src="/facestudio-pro-1-2/assets/out_shoot_0145.jpg" alt="Portrait 145 after the swap" width="1000" height="545"><span class="tag">0145 · 1 face</span><span class="state">in batch</span></div>
+        <div class="frame" data-job><img src="/facestudio-pro-1-2/assets/in_team_photo.jpg" alt="Original group photo with four people" width="1000" height="545"><img class="after" src="/facestudio-pro-1-2/assets/out_team_photo.jpg" alt="Group photo with only the top-right person swapped" width="1000" height="545"><span class="tag">Team · swap face 4 only</span><span class="state">in batch</span></div>
+        <div class="frame skip"><img src="/facestudio-pro-1-2/assets/in_location_07.jpg" alt="A landscape with no face" width="1000" height="545"><span class="tag">Location · no face</span><span class="state">skipped</span></div>
+      </div>
+      <figcaption class="sheet-foot mono"><span>Real output from the app</span><span>Playback sped up</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="paper section" aria-labelledby="changed">
+  <div class="wrap">
+    <div class="split-head">
+      <div>
+        <span class="kicker mono">What's different</span>
+        <h2 class="display" id="changed">One at a time is over.</h2>
+      </div>
+      <p>FaceStudio Pro started as a studio for finishing a single portrait. It still is. Version 1.2 adds everything you need when the job is fifty portraits.</p>
+    </div>
+    <table class="ledger">
+      <thead><tr><th scope="col">&nbsp;</th><th scope="col">Before</th><th scope="col">FaceStudio Pro 1.2</th></tr></thead>
+      <tbody>
+        <tr><td>Input</td><td>Open one photo</td><td>Add or drag in any number of photos. They line up in a strip.</td></tr>
+        <tr><td>Face detection</td><td>Wait on each photo</td><td>Runs on the whole set in the background.</td></tr>
+        <tr><td>Reference</td><td>Upload it again for every photo</td><td>One reference or virtual face goes into every ticked photo.</td></tr>
+        <tr><td>Group photos</td><td>Set up by hand each time</td><td>Choose who gets swapped, right in the batch window.</td></tr>
+        <tr><td>Running jobs</td><td>Wait for the GPU, then start the next</td><td>Jobs queue up while you keep editing other photos.</td></tr>
+        <tr><td>Export</td><td>Save results one by one</td><td>Export selected or export all, next to the originals or into one folder.</td></tr>
+        <tr><td>Platforms</td><td class="keep">Windows only</td><td><strong>Windows and Apple Silicon Mac.</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section dark" id="batch" aria-labelledby="howbatch">
+  <div class="wrap">
+    <div class="split-head">
+      <div>
+        <span class="kicker mono">Batch, in four moves</span>
+        <h2 class="display" id="howbatch">Load. Pick. Run. Export.</h2>
+      </div>
+      <p style="color:#c9c0b1">These are screenshots from a real batch: five swaps and one skipped photo on a 24 GB MacBook Pro, finished in 55 seconds.</p>
+    </div>
+
+    <article class="step">
+      <div class="txt"><div class="num">1</div><h3>Load the whole shoot</h3><p>Drag in a folder's worth of photos. Faces are found in the background. Tick photos with the checkbox, ⌘ or Ctrl-click, Shift-click, or Select all.</p></div>
+      <figure class="shot" style="margin:0"><img loading="lazy" src="/facestudio-pro-1-2/assets/ui_01_ticked.jpg" alt="FaceStudio with six photos ticked in the strip and the Batch swap button active" width="2400" height="1500"><figcaption class="mono">Every photo gets a face count before you start</figcaption></figure>
+    </article>
+    <article class="step">
+      <div class="txt"><div class="num">2</div><h3>Choose one reference</h3><p>Pick Face Swap or Head Swap and upload one photo, or use a virtual face. The batch window shows exactly what will happen to each photo before anything runs.</p></div>
+      <figure class="shot" style="margin:0"><img loading="lazy" src="/facestudio-pro-1-2/assets/ui_03_dialog_ready.jpg" alt="Batch swap window listing each photo and what will happen to it" width="2400" height="1500"><figcaption class="mono">Single-person photos set themselves up. In groups, you choose who.</figcaption></figure>
+    </article>
+    <article class="step">
+      <div class="txt"><div class="num">3</div><h3>Press Start and keep working</h3><p>Photos run one after another. The strip shows what's done, what's at the GPU and what's waiting. Open another photo and carry on, or stop the batch whenever you like.</p></div>
+      <figure class="shot" style="margin:0"><img loading="lazy" src="/facestudio-pro-1-2/assets/ui_04_running.jpg" alt="Batch in progress with results, a running job and waiting photos in the strip" width="2400" height="1500"><figcaption class="mono">Done, running, queued and waiting, at a glance</figcaption></figure>
+    </article>
+    <article class="step">
+      <div class="txt"><div class="num">4</div><h3>Check it, then export it all</h3><p>Compare any result with its original. Fix one with Mask Edit, Face Vivid or Upscale. Then export every finished photo in one click.</p></div>
+      <figure class="shot" style="margin:0"><img loading="lazy" src="/facestudio-pro-1-2/assets/ui_05_done.jpg" alt="Finished batch with a before and after comparison and Export all available" width="2400" height="1500"><figcaption class="mono">Finished: 5 done, 1 skipped, with the reason on hover</figcaption></figure>
+    </article>
+
+    <div class="rules">
+      <div><b>Group photos</b><p>Pick one person, several, or everyone.</p></div>
+      <div><b>No face?</b><p>Skipped and reported. The batch carries on.</p></div>
+      <div><b>Head Swap</b><p>Runs on single-person photos. Groups are flagged before you start.</p></div>
+      <div><b>Changed your mind?</b><p>Stop the batch, remove a photo, or run one by hand.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="local section" id="local" aria-labelledby="localh">
+  <div class="wrap">
+    <span class="kicker mono">Why local matters</span>
+    <h2 class="display" id="localh">Your photos never leave the darkroom.</h2>
+    <div class="local-grid">
+      <p class="big">A face is the most personal data in a photo. Online tools ask you to send it to someone else's server. FaceStudio does the work on the computer in front of you.</p>
+      <div>
+        <ul class="reasons">
+          <li><b>No uploads</b><span>Photos, references and results stay on your disk.</span></li>
+          <li><b>Safe for client work</b><span>Unreleased campaigns and NDA shoots stay in-house.</span></li>
+          <li><b>No credits, no meter</b><span>Run 5 photos or 500. The price is the same.</span></li>
+          <li><b>No server queue</b><span>Your GPU works only on your jobs.</span></li>
+          <li><b>Full resolution</b><span>Results come back at your input size, then upscale up to 4×.</span></li>
+        </ul>
+        <p class="fine">The internet is needed for setup (a one-time download of about 25 GB) and for a license check every 7 days. The app keeps working for up to 14 days offline. Your images are never part of that traffic.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="paper section" id="mac" aria-labelledby="mach">
+  <div class="wrap">
+    <div class="mac-grid">
+      <div>
+        <span class="kicker mono">Now available</span>
+        <h2 class="display" id="mach">Hello, Mac.</h2>
+        <p style="margin-top:22px;font-size:clamp(19px,1.6vw,23px);line-height:1.4">FaceStudio Pro now runs natively on Apple Silicon with Metal acceleration. It is signed and notarized by Apple, so it opens like any other Mac app.</p>
+        <table class="times">
+          <caption class="mono">Measured in the app</caption>
+          <thead><tr><th scope="col">Task</th><th scope="col">M5 · 24 GB</th><th scope="col">M4 · 16 GB</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Face Swap, per photo</th><td>about 10 s</td><td>20–23 s</td></tr>
+          </tbody>
+        </table>
+        <p class="note">2816 × 1536 test photos. Times depend on image size and what else your Mac is running.</p>
+      </div>
+      <div>
+        <div class="spec">
+          <header class="mono"><span>Mac requirements</span><span>Check before you buy</span></header>
+          <dl>
+            <div><dt>Chip</dt><dd>Apple Silicon, M1 or newer. M4 or newer recommended. Intel Macs are not supported.</dd></div>
+            <div><dt>System</dt><dd>macOS 14 Sonoma or newer</dd></div>
+            <div><dt>Memory</dt><dd>16 GB minimum, 24 GB or more recommended</dd></div>
+            <div><dt>Storage</dt><dd>40 GB free during setup, about 25 GB after</dd></div>
+            <div><dt>Internet</dt><dd>For setup and the periodic license check</dd></div>
+          </dl>
+        </div>
+        <p class="also"><strong>On Windows?</strong> You need an NVIDIA GPU with at least 8 GB of VRAM and 40 GB of free disk. Already on 1.x? Install over it. Your engine, models and license stay in place.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section dark" aria-labelledby="faqh">
+  <div class="wrap faq">
+    <h2 class="display" id="faqh">Fair questions.</h2>
+    <div>
+      <details open><summary>Are my photos uploaded anywhere?</summary><p>No. Detection, swapping, editing and export all run on your computer. The only network traffic is setup and the license check.</p></details>
+      <details><summary>How many photos can I batch at once?</summary><p>There is no fixed limit. We test runs of 20 photos, and speed holds steady from the first photo to the last. On a Mac, the app keeps the computer awake until the batch finishes.</p></details>
+      <details><summary>Can I keep using the app during a batch?</summary><p>Yes. Open any other photo and keep editing. If you run a waiting photo by hand, it leaves the batch so the two never collide.</p></details>
+      <details><summary>Does batch work on group photos?</summary><p>Face Swap does: you choose who gets the new face in each group photo. Head Swap works on single-person photos, so groups are skipped with a warning.</p></details>
+      <details><summary>Does one purchase cover Mac and Windows?</summary><p>Yes. A single one-time license covers both versions. Each activation is tied to a machine.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="final section wrap" aria-labelledby="finalh">
+  <h2 class="display" id="finalh">Bring the<br>whole <span>roll.</span></h2>
+  <div class="cta">
+    <a class="btn" href="/download#nano-facestudio-pro">Download FaceStudio Pro</a>
+    <a class="link" href="https://nanopocket.ai/face-swap">Try the free online demo first</a>
+  </div>
+  <p class="price mono" id="priceFinal">$49.90 once until Dec 24 (Black Friday). Regular $69.90. No credits. No subscription. macOS and Windows.</p>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Only edit photos you have the right to use, and get consent from the people in them. All portraits on this page are AI-generated.</span>
+    <span><a href="https://nanopocket.ai/privacy">Privacy</a><a href="https://nanopocket.ai/terms">Terms</a><a href="https://nanopocket.ai/contact">Contact</a>© 2026 NanoPocket</span>
+  </div>
+</footer>
+
+<script>
+// Black Friday price: 24 Nov 2026 00:00 PT to 24 Dec 2026 23:59 PT. The HTML carries the sale text.
+(function () {
+  var now = Date.now();
+  var hero = document.getElementById('priceHero');
+  var fin = document.getElementById('priceFinal');
+  var regular = '$69.90 once. No credits. No subscription.';
+  if (now >= Date.parse('2026-12-25T08:00:00Z')) {
+    hero.textContent = regular;
+    fin.textContent = regular + ' macOS and Windows.';
+    document.getElementById('bfLink').hidden = true;
+  } else if (now < Date.parse('2026-11-24T08:00:00Z')) {
+    hero.textContent = regular + ' Black Friday from Nov 24: $49.90.';
+    fin.textContent = regular + ' macOS and Windows. Black Friday from Nov 24: $49.90.';
+  }
+})();
+</script>
+<script>
+(function () {
+  var jobs = [].slice.call(document.querySelectorAll('[data-job]'));
+  var btn = document.getElementById('runBtn');
+  var status = document.getElementById('sheetStatus');
+  var sheet = document.querySelector('.sheet');
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var token = 0;
+  var wait = function (ms) { return new Promise(function (r) { setTimeout(r, calm ? 0 : ms); }); };
+  var label = function (f, t) { f.querySelector('.state').textContent = t; };
+
+  function reset() {
+    jobs.forEach(function (f) { f.classList.remove('done', 'run'); label(f, 'in batch'); });
+  }
+  async function run() {
+    var me = ++token;
+    reset();
+    btn.textContent = 'Running';
+    btn.disabled = true;
+    for (var i = 0; i < jobs.length; i++) {
+      var f = jobs[i];
+      status.textContent = 'Batch Face Swap: ' + i + ' / ' + jobs.length + ' done';
+      f.classList.add('run');
+      for (var p = 20; p < 100; p += 20) { label(f, p + '%'); await wait(130); if (me !== token) return; }
+      f.classList.remove('run');
+      f.classList.add('done');
+      label(f, '✓ result');
+      await wait(420);
+    }
+    status.textContent = 'Finished: ' + jobs.length + ' done · 1 skipped';
+    btn.textContent = 'Run again';
+    btn.disabled = false;
+  }
+  btn.addEventListener('click', run);
+  if ('IntersectionObserver' in window && !calm) {
+    var io = new IntersectionObserver(function (e) {
+      if (e[0].isIntersecting) { io.disconnect(); setTimeout(run, 500); }
+    }, { threshold: .45 });
+    io.observe(sheet);
+  } else {
+    jobs.forEach(function (f) { f.classList.add('done'); label(f, '✓ result'); });
+    status.textContent = 'Finished: ' + jobs.length + ' done · 1 skipped';
+    btn.textContent = 'Run again';
+  }
+})();
+</script>
+</body>
+</html>

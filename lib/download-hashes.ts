@@ -29,6 +29,37 @@ export interface DownloadHash {
 }
 
 export const DOWNLOAD_HASHES: readonly DownloadHash[] = [
+  // Added 2026-11-23, hashed from the files uploaded to R2 that day.
+  {
+    app: "Nano FaceStudio Pro",
+    version: "1.2.0",
+    platform: "Windows",
+    file: "NanoFaceStudio-Pro-Setup-1.2.0.exe",
+    size: 105440952,
+    sha256: "f0e4215641d00e1042f953ff1ea27967bbf5eeb738034421cdba5a063993c66c",
+    installer: null,
+    installerSha256: null,
+  },
+  {
+    app: "Nano FaceStudio Pro",
+    version: "1.2.0",
+    platform: "macOS",
+    file: "NanoFaceStudio-Pro-1.2.0-arm64.dmg",
+    size: 121923072,
+    sha256: "c59a183494a9a21fd438e832e9ecae3df77c8c702eb18bee6d88037eada2a922",
+    installer: null,
+    installerSha256: null,
+  },
+  {
+    app: "Nano FaceStudio V Pro",
+    version: "1.0.1",
+    platform: "Windows",
+    file: "NanoFaceStudio-V-Pro-Setup-1.0.1.exe",
+    size: 198137792,
+    sha256: "f3b91a531364535e9c452f64c3906cf2fcf3bdf0ada94670f84204836060d0e4",
+    installer: null,
+    installerSha256: null,
+  },
   {
     app: "Nano FacialEdit",
     version: "1.0.3",
@@ -199,13 +230,23 @@ export const SIGNED_DOWNLOADS: readonly {
 }[] = [
   {
     app: "Nano FaceStudio Pro",
-    version: "1.0.2",
-    file: "NanoFaceStudioPro-1.0.2-windows.exe",
+    version: "1.2.0",
+    file: "NanoFaceStudio-Pro-Setup-1.2.0.exe",
+    subject: "NanoPocket AI LLC (Austin, Texas, US)",
+    issuer: "Microsoft ID Verified CS AOC CA 03",
+    thumbprint: "44B053832BA4EF3476793E3E8C203D26FFF2C02D",
+    timestampAuthority: "Microsoft Public RSA Time Stamping Authority",
+    verified: "2026-11-23",
+  },
+  {
+    app: "Nano FaceStudio V Pro",
+    version: "1.0.1",
+    file: "NanoFaceStudio-V-Pro-Setup-1.0.1.exe",
     subject: "NanoPocket AI LLC (Austin, Texas, US)",
     issuer: "Microsoft ID Verified CS AOC CA 04",
-    thumbprint: "9967287E9497219A1F1286B16799F2F51D74537E",
+    thumbprint: "7E307EE23054F3003845F0140A9170AF30FA1579",
     timestampAuthority: "Microsoft Public RSA Time Stamping Authority",
-    verified: "2026-10-14",
+    verified: "2026-11-23",
   },
   {
     app: "Nano FacialEdit",

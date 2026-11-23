@@ -587,13 +587,13 @@
     }
   },
   "pro": {
-    "title": "Nano FaceStudio Pro: local face swap and face editing for Windows",
-    "description": "Face swap, mask edit, expression editing, face restoration, upscale, light adjust and crop in one desktop app. Runs offline on your own GPU with a one-time license and no uploads.",
+    "title": "Nano FaceStudio Pro: local face swap and face editing for Windows and Mac",
+    "description": "Face swap, batch face swap, mask edit, expression editing, face restoration, upscale, light adjust and crop in one desktop app for Windows and Apple Silicon Macs. Runs on your own computer with a one-time license, and your photos are never uploaded.",
     "kicker": "Desktop app",
     "h1": "The whole face, in one studio, on your own GPU",
     "lead": "Seven tools in one desktop app: face swap, mask edit, expression editing, Face Vivid, upscale, light adjust and crop. Everything runs on your computer, so your photos are never uploaded and there is no fee per image.",
     "cta": "Buy and download",
-    "note": "One-time license, no subscription. Available now for Windows, with macOS to follow.",
+    "note": "For Windows and Apple Silicon Macs. Version 1.2 adds batch face swap and the Mac version.",
     "examplesHeading": "Real screens from the app",
     "beforeLabel": "Before",
     "afterLabel": "After",
@@ -606,7 +606,7 @@
     "features": [
       {
         "title": "Face swap",
-        "body": "Detects up to 16 faces per image. Swap one, or all of them with one click, and choose which regions stay untouched."
+        "body": "Detects up to 16 faces per image. Swap one, or all of them with one click, and choose which regions stay untouched. New in 1.2: batch swap puts one reference face into a whole set of photos."
       },
       {
         "title": "Mask edit",
@@ -641,11 +641,11 @@
       },
       {
         "title": "Install and activate",
-        "body": "Download the app and activate it. Activation is the only time it needs the network."
+        "body": "Download the app for Windows or Mac and activate it. Setup downloads about 25 GB."
       },
       {
         "title": "Work offline",
-        "body": "Open a photo and use any of the seven tools, on your own GPU."
+        "body": "Open a photo and use any of the seven tools on your own computer. The license is checked online every 7 days, and the app keeps working for up to 14 days offline."
       }
     ],
     "faqHeading": "Questions",
@@ -656,11 +656,15 @@
       },
       {
         "q": "Are my photos uploaded?",
-        "a": "No. Every model runs on your GPU, and your photos are never uploaded or kept on a server. The only network traffic is a one-time license activation."
+        "a": "No. Every model runs on your computer, and your photos are never uploaded or kept on a server. The app needs the internet for setup and checks the license online every 7 days. It keeps working for up to 14 days offline."
       },
       {
         "q": "What hardware do I need?",
-        "a": "Windows 10 or 11 with an NVIDIA GPU and at least 8 GB of VRAM. RTX 30, 40 and 50 series have been tested. The macOS build for Apple Silicon (M2 to M5) is still to come, and Intel Macs are not supported."
+        "a": "On Windows: Windows 10 or 11 with an NVIDIA GPU with at least 8 GB of VRAM, and 40 GB of free disk. RTX 30, 40 and 50 series have been tested. On Mac: Apple Silicon M1 or newer (M4 or newer recommended), macOS 14 Sonoma or newer, 16 GB of memory (24 GB or more recommended), and 40 GB free during setup, about 25 GB after. Intel Macs are not supported."
+      },
+      {
+        "q": "What is new in version 1.2?",
+        "a": "Batch face swap: add a whole set of photos, pick one reference, and the app swaps them one after another. And a native version for Apple Silicon Macs. On a Mac, a face swap takes about 10 seconds per photo on an M5 with 24 GB, and 20 to 23 seconds on an M4 with 16 GB (2816 × 1536 photos)."
       },
       {
         "q": "Can I try it before I buy?",
@@ -672,6 +676,7 @@
       }
     ],
     "pricingLink": "Prices",
+    "whatsNew": "What's new in version 1.2 (in English)",
     "english": "Read the full page in English"
   },
   "pricing": {

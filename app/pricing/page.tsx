@@ -4,7 +4,8 @@ import Link from "next/link";
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
 import { BusinessContact } from "@/app/components/business-contact";
-import { CREDIT_PACKS, bonusPercent, totalCredits } from "@/lib/credit-packs";
+import { CREDIT_PACKS, bonusPercent, packChargeCents, totalCredits } from "@/lib/credit-packs";
+import { packPriceNote, productPriceNote } from "@/lib/price-notes";
 import { PRODUCTS } from "@/lib/products";
 import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
@@ -56,6 +57,7 @@ const APP_PAGE: Record<string, string> = {
   nnanoimageenh: "/apps/nano-imageenh-pro",
   "nano-facestudio-pro": "/apps/nano-facestudio-pro",
   "nano-videogen": "/apps/nano-videogen",
+  "nano-facestudio-v-pro": "/apps/nano-facestudio-v-pro",
 };
 
 const FAQ: { q: string; a: string }[] = [
@@ -212,7 +214,7 @@ export default function PricingPage() {
                   return (
                     <tr key={p.id} className="border-b border-border last:border-0">
                       <td className={`${td} font-medium text-foreground`}>{p.name}</td>
-                      <td className={td}>{money(p.priceInCents)}</td>
+                      <td className={td}>{money(packChargeCents(p))}{packPriceNote(p)}</td>
                       <td className={td}>
                         {total.toLocaleString("en-US")}
                         {p.bonusCredits > 0 && ` (includes ${p.bonusCredits.toLocaleString("en-US")} bonus, +${bonusPercent(p)}%)`}
@@ -265,11 +267,7 @@ export default function PricingPage() {
                     </td>
                     <td className={td}>
                       {p.priceInCents === 0 ? "Free licence" : `${money(p.priceInCents)}, one-time`}
-                      {p.originalPriceInCents &&
-                      p.originalPriceInCents > p.priceInCents &&
-                      p.promoValidUntil
-                        ? ` (list ${money(p.originalPriceInCents)}; launch price until ${p.promoValidUntil})`
-                        : ""}
+                      {productPriceNote(p)}
                     </td>
                     <td className={td}>{(p.trialDays ?? 0) > 0 ? `${p.trialDays}-day free trial` : "—"}</td>
                   </tr>

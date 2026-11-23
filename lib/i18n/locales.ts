@@ -72,6 +72,7 @@ export const TRANSLATED_PAGES: Record<string, readonly AppLocale[]> = {
   "/headswap-pro": ALL_TRANSLATED,
   "/facestudio-v": ALL_TRANSLATED,
   "/neo": ALL_TRANSLATED,
+  "/black-friday": ALL_TRANSLATED,
   "/face-studio": ALL_TRANSLATED,
   "/image-edit": ALL_TRANSLATED,
   "/apps/nano-facestudio-pro": ALL_TRANSLATED,

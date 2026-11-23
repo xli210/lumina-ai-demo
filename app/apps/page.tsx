@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
 import { PRODUCTS } from "@/lib/products";
+import { productPriceNote } from "@/lib/price-notes";
 import { appReleases } from "@/lib/release-data";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
 import { IMAGE_EDIT_NAME } from "@/lib/image-edit-facts";
@@ -64,7 +65,12 @@ const WHERE: Record<string, { page: string; notes: string; line: string }> = {
   "nano-facestudio-pro": {
     page: "/apps/nano-facestudio-pro",
     notes: "nano-facestudio-pro",
-    line: "Face swap, mask edit, expression editing, upscale and light adjust in one desktop app.",
+    line: "Face swap, mask edit, expression editing, upscale and light adjust in one desktop app. Batch face swap and a Mac version since 1.2.",
+  },
+  "nano-facestudio-v-pro": {
+    page: "/apps/nano-facestudio-v-pro",
+    notes: "nano-facestudio-v-pro",
+    line: "Video face swap, enhancement and lip sync on your own NVIDIA GPU, in 1080p or 4K.",
   },
   "nano-videogen": {
     page: "/apps/nano-videogen",
@@ -91,6 +97,7 @@ function AppCard({ id }: { id: string }) {
           {p.priceInCents === 0 ? "Free" : `${money(p.priceInCents)}, one-time`}
         </span>
       </div>
+      {productPriceNote(p) && <p className="mb-2 text-xs font-medium text-amber-500">{productPriceNote(p).trim().replace(/^\(|\)$/g, "")}</p>}
       <p className="mb-4 flex-1 text-sm leading-relaxed text-muted-foreground">{w.line}</p>
       <p className="mb-4 text-xs text-muted-foreground">
         {latest ? `Latest: version ${latest.version}, ${latest.date}.` : ""}

@@ -30,6 +30,7 @@ export function ToolLanding({
   jsonLd,
   wideExamples = false,
   nav,
+  heroExtra,
 }: {
   locale: AppLocale;
   name: string;
@@ -42,6 +43,8 @@ export function ToolLanding({
   wideExamples?: boolean;
   /** Replaces the site's usual bar. */
   nav?: React.ReactNode;
+  /** Shown under the hero note, e.g. a price line kept in English. */
+  heroExtra?: React.ReactNode;
 }) {
   const items: TitleBody[] = copy.features ?? copy.tools ?? [];
   const itemsHeading = copy.featuresHeading ?? copy.toolsHeading ?? "";
@@ -67,6 +70,7 @@ export function ToolLanding({
           </Button>
           <p className="mt-3 text-xs text-muted-foreground">{copy.note}</p>
           {copy.promptNote && <p className="mt-1 text-xs text-muted-foreground">{copy.promptNote}</p>}
+          {heroExtra}
         </div>
       </section>
 

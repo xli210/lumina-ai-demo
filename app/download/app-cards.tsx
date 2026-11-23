@@ -30,6 +30,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
+import { BLACK_FRIDAY_ENDS_LABEL, BLACK_FRIDAY_LAST_DAY } from "@/lib/black-friday";
 import { HELD_DOWNLOADS } from "@/lib/download-holds";
 
 interface PlatformDownload {
@@ -69,23 +70,54 @@ const apps: AppInfo[] = [
     id: "nano-facestudio-pro",
     productId: "nano-facestudio-pro",
     name: "Nano FaceStudio Pro",
-    tagline: "AI Face Studio — 7 tools in one desktop app",
+    tagline: "AI Face Studio — 7 tools in one desktop app, now with batch swap and a Mac version",
     description:
-      "Face swap, mask edit, expression editing, face vivid restoration, 2×/3×/4× upscale, light adjust, and crop — one unified desktop studio, every model running on your GPU. Multi-face swap up to 16 faces per image using GAN and diffusion models.",
+      "Face swap, mask edit, expression editing, face vivid restoration, 2×/3×/4× upscale, light adjust, and crop — one unified desktop studio, every model running on your GPU. Multi-face swap up to 16 faces per image using GAN and diffusion models. Version 1.2 adds batch face swap and a native Apple Silicon Mac app.",
     icon: Palette,
-    version: "1.0.2",
+    version: "1.2.0",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "New",
-    proPageHref: "/apps/nano-facestudio-pro",
-    proPageLabel: "See the full feature tour",
+    proPageHref: "/apps/nano-facestudio-pro-1-2",
+    proPageLabel: "What's new in 1.2",
     platforms: [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoFaceStudioPro-1.0.2-windows.exe",
-        downloadUrl: "/api/downloads/NanoFaceStudioPro-1.0.2-windows.exe",
-        size: "100.5 MB",
+        fileName: "NanoFaceStudio-Pro-Setup-1.2.0.exe",
+        downloadUrl: "/api/downloads/NanoFaceStudio-Pro-Setup-1.2.0.exe",
+        size: "100.6 MB",
+      },
+      {
+        platform: "macOS (Apple Silicon)",
+        icon: Apple,
+        fileName: "NanoFaceStudio-Pro-1.2.0-arm64.dmg",
+        downloadUrl: "/api/downloads/NanoFaceStudio-Pro-1.2.0-arm64.dmg",
+        size: "116.3 MB",
+      },
+    ],
+  },
+  {
+    id: "nano-facestudio-v-pro",
+    productId: "nano-facestudio-v-pro",
+    name: "Nano FaceStudio V Pro",
+    tagline: "Video face swap on your own GPU",
+    description:
+      "Swap a person's face in a video, enhance it, or lip-sync it, in Fast or Best quality with 1080p or 4K MP4 output and the original sound kept. Everything runs locally on Windows with an NVIDIA RTX GPU; the first start downloads about 14.6 GB.",
+    icon: Video,
+    version: "1.0.1",
+    gradient: "from-primary to-blue-400",
+    shadowColor: "shadow-primary/25",
+    badge: "New",
+    proPageHref: "/apps/nano-facestudio-v-pro",
+    proPageLabel: "See what it does",
+    platforms: [
+      {
+        platform: "Windows",
+        icon: Monitor,
+        fileName: "NanoFaceStudio-V-Pro-Setup-1.0.1.exe",
+        downloadUrl: "/api/downloads/NanoFaceStudio-V-Pro-Setup-1.0.1.exe",
+        size: "189.0 MB",
       },
     ],
   },
@@ -478,7 +510,8 @@ export function AppCards({ strings, locale }: { strings: Strings; locale: AppLoc
                       }`}
                     >
                       {product?.originalPriceInCents &&
-                        product.originalPriceInCents > price && (
+                        product.originalPriceInCents > price &&
+                        product.promoKind !== "launch" && (
                           <span className="mr-2 text-base font-medium line-through opacity-60">
                             {formatPrice(product.originalPriceInCents)}
                           </span>
@@ -501,7 +534,9 @@ export function AppCards({ strings, locale }: { strings: Strings; locale: AppLoc
                       product.originalPriceInCents > price &&
                       product.promoValidUntil && (
                         <p className="mt-1 text-xs font-medium text-amber-500">
-                          {t("Launch price through {date} · then {price}", { date: product.promoValidUntil, price: formatPrice(product.originalPriceInCents) })}
+                          {product.promoKind === "sale"
+                            ? t("Black Friday price through {date} · regular {price}", { date: product.promoValidUntil === BLACK_FRIDAY_LAST_DAY ? BLACK_FRIDAY_ENDS_LABEL : product.promoValidUntil, price: formatPrice(product.originalPriceInCents) })
+                            : t("Launch price through {date} · then {price}", { date: product.promoValidUntil === BLACK_FRIDAY_LAST_DAY ? BLACK_FRIDAY_ENDS_LABEL : product.promoValidUntil, price: formatPrice(product.originalPriceInCents) })}
                         </p>
                       )}
                   </div>

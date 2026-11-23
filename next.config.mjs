@@ -45,7 +45,11 @@ const nextConfig = {
   // address. Its videos and pictures are at /facestudio-v/media/. (Next does not map a folder to its
   // index.html on its own.)
   async rewrites() {
-    return [{ source: "/facestudio-v", destination: "/facestudio-v/index.html" }];
+    return [
+      { source: "/facestudio-v", destination: "/facestudio-v/index.html" },
+      // Nano FaceStudio Pro 1.2's launch page, made as a static page by the design team (public/facestudio-pro-1-2/).
+      { source: "/apps/nano-facestudio-pro-1-2", destination: "/facestudio-pro-1-2/index.html" },
+    ];
   },
   async redirects() {
     return [
@@ -91,7 +95,7 @@ const nextConfig = {
         // /headswap-pro only: /headswap-pro/config.js is read fresh (no-store) on purpose.
         // /status and /data/ are left out on purpose: they show live figures.
         source:
-          "/:path(|about|blog|face-swap|image-edit|face-studio|compare|trust|security|privacy|terms|best-face-swap-app-2026|best-free-face-swap|docs|release-notes|apps|pricing|headswap-pro|head-swap|video-head-swap|use-cases|video-face-swap-examples|video-face-swap-test-results|verify|business|contact|community)",
+          "/:path(|about|blog|face-swap|image-edit|face-studio|compare|trust|security|privacy|terms|best-face-swap-app-2026|best-free-face-swap|docs|release-notes|apps|pricing|headswap-pro|head-swap|video-head-swap|use-cases|video-face-swap-examples|video-face-swap-test-results|verify|business|contact|community|black-friday)",
         headers: PUBLIC_PAGE,
       },
       {
@@ -114,7 +118,7 @@ const nextConfig = {
         // browser asked about every one again. A day, not a year: some files are replaced
         // under the same name (bump ?v= on the reference when it must show at once).
         source:
-          "/:dir(images|videos|email|face-studio|facestudio-v|headswap-pro|image-edit)/:rest*(jpg|jpeg|png|webp|avif|gif|svg|mp4|webm)",
+          "/:dir(images|videos|email|face-studio|facestudio-v|facestudio-pro-1-2|headswap-pro|image-edit)/:rest*(jpg|jpeg|png|webp|avif|gif|svg|mp4|webm)",
         headers: [
           { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
         ],

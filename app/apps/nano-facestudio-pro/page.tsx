@@ -3,17 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
-import { LaunchPriceCountdown } from "@/app/components/launch-price-countdown";
-import {
-  FACESTUDIO_PRO_LAUNCH_ENDS_LABEL,
-  FACESTUDIO_PRO_LAUNCH_PRICE_CENTS,
-  FACESTUDIO_PRO_REGULAR_PRICE_CENTS,
-  facestudioProLaunchPriceOn,
-} from "@/lib/products";
+import { facestudioProPrice, type FacestudioProPrice } from "@/lib/facestudio-pro-price";
 import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
 
 /**
- * Nano FaceStudio Pro 1.0 — product introduction.
+ * Nano FaceStudio Pro (1.2: batch face swap and the Apple Silicon Mac build) — product introduction.
+ * The 1.2 launch page is a static file, public/facestudio-pro-1-2/, served at /apps/nano-facestudio-pro-1-2.
  *
  * Bespoke Apple-style page (not the generic ProductLandingShell) so the actual
  * feature screenshots from the internal spec doc drive every section.
@@ -23,22 +18,21 @@ import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
  *   - FAQPage
  */
 
-const PROMO_PRICE = (FACESTUDIO_PRO_LAUNCH_PRICE_CENTS / 100).toFixed(2);
-const REGULAR_PRICE = (FACESTUDIO_PRO_REGULAR_PRICE_CENTS / 100).toFixed(2);
-const PROMO_VALID_UNTIL = "2026-10-31";
-
-/** Re-rendered every 10 minutes, so the launch offer leaves the page soon after it ends. */
+/** Re-rendered every 10 minutes, so the Black Friday price appears and leaves soon after the sale starts and ends. */
 export const revalidate = 600;
 const CANONICAL = "https://nanopocket.ai/apps/nano-facestudio-pro";
+const LAUNCH_1_2 = "/apps/nano-facestudio-pro-1-2";
 
 export const metadata: Metadata = {
   // Leads with "local face swap": people search for it, and this is our current desktop face swap.
-  title: { absolute: "Local Face Swap App for Windows, Offline | Nano FaceStudio Pro" },
+  title: { absolute: "Local Face Swap App for Windows and Mac | Nano FaceStudio Pro" },
   description:
-    "Local face swap that runs offline on your own NVIDIA GPU, with a one-time license and no uploads. Nano FaceStudio Pro 1.0 is a unified local desktop AI face studio that bundles seven capabilities — multi-face swap with per-region protection, brush-level mask edit, identity-preserving expression editing, face-vivid restoration, 2×/3×/4× upscale, auto light adjust, and precision crop — with every model running on the user's GPU.",
+    "Local face swap on your own NVIDIA GPU or Apple Silicon Mac, with a one-time license and no uploads. Nano FaceStudio Pro is a local desktop AI face studio that bundles seven capabilities — multi-face swap with per-region protection, brush-level mask edit, identity-preserving expression editing, face-vivid restoration, 2×/3×/4× upscale, auto light adjust, and precision crop. Version 1.2 adds batch face swap and a native Mac version.",
   keywords: [
     "Nano FaceStudio Pro",
-    "Nano FaceStudio Pro 1.0",
+    "Nano FaceStudio Pro 1.2",
+    "batch face swap",
+    "face swap app for Mac",
     "local face swap",
     "offline face swap",
     "local AI face studio",
@@ -59,22 +53,22 @@ export const metadata: Metadata = {
     languages: hreflangAlternates("https://nanopocket.ai", "/apps/nano-facestudio-pro", TRANSLATED_PAGES["/apps/nano-facestudio-pro"]),
   },
   openGraph: {
-    title: "Nano FaceStudio Pro 1.0 — Local AI Face Studio",
+    title: "Nano FaceStudio Pro 1.2 — Local AI Face Studio",
     description:
-      "Seven tools in one local desktop app: face swap, mask edit, expression editor, face vivid, upscale, light adjust, crop. Windows + Apple Silicon.",
+      "Seven tools in one local desktop app: face swap, mask edit, expression editor, face vivid, upscale, light adjust, crop. 1.2 adds batch face swap. Windows + Apple Silicon Mac.",
     type: "website",
     url: CANONICAL,
     images: [{ url: "https://nanopocket.ai/og-image.jpg" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nano FaceStudio Pro 1.0 — Local AI Face Studio",
+    title: "Nano FaceStudio Pro 1.2 — Local AI Face Studio",
     description:
-      "One desktop app: face swap + mask edit + expression editor + face vivid + upscale + light adjust + crop.",
+      "One desktop app: face swap + batch face swap + mask edit + expression editor + face vivid + upscale + light adjust + crop. Windows and Mac.",
   },
 };
 
-const productJsonLd = (launch: boolean) => ({
+const productJsonLd = (pr: FacestudioProPrice) => ({
   "@context": "https://schema.org",
   "@type": ["Product", "SoftwareApplication"],
   "@id": `${CANONICAL}#product`,
@@ -86,50 +80,51 @@ const productJsonLd = (launch: boolean) => ({
   url: CANONICAL,
   category: "Local AI Face & Portrait Studio",
   description:
-    "Nano FaceStudio Pro 1.0 is a unified local desktop AI face studio bundling seven capabilities — auto multi-face swap with per-region preservation, brush-level mask edit, identity-preserving expression editing, face vivid restoration, 2×/3×/4× upscale, auto light adjust, and precision crop.",
+    "Nano FaceStudio Pro is a unified local desktop AI face studio bundling seven capabilities — auto multi-face swap with per-region preservation, brush-level mask edit, identity-preserving expression editing, face vivid restoration, 2×/3×/4× upscale, auto light adjust, and precision crop. Version 1.2 adds batch face swap and a native Apple Silicon Mac build.",
   applicationCategory: "MultimediaApplication",
-  operatingSystem:
-    "Windows 10/11 (NVIDIA CUDA); macOS Apple Silicon (M2/M3/M4/M5, Metal)",
-  softwareVersion: "1.0.2",
+  operatingSystem: "Windows 10/11 (NVIDIA CUDA); macOS 14+ on Apple Silicon",
+  softwareVersion: "1.2.0",
   datePublished: "2026-07-31",
-  dateModified: "2026-07-09",
+  dateModified: "2026-11-23",
   additionalProperty: [
-    ...(launch
+    ...(pr.sale
       ? [
-          { "@type": "PropertyValue", name: "Launch price", value: `USD ${PROMO_PRICE} (promotional)` },
-          { "@type": "PropertyValue", name: "Regular price", value: `USD ${REGULAR_PRICE} after ${PROMO_VALID_UNTIL}` },
+          { "@type": "PropertyValue", name: "Black Friday price", value: `USD ${pr.price} until ${pr.validUntil}` },
+          { "@type": "PropertyValue", name: "Regular price", value: `USD ${pr.regular}` },
         ]
       : []),
+    { "@type": "PropertyValue", name: "Batch face swap", value: "One reference face across a whole set of photos (since 1.2)" },
     { "@type": "PropertyValue", name: "Bundled capabilities", value: "7 tools: face swap, mask edit, expression edit, face vivid, upscale, light adjust, crop" },
     { "@type": "PropertyValue", name: "Face swap engine", value: "GAN and diffusion models" },
     { "@type": "PropertyValue", name: "Multi-face swap", value: "Up to 16 detected faces per image; per-face targeting or one-click swap-all" },
     { "@type": "PropertyValue", name: "Upscale factors", value: "2×, 3×, 4× (input-preserving; native resolution output)" },
-    { "@type": "PropertyValue", name: "Windows GPU support", value: "NVIDIA CUDA, 8 GB VRAM minimum" },
-    { "@type": "PropertyValue", name: "Apple Silicon support", value: "Native arm64 build for M2, M3, M4, M5 (Metal, no Rosetta)" },
-    { "@type": "PropertyValue", name: "Data handling", value: "100% local; no upload, no server-side retention" },
+    { "@type": "PropertyValue", name: "Windows GPU support", value: "NVIDIA CUDA, 8 GB VRAM minimum, 40 GB free disk" },
+    { "@type": "PropertyValue", name: "Apple Silicon support", value: "Native arm64 build (Metal, no Rosetta) for M1 or newer, M4 or newer recommended; macOS 14 Sonoma or newer; 16 GB memory minimum, 24 GB or more recommended; 40 GB free during setup, about 25 GB after" },
+    { "@type": "PropertyValue", name: "Data handling", value: "100% local; images never uploaded, no server-side retention" },
+    { "@type": "PropertyValue", name: "Network", value: "Setup download (about 25 GB); license checked online every 7 days; works up to 14 days offline" },
     { "@type": "PropertyValue", name: "License model", value: "One-time, machine-bound; covers Windows + macOS" },
   ],
   offers: {
     "@type": "Offer",
-    price: launch ? PROMO_PRICE : REGULAR_PRICE,
+    price: pr.price,
     priceCurrency: "USD",
     availability: "https://schema.org/InStock",
-    ...(launch ? { priceValidUntil: PROMO_VALID_UNTIL } : {}),
+    ...(pr.validUntil ? { priceValidUntil: pr.validUntil } : {}),
     url: CANONICAL,
     seller: { "@type": "Organization", name: "NanoPocket" },
     priceSpecification: {
       "@type": "PriceSpecification",
-      price: launch ? PROMO_PRICE : REGULAR_PRICE,
+      price: pr.price,
       priceCurrency: "USD",
       valueAddedTaxIncluded: false,
     },
     eligibleQuantity: { "@type": "QuantitativeValue", value: 1 },
   },
-  // While the launch price runs, additionalProperty states the regular price and the date it
-  // returns, so the promo relationship is discoverable in structured data.
+  // During the Black Friday sale, additionalProperty states the regular price and the last day of
+  // the sale price, so the discount is discoverable in structured data.
 });
 
-const faqs = (launch: boolean): { q: string; a: string }[] => [
+const faqs = (pr: FacestudioProPrice): { q: string; a: string }[] => [
   {
     q: "How is Nano FaceStudio Pro different from Nano FaceStudio Online?",
     a: "Nano FaceStudio Online is the browser edition: it swaps faces and whole heads, billed per face in prepaid credits with a free allowance, on NanoPocket-hosted GPUs. Nano FaceStudio Pro is the local desktop edition, a one-time license that runs 100% on your own GPU with no per-image fee, and it is the broader studio: multi-face swap with per-region protection, mask edit, expression editing, face vivid restoration, full-image upscale, auto light adjust, and precision crop in one unified desktop UI. Both use the same diffusion identity stack.",
@@ -138,30 +133,30 @@ const faqs = (launch: boolean): { q: string; a: string }[] => [
     q: "What are the seven bundled tools?",
     a: "Face Swap (auto multi-face detection with per-region preservation), Mask Edit (brush-level restoration), Facial Expression Edit (slider control plus learn-from-reference), Face Vivid (de-plasticize AI-smoothed skin), Full Image Upscale (2×, 3×, 4×), Light Adjust (auto brightness / contrast / saturation), and Crop (aspect-ratio presets).",
   },
-  launch
+  pr.sale
     ? {
-        q: "What is the launch price and how long does the promotion run?",
-        a: `The 1.0 launch price is USD $${PROMO_PRICE}, until ${FACESTUDIO_PRO_LAUNCH_ENDS_LABEL}. From then on the regular price is USD $${REGULAR_PRICE}. The license is one-time and machine-bound — no subscription, no per-image fee. A license bought at the launch price is yours to keep; nothing more is charged when the price changes.`,
+        q: "How much does it cost?",
+        a: `The Black Friday price is USD $${pr.price}, one time, until ${pr.endsLabel}. The regular price is USD $${pr.regular}. The license is machine-bound — no subscription, no per-image fee. A license bought at the sale price is yours to keep.`,
       }
     : {
         q: "How much does it cost?",
-        a: `USD $${REGULAR_PRICE}, one time. The license is machine-bound — no subscription, no per-image fee. The 1.0 launch price of USD $${PROMO_PRICE} ended on ${PROMO_VALID_UNTIL}; licenses bought then are unaffected.`,
+        a: `USD $${pr.regular}, one time. The license is machine-bound — no subscription, no per-image fee.`,
       },
   {
     q: "Do my photos get uploaded to your server?",
-    a: "No. Every model — swap, mask, expression, vivid, upscale, light, crop — runs on the user's GPU. Source photos are never uploaded and never retained server-side. The only network traffic is a one-time license-activation handshake.",
+    a: "No. Every model — swap, mask, expression, vivid, upscale, light, crop — runs on your own computer. Source photos are never uploaded and never retained server-side. The app needs the internet for setup (a one-time download of about 25 GB) and checks the license online every 7 days; it keeps working for up to 14 days offline. Your images are never part of that traffic.",
   },
   {
     q: "What hardware do I need?",
-    a: "Windows 10 or 11 with an NVIDIA GPU (8 GB VRAM minimum; RTX 30 / 40 / 50 series tested), or a Mac with Apple Silicon (M2, M3, M4, or M5). The macOS build is a native arm64 binary that runs on Metal — no Rosetta translation. Intel Macs are not supported.",
+    a: "Windows: Windows 10 or 11 with an NVIDIA GPU (8 GB VRAM minimum; RTX 30 / 40 / 50 series tested) and 40 GB of free disk. Mac: Apple Silicon, M1 or newer (M4 or newer recommended), macOS 14 Sonoma or newer, 16 GB of memory minimum (24 GB or more recommended), and 40 GB free during setup, about 25 GB after. The Mac build is a native arm64 app that runs on Metal — no Rosetta translation. Intel Macs are not supported.",
   },
   {
     q: "Can I try it before I buy?",
     a: "Yes. The free browser demos at /face-swap cover the two most common capabilities — Nano FaceStudio Online (the same swap engine bundled here) and NanoFace Vivid (the same restoration model). The full seven-tool studio is the desktop app; the online demos are single-purpose previews.",
   },
   {
-    q: "When does the desktop app launch?",
-    a: "Nano FaceStudio Pro 1.0 for Windows is available now on /download. The Windows build ships with all seven capabilities in the box (face swap, mask edit, expression editing, face vivid, upscale, light adjust, crop). The macOS Apple Silicon build is in final QA and ships approximately one week later; the one-time license purchased today covers both platforms and can be re-activated on the macOS build at no extra cost.",
+    q: "What is new in version 1.2?",
+    a: "Version 1.2 adds batch face swap — add a whole set of photos, pick one reference face, and the app swaps them one after another — and a native Mac version for Apple Silicon. Both the Windows and Mac builds are on /download, and the one-time license covers both platforms. Measured on a Mac, a face swap takes about 10 seconds per photo on an M5 with 24 GB, and 20–23 seconds on an M4 with 16 GB (2816 × 1536 photos). Already on 1.x? Install over it.",
   },
   {
     q: "Can I use the output for commercial or client work?",
@@ -169,10 +164,10 @@ const faqs = (launch: boolean): { q: string; a: string }[] => [
   },
 ];
 
-const faqJsonLd = (launch: boolean) => ({
+const faqJsonLd = (pr: FacestudioProPrice) => ({
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: faqs(launch).map((f) => ({
+  mainEntity: faqs(pr).map((f) => ({
     "@type": "Question",
     name: f.q,
     acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -182,16 +177,16 @@ const faqJsonLd = (launch: boolean) => ({
 const articleJsonLd = {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  headline: "Nano FaceStudio Pro 1.0 — feature reference",
+  headline: "Nano FaceStudio Pro 1.2 — feature reference",
   description:
-    "Reference documentation for the seven capabilities bundled in Nano FaceStudio Pro 1.0 desktop, with per-feature screenshots, scope, and limitations.",
+    "Reference documentation for the seven capabilities bundled in Nano FaceStudio Pro desktop, with per-feature screenshots, scope, and limitations. Version 1.2 adds batch face swap and a native Apple Silicon Mac build.",
   url: CANONICAL,
   mainEntityOfPage: CANONICAL,
   inLanguage: "en",
   isAccessibleForFree: true,
   image: "https://nanopocket.ai/og-image.jpg",
   datePublished: "2026-07-31",
-  dateModified: "2026-07-09",
+  dateModified: "2026-11-23",
   author: { "@type": "Organization", name: "NanoPocket", url: "https://nanopocket.ai" },
   publisher: {
     "@type": "Organization",
@@ -285,12 +280,12 @@ function Shot({
 }
 
 export default function NanoFaceStudioProPage() {
-  const launch = facestudioProLaunchPriceOn();
+  const pr = facestudioProPrice();
   return (
     <main className="relative overflow-hidden bg-black text-white">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd(launch)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd(pr)) }}
       />
       <script
         type="application/ld+json"
@@ -298,7 +293,7 @@ export default function NanoFaceStudioProPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(launch)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(pr)) }}
       />
       <Navbar />
 
@@ -317,15 +312,18 @@ export default function NanoFaceStudioProPage() {
         </div>
 
         <div className="relative mx-auto max-w-6xl text-center">
-          <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/[0.06] px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.22em] text-emerald-200">
-            <span className="font-mono text-emerald-300/80">v1.0</span>
+          <Link
+            href={LAUNCH_1_2}
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/[0.06] px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.22em] text-emerald-200 transition-colors hover:border-emerald-300/60"
+          >
+            <span className="font-mono text-emerald-300/80">v1.2</span>
             <span className="h-3 w-px bg-emerald-400/30" />
             <span className="relative inline-flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300/70 opacity-60" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-300" />
             </span>
-            <span>Available now for Windows · macOS to follow</span>
-          </p>
+            <span>New: batch face swap · now on Mac and Windows</span>
+          </Link>
 
           <h1 className="text-balance text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
             Nano FaceStudio Pro.
@@ -334,39 +332,41 @@ export default function NanoFaceStudioProPage() {
           </h1>
 
           <p className="mx-auto mt-8 max-w-3xl text-balance text-lg leading-relaxed text-white/70 sm:text-xl md:text-2xl">
-            Local face swap and face editing, offline on your own GPU.
+            Local face swap and face editing on your own GPU, on Windows or Mac.
             Seven capabilities. One desktop app.
             Face swap, mask edit, expression editing, face vivid, upscale, light
             adjust, and crop — designed to finish a portrait without ever
             leaving the machine.
           </p>
 
-          {/* Pricing block. While the launch price runs, the regular price
-              sits struck through beside it with the real end time; after
-              that, just the price. */}
+          {/* Pricing block. During the Black Friday sale the regular price
+              sits struck through beside the sale price, with the real last
+              day; otherwise just the price. */}
           <div className="mx-auto mt-10 inline-flex flex-col items-center gap-1">
-            {launch && (
+            {pr.sale && (
               <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-200">
-                Launch price ends {FACESTUDIO_PRO_LAUNCH_ENDS_LABEL}
-                <LaunchPriceCountdown prefix="· " />
+                Black Friday price until {pr.endsLabel}
               </div>
             )}
             <div className="mt-3 flex items-end justify-center gap-3">
-              {launch && (
+              {pr.sale && (
                 <span className="text-2xl font-medium text-white/40 line-through decoration-white/40 sm:text-3xl">
-                  ${REGULAR_PRICE}
+                  ${pr.regular}
                 </span>
               )}
               <span className="text-5xl font-semibold leading-none tracking-tight text-white sm:text-6xl">
-                ${launch ? PROMO_PRICE : REGULAR_PRICE}
+                ${pr.price}
               </span>
               <span className="pb-1 text-xs uppercase tracking-[0.18em] text-white/50 sm:text-sm">
                 one-time · Windows + macOS
               </span>
             </div>
-            {launch && (
+            {pr.sale && (
               <p className="mt-2 text-[11px] uppercase tracking-[0.2em] text-emerald-300/80">
-                Save ${(Number(REGULAR_PRICE) - Number(PROMO_PRICE)).toFixed(2)} · ${REGULAR_PRICE} from Nov 1
+                Regular ${pr.regular} ·{" "}
+                <Link href="/black-friday" className="underline decoration-emerald-300/40 underline-offset-4 hover:decoration-emerald-300">
+                  See all Black Friday offers
+                </Link>
               </p>
             )}
           </div>
@@ -376,7 +376,7 @@ export default function NanoFaceStudioProPage() {
               href="/download#nano-facestudio-pro"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-medium text-black transition-all duration-300 hover:bg-white/90"
             >
-              Buy &amp; download for Windows
+              Buy &amp; download for Windows or Mac
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
                 <path d="M3 7h8M8 3l3 4-3 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -410,6 +410,39 @@ export default function NanoFaceStudioProPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          NEW IN 1.2  (batch face swap + Mac). Details on the launch page. */}
+      <section className="relative bg-black px-6 pt-20 sm:pt-24">
+        <div className="mx-auto max-w-5xl rounded-3xl border border-white/10 bg-white/[0.03] p-8 sm:p-10">
+          <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-emerald-300/80">New in version 1.2</p>
+          <div className="mt-6 grid grid-cols-1 gap-8 md:grid-cols-2">
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Batch face swap.</h2>
+              <p className="mt-3 text-base leading-relaxed text-white/60">
+                Add a whole set of photos, pick one reference face, and press
+                Start. The app swaps them one after another while you keep
+                editing. In group photos you choose who gets the new face.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Now on Mac.</h2>
+              <p className="mt-3 text-base leading-relaxed text-white/60">
+                A native Apple Silicon app on Metal, signed and notarized by
+                Apple. M1 or newer (M4 or newer recommended), macOS 14 Sonoma
+                or newer. Face Swap takes about 10 s per photo on an M5 with
+                24 GB, 20–23 s on an M4 with 16 GB (2816 × 1536 photos).
+              </p>
+            </div>
+          </div>
+          <Link
+            href={LAUNCH_1_2}
+            className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-white underline decoration-white/30 underline-offset-4 hover:decoration-white"
+          >
+            See what&apos;s new in 1.2
+          </Link>
         </div>
       </section>
 
@@ -666,7 +699,7 @@ export default function NanoFaceStudioProPage() {
             <Link href="/apps/nanoface-vivid" className="text-white/80 underline decoration-white/30 hover:decoration-white">
               /apps/nanoface-vivid
             </Link>{" "}
-            — running offline on your GPU.
+            — running locally on your own GPU.
           </p>
         </div>
       </section>
@@ -732,11 +765,13 @@ export default function NanoFaceStudioProPage() {
               ["Multi-face", "Up to 16 detected faces per image; per-face or one-click swap-all"],
               ["Upscale factors", "2×, 3×, 4× (input-preserving; native resolution output)"],
               ["Face vivid", "Identity-locked restoration; removes over-smoothed / plastic-skin artefacts"],
-              ["Windows GPU", "NVIDIA CUDA · 8 GB VRAM minimum · RTX 30/40/50 series tested"],
-              ["macOS GPU", "Apple Silicon Metal · Native arm64 for M2, M3, M4, M5 · no Rosetta"],
+              ["Batch face swap", "One reference face across a whole set of photos · new in 1.2"],
+              ["Windows", "Windows 10/11 · NVIDIA CUDA · 8 GB VRAM minimum · RTX 30/40/50 series tested · 40 GB free disk"],
+              ["Mac chip", "Apple Silicon Metal · native arm64 · M1 or newer, M4 or newer recommended · no Rosetta · Intel Macs not supported"],
+              ["Mac system", "macOS 14 Sonoma or newer · 16 GB memory minimum, 24 GB or more recommended · 40 GB free during setup, about 25 GB after"],
               ["Data handling", "100% local · no upload · no server-side retention · no training on user photos"],
-              ["Network", "One-time license activation only"],
-              ["License", `${launch ? `USD $${PROMO_PRICE} launch until ${FACESTUDIO_PRO_LAUNCH_ENDS_LABEL} · then ` : ""}USD $${REGULAR_PRICE} · one-time · machine-bound · covers Windows + macOS`],
+              ["Network", "Setup download (about 25 GB) · license checked online every 7 days · works up to 14 days offline · images never uploaded"],
+              ["License", `${pr.sale ? `USD $${pr.price} Black Friday price until ${pr.endsLabel} (regular USD $${pr.regular})` : `USD $${pr.regular}`} · one-time · machine-bound · covers Windows + macOS`],
               ["UI runtime", "Electron desktop shell"],
             ].map(([term, def]) => (
               <div key={term as string} className="border-t border-neutral-200 pt-6">
@@ -760,7 +795,7 @@ export default function NanoFaceStudioProPage() {
           <BigHeadline>Frequently asked.</BigHeadline>
 
           <div className="mt-16 space-y-3">
-            {faqs(launch).map((f) => (
+            {faqs(pr).map((f) => (
               <details
                 key={f.q}
                 className="group rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-5 transition-colors open:border-white/25 open:bg-white/[0.04]"
@@ -804,7 +839,7 @@ export default function NanoFaceStudioProPage() {
               href="/download#nano-facestudio-pro"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-3 text-sm font-medium text-black transition-all duration-300 hover:bg-white/90"
             >
-              Buy &amp; download for Windows
+              Buy &amp; download for Windows or Mac
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
                 <path d="M3 7h8M8 3l3 4-3 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -821,15 +856,15 @@ export default function NanoFaceStudioProPage() {
           </div>
 
           <p className="mt-10 text-[11px] uppercase tracking-[0.22em] text-white/40">
-            {launch ? (
+            {pr.sale ? (
               <>
-                <span className="text-white/40 line-through">${REGULAR_PRICE}</span>{" "}
-                → <span className="text-white/80">${PROMO_PRICE}</span> launch, until {FACESTUDIO_PRO_LAUNCH_ENDS_LABEL}
+                <span className="text-white/40 line-through">${pr.regular}</span>{" "}
+                → <span className="text-white/80">${pr.price}</span> Black Friday price, until {pr.endsLabel}
               </>
             ) : (
-              <span className="text-white/80">${REGULAR_PRICE}</span>
+              <span className="text-white/80">${pr.regular}</span>
             )}{" "}
-            · one-time license · Windows now · macOS to follow
+            · one-time license · Windows and macOS
           </p>
         </div>
       </section>

@@ -33,11 +33,15 @@ import {
   autoRechargeThreshold,
   bonusPercent,
   findCreditPack,
+  formatPackListPrice,
   formatPackPrice,
+  packChargeCents,
+  packPercentOff,
   totalCredits,
   type CreditPack,
   type RepeatTopUpOffer,
 } from "@/lib/credit-packs";
+import { BLACK_FRIDAY_ENDS_LABEL } from "@/lib/black-friday";
 import {
   formatCredits,
   type CreditAccountState,
@@ -138,8 +142,9 @@ function AutoRechargeCard({ setting }: { setting: AutoRechargeView | null }) {
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
             When your balance drops below {autoRechargeThreshold(pack).toLocaleString("en-US")} credits we charge your
-            saved card {formatPackPrice(pack)} and add {formatCredits(autoRechargeCredits(pack))} (the {pack.name} pack
-            plus {AUTO_RECHARGE_EXTRA_BONUS_PERCENT}% extra). {autoRechargeLimitsText(setting.termsVersion)} Stripe
+            saved card {formatPackPrice(pack)}
+            {packPercentOff(pack) > 0 && ` (Black Friday price until ${BLACK_FRIDAY_ENDS_LABEL}, then ${formatPackListPrice(pack)})`} and
+            add {formatCredits(autoRechargeCredits(pack))} (the {pack.name} pack plus {AUTO_RECHARGE_EXTRA_BONUS_PERCENT}% extra). {autoRechargeLimitsText(setting.termsVersion)} Stripe
             emails a receipt each time.
           </p>
           {setting.blockedUntil && (
@@ -264,6 +269,7 @@ function PackCard({
   const t = useTranslations("Ui.credits");
   const bonus = bonusPercent(pack);
   const marked = recommended || pack.highlight;
+  const off = packPercentOff(pack);
 
   return (
     <div
@@ -284,9 +290,20 @@ function PackCard({
       <div className="flex items-baseline justify-between">
         <h3 className="font-semibold text-foreground">{pack.name}</h3>
         <span className="text-2xl font-bold text-foreground">
+          {off > 0 && (
+            <span className="mr-2 text-base font-medium text-muted-foreground line-through">
+              {formatPackListPrice(pack)}
+            </span>
+          )}
           {formatPackPrice(pack)}
         </span>
       </div>
+      {off > 0 && (
+        // Price wording stays in English on every locale, like the rest of the billing text.
+        <p className="mt-1 text-xs font-semibold text-amber-500">
+          Black Friday: {off}% off until {BLACK_FRIDAY_ENDS_LABEL}
+        </p>
+      )}
       <p className="mt-3 text-sm font-medium text-foreground">
         {t("creditCount", { count: totalCredits(pack).toLocaleString("en-US") })}
       </p>
@@ -517,13 +534,13 @@ export function CreditConsole({
         source,
         clicked,
         currency: "USD",
-        value: selectedPack.priceInCents / 100,
+        value: packChargeCents(selectedPack) / 100,
         items: [
           {
             item_id: selectedPack.id,
             item_name: `${selectedPack.name} credit pack`,
             item_category: "credits",
-            price: selectedPack.priceInCents / 100,
+            price: packChargeCents(selectedPack) / 100,
             quantity: 1,
           },
         ],
@@ -662,7 +679,10 @@ export function CreditConsole({
                 <span>
                   <span className="font-medium text-foreground">Auto top-up (optional).</span> When my balance drops
                   below {autoRechargeThreshold(selectedPack).toLocaleString("en-US")} credits, charge this card{" "}
-                  {formatPackPrice(selectedPack)} for another {selectedPack.name} pack and add{" "}
+                  {formatPackPrice(selectedPack)}
+                  {packPercentOff(selectedPack) > 0 &&
+                    ` (the Black Friday price until ${BLACK_FRIDAY_ENDS_LABEL}, ${formatPackListPrice(selectedPack)} after)`}{" "}
+                  for another {selectedPack.name} pack and add{" "}
                   {formatCredits(autoRechargeCredits(selectedPack))} ({AUTO_RECHARGE_EXTRA_BONUS_PERCENT}% extra). At most $
                   {AUTO_RECHARGE_MAX_USD_PER_DAY} a day and ${AUTO_RECHARGE_MAX_USD_PER_MONTH.toLocaleString("en-US")} in
                   30 days. I can turn it off at

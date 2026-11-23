@@ -4,12 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Sparkles, Video, ArrowRight, X, Palette, Wand2, ScanFace } from "lucide-react";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
-import {
-  FACESTUDIO_PRO_LAUNCH_ENDS_LABEL,
-  FACESTUDIO_PRO_LAUNCH_PRICE_CENTS,
-  FACESTUDIO_PRO_REGULAR_PRICE_CENTS,
-  facestudioProLaunchTimeLeft,
-} from "@/lib/products";
+import { PRODUCTS } from "@/lib/products";
+import { BLACK_FRIDAY_ENDS_LABEL, blackFridayOn, blackFridayUpcoming, formatUsdCents } from "@/lib/black-friday";
 
 interface WhatsNewItem {
   id: string;
@@ -94,41 +90,45 @@ const ITEMS: WhatsNewItem[] = [
 // v14: SpotEdit.
 // v15: Sharper face for the video head swap.
 // v17: Neo is live, with its launch-week offer (v16 was the first Neo item).
-const STORAGE_KEY = "nanopocket_whats_new_dismissed_v17";
+// v18: Black Friday (24 Nov to 24 Dec 2026).
+const STORAGE_KEY = "nanopocket_whats_new_dismissed_v18";
 
-const dollars = (cents: number) => `$${(cents / 100).toFixed(2)}`;
 
 /**
- * Nano FaceStudio Pro's item, read from the clock: leads the bar with the time left while the launch
- * price runs, then sits in the usual place with the regular price. The bar only renders after mount,
- * so this is always the viewer's own clock.
+ * Read from the viewer's clock (the bar only renders after mount): during Black Friday (and the
+ * day before it) the sale leads the bar; Nano FaceStudio Pro 1.2 sits in the usual place with
+ * whatever price applies now.
  */
 function facestudioProItem(): { item: WhatsNewItem; first: boolean } {
-  const left = facestudioProLaunchTimeLeft();
-  const base = {
-    id: "nano-facestudio-pro-1",
-    icon: Palette,
-    iconClassName: "text-emerald-600",
-    href: "/apps/nano-facestudio-pro",
-  };
-  if (left) {
+  const pro = PRODUCTS.find((p) => p.id === "nano-facestudio-pro");
+  const price = pro ? `${formatUsdCents(pro.priceInCents)} one-time` : "";
+  const sale = blackFridayOn() || blackFridayUpcoming();
+  if (sale) {
     return {
       first: true,
       item: {
-        ...base,
-        label: "LAST DAYS",
+        id: "black-friday-2026",
+        label: "BLACK FRIDAY",
         labelClassName: "bg-amber-100 text-amber-800 ring-amber-200",
-        text: `Nano FaceStudio Pro launch price ${dollars(FACESTUDIO_PRO_LAUNCH_PRICE_CENTS)} ends ${FACESTUDIO_PRO_LAUNCH_ENDS_LABEL} · ${left} · ${dollars(FACESTUDIO_PRO_REGULAR_PRICE_CENTS)} from Nov 1`,
+        icon: Sparkles,
+        iconClassName: "text-amber-600",
+        text: blackFridayOn()
+          ? `Black Friday until ${BLACK_FRIDAY_ENDS_LABEL}: Nano FaceStudio Pro 1.2 with batch swap and Mac · the new FaceStudio V Pro · up to 30% off credits · 30% off the other apps`
+          : `Black Friday starts Nov 24 and runs a whole month: FaceStudio Pro 1.2, the new FaceStudio V Pro, up to 30% off credits`,
+        href: "/black-friday",
       },
     };
   }
   return {
     first: false,
     item: {
-      ...base,
+      id: "nano-facestudio-pro-1-2",
       label: "PRO",
       labelClassName: "bg-emerald-100 text-emerald-700 ring-emerald-200",
-      text: `Nano FaceStudio Pro 1.0 — seven face tools in one local app · Windows · macOS to follow · ${dollars(FACESTUDIO_PRO_REGULAR_PRICE_CENTS)} one-time`,
+      icon: Palette,
+      iconClassName: "text-emerald-600",
+      text: `Nano FaceStudio Pro 1.2 — batch face swap, now on Windows and Mac · ${price}`,
+      href: "/apps/nano-facestudio-pro-1-2",
     },
   };
 }

@@ -555,13 +555,13 @@
     }
   },
   "pro": {
-    "title": "Nano FaceStudio Pro: cambio de rostro y edición facial local para Windows",
-    "description": "Cambio de rostro, edición con máscara, edición de expresiones, restauración facial, ampliación, ajuste de luz y recorte en una sola app de escritorio. Funciona sin conexión en tu propia GPU, con licencia de pago único y sin subir nada.",
+    "title": "Nano FaceStudio Pro: cambio de rostro y edición facial local para Windows y Mac",
+    "description": "Cambio de rostro, cambio de rostro por lotes, edición con máscara, edición de expresiones, restauración facial, ampliación, ajuste de luz y recorte en una sola app de escritorio para Windows y Mac con Apple Silicon. Funciona en tu propia computadora, con licencia de pago único, y tus fotos nunca se suben.",
     "kicker": "App de escritorio",
     "h1": "Todo el rostro, en un solo estudio y en tu propia GPU",
     "lead": "Siete herramientas en una app de escritorio: cambio de rostro, edición con máscara, edición de expresiones, Face Vivid, ampliación, ajuste de luz y recorte. Todo funciona en tu computadora, así que tus fotos nunca se suben y no hay cargo por imagen.",
     "cta": "Comprar y descargar",
-    "note": "Licencia de pago único, sin suscripción. Ya disponible para Windows; macOS llegará más adelante.",
+    "note": "Para Windows y Mac con Apple Silicon. La versión 1.2 añade el cambio de rostro por lotes y la versión para Mac.",
     "examplesHeading": "Pantallas reales de la app",
     "beforeLabel": "Antes",
     "afterLabel": "Después",
@@ -574,7 +574,7 @@
     "features": [
       {
         "title": "Cambio de rostro",
-        "body": "Detecta hasta 16 rostros por imagen. Cambia uno, o todos con un clic, y elige qué zonas no se tocan."
+        "body": "Detecta hasta 16 rostros por imagen. Cambia uno, o todos con un clic, y elige qué zonas no se tocan. Novedad de la 1.2: el cambio por lotes pone un mismo rostro de referencia en toda una serie de fotos."
       },
       {
         "title": "Edición con máscara",
@@ -609,11 +609,11 @@
       },
       {
         "title": "Instala y activa",
-        "body": "Descarga la app y actívala. Solo necesita internet para la activación."
+        "body": "Descarga la app para Windows o Mac y actívala. La instalación descarga unos 25 GB."
       },
       {
         "title": "Trabaja sin conexión",
-        "body": "Abre una foto y usa cualquiera de las siete herramientas en tu propia GPU."
+        "body": "Abre una foto y usa cualquiera de las siete herramientas en tu propia computadora. La licencia se comprueba en línea cada 7 días, y la app sigue funcionando hasta 14 días sin conexión."
       }
     ],
     "faqHeading": "Preguntas",
@@ -624,11 +624,15 @@
       },
       {
         "q": "¿Se suben mis fotos?",
-        "a": "No. Todos los modelos funcionan en tu GPU, y tus fotos nunca se suben ni se guardan en un servidor. La única conexión es la activación de la licencia, una sola vez."
+        "a": "No. Todos los modelos funcionan en tu computadora, y tus fotos nunca se suben ni se guardan en un servidor. La app necesita internet para la instalación y comprueba la licencia en línea cada 7 días. Sigue funcionando hasta 14 días sin conexión."
       },
       {
         "q": "¿Qué hardware necesito?",
-        "a": "Windows 10 u 11 con una GPU NVIDIA de al menos 8 GB de VRAM. Se ha probado con las series RTX 30, 40 y 50. La versión de macOS para Apple Silicon (M2 a M5) aún no está disponible, y los Mac con Intel no son compatibles."
+        "a": "En Windows: Windows 10 u 11 con una GPU NVIDIA de al menos 8 GB de VRAM y 40 GB libres en disco. Se ha probado con las series RTX 30, 40 y 50. En Mac: Apple Silicon M1 o posterior (se recomienda M4 o posterior), macOS 14 Sonoma o posterior, 16 GB de memoria (se recomiendan 24 GB o más) y 40 GB libres durante la instalación, unos 25 GB después. Los Mac con Intel no son compatibles."
+      },
+      {
+        "q": "¿Qué hay de nuevo en la versión 1.2?",
+        "a": "El cambio de rostro por lotes: añade una serie de fotos, elige un rostro de referencia y la app las cambia una tras otra. Y una versión nativa para Mac con Apple Silicon. En Mac, un cambio de rostro tarda unos 10 segundos por foto en un M5 con 24 GB, y de 20 a 23 segundos en un M4 con 16 GB (fotos de 2816 × 1536)."
       },
       {
         "q": "¿Puedo probarla antes de comprar?",
@@ -640,6 +644,7 @@
       }
     ],
     "pricingLink": "Precios",
+    "whatsNew": "Novedades de la versión 1.2 (en inglés)",
     "english": "Leer la página completa en inglés"
   },
   "pricing": {

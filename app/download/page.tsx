@@ -12,7 +12,7 @@ import { NewVersionNotice } from "./new-version-notice";
 import { AppCards } from "./app-cards";
 import { ReleaseNotes } from "./release-notes";
 import { SystemRequirements } from "./system-requirements";
-import { PRODUCTS } from "@/lib/products";
+import { facestudioProPrice } from "@/lib/facestudio-pro-price";
 import { getLocale } from "next-intl/server";
 import type { AppLocale } from "@/lib/i18n/locales";
 import { pageStrings } from "@/lib/i18n/strings";
@@ -22,10 +22,10 @@ import { BusinessContact } from "../components/business-contact";
 export const revalidate = 600;
 
 // A function, so the price is read when the page renders rather than once per server instance.
-const softwareData = () => ({
+const softwareData = (pro = facestudioProPrice()) => ({
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "SoftwareApplication", name: "Nano FaceStudio Pro", operatingSystem: "Windows 10/11 (NVIDIA CUDA); macOS Apple Silicon to follow", applicationCategory: "MultimediaApplication", softwareVersion: "1.0.2", offers: { "@type": "Offer", price: (PRODUCTS.find((p) => p.id === "nano-facestudio-pro")!.priceInCents / 100).toFixed(2), priceCurrency: "USD", availability: "https://schema.org/InStock", url: "https://nanopocket.ai/apps/nano-facestudio-pro" }, description: "AI Face Studio — 7 tools in one local desktop app: face swap (up to 16 faces), mask edit, expression editing, face vivid, 2×/3×/4× upscale, light adjust, crop. GAN and diffusion models." },
+    { "@type": "SoftwareApplication", name: "Nano FaceStudio Pro", operatingSystem: "Windows 10/11 (NVIDIA CUDA); macOS 14+ on Apple Silicon", applicationCategory: "MultimediaApplication", softwareVersion: "1.2.0", offers: { "@type": "Offer", price: pro.price, priceCurrency: "USD", availability: "https://schema.org/InStock", ...(pro.validUntil ? { priceValidUntil: pro.validUntil } : {}), url: "https://nanopocket.ai/apps/nano-facestudio-pro" }, description: "AI Face Studio — 7 tools in one local desktop app: face swap (up to 16 faces) and batch face swap, mask edit, expression editing, face vivid, 2×/3×/4× upscale, light adjust, crop. GAN and diffusion models. Windows and Apple Silicon Mac." },
     { "@type": "SoftwareApplication", name: "Nano ImageEdit", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "19.90", priceCurrency: "USD" }, description: "AI image generation — local alternative to Midjourney and Flux. Run GAN and diffusion models on your GPU." },
     { "@type": "SoftwareApplication", name: "Nano VideoGen", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "29.90", priceCurrency: "USD" }, description: "AI video generation — local alternative to Runway. Run GAN and diffusion models on your GPU." },
     { "@type": "SoftwareApplication", name: "Nano VideoEnhance", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "19.90", priceCurrency: "USD" }, description: "AI video enhancement — local alternative to Topaz Video AI." },

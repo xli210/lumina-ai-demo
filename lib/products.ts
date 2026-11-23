@@ -1,3 +1,12 @@
+import {
+  BLACK_FRIDAY_APP_PRICE_CENTS,
+  BLACK_FRIDAY_LAST_DAY,
+  FACESTUDIO_V_PRO_LAUNCH_PRICE_CENTS,
+  FACESTUDIO_V_PRO_REGULAR_PRICE_CENTS,
+  blackFridayOn,
+  facestudioVProLaunchPriceOn,
+} from "@/lib/black-friday"
+
 export interface Product {
   id: string
   name: string
@@ -14,6 +23,12 @@ export interface Product {
    * informational — display only, not enforced on the server.
    */
   promoValidUntil?: string
+  /**
+   * What the reduced price is: "launch" (a new product's opening price, which goes up on
+   * promoValidUntil) or "sale" (a discount from a price it has been sold at). Read with
+   * originalPriceInCents; absent when there is no offer.
+   */
+  promoKind?: "launch" | "sale"
   /** Number of days for free trial. 0 or undefined = no trial. */
   trialDays?: number
   features: string[]
@@ -47,6 +62,28 @@ export function facestudioProLaunchTimeLeft(now: number = Date.now()): string | 
   if (hours <= 24) return `${hours} hours left`
   const days = Math.floor(ms / 86_400_000)
   return `${days} day${days === 1 ? "" : "s"} left`
+}
+
+/**
+ * Getters for a product on sale during Black Friday (lib/black-friday.ts). Read at the moment of
+ * use, so checkout charges the regular price from the instant the sale ends.
+ */
+function blackFridayPricing(id: string, regularCents: number) {
+  const sale = BLACK_FRIDAY_APP_PRICE_CENTS[id]
+  return {
+    get priceInCents() {
+      return blackFridayOn() && sale ? sale : regularCents
+    },
+    get originalPriceInCents() {
+      return blackFridayOn() && sale ? regularCents : undefined
+    },
+    get promoValidUntil() {
+      return blackFridayOn() && sale ? BLACK_FRIDAY_LAST_DAY : undefined
+    },
+    get promoKind() {
+      return blackFridayOn() && sale ? ("sale" as const) : undefined
+    },
+  }
 }
 
 export const PRODUCTS: Product[] = [
@@ -100,7 +137,7 @@ export const PRODUCTS: Product[] = [
     name: "Nano ImageEdit",
     description:
       "AI Image Generation — Generate and edit stunning images from text prompts with Nano ImageEdit, running locally on your GPU.",
-    priceInCents: 1990,
+    ...blackFridayPricing("nano-imageedit", 1990),
     trialDays: 7,
     features: [
       "Text-to-image generation",
@@ -117,7 +154,7 @@ export const PRODUCTS: Product[] = [
     name: "Nano VideoEnhance",
     description:
       "AI Video Enhancement — Upscale, stabilize, and enhance video quality with Nano VideoEnhance, running 100% locally on your GPU.",
-    priceInCents: 1990,
+    ...blackFridayPricing("nano-videoenhance", 1990),
     trialDays: 7,
     features: [
       "AI-powered video upscaling & enhancement",
@@ -134,7 +171,7 @@ export const PRODUCTS: Product[] = [
     name: "Nano ImageEnh",
     description:
       "AI Image Enhancement — Upscale, denoise, and restore images with Nano ImageEnh, running 100% locally on your GPU.",
-    priceInCents: 2990,
+    ...blackFridayPricing("nnanoimageenh", 2990),
     trialDays: 7,
     features: [
       "AI-powered image upscaling & denoising",
@@ -151,17 +188,9 @@ export const PRODUCTS: Product[] = [
     name: "Nano FaceStudio Pro",
     description:
       "AI Face Studio — Face swap, mask edit, expression editing, face vivid, upscale, light adjust, and crop in one local desktop app running 100% on your GPU. Free browser demos at /face-swap preview the swap + vivid capabilities.",
-    // Read at the moment of use, so checkout charges the regular price from the instant the launch
-    // price ends, and every page that shows the price drops the offer when it next renders.
-    get priceInCents() {
-      return facestudioProLaunchPriceOn() ? FACESTUDIO_PRO_LAUNCH_PRICE_CENTS : FACESTUDIO_PRO_REGULAR_PRICE_CENTS
-    },
-    get originalPriceInCents() {
-      return facestudioProLaunchPriceOn() ? FACESTUDIO_PRO_REGULAR_PRICE_CENTS : undefined
-    },
-    get promoValidUntil() {
-      return facestudioProLaunchPriceOn() ? "2026-10-31" : undefined
-    },
+    // The launch price ($49.90) ended on 31 October; $69.90 since. Black Friday brings $49.90 back
+    // as a sale price from 24 November to 24 December (lib/black-friday.ts).
+    ...blackFridayPricing("nano-facestudio-pro", FACESTUDIO_PRO_REGULAR_PRICE_CENTS),
     // No trial — the free online demos at /face-swap (Nano FaceStudio Online +
     // NanoFace Vivid) act as the preview. This product is paid-only.
     features: [
@@ -170,7 +199,8 @@ export const PRODUCTS: Product[] = [
       "GAN and diffusion models",
       "2×, 3×, 4× full-image upscale",
       "Face Vivid: de-plasticize AI-smoothed skin",
-      "Runs 100% locally on NVIDIA CUDA or Apple Silicon Metal",
+      "Batch face swap: one reference across a whole shoot (1.2)",
+      "Runs 100% locally on NVIDIA CUDA or Apple Silicon Metal (macOS 14+, M1 or newer)",
       "One-time license covers Windows + macOS",
       "Free browser demos available at /face-swap",
       "All 1.x updates included",
@@ -179,11 +209,44 @@ export const PRODUCTS: Product[] = [
     masterKeyEnv: "LICENSE_MASTER_KEY_NANO_FACESTUDIO_PRO",
   },
   {
+    id: "nano-facestudio-v-pro",
+    name: "Nano FaceStudio V Pro",
+    description:
+      "AI Video Face Studio — Swap a face in a video, enhance it to 1080p or 4K, and lip-sync it, in a local Windows desktop app running on your own NVIDIA GPU.",
+    // Listed from the Black Friday launch (2026-11-23): $84.90 until 24 December, then $119.90.
+    // It was never sold at $119.90 before, so pages call $84.90 a launch price, not a discount.
+    get priceInCents() {
+      return facestudioVProLaunchPriceOn() ? FACESTUDIO_V_PRO_LAUNCH_PRICE_CENTS : FACESTUDIO_V_PRO_REGULAR_PRICE_CENTS
+    },
+    get originalPriceInCents() {
+      return facestudioVProLaunchPriceOn() ? FACESTUDIO_V_PRO_REGULAR_PRICE_CENTS : undefined
+    },
+    get promoValidUntil() {
+      return facestudioVProLaunchPriceOn() ? BLACK_FRIDAY_LAST_DAY : undefined
+    },
+    get promoKind() {
+      return facestudioVProLaunchPriceOn() ? ("launch" as const) : undefined
+    },
+    // No trial (owner, 2026-11-23).
+    features: [
+      "Video face swap: pick the person, add a photo of the new face",
+      "Fast and Best quality modes, output in 1080p or 4K",
+      "Enhance only: sharpen and clean up a video without swapping",
+      "Optional lip sync to an audio file",
+      "Up to 5 photos of the face for a closer match",
+      "Batch queue of up to 50 videos",
+      "Original sound kept; MP4 export",
+      "Runs 100% locally on Windows with an NVIDIA RTX GPU",
+    ],
+    maxActivations: 1,
+    masterKeyEnv: "LICENSE_MASTER_KEY_NANO_FACESTUDIO_V_PRO",
+  },
+  {
     id: "nano-videogen",
     name: "Nano VideoGen",
     description:
       "AI Video Generation — Create stunning videos from text prompts or images with Nano VideoGen, running 100% locally on your GPU.",
-    priceInCents: 2990,
+    ...blackFridayPricing("nano-videogen", 2990),
     trialDays: 7,
     features: [
       "Text-to-video generation",
@@ -202,17 +265,7 @@ export const PRODUCTS: Product[] = [
  * because the pricing pages, checkout and facts.json list that array in full. priceInCents is
  * never shown or charged while a product is here; moving it into PRODUCTS is what lists it.
  */
-const UNLISTED_PRODUCTS: Product[] = [
-  {
-    id: "nano-facestudio-v-pro",
-    name: "Nano FaceStudio V Pro",
-    description: "Video face swap, enhancement and lip sync in a local desktop app.",
-    priceInCents: 0,
-    features: [],
-    maxActivations: 1,
-    masterKeyEnv: "LICENSE_MASTER_KEY_NANO_FACESTUDIO_V_PRO",
-  },
-]
+const UNLISTED_PRODUCTS: Product[] = []
 
 /** Every product a license can be activated for: the ones on sale and the unlisted ones. */
 export const ACTIVATABLE_PRODUCTS: Product[] = [...PRODUCTS, ...UNLISTED_PRODUCTS]

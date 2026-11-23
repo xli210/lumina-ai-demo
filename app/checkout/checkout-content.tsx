@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { ArrowLeft, Check, Lock, ImagePlus, Video, Sparkles, Wand2 } from "lucide-react";
 import Checkout from "../components/checkout";
 import { PRODUCTS } from "@/lib/products";
+import { productPriceNote } from "@/lib/price-notes";
 import { tr, type Strings } from "@/lib/i18n/strings";
 import { BusinessContact } from "../components/business-contact";
 
@@ -92,6 +93,11 @@ export function CheckoutContent({ strings }: { strings: Strings }) {
                     ${(product.priceInCents / 100).toFixed(2)}
                   </span>
                 </div>
+                {productPriceNote(product) && (
+                  <p className="mt-2 text-xs font-medium text-amber-500">
+                    {productPriceNote(product).trim().replace(/^\(|\)$/g, "")}
+                  </p>
+                )}
                 {product.trialDays && product.trialDays > 0 && (
                   <p className="mt-2 text-xs text-emerald-500">
                     {t("Includes upgrade from your free trial — same license key")}

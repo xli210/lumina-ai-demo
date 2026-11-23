@@ -11,10 +11,15 @@ import { disableAutoRecharge } from "@/lib/auto-recharge";
 import { firstTouchMetadata, recordFirstTouch } from "@/lib/first-touch-server";
 import { invoiceCheckoutParams } from "@/lib/checkout-invoice";
 import { TERMS_VERSION } from "@/lib/terms-version";
+import { BLACK_FRIDAY_CAMPAIGN } from "@/lib/black-friday";
 import {
   cleanTopUpLabel,
   findCreditPack,
+  formatPackListPrice,
   formatPackPrice,
+  packChargeCents,
+  packPercentOff,
+  packSaleBonusCredits,
   totalCredits,
   type CreditPack,
   type TopUpAttribution,
@@ -69,21 +74,24 @@ async function resolveStripeCustomer(
 }
 
 function buildLineItem(
-  pack: CreditPack
+  pack: CreditPack,
+  now: number
 ): Stripe.Checkout.SessionCreateParams.LineItem {
   const bonusNote =
     pack.bonusCredits > 0
       ? ` (includes ${pack.bonusCredits.toLocaleString("en-US")} bonus credits)`
       : "";
+  const off = packPercentOff(pack, now);
+  const saleNote = off > 0 ? `, Black Friday ${off}% off ${formatPackListPrice(pack)}` : "";
 
   return {
     price_data: {
       currency: "usd",
       product_data: {
         name: `${totalCredits(pack).toLocaleString("en-US")} credits`,
-        description: `${pack.name} top-up — ${formatPackPrice(pack)}${bonusNote}`,
+        description: `${pack.name} top-up — ${formatPackPrice(pack, now)}${saleNote}${bonusNote}`,
       },
-      unit_amount: pack.priceInCents,
+      unit_amount: packChargeCents(pack, now),
     },
     quantity: 1,
   };
@@ -121,6 +129,8 @@ export async function startCreditCheckoutSession(
   if (!pack) {
     throw new Error(`Unknown credit pack "${packId}"`);
   }
+  // One instant for the price and the credits, so a session opened as the sale ends is consistent.
+  const now = Date.now();
 
   const supabase = await createClient();
   const {
@@ -158,7 +168,7 @@ export async function startCreditCheckoutSession(
     mode: "payment",
     customer: customerId,
     return_url: `${origin}/credits?session_id={CHECKOUT_SESSION_ID}`,
-    line_items: [buildLineItem(pack)],
+    line_items: [buildLineItem(pack, now)],
     // Cards only (wallets such as Apple Pay count): a bank debit settles days later, which an
     // automatic top-up cannot wait for, and some methods cannot be charged without the person.
     ...(autoRecharge
@@ -174,8 +184,11 @@ export async function startCreditCheckoutSession(
       kind: "credit_topup",
       pack_id: pack.id,
       supabase_user_id: user.id,
-      base_credits: String(pack.priceInCents),
-      bonus_credits: String(pack.bonusCredits),
+      // During a sale the charge is smaller than the list price but the pack's credits are not:
+      // what was paid is the purchase, the rest is bonus (lib/credit-packs.ts packSaleBonusCredits).
+      base_credits: String(packChargeCents(pack, now)),
+      bonus_credits: String(pack.bonusCredits + packSaleBonusCredits(pack, now)),
+      ...(packPercentOff(pack, now) > 0 ? { campaign: BLACK_FRIDAY_CAMPAIGN } : {}),
       ...labels,
       ...firstTouch,
       ...(invoice ? { invoice: "1" } : {}),

@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { Navbar } from "../../components/navbar";
 import { Footer } from "../../components/footer";
-import { CREDIT_PACKS, bonusPercent, totalCredits } from "@/lib/credit-packs";
+import { CREDIT_PACKS, bonusPercent, packChargeCents, totalCredits } from "@/lib/credit-packs";
+import { packPriceNote, productPriceNote } from "@/lib/price-notes";
 import { PRODUCTS } from "@/lib/products";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACESTUDIO_MAX_FACES, FACESTUDIO_PRICE_PER_FACE, FREE_TOPUP_CREDITS } from "@/lib/facestudio";
@@ -46,6 +47,7 @@ const APP_PAGE: Record<string, string> = {
   nnanoimageenh: "/apps/nano-imageenh-pro",
   "nano-facestudio-pro": "/apps/nano-facestudio-pro",
   "nano-videogen": "/apps/nano-videogen",
+  "nano-facestudio-v-pro": "/apps/nano-facestudio-v-pro",
 };
 
 interface PageProps {
@@ -168,7 +170,7 @@ export default async function LocalizedPricingPage({ params }: PageProps) {
                   return (
                     <tr key={p.id} className="border-b border-border last:border-0">
                       <td className={`${td} font-medium text-foreground`}>{p.name}</td>
-                      <td className={td}>{money(p.priceInCents)}</td>
+                      <td className={td}>{money(packChargeCents(p))}{packPriceNote(p)}</td>
                       <td className={td}>
                         {n(total)}
                         {p.bonusCredits > 0 && ` (${fill(c.bonus, { bonus: n(p.bonusCredits), percent: bonusPercent(p) })})`}
@@ -208,7 +210,7 @@ export default async function LocalizedPricingPage({ params }: PageProps) {
                         {p.name}
                       </Link>
                     </td>
-                    <td className={td}>{p.priceInCents === 0 ? c.freeLicense : fill(c.oneTime, { price: money(p.priceInCents) })}</td>
+                    <td className={td}>{p.priceInCents === 0 ? c.freeLicense : fill(c.oneTime, { price: money(p.priceInCents) })}{productPriceNote(p)}</td>
                     <td className={td}>{(p.trialDays ?? 0) > 0 ? fill(c.trialDays, { days: p.trialDays ?? 0 }) : "—"}</td>
                   </tr>
                 ))}

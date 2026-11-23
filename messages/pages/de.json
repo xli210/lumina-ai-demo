@@ -555,13 +555,13 @@
     }
   },
   "pro": {
-    "title": "Nano FaceStudio Pro: lokaler Face Swap und Gesichtsbearbeitung für Windows",
-    "description": "Face Swap, Maskenbearbeitung, Ausdrucksbearbeitung, Gesichtsrestaurierung, Hochskalieren, Lichtanpassung und Zuschnitt in einer Desktop-App. Läuft offline auf deiner eigenen GPU, mit Einmallizenz und ohne Uploads.",
+    "title": "Nano FaceStudio Pro: lokaler Face Swap und Gesichtsbearbeitung für Windows und Mac",
+    "description": "Face Swap, Batch-Face-Swap, Maskenbearbeitung, Ausdrucksbearbeitung, Gesichtsrestaurierung, Hochskalieren, Lichtanpassung und Zuschnitt in einer Desktop-App für Windows und Macs mit Apple Silicon. Läuft auf deinem eigenen Computer, mit Einmallizenz, und deine Fotos werden nie hochgeladen.",
     "kicker": "Desktop-App",
     "h1": "Das ganze Gesicht in einem Studio, auf deiner eigenen GPU",
     "lead": "Sieben Werkzeuge in einer Desktop-App: Face Swap, Maskenbearbeitung, Ausdrucksbearbeitung, Face Vivid, Hochskalieren, Lichtanpassung und Zuschnitt. Alles läuft auf deinem Computer, deine Fotos werden also nie hochgeladen, und es gibt keine Gebühr pro Bild.",
     "cta": "Kaufen und herunterladen",
-    "note": "Einmallizenz, kein Abo. Jetzt für Windows verfügbar, macOS folgt.",
+    "note": "Für Windows und Macs mit Apple Silicon. Version 1.2 bringt den Batch-Face-Swap und die Mac-Version.",
     "examplesHeading": "Echte Ansichten aus der App",
     "beforeLabel": "Vorher",
     "afterLabel": "Nachher",
@@ -574,7 +574,7 @@
     "features": [
       {
         "title": "Face Swap",
-        "body": "Erkennt bis zu 16 Gesichter pro Bild. Tausche eines oder alle mit einem Klick und wähle, welche Bereiche unberührt bleiben."
+        "body": "Erkennt bis zu 16 Gesichter pro Bild. Tausche eines oder alle mit einem Klick und wähle, welche Bereiche unberührt bleiben. Neu in 1.2: Der Batch-Swap setzt ein Referenzgesicht in eine ganze Fotoserie ein."
       },
       {
         "title": "Maskenbearbeitung",
@@ -609,11 +609,11 @@
       },
       {
         "title": "Installieren und aktivieren",
-        "body": "Lade die App herunter und aktiviere sie. Nur dafür braucht sie eine Internetverbindung."
+        "body": "Lade die App für Windows oder Mac herunter und aktiviere sie. Bei der Einrichtung werden etwa 25 GB geladen."
       },
       {
         "title": "Offline arbeiten",
-        "body": "Öffne ein Foto und nutze die sieben Werkzeuge auf deiner eigenen GPU."
+        "body": "Öffne ein Foto und nutze die sieben Werkzeuge auf deinem eigenen Computer. Die Lizenz wird alle 7 Tage online geprüft, offline läuft die App bis zu 14 Tage weiter."
       }
     ],
     "faqHeading": "Fragen",
@@ -624,11 +624,15 @@
       },
       {
         "q": "Werden meine Fotos hochgeladen?",
-        "a": "Nein. Alle Modelle laufen auf deiner GPU, und deine Fotos werden weder hochgeladen noch auf einem Server gespeichert. Die einzige Netzwerkverbindung ist die einmalige Lizenzaktivierung."
+        "a": "Nein. Alle Modelle laufen auf deinem Computer, und deine Fotos werden weder hochgeladen noch auf einem Server gespeichert. Internet braucht die App für die Einrichtung und für die Lizenzprüfung alle 7 Tage. Offline läuft sie bis zu 14 Tage weiter."
       },
       {
         "q": "Welche Hardware brauche ich?",
-        "a": "Windows 10 oder 11 mit einer NVIDIA-GPU und mindestens 8 GB VRAM. Getestet wurden die Serien RTX 30, 40 und 50. Die macOS-Version für Apple Silicon (M2 bis M5) folgt noch, Intel-Macs werden nicht unterstützt."
+        "a": "Windows: Windows 10 oder 11 mit einer NVIDIA-GPU mit mindestens 8 GB VRAM und 40 GB freiem Speicher. Getestet wurden die Serien RTX 30, 40 und 50. Mac: Apple Silicon M1 oder neuer (M4 oder neuer empfohlen), macOS 14 Sonoma oder neuer, 16 GB Arbeitsspeicher (24 GB oder mehr empfohlen) und 40 GB frei während der Einrichtung, danach etwa 25 GB. Intel-Macs werden nicht unterstützt."
+      },
+      {
+        "q": "Was ist neu in Version 1.2?",
+        "a": "Batch-Face-Swap: Füge eine Fotoserie hinzu, wähle ein Referenzgesicht, und die App tauscht ein Foto nach dem anderen. Dazu kommt eine native Version für Macs mit Apple Silicon. Auf dem Mac dauert ein Face Swap etwa 10 Sekunden pro Foto auf einem M5 mit 24 GB und 20 bis 23 Sekunden auf einem M4 mit 16 GB (Fotos mit 2816 × 1536)."
       },
       {
         "q": "Kann ich sie vor dem Kauf testen?",
@@ -640,6 +644,7 @@
       }
     ],
     "pricingLink": "Preise",
+    "whatsNew": "Neu in Version 1.2 (auf Englisch)",
     "english": "Die vollständige Seite auf Englisch lesen"
   },
   "pricing": {

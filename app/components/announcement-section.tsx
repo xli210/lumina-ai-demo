@@ -22,13 +22,7 @@ import {
   isUnderMaintenance,
 } from "@/lib/demos";
 import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
-import { LaunchPriceCountdown } from "./launch-price-countdown";
-import {
-  FACESTUDIO_PRO_LAUNCH_ENDS_LABEL,
-  FACESTUDIO_PRO_LAUNCH_PRICE_CENTS,
-  FACESTUDIO_PRO_REGULAR_PRICE_CENTS,
-  facestudioProLaunchPriceOn,
-} from "@/lib/products";
+import { facestudioProPrice } from "@/lib/facestudio-pro-price";
 import { FACE_SWAP_CREDITS } from "@/lib/face-studio-facts";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 import {
@@ -86,7 +80,7 @@ const IMAGEEDIT_POINTS = [
 ];
 
 const PRO_POINTS = [
-  "Multi-face swap",
+  "Multi-face and batch face swap",
   "Mask & expression edit",
   "Face Vivid & upscale",
   "Light adjust & crop",
@@ -249,21 +243,25 @@ function ProductCard({
 
 /** The paid desktop bundle: one wide card under the two online products. */
 function ProSpotlight() {
-  const launch = facestudioProLaunchPriceOn();
+  const pr = facestudioProPrice();
   return (
     <div className="glass-strong rounded-3xl border border-primary/10 p-6 sm:p-8 md:p-10">
       <div className="grid gap-8 md:grid-cols-[1.3fr_1fr] md:items-center md:gap-12">
         <div>
           <div className="mb-5">
-            <Pill>Desktop · Windows now</Pill>
+            <Pill>Desktop · Windows and Mac</Pill>
           </div>
           <h3 className="mb-2 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-            Nano FaceStudio Pro 1.0
+            Nano FaceStudio Pro 1.2
           </h3>
           <p className="mb-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             The full local bundle: seven face-editing tools on the same
             diffusion identity stack, every model running on your own GPU.
-            Buy once, keep it for good.
+            Buy once, keep it for good. New in 1.2: batch face swap and a
+            native Apple Silicon Mac version.{" "}
+            <Link href="/apps/nano-facestudio-pro-1-2" className="text-primary underline-offset-4 hover:underline">
+              What&apos;s new in 1.2
+            </Link>
           </p>
           <div className="grid gap-2.5 sm:grid-cols-2">
             {PRO_POINTS.map((point) => (
@@ -280,27 +278,29 @@ function ProSpotlight() {
         <div className="md:border-l md:border-border md:pl-12">
           <div className="mb-1 flex items-baseline gap-2">
             <span className="text-5xl font-bold tracking-tight text-foreground">
-              ${((launch ? FACESTUDIO_PRO_LAUNCH_PRICE_CENTS : FACESTUDIO_PRO_REGULAR_PRICE_CENTS) / 100).toFixed(2)}
+              ${pr.price}
             </span>
-            {launch && (
+            {pr.sale && (
               <span className="text-lg text-muted-foreground line-through">
-                ${(FACESTUDIO_PRO_REGULAR_PRICE_CENTS / 100).toFixed(2)}
+                ${pr.regular}
               </span>
             )}
           </div>
           <p className="mb-6 text-xs text-muted-foreground">
-            {launch ? (
+            {pr.sale ? (
               <>
-                Launch price ends {FACESTUDIO_PRO_LAUNCH_ENDS_LABEL}
-                <LaunchPriceCountdown prefix=" · " /> · one-time · macOS to follow
+                Black Friday price until {pr.endsLabel} · one-time · Windows and Mac ·{" "}
+                <Link href="/black-friday" className="text-primary underline-offset-4 hover:underline">
+                  All offers
+                </Link>
               </>
             ) : (
-              "One-time · macOS to follow"
+              "One-time · Windows and Mac"
             )}
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link href="/download#nano-facestudio-pro" className={primaryButton}>
-              Buy for Windows
+              Buy for Windows or Mac
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link href="/apps/nano-facestudio-pro" className={textLink}>

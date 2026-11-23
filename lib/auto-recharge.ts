@@ -16,6 +16,8 @@ import {
   autoRechargeExtraBonus,
   autoRechargeThreshold,
   findCreditPack,
+  packChargeCents,
+  packSaleBonusCredits,
 } from "@/lib/credit-packs";
 
 /**
@@ -301,11 +303,14 @@ export async function maybeAutoRecharge(userId: string, available: number): Prom
     if (!setting?.enabled) return false;
     const pack = findCreditPack(setting.packId);
     if (!pack || available >= autoRechargeThreshold(pack)) return false;
+    // A sale lowers the charge, not the credits (lib/credit-packs.ts packSaleBonusCredits).
+    const now = Date.now();
+    const chargeCents = packChargeCents(pack, now);
 
     const admin = createAdminClient();
     const { data: claim, error: claimError } = await admin.rpc("auto_recharge_claim", {
       p_user_id: userId,
-      p_amount_cents: pack.priceInCents,
+      p_amount_cents: chargeCents,
       p_max_per_day: AUTO_RECHARGE_MAX_PER_DAY,
       p_max_per_month: AUTO_RECHARGE_MAX_PER_MONTH,
     });
@@ -335,7 +340,7 @@ export async function maybeAutoRecharge(userId: string, available: number): Prom
     try {
       pi = await getStripe().paymentIntents.create(
         {
-          amount: pack.priceInCents,
+          amount: chargeCents,
           currency: "usd",
           customer: customerId,
           payment_method: paymentMethodId,
@@ -349,8 +354,8 @@ export async function maybeAutoRecharge(userId: string, available: number): Prom
             pack_id: pack.id,
             supabase_user_id: userId,
             attempt_id: attemptId,
-            base_credits: String(pack.priceInCents),
-            bonus_credits: String(pack.bonusCredits),
+            base_credits: String(chargeCents),
+            bonus_credits: String(pack.bonusCredits + packSaleBonusCredits(pack, now)),
             auto_bonus_credits: String(autoRechargeExtraBonus(pack)),
           },
         },

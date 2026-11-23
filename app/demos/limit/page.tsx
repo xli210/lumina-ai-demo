@@ -19,12 +19,7 @@ import {
   DEMO_DAILY_LIMIT,
   hoursUntilNextUtcMidnight,
 } from "@/lib/demo-quota";
-import {
-  FACESTUDIO_PRO_LAUNCH_ENDS_LABEL,
-  FACESTUDIO_PRO_LAUNCH_PRICE_CENTS,
-  FACESTUDIO_PRO_REGULAR_PRICE_CENTS,
-  facestudioProLaunchPriceOn,
-} from "@/lib/products";
+import { facestudioProPrice } from "@/lib/facestudio-pro-price";
 
 export const dynamic = "force-dynamic";
 
@@ -86,8 +81,7 @@ const KIND_COPY: Record<Kind, KindCopy> = {
 };
 
 export default async function DemoLimitPage({ searchParams }: PageProps) {
-  const launch = facestudioProLaunchPriceOn();
-  const proPrice = launch ? FACESTUDIO_PRO_LAUNCH_PRICE_CENTS : FACESTUDIO_PRO_REGULAR_PRICE_CENTS;
+  const pr = facestudioProPrice();
   const { kind: kindParam } = await searchParams;
   const kind = normalizeKind(kindParam);
   const copy = KIND_COPY[kind];
@@ -170,22 +164,28 @@ export default async function DemoLimitPage({ searchParams }: PageProps) {
             </p>
 
             <div className="mb-6 flex flex-wrap items-baseline gap-3">
-              <span className="text-4xl font-bold sm:text-5xl">${(proPrice / 100).toFixed(2)}</span>
-              {launch && (
-                <span className="text-lg text-white/50 line-through">${(FACESTUDIO_PRO_REGULAR_PRICE_CENTS / 100).toFixed(2)}</span>
+              <span className="text-4xl font-bold sm:text-5xl">${pr.price}</span>
+              {pr.sale && (
+                <span className="text-lg text-white/50 line-through">${pr.regular}</span>
               )}
               <span className="rounded-full border border-emerald-400/40 bg-emerald-500/15 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-emerald-200">
-                {launch ? `Launch price until ${FACESTUDIO_PRO_LAUNCH_ENDS_LABEL} · one-time` : "One-time"}
+                {pr.sale ? `Black Friday price until ${pr.endsLabel} · one-time` : "One-time"}
               </span>
+              {pr.sale && (
+                <Link href="/black-friday" className="text-sm text-emerald-200 underline-offset-4 hover:underline">
+                  See all Black Friday offers
+                </Link>
+              )}
             </div>
 
             <ul className="mb-8 grid grid-cols-1 gap-2 text-sm text-white/80 sm:grid-cols-2">
               {[
                 "Multi-face swap up to 16 faces per image",
+                "Batch face swap: one reference across a whole set (new in 1.2)",
                 "Face Vivid — de-plasticize AI-smoothed skin",
                 "2×, 3×, 4× full-image upscale",
                 "Expression, mask, light, crop tools in one app",
-                "100% local — NVIDIA CUDA or Apple Silicon Metal",
+                "100% local — NVIDIA CUDA or Apple Silicon Metal (M1 or newer, macOS 14+)",
                 "One-time license covers Windows + macOS",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2">
@@ -212,8 +212,16 @@ export default async function DemoLimitPage({ searchParams }: PageProps) {
                 variant="outline"
                 className="rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white"
               >
+                <Link href="/apps/nano-facestudio-pro-1-2">What&apos;s new in 1.2</Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white"
+              >
                 <Link href="/download#nano-facestudio-pro">
-                  Buy &amp; download for Windows
+                  Buy &amp; download for Windows or Mac
                   <Sparkles className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

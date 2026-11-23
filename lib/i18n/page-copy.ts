@@ -35,6 +35,8 @@ export interface ToolPageCopy {
   faqHeading: string;
   faq: Faq[];
   pricingLink: string;
+  /** Link text to a page about the latest version (Nano FaceStudio Pro). */
+  whatsNew?: string;
   english: string;
 }
 

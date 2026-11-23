@@ -555,13 +555,13 @@
     }
   },
   "pro": {
-    "title": "Nano FaceStudio Pro : échange de visage et retouche faciale en local pour Windows",
-    "description": "Échange de visage, retouche par masque, modification d'expression, restauration du visage, agrandissement, réglage de la lumière et recadrage dans une seule application de bureau. Fonctionne hors ligne sur votre GPU, avec une licence à paiement unique et sans envoi de fichiers.",
+    "title": "Nano FaceStudio Pro : échange de visage et retouche faciale en local pour Windows et Mac",
+    "description": "Échange de visage, échange par lot, retouche par masque, modification d'expression, restauration du visage, agrandissement, réglage de la lumière et recadrage dans une seule application de bureau pour Windows et Mac Apple Silicon. Fonctionne sur votre ordinateur, avec une licence à paiement unique, et vos photos ne sont jamais envoyées.",
     "kicker": "Application de bureau",
     "h1": "Tout le visage, dans un seul studio, sur votre propre GPU",
     "lead": "Sept outils dans une application de bureau : échange de visage, retouche par masque, modification d'expression, Face Vivid, agrandissement, réglage de la lumière et recadrage. Tout fonctionne sur votre ordinateur : vos photos ne sont jamais envoyées et il n'y a aucun frais par image.",
     "cta": "Acheter et télécharger",
-    "note": "Licence à paiement unique, sans abonnement. Disponible dès maintenant pour Windows, macOS suivra.",
+    "note": "Pour Windows et Mac Apple Silicon. La version 1.2 ajoute l'échange de visage par lot et la version Mac.",
     "examplesHeading": "De vrais écrans de l'application",
     "beforeLabel": "Avant",
     "afterLabel": "Après",
@@ -574,7 +574,7 @@
     "features": [
       {
         "title": "Échange de visage",
-        "body": "Détecte jusqu'à 16 visages par image. Échangez-en un, ou tous en un clic, et choisissez les zones à ne pas toucher."
+        "body": "Détecte jusqu'à 16 visages par image. Échangez-en un, ou tous en un clic, et choisissez les zones à ne pas toucher. Nouveau dans la 1.2 : l'échange par lot applique un même visage de référence à toute une série de photos."
       },
       {
         "title": "Retouche par masque",
@@ -609,11 +609,11 @@
       },
       {
         "title": "Installez et activez",
-        "body": "Téléchargez l'application et activez-la. Seule l'activation nécessite internet."
+        "body": "Téléchargez l'application pour Windows ou Mac et activez-la. L'installation télécharge environ 25 Go."
       },
       {
         "title": "Travaillez hors ligne",
-        "body": "Ouvrez une photo et utilisez les sept outils sur votre propre GPU."
+        "body": "Ouvrez une photo et utilisez les sept outils sur votre propre ordinateur. La licence est vérifiée en ligne tous les 7 jours, et l'application fonctionne jusqu'à 14 jours hors ligne."
       }
     ],
     "faqHeading": "Questions",
@@ -624,11 +624,15 @@
       },
       {
         "q": "Mes photos sont-elles envoyées ?",
-        "a": "Non. Tous les modèles fonctionnent sur votre GPU, et vos photos ne sont jamais envoyées ni conservées sur un serveur. La seule communication est l'activation unique de la licence."
+        "a": "Non. Tous les modèles fonctionnent sur votre ordinateur, et vos photos ne sont jamais envoyées ni conservées sur un serveur. L'application a besoin d'internet pour l'installation et vérifie la licence en ligne tous les 7 jours. Elle fonctionne jusqu'à 14 jours hors ligne."
       },
       {
         "q": "Quel matériel faut-il ?",
-        "a": "Windows 10 ou 11 avec un GPU NVIDIA d'au moins 8 Go de VRAM. Les séries RTX 30, 40 et 50 ont été testées. La version macOS pour Apple Silicon (M2 à M5) reste à venir, et les Mac Intel ne sont pas pris en charge."
+        "a": "Sous Windows : Windows 10 ou 11 avec un GPU NVIDIA d'au moins 8 Go de VRAM et 40 Go d'espace libre. Les séries RTX 30, 40 et 50 ont été testées. Sur Mac : Apple Silicon M1 ou plus récent (M4 ou plus récent recommandé), macOS 14 Sonoma ou plus récent, 16 Go de mémoire (24 Go ou plus recommandés) et 40 Go libres pendant l'installation, environ 25 Go ensuite. Les Mac Intel ne sont pas pris en charge."
+      },
+      {
+        "q": "Quoi de neuf dans la version 1.2 ?",
+        "a": "L'échange de visage par lot : ajoutez une série de photos, choisissez un visage de référence, et l'application les traite l'une après l'autre. Et une version native pour Mac Apple Silicon. Sur Mac, un échange de visage prend environ 10 secondes par photo sur un M5 avec 24 Go, et 20 à 23 secondes sur un M4 avec 16 Go (photos de 2816 × 1536)."
       },
       {
         "q": "Puis-je l'essayer avant d'acheter ?",
@@ -640,6 +644,7 @@
       }
     ],
     "pricingLink": "Prix",
+    "whatsNew": "Nouveautés de la version 1.2 (en anglais)",
     "english": "Lire la page complète en anglais"
   },
   "pricing": {

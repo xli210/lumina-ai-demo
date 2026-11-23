@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, Download, Clock } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
+import { productPriceNote } from "@/lib/price-notes";
 
 export function PricingSection() {
   return (
@@ -82,6 +83,11 @@ export function PricingSection() {
                   )}
                 </div>
 
+                {productPriceNote(product) && (
+                  <p className="mb-1 text-xs font-medium text-amber-500">
+                    {productPriceNote(product).trim().replace(/^\(|\)$/g, "")}
+                  </p>
+                )}
                 <p className="mb-6 text-xs text-muted-foreground">
                   {isPaidWithTrial
                     ? `${product.trialDays}-day free trial, then one-time payment`
