@@ -23,7 +23,7 @@ export function BlackFridayBanner({ c, href }: { c: BlackFridayCopy["banner"]; h
         "Credits up to 30% off",
         "Other apps 30% off",
       ]
-    : ["Starts Nov 24", "FaceStudio Pro 1.2 · batch + Mac", "New: FaceStudio V Pro", "Credits up to 30% off"];
+    : ["Starts Nov 23", "FaceStudio Pro 1.2 · batch + Mac", "New: FaceStudio V Pro", "Credits up to 30% off"];
   return (
     <section className="relative z-10 px-4 py-6 sm:px-6" aria-label="Black Friday">
       <Link

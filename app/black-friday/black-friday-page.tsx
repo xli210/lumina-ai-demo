@@ -304,7 +304,7 @@ export function BlackFridayPage({ c, href }: { c: BlackFridayCopy; href: (path: 
             <h2 className="mb-3 text-lg font-semibold text-foreground">{c.finePrintHeading}</h2>
             <ul className="list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
               <li>
-                {BLACK_FRIDAY_STARTS_LABEL}, 12:00 am PT – {BLACK_FRIDAY_ENDS_LABEL}.
+                Until {BLACK_FRIDAY_ENDS_LABEL}.
               </li>
               {c.finePrint.map((l) => (
                 <li key={l}>{l}</li>

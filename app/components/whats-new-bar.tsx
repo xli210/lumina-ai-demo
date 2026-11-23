@@ -114,7 +114,7 @@ function facestudioProItem(): { item: WhatsNewItem; first: boolean } {
         iconClassName: "text-amber-600",
         text: blackFridayOn()
           ? `Black Friday until ${BLACK_FRIDAY_ENDS_LABEL}: Nano FaceStudio Pro 1.2 with batch swap and Mac · the new FaceStudio V Pro · up to 30% off credits · 30% off the other apps`
-          : `Black Friday starts Nov 24 and runs a whole month: FaceStudio Pro 1.2, the new FaceStudio V Pro, up to 30% off credits`,
+          : `Black Friday starts Nov 23 and runs a whole month: FaceStudio Pro 1.2, the new FaceStudio V Pro, up to 30% off credits`,
         href: "/black-friday",
       },
     };

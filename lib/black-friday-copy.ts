@@ -63,7 +63,7 @@ const en: BlackFridayCopy = {
   kicker: "Black Friday · one month",
   heading: "Black Friday runs for a whole month",
   intro:
-    "From Nov 24 to Dec 24 (Pacific time), every offer below applies on its own, with no code to enter. The price you see at checkout is the price you pay.",
+    "From Nov 23 to Dec 24 (Pacific time), every offer below applies on its own, with no code to enter. The price you see at checkout is the price you pay.",
   upcoming: "The offers start on {date}. Until then, the regular prices apply.",
   running: "On now, until {date} · {left}",
   ended: "Black Friday has ended. Thank you to everyone who joined in.",
@@ -130,7 +130,7 @@ const en: BlackFridayCopy = {
     "Nano FaceStudio V Pro is a new app. $84.90 is its launch price, not a discount from an earlier price.",
   ],
   takeover: {
-    kicker: "One month · Nov 24 – Dec 24",
+    kicker: "One month · Nov 23 – Dec 24",
     line1: "Black",
     line2: "Friday",
     sub: "A whole month of offers on our desktop studios and online credits. No codes, no catches: the price at checkout is the price you pay.",
@@ -165,7 +165,7 @@ const zhCN: BlackFridayCopy = {
   kicker: "Black Friday 黑五 · 为期一个月",
   heading: "Black Friday 黑五，整整一个月",
   intro:
-    "从 11 月 24 日到 12 月 24 日（太平洋时间），以下每项优惠都会自动生效，无需输入优惠码。结账时看到的价格，就是你实际支付的价格。",
+    "从 11 月 23 日到 12 月 24 日（太平洋时间），以下每项优惠都会自动生效，无需输入优惠码。结账时看到的价格，就是你实际支付的价格。",
   upcoming: "优惠将于 {date} 开始。在此之前按常规价格计算。",
   running: "进行中，截至 {date} · {left}",
   ended: "Black Friday 活动已结束。感谢每一位参与的朋友。",
@@ -232,7 +232,7 @@ const zhCN: BlackFridayCopy = {
     "Nano FaceStudio V Pro 是一款新应用。$84.90 是它的上市价格，并非在此前价格基础上的折扣。",
   ],
   takeover: {
-    kicker: "为期一个月 · 11 月 24 日 – 12 月 24 日",
+    kicker: "为期一个月 · 11 月 23 日 – 12 月 24 日",
     line1: "黑五",
     line2: "优惠月",
     sub: "桌面工作室和在线积分，整整一个月的优惠。无需优惠码，没有附加条件：结账时的价格就是你实际支付的价格。",
@@ -267,7 +267,7 @@ const ja: BlackFridayCopy = {
   kicker: "Black Friday · 1か月間",
   heading: "Black Friday を、まる1か月",
   intro:
-    "11月24日から12月24日（太平洋時間）まで、以下のオファーはそれぞれ自動で適用され、コードの入力は不要です。チェックアウトで表示される価格が、そのままお支払い額です。",
+    "11月23日から12月24日（太平洋時間）まで、以下のオファーはそれぞれ自動で適用され、コードの入力は不要です。チェックアウトで表示される価格が、そのままお支払い額です。",
   upcoming: "オファーは {date} に始まります。それまでは通常価格です。",
   running: "開催中：{date} まで · {left}",
   ended: "Black Friday は終了しました。ご参加いただいた皆さま、ありがとうございました。",
@@ -334,7 +334,7 @@ const ja: BlackFridayCopy = {
     "Nano FaceStudio V Pro は新しいアプリです。$84.90 は発売時の価格であり、以前の価格からの割引ではありません。",
   ],
   takeover: {
-    kicker: "1か月間 · 11月24日〜12月24日",
+    kicker: "1か月間 · 11月23日〜12月24日",
     line1: "ブラック",
     line2: "フライデー",
     sub: "デスクトップスタジオとオンラインクレジットのオファーが、まる1か月続きます。コードも条件もなし。チェックアウトの価格が、そのままお支払い額です。",
@@ -369,7 +369,7 @@ const ko: BlackFridayCopy = {
   kicker: "Black Friday · 한 달간",
   heading: "Black Friday가 한 달 내내 이어집니다",
   intro:
-    "11월 24일부터 12월 24일까지(태평양 시간), 아래 혜택은 각각 자동으로 적용되며 코드를 입력할 필요가 없습니다. 결제 화면에 보이는 가격이 실제로 결제하는 가격입니다.",
+    "11월 23일부터 12월 24일까지(태평양 시간), 아래 혜택은 각각 자동으로 적용되며 코드를 입력할 필요가 없습니다. 결제 화면에 보이는 가격이 실제로 결제하는 가격입니다.",
   upcoming: "혜택은 {date}에 시작됩니다. 그전까지는 정상가가 적용됩니다.",
   running: "진행 중, {date}까지 · {left}",
   ended: "Black Friday가 끝났습니다. 함께해 주신 모든 분께 감사드립니다.",
@@ -436,7 +436,7 @@ const ko: BlackFridayCopy = {
     "Nano FaceStudio V Pro는 새로운 앱입니다. $84.90은 출시 가격이며, 이전 가격에서 할인된 것이 아닙니다.",
   ],
   takeover: {
-    kicker: "한 달간 · 11월 24일 – 12월 24일",
+    kicker: "한 달간 · 11월 23일 – 12월 24일",
     line1: "블랙",
     line2: "프라이데이",
     sub: "데스크톱 스튜디오와 온라인 크레딧 혜택이 한 달 내내 이어집니다. 코드도 조건도 없습니다. 결제 화면의 가격이 실제로 결제하는 가격입니다.",
@@ -471,7 +471,7 @@ const es: BlackFridayCopy = {
   kicker: "Black Friday · un mes",
   heading: "Black Friday dura un mes entero",
   intro:
-    "Del 24 de noviembre al 24 de diciembre (hora del Pacífico), cada oferta se aplica sola, sin códigos que introducir. El precio que ves al pagar es el precio que pagas.",
+    "Del 23 de noviembre al 24 de diciembre (hora del Pacífico), cada oferta se aplica sola, sin códigos que introducir. El precio que ves al pagar es el precio que pagas.",
   upcoming: "Las ofertas empiezan el {date}. Hasta entonces, se aplican los precios habituales.",
   running: "Ya disponible, hasta el {date} · {left}",
   ended: "Black Friday ha terminado. Gracias a todos los que participaron.",
@@ -538,7 +538,7 @@ const es: BlackFridayCopy = {
     "Nano FaceStudio V Pro es una app nueva. $84.90 es su precio de lanzamiento, no un descuento sobre un precio anterior.",
   ],
   takeover: {
-    kicker: "Un mes · 24 nov – 24 dic",
+    kicker: "Un mes · 23 nov – 24 dic",
     line1: "Black",
     line2: "Friday",
     sub: "Un mes entero de ofertas en nuestros estudios de escritorio y en los créditos online. Sin códigos ni trampas: el precio que ves al pagar es el precio que pagas.",
@@ -573,7 +573,7 @@ const ptBR: BlackFridayCopy = {
   kicker: "Black Friday · um mês",
   heading: "A Black Friday dura um mês inteiro",
   intro:
-    "De 24 de novembro a 24 de dezembro (horário do Pacífico), cada oferta abaixo vale automaticamente, sem código para digitar. O preço que você vê no checkout é o preço que você paga.",
+    "De 23 de novembro a 24 de dezembro (horário do Pacífico), cada oferta abaixo vale automaticamente, sem código para digitar. O preço que você vê no checkout é o preço que você paga.",
   upcoming: "As ofertas começam em {date}. Até lá, valem os preços normais.",
   running: "Acontecendo agora, até {date} · {left}",
   ended: "A Black Friday terminou. Obrigado a todos que participaram.",
@@ -640,7 +640,7 @@ const ptBR: BlackFridayCopy = {
     "O Nano FaceStudio V Pro é um app novo. $84.90 é o preço de lançamento, não um desconto sobre um preço anterior.",
   ],
   takeover: {
-    kicker: "Um mês · 24 nov – 24 dez",
+    kicker: "Um mês · 23 nov – 24 dez",
     line1: "Black",
     line2: "Friday",
     sub: "Um mês inteiro de ofertas nos nossos estúdios para desktop e nos créditos online. Sem códigos, sem pegadinhas: o preço no checkout é o preço que você paga.",
@@ -675,7 +675,7 @@ const de: BlackFridayCopy = {
   kicker: "Black Friday · einen Monat lang",
   heading: "Black Friday dauert einen ganzen Monat",
   intro:
-    "Vom 24. November bis 24. Dezember (pazifische Zeit) gilt jedes Angebot unten von selbst, ohne dass du einen Code eingeben musst. Der Preis, den du an der Kasse siehst, ist der Preis, den du zahlst.",
+    "Vom 23. November bis 24. Dezember (pazifische Zeit) gilt jedes Angebot unten von selbst, ohne dass du einen Code eingeben musst. Der Preis, den du an der Kasse siehst, ist der Preis, den du zahlst.",
   upcoming: "Die Angebote starten am {date}. Bis dahin gelten die regulären Preise.",
   running: "Läuft jetzt, bis {date} · {left}",
   ended: "Black Friday ist vorbei. Danke an alle, die mitgemacht haben.",
@@ -742,7 +742,7 @@ const de: BlackFridayCopy = {
     "Nano FaceStudio V Pro ist eine neue App. $84.90 ist ihr Einführungspreis, kein Rabatt auf einen früheren Preis.",
   ],
   takeover: {
-    kicker: "Einen Monat lang · 24. Nov. – 24. Dez.",
+    kicker: "Einen Monat lang · 23. Nov. – 24. Dez.",
     line1: "Black",
     line2: "Friday",
     sub: "Ein ganzer Monat voller Angebote für unsere Desktop-Studios und Online-Credits. Keine Codes, kein Haken: Der Preis an der Kasse ist der Preis, den du zahlst.",
@@ -777,7 +777,7 @@ const fr: BlackFridayCopy = {
   kicker: "Black Friday · un mois",
   heading: "Le Black Friday dure un mois entier",
   intro:
-    "Du 24 novembre au 24 décembre (heure du Pacifique), chaque offre ci-dessous s'applique automatiquement, sans code à saisir. Le prix affiché au paiement est le prix que vous payez.",
+    "Du 23 novembre au 24 décembre (heure du Pacifique), chaque offre ci-dessous s'applique automatiquement, sans code à saisir. Le prix affiché au paiement est le prix que vous payez.",
   upcoming: "Les offres commencent le {date}. D'ici là, les prix habituels s'appliquent.",
   running: "En cours, jusqu'au {date} · {left}",
   ended: "Le Black Friday est terminé. Merci à toutes celles et ceux qui y ont participé.",
@@ -844,7 +844,7 @@ const fr: BlackFridayCopy = {
     "Nano FaceStudio V Pro est une nouvelle application. $84.90 est son prix de lancement, et non une remise sur un prix antérieur.",
   ],
   takeover: {
-    kicker: "Un mois · 24 nov. – 24 déc.",
+    kicker: "Un mois · 23 nov. – 24 déc.",
     line1: "Black",
     line2: "Friday",
     sub: "Un mois entier d'offres sur nos studios de bureau et nos crédits en ligne. Sans code, sans piège : le prix affiché au paiement est le prix que vous payez.",

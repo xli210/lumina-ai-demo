@@ -59,7 +59,7 @@ export function BlackFridayTakeover({ locale, hubHref }: { locale: string; hubHr
     `New: FaceStudio V Pro · ${vpro.now} launch price`,
     `Credits up to ${MAX_PACK_OFF}% off`,
     "Desktop apps 30% off",
-    on ? "Until Dec 24" : "From Nov 24",
+    on ? "Until Dec 24" : "From Nov 23",
   ];
 
   return (
@@ -177,7 +177,7 @@ export function BlackFridayTakeover({ locale, hubHref }: { locale: string; hubHr
               {studio.now}
               {studio.regular && <span className="ml-1.5 text-sm font-semibold line-through opacity-60">{studio.regular}</span>}
             </p>
-            {!on && <p className="text-[10px] font-semibold">from Nov 24</p>}
+            {!on && <p className="text-[10px] font-semibold">from Nov 23</p>}
           </div>
         </div>
       </div>
@@ -207,7 +207,7 @@ export function BlackFridayTakeover({ locale, hubHref }: { locale: string; hubHr
       </div>
       {!on && (
         <p className="pb-10 text-center text-xs text-white/50">
-          Prices shown apply from Nov 24, 12:00 am PT to Dec 24, 11:59 pm PT. Regular prices apply until then.
+          Prices shown apply from Nov 23 to Dec 24, 11:59 pm PT. Regular prices apply until then.
         </p>
       )}
     </section>

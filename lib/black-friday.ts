@@ -1,6 +1,7 @@
 /**
- * Black Friday 2026: one month, 24 November 00:00 to 24 December 23:59, Pacific time (PST, UTC-8,
- * the whole way through). Owner's decision, 2026-11-23.
+ * Black Friday 2026: from 22 November 23:00 to 24 December 23:59, Pacific time (PST, UTC-8, the
+ * whole way through). Owner's decisions: 24 Nov to 24 Dec (2026-11-23); then "start now, same end"
+ * (the evening of 22 Nov PT), so the copy says Nov 23, the first full day.
  *
  * Every sale price on the site is read from here at the moment it is shown or charged, so checkout
  * charges the regular price from the instant the sale ends and every page drops the offer the next
@@ -21,13 +22,13 @@
  * Billing and price wording stays in English on every locale, like the rest of the site.
  */
 
-/** 24 November 2026, 00:00 PST. */
-export const BLACK_FRIDAY_STARTS_AT = Date.parse("2026-11-24T08:00:00Z");
+/** 22 November 2026, 23:00 PST: brought forward from 24 Nov at the owner's request; already past when it shipped. */
+export const BLACK_FRIDAY_STARTS_AT = Date.parse("2026-11-23T07:00:00Z");
 /** 25 December 2026, 00:00 PST: the first instant after the sale. */
 export const BLACK_FRIDAY_ENDS_AT = Date.parse("2026-12-25T08:00:00Z");
 /** The last day as the copy states it. */
 export const BLACK_FRIDAY_ENDS_LABEL = "Dec 24, 11:59 pm PT";
-export const BLACK_FRIDAY_STARTS_LABEL = "Nov 24";
+export const BLACK_FRIDAY_STARTS_LABEL = "Nov 23";
 export const BLACK_FRIDAY_LAST_DAY = "2026-12-24";
 /** Stamped on checkout metadata so sale purchases can be counted later. */
 export const BLACK_FRIDAY_CAMPAIGN = "black-friday-2026";
