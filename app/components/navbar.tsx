@@ -21,11 +21,14 @@ export function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-neutral-200">
       <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
-        <Link href={home} className="flex items-center">
+        <Link href={home} className="flex shrink-0 items-center">
           <Wordmark className="h-5 w-auto text-black sm:h-6" />
         </Link>
 
-        <div className="hidden items-center gap-3 lg:flex lg:gap-6 xl:gap-8">
+        {/* The middle links take whatever room is left and wrap onto a second line that is clipped, so on a
+            narrow window (or a wide font, or zoom) the last links drop out instead of pushing the sign-in
+            buttons off the screen. The logo and the right-hand group never shrink. */}
+        <div className="hidden h-6 min-w-0 flex-1 flex-wrap items-center justify-center gap-x-5 gap-y-8 overflow-hidden px-6 lg:flex xl:gap-x-7">
           <Link
             href={translatedOrEnglish("/face-swap", locale)}
             className="whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
@@ -37,7 +40,7 @@ export function Navbar() {
             className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
           >
             {t("photoHeadSwap")}
-            <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white min-[1440px]:inline">
+            <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white min-[1600px]:inline">
               {t("new")}
             </span>
           </Link>
@@ -46,7 +49,7 @@ export function Navbar() {
             className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
           >
             {t("videoFaceSwap")}
-            <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white min-[1440px]:inline">
+            <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white min-[1600px]:inline">
               {t("new")}
             </span>
           </Link>
@@ -55,7 +58,7 @@ export function Navbar() {
             className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-black transition-colors hover:text-neutral-700"
           >
             {IMAGEEDIT_NAME}
-            <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white xl:inline">
+            <span className="hidden rounded-full bg-sky-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-white min-[1600px]:inline">
               {t("new")}
             </span>
           </Link>
@@ -100,7 +103,7 @@ export function Navbar() {
           </a>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           {blackFriday && (
             <Link
               href={translatedOrEnglish("/black-friday", locale)}
