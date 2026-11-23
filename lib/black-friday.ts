@@ -13,9 +13,9 @@
  *   during the sale are charged the sale price too.
  * - Desktop app licences: Nano FaceStudio Pro $49.90 (regular $69.90, the price it has sold at
  *   since 1 November); the other paid apps 30% off.
- * - Nano FaceStudio V Pro goes on sale at a launch price of $84.90, and $119.90 after the sale. It
- *   has never been sold at $119.90, so it is never shown as a discount from that price, only as a
- *   launch price that goes up on a stated date.
+ * - Nano FaceStudio V Pro goes on sale at a launch price of $84.90, and $119.90 after the sale. Shown
+ *   as $119.90 struck through next to $84.90 (owner's choice, 2026-11-23), always with the date the
+ *   $119.90 applies from.
  * - Neo (the video model) costs 30% fewer credits until 28 November; that offer lives in
  *   lib/facestudio-v.ts and is listed with the rest on /black-friday.
  *

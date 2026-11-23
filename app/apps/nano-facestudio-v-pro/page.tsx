@@ -55,8 +55,8 @@ import { VProLaunchCountdown } from "./launch-countdown";
  * - speed only as measured on one RTX 4080 SUPER 16 GB.
  *
  * Price: read from PRODUCTS at render time. $84.90 is a launch price that rises to $119.90 after the
- * Black Friday sale ends. It was never sold at $119.90, so it is never struck through or called a
- * discount. The page re-renders every 10 minutes so the price changes on time.
+ * Black Friday sale ends. $119.90 is shown struck through next to it (the owner's choice, 2026-11-23),
+ * always with the date it applies from. The page re-renders every 10 minutes so the price changes on time.
  */
 
 export const revalidate = 600;
@@ -436,6 +436,9 @@ export default function NanoFaceStudioVProPage() {
               </div>
             )}
             <div className="mt-3 flex items-end justify-center gap-3">
+              {p.launch && (
+                <span className="pb-1 text-2xl font-medium leading-none text-white/40 line-through decoration-white/50 sm:text-3xl">{p.regular}</span>
+              )}
               <span className="text-5xl font-semibold leading-none tracking-tight text-white sm:text-6xl">{p.current}</span>
               <span className="pb-1 text-xs uppercase tracking-[0.18em] text-white/50 sm:text-sm">one-time · one PC</span>
             </div>

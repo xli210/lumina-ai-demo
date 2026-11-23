@@ -59,7 +59,7 @@ function ProductPrice({ id }: { id: string }) {
   return (
     <div className="my-4">
       <p className="flex flex-wrap items-baseline gap-x-3">
-        {sale && <span className="text-lg text-muted-foreground line-through">{formatUsdCents(p.originalPriceInCents!)}</span>}
+        {(sale || launch) && <span className="text-lg text-muted-foreground line-through">{formatUsdCents(p.originalPriceInCents!)}</span>}
         <span className="text-4xl font-bold tracking-tight text-foreground">{formatUsdCents(p.priceInCents)}</span>
         <span className="text-sm text-muted-foreground">one-time</span>
       </p>

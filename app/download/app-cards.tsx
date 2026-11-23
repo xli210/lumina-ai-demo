@@ -510,8 +510,7 @@ export function AppCards({ strings, locale }: { strings: Strings; locale: AppLoc
                       }`}
                     >
                       {product?.originalPriceInCents &&
-                        product.originalPriceInCents > price &&
-                        product.promoKind !== "launch" && (
+                        product.originalPriceInCents > price && (
                           <span className="mr-2 text-base font-medium line-through opacity-60">
                             {formatPrice(product.originalPriceInCents)}
                           </span>

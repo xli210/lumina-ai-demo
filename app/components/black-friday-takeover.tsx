@@ -20,7 +20,9 @@ const MAX_PACK_OFF = Math.max(...Object.values(BLACK_FRIDAY_PACK_PERCENT_OFF));
 function salePrice(id: string): { now: string; regular?: string } {
   const p = PRODUCTS.find((x) => x.id === id);
   if (!p) return { now: "" };
-  if (p.promoKind === "launch") return { now: formatUsdCents(p.priceInCents) };
+  // V Pro: the launch price with the price from Dec 25 struck through (owner's choice, 2026-11-23).
+  if (p.promoKind === "launch")
+    return { now: formatUsdCents(p.priceInCents), regular: p.originalPriceInCents ? formatUsdCents(p.originalPriceInCents) : undefined };
   const sale = BLACK_FRIDAY_APP_PRICE_CENTS[id];
   const regular = p.originalPriceInCents ?? p.priceInCents;
   return sale && sale < regular ? { now: formatUsdCents(sale), regular: formatUsdCents(regular) } : { now: formatUsdCents(p.priceInCents) };
@@ -50,7 +52,7 @@ export function BlackFridayTakeover({ locale, hubHref }: { locale: string; hubHr
 
   const tiles = [
     { href: `${hubHref}#facestudio-pro`, icon: Palette, title: c.tiles.studioPro.title, line: c.tiles.studioPro.line, price: studio.now, was: studio.regular, tag: "1.2" },
-    { href: `${hubHref}#facestudio-v-pro`, icon: Film, title: c.tiles.vPro.title, line: c.tiles.vPro.line, price: vpro.now, was: undefined, tag: c.tiles.vPro.tag },
+    { href: `${hubHref}#facestudio-v-pro`, icon: Film, title: c.tiles.vPro.title, line: c.tiles.vPro.line, price: vpro.now, was: vpro.regular, tag: c.tiles.vPro.tag },
     { href: `${hubHref}#credits`, icon: Coins, title: c.tiles.credits.title, line: c.tiles.credits.line, price: bigPackSale, was: undefined, tag: `−${MAX_PACK_OFF}%` },
     { href: `${hubHref}#apps`, icon: Laptop, title: c.tiles.apps.title, line: c.tiles.apps.line, price: `from ${appsFrom}`, was: undefined, tag: "−30%" },
   ];
