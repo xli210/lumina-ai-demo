@@ -399,6 +399,13 @@ group by 1 having count(*) > 1 order by 2 desc;
 
 Add a domain whose local parts are all random strings and that is not a known mail provider.
 
+Since 2026-11-23 the claim also looks at who receives the address's mail (`lib/mail-provider.ts`):
+the MX host's domain, or `ip:<address>` for a self-hosted server. Free credits are refused when that
+provider is in `TEMP_MAIL_PROVIDERS`, or when it is not a big provider (`MAJOR_MAIL_PROVIDERS`) and
+already received sign-ups for 2+ other domains in 90 days (columns `email_domain` and `mail_provider`
+on `free_credit_claims`, migration 027). Farms rotate domains but keep their mail server, so new
+domains are caught without editing the list. Spam TLDs (.cfd, .sbs, ...) are refused outright.
+
 ### Purchase
 
 1. `/credits` renders the balance and the packs server-side.

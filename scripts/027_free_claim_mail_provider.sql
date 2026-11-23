@@ -1,0 +1,207 @@
+-- ============================================
+-- Free credits: remember who receives each claimant's mail
+--
+-- lib/free-claim.ts now looks up the MX of a new account's email domain
+-- (lib/mail-provider.ts) and refuses the free sign-up credits when that mail
+-- server is a known temp-mail provider, or when it already received sign-ups
+-- for two or more other domains in the last 90 days and is not a big mail
+-- provider. Farms change domains every few days but keep their mail server,
+-- so this catches the next domain before anyone has to add it to a list.
+--
+-- Two columns on free_credit_claims hold what the rule counts:
+--   email_domain   the domain of the account's address
+--   mail_provider  the MX host's registrable domain, or 'ip:<address>' when the
+--                  domain runs its own mail server
+--
+-- The backfill fills email_domain for every claim from auth.users, and
+-- mail_provider from a scan of every non-webmail domain among our users made
+-- on 2026-11-23 (168 domains). Webmail domains (gmail.com etc.) are left null:
+-- the rule never counts big providers anyway.
+--
+-- Requires: 015, 020.
+-- ============================================
+
+ALTER TABLE public.free_credit_claims ADD COLUMN IF NOT EXISTS email_domain TEXT;
+ALTER TABLE public.free_credit_claims ADD COLUMN IF NOT EXISTS mail_provider TEXT;
+
+CREATE INDEX IF NOT EXISTS free_credit_claims_mail_provider_idx
+  ON public.free_credit_claims (mail_provider, created_at)
+  WHERE mail_provider IS NOT NULL;
+
+UPDATE public.free_credit_claims c
+SET email_domain = split_part(lower(u.email), '@', 2)
+FROM auth.users u
+WHERE u.id = c.user_id AND c.email_domain IS NULL AND u.email IS NOT NULL;
+
+UPDATE public.free_credit_claims c
+SET mail_provider = v.provider
+FROM (VALUES
+('37xiao.com','wabblywabble.com'),
+('48hr.email','ip:213.202.255.10'),
+('abv.bg','ip:194.153.145.200'),
+('adadad.uk','erinn.biz'),
+('agaexpress.com','wabblywabble.com'),
+('akool.com','google.com'),
+('anonmart.com','ip:138.197.228.18'),
+('att.net','yahoodns.net'),
+('backyr.com','wabblywabble.com'),
+('bankwen.com','wabblywabble.com'),
+('beaundjo.de','ionos.de'),
+('beder.edu.al','google.com'),
+('binghamton.edu','google.com'),
+('bk.ru','mail.ru'),
+('blobapps.com','wabblywabble.com'),
+('boffweb.com','wabblywabble.com'),
+('bonuscable.com','ip:138.197.228.18'),
+('bookgame.org','oneb.net'),
+('bowlfuel.com','wabblywabble.com'),
+('br.nestle.com','outlook.com'),
+('bwmyga.com','ip:95.216.191.158'),
+('capital-trans.com','google.com'),
+('centrum.sk','eco-mx.cz'),
+('choigi.com','oneb.net'),
+('chuwel.com','wabblywabble.com'),
+('cloud-temp.com','oneb.net'),
+('colegiohsa.cl','google.com'),
+('comzx.com','wallywatts.com'),
+('copytosh.com','wallywatts.com'),
+('deertees.com','wabblywabble.com'),
+('destructura.it','ip:62.149.128.151'),
+('diepute.de','kasserver.com'),
+('digeros.com','wabblywabble.com'),
+('dreameg.com','wabblywabble.com'),
+('drtall.com','wabblywabble.com'),
+('duck.com','ip:132.220.241.151'),
+('duidir.com','wallywatts.com'),
+('dvdee.com','ip:138.197.228.18'),
+('eacademia.uk','oneb.net'),
+('edgar-reitz-filmstiftung.de','ip:178.20.102.63'),
+('email.com','mail.com'),
+('emailinbo.live','ip:116.202.179.9'),
+('emailkeep.com','wabblywabble.com'),
+('emailnox.live','ip:116.203.2.77'),
+('emalupe.com','smtp.is'),
+('en2ch.com','wallywatts.com'),
+('europe.com','mail.com'),
+('evoiceeeeee.blog','email-fake.com'),
+('exahut.com','wabblywabble.com'),
+('exclusiveking.club','ip:172.105.135.112'),
+('eyh.cc','aliyun.com'),
+('ezimb.com','wallywatts.com'),
+('f5.si','erinn.biz'),
+('findize.com','wabblywabble.com'),
+('flakeian.com','wallywatts.com'),
+('fldubai.com','smtp.is'),
+('fommie.com','cloudflare.net'),
+('forims.com','ip:138.197.228.18'),
+('forliion.com','ip:144.217.32.1'),
+('freemail.hu','ip:84.2.43.65'),
+('fuoye.edu.ng','google.com'),
+('gate6.com','google.com'),
+('ghusse.com','google.com'),
+('gmeenramy.com','ip:95.216.191.158'),
+('gmx.at','gmx.net'),
+('gmx.ch','gmx.net'),
+('gmx.com','gmx.net'),
+('herclan.com','wabblywabble.com'),
+('hiringview.com','wabblywabble.com'),
+('hopefunder.com','wabblywabble.com'),
+('hotmail.co.uk','outlook.com'),
+('hotmail.com.ar','outlook.com'),
+('hotmail.de','outlook.com'),
+('hotmail.es','outlook.com'),
+('iconcubic.com','wabblywabble.com'),
+('iesp.edu.br','google.com'),
+('ilpdesign.cl','google.com'),
+('inbox.ru','mail.ru'),
+('int.pl','interia.pl'),
+('javafs.com','wabblywabble.com'),
+('johndeaville.co.uk','ip:195.8.196.51'),
+('juicehour.com','wabblywabble.com'),
+('jysnk.com','wabblywabble.com'),
+('kierko.com','wabblywabble.com'),
+('laposte.net','ip:160.92.124.66'),
+('list.ru','mail.ru'),
+('live.fr','outlook.com'),
+('live.no','outlook.com'),
+('lnovic.com','ip:95.216.191.158'),
+('lr-s.com','ip:37.187.49.211'),
+('lumenbay.info','ip:152.53.245.147'),
+('macr2.com','erinn.biz'),
+('macsnipe.com','wabblywabble.com'),
+('maeli.app','ovh.net'),
+('maxtanie.com','wabblywabble.com'),
+('michaelturneyagency.com','google.com'),
+('micropaste.com','wabblywabble.com'),
+('minafter.com','ip:142.44.179.159'),
+('moblha.com','wabblywabble.com'),
+('moe-dl.edu.my','google.com'),
+('moravita.com','wabblywabble.com'),
+('mozmail.com','amazonaws.com'),
+('mrphoto.org','oneb.net'),
+('mygift.pl','google.com'),
+('nate.com','ip:117.53.116.15'),
+('nbasweeps.com','wabblywabble.com'),
+('neosource.com.au','ip:23.106.247.40'),
+('nextsuns.com','oneb.net'),
+('nickmxh.com','oneb.net'),
+('novacoop.coop.it','fortimailcloud.com'),
+('nuvolaris.io','google.com'),
+('o2.pl','tlen.pl'),
+('odjschilderwerken.nl','outlook.com'),
+('olipii.com','ip:95.216.191.158'),
+('onmailflare.com','oneb.net'),
+('ooynib.com','ip:95.216.191.158'),
+('otona.uk','erinn.biz'),
+('outlook.de','outlook.com'),
+('outlook.it','outlook.com'),
+('payok.com','google.com'),
+('pcgamecard.com','wabblywabble.com'),
+('phyxzax.cfd','ip:65.21.54.62'),
+('playfine.com','wabblywabble.com'),
+('pm.me','protonmail.ch'),
+('prodbits.com','wabblywabble.com'),
+('qelmvolx.cfd','ip:65.21.54.62'),
+('raf.rs','google.com'),
+('redpaper.info','ip:65.21.54.62'),
+('relrd.com','ip:138.197.239.249'),
+('richip-tech.com','google.com'),
+('ruutukf.com','ip:95.216.191.158'),
+('sapo.pt','ip:212.55.154.36'),
+('sea.plala.or.jp','ip:220.156.64.233'),
+('seznam.cz','ip:77.75.77.42'),
+('sfr.fr','ip:93.17.128.123'),
+('sgmade.com','wabblywabble.com'),
+('sharklasers.com','guerrillamail.com'),
+('shopexpoliving.com','google.com'),
+('sima.eu','ip:81.19.149.38'),
+('stud.sekuster.ch','outlook.com'),
+('sweepser.com','wabblywabble.com'),
+('tanpony.com','ip:95.216.191.158'),
+('thechiv.com','ip:138.197.228.18'),
+('tiscali.it','ip:213.205.33.61'),
+('topazlabs.com','google.com'),
+('tukorea.ac.kr','google.com'),
+('tutanota.com','tutanota.de'),
+('u.northwestern.edu','google.com'),
+('vgmale.com','tempamail.com'),
+('vip.qq.com','ip:157.255.221.247'),
+('virgilio.it','ip:213.209.1.130'),
+('volhoo.com','ip:138.197.228.18'),
+('vtmpj.net','10minutemail.com'),
+('web-library.net','smtp.is'),
+('webylist.com','wabblywabble.com'),
+('y7mail.com','yahoodns.net'),
+('ya.ru','yandex.ru'),
+('yahoo.com.ar','yahoodns.net'),
+('yahoo.com.au','yahoodns.net'),
+('yahoo.com.br','yahoodns.net'),
+('yahoo.de','yahoo.com'),
+('yandex.com','yandex.ru'),
+('ymail.com','yahoodns.net'),
+('yopmail.net','yopmail.com'),
+('zefvo.com','ip:45.79.100.107'),
+('zohomail.cn','zoho.com.cn'),
+('zornrax.cfd','ip:65.21.54.62')
+) AS v(domain, provider)
+WHERE c.email_domain = v.domain AND c.mail_provider IS NULL;

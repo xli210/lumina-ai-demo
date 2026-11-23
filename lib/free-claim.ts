@@ -3,7 +3,8 @@ import { createHmac } from "node:crypto";
 import { cookies, headers } from "next/headers";
 
 import { DEVICE_COOKIE, isDeviceId } from "@/lib/device-cookie";
-import { isDisposableEmail } from "@/lib/disposable-email";
+import { emailDomain, isDisposableEmail } from "@/lib/disposable-email";
+import { MAJOR_MAIL_PROVIDERS, TEMP_MAIL_PROVIDERS, mailProviderOf } from "@/lib/mail-provider";
 import { aliasOfClaimedMailbox } from "@/lib/free-claim-alias";
 import { createAdminClient } from "@/lib/supabase/admin";
 
@@ -161,9 +162,21 @@ export async function claimFreeCredits(
   const keys = await claimKeysFromRequest();
   const supabase = createAdminClient();
 
+  let domain: string | null = null;
+  let provider: string | null = null;
+
   if (!options.grandfather) {
     const { data: found } = await supabase.auth.admin.getUserById(userId);
+    domain = emailDomain(found?.user?.email);
+    provider = domain ? await mailProviderOf(domain) : null;
     let refuseEmail = isDisposableEmail(found?.user?.email);
+    if (!refuseEmail && provider && domain) {
+      try {
+        refuseEmail = await isTempMailProvider(supabase, provider, domain);
+      } catch (err: unknown) {
+        console.error("[free-claim] mail provider check failed:", err instanceof Error ? err.message : err);
+      }
+    }
     if (!refuseEmail) {
       try {
         refuseEmail = await aliasOfClaimedMailbox(supabase, userId, found?.user?.email);
@@ -181,6 +194,7 @@ export async function claimFreeCredits(
           { onConflict: "user_id", ignoreDuplicates: true }
         );
       if (error) throw new Error(`free claim (email) failed: ${error.message}`);
+      await recordMailProvider(supabase, userId, domain, provider);
       return (await getFreeClaimOutcome(userId)) ?? "blocked_email";
     }
   }
@@ -206,6 +220,7 @@ export async function claimFreeCredits(
   }
 
   const outcome = (data as { outcome?: string } | null)?.outcome;
+  await recordMailProvider(supabase, userId, domain, provider);
   if (
     outcome === "granted" ||
     outcome === "grandfathered" ||
@@ -216,6 +231,54 @@ export async function claimFreeCredits(
     return outcome;
   }
   throw new Error("free_credit_claim returned an unexpected result");
+}
+
+/**
+ * A server that receives mail for this many other domains among our recent sign-ups, and is not
+ * a big mail provider, is treated as temp mail: a real company's mail server serves its own
+ * domain, while a temp-mail service or a farm puts every new domain on the same machine.
+ */
+export const MAX_OTHER_DOMAINS_PER_MAIL_SERVER = 2;
+const MAIL_SERVER_WINDOW_DAYS = 90;
+
+type AdminClient = ReturnType<typeof createAdminClient>;
+
+/** True when free credits should be refused because of who receives this address's mail. */
+async function isTempMailProvider(supabase: AdminClient, provider: string, domain: string): Promise<boolean> {
+  if (TEMP_MAIL_PROVIDERS.has(provider)) return true;
+  if (MAJOR_MAIL_PROVIDERS.has(provider)) return false;
+  const since = new Date(Date.now() - MAIL_SERVER_WINDOW_DAYS * 86_400_000).toISOString();
+  const { data, error } = await supabase
+    .from("free_credit_claims")
+    .select("email_domain")
+    .eq("mail_provider", provider)
+    .neq("email_domain", domain)
+    .gte("created_at", since)
+    .limit(200);
+  // 42703: the columns are not there yet (migration 027 not applied). Do not refuse then.
+  if (error) {
+    if (error.code !== "42703" && error.code !== "PGRST204") console.error("[free-claim] mail provider lookup failed:", error.message);
+    return false;
+  }
+  const others = new Set((data ?? []).map((r: { email_domain: string | null }) => r.email_domain).filter(Boolean));
+  return others.size >= MAX_OTHER_DOMAINS_PER_MAIL_SERVER;
+}
+
+/** Store the address's domain and mail provider on the claim, so the rule above can learn. */
+async function recordMailProvider(
+  supabase: AdminClient,
+  userId: string,
+  domain: string | null,
+  provider: string | null
+): Promise<void> {
+  if (!domain && !provider) return;
+  const { error } = await supabase
+    .from("free_credit_claims")
+    .update({ email_domain: domain, mail_provider: provider })
+    .eq("user_id", userId);
+  if (error && error.code !== "42703" && error.code !== "PGRST204") {
+    console.error("[free-claim] could not record mail provider:", error.message);
+  }
 }
 
 /** The verdict already recorded for an account, or null if there is none. */

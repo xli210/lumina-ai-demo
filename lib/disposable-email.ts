@@ -40,6 +40,14 @@ const DISPOSABLE_DOMAINS: ReadonlySet<string> = new Set([
   // domains receive mail on the same self-hosted server.
   "thechiv.com",
   "volhoo.com",
+  // Found 2026-11-23: the same farm moved on to these (zefvo.com since 11/15).
+  // lib/mail-provider.ts now catches the next ones by their mail server.
+  "qelmvolx.cfd",
+  "zornrax.cfd",
+  "phyxzax.cfd",
+  "redpaper.info",
+  "zefvo.com",
+  "vgmale.com",
   // Found 2026-11-09: every address on them is a random string.
   "ruutukf.com",
   "emailkeep.com",
@@ -110,12 +118,30 @@ const DISPOSABLE_DOMAINS: ReadonlySet<string> = new Set([
   "yopmail.net",
 ]);
 
-/** True when the address is on a throwaway-inbox domain (or a subdomain of one). */
-export function isDisposableEmail(email: string | null | undefined): boolean {
-  if (!email) return false;
+/**
+ * Top-level domains sold for about a dollar and used almost only for spam and throwaway mail.
+ * On 2026-11-23 none of our users had an address on one except the farm (8 accounts on .cfd,
+ * no purchase), so an address on any of them gets no free credits, whatever the name.
+ */
+const ABUSE_TLDS: ReadonlySet<string> = new Set([
+  "cfd", "sbs", "cyou", "icu", "bond", "click", "lol", "monster", "rest", "quest", "buzz",
+  "beauty", "hair", "makeup", "skin", "autos", "boats", "homes", "motorcycles", "yachts", "mom",
+]);
+
+/** The domain part of an address, lowercased, or null. */
+export function emailDomain(email: string | null | undefined): string | null {
+  if (!email) return null;
   const at = email.lastIndexOf("@");
-  if (at < 0) return false;
-  let domain = email.slice(at + 1).trim().toLowerCase();
+  if (at < 0) return null;
+  const domain = email.slice(at + 1).trim().toLowerCase();
+  return domain.includes(".") ? domain : null;
+}
+
+/** True when the address is on a throwaway-inbox domain (or a subdomain of one), or a spam TLD. */
+export function isDisposableEmail(email: string | null | undefined): boolean {
+  let domain = emailDomain(email);
+  if (!domain) return false;
+  if (ABUSE_TLDS.has(domain.slice(domain.lastIndexOf(".") + 1))) return true;
   while (domain.includes(".")) {
     if (DISPOSABLE_DOMAINS.has(domain)) return true;
     domain = domain.slice(domain.indexOf(".") + 1);
