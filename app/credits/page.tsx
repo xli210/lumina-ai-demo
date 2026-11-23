@@ -16,6 +16,8 @@ import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { CreditConsole } from "./credit-console";
 import { TrackPurchase } from "./track-purchase";
+import { FreeCreditReview } from "./free-credit-review";
+import { getReviewRequest } from "@/lib/free-credit-review";
 
 export const metadata: Metadata = { robots: { index: false, follow: true } };
 
@@ -96,6 +98,7 @@ export default async function CreditsPage({
     claim === "blocked_ip" || claim === "blocked_device" || claim === "blocked_email"
       ? claim
       : null;
+  const review = refused ? await getReviewRequest(user.id).catch(() => null) : null;
   // The auto top-up setting. If it cannot be read (migration 018 not run yet) the feature is not offered.
   let autoRecharge: Awaited<ReturnType<typeof getAutoRecharge>> = null;
   let autoRechargeReady = true;
@@ -153,6 +156,7 @@ export default async function CreditsPage({
                 </p>
               </>
             )}
+            <FreeCreditReview requested={Boolean(review?.requestedAt)} email={user.email ?? null} />
           </div>
         )}
         {fromStudio && (

@@ -5,6 +5,8 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { Navbar } from "../../components/navbar";
 import { Footer } from "../../components/footer";
+import { decideFreeCreditReview } from "@/app/actions/free-credit-review";
+import { REVIEW_TAG } from "@/lib/free-credit-review";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +19,7 @@ interface MessageRow {
   other_contact: string | null;
   page: string | null;
   user_id: string | null;
+  status: string;
   created_at: string;
 }
 
@@ -47,7 +50,7 @@ export default async function MessagesAdminPage({
   const admin = createAdminClient();
   let q = admin
     .from("contact_messages")
-    .select("id, kind, message, name, email, other_contact, page, user_id, created_at")
+    .select("id, kind, message, name, email, other_contact, page, user_id, status, created_at")
     .order("created_at", { ascending: false })
     .limit(300);
   if (kind && KIND_LABELS[kind]) q = q.eq("kind", kind);
@@ -97,6 +100,29 @@ export default async function MessagesAdminPage({
                   {r.page && <span>from {r.page}</span>}
                 </div>
                 <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground">{r.message}</p>
+                {r.message.startsWith(REVIEW_TAG) && r.user_id && (
+                  r.status === "done" ? (
+                    <p className="mt-3 text-xs font-medium text-muted-foreground">Review decided.</p>
+                  ) : (
+                    <div className="mt-3 flex flex-wrap items-center gap-2">
+                      <form action={decideFreeCreditReview}>
+                        <input type="hidden" name="id" value={r.id} />
+                        <input type="hidden" name="decision" value="approve" />
+                        <button type="submit" className="rounded-full bg-emerald-600 px-3 py-1 text-xs font-medium text-white hover:bg-emerald-700">
+                          Approve: grant the 100 welcome credits
+                        </button>
+                      </form>
+                      <form action={decideFreeCreditReview}>
+                        <input type="hidden" name="id" value={r.id} />
+                        <input type="hidden" name="decision" value="decline" />
+                        <button type="submit" className="rounded-full border border-border px-3 py-1 text-xs font-medium hover:bg-muted">
+                          Decline
+                        </button>
+                      </form>
+                      <span className="text-xs text-muted-foreground">Then reply to them by email.</span>
+                    </div>
+                  )
+                )}
                 <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
                   {r.name && <span>{r.name}</span>}
                   {r.email && (
