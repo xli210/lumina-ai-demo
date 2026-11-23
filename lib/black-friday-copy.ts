@@ -28,6 +28,32 @@ export interface BlackFridayCopy {
   finePrintHeading: string;
   finePrint: string[];
   banner: { title: string; body: string; cta: string };
+  /** The homepage's full-width Black Friday section. Prices are filled in by the page, in English. */
+  takeover?: BlackFridayTakeoverCopy;
+}
+
+export interface BlackFridayTakeoverCopy {
+  kicker: string;
+  /** The giant two-line headline, e.g. "Black" / "Friday". */
+  line1: string;
+  line2: string;
+  sub: string;
+  upTo: string;
+  off: string;
+  startsIn: string;
+  endsIn: string;
+  days: string;
+  hours: string;
+  minutes: string;
+  seconds: string;
+  cta: string;
+  ctaCredits: string;
+  tiles: {
+    studioPro: { title: string; line: string };
+    vPro: { title: string; line: string; tag: string };
+    credits: { title: string; line: string };
+    apps: { title: string; line: string };
+  };
 }
 
 const en: BlackFridayCopy = {
@@ -103,6 +129,28 @@ const en: BlackFridayCopy = {
     "Desktop licences are one-time payments, with no subscription. Credits never expire.",
     "Nano FaceStudio V Pro is a new app. $84.90 is its launch price, not a discount from an earlier price.",
   ],
+  takeover: {
+    kicker: "One month · Nov 24 – Dec 24",
+    line1: "Black",
+    line2: "Friday",
+    sub: "A whole month of offers on our desktop studios and online credits. No codes, no catches: the price at checkout is the price you pay.",
+    upTo: "Up to",
+    off: "off credits",
+    startsIn: "Starts in",
+    endsIn: "Ends in",
+    days: "days",
+    hours: "hours",
+    minutes: "min",
+    seconds: "sec",
+    cta: "See all offers",
+    ctaCredits: "Buy credits",
+    tiles: {
+      studioPro: { title: "FaceStudio Pro 1.2", line: "Batch face swap, now on Mac" },
+      vPro: { title: "FaceStudio V Pro", line: "Video face swap on your own GPU", tag: "New app" },
+      credits: { title: "Credit packs", line: "Bigger pack, bigger discount" },
+      apps: { title: "Desktop apps", line: "ImageEdit, VideoEnhance, ImageEnh, VideoGen" },
+    },
+  },
   banner: {
     title: "Black Friday: a whole month of offers",
     body: "FaceStudio Pro 1.2 with batch swap and Mac, the new FaceStudio V Pro, up to 30% off credits, 30% off the other apps.",
@@ -183,6 +231,28 @@ const zhCN: BlackFridayCopy = {
     "桌面应用授权为一次性付款，无需订阅。积分永不过期。",
     "Nano FaceStudio V Pro 是一款新应用。$84.90 是它的上市价格，并非在此前价格基础上的折扣。",
   ],
+  takeover: {
+    kicker: "为期一个月 · 11 月 24 日 – 12 月 24 日",
+    line1: "黑五",
+    line2: "优惠月",
+    sub: "桌面工作室和在线积分，整整一个月的优惠。无需优惠码，没有附加条件：结账时的价格就是你实际支付的价格。",
+    upTo: "积分最高",
+    off: "优惠",
+    startsIn: "距开始",
+    endsIn: "距结束",
+    days: "天",
+    hours: "小时",
+    minutes: "分",
+    seconds: "秒",
+    cta: "查看全部优惠",
+    ctaCredits: "购买积分",
+    tiles: {
+      studioPro: { title: "FaceStudio Pro 1.2", line: "批量换脸，现已支持 Mac" },
+      vPro: { title: "FaceStudio V Pro", line: "用你自己的 GPU 做视频换脸", tag: "新应用" },
+      credits: { title: "积分包", line: "积分包越大，折扣越大" },
+      apps: { title: "桌面应用", line: "ImageEdit、VideoEnhance、ImageEnh、VideoGen" },
+    },
+  },
   banner: {
     title: "Black Friday：整整一个月的优惠",
     body: "FaceStudio Pro 1.2 支持批量换脸和 Mac，全新 FaceStudio V Pro，积分最高优惠 30%，其他应用优惠 30%。",
@@ -263,6 +333,28 @@ const ja: BlackFridayCopy = {
     "デスクトップライセンスは買い切りで、サブスクリプションはありません。クレジットに有効期限はありません。",
     "Nano FaceStudio V Pro は新しいアプリです。$84.90 は発売時の価格であり、以前の価格からの割引ではありません。",
   ],
+  takeover: {
+    kicker: "1か月間 · 11月24日〜12月24日",
+    line1: "ブラック",
+    line2: "フライデー",
+    sub: "デスクトップスタジオとオンラインクレジットのオファーが、まる1か月続きます。コードも条件もなし。チェックアウトの価格が、そのままお支払い額です。",
+    upTo: "クレジット最大",
+    off: "オフ",
+    startsIn: "開始まで",
+    endsIn: "終了まで",
+    days: "日",
+    hours: "時間",
+    minutes: "分",
+    seconds: "秒",
+    cta: "すべてのオファーを見る",
+    ctaCredits: "クレジットを購入",
+    tiles: {
+      studioPro: { title: "FaceStudio Pro 1.2", line: "一括顔交換、Mac にも対応" },
+      vPro: { title: "FaceStudio V Pro", line: "自分の GPU で動画の顔交換", tag: "新アプリ" },
+      credits: { title: "クレジットパック", line: "大きいパックほど割引も大きく" },
+      apps: { title: "デスクトップアプリ", line: "ImageEdit、VideoEnhance、ImageEnh、VideoGen" },
+    },
+  },
   banner: {
     title: "Black Friday：まる1か月のオファー",
     body: "一括スワップと Mac 対応の FaceStudio Pro 1.2、新しい FaceStudio V Pro、クレジット最大 30% オフ、その他のアプリ 30% オフ。",
@@ -343,6 +435,28 @@ const ko: BlackFridayCopy = {
     "데스크톱 라이선스는 일회성 결제이며 구독이 없습니다. 크레딧은 만료되지 않습니다.",
     "Nano FaceStudio V Pro는 새로운 앱입니다. $84.90은 출시 가격이며, 이전 가격에서 할인된 것이 아닙니다.",
   ],
+  takeover: {
+    kicker: "한 달간 · 11월 24일 – 12월 24일",
+    line1: "블랙",
+    line2: "프라이데이",
+    sub: "데스크톱 스튜디오와 온라인 크레딧 혜택이 한 달 내내 이어집니다. 코드도 조건도 없습니다. 결제 화면의 가격이 실제로 결제하는 가격입니다.",
+    upTo: "크레딧 최대",
+    off: "할인",
+    startsIn: "시작까지",
+    endsIn: "종료까지",
+    days: "일",
+    hours: "시간",
+    minutes: "분",
+    seconds: "초",
+    cta: "모든 혜택 보기",
+    ctaCredits: "크레딧 구매",
+    tiles: {
+      studioPro: { title: "FaceStudio Pro 1.2", line: "일괄 얼굴 교체, 이제 Mac에서도" },
+      vPro: { title: "FaceStudio V Pro", line: "내 GPU로 하는 동영상 얼굴 교체", tag: "새 앱" },
+      credits: { title: "크레딧 팩", line: "팩이 클수록 할인도 커집니다" },
+      apps: { title: "데스크톱 앱", line: "ImageEdit, VideoEnhance, ImageEnh, VideoGen" },
+    },
+  },
   banner: {
     title: "Black Friday: 한 달 내내 이어지는 혜택",
     body: "일괄 스왑과 Mac을 지원하는 FaceStudio Pro 1.2, 새로운 FaceStudio V Pro, 크레딧 최대 30% 할인, 다른 앱 30% 할인.",
@@ -423,6 +537,28 @@ const es: BlackFridayCopy = {
     "Las licencias de escritorio son pagos únicos, sin suscripción. Los créditos nunca caducan.",
     "Nano FaceStudio V Pro es una app nueva. $84.90 es su precio de lanzamiento, no un descuento sobre un precio anterior.",
   ],
+  takeover: {
+    kicker: "Un mes · 24 nov – 24 dic",
+    line1: "Black",
+    line2: "Friday",
+    sub: "Un mes entero de ofertas en nuestros estudios de escritorio y en los créditos online. Sin códigos ni trampas: el precio que ves al pagar es el precio que pagas.",
+    upTo: "Hasta un",
+    off: "menos en créditos",
+    startsIn: "Empieza en",
+    endsIn: "Termina en",
+    days: "días",
+    hours: "horas",
+    minutes: "min",
+    seconds: "s",
+    cta: "Ver todas las ofertas",
+    ctaCredits: "Comprar créditos",
+    tiles: {
+      studioPro: { title: "FaceStudio Pro 1.2", line: "Cambio de cara por lotes, ahora en Mac" },
+      vPro: { title: "FaceStudio V Pro", line: "Cambio de cara en vídeo con tu propia GPU", tag: "Nueva app" },
+      credits: { title: "Paquetes de créditos", line: "Más grande el paquete, mayor el descuento" },
+      apps: { title: "Apps de escritorio", line: "ImageEdit, VideoEnhance, ImageEnh, VideoGen" },
+    },
+  },
   banner: {
     title: "Black Friday: un mes entero de ofertas",
     body: "FaceStudio Pro 1.2 con cambio por lotes y Mac, el nuevo FaceStudio V Pro, hasta un 30% menos en créditos y un 30% menos en las demás apps.",
@@ -503,6 +639,28 @@ const ptBR: BlackFridayCopy = {
     "As licenças para desktop são pagamentos únicos, sem assinatura. Os créditos nunca expiram.",
     "O Nano FaceStudio V Pro é um app novo. $84.90 é o preço de lançamento, não um desconto sobre um preço anterior.",
   ],
+  takeover: {
+    kicker: "Um mês · 24 nov – 24 dez",
+    line1: "Black",
+    line2: "Friday",
+    sub: "Um mês inteiro de ofertas nos nossos estúdios para desktop e nos créditos online. Sem códigos, sem pegadinhas: o preço no checkout é o preço que você paga.",
+    upTo: "Até",
+    off: "de desconto em créditos",
+    startsIn: "Começa em",
+    endsIn: "Termina em",
+    days: "dias",
+    hours: "horas",
+    minutes: "min",
+    seconds: "seg",
+    cta: "Ver todas as ofertas",
+    ctaCredits: "Comprar créditos",
+    tiles: {
+      studioPro: { title: "FaceStudio Pro 1.2", line: "Troca de rosto em lote, agora no Mac" },
+      vPro: { title: "FaceStudio V Pro", line: "Troca de rosto em vídeo na sua própria GPU", tag: "Novo app" },
+      credits: { title: "Pacotes de créditos", line: "Quanto maior o pacote, maior o desconto" },
+      apps: { title: "Apps para desktop", line: "ImageEdit, VideoEnhance, ImageEnh, VideoGen" },
+    },
+  },
   banner: {
     title: "Black Friday: um mês inteiro de ofertas",
     body: "FaceStudio Pro 1.2 com troca em lote e Mac, o novo FaceStudio V Pro, até 30% de desconto em créditos e 30% nos outros apps.",
@@ -583,6 +741,28 @@ const de: BlackFridayCopy = {
     "Desktop-Lizenzen sind Einmalzahlungen, ohne Abo. Credits verfallen nie.",
     "Nano FaceStudio V Pro ist eine neue App. $84.90 ist ihr Einführungspreis, kein Rabatt auf einen früheren Preis.",
   ],
+  takeover: {
+    kicker: "Einen Monat lang · 24. Nov. – 24. Dez.",
+    line1: "Black",
+    line2: "Friday",
+    sub: "Ein ganzer Monat voller Angebote für unsere Desktop-Studios und Online-Credits. Keine Codes, kein Haken: Der Preis an der Kasse ist der Preis, den du zahlst.",
+    upTo: "Bis zu",
+    off: "Rabatt auf Credits",
+    startsIn: "Startet in",
+    endsIn: "Endet in",
+    days: "Tage",
+    hours: "Std.",
+    minutes: "Min.",
+    seconds: "Sek.",
+    cta: "Alle Angebote ansehen",
+    ctaCredits: "Credits kaufen",
+    tiles: {
+      studioPro: { title: "FaceStudio Pro 1.2", line: "Gesichtertausch im Stapel, jetzt auch für Mac" },
+      vPro: { title: "FaceStudio V Pro", line: "Video-Face-Swap auf deiner eigenen GPU", tag: "Neue App" },
+      credits: { title: "Credit-Pakete", line: "Je größer das Paket, desto größer der Rabatt" },
+      apps: { title: "Desktop-Apps", line: "ImageEdit, VideoEnhance, ImageEnh, VideoGen" },
+    },
+  },
   banner: {
     title: "Black Friday: ein ganzer Monat voller Angebote",
     body: "FaceStudio Pro 1.2 mit Stapeltausch und Mac, das neue FaceStudio V Pro, bis zu 30% Rabatt auf Credits, 30% auf die anderen Apps.",
@@ -663,6 +843,28 @@ const fr: BlackFridayCopy = {
     "Les licences de bureau sont des paiements uniques, sans abonnement. Les crédits n'expirent jamais.",
     "Nano FaceStudio V Pro est une nouvelle application. $84.90 est son prix de lancement, et non une remise sur un prix antérieur.",
   ],
+  takeover: {
+    kicker: "Un mois · 24 nov. – 24 déc.",
+    line1: "Black",
+    line2: "Friday",
+    sub: "Un mois entier d'offres sur nos studios de bureau et nos crédits en ligne. Sans code, sans piège : le prix affiché au paiement est le prix que vous payez.",
+    upTo: "Jusqu'à",
+    off: "de remise sur les crédits",
+    startsIn: "Début dans",
+    endsIn: "Fin dans",
+    days: "jours",
+    hours: "heures",
+    minutes: "min",
+    seconds: "s",
+    cta: "Voir toutes les offres",
+    ctaCredits: "Acheter des crédits",
+    tiles: {
+      studioPro: { title: "FaceStudio Pro 1.2", line: "Échange de visage par lot, désormais sur Mac" },
+      vPro: { title: "FaceStudio V Pro", line: "Face swap vidéo sur votre propre GPU", tag: "Nouvelle application" },
+      credits: { title: "Packs de crédits", line: "Plus le pack est grand, plus la remise l'est aussi" },
+      apps: { title: "Applications de bureau", line: "ImageEdit, VideoEnhance, ImageEnh, VideoGen" },
+    },
+  },
   banner: {
     title: "Black Friday : un mois entier d'offres",
     body: "FaceStudio Pro 1.2 avec échange par lot et Mac, le nouveau FaceStudio V Pro, jusqu'à 30% de remise sur les crédits, 30% sur les autres applications.",

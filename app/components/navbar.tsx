@@ -6,6 +6,7 @@ import { translatedOrEnglish, type AppLocale } from "@/lib/i18n/locales";
 import { IMAGEEDIT_NAME } from "@/lib/imageedit";
 import { Wordmark } from "./wordmark";
 import { NavbarAuth } from "./navbar-auth";
+import { blackFridayOn, blackFridayUpcoming } from "@/lib/black-friday";
 
 // Static markup only: the signed-in state is resolved in the browser
 // (navbar-auth.tsx) so the page HTML is the same for every visitor.
@@ -14,6 +15,8 @@ export function Navbar() {
   const locale = useLocale() as AppLocale;
   const isEnglish = locale === "en";
   const home = translatedOrEnglish("/", locale);
+  // The Black Friday link (24 Nov to 24 Dec 2026, and the day before it starts).
+  const blackFriday = blackFridayOn() || blackFridayUpcoming();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-neutral-200">
@@ -97,7 +100,17 @@ export function Navbar() {
           </a>
         </div>
 
-        <NavbarAuth />
+        <div className="flex items-center gap-2 sm:gap-3">
+          {blackFriday && (
+            <Link
+              href={translatedOrEnglish("/black-friday", locale)}
+              className="hidden items-center gap-1 whitespace-nowrap rounded-full bg-neutral-950 px-2.5 py-1 text-[11px] sm:inline-flex font-bold uppercase tracking-wide text-amber-300 ring-1 ring-amber-400/60 transition hover:bg-neutral-800 sm:px-3 sm:text-xs"
+            >
+              <span aria-hidden>✦</span> Black Friday
+            </Link>
+          )}
+          <NavbarAuth />
+        </div>
       </div>
     </nav>
   );
