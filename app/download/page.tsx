@@ -13,6 +13,13 @@ import { AppCards } from "./app-cards";
 import { ReleaseNotes } from "./release-notes";
 import { SystemRequirements } from "./system-requirements";
 import { facestudioProPrice } from "@/lib/facestudio-pro-price";
+import { PRODUCTS } from "@/lib/products";
+
+/** "19.90", or the sale price while it applies; read at render time. */
+const appPrice = (id: string, fallback: string) => {
+  const p = PRODUCTS.find((x) => x.id === id);
+  return p ? (p.priceInCents / 100).toFixed(2) : fallback;
+};
 import { getLocale } from "next-intl/server";
 import type { AppLocale } from "@/lib/i18n/locales";
 import { pageStrings } from "@/lib/i18n/strings";
@@ -26,10 +33,10 @@ const softwareData = (pro = facestudioProPrice()) => ({
   "@context": "https://schema.org",
   "@graph": [
     { "@type": "SoftwareApplication", name: "Nano FaceStudio Pro", operatingSystem: "Windows 10/11 (NVIDIA CUDA); macOS 14+ on Apple Silicon", applicationCategory: "MultimediaApplication", softwareVersion: "1.2.0", offers: { "@type": "Offer", price: pro.price, priceCurrency: "USD", availability: "https://schema.org/InStock", ...(pro.validUntil ? { priceValidUntil: pro.validUntil } : {}), url: "https://nanopocket.ai/apps/nano-facestudio-pro" }, description: "AI Face Studio — 7 tools in one local desktop app: face swap (up to 16 faces) and batch face swap, mask edit, expression editing, face vivid, 2×/3×/4× upscale, light adjust, crop. GAN and diffusion models. Windows and Apple Silicon Mac." },
-    { "@type": "SoftwareApplication", name: "Nano ImageEdit", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "19.90", priceCurrency: "USD" }, description: "AI image generation — local alternative to Midjourney and Flux. Run GAN and diffusion models on your GPU." },
-    { "@type": "SoftwareApplication", name: "Nano VideoGen", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "29.90", priceCurrency: "USD" }, description: "AI video generation — local alternative to Runway. Run GAN and diffusion models on your GPU." },
-    { "@type": "SoftwareApplication", name: "Nano VideoEnhance", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "19.90", priceCurrency: "USD" }, description: "AI video enhancement — local alternative to Topaz Video AI." },
-    { "@type": "SoftwareApplication", name: "Nano ImageEnh", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "29.90", priceCurrency: "USD" }, description: "AI image upscaling and enhancement — local alternative to Topaz Photo AI." },
+    { "@type": "SoftwareApplication", name: "Nano ImageEdit", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: appPrice("nano-imageedit", "19.90"), priceCurrency: "USD" }, description: "AI image generation — local alternative to Midjourney and Flux. Run GAN and diffusion models on your GPU." },
+    { "@type": "SoftwareApplication", name: "Nano VideoGen", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: appPrice("nano-videogen", "29.90"), priceCurrency: "USD" }, description: "AI video generation — local alternative to Runway. Run GAN and diffusion models on your GPU." },
+    { "@type": "SoftwareApplication", name: "Nano VideoEnhance", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: appPrice("nano-videoenhance", "19.90"), priceCurrency: "USD" }, description: "AI video enhancement — local alternative to Topaz Video AI." },
+    { "@type": "SoftwareApplication", name: "Nano ImageEnh", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: appPrice("nnanoimageenh", "29.90"), priceCurrency: "USD" }, description: "AI image upscaling and enhancement — local alternative to Topaz Photo AI." },
     { "@type": "SoftwareApplication", name: "Nano FacialEdit", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }, description: "AI facial editing and retouching — runs 100% locally on your GPU." },
     { "@type": "SoftwareApplication", name: "Nano FaceSwap", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }, description: "AI face swap in photos and videos — local alternative to FaceApp." },
     { "@type": "SoftwareApplication", name: "Nano ImageTryon", operatingSystem: "Windows 10/11", applicationCategory: "MultimediaApplication", offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }, description: "AI virtual try-on — see how clothes look before you buy." },

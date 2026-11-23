@@ -65,25 +65,24 @@ export function facestudioProLaunchTimeLeft(now: number = Date.now()): string | 
 }
 
 /**
- * Getters for a product on sale during Black Friday (lib/black-friday.ts). Read at the moment of
- * use, so checkout charges the regular price from the instant the sale ends.
+ * Turn a product's fixed price into Black Friday getters (lib/black-friday.ts), read at the moment
+ * of use: checkout charges the sale price from the instant the sale starts and the regular price
+ * from the instant it ends, on a server that has been running since before either.
+ *
+ * Getters are defined on the object itself. (A `...spread` of an object with getters would call them
+ * once and copy the values, which froze the price at the moment the module loaded: f9c2128.)
  */
-function blackFridayPricing(id: string, regularCents: number) {
-  const sale = BLACK_FRIDAY_APP_PRICE_CENTS[id]
-  return {
-    get priceInCents() {
-      return blackFridayOn() && sale ? sale : regularCents
-    },
-    get originalPriceInCents() {
-      return blackFridayOn() && sale ? regularCents : undefined
-    },
-    get promoValidUntil() {
-      return blackFridayOn() && sale ? BLACK_FRIDAY_LAST_DAY : undefined
-    },
-    get promoKind() {
-      return blackFridayOn() && sale ? ("sale" as const) : undefined
-    },
-  }
+function applyBlackFridayPricing(product: Product): void {
+  const sale = BLACK_FRIDAY_APP_PRICE_CENTS[product.id]
+  if (!sale) return
+  const regularCents = product.priceInCents
+  const on = () => blackFridayOn()
+  Object.defineProperties(product, {
+    priceInCents: { get: () => (on() ? sale : regularCents), enumerable: true, configurable: true },
+    originalPriceInCents: { get: () => (on() ? regularCents : undefined), enumerable: true, configurable: true },
+    promoValidUntil: { get: () => (on() ? BLACK_FRIDAY_LAST_DAY : undefined), enumerable: true, configurable: true },
+    promoKind: { get: () => (on() ? ("sale" as const) : undefined), enumerable: true, configurable: true },
+  })
 }
 
 export const PRODUCTS: Product[] = [
@@ -137,7 +136,7 @@ export const PRODUCTS: Product[] = [
     name: "Nano ImageEdit",
     description:
       "AI Image Generation — Generate and edit stunning images from text prompts with Nano ImageEdit, running locally on your GPU.",
-    ...blackFridayPricing("nano-imageedit", 1990),
+    priceInCents: 1990, // Black Friday getters: applyBlackFridayPricing
     trialDays: 7,
     features: [
       "Text-to-image generation",
@@ -154,7 +153,7 @@ export const PRODUCTS: Product[] = [
     name: "Nano VideoEnhance",
     description:
       "AI Video Enhancement — Upscale, stabilize, and enhance video quality with Nano VideoEnhance, running 100% locally on your GPU.",
-    ...blackFridayPricing("nano-videoenhance", 1990),
+    priceInCents: 1990, // Black Friday getters: applyBlackFridayPricing
     trialDays: 7,
     features: [
       "AI-powered video upscaling & enhancement",
@@ -171,7 +170,7 @@ export const PRODUCTS: Product[] = [
     name: "Nano ImageEnh",
     description:
       "AI Image Enhancement — Upscale, denoise, and restore images with Nano ImageEnh, running 100% locally on your GPU.",
-    ...blackFridayPricing("nnanoimageenh", 2990),
+    priceInCents: 2990, // Black Friday getters: applyBlackFridayPricing
     trialDays: 7,
     features: [
       "AI-powered image upscaling & denoising",
@@ -190,7 +189,7 @@ export const PRODUCTS: Product[] = [
       "AI Face Studio — Face swap, mask edit, expression editing, face vivid, upscale, light adjust, and crop in one local desktop app running 100% on your GPU. Free browser demos at /face-swap preview the swap + vivid capabilities.",
     // The launch price ($49.90) ended on 31 October; $69.90 since. Black Friday brings $49.90 back
     // as a sale price from 24 November to 24 December (lib/black-friday.ts).
-    ...blackFridayPricing("nano-facestudio-pro", FACESTUDIO_PRO_REGULAR_PRICE_CENTS),
+    priceInCents: FACESTUDIO_PRO_REGULAR_PRICE_CENTS, // Black Friday getters: applyBlackFridayPricing
     // No trial — the free online demos at /face-swap (Nano FaceStudio Online +
     // NanoFace Vivid) act as the preview. This product is paid-only.
     features: [
@@ -246,7 +245,7 @@ export const PRODUCTS: Product[] = [
     name: "Nano VideoGen",
     description:
       "AI Video Generation — Create stunning videos from text prompts or images with Nano VideoGen, running 100% locally on your GPU.",
-    ...blackFridayPricing("nano-videogen", 2990),
+    priceInCents: 2990, // Black Friday getters: applyBlackFridayPricing
     trialDays: 7,
     features: [
       "Text-to-video generation",
@@ -259,6 +258,8 @@ export const PRODUCTS: Product[] = [
     masterKeyEnv: "LICENSE_MASTER_KEY_NANO_VIDEOGEN",
   },
 ]
+
+for (const product of PRODUCTS) applyBlackFridayPricing(product)
 
 /**
  * Products that desktop apps can activate but that are not on sale yet. They stay out of PRODUCTS

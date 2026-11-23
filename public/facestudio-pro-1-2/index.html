@@ -217,7 +217,7 @@ footer a{margin-right:16px}
         <a class="btn" href="/download#nano-facestudio-pro">Get it for Mac or Windows</a>
         <a class="link" href="#batch">See how batch works</a>
       </div>
-      <p class="price mono" id="priceHero">$49.90 once until Dec 24 (Black Friday). Regular $69.90. No credits. No subscription.</p>
+      <p class="price mono" id="priceHero">$69.90 once. No credits. No subscription. Black Friday, Nov 24 to Dec 24, 2026 (PT): $49.90.</p>
       <p class="offers" id="bfLink"><a class="link" href="/black-friday">See all Black Friday offers</a></p>
     </div>
 
@@ -371,7 +371,7 @@ footer a{margin-right:16px}
     <a class="btn" href="/download#nano-facestudio-pro">Download FaceStudio Pro</a>
     <a class="link" href="https://nanopocket.ai/face-swap">Try the free online demo first</a>
   </div>
-  <p class="price mono" id="priceFinal">$49.90 once until Dec 24 (Black Friday). Regular $69.90. No credits. No subscription. macOS and Windows.</p>
+  <p class="price mono" id="priceFinal">$69.90 once. No credits. No subscription. macOS and Windows. Black Friday, Nov 24 to Dec 24, 2026 (PT): $49.90.</p>
 </section>
 </main>
 
@@ -383,17 +383,23 @@ footer a{margin-right:16px}
 </footer>
 
 <script>
-// Black Friday price: 24 Nov 2026 00:00 PT to 24 Dec 2026 23:59 PT. The HTML carries the sale text.
+// Black Friday price: 24 Nov 2026 00:00 PT to 24 Dec 2026 23:59 PT. The HTML carries the regular price
+// and the dated offer, so a reader without JavaScript (crawlers, AI fetchers) is never told a sale
+// price applies when it does not; the script states the price that applies on the viewer's clock.
 (function () {
   var now = Date.now();
   var hero = document.getElementById('priceHero');
   var fin = document.getElementById('priceFinal');
   var regular = '$69.90 once. No credits. No subscription.';
+  var sale = '$49.90 once until Dec 24 (Black Friday). Regular $69.90. No credits. No subscription.';
   if (now >= Date.parse('2026-12-25T08:00:00Z')) {
     hero.textContent = regular;
     fin.textContent = regular + ' macOS and Windows.';
     document.getElementById('bfLink').hidden = true;
-  } else if (now < Date.parse('2026-11-24T08:00:00Z')) {
+  } else if (now >= Date.parse('2026-11-24T08:00:00Z')) {
+    hero.textContent = sale;
+    fin.textContent = sale + ' macOS and Windows.';
+  } else {
     hero.textContent = regular + ' Black Friday from Nov 24: $49.90.';
     fin.textContent = regular + ' macOS and Windows. Black Friday from Nov 24: $49.90.';
   }

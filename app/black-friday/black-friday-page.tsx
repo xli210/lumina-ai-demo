@@ -194,6 +194,11 @@ export function BlackFridayPage({ c, href }: { c: BlackFridayCopy; href: (path: 
               {c.credits.title}
             </h3>
             <p className="my-4 text-foreground/85">{c.credits.body}</p>
+{upcoming && (
+              <p className="mb-3 text-sm font-medium text-amber-600 dark:text-amber-300">
+                These prices apply from {BLACK_FRIDAY_STARTS_LABEL}, 12:00 am PT to {BLACK_FRIDAY_ENDS_LABEL}. Until then, the regular prices apply.
+              </p>
+            )}
             <div className="mb-4 overflow-x-auto rounded-2xl border border-border/60">
               <table className="w-full min-w-[420px] text-sm">
                 <thead>
@@ -266,6 +271,11 @@ export function BlackFridayPage({ c, href }: { c: BlackFridayCopy; href: (path: 
               {c.apps.title}
             </h3>
             <p className="my-4 text-foreground/85">{c.apps.body}</p>
+{upcoming && (
+              <p className="mb-3 text-sm font-medium text-amber-600 dark:text-amber-300">
+                These prices apply from {BLACK_FRIDAY_STARTS_LABEL}, 12:00 am PT to {BLACK_FRIDAY_ENDS_LABEL}. Until then, the regular prices apply.
+              </p>
+            )}
             <ul className="mb-4 grid gap-3 sm:grid-cols-2">
               {saleApps.map((p) => {
                 // Before the sale starts, list the prices that will apply from Nov 24.

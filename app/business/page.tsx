@@ -4,7 +4,7 @@ import { ArrowLeft, CreditCard, Laptop, RefreshCw, Mail } from "lucide-react";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { SALES_EMAIL } from "../components/business-contact";
-import { CREDIT_PACKS, formatPackPrice, totalCredits, AUTO_RECHARGE_MAX_USD_PER_DAY } from "@/lib/credit-packs";
+import { CREDIT_PACKS, formatPackListPrice, totalCredits, AUTO_RECHARGE_MAX_USD_PER_DAY } from "@/lib/credit-packs";
 import { BusinessForm } from "./business-form";
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ export default function BusinessPage() {
   const today = [
     {
       icon: CreditCard,
-      title: "Credit packs up to " + formatPackPrice(LARGEST_PACK),
+      title: "Credit packs up to " + formatPackListPrice(LARGEST_PACK),
       body: `The ${LARGEST_PACK.name} pack adds ${totalCredits(LARGEST_PACK).toLocaleString("en-US")} credits, the best rate per credit. Credits work across every online tool: photo face swap, head swap and video face swap.`,
       href: "/credits",
       cta: "See credit packs",
