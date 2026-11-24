@@ -424,6 +424,15 @@ export default function TermsPage() {
             material are passed to NCMEC. NanoPocket does not publish results, so content posted
             elsewhere should also be reported to the site that hosts it.
           </p>
+          <p className="mt-3">
+            We also check for misuse ourselves. For online-tool jobs made from 2026-12-07, a review
+            copy of the uploads and the result is kept privately for up to 30 days and may be looked
+            at by authorised NanoPocket staff, and used inside NanoPocket to evaluate (never train)
+            our models, as the Privacy Policy describes. Review copies are never shared, sold,
+            published or used commercially. Jobs that break these Terms can be refused, their
+            account suspended, and their files kept for as long as an investigation or the law
+            requires.
+          </p>
         </Section>
 
         <Section id="rights" title="10. User content & rights">
@@ -496,6 +505,10 @@ export default function TermsPage() {
             constitutes acceptance of the new Terms.
           </p>
           <p>
+            Version 1.7 (announced 2026-11-23, effective 2026-12-07) adds the safety review of
+            online-tool jobs in section 9: review copies kept privately for up to 30 days, looked
+            at by authorised staff to stop misuse and used internally to evaluate our models, never
+            shared or used commercially.
             Version 1.6 (2026-11-16) states that Nano FaceStudio Pro has no free trial, as it never
             had one, and changes nothing else.
             Version 1.5 (2026-11-06) sets the auto top-up limits in dollars ($100 in 24 hours, $1,000 in

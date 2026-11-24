@@ -5,8 +5,8 @@ import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 
 const PAGE_URL = "https://nanopocket.ai/privacy";
-const EFFECTIVE_DATE = "2026-11-07";
-const POLICY_VERSION = "1.4";
+const EFFECTIVE_DATE = "2026-12-07";
+const POLICY_VERSION = "1.5";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -36,9 +36,13 @@ export const metadata: Metadata = {
 /** First day a product-update email may be sent. Moved up from 2026-11-19 (14 days after version 1.3) on the owner's decision of 2026-11-06. */
 const PRODUCT_EMAIL_START = "2026-11-06";
 
+/** Safety review and quality evaluation of online-tool content (version 1.5): from which jobs, and how long the review copy is kept. */
+const REVIEW_START = "2026-12-07";
+const REVIEW_DAYS = 30;
+
 /** How long online-tool uploads and results are kept: used in the table and in section 4. */
 const ONLINE_RETENTION =
-  "Video FaceSwap 2.5 Online: uploads are deleted within 24 hours, and a finished video is deleted 24 hours after it is made, or 7 days after if the account has added credits. Nano FaceStudio Online, Nano HeadSwap Pro and SpotEdit: uploads and results are kept in private storage (Cloudflare R2 object storage or the GPU servers' disks), reachable only through signed links that expire within an hour, so the result can be downloaded. They are not yet deleted automatically after a fixed period; they are deleted on request (tech@nanopocket.ai) and with the account. Never used to train models.";
+  "Video FaceSwap 2.5 Online: uploads are deleted within 24 hours, and a finished video is deleted 24 hours after it is made, or 7 days after if the account has added credits. Nano FaceStudio Online, Nano HeadSwap Pro and SpotEdit: uploads and results are kept in private storage (Cloudflare R2 object storage or the GPU servers' disks), reachable only through signed links that expire within an hour, so the result can be downloaded. They are not yet deleted automatically after a fixed period; they are deleted on request (tech@nanopocket.ai) and with the account. For jobs made from " + REVIEW_START + ", a review copy of the uploads and results of every online tool is also kept in a separate private store for up to " + REVIEW_DAYS + " days and then deleted automatically (section 4). Never used to train models.";
 
 interface DataCategory {
   category: string;
@@ -81,9 +85,9 @@ const DATA_CATEGORIES: DataCategory[] = [
     items:
       "Photos and videos uploaded to the online tools (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.5 Online, formerly Video FaceSwap Online, and SpotEdit, formerly Nano ImageEdit 2.0 Online), the results made from them, and the face data derived from them while a job runs (see section 4).",
     purpose:
-      "Carry out the swap or edit the user asked for and let the user download the result.",
+      "Carry out the swap or edit the user asked for and let the user download the result. For jobs from " + REVIEW_START + ": safety review against misuse and internal quality evaluation of our models (never training, never commercial use; section 4).",
     basis:
-      "Contract performance (GDPR Art. 6(1)(b)); for face data, the explicit consent the user gives by uploading (Art. 9(2)(a)).",
+      "Contract performance (GDPR Art. 6(1)(b)); safety review and quality evaluation: legitimate interest in preventing misuse and keeping the service working (Art. 6(1)(f)); for face data, the explicit consent the user gives by uploading (Art. 9(2)(a)).",
     retention: ONLINE_RETENTION,
   },
   {
@@ -459,21 +463,40 @@ export default function PrivacyPage() {
               to show how closely a result matches the reference photo. Face data is used only to
               carry out the job the user asked for. It is never used to identify anyone, never
               compared against a database of people, never sold, and never kept as a separate record
-              or beyond the job&apos;s own files.
+              or beyond the job&apos;s own files and their review copy ({REVIEW_DAYS} days at most).
             </li>
             <li>
               <strong className="text-foreground">How long files are kept.</strong> {ONLINE_RETENTION}
             </li>
             <li>
-              <strong className="text-foreground">No model training.</strong> Uploads and results
-              are never used to train, fine-tune, evaluate, or red-team any model. There is no
-              &quot;opt-in to improve our AI&quot; checkbox; training on user content is simply not
-              part of any product surface.
+              <strong className="text-foreground">Safety review (jobs from {REVIEW_START}).</strong>{" "}
+              For every online-tool job made from {REVIEW_START}, a review copy of the uploaded
+              photos and videos and of the result is kept in a separate private store for up to{" "}
+              {REVIEW_DAYS} days, then deleted automatically. Authorised NanoPocket staff may look
+              at these copies to find and stop misuse (a real person&apos;s likeness used without
+              consent, sexual content of real people, anything involving minors), to enforce the
+              Terms, and to answer support requests. Content showing the sexual abuse of a minor is
+              reported as the law requires. Jobs made before {REVIEW_START} are not kept or looked
+              at, except when we investigate a misuse report or a support request about a specific
+              job.
             </li>
             <li>
-              <strong className="text-foreground">No human review.</strong> Files are not looked at
-              by people, except when we investigate a misuse report or a support request about a
-              specific job.
+              <strong className="text-foreground">Quality evaluation, never training.</strong>{" "}
+              During the same {REVIEW_DAYS} days the review copies may also be used, inside
+              NanoPocket only, to measure and diagnose where our models fall short (for example a
+              face that does not look like the photo) so that we can improve them. They are never
+              used to train or fine-tune any model, never copied into a dataset that outlives them,
+              and never kept beyond {REVIEW_DAYS} days.
+            </li>
+            <li>
+              <strong className="text-foreground">Privacy of review copies.</strong> Review copies
+              are never sold, licensed, published, or shared with anyone outside NanoPocket and the
+              storage and hosting subprocessors listed above; never used in advertising, marketing,
+              demos or any other commercial material; and never used to identify anyone. Only named
+              staff can open them, through an access-controlled console over links that expire
+              within an hour; they are not downloaded to personal devices, and access is logged. A
+              user can ask us to delete the review copy of any of their jobs at any time
+              (tech@nanopocket.ai).
             </li>
             <li>
               <strong className="text-foreground">No third-party sharing.</strong> Uploads and
@@ -493,8 +516,8 @@ export default function PrivacyPage() {
               laws (for example in Illinois, Texas and Washington) treat face geometry as biometric
               information. Where such a law applies: we collect face data only to perform the job
               the user requests; we do not sell, lease, trade or otherwise profit from it; we
-              destroy it no later than the job&apos;s files, and in any case within the time the law
-              requires; and the user gives consent by uploading. Anyone who does not consent should
+              destroy it no later than the job&apos;s files and their review copy ({REVIEW_DAYS} days
+              at most), and in any case within the time the law requires; and the user gives consent by uploading. Anyone who does not consent should
               not upload a photo or video of themselves, and anyone whose face was uploaded by
               someone else without permission can ask us to delete it (tech@nanopocket.ai).
             </li>
@@ -651,6 +674,12 @@ export default function PrivacyPage() {
             reflected in the version number above.
           </p>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            Version 1.5 (announced 2026-11-23, effective {REVIEW_START}) keeps a review copy of
+            online-tool jobs made from {REVIEW_START} for up to {REVIEW_DAYS} days, lets authorised
+            staff review it to stop misuse and use it to evaluate (never train) our models, and
+            states that review copies are never shared, sold or used commercially (section 4). It
+            replaces the earlier &quot;no human review&quot; and &quot;no evaluation&quot;
+            statements for those jobs only.
             Version 1.4 (2026-11-07) adds the <code>np_ft</code> cookie, which records where a
             browser first came from and is kept with the account and its payments.
             Version 1.3 (2026-11-05) adds product update emails, which start no earlier than{" "}
