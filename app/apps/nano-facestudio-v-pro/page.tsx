@@ -739,15 +739,15 @@ export default function NanoFaceStudioVProPage() {
             </dl>
           </div>
 
-          {/* 4K output: a crop of the native frame. */}
+          {/* 4K output: a crop of the native frame (Best quality; Fast at 4K is softer at 1:1, shown below). */}
           <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 items-center gap-10 md:grid-cols-2">
             <figure className="overflow-hidden rounded-3xl border border-white/10">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`${MEDIA}/fast4k_detail_crop.jpg`}
-                alt="A 1200 by 1000 pixel crop, unscaled, from a 3840 by 2160 frame made in Fast mode with 4K output"
-                width={1200}
-                height={1000}
+                src={`${MEDIA}/best4k_face_crop.jpg`}
+                alt="A 1440 by 1440 pixel crop, unscaled, from a 3840 by 2160 frame made in Best quality with 4K output"
+                width={1440}
+                height={1440}
                 loading="lazy"
                 className="block h-auto w-full"
               />
@@ -756,11 +756,37 @@ export default function NanoFaceStudioVProPage() {
               <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">Output up to 4K</p>
               <h3 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">3840 × 2160, pixel for pixel.</h3>
               <p className="mt-4 text-base leading-relaxed text-white/60">
-                Choose 1080p or 4K before you start. This is an unscaled 1200 × 1000 crop of a 4K frame
-                made in Fast mode, with an AI-generated face.
+                Choose 1080p or 4K before you start. This is an unscaled 1440 × 1440 crop of a 4K frame
+                made in Best quality, with an AI-generated face.
               </p>
             </div>
           </div>
+
+          {/* The same spot of the same 4K frame in both modes, unscaled. */}
+          <figure className="mx-auto mt-6 max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
+            <div className="relative">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${MEDIA}/4k_fast_vs_best_detail.jpg`}
+                alt="The same 600 by 600 pixel spot of one 4K frame, unscaled: Fast on the left, Best quality on the right"
+                width={1200}
+                height={600}
+                loading="lazy"
+                className="block h-auto w-full"
+              />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 grid grid-cols-2 text-center">
+                {["Fast · 4K", "Best quality · 4K"].map((label) => (
+                  <span key={label} className="bg-gradient-to-t from-black/75 to-transparent px-2 pb-3 pt-10 text-xs font-semibold uppercase tracking-[0.18em] text-white sm:text-sm">
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <figcaption className="px-5 py-4 text-sm leading-relaxed text-white/55">
+              The same 600 × 600 spot of one 4K frame, unscaled. Best quality keeps the lashes, the skin texture
+              and a sharp edge on the nose; Fast is softer up close and much quicker.
+            </figcaption>
+          </figure>
 
           <p className="mx-auto mt-12 max-w-2xl text-center text-sm leading-relaxed text-white/50">
             All times measured on one NVIDIA RTX 4080 SUPER with 16 GB of video memory and 32 GB of RAM.
