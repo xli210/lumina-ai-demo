@@ -24,7 +24,6 @@ import {
   Scissors,
   ShieldCheck,
   SlidersHorizontal,
-  Sparkles,
   Tag,
   Users,
   Volume2,
@@ -40,6 +39,7 @@ import {
   formatUsdCents,
 } from "@/lib/black-friday";
 import { VProLaunchCountdown } from "./launch-countdown";
+import { BeforeAfterVideo } from "./before-after-video";
 
 /**
  * Nano FaceStudio V Pro 1.0.1: product introduction (English only for now).
@@ -50,8 +50,9 @@ import { VProLaunchCountdown } from "./launch-countdown";
  * - no number of faces per video ("replace a person");
  * - Windows x64 only, Windows 11 tested, Windows 10 not yet tested; no Mac;
  * - no head swap;
- * - no pictures of real faces: there are no publishable examples, so the page uses text, icons and
- *   CSS diagrams only;
+ * - pictures: only the media made for this page with the signed 1.0.1 build (public/facestudio-v-pro/).
+ *   The bodies are the site's own stock demo clips; every face put on them is AI-generated. No
+ *   "Enhance only" mode: 1.0.1 does not offer it;
  * - speed only as measured on one RTX 4080 SUPER 16 GB.
  *
  * Price: read from PRODUCTS at render time. $84.90 is a launch price that rises to $119.90 after the
@@ -156,7 +157,7 @@ const softwareJsonLd = (p: Pricing) => ({
 const faqs = (p: Pricing): { q: string; a: string }[] => [
   {
     q: "What does Nano FaceStudio V Pro do?",
-    a: "It replaces a person's face in a video. You click the person to replace and add a photo of the face you want; everything else stays as filmed. You choose Fast or Best quality and export an MP4 at 1080p or 4K. It also enhances videos without swapping, lip-syncs to an audio file (optional download), and swaps faces in photos.",
+    a: "It replaces a person's face in a video. You click the person to replace and add a photo of the face you want; everything else stays as filmed. You choose Fast or Best quality and export an MP4 at 1080p or 4K. It can also lip-sync to an audio file (optional download), and it swaps faces in photos.",
   },
   {
     q: "How much does it cost?",
@@ -220,25 +221,93 @@ const faqJsonLd = (p: Pricing) => ({
   })),
 });
 
-const pipeline: { n: string; icon: LucideIcon; title: string; body: string }[] = [
-  { n: "1", icon: Scissors, title: "Trim", body: "Pick the part of the video to process, frame-exact." },
-  { n: "2", icon: MousePointerClick, title: "Pick the person", body: "Click the person to replace." },
-  { n: "3", icon: ImagePlus, title: "Add a face photo", body: "One photo, or up to five of the same face." },
-  { n: "4", icon: Gauge, title: "Fast or Best", body: "Fast for speed, Best for whole-picture restoration." },
-  { n: "5", icon: Film, title: "1080p or 4K MP4", body: "H.264 MP4 with the original sound." },
+/** Media made with the signed 1.0.1 build: see public/facestudio-v-pro/README in the app repo's website_media. */
+const MEDIA = "/facestudio-v-pro";
+
+const steps: { n: string; icon: LucideIcon; title: string; body: string; points?: string[]; img: string; alt: string }[] = [
+  {
+    n: "1",
+    icon: Scissors,
+    title: "Add a video, keep the part you need.",
+    body: "Drag the start and end handles, or stop on a frame and use it. Faces are looked for only in that part, and the result is only that part.",
+    points: ["Frame-exact: ±1 frame buttons", "Videos up to 100 GB"],
+    img: "ui/ui_trim.jpg",
+    alt: "The trim screen of Nano FaceStudio V Pro with start and end handles under a video of three friends",
+  },
+  {
+    n: "2",
+    icon: MousePointerClick,
+    title: "Click the person to replace.",
+    body: "The app finds everyone in the video and lists them with how long each one is on screen. Click one in the video or in the list; only that person changes.",
+    points: ["Everyone else stays as filmed", "Faces you used before are one click away"],
+    img: "ui/ui_pick_person.jpg",
+    alt: "Three people boxed and listed in the app, each with their time on screen",
+  },
+  {
+    n: "3",
+    icon: ImagePlus,
+    title: "Add the face. Choose Fast or Best.",
+    body: "Add a photo of the face you want, or up to five of the same person. Before you start, the app tells you how long Fast and Best will take for this video on your computer.",
+    points: ["Output size 1080p or 4K", "File: Plays everywhere (H.264) or Smaller file (H.265)"],
+    img: "ui/ui_modes_size.jpg",
+    alt: "Person 2 marked to be replaced, an AI-generated face chosen, and the Fast or Best quality choice with time estimates",
+  },
+  {
+    n: "4",
+    icon: Film,
+    title: "Compare, then export.",
+    body: "Drag the divider over the result to compare it with the original, then download the MP4 or open its folder. The original sound is kept. Everything stays on your computer.",
+    points: ["Retouch and Fix a spot right there", "Every file is marked as AI-made"],
+    img: "ui/ui_result_export.jpg",
+    alt: "The result screen with a before and after divider, the export details and the Download video button",
+  },
+];
+
+const results: { id: string; title: string; meta: string; wide?: boolean }[] = [
+  { id: "elder", title: "Grey hair and beard, outdoors", meta: "Best · 1080p" },
+  { id: "blonde", title: "Studio portrait", meta: "Best · 1080p" },
+  { id: "group", title: "Three friends: only the one in the middle is replaced", meta: "Best · 1080p", wide: true },
+];
+
+const controls: { icon: LucideIcon; title: string; body: string; chips: string[]; img: string; alt: string }[] = [
+  {
+    icon: SlidersHorizontal,
+    title: "Adjust the look",
+    body: "Sliders and switches for how the new face sits on the person, set before you start.",
+    chips: [
+      "Swap strength",
+      "Soft edge",
+      "Match skin and lips",
+      "Fine detail",
+      "Keep own mouth",
+      "Keep own eyes",
+      "Eye direction",
+      "Keep own beard",
+      "Far side angles",
+      "Visible AI label",
+    ],
+    img: "ui/ui_adjust_look.jpg",
+    alt: "The Adjust the look panel with its sliders and switches",
+  },
+  {
+    icon: Brush,
+    title: "Fix a spot, or Retouch",
+    body: "Pause the finished video and paint over a place. Fix a spot puts the original back there, or brings the new face there, and follows the face through the clip. Retouch wipes out what you paint and fills it in from around it.",
+    chips: ["Put the original back", "Bring the new face here", "Around this moment or whole video", "Undo"],
+    img: "ui/ui_fix_a_spot.jpg",
+    alt: "The Fix a spot panel open over a finished video, with brush size and the two fix choices",
+  },
+  {
+    icon: ListVideo,
+    title: "Several videos in a row",
+    body: "Add many videos with one face and one set of choices. They are made one after another, and the line keeps going after you close the page.",
+    chips: ["Same choices as one video", "Queue of up to 50 jobs"],
+    img: "ui/ui_batch_queue.jpg",
+    alt: "Three videos queued with one AI-generated face; the first is 71% made",
+  },
 ];
 
 const features: { icon: LucideIcon; title: string; body: string }[] = [
-  {
-    icon: Clapperboard,
-    title: "Face swap in video",
-    body: "Click the person to replace and add a photo of the face you want. Everything else stays as filmed.",
-  },
-  {
-    icon: Sparkles,
-    title: "Enhance only",
-    body: "Make a video sharper and cleaner without swapping any face.",
-  },
   {
     icon: AudioLines,
     title: "Lip sync (optional)",
@@ -260,24 +329,14 @@ const features: { icon: LucideIcon; title: string; body: string }[] = [
     body: "A separate Photo page swaps faces in still images; the result is a PNG.",
   },
   {
-    icon: ListVideo,
-    title: "Several videos in a row",
-    body: "A batch page with a queue of up to 50 jobs.",
-  },
-  {
-    icon: Brush,
-    title: "Fix a spot, or retouch",
-    body: "Paint over a spot of the result. Fix a spot brings the original back there; Retouch fills it in from around it.",
-  },
-  {
-    icon: SlidersHorizontal,
-    title: "Adjust the look",
-    body: "Swap strength, soft edge, skin and lip colour match, and an option to keep the person's own mouth.",
-  },
-  {
     icon: Volume2,
     title: "Sound kept",
-    body: "The original sound stays in the export. The page tells you when the original has no sound.",
+    body: "The original sound stays in the export. The app tells you when the original has no sound.",
+  },
+  {
+    icon: Clapperboard,
+    title: "Two file types",
+    body: "MP4 as H.264, which plays everywhere, or H.265 at about half the size (some older players can't open it).",
   },
   {
     icon: Tag,
@@ -294,7 +353,7 @@ const features: { icon: LucideIcon; title: string; body: string }[] = [
 /** A 4-second 720p clip on an RTX 4080 SUPER 16 GB, whole job. */
 const shortClipTimes: [string, string][] = [
   ["Fast 1080p", "about 20 to 23 s"],
-  ["Fast 4K", "about 26 s"],
+  ["Fast 4K", "about 25 s"],
   ["Best 1080p", "about 3 min"],
   ["Best 4K", "about 6 min"],
 ];
@@ -312,7 +371,7 @@ const specs: [string, string][] = [
   ["Version", SOFTWARE_VERSION],
   ["Platform", "Windows x64 only. No Mac version. AMD, Intel and older NVIDIA GPUs are not supported."],
   ["Quality modes", "Fast and Best, each at 1080p or 4K"],
-  ["Output", "MP4 (H.264), at most 4K (3840 on the long side) and 60 fps; photos as PNG"],
+  ["Output", "MP4 (H.264, or H.265 for a smaller file), at most 4K (3840 on the long side) and 60 fps; photos as PNG"],
   ["Uploads", "Videos up to 100 GB; no hard limit on length (long videos take long)"],
   ["Batch", "Queue of up to 50 jobs"],
   ["Installer", "189 MB, digitally signed by NanoPocket AI LLC"],
@@ -320,6 +379,31 @@ const specs: [string, string][] = [
   ["Updates", "Not automatic yet; new versions are a new installer from the download page"],
   ["Not included", "Head swap (a different product)"],
 ];
+
+/** A screenshot of the app, framed. */
+function Shot({ src, alt, light = false }: { src: string; alt: string; light?: boolean }) {
+  return (
+    <div
+      className={`overflow-hidden rounded-2xl border shadow-2xl ${
+        light ? "border-neutral-300 shadow-neutral-900/15" : "border-white/15 shadow-black/60"
+      }`}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={`${MEDIA}/${src}`} alt={alt} width={1680} height={1050} loading="lazy" className="block h-auto w-full" />
+    </div>
+  );
+}
+
+/** Where the example clips come from, said plainly. */
+function MediaNote({ className = "" }: { className?: string }) {
+  return (
+    <p className={`mx-auto max-w-3xl text-center text-xs leading-relaxed text-white/45 ${className}`}>
+      Every example on this page was made with Nano FaceStudio V Pro {SOFTWARE_VERSION} on an NVIDIA RTX
+      4080 SUPER and scaled down to 720p for the web, with no other editing. The people filmed are from
+      stock footage; every face put on them is AI-generated, not a real person&rsquo;s.
+    </p>
+  );
+}
 
 function EyebrowChapter({ n, label }: { n: string; label: string }) {
   return (
@@ -458,102 +542,170 @@ export default function NanoFaceStudioVProPage() {
             </p>
           )}
         </div>
+
+        {/* The hero clip: made with the app, compared with the original. */}
+        <figure className="relative mx-auto mt-20 max-w-5xl">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-10 rounded-[3rem] opacity-60 blur-3xl"
+            style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(52, 211, 153, 0.22) 0%, rgba(120, 120, 255, 0.14) 45%, transparent 70%)" }}
+          />
+          <div className="relative overflow-hidden rounded-3xl border border-white/15 shadow-2xl shadow-black/70">
+            <BeforeAfterVideo
+              before={`${MEDIA}/hero_before.mp4`}
+              after={`${MEDIA}/hero_after.mp4`}
+              beforePoster={`${MEDIA}/hero_before_poster.jpg`}
+              afterPoster={`${MEDIA}/hero_after_poster.jpg`}
+            />
+          </div>
+          <figcaption className="relative mt-4 text-center text-xs text-white/45">
+            Drag to compare · Best quality, 1080p · stock footage with an AI-generated face, made with V Pro {SOFTWARE_VERSION}
+          </figcaption>
+        </figure>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          01 · HOW IT WORKS: the pipeline as a CSS diagram (no example pictures). */}
+          01 · HOW IT WORKS: the real app, screen by screen. */}
       <section className="relative border-t border-white/10 bg-black px-6 py-24 sm:py-32">
         <div className="mx-auto max-w-6xl">
           <EyebrowChapter n="01" label="How it works" />
-          <BigHeadline>Five steps, one video.</BigHeadline>
+          <BigHeadline>Four screens, one video.</BigHeadline>
           <Sub className="text-white/60">
-            Trim the clip, click the person, add the face, pick a quality mode, export. The app does the
-            rest on your graphics card.
+            Add a video, click the person, add the face, choose how it is made. The app does the rest on
+            your graphics card. These are screenshots of version {SOFTWARE_VERSION}.
           </Sub>
 
-          <ol className="mt-16 grid grid-cols-1 gap-3 md:grid-cols-5 md:gap-0">
-            {pipeline.map((step, i) => {
+          <ol className="mt-20 space-y-24 sm:space-y-32">
+            {steps.map((step, i) => {
               const Icon = step.icon;
-              const last = i === pipeline.length - 1;
+              const flip = i % 2 === 1;
               return (
-                <li key={step.n} className="relative flex md:flex-col md:items-stretch">
-                  <div
-                    className={`flex w-full items-start gap-4 rounded-2xl border px-5 py-5 md:mx-2 md:w-auto md:flex-col md:items-center md:gap-3 md:px-4 md:py-7 md:text-center ${
-                      last ? "border-emerald-400/30 bg-emerald-400/[0.06]" : "border-white/10 bg-white/[0.03]"
-                    }`}
-                  >
-                    <span
-                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${
-                        last ? "bg-emerald-400/15 text-emerald-200" : "bg-white/[0.06] text-white/85"
-                      }`}
-                    >
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    <div>
+                <li key={step.n} className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+                  <div className={`lg:col-span-4 ${flip ? "lg:order-2" : ""}`}>
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/[0.06] text-white/85">
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </span>
                       <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">Step {step.n}</span>
-                      <h3 className="mt-1 text-base font-semibold tracking-tight text-white sm:text-lg">{step.title}</h3>
-                      <p className="mt-1.5 text-sm leading-relaxed text-white/55">{step.body}</p>
                     </div>
+                    <h3 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">{step.title}</h3>
+                    <p className="mt-4 text-base leading-relaxed text-white/60 sm:text-lg">{step.body}</p>
+                    {step.points && (
+                      <ul className="mt-6 space-y-2.5">
+                        {step.points.map((pt) => (
+                          <li key={pt} className="flex gap-3 text-sm leading-relaxed text-white/70">
+                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-300" />
+                            {pt}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
-                  {!last && (
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute -right-2 top-1/2 z-10 hidden h-4 w-4 -translate-y-1/2 items-center justify-center text-white/35 md:flex"
-                    >
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M3 7h8M8 3l3 4-3 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                  )}
+                  <figure className={`lg:col-span-8 ${flip ? "lg:order-1" : ""}`}>
+                    <Shot src={step.img} alt={step.alt} />
+                  </figure>
                 </li>
               );
             })}
           </ol>
-
-          <p className="mx-auto mt-12 max-w-2xl text-center text-sm leading-relaxed text-white/45">
-            Only use faces you have the right to use. Every output carries metadata saying it is
-            AI-made, and you can add a visible label too.
-          </p>
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          02 · WHAT IT DOES (light) */}
-      <section className="relative bg-white px-6 py-24 text-neutral-950 sm:py-32">
+          02 · RESULTS: before/after clips made with the app. */}
+      <section className="relative bg-neutral-950 px-6 py-24 sm:py-32">
         <div className="mx-auto max-w-6xl">
-          <EyebrowChapter n="02" label="What it does" />
-          <BigHeadline>More than the swap.</BigHeadline>
-          <Sub className="text-neutral-600">
-            Enhance, lip-sync, fix a spot, run a batch, or work on photos, all in the same desktop app.
+          <EyebrowChapter n="02" label="Results" />
+          <BigHeadline>Same video. New face.</BigHeadline>
+          <Sub className="text-white/60">
+            Drag the line to compare. The hair, the clothes, the light and the background stay as
+            filmed; only the face changes.
           </Sub>
 
-          <ul className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((f) => {
-              const Icon = f.icon;
-              return (
-                <li key={f.title} className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-900 text-white">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <h3 className="mt-4 text-lg font-semibold tracking-tight">{f.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-neutral-600">{f.body}</p>
-                </li>
-              );
-            })}
-          </ul>
+          <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
+            {results.map((r) => (
+              <figure key={r.id} className={`overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] ${r.wide ? "md:col-span-2" : ""}`}>
+                <BeforeAfterVideo
+                  before={`${MEDIA}/${r.id}_before.mp4`}
+                  after={`${MEDIA}/${r.id}_after.mp4`}
+                  beforePoster={`${MEDIA}/${r.id}_before_poster.jpg`}
+                  afterPoster={`${MEDIA}/${r.id}_after_poster.jpg`}
+                />
+                <figcaption className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-5 py-4">
+                  <span className="text-sm font-medium text-white">{r.title}</span>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/45">{r.meta}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+
+          <MediaNote className="mt-10" />
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          03 · FAST OR BEST, and measured speed (dark) */}
+          03 · FAST OR BEST, and measured speed */}
       <section className="relative bg-black px-6 py-24 sm:py-32">
         <div className="mx-auto max-w-6xl">
           <EyebrowChapter n="03" label="Fast or Best" />
           <BigHeadline>Two modes. Measured, not guessed.</BigHeadline>
           <Sub className="text-white/60">
             Both export 1080p or 4K. Best is much slower, because it also restores and upscales the
-            whole picture.
+            whole picture, and it shows: lashes, brows and skin come out sharper.
           </Sub>
+
+          {/* Same clip, same face, both modes. */}
+          <figure className="mx-auto mt-16 max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
+            <div className="relative">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${MEDIA}/fast_vs_best_face_crops.jpg`}
+                alt="The same frame three times: the original woman, the Fast result and the Best quality result with an AI-generated face"
+                width={1350}
+                height={510}
+                loading="lazy"
+                className="block h-auto w-full"
+              />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 grid grid-cols-3 text-center">
+                {[
+                  ["Original", ""],
+                  ["Fast", "20 s"],
+                  ["Best quality", "2 min 56 s"],
+                ].map(([label, time]) => (
+                  <span key={label} className="bg-gradient-to-t from-black/75 to-transparent px-2 pb-3 pt-10">
+                    <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-white sm:text-sm">{label}</span>
+                    {time && <span className="mt-0.5 block font-mono text-[11px] text-white/70 sm:text-xs">{time}</span>}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <figcaption className="px-5 py-4 text-sm leading-relaxed text-white/55">
+              One 4-second clip, one AI-generated face, 1080p output. Close-up of the same frame; the
+              times are the whole job on an RTX 4080 SUPER.
+            </figcaption>
+          </figure>
+
+          <figure className="mx-auto mt-6 max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
+            <div className="relative">
+              <video
+                src={`${MEDIA}/fast_vs_best_side_by_side.mp4`}
+                poster={`${MEDIA}/fast_vs_best_side_by_side_poster.jpg`}
+                muted
+                loop
+                autoPlay
+                playsInline
+                preload="metadata"
+                className="block h-auto w-full"
+                aria-label="Fast on the left and Best quality on the right, playing side by side"
+              />
+              <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white/90 backdrop-blur">
+                Fast
+              </span>
+              <span className="pointer-events-none absolute right-3 top-3 rounded-full bg-emerald-400/85 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-black">
+                Best quality
+              </span>
+            </div>
+          </figure>
 
           <div className="mx-auto mt-16 grid max-w-4xl grid-cols-1 gap-4 md:grid-cols-2">
             <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-8">
@@ -587,19 +739,112 @@ export default function NanoFaceStudioVProPage() {
             </dl>
           </div>
 
-          <p className="mx-auto mt-10 max-w-2xl text-center text-sm leading-relaxed text-white/50">
+          {/* 4K output: a crop of the native frame. */}
+          <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 items-center gap-10 md:grid-cols-2">
+            <figure className="overflow-hidden rounded-3xl border border-white/10">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${MEDIA}/fast4k_detail_crop.jpg`}
+                alt="A 1200 by 1000 pixel crop, unscaled, from a 3840 by 2160 frame made in Fast mode with 4K output"
+                width={1200}
+                height={1000}
+                loading="lazy"
+                className="block h-auto w-full"
+              />
+            </figure>
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">Output up to 4K</p>
+              <h3 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">3840 × 2160, pixel for pixel.</h3>
+              <p className="mt-4 text-base leading-relaxed text-white/60">
+                Choose 1080p or 4K before you start. This is an unscaled 1200 × 1000 crop of a 4K frame
+                made in Fast mode, with an AI-generated face.
+              </p>
+            </div>
+          </div>
+
+          <p className="mx-auto mt-12 max-w-2xl text-center text-sm leading-relaxed text-white/50">
             All times measured on one NVIDIA RTX 4080 SUPER with 16 GB of video memory and 32 GB of RAM.
             Slower cards take longer; we have not measured other GPUs yet. With 16 GB of RAM, Best takes
-            about twice as long.
+            about twice as long. The first 4K video after switching modes takes longer while its models load. Before you start, the app tells you how long each mode will take for
+            your video on your computer.
           </p>
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          04 · REQUIREMENTS (light) */}
+          04 · CONTROL (light): adjust, fix, batch, each with its screen. */}
+      <section className="relative bg-white px-6 py-24 text-neutral-950 sm:py-32">
+        <div className="mx-auto max-w-6xl">
+          <EyebrowChapter n="04" label="Control" />
+          <BigHeadline>Fine-tune it. Fix it. Queue it.</BigHeadline>
+          <Sub className="text-neutral-600">
+            Adjust how the new face sits, repair a spot on the finished video, or line up a whole
+            folder of videos with the same face.
+          </Sub>
+
+          <div className="mt-16 space-y-6">
+            {controls.map((c, i) => {
+              const Icon = c.icon;
+              return (
+                <div
+                  key={c.title}
+                  className="grid grid-cols-1 items-center gap-8 overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 lg:grid-cols-12 lg:gap-12"
+                >
+                  <div className={`lg:col-span-5 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-900 text-white">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <h3 className="mt-5 text-2xl font-semibold tracking-tight sm:text-3xl">{c.title}</h3>
+                    <p className="mt-3 text-base leading-relaxed text-neutral-600">{c.body}</p>
+                    <ul className="mt-5 flex flex-wrap gap-2">
+                      {c.chips.map((chip) => (
+                        <li key={chip} className="rounded-full border border-neutral-300 bg-white px-3 py-1 text-xs text-neutral-700">
+                          {chip}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <figure className={`lg:col-span-7 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
+                    <Shot src={c.img} alt={c.alt} light />
+                  </figure>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          05 · AND MORE (dark): what has no picture yet. */}
+      <section className="relative bg-black px-6 py-24 sm:py-32">
+        <div className="mx-auto max-w-6xl">
+          <EyebrowChapter n="05" label="And more" />
+          <BigHeadline>Everything else in the box.</BigHeadline>
+
+          <ul className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {features.map((f) => {
+              const Icon = f.icon;
+              return (
+                <li key={f.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+                  <Icon className="h-5 w-5 text-white/80" aria-hidden="true" />
+                  <h3 className="mt-4 text-base font-semibold tracking-tight">{f.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/55">{f.body}</p>
+                </li>
+              );
+            })}
+          </ul>
+
+          <p className="mx-auto mt-12 max-w-2xl text-center text-sm leading-relaxed text-white/45">
+            Only use faces you have the right to use. The app asks you to tick a box confirming it before it makes anything.
+          </p>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          06 · REQUIREMENTS (light) */}
       <section className="relative bg-white px-6 py-24 text-neutral-950 sm:py-32">
         <div className="mx-auto max-w-5xl">
-          <EyebrowChapter n="04" label="Requirements" />
+          <EyebrowChapter n="06" label="Requirements" />
           <BigHeadline>Check your PC first.</BigHeadline>
           <Sub className="text-neutral-600">
             Windows x64 with an NVIDIA RTX card. There is no Mac version, and AMD, Intel and older NVIDIA
@@ -645,10 +890,10 @@ export default function NanoFaceStudioVProPage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          05 · LICENSE (dark) */}
+          07 · LICENSE (dark) */}
       <section className="relative bg-black px-6 py-24 sm:py-32">
         <div className="mx-auto max-w-6xl">
-          <EyebrowChapter n="05" label="License" />
+          <EyebrowChapter n="07" label="License" />
           <BigHeadline>Pay once. One PC.</BigHeadline>
           <Sub className="text-white/60">
             {p.launch ? priceSentence(p) : `${p.current}, one time.`} No subscription, no credits, no
