@@ -795,6 +795,7 @@
             <button type="button" class="v5-ref-remove" data-idx="${i}" title="Remove">&times;</button>
           </div>
         </div>
+        <div class="npmf-slot" id="ref-save-${i}"></div>
         ${segPanelHtml}
       `;
       facesGrid.appendChild(card);
@@ -982,6 +983,8 @@
     placeholder.hidden = true;
     preview.hidden = false;
     if (card) card.classList.add("has-ref");
+    // A photo the person uploaded can be kept in My faces (asks first); a saved or virtual face needs no offer.
+    if (window.npMyFaces) window.npMyFaces.offerSave(document.getElementById(`ref-save-${i}`), file, { source: "facestudio" });
     updateGenButton();
   }
 
@@ -997,6 +1000,7 @@
     preview.hidden = true;
     if (input) input.value = "";
     if (card) card.classList.remove("has-ref");
+    if (window.npMyFaces) window.npMyFaces.clear(document.getElementById(`ref-save-${i}`));
     updateGenButton();
   }
 
@@ -1782,6 +1786,7 @@
       const file = new File([blob], tpl.name, {
         type: blob.type || "image/png",
       });
+      file.npSavedFace = "virtual"; // a virtual face is always here: nothing to save
       setRef(target, file);
       vfaceHint.textContent = `Used as reference for Face ${target + 1}.`;
     } catch (e) {
@@ -1790,6 +1795,22 @@
     } finally {
       if (btn) btn.classList.remove("loading");
     }
+  }
+
+  // ── My faces (public/my-faces.js): a saved face fills the next empty face card, like a virtual face ──
+  function useSavedFace(file) {
+    let target = null;
+    for (const f of detectedFaces) {
+      if (!refFiles[f.index]) { target = f.index; break; }
+    }
+    if (target == null && detectedFaces.length) target = detectedFaces[0].index;
+    if (target == null) return "Upload a body photo first to detect faces.";
+    setRef(target, file);
+    return `Used as reference for Face ${target + 1}.`;
+  }
+  const myFacesSlot = document.getElementById("my-faces-slot");
+  if (window.npMyFaces && myFacesSlot) {
+    window.npMyFaces.panel(myFacesSlot, { source: "facestudio", onPick: useSavedFace });
   }
 
   // initial state

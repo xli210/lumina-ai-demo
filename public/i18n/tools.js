@@ -135,7 +135,7 @@
     reveal();
   }
 
-  fetch("/i18n/tools-" + locale + ".json?v=5")
+  fetch("/i18n/tools-" + locale + ".json?v=6")
     .then(function (r) {
       return r.ok ? r.json() : {};
     })

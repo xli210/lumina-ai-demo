@@ -261,8 +261,11 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
           </div>
         </div>
         <p class="v5-detect-status">The hairstyle comes along with the face.</p>
+        <div id="headSaveSlot"></div>
       </div>
     </div>
+    <!-- My faces: the person's saved reference photos (public/my-faces.js) -->
+    <div id="myFacesSlot"></div>
   </section>
 
   <!-- Step 2: generate -->
@@ -337,6 +340,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
 <!-- config.js: window.HS_API_BASE (gateway address), window.HS_PRICING_URL, and how the page gets the user's
      entitlement token (window.HS_ENTITLEMENT or async window.HS_GET_ENTITLEMENT()) -->
 <script src="/out-of-credits.js"></script>
+<script src="/my-faces.js"></script>
 <script src="config.js"></script>
 <script>
 const $ = (id) => document.getElementById(id);
@@ -626,7 +630,7 @@ async function onHead(file) {
     S.head = file;
   }
   uploadFile(file, "head").then((k) => { if (S.head === file) { S.headKey = k; update(); } })
-    .catch((err) => { if (S.head === file) { S.head = null; S.headKey = null; $("headDrop").classList.remove("filled"); $("headDrop").querySelectorAll("img,.remove-btn").forEach((n) => n.remove()); $("headEmpty").hidden = false; update(); showError(err.message, err.requestId); } });
+    .catch((err) => { if (S.head === file) { S.head = null; S.headKey = null; if (window.npMyFaces) window.npMyFaces.clear($("headSaveSlot")); $("headDrop").classList.remove("filled"); $("headDrop").querySelectorAll("img,.remove-btn").forEach((n) => n.remove()); $("headEmpty").hidden = false; update(); showError(err.message, err.requestId); } });
   const drop = $("headDrop");
   drop.classList.add("filled");
   drop.querySelectorAll("img,.remove-btn").forEach((n) => n.remove());
@@ -635,7 +639,14 @@ async function onHead(file) {
   drop.appendChild(img);
   const rep = document.createElement("button"); rep.className = "remove-btn"; rep.type = "button"; rep.textContent = "Replace";
   drop.appendChild(rep);
+  // A head the person uploaded can be kept in My faces (asks first); one picked from My faces needs no offer.
+  if (window.npMyFaces) window.npMyFaces.offerSave($("headSaveSlot"), file, { source: "headswap-pro" });
   update();
+}
+
+// ---------- My faces (public/my-faces.js): a saved face becomes the new head
+if (window.npMyFaces && $("myFacesSlot")) {
+  window.npMyFaces.panel($("myFacesSlot"), { source: "headswap-pro", onPick: (file) => { onHead(file); return "Used as the new head."; } });
 }
 
 // ---------- options

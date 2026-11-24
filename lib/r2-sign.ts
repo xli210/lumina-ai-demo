@@ -119,9 +119,21 @@ export function presignR2Put(
   return presign(config, "PUT", objectKey, options);
 }
 
+/**
+ * Presign a DELETE, for the server to remove one object it owns (a face someone deleted from My faces).
+ * Used from the server only; never handed to a browser.
+ */
+export function presignR2Delete(
+  config: R2Config,
+  objectKey: string,
+  options: { expiresIn: number }
+): string {
+  return presign(config, "DELETE", objectKey, options);
+}
+
 function presign(
   config: R2Config,
-  method: "GET" | "PUT",
+  method: "GET" | "PUT" | "DELETE",
   objectKey: string,
   options: PresignOptions
 ): string {

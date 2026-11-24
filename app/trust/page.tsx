@@ -202,7 +202,7 @@ const PRIVACY_CLAIMS: PrivacyClaim[] = [
   {
     question: "How long is data retained?",
     answer:
-      "Account data (email, license, machine activation records) is retained while the account exists; deletion on request is supported via tech@nanopocket.ai. Online-tool uploads and results: Video FaceSwap 2.5 Online deletes uploads within 24 hours and a finished video 24 hours after it is made (7 days for an account that has added credits); Nano FaceStudio Online, Nano HeadSwap Pro and SpotEdit keep them in private storage until they are deleted on request or with the account. See the Privacy Policy, section 2.",
+      "Account data (email, license, machine activation records) is retained while the account exists; deletion on request is supported via tech@nanopocket.ai. Online-tool uploads and results: Video FaceSwap 2.5 Online deletes uploads within 24 hours and a finished video 24 hours after it is made (7 days for an account that has added credits); Nano FaceStudio Online, Nano HeadSwap Pro and SpotEdit keep them in private storage until they are deleted on request or with the account. A face someone chooses to save in My faces is kept until they delete it in the tool. See the Privacy Policy, section 2.",
   },
   {
     question: "Where are servers located?",
