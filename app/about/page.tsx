@@ -481,6 +481,21 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Directory listings (ToolPilot's free listing asks for a link back) */}
+      <section className="px-6 pb-12">
+        <p className="mx-auto max-w-3xl text-center text-xs text-muted-foreground">
+          Featured on{" "}
+          <a
+            href="https://www.toolpilot.ai"
+            target="_blank"
+            rel="noopener"
+            className="text-emerald-500 underline-offset-4 hover:underline"
+          >
+            ToolPilot.ai
+          </a>
+        </p>
+      </section>
+
       <Footer />
     </main>
   );
