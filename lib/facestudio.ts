@@ -12,6 +12,8 @@
  * Reference: facestudio_handoff/README_INTEGRATION.md
  */
 
+import { blackFridayOn } from "@/lib/black-friday";
+
 
 export const FACESTUDIO_DEFAULT_BASE_URL =
   "https://facestudio-gateway.onrender.com";
@@ -83,6 +85,33 @@ export function creditsForJob(
 ): number {
   const faces = Math.min(Math.max(Math.trunc(faceCount), 1), FACESTUDIO_MAX_FACES);
   return FACESTUDIO_PRICE_PER_FACE[mode] * faces;
+}
+
+/**
+ * Black Friday 2026 (owner's decision, 2026-11-23): a photo face swap costs half for an account
+ * that has bought credits, from the start of the sale to its end (lib/black-friday.ts). Head swap
+ * and accounts that have never bought credits keep the regular rate. The 10 is the price face swaps
+ * have been sold at all along, so "half price" is a real saving, and it ends on the sale's clock
+ * with nothing to switch off by hand.
+ */
+export const FACESTUDIO_MEMBER_FACE_SWAP_CREDITS = 5;
+
+/** Whether the members' face swap price applies right now to an account that has (or has not) bought credits. */
+export function memberFaceSwapPriceOn(paid: boolean, now: number = Date.now()): boolean {
+  return paid && blackFridayOn(now);
+}
+
+/** The per-face rate this account pays right now. `paid`: it has bought credits (the purchase record, server side). */
+export function creditsPerFaceFor(mode: FaceStudioMode, paid: boolean, now: number = Date.now()): number {
+  return mode === "face_swap" && memberFaceSwapPriceOn(paid, now)
+    ? FACESTUDIO_MEMBER_FACE_SWAP_CREDITS
+    : FACESTUDIO_PRICE_PER_FACE[mode];
+}
+
+/** `creditsForJob` at the rate this account pays right now. */
+export function creditsForJobFor(mode: FaceStudioMode, faceCount: number, paid: boolean, now: number = Date.now()): number {
+  const faces = Math.min(Math.max(Math.trunc(faceCount), 1), FACESTUDIO_MAX_FACES);
+  return creditsPerFaceFor(mode, paid, now) * faces;
 }
 
 /** The cheapest possible render — one face — for affordability checks. */

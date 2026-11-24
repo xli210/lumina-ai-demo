@@ -12,7 +12,7 @@ import {
   HEAD_SWAP_CREDITS,
   SIGNUP_FREE_SWAPS,
 } from "@/lib/face-studio-facts";
-import { FACESTUDIO_MAX_FACES, FREE_TOPUP_CREDITS } from "@/lib/facestudio";
+import { FACESTUDIO_MAX_FACES, FACESTUDIO_MEMBER_FACE_SWAP_CREDITS, FACESTUDIO_PRICE_PER_FACE, FREE_TOPUP_CREDITS, memberFaceSwapPriceOn } from "@/lib/facestudio";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_MIN_CREDITS, FACESTUDIO_V_MODES, FACESTUDIO_V_PRICE_LINE } from "@/lib/facestudio-v";
 import { HEADSWAP_PRO_NAME, HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS } from "@/lib/headswap-pro";
 import { IMAGEEDIT_NAME, IMAGEEDIT_CREDIT_TIERS } from "@/lib/imageedit";
@@ -67,6 +67,12 @@ function buildFacts() {
       runs: `${new Date(BLACK_FRIDAY_STARTS_AT).toISOString()} to ${new Date(BLACK_FRIDAY_ENDS_AT).toISOString()}`,
       on_now: blackFridayOn(),
       page: `${BASE}/black-friday`,
+      ...(memberFaceSwapPriceOn(true)
+        ? {
+            photo_face_swap_credits_per_face_after_buying_credits: FACESTUDIO_MEMBER_FACE_SWAP_CREDITS,
+            photo_face_swap_credits_per_face_otherwise: FACESTUDIO_PRICE_PER_FACE.face_swap,
+          }
+        : {}),
     },
     credits: {
       credits_per_usd: CREDITS_PER_USD,

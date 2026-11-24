@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Check, Coins, Film, Laptop, Palette, Sparkles, Tag } from "lucide-react";
+import { ArrowRight, Check, Coins, Film, Laptop, Palette, ScanFace, Sparkles, Tag } from "lucide-react";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ import {
 } from "@/lib/black-friday";
 import { CREDIT_PACKS, formatPackListPrice, packChargeCents, packPercentOff, totalCredits } from "@/lib/credit-packs";
 import type { BlackFridayCopy } from "@/lib/black-friday-copy";
+import { FACESTUDIO_MEMBER_FACE_SWAP_CREDITS, FACESTUDIO_PRICE_PER_FACE, memberFaceSwapPriceOn } from "@/lib/facestudio";
 
 
 const fill = (s: string, v: Record<string, string>) => s.replace(/\{(\w+)\}/g, (m, k: string) => v[k] ?? m);
@@ -258,6 +259,33 @@ export function BlackFridayPage({ c, href }: { c: BlackFridayCopy; href: (path: 
               <Button asChild className="rounded-full">
                 <Link href={href("/neo")}>
                   {c.neo.cta} <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </article>
+          )}
+
+          {/* 4b. Half-price photo face swaps for accounts that have bought credits */}
+          {memberFaceSwapPriceOn(true, now) && (
+            <article className={card} id="photo-face-swap">
+              <Badge>{c.photoSwap.badge}</Badge>
+              <h3 className="flex items-start gap-3 text-2xl font-bold text-foreground">
+                <ScanFace className="mt-1 h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
+                {c.photoSwap.title}
+              </h3>
+              <p className="mt-3 flex items-baseline gap-3">
+                <span className="text-lg text-muted-foreground line-through">{FACESTUDIO_PRICE_PER_FACE.face_swap} credits</span>
+                <span className="text-3xl font-bold text-foreground">{FACESTUDIO_MEMBER_FACE_SWAP_CREDITS} credits</span>
+                <span className="text-sm text-muted-foreground">per face</span>
+              </p>
+              <p className="mt-2 text-sm font-medium text-amber-600 dark:text-amber-300">Until {BLACK_FRIDAY_ENDS_LABEL}</p>
+              <p className="my-4 text-foreground/85">
+                {c.photoSwap.body
+                  .replaceAll("{member}", String(FACESTUDIO_MEMBER_FACE_SWAP_CREDITS))
+                  .replaceAll("{regular}", String(FACESTUDIO_PRICE_PER_FACE.face_swap))}
+              </p>
+              <Button asChild className="rounded-full">
+                <Link href={href("/face-studio")}>
+                  {c.photoSwap.cta} <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             </article>

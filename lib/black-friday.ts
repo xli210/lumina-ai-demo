@@ -16,6 +16,9 @@
  * - Nano FaceStudio V Pro goes on sale at a launch price of $84.90, and $119.90 after the sale. Shown
  *   as $119.90 struck through next to $84.90 (owner's choice, 2026-11-23), always with the date the
  *   $119.90 applies from.
+ * - Photo face swaps in Face Studio Online cost 5 credits per face instead of 10 for an account that
+ *   has bought credits (owner's decision, 2026-11-23); everyone else, and head swaps, keep the
+ *   regular price. The rule lives in lib/facestudio.ts (`creditsPerFaceFor`).
  * - Neo (the video model) costs 30% fewer credits until 28 November; that offer lives in
  *   lib/facestudio-v.ts and is listed with the rest on /black-friday.
  *

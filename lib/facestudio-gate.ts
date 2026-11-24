@@ -10,6 +10,9 @@ import {
 } from "@/lib/credits-server";
 import {
   DETECT_MIN_BALANCE,
+  FACESTUDIO_MEMBER_FACE_SWAP_CREDITS,
+  creditsForMode,
+  memberFaceSwapPriceOn,
   FACESTUDIO_SERVICE,
   FREE_TOPUP_CREDITS,
   FREE_TOPUP_FREQUENCY,
@@ -17,6 +20,7 @@ import {
   isFaceStudioJobId,
 } from "@/lib/facestudio";
 import { suggestPack, suggestionSentence, topUpPath } from "@/lib/credit-packs";
+import { BLACK_FRIDAY_ENDS_LABEL } from "@/lib/black-friday";
 import { todayUtc } from "@/lib/demo-quota";
 import type { CreditAccountState } from "@/lib/credits";
 
@@ -126,18 +130,27 @@ export async function requireSpendableBalance(): Promise<FaceStudioGate> {
     };
   }
 
-  if (account.available < DETECT_MIN_BALANCE) {
+  // During Black Friday an account that has bought credits pays the members' face swap price, so it
+  // can still detect with that much left. `lifetime_purchased` is enough here: the render route
+  // decides the price from the purchase record.
+  const paid = account.lifetime_purchased > 0;
+  const minBalance = memberFaceSwapPriceOn(paid) ? Math.min(DETECT_MIN_BALANCE, FACESTUDIO_MEMBER_FACE_SWAP_CREDITS) : DETECT_MIN_BALANCE;
+  if (account.available < minBalance) {
+    const memberOffer =
+      !paid && memberFaceSwapPriceOn(true)
+        ? ` Black Friday: once you have bought credits, a face swap costs ${FACESTUDIO_MEMBER_FACE_SWAP_CREDITS} credits instead of ${creditsForMode("face_swap")}, until ${BLACK_FRIDAY_ENDS_LABEL}.`
+        : "";
     return {
       ok: false,
       response: privateJson(
         {
           detail:
             `You have used your free credits. Buy credits to keep going: ${suggestionSentence()} Free ` +
-            `credits are topped up to ${FREE_TOPUP_CREDITS} ${FREE_TOPUP_FREQUENCY}.`,
+            `credits are topped up to ${FREE_TOPUP_CREDITS} ${FREE_TOPUP_FREQUENCY}.` + memberOffer,
           reason: "insufficient_credits",
-          required: DETECT_MIN_BALANCE,
+          required: minBalance,
           available: account.available,
-          shortfall: DETECT_MIN_BALANCE - account.available,
+          shortfall: minBalance - account.available,
           suggested_pack: suggestPack(0).id,
           topup_url: topUpPath(suggestPack(0), "fs_free_used"),
         },

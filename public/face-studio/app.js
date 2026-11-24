@@ -34,6 +34,22 @@
    * reference photos supplied.
    */
   const PRICES = { face_swap: 10, head_swap: 20 };
+  /** The regular rates, kept for wording ("regular 10") when this account pays a sale price. */
+  const REGULAR_PRICES = { ...PRICES };
+  /**
+   * Black Friday: half-price face swaps for accounts that have bought credits. Filled from
+   * /api/credits/balance ({ face_swap, member, until } or null); PRICES then holds this account's rates.
+   * Display only: the render route prices every job from the purchase record.
+   */
+  let memberOffer = null;
+
+  /** One sentence about the members' face swap price for this account, or "" when it does not apply. */
+  function memberOfferLine(mode) {
+    if (!memberOffer || mode !== "face_swap") return "";
+    return memberOffer.member
+      ? ` Black Friday members' price (regular ${REGULAR_PRICES.face_swap} per face), until ${memberOffer.until}.`
+      : ` Black Friday: once you have bought credits, a face swap costs ${memberOffer.face_swap} credits instead of ${REGULAR_PRICES.face_swap}, until ${memberOffer.until}.`;
+  }
 
   /** What this render will cost, given how many references are attached. */
   function priceFor(mode, faceCount) {
@@ -152,6 +168,19 @@
       const res = await fetch("/api/credits/balance", { cache: "no-store" });
       if (!res.ok) return;
       const data = await res.json();
+      if (data.facestudio_prices && typeof data.facestudio_prices.face_swap === "number") {
+        PRICES.face_swap = data.facestudio_prices.face_swap;
+        if (typeof data.facestudio_prices.head_swap === "number") PRICES.head_swap = data.facestudio_prices.head_swap;
+      }
+      memberOffer = data.facestudio_member_offer && typeof data.facestudio_member_offer.face_swap === "number" ? data.facestudio_member_offer : null;
+      if (wmBanner && !wmBanner.dataset.offer && memberOffer && !memberOffer.member) {
+        // Said once, before the first render: a top-up now also halves the face swap price.
+        const note = document.createElement("span");
+        note.className = "wm-banner-offer";
+        note.textContent = ` Until ${memberOffer.until} (Black Friday), it also makes every face swap ${memberOffer.face_swap} credits instead of ${REGULAR_PRICES.face_swap}.`;
+        wmBanner.querySelector(".wm-banner-text")?.appendChild(note);
+        wmBanner.dataset.offer = "1";
+      }
       setCredits(data.available);
       // Say so before the render, not only after: free accounts get a watermark.
       const wm = data.watermark_applies === true;
@@ -987,8 +1016,8 @@
     const perFace = PRICES[selectedMode] || PRICES.face_swap;
     const cost =
       selectedCount > 1
-        ? `Costs ${price} credits — ${perFace} per face × ${selectedCount}.`
-        : `Costs ${price} credits.`;
+        ? `Costs ${price} credits — ${perFace} per face × ${selectedCount}.${memberOfferLine(selectedMode)}`
+        : `Costs ${price} credits.${memberOfferLine(selectedMode)}`;
 
     if (!bodyFile) {
       actionHint.textContent = "Upload a photo to begin.";
@@ -1003,7 +1032,7 @@
             `Swapping ${selectedCount} face${selectedCount === 1 ? "" : "s"} ` +
               `costs ${price} credits and you have ${creditsAvailable}. Swap ` +
               `fewer faces, or buy credits. Free credits are topped up to ` +
-              `${FREE_TOPUP_CREDITS} ${FREE_TOPUP_FREQUENCY}.`
+              `${FREE_TOPUP_CREDITS} ${FREE_TOPUP_FREQUENCY}.${memberOfferLine(selectedMode)}`
           ),
           { needsTopUp: true }
         )

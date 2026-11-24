@@ -15,15 +15,19 @@ import {
 } from "@/lib/credits-server";
 import { needsWatermark, watermarkEnabled } from "@/lib/facestudio-watermark";
 import { suggestPack, suggestionSentence, topUpPath } from "@/lib/credit-packs";
+import { BLACK_FRIDAY_CAMPAIGN, BLACK_FRIDAY_ENDS_LABEL } from "@/lib/black-friday";
 import {
   FACESTUDIO_HOLD_TTL_SECONDS,
   FACESTUDIO_MAX_FACES,
   FACESTUDIO_SERVICE,
   FREE_TOPUP_CREDITS,
+  FACESTUDIO_MEMBER_FACE_SWAP_CREDITS,
   FREE_TOPUP_FREQUENCY,
-  creditsForJob,
+  creditsForJobFor,
   creditsForMode,
+  creditsPerFaceFor,
   isFaceStudioMode,
+  memberFaceSwapPriceOn,
   isStorageKey,
   type FaceStudioMode,
 } from "@/lib/facestudio";
@@ -177,7 +181,6 @@ export async function POST(req: NextRequest) {
   // references actually supplied, not the faces detected: swapping one person
   // out of a crowd is one face of work.
   const faceCount = Object.keys(parsed.refs).length;
-  const price = creditsForJob(parsed.mode, faceCount);
 
   // Hand out a free top-up if one is due before reserving, so the first renders
   // are paid for by it rather than out of a purchased balance.
@@ -189,14 +192,27 @@ export async function POST(req: NextRequest) {
     return privateJson({ detail: "Could not check your balance." }, 500);
   }
 
+  // Has this account ever bought credits? From the purchase record, never from the request. It sets
+  // the number of renders at a time and, during Black Friday, the members' face swap price; a failed
+  // lookup counts as not paid (one render at a time, regular price).
+  let isPaid = false;
+  try {
+    isPaid = await hasEverPurchased(userId);
+  } catch (err: unknown) {
+    console.error("[facestudio] purchase lookup failed:", err instanceof Error ? err.message : err);
+  }
+  const now = Date.now();
+  const perFace = creditsPerFaceFor(parsed.mode, isPaid, now);
+  const price = creditsForJobFor(parsed.mode, faceCount, isPaid, now);
+  const memberPrice = parsed.mode === "face_swap" && memberFaceSwapPriceOn(isPaid, now);
+  // Said in the "not enough credits" reply to an account that has not bought yet: what a top-up would change here.
+  const memberOffer =
+    parsed.mode === "face_swap" && !isPaid && memberFaceSwapPriceOn(true, now)
+      ? ` Black Friday: once you have bought credits, a face swap costs ${FACESTUDIO_MEMBER_FACE_SWAP_CREDITS} credits instead of ${creditsForMode("face_swap")}, until ${BLACK_FRIDAY_ENDS_LABEL}.`
+      : "";
+
   try {
     // An account that has never bought credits runs one render at a time, one that has runs three: a few free accounts cannot hold the line.
-    let isPaid = false;
-    try {
-      isPaid = await hasEverPurchased(userId);
-    } catch (err: unknown) {
-      console.error("[facestudio] purchase lookup for the cap failed:", err instanceof Error ? err.message : err);
-    }
     const inFlight = await countOpenHolds(FACESTUDIO_SERVICE, userId);
     if (inFlight >= (isPaid ? MAX_CONCURRENT_RENDERS_PAID : MAX_CONCURRENT_RENDERS_FREE)) {
       return privateJson(
@@ -244,10 +260,11 @@ export async function POST(req: NextRequest) {
       estimate: {
         mode: parsed.mode,
         faces: faceCount,
-        credits_per_face: creditsForMode(parsed.mode),
+        credits_per_face: perFace,
         // Bumped whenever the pricing formula changes, so historical holds
         // stay interpretable when the rate no longer matches today's.
-        price_version: 2,
+        price_version: 3,
+        ...(memberPrice ? { promo: BLACK_FRIDAY_CAMPAIGN } : {}),
         // The photo as uploaded (the gateway's S3_INPUT_PREFIX), so "My images" can show it beside the result.
         target_key: `${process.env.FACESTUDIO_INPUT_PREFIX || "facestudio/input"}/${parsed.detectionId}`,
         // Kept on the hold so the status and result routes can refuse a render
@@ -270,7 +287,7 @@ export async function POST(req: NextRequest) {
           `Swapping ${faceCount} face${faceCount === 1 ? "" : "s"} costs ` +
           `${price} credits and you have ${hold.available}. Swap fewer faces, ` +
           `or buy credits: ${suggestionSentence(shortfall)} Free credits are topped up to ${FREE_TOPUP_CREDITS} ` +
-          `${FREE_TOPUP_FREQUENCY}.`,
+          `${FREE_TOPUP_FREQUENCY}.` + memberOffer,
         reason: "insufficient_credits",
         required: price,
         available: hold.available,

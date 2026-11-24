@@ -24,6 +24,8 @@ export interface BlackFridayCopy {
   vPro: { badge: string; title: string; body: string; bullets: string[]; cta: string; more: string; noTrial: string };
   credits: { badge: string; title: string; body: string; thPack: string; thPrice: string; thCredits: string; starterNote: string; autoNote: string; cta: string };
   neo: { badge: string; title: string; body: string; cta: string };
+  /** Half-price photo face swaps for accounts that have bought credits. {member} {regular}: credits per face. */
+  photoSwap: { badge: string; title: string; body: string; cta: string };
   apps: { badge: string; title: string; body: string; trialNote: string; cta: string };
   finePrintHeading: string;
   finePrint: string[];
@@ -114,6 +116,13 @@ const en: BlackFridayCopy = {
     body:
       "Neo is our new video model: it redraws the face frame by frame, so the result looks like your photo. During launch week, every Neo video costs 30% fewer credits, and this stacks with the credit pack discount.",
     cta: "Try Neo",
+  },
+  photoSwap: {
+    badge: "Members only",
+    title: "Photo face swaps at half price",
+    body:
+      "Once your account has bought credits, any credit pack, a photo face swap in Face Studio Online costs {member} credits per face instead of {regular}. Accounts that have not bought credits pay the regular {regular}. Head swaps keep their price.",
+    cta: "Open Face Studio",
   },
   apps: {
     badge: "Desktop apps",
@@ -217,6 +226,13 @@ const zhCN: BlackFridayCopy = {
       "Neo 是我们的全新视频模型：它逐帧重绘面部，让结果看起来就像你的照片。上线周期间，每个 Neo 视频少用 30% 积分，并可与积分包折扣叠加。",
     cta: "试用 Neo",
   },
+  photoSwap: {
+    badge: "充值会员专享",
+    title: "照片换脸半价",
+    body:
+      "账号只要充值过任意积分包，在 Face Studio Online 中照片换脸每张脸只需 {member} 积分，原价 {regular}。未充值的账号仍按原价 {regular} 积分。换头价格不变。",
+    cta: "打开 Face Studio",
+  },
   apps: {
     badge: "桌面应用",
     title: "其他桌面应用优惠 30%",
@@ -318,6 +334,13 @@ const ja: BlackFridayCopy = {
     body:
       "Neo は新しい動画モデルです。顔を1フレームずつ描き直すので、仕上がりがあなたの写真にそっくりになります。ローンチウィーク中は、すべての Neo 動画が 30% 少ないクレジットで作れ、クレジットパックの割引とも併用できます。",
     cta: "Neo を試す",
+  },
+  photoSwap: {
+    badge: "購入者限定",
+    title: "写真の顔交換が半額",
+    body:
+      "どのクレジットパックでも一度購入したアカウントなら、Face Studio Online の写真の顔交換が 1 顔あたり {regular} クレジットではなく {member} クレジットになります。購入していないアカウントは通常どおり {regular} クレジットです。ヘッドスワップの価格は変わりません。",
+    cta: "Face Studio を開く",
   },
   apps: {
     badge: "デスクトップアプリ",
@@ -421,6 +444,13 @@ const ko: BlackFridayCopy = {
       "Neo는 새로운 동영상 모델입니다. 얼굴을 프레임마다 다시 그려서 결과물이 내 사진처럼 보입니다. 출시 주간에는 모든 Neo 동영상에 크레딧이 30% 적게 들며, 크레딧 팩 할인과 함께 적용됩니다.",
     cta: "Neo 사용해 보기",
   },
+  photoSwap: {
+    badge: "구매 회원 전용",
+    title: "사진 얼굴 교체 반값",
+    body:
+      "크레딧 팩을 한 번이라도 구매한 계정은 Face Studio Online의 사진 얼굴 교체가 얼굴당 {regular} 크레딧 대신 {member} 크레딧입니다. 구매하지 않은 계정은 기존 가격 {regular} 크레딧이 그대로 적용됩니다. 헤드 스왑 가격은 바뀌지 않습니다.",
+    cta: "Face Studio 열기",
+  },
   apps: {
     badge: "데스크톱 앱",
     title: "다른 데스크톱 앱 30% 할인",
@@ -522,6 +552,13 @@ const es: BlackFridayCopy = {
     body:
       "Neo es nuestro nuevo modelo de vídeo: redibuja la cara fotograma a fotograma, para que el resultado se parezca a tu foto. Durante la semana de lanzamiento, cada vídeo Neo cuesta un 30% menos de créditos, y se suma al descuento de los paquetes de créditos.",
     cta: "Probar Neo",
+  },
+  photoSwap: {
+    badge: "Solo para miembros",
+    title: "Cambio de cara en fotos a mitad de precio",
+    body:
+      "Si tu cuenta ya ha comprado créditos (cualquier paquete), cambiar una cara en una foto con Face Studio Online cuesta {member} créditos por cara en lugar de {regular}. Las cuentas que no han comprado créditos pagan el precio normal de {regular}. El cambio de cabeza mantiene su precio.",
+    cta: "Abrir Face Studio",
   },
   apps: {
     badge: "Apps de escritorio",
@@ -625,6 +662,13 @@ const ptBR: BlackFridayCopy = {
       "Neo é nosso novo modelo de vídeo: ele redesenha o rosto quadro a quadro, para que o resultado fique parecido com a sua foto. Durante a semana de lançamento, cada vídeo Neo custa 30% menos créditos, e isso se soma ao desconto do pacote de créditos.",
     cta: "Experimentar o Neo",
   },
+  photoSwap: {
+    badge: "Só para membros",
+    title: "Troca de rosto em fotos pela metade do preço",
+    body:
+      "Se a sua conta já comprou créditos (qualquer pacote), trocar um rosto em uma foto no Face Studio Online custa {member} créditos por rosto em vez de {regular}. Contas que não compraram créditos pagam o preço normal de {regular}. A troca de cabeça mantém o preço.",
+    cta: "Abrir o Face Studio",
+  },
   apps: {
     badge: "Apps para desktop",
     title: "30% de desconto nos nossos outros apps para desktop",
@@ -727,6 +771,13 @@ const de: BlackFridayCopy = {
       "Neo ist unser neues Videomodell: Es zeichnet das Gesicht Bild für Bild neu, damit das Ergebnis aussieht wie auf deinem Foto. In der Startwoche kostet jedes Neo-Video 30% weniger Credits, zusätzlich zum Rabatt auf Credit-Pakete.",
     cta: "Neo ausprobieren",
   },
+  photoSwap: {
+    badge: "Nur für Mitglieder",
+    title: "Foto-Face-Swaps zum halben Preis",
+    body:
+      "Hat dein Konto schon Credits gekauft (egal welches Paket), kostet ein Foto-Face-Swap in Face Studio Online {member} statt {regular} Credits pro Gesicht. Konten ohne Kauf zahlen weiter den normalen Preis von {regular}. Head-Swaps behalten ihren Preis.",
+    cta: "Face Studio öffnen",
+  },
   apps: {
     badge: "Desktop-Apps",
     title: "30% Rabatt auf unsere anderen Desktop-Apps",
@@ -828,6 +879,13 @@ const fr: BlackFridayCopy = {
     body:
       "Neo est notre nouveau modèle vidéo : il redessine le visage image par image, pour un résultat qui ressemble à votre photo. Pendant la semaine de lancement, chaque vidéo Neo coûte 30% de crédits en moins, en plus de la remise sur les packs de crédits.",
     cta: "Essayer Neo",
+  },
+  photoSwap: {
+    badge: "Réservé aux membres",
+    title: "Échange de visage sur photo à moitié prix",
+    body:
+      "Si votre compte a déjà acheté des crédits (n’importe quel pack), un échange de visage sur photo dans Face Studio Online coûte {member} crédits par visage au lieu de {regular}. Les comptes qui n’ont pas acheté de crédits paient le prix normal de {regular}. L’échange de tête garde son prix.",
+    cta: "Ouvrir Face Studio",
   },
   apps: {
     badge: "Applications de bureau",

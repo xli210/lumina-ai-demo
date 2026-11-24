@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { ensureSignupGrant } from "@/lib/credits-server";
 import { watermarkEnabled } from "@/lib/facestudio-watermark";
+import { BLACK_FRIDAY_ENDS_LABEL } from "@/lib/black-friday";
+import { FACESTUDIO_MEMBER_FACE_SWAP_CREDITS, creditsPerFaceFor, memberFaceSwapPriceOn } from "@/lib/facestudio";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -42,6 +44,16 @@ export async function GET() {
       // Only a hint for the Face Studio console to warn before a render. The render
       // route decides the real thing from the purchase record, never from this.
       watermark_applies: watermarkEnabled() && account.lifetime_purchased === 0,
+      // Face Studio's per-face prices for this account right now (Black Friday: half-price face swaps
+      // once it has bought credits). Display only: the render route prices from the purchase record.
+      facestudio_prices: {
+        face_swap: creditsPerFaceFor("face_swap", account.lifetime_purchased > 0),
+        head_swap: creditsPerFaceFor("head_swap", account.lifetime_purchased > 0),
+      },
+      // The members' price, while it runs: `member` is whether this account already pays it.
+      facestudio_member_offer: memberFaceSwapPriceOn(true)
+        ? { face_swap: FACESTUDIO_MEMBER_FACE_SWAP_CREDITS, member: account.lifetime_purchased > 0, until: BLACK_FRIDAY_ENDS_LABEL }
+        : null,
     });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";
