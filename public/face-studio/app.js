@@ -352,6 +352,19 @@
       link.href = err.topUpUrl || SUGGESTED_TOPUP_URL;
       link.textContent = "Buy credits";
       actionHint.append(link);
+      // What a purchase gets here, in face swaps (public/out-of-credits.js).
+      if (window.npOutOfCredits) {
+        const perks = [];
+        if (memberOffer && !memberOffer.member) {
+          perks.push(`Makes every face swap ${memberOffer.face_swap} credits instead of ${REGULAR_PRICES.face_swap} (Black Friday, until ${memberOffer.until})`);
+        }
+        window.npOutOfCredits(actionHint, {
+          href: link.href,
+          unitCredits: PRICES.face_swap,
+          unitLabel: "face swaps",
+          perks,
+        });
+      }
     } else if (err.needsSignIn) {
       const link = document.createElement("a");
       link.href = "/auth/login?next=/face-studio";
@@ -1016,8 +1029,14 @@
     const perFace = PRICES[selectedMode] || PRICES.face_swap;
     const cost =
       selectedCount > 1
-        ? `Costs ${price} credits — ${perFace} per face × ${selectedCount}.${memberOfferLine(selectedMode)}`
-        : `Costs ${price} credits.${memberOfferLine(selectedMode)}`;
+        ? `Costs ${price} credits — ${perFace} per face × ${selectedCount}.`
+        : `Costs ${price} credits.`;
+    // The Black Friday line goes in a node of its own, so the page's translation (public/i18n/tools.js,
+    // which matches whole text nodes) still recognises the hint before it.
+    const withMemberLine = () => {
+      const line = memberOfferLine(selectedMode).trim();
+      if (line) actionHint.append(" ", Object.assign(document.createElement("span"), { textContent: line }));
+    };
 
     if (!bodyFile) {
       actionHint.textContent = "Upload a photo to begin.";
@@ -1032,7 +1051,7 @@
             `Swapping ${selectedCount} face${selectedCount === 1 ? "" : "s"} ` +
               `costs ${price} credits and you have ${creditsAvailable}. Swap ` +
               `fewer faces, or buy credits. Free credits are topped up to ` +
-              `${FREE_TOPUP_CREDITS} ${FREE_TOPUP_FREQUENCY}.${memberOfferLine(selectedMode)}`
+              `${FREE_TOPUP_CREDITS} ${FREE_TOPUP_FREQUENCY}.`
           ),
           { needsTopUp: true }
         )
@@ -1043,6 +1062,7 @@
       actionHint.textContent = `Ready: head swap (whole-head replacement, slower). ${cost}`;
     } else {
       actionHint.textContent = `Ready: ${selectedCount} face(s) will be swapped. ${cost}`;
+      withMemberLine();
     }
   }
 

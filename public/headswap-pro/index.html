@@ -336,6 +336,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
 
 <!-- config.js: window.HS_API_BASE (gateway address), window.HS_PRICING_URL, and how the page gets the user's
      entitlement token (window.HS_ENTITLEMENT or async window.HS_GET_ENTITLEMENT()) -->
+<script src="/out-of-credits.js"></script>
 <script src="config.js"></script>
 <script>
 const $ = (id) => document.getElementById(id);
@@ -506,6 +507,8 @@ function showTopUp(msg, path) {
   const href = typeof path === "string" && path.charAt(0) === "/" ? path : "/credits?pack=starter";
   box.innerHTML = escapeHtml(msg) + ' <a href="' + escapeHtml(href) + '" target="_blank" rel="noopener"><strong>Buy credits</strong></a>, then come back and try again.';
   box.hidden = false;
+  // What a purchase gets here, in head swap photos (public/out-of-credits.js).
+  if (window.npOutOfCredits) window.npOutOfCredits(box, { href: href, unitCredits: 20, unitLabel: "head swap photos" });
 }
 function clearError() { $("errorBox").hidden = true; }
 

@@ -45,6 +45,13 @@ export const FACESTUDIO_V_DEMO = FACESTUDIO_V_PAGE;
 export const FACESTUDIO_V_SERVICE = "facestudio-v";
 /** A Fast clip has cost at least this much (holds since 10/26). A real price depends on the clip and is shown before it starts. */
 export const FACESTUDIO_V_MIN_CREDITS = 25;
+/**
+ * A 10-second 1080p Fast video at its regular price (the studio's formula in Matrix
+ * swap_pipelines/credits.py: 25 credits at 24-25 fps, about 27 at 30 fps). Used to say what a pack makes.
+ */
+export const FACESTUDIO_V_FAST_10S_CREDITS = 25;
+/** Video lengths the studio allows, in seconds: after a top-up, and before one (STUDIO_FREE_MAX_SECONDS*). */
+export const FACESTUDIO_V_MAX_SECONDS = { full: 60, free: 5, head: 12, headFree: 3 } as const;
 
 /** The modes the studio page can send with a reservation, and what each is called to people. */
 export const FACESTUDIO_V_MODES: Record<string, string> = {

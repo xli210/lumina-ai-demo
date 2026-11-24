@@ -401,5 +401,17 @@
   "Send": "发送",
   "Thanks! We read every answer.": "谢谢！每条反馈我们都会看。",
   "Could not send. Try again.": "发送失败，请重试。",
-  "Thanks for rating this result.": "你已经评价过这个结果，谢谢。"
+  "Thanks for rating this result.": "你已经评价过这个结果，谢谢。",
+  "About {n} head swap photos.": "约可换头 {n} 张照片。",
+  "About {n} face swaps.": "约可换脸 {n} 次。",
+  "About {n} edits of a photo this size.": "这个尺寸的照片约可编辑 {n} 次。",
+  "Credits never expire, no subscription.": "积分永不过期，无需订阅。",
+  "Your first top-up, with any pack, also:": "首次充值（任意套餐）还会：",
+  "Removes the watermark from your photos and videos": "去掉照片和视频上的水印",
+  "Unlocks videos up to {n} seconds ({m} s for head swap) and the front of the video line": "解锁最长 {n} 秒的视频（换头 {m} 秒），视频优先排队",
+  "Makes every face swap {n} credits instead of {m} (Black Friday, until Dec 24, 11:59 pm PT)": "每次换脸只需 {n} 积分，原价 {m}（黑五，截至 Dec 24, 11:59 pm PT）",
+  "Then come back to this tab and try again.": "充值后回到这个页面再试一次。",
+  "Black Friday members' price (regular {n} per face), until Dec 24, 11:59 pm PT.": "黑五会员价（原价每张脸 {n} 积分），截至 Dec 24, 11:59 pm PT。",
+  "Black Friday: once you have bought credits, a face swap costs {n} credits instead of {m}, until Dec 24, 11:59 pm PT.": "黑五：充值后，每次换脸只需 {n} 积分，原价 {m}，截至 Dec 24, 11:59 pm PT。",
+  "Until Dec 24, 11:59 pm PT (Black Friday), it also makes every face swap {n} credits instead of {m}.": "黑五期间（截至 Dec 24, 11:59 pm PT），充值后每次换脸也只需 {n} 积分，原价 {m}。"
 }

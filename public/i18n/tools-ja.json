@@ -401,5 +401,17 @@
   "Send": "送信",
   "Thanks! We read every answer.": "ありがとうございます！すべての回答に目を通しています。",
   "Could not send. Try again.": "送信できませんでした。もう一度お試しください。",
-  "Thanks for rating this result.": "この結果は評価済みです。ありがとうございます。"
+  "Thanks for rating this result.": "この結果は評価済みです。ありがとうございます。",
+  "About {n} head swap photos.": "ヘッドスワップ写真 約 {n} 枚分。",
+  "About {n} face swaps.": "顔交換 約 {n} 回分。",
+  "About {n} edits of a photo this size.": "このサイズの写真の編集 約 {n} 回分。",
+  "Credits never expire, no subscription.": "クレジットに有効期限はなく、サブスクリプションも不要です。",
+  "Your first top-up, with any pack, also:": "初めてのチャージで（どのパックでも）さらに：",
+  "Removes the watermark from your photos and videos": "写真と動画のウォーターマークがなくなります",
+  "Unlocks videos up to {n} seconds ({m} s for head swap) and the front of the video line": "最長 {n} 秒の動画（ヘッドスワップは {m} 秒）と、動画の優先処理が使えます",
+  "Makes every face swap {n} credits instead of {m} (Black Friday, until Dec 24, 11:59 pm PT)": "顔交換が毎回 {m} ではなく {n} クレジット（ブラックフライデー、Dec 24, 11:59 pm PT まで）",
+  "Then come back to this tab and try again.": "購入後、このタブに戻ってもう一度お試しください。",
+  "Black Friday members' price (regular {n} per face), until Dec 24, 11:59 pm PT.": "ブラックフライデー会員価格（通常 1 顔 {n} クレジット）、Dec 24, 11:59 pm PT まで。",
+  "Black Friday: once you have bought credits, a face swap costs {n} credits instead of {m}, until Dec 24, 11:59 pm PT.": "ブラックフライデー：クレジットを購入すると、顔交換が {m} ではなく {n} クレジットに（Dec 24, 11:59 pm PT まで）。",
+  "Until Dec 24, 11:59 pm PT (Black Friday), it also makes every face swap {n} credits instead of {m}.": "ブラックフライデー期間中（Dec 24, 11:59 pm PT まで）は、顔交換も {m} ではなく {n} クレジットになります。"
 }

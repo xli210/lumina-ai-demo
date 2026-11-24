@@ -400,5 +400,17 @@
   "Send": "Envoyer",
   "Thanks! We read every answer.": "Merci ! Nous lisons chaque réponse.",
   "Could not send. Try again.": "Envoi impossible. Réessayez.",
-  "Thanks for rating this result.": "Merci d'avoir noté ce résultat."
+  "Thanks for rating this result.": "Merci d'avoir noté ce résultat.",
+  "About {n} head swap photos.": "Environ {n} photos avec échange de tête.",
+  "About {n} face swaps.": "Environ {n} échanges de visage.",
+  "About {n} edits of a photo this size.": "Environ {n} retouches d'une photo de cette taille.",
+  "Credits never expire, no subscription.": "Les crédits n'expirent pas, sans abonnement.",
+  "Your first top-up, with any pack, also:": "Votre première recharge, avec n'importe quel pack, en plus :",
+  "Removes the watermark from your photos and videos": "Retire le filigrane de vos photos et vidéos",
+  "Unlocks videos up to {n} seconds ({m} s for head swap) and the front of the video line": "Débloque les vidéos jusqu'à {n} secondes ({m} s pour l'échange de tête) et la tête de la file d'attente vidéo",
+  "Makes every face swap {n} credits instead of {m} (Black Friday, until Dec 24, 11:59 pm PT)": "Chaque échange de visage coûte {n} crédits au lieu de {m} (Black Friday, jusqu'au Dec 24, 11:59 pm PT)",
+  "Then come back to this tab and try again.": "Revenez ensuite à cet onglet et réessayez.",
+  "Black Friday members' price (regular {n} per face), until Dec 24, 11:59 pm PT.": "Prix membre Black Friday (normalement {n} par visage), jusqu'au Dec 24, 11:59 pm PT.",
+  "Black Friday: once you have bought credits, a face swap costs {n} credits instead of {m}, until Dec 24, 11:59 pm PT.": "Black Friday : une fois des crédits achetés, un échange de visage coûte {n} crédits au lieu de {m}, jusqu'au Dec 24, 11:59 pm PT.",
+  "Until Dec 24, 11:59 pm PT (Black Friday), it also makes every face swap {n} credits instead of {m}.": "Jusqu'au Dec 24, 11:59 pm PT (Black Friday), chaque échange de visage coûte aussi {n} crédits au lieu de {m}."
 }

@@ -400,5 +400,17 @@
   "Send": "보내기",
   "Thanks! We read every answer.": "감사합니다! 모든 답변을 읽습니다.",
   "Could not send. Try again.": "보내지 못했어요. 다시 시도해 주세요.",
-  "Thanks for rating this result.": "이미 평가한 결과예요. 감사합니다."
+  "Thanks for rating this result.": "이미 평가한 결과예요. 감사합니다.",
+  "About {n} head swap photos.": "헤드 스왑 사진 약 {n}장.",
+  "About {n} face swaps.": "얼굴 교체 약 {n}회.",
+  "About {n} edits of a photo this size.": "이 크기 사진 편집 약 {n}회.",
+  "Credits never expire, no subscription.": "크레딧은 만료되지 않으며 구독이 필요 없습니다.",
+  "Your first top-up, with any pack, also:": "첫 충전(어떤 팩이든)으로 함께:",
+  "Removes the watermark from your photos and videos": "사진과 동영상의 워터마크가 사라집니다",
+  "Unlocks videos up to {n} seconds ({m} s for head swap) and the front of the video line": "최대 {n}초 동영상(헤드 스왑 {m}초)과 동영상 대기열 우선 순위",
+  "Makes every face swap {n} credits instead of {m} (Black Friday, until Dec 24, 11:59 pm PT)": "얼굴 교체가 매번 {m} 대신 {n} 크레딧(블랙 프라이데이, Dec 24, 11:59 pm PT까지)",
+  "Then come back to this tab and try again.": "구매 후 이 탭으로 돌아와 다시 시도하세요.",
+  "Black Friday members' price (regular {n} per face), until Dec 24, 11:59 pm PT.": "블랙 프라이데이 회원가(정가 얼굴당 {n} 크레딧), Dec 24, 11:59 pm PT까지.",
+  "Black Friday: once you have bought credits, a face swap costs {n} credits instead of {m}, until Dec 24, 11:59 pm PT.": "블랙 프라이데이: 크레딧을 구매하면 얼굴 교체가 {m} 대신 {n} 크레딧, Dec 24, 11:59 pm PT까지.",
+  "Until Dec 24, 11:59 pm PT (Black Friday), it also makes every face swap {n} credits instead of {m}.": "블랙 프라이데이 기간(Dec 24, 11:59 pm PT까지)에는 얼굴 교체도 {m} 대신 {n} 크레딧이 됩니다."
 }

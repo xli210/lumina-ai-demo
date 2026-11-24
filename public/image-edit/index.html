@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <script src="/i18n/tools.js?v=3"></script>
 <script src="/result-feedback.js" defer></script>
+<script src="/out-of-credits.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nanopocket SpotEdit</title>
 <link rel="icon" href="/image-edit/logo.png">
@@ -349,6 +350,8 @@ async function api(url, opts = {}) {
 }
 function showError(msg, topup) {
   $("errorBox").innerHTML = escapeHtml(msg) + (topup ? ` <a href="${escapeHtml(topup)}">Buy credits</a>` : "");
+  // What a purchase gets here, in edits of a photo this size (public/out-of-credits.js).
+  if (topup && window.npOutOfCredits) window.npOutOfCredits($("errorBox"), { href: topup, unitCredits: S.credits || 30, unitLabel: "edits of a photo this size" });
   $("errorBox").hidden = false;
 }
 function clearError() { $("errorBox").hidden = true; }

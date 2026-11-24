@@ -8,7 +8,7 @@ import {
   EmbeddedCheckoutProvider,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { AlertTriangle, Coins, Loader2, Lock, RefreshCw, Sparkles } from "lucide-react";
+import { AlertTriangle, Check, Coins, Loader2, Lock, RefreshCw, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -42,6 +42,10 @@ import {
   type RepeatTopUpOffer,
 } from "@/lib/credit-packs";
 import { BLACK_FRIDAY_ENDS_LABEL } from "@/lib/black-friday";
+import { creditsPageCopy, fill } from "@/lib/credits-page-copy";
+import { FACESTUDIO_V_FAST_10S_CREDITS, FACESTUDIO_V_MAX_SECONDS } from "@/lib/facestudio-v";
+import { HEADSWAP_PRO_CREDITS_PER_IMAGE } from "@/lib/headswap-pro";
+import { FACESTUDIO_MEMBER_FACE_SWAP_CREDITS, FACESTUDIO_PRICE_PER_FACE, memberFaceSwapPriceOn } from "@/lib/facestudio";
 import {
   formatCredits,
   type CreditAccountState,
@@ -71,13 +75,6 @@ const ENGLISH_KIND_LABELS = new Map<string, string>([
 ]);
 
 /** A pack's one-line description, by pack id. */
-const PACK_BLURBS: Record<string, string> = {
-  starter: "packStarter",
-  standard: "packStandard",
-  pro: "packPro",
-  studio: "packStudio",
-};
-
 function labelFor(entry: CreditLedgerEntry, t: (key: never) => string): string {
   if (entry.reference.source === "stripe_auto_recharge") {
     return entry.kind === "bonus" ? "Auto top-up bonus" : "Auto top-up";
@@ -254,6 +251,36 @@ function BalanceCard({ account }: { account: CreditAccountState }) {
   );
 }
 
+/**
+ * For an account that has never bought credits: what the first top-up changes besides the credits.
+ * Every line is a rule the tools enforce (see lib/credits-page-copy.ts).
+ */
+function FirstTopUpCard() {
+  const locale = useLocale();
+  const c = creditsPageCopy(locale).firstTopUp;
+  const v = FACESTUDIO_V_MAX_SECONDS;
+  const values = { fullSeconds: v.full, freeSeconds: v.free, headSeconds: v.head, freeHeadSeconds: v.headFree };
+  const lines = c.items.map((item) => fill(item, values));
+  if (memberFaceSwapPriceOn(true)) {
+    lines.push(
+      `${fill(c.blackFriday, { member: FACESTUDIO_MEMBER_FACE_SWAP_CREDITS, regular: FACESTUDIO_PRICE_PER_FACE.face_swap })} (Black Friday, until ${BLACK_FRIDAY_ENDS_LABEL})`,
+    );
+  }
+  return (
+    <div className="mb-5 rounded-2xl border border-primary/30 bg-primary/5 px-5 py-4">
+      <p className="text-sm font-semibold text-foreground">{c.title}</p>
+      <ul className="mt-2 grid gap-1.5 sm:grid-cols-2">
+        {lines.map((line) => (
+          <li key={line} className="flex items-start gap-2 text-sm text-foreground/85">
+            <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+            {line}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function PackCard({
   pack,
   disabled,
@@ -267,6 +294,7 @@ function PackCard({
   recommended: boolean;
 }) {
   const t = useTranslations("Ui.credits");
+  const locale = useLocale();
   const bonus = bonusPercent(pack);
   const marked = recommended || pack.highlight;
   const off = packPercentOff(pack);
@@ -313,7 +341,13 @@ function PackCard({
           {t("extraFree", { bonus })}
         </p>
       )}
-      <p className="mt-3 flex-1 text-xs text-muted-foreground">{PACK_BLURBS[pack.id] ? t(PACK_BLURBS[pack.id] as never) : pack.blurb}</p>
+      {/* What the pack makes, from the real prices: clearer than a credit count on its own. */}
+      <p className="mt-3 flex-1 text-xs text-muted-foreground">
+        {fill(creditsPageCopy(locale).packUses, {
+          videos: Math.floor(totalCredits(pack) / FACESTUDIO_V_FAST_10S_CREDITS).toLocaleString("en-US"),
+          photos: Math.floor(totalCredits(pack) / HEADSWAP_PRO_CREDITS_PER_IMAGE).toLocaleString("en-US"),
+        })}
+      </p>
       <Button
         type="button"
         disabled={disabled}
@@ -440,6 +474,8 @@ export function CreditConsole({
   const t = useTranslations("Ui.credits");
   const locale = useLocale();
   const [account, setAccount] = useState(initialAccount);
+  // Read once from the first render: the layout does not jump when a purchase lands on this page.
+  const [neverPaid] = useState(initialAccount.lifetime_purchased === 0);
   const [ledger, setLedger] = useState(initialLedger);
   const [selectedPack, setSelectedPack] = useState<CreditPack | null>(null);
   const [clicked, setClicked] = useState<"card" | "repeat_offer">("card");
@@ -573,7 +609,8 @@ export function CreditConsole({
 
       <BalanceCard account={account} />
 
-      {autoRechargeReady && <AutoRechargeCard setting={autoRecharge} />}
+      {/* Someone who has never bought sees the packs first; the auto top-up explainer follows them. */}
+      {autoRechargeReady && !neverPaid && <AutoRechargeCard setting={autoRecharge} />}
 
       <section>
         <h2 className="mb-4 text-lg font-semibold text-foreground">
@@ -588,6 +625,7 @@ export function CreditConsole({
           </div>
         ) : (
           <>
+            {neverPaid && <FirstTopUpCard />}
             {repeatOffer && (
               <RepeatOfferCard
                 offer={repeatOffer}
@@ -620,6 +658,8 @@ export function CreditConsole({
           {locale !== "en" && <span className="mt-1 block">{t("englishTerms")}</span>}
         </p>
       </section>
+
+      {autoRechargeReady && neverPaid && <AutoRechargeCard setting={autoRecharge} />}
 
       <section>
         <h2 className="mb-4 text-lg font-semibold text-foreground">
