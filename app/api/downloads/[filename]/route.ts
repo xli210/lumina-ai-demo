@@ -46,7 +46,7 @@ const FILE_PRODUCT_MAP: Record<string, string> = {
   "NanoFaceStudioPro-1.0.2-windows.exe": "nano-facestudio-pro",
   "NanoFaceStudio-Pro-Setup-1.2.0.exe": "nano-facestudio-pro",
   "NanoFaceStudio-Pro-1.2.0-arm64.dmg": "nano-facestudio-pro",
-  "NanoFaceStudio-V-Pro-Setup-1.0.1.exe": "nano-facestudio-v-pro",
+  "NanoFaceStudio-V-Pro-Setup-1.0.2.exe": "nano-facestudio-v-pro",
 };
 
 const ALLOWED_FILES = Object.keys(FILE_PRODUCT_MAP);

@@ -18,7 +18,7 @@ const PRODUCT_ID = "nano-facestudio-v-pro";
 
 // Inside the downloads prefix. Archives are versioned by folder; a new release
 // that uploads new archives changes this.
-const ARTIFACTS_PATH = `${PRODUCT_ID}/artifacts/1006`;
+const ARTIFACTS_PATH = `${PRODUCT_ID}/artifacts/1106`;
 
 const ARTIFACTS = new Set([
   "studio_runtime.zip",

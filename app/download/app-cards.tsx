@@ -105,7 +105,7 @@ const apps: AppInfo[] = [
     description:
       "Swap a person's face in a video, enhance it, or lip-sync it, in Fast or Best quality with 1080p or 4K MP4 output and the original sound kept. Everything runs locally on Windows with an NVIDIA RTX GPU; the first start downloads about 14.6 GB.",
     icon: Video,
-    version: "1.0.1",
+    version: "1.0.2",
     gradient: "from-primary to-blue-400",
     shadowColor: "shadow-primary/25",
     badge: "New",
@@ -115,8 +115,8 @@ const apps: AppInfo[] = [
       {
         platform: "Windows",
         icon: Monitor,
-        fileName: "NanoFaceStudio-V-Pro-Setup-1.0.1.exe",
-        downloadUrl: "/api/downloads/NanoFaceStudio-V-Pro-Setup-1.0.1.exe",
+        fileName: "NanoFaceStudio-V-Pro-Setup-1.0.2.exe",
+        downloadUrl: "/api/downloads/NanoFaceStudio-V-Pro-Setup-1.0.2.exe",
         size: "189.0 MB",
       },
     ],
