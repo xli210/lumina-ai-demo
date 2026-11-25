@@ -42,7 +42,9 @@ import { VProLaunchCountdown } from "./launch-countdown";
 import { BeforeAfterVideo } from "./before-after-video";
 
 /**
- * Nano FaceStudio V Pro 1.0.1: product introduction (English only for now).
+ * Nano FaceStudio V Pro 1.0.2: product introduction (English only for now).
+ * 1.0.2 ships a CUDA 12.8 runtime, so RTX 50-series (Blackwell) cards run; 1.0.1 failed on them. No speed is claimed
+ * for those cards: only an RTX 4080 SUPER has been measured. The media and screenshots are still from 1.0.1 (MEDIA_VERSION).
  *
  * Every product fact on this page comes from the app repo's docs/WEBSITE_FACTS_1.0.1.md, and only
  * from lines marked [tested], [code] or [docs]. Rules from that file, kept here on purpose:
@@ -69,12 +71,14 @@ const CHECKOUT_HREF = `/checkout?product=${PRODUCT_ID}`;
 const DOWNLOAD_HREF = `/download#${PRODUCT_ID}`;
 const ONLINE_HREF = "/facestudio-v";
 const BLACK_FRIDAY_HREF = "/black-friday";
-const SOFTWARE_VERSION = "1.0.1";
+const SOFTWARE_VERSION = "1.0.2";
+/** The build the clips and screenshots on this page were made with. */
+const MEDIA_VERSION = "1.0.1";
 
 export const metadata: Metadata = {
   title: { absolute: "Video Face Swap App for Windows | Nano FaceStudio V Pro" },
   description:
-    "Replace a person's face in a video on your own NVIDIA RTX GPU. Fast or Best quality, 1080p or 4K MP4, optional lip sync. One-time license for one Windows PC.",
+    "Replace a person's face in a video on your own NVIDIA RTX GPU, RTX 20 to 50 series (Blackwell included). Fast or Best quality, 1080p or 4K MP4, optional lip sync. One-time license for one Windows PC.",
   keywords: [
     "Nano FaceStudio V Pro",
     "video face swap app",
@@ -136,7 +140,8 @@ const softwareJsonLd = (p: Pricing) => ({
     "Windows desktop app for video face swap: pick the person to replace, add a photo of the new face, choose Fast or Best quality, and export a 1080p or 4K MP4. Runs on the user's own NVIDIA RTX GPU.",
   applicationCategory: "MultimediaApplication",
   operatingSystem: "Windows 11 (64-bit)",
-  processorRequirements: "NVIDIA RTX 20 series or newer GPU, 8 GB video memory minimum",
+  processorRequirements:
+    "NVIDIA GeForce RTX 20, 30, 40 or 50 series GPU (including Blackwell cards such as the RTX 5070, 5080 and 5090, from version 1.0.2), 8 GB video memory minimum",
   memoryRequirements: "16 GB RAM minimum, 32 GB recommended",
   storageRequirements: "About 38 GB free during setup, about 25 GB after",
   fileSize: "189 MB installer; about 14.6 GB downloaded at first start",
@@ -171,7 +176,11 @@ const faqs = (p: Pricing): { q: string; a: string }[] => [
   },
   {
     q: "What PC do I need?",
-    a: "Windows 64-bit with an NVIDIA RTX 20 series or newer GPU. 8 GB of video memory is the minimum and 16 GB is recommended (12 GB is advised for Best quality at 4K). 16 GB of system memory is the minimum and 32 GB is recommended. Setup needs about 38 GB free disk space while it runs and about 25 GB afterwards.",
+    a: "Windows 64-bit with an NVIDIA GeForce RTX 20, 30, 40 or 50 series GPU (including Blackwell cards such as the RTX 5070, 5080 and 5090). 8 GB of video memory is the minimum and 16 GB is recommended (12 GB is advised for Best quality at 4K). 16 GB of system memory is the minimum and 32 GB is recommended. Setup needs about 38 GB free disk space while it runs and about 25 GB afterwards.",
+  },
+  {
+    q: "Does it work on RTX 50-series (Blackwell) cards?",
+    a: "Yes, from version 1.0.2. Version 1.0.1 did not support them; if you installed 1.0.1, download 1.0.2 from the download page and install it over the old one. Only the AI runtime (about 5.5 GB) is downloaded again.",
   },
   {
     q: "Does it run on a Mac, an AMD or Intel GPU, or Windows 10?",
@@ -360,7 +369,7 @@ const shortClipTimes: [string, string][] = [
 
 const requirements: { icon: LucideIcon; term: string; min: string; rec: string }[] = [
   { icon: Monitor, term: "Operating system", min: "Windows 64-bit (tested on Windows 11; Windows 10 not yet tested)", rec: "Windows 11 64-bit" },
-  { icon: Cpu, term: "GPU", min: "NVIDIA RTX 20 series or newer", rec: "NVIDIA RTX 20 series or newer" },
+  { icon: Cpu, term: "GPU", min: "NVIDIA GeForce RTX 20, 30, 40 or 50 series", rec: "RTX 50 series (Blackwell, such as the RTX 5070, 5080 and 5090) from version 1.0.2" },
   { icon: Gauge, term: "Video memory", min: "8 GB (a 6 GB card runs Fast 1080p only)", rec: "16 GB (12 GB advised for Best at 4K)" },
   { icon: MemoryStick, term: "System memory", min: "16 GB (Best takes about twice as long)", rec: "32 GB" },
   { icon: HardDrive, term: "Free disk space", min: "About 38 GB during setup, about 25 GB after", rec: "Installed on the drive that holds your user profile" },
@@ -398,7 +407,7 @@ function Shot({ src, alt, light = false }: { src: string; alt: string; light?: b
 function MediaNote({ className = "" }: { className?: string }) {
   return (
     <p className={`mx-auto max-w-3xl text-center text-xs leading-relaxed text-white/45 ${className}`}>
-      Every example on this page was made with Nano FaceStudio V Pro {SOFTWARE_VERSION} on an NVIDIA RTX
+      Every example on this page was made with Nano FaceStudio V Pro {MEDIA_VERSION} on an NVIDIA RTX
       4080 SUPER and scaled down to 720p for the web, with no other editing. The people filmed are from
       stock footage; every face put on them is AI-generated, not a real person&rsquo;s.
     </p>
@@ -496,7 +505,7 @@ export default function NanoFaceStudioVProPage() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300/70 opacity-60" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-300" />
             </span>
-            <span>Available now · Windows · NVIDIA RTX</span>
+            <span>Available now · Windows · NVIDIA RTX 20–50</span>
           </p>
 
           <h1 className="text-balance text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
@@ -507,7 +516,7 @@ export default function NanoFaceStudioVProPage() {
 
           <p className="mx-auto mt-8 max-w-3xl text-balance text-lg leading-relaxed text-white/70 sm:text-xl md:text-2xl">
             Replace a person in a video with the face from a photo. Everything else stays as filmed.
-            Choose Fast or Best, and export a 1080p or 4K MP4, on a Windows PC with an NVIDIA RTX card.
+            Choose Fast or Best, and export a 1080p or 4K MP4, on a Windows PC with an NVIDIA RTX 20, 30, 40 or 50 series card.
           </p>
 
           {/* Price. During the launch: the launch price, the end time, and the price after, with
@@ -559,7 +568,7 @@ export default function NanoFaceStudioVProPage() {
             />
           </div>
           <figcaption className="relative mt-4 text-center text-xs text-white/45">
-            Drag to compare · Best quality, 1080p · stock footage with an AI-generated face, made with V Pro {SOFTWARE_VERSION}
+            Drag to compare · Best quality, 1080p · stock footage with an AI-generated face, made with V Pro {MEDIA_VERSION}
           </figcaption>
         </figure>
       </section>
@@ -572,7 +581,7 @@ export default function NanoFaceStudioVProPage() {
           <BigHeadline>Four screens, one video.</BigHeadline>
           <Sub className="text-white/60">
             Add a video, click the person, add the face, choose how it is made. The app does the rest on
-            your graphics card. These are screenshots of version {SOFTWARE_VERSION}.
+            your graphics card. These are screenshots of version {MEDIA_VERSION}.
           </Sub>
 
           <ol className="mt-20 space-y-24 sm:space-y-32">
@@ -873,7 +882,8 @@ export default function NanoFaceStudioVProPage() {
           <EyebrowChapter n="06" label="Requirements" />
           <BigHeadline>Check your PC first.</BigHeadline>
           <Sub className="text-neutral-600">
-            Windows x64 with an NVIDIA RTX card. There is no Mac version, and AMD, Intel and older NVIDIA
+            Windows x64 with an NVIDIA GeForce RTX 20, 30, 40 or 50 series card; RTX 50 series (Blackwell)
+            cards are supported from version 1.0.2. There is no Mac version, and AMD, Intel and older NVIDIA
             GPUs are not supported.
           </Sub>
 
