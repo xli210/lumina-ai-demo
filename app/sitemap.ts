@@ -166,6 +166,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/docs/face-swap-pipeline`, lastModified: new Date("2026-10-30"), changeFrequency: "monthly", priority: 0.9 },
     // Live figures: recomputed on every load, so "today" is when they last changed.
     { url: `${BASE}/data/face-swap-stats`, lastModified: new Date(), changeFrequency: "daily", priority: 0.8 },
+    // Skin-texture test of HeadSwap Pro and Neo against FaceFusion, roop and Magic Hour free (2026-11-25).
+    { url: `${BASE}/data/face-swap-skin-test`, lastModified: new Date("2026-11-25"), changeFrequency: "monthly", priority: 0.85 },
     {
       url: `${BASE}/zh-CN/faq`,
       lastModified: new Date("2026-10-30"),
