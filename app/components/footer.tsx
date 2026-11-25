@@ -5,6 +5,22 @@ import { useLocale, useTranslations } from "next-intl";
 import { translatedOrEnglish, type AppLocale } from "@/lib/i18n/locales";
 import { Wordmark } from "./wordmark";
 
+/**
+ * Guides that AI search indexers only find through links on pages they already crawl: ChatGPT's indexer re-reads the
+ * ~60 pages this footer reaches and had not found /best-free-face-swap, /head-swap or the skin test in 6-9 days
+ * (ai_fetches, 2026-11-25). Product and brand names stay in English; the rest is short enough to keep here.
+ */
+const GUIDE_LABELS: Record<AppLocale, { free: string; head: string; skin: string }> = {
+  en: { free: "Free face swap", head: "Head swap", skin: "Skin texture test" },
+  "zh-CN": { free: "免费换脸", head: "换头", skin: "皮肤质感测试" },
+  ja: { free: "無料フェイススワップ", head: "ヘッドスワップ", skin: "肌の質感テスト" },
+  ko: { free: "무료 페이스 스왑", head: "헤드 스왑", skin: "피부 질감 테스트" },
+  es: { free: "Face swap gratis", head: "Cambio de cabeza", skin: "Prueba de textura de piel" },
+  "pt-BR": { free: "Troca de rosto grátis", head: "Troca de cabeça", skin: "Teste de textura de pele" },
+  de: { free: "Kostenloser Face Swap", head: "Kopftausch", skin: "Hauttextur-Test" },
+  fr: { free: "Face swap gratuit", head: "Échange de tête", skin: "Test de texture de peau" },
+};
+
 export function Footer() {
   const t = useTranslations("Ui.footer");
   const locale = useLocale() as AppLocale;
@@ -114,6 +130,24 @@ export function Footer() {
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
             Best of 2026
+          </Link>
+          <Link
+            href={translatedOrEnglish("/best-free-face-swap", locale)}
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            {(GUIDE_LABELS[locale] ?? GUIDE_LABELS.en).free}
+          </Link>
+          <Link
+            href={translatedOrEnglish("/head-swap", locale)}
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            {(GUIDE_LABELS[locale] ?? GUIDE_LABELS.en).head}
+          </Link>
+          <Link
+            href={translatedOrEnglish("/data/face-swap-skin-test", locale)}
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            {(GUIDE_LABELS[locale] ?? GUIDE_LABELS.en).skin}
           </Link>
           <Link
             href="/compare"
