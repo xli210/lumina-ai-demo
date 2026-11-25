@@ -7,6 +7,7 @@ import { HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 import { unavailableReason } from "@/lib/headswap-pro-server";
 import { hreflangAlternates, LOCALE_LABELS } from "@/lib/i18n/locales";
 import { Compare, FilmFacade, Reveal, TeaserVideo, type CompareItem } from "./launch-client";
+import { SkinTestNote } from "../components/skin-test-note";
 import { HS_COPY, HS_LOCALES, HS_TRANSLATED, type HsLocale } from "./copy";
 
 /**
@@ -238,6 +239,9 @@ export function HeadSwapLaunchPage({ locale }: { locale: HsLocale }) {
                 <Compare item={ex} labels={c.compare} />
               </Reveal>
             ))}
+          </div>
+          <div className="mt-16">
+            <SkinTestNote locale={locale} kind="headswap" dark />
           </div>
         </div>
       </section>

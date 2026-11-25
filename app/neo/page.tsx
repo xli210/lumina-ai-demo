@@ -21,5 +21,5 @@ export const metadata: Metadata = {
 };
 
 export default function NeoLaunchPage() {
-  return <NeoPage c={c} videoHref={FACESTUDIO_V_PAGE} />;
+  return <NeoPage c={c} videoHref={FACESTUDIO_V_PAGE} locale="en" />;
 }

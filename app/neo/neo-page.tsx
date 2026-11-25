@@ -6,13 +6,15 @@ import { Button } from "@/components/ui/button";
 import { FACESTUDIO_V_LAUNCH, FACESTUDIO_V_NAME } from "@/lib/facestudio-v";
 import { NeoSection } from "../[locale]/facestudio-v/neo-section";
 import { NeoSaleBadge } from "../components/neo-sale-badge";
+import { SkinTestNote } from "../components/skin-test-note";
+import type { AppLocale } from "@/lib/i18n/locales";
 
 /**
  * The Neo launch page, /neo in English (./page.tsx) and /<locale>/neo (app/[locale]/neo/page.tsx): the new model behind Best quality,
  * the message that we read the feedback on video quality and keep working on it, then the Neo section (clips, likeness, photo tips).
  * Words: messages/pages/<locale>.json video.neo.
  */
-export function NeoPage({ c, videoHref }: { c: Record<string, string>; videoHref: string }) {
+export function NeoPage({ c, videoHref, locale }: { c: Record<string, string>; videoHref: string; locale: AppLocale }) {
   return (
     <main className="relative min-h-screen">
       <Navbar />
@@ -45,6 +47,9 @@ export function NeoPage({ c, videoHref }: { c: Record<string, string>; videoHref
               <p className="text-base font-semibold text-foreground">{c.feedbackTitle}</p>
               <p className="mt-1 text-sm leading-relaxed text-muted-foreground sm:text-base">{c.feedbackBody}</p>
             </div>
+          </div>
+          <div className="mt-6">
+            <SkinTestNote locale={locale} kind="neo" />
           </div>
         </div>
       </section>

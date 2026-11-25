@@ -42,5 +42,5 @@ export default async function LocalizedNeoPage({ params }: PageProps) {
   setRequestLocale(locale);
   const c = (await pageCopy(locale)).video?.neo;
   if (!c) notFound();
-  return <NeoPage c={c} videoHref={translatedOrEnglish(FACESTUDIO_V_PAGE, locale)} />;
+  return <NeoPage c={c} videoHref={translatedOrEnglish(FACESTUDIO_V_PAGE, locale)} locale={locale} />;
 }

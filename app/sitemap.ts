@@ -167,7 +167,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Live figures: recomputed on every load, so "today" is when they last changed.
     { url: `${BASE}/data/face-swap-stats`, lastModified: new Date(), changeFrequency: "daily", priority: 0.8 },
     // Skin-texture test of HeadSwap Pro and Neo against FaceFusion, roop and Magic Hour free (2026-11-25).
-    { url: `${BASE}/data/face-swap-skin-test`, lastModified: new Date("2026-11-25"), changeFrequency: "monthly", priority: 0.85 },
+    ...["", "/pt-BR"].map((prefix) => ({
+      url: `${BASE}${prefix}/data/face-swap-skin-test`,
+      lastModified: new Date(prefix ? "2026-11-26" : "2026-11-25"),
+      changeFrequency: "monthly" as const,
+      priority: prefix ? 0.75 : 0.85,
+      alternates: {
+        languages: {
+          en: `${BASE}/data/face-swap-skin-test`,
+          "x-default": `${BASE}/data/face-swap-skin-test`,
+          "pt-BR": `${BASE}/pt-BR/data/face-swap-skin-test`,
+        },
+      },
+    })),
     {
       url: `${BASE}/zh-CN/faq`,
       lastModified: new Date("2026-10-30"),
