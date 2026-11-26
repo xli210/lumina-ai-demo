@@ -13,7 +13,8 @@ sit behind nanopocket.ai's Next.js app on Vercel:
     using a presigned PUT minted by POST /v5/api/uploads, and detect/generate
     take storage keys instead of files. That also means this service never
     touches image bytes on the way in, so it needs no request-size headroom.
-    (Pillow is here only to read the size in a photo's header, for Image Edit.)
+    (Pillow reads the size in a photo's header, for Image Edit, and finishes a
+    free render: see `finish_free_png`.)
 
   * The detect wait is bounded well below the caller's function timeout, so a
     stuck GPU produces a readable error instead of a platform 504 with no body.
@@ -51,10 +52,11 @@ import uuid
 
 import boto3
 from botocore.exceptions import ClientError
-from fastapi import APIRouter, Depends, FastAPI, HTTPException
+from fastapi import APIRouter, Depends, FastAPI, HTTPException, Query
 from fastapi.responses import JSONResponse, Response
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
+from PIL.PngImagePlugin import PngInfo
 from pydantic import BaseModel, Field, StrictBool
 
 
@@ -518,8 +520,131 @@ def v5_generate(body: GenerateRequest):
     return {"job_id": job["id"]}
 
 
+# ---------------------------------------------------------------------------
+# Free renders (accounts that never bought credits), since 2026-11-26
+# ---------------------------------------------------------------------------
+# Instead of the worker's tiled watermark, a free render is finished here once
+# the worker has written it: scaled so its longer side is at most
+# FREE_MAX_SIDE, a small "nanopocket.ai" mark in the bottom-right corner, and
+# metadata saying it is AI-generated (PNG text chunks plus XMP with the IPTC
+# digital source type "trainedAlgorithmicMedia"). The finished PNG replaces
+# the worker's under the same key, so no full-size copy of a free render stays
+# in storage. The Vercel app asks for it with `?finish=free`, settles the
+# render only once a status says `free_finished: true`, and serves the image
+# only after that.
+FREE_MAX_SIDE = int(os.environ.get("FREE_MAX_SIDE", "1536"))
+FREE_MARK_TEXT = "nanopocket.ai"
+# Written into every finished free PNG; its presence is how a second request
+# (another instance, or one after a restart) knows not to finish it twice.
+FREE_MARKER_KEY = "nanopocket:free"
+FREE_FINISH_ATTEMPTS = 3
+FREE_DESCRIPTION = "AI-generated image: face swap made with Nano FaceStudio Online (nanopocket.ai)."
+FREE_XMP = (
+    '<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>'
+    '<x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">'
+    '<rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/" '
+    'xmlns:Iptc4xmpExt="http://iptc.org/std/Iptc4xmpExt/2008-02-29/" xmlns:xmp="http://ns.adobe.com/xap/1.0/">'
+    '<Iptc4xmpExt:DigitalSourceType>http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia'
+    '</Iptc4xmpExt:DigitalSourceType>'
+    '<xmp:CreatorTool>Nano FaceStudio Online (nanopocket.ai)</xmp:CreatorTool>'
+    f'<dc:description><rdf:Alt><rdf:li xml:lang="x-default">{FREE_DESCRIPTION}</rdf:li></rdf:Alt></dc:description>'
+    '</rdf:Description></rdf:RDF></x:xmpmeta><?xpacket end="r"?>'
+)
+
+_free_lock = threading.Lock()
+_free_done: set[str] = set()
+_free_running: set[str] = set()
+_free_failures: dict[str, int] = {}
+
+
+def _mark_font(size: int):
+    try:
+        # Pillow 10.1+ ships a scalable default font (needs FreeType, which the wheels include).
+        return ImageFont.load_default(size=size)
+    except TypeError:
+        return ImageFont.load_default()
+
+
+def finish_free_png(data: bytes) -> bytes | None:
+    """The finished free version of a worker PNG, or None if it is finished already."""
+    img = Image.open(io.BytesIO(data))
+    if getattr(img, "text", {}).get(FREE_MARKER_KEY) == "1":
+        return None
+    img.load()
+    if img.mode not in ("RGB", "RGBA"):
+        img = img.convert("RGBA" if "A" in img.getbands() else "RGB")
+    w, h = img.size
+    if max(w, h) > FREE_MAX_SIDE:
+        scale = FREE_MAX_SIDE / max(w, h)
+        img = img.resize((max(1, round(w * scale)), max(1, round(h * scale))), Image.LANCZOS)
+        w, h = img.size
+
+    # The mark: about 2.2% of the shorter side tall, never under 13 px.
+    size = max(13, round(min(w, h) * 0.022))
+    font = _mark_font(size)
+    overlay = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+    left, top, right, bottom = draw.textbbox((0, 0), FREE_MARK_TEXT, font=font)
+    margin = max(8, round(size * 0.8))
+    x = w - margin - (right - left) - left
+    y = h - margin - (bottom - top) - top
+    shadow = max(1, round(size / 14))
+    draw.text((x + shadow, y + shadow), FREE_MARK_TEXT, font=font, fill=(0, 0, 0, 110))
+    draw.text((x, y), FREE_MARK_TEXT, font=font, fill=(255, 255, 255, 190))
+    base = img.convert("RGBA")
+    base.alpha_composite(overlay)
+    out_img = base if img.mode == "RGBA" else base.convert("RGB")
+
+    info = PngInfo()
+    info.add_text(FREE_MARKER_KEY, "1")
+    info.add_text("Software", "Nano FaceStudio Online (nanopocket.ai)")
+    info.add_text("Description", FREE_DESCRIPTION)
+    info.add_itxt("XML:com.adobe.xmp", FREE_XMP)
+    buf = io.BytesIO()
+    out_img.save(buf, format="PNG", pnginfo=info, compress_level=6)
+    return buf.getvalue()
+
+
+def _free_finish_job(job_id: str) -> None:
+    key = f"{S3_OUTPUT_PREFIX}/{job_id}.png"
+    try:
+        data = S3.get_object(Bucket=S3_BUCKET, Key=key)["Body"].read()
+        finished = finish_free_png(data)
+        if finished is not None:
+            S3.put_object(Bucket=S3_BUCKET, Key=key, Body=finished, ContentType="image/png")
+        with _free_lock:
+            _free_done.add(job_id)
+    except Exception as exc:  # noqa: BLE001 - any failure is retried, then reported
+        print(json.dumps({"event": "free_finish_failed", "job_id": job_id,
+                          "error": f"{type(exc).__name__}: {exc}"[:300]}), flush=True)
+        with _free_lock:
+            _free_failures[job_id] = _free_failures.get(job_id, 0) + 1
+    finally:
+        with _free_lock:
+            _free_running.discard(job_id)
+
+
+def free_finish_state(job_id: str) -> str:
+    """'done', 'running' (started or still going) or 'failed', starting the work if needed.
+
+    Runs in a thread so a status poll never waits on it: the free instance this
+    service runs on has a fraction of a CPU, and a 16-megapixel PNG takes
+    seconds to decode there.
+    """
+    with _free_lock:
+        if job_id in _free_done:
+            return "done"
+        if job_id in _free_running:
+            return "running"
+        if _free_failures.get(job_id, 0) >= FREE_FINISH_ATTEMPTS:
+            return "failed"
+        _free_running.add(job_id)
+    threading.Thread(target=_free_finish_job, args=(job_id,), daemon=True).start()
+    return "running"
+
+
 @api.get("/status/{job_id}")
-def v5_status(job_id: str):
+def v5_status(job_id: str, finish: str | None = Query(default=None, max_length=10)):
     """State of a render.
 
     `status` (queued | running | done | error) is what the Vercel route settles
@@ -532,8 +657,21 @@ def v5_status(job_id: str):
     if status in ("COMPLETED", "FAILED", "TIMED_OUT", "CANCELLED"):
         result = read_job(st)
         if result.get("ok"):
+            if finish == "free":
+                state = free_finish_state(job_id)
+                if state == "running":
+                    return {"status": "running", "state": "processing", "progress_pct": 0.97,
+                            "elapsed_seconds": round(elapsed, 1), "finishing": True}
+                if state == "failed":
+                    message = "The render could not be finished. You have not been charged."
+                    public = _public(_error("finish_failed", message, retryable=True))
+                    return {"status": "error", "state": "error", **public,
+                            "error": public["error_message"], "elapsed_seconds": round(elapsed, 1)}
             done = {"status": "done", "state": "done", "ok": True, "progress_pct": 1.0,
                     "elapsed_seconds": round(elapsed, 1)}
+            if finish == "free":
+                # Only ever present once the free version has replaced the worker's PNG.
+                done["free_finished"] = True
             if result.get("watermarked") is True:
                 # Only ever present when a mark was applied. The Vercel app
                 # refuses a render it asked to have marked that lacks this.
