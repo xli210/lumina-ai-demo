@@ -86,7 +86,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Nano FaceStudio Online. High priority because it is the only indexable description
     // of the hosted product, and because /api/demos/open?id=image — every
     // "Try online" button on the site — now lands on it.
-    ...translatedEntries("/face-studio", "weekly", 0.95, "2026-10-30"),
+    ...translatedEntries("/face-studio", "weekly", 0.95, "2026-11-25"),
     // SpotEdit landing page; the editor itself is auth-gated.
     ...translatedEntries("/image-edit", "weekly", 0.95, "2026-10-30"),
     // Video FaceSwap Online 1.1.0: the public page of the release (its studio is behind sign-in).
@@ -102,11 +102,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/download`, lastModified: new Date("2026-11-09"), changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE}/video-face-swap-test-results`, lastModified: new Date("2026-10-24"), changeFrequency: "monthly", priority: 0.75 },
     ...translatedEntries("/head-swap", "weekly", 0.9, "2026-11-16"),
-    ...translatedEntries("/best-free-face-swap", "weekly", 0.9, "2026-11-19"),
+    ...translatedEntries("/best-free-face-swap", "weekly", 0.9, "2026-11-25"),
     { url: `${BASE}/video-head-swap`, lastModified: new Date("2026-11-08"), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/release-notes`, lastModified: new Date("2026-10-21"), changeFrequency: "weekly", priority: 0.7 },
     // What everything costs: read from the code that charges it, so it is always current.
-    ...translatedEntries("/pricing", "weekly", 0.9, "2026-10-21"),
+    ...translatedEntries("/pricing", "weekly", 0.9, "2026-11-25"),
     { url: `${BASE}/use-cases`, lastModified: new Date("2026-10-05"), changeFrequency: "monthly", priority: 0.8 },
     ...IMAGE_EDIT_USE_CASES.map((u) => ({ url: `${BASE}/use-cases/${u.slug}`, lastModified: new Date("2026-10-05"), changeFrequency: "monthly" as const, priority: 0.85 })),
     // The index changes whenever a post is added, so it carries the newest post's date.

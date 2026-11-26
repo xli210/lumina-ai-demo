@@ -1,5 +1,7 @@
 import { NextRequest } from "next/server";
 
+import { createAdminClient } from "@/lib/supabase/admin";
+
 import { privateJson, provisionCredits, requireUser } from "@/lib/facestudio-gate";
 import {
   isFaceStudioConfigured,
@@ -13,7 +15,9 @@ import {
   holdCredits,
   releaseHold,
 } from "@/lib/credits-server";
-import { needsWatermark, watermarkEnabled } from "@/lib/facestudio-watermark";
+import { freeOutputStyle, needsWatermark, watermarkEnabled } from "@/lib/facestudio-watermark";
+import { claimDailyFree, getDailyFreeState, returnDailyFree } from "@/lib/facestudio-daily-free";
+import { DAILY_FREE_RESET_LABEL } from "@/lib/facestudio-daily-free-rules";
 import { suggestPack, suggestionSentence, topUpPath } from "@/lib/credit-packs";
 import { BLACK_FRIDAY_CAMPAIGN, BLACK_FRIDAY_ENDS_LABEL } from "@/lib/black-friday";
 import {
@@ -195,12 +199,13 @@ export async function POST(req: NextRequest) {
   // Has this account ever bought credits? From the purchase record, never from the request. It sets
   // the number of renders at a time and, during Black Friday, the members' face swap price; a failed
   // lookup counts as not paid (one render at a time, regular price).
-  let isPaid = false;
+  let purchased: boolean | null = null;
   try {
-    isPaid = await hasEverPurchased(userId);
+    purchased = await hasEverPurchased(userId);
   } catch (err: unknown) {
     console.error("[facestudio] purchase lookup failed:", err instanceof Error ? err.message : err);
   }
+  const isPaid = purchased === true;
   const now = Date.now();
   const perFace = creditsPerFaceFor(parsed.mode, isPaid, now);
   const price = creditsForJobFor(parsed.mode, faceCount, isPaid, now);
@@ -232,20 +237,49 @@ export async function POST(req: NextRequest) {
     return privateJson({ detail: "Could not start the render." }, 500);
   }
 
-  // Whether this render carries the NanoPocket.ai mark: decided from our own
-  // records (has this account ever bought credits?), never from the request
-  // body, which is not read for it. Off until FACESTUDIO_WATERMARK=1 is set,
-  // and only after the gateway that forwards the option is deployed.
+  // Whether this is a free render: decided from our own records (has this
+  // account ever bought credits?), never from the request body, which is not
+  // read for it. A failed lookup counts as free, the safe side to fail on. Off
+  // until FACESTUDIO_WATERMARK=1 is set. Since 2026-11-25 a free render is
+  // rendered clean and finished by the gateway (at most 1536 px, a small
+  // nanopocket.ai mark, AI-generated metadata: `free_output`);
+  // FACESTUDIO_FREE_OUTPUT=tiled goes back to the worker's tiled watermark.
   let watermark: boolean | undefined;
+  let freeOutput = false;
   if (watermarkEnabled()) {
-    let purchased: boolean | null = null;
-    try {
-      purchased = await hasEverPurchased(userId);
-    } catch (err: unknown) {
-      // A failed lookup marks the render: the safe side to fail on.
-      console.error("[facestudio] purchase lookup failed:", err instanceof Error ? err.message : err);
+    const owed = needsWatermark(purchased);
+    if (owed && freeOutputStyle() === "badge") {
+      freeOutput = true;
+      watermark = false;
+    } else {
+      watermark = owed;
     }
-    watermark = needsWatermark(purchased);
+  }
+
+  // An admin can ask for the free version of a render (`test_free_output: true`), to check the free
+  // path from an account that has bought credits. Read only when the field is sent, and only for admins.
+  if (!freeOutput && (raw as { test_free_output?: unknown } | null)?.test_free_output === true) {
+    try {
+      const { data } = await createAdminClient().from("profiles").select("role").eq("id", userId).maybeSingle();
+      if ((data as { role?: string } | null)?.role === "admin") {
+        freeOutput = true;
+        watermark = false;
+      }
+    } catch (err: unknown) {
+      console.error("[facestudio] admin check failed:", err instanceof Error ? err.message : err);
+    }
+  }
+
+  // Today's free face swap (one face), if this account has it: credits granted
+  // here and reserved straight after, taken back if the render does not land.
+  let dailyFree: { day: string; attempt: number } | null = null;
+  if (parsed.mode === "face_swap" && faceCount === 1) {
+    try {
+      dailyFree = await claimDailyFree({ userId, credits: price, isPaid });
+    } catch (err: unknown) {
+      // Without it the render is paid as usual; say so in the log only.
+      console.error("[facestudio] daily free check failed:", err instanceof Error ? err.message : err);
+    }
   }
 
   // Reserve first. A failure to afford the render stops here, before any GPU
@@ -270,24 +304,44 @@ export async function POST(req: NextRequest) {
         // Kept on the hold so the status and result routes can refuse a render
         // that was owed a mark and came back without one.
         ...(watermark === undefined ? {} : { watermark }),
+        ...(freeOutput ? { free_output: true } : {}),
+        ...(dailyFree ? { daily_free: true, daily_free_day: dailyFree.day } : {}),
       },
     });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";
     console.error("[facestudio] hold failed:", message);
+    if (dailyFree) await returnDailyFree({ userId, credits: price, ...dailyFree });
     return privateJson({ detail: "Could not reserve credits." }, 500);
+  }
+
+  if ((!hold.ok || !hold.hold_id) && dailyFree) {
+    await returnDailyFree({ userId, credits: price, ...dailyFree });
+    dailyFree = null;
   }
 
   if (!hold.ok || !hold.hold_id) {
     const shortfall = hold.shortfall ?? price - hold.available;
     const pack = suggestPack(shortfall);
+    // A one-face swap: say whether today's free one is still to come.
+    let dailyNote = "";
+    if (parsed.mode === "face_swap") {
+      try {
+        const st = await getDailyFreeState(userId, isPaid);
+        if (st.reason === "used") dailyNote = ` Your free face swap for today is used; the next one comes after ${DAILY_FREE_RESET_LABEL}.`;
+        else if (st.reason === "sold_out") dailyNote = ` Today's free face swaps are all given out; try again after ${DAILY_FREE_RESET_LABEL}.`;
+        else if (st.available && faceCount > 1) dailyNote = " The daily free face swap covers one face: swap one face to use it.";
+      } catch {
+        // The note is a courtesy; the reply stands without it.
+      }
+    }
     return privateJson(
       {
         detail:
           `Swapping ${faceCount} face${faceCount === 1 ? "" : "s"} costs ` +
           `${price} credits and you have ${hold.available}. Swap fewer faces, ` +
           `or buy credits: ${suggestionSentence(shortfall)} Free credits are topped up to ${FREE_TOPUP_CREDITS} ` +
-          `${FREE_TOPUP_FREQUENCY}.` + memberOffer,
+          `${FREE_TOPUP_FREQUENCY}.` + memberOffer + dailyNote,
         reason: "insufficient_credits",
         required: price,
         available: hold.available,
@@ -308,6 +362,7 @@ export async function POST(req: NextRequest) {
   ): Promise<Response> {
     try {
       await releaseHold(holdId, reason);
+      if (dailyFree) await returnDailyFree({ userId, credits: price, holdId });
     } catch (err: unknown) {
       // The sweeper will free it at TTL, so this is recoverable — but it
       // means the user's credits are stuck until then, which is worth a loud
@@ -376,6 +431,9 @@ export async function POST(req: NextRequest) {
     {
       job_id: jobId,
       credits_held: price,
+      // Paid for by today's free face swap: nothing comes out of the balance.
+      ...(dailyFree ? { daily_free: true } : {}),
+      ...(freeOutput ? { free_output: true } : {}),
       faces: faceCount,
       balance: hold.balance,
       available: hold.available,

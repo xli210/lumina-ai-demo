@@ -56,3 +56,32 @@ export const WATERMARK_MISSING_BODY = {
   error: "The render did not finish correctly. Please try again. You have not been charged.",
   retryable: true,
 } as const;
+
+/**
+ * Since 2026-11-25 a free render no longer gets the worker's tiled mark. It is
+ * rendered clean and then finished by the gateway (facestudio-gateway/server.py,
+ * `finish_free_png`): at most FREE_PHOTO_MAX_SIDE (1536 px) on its longer side,
+ * a small "nanopocket.ai" in the bottom-right corner, and metadata saying it is
+ * AI-generated. The finished PNG replaces the worker's in storage. The hold
+ * records `free_output: true`; the status route asks the gateway with
+ * `?finish=free` and settles only on `free_finished: true`; the result route
+ * serves such a render only once it is settled.
+ *
+ * FACESTUDIO_FREE_OUTPUT=tiled goes back to the worker's tiled watermark (the
+ * gateway must be the one with `finish_free_png` for the default to work).
+ */
+export type FreeOutputStyle = "badge" | "tiled";
+
+export function freeOutputStyle(env: string | undefined = process.env.FACESTUDIO_FREE_OUTPUT): FreeOutputStyle {
+  return env === "tiled" ? "tiled" : "badge";
+}
+
+/** What the gateway's status said: the free version has replaced the worker's PNG. */
+export function upstreamFreeFinished(body: Record<string, unknown> | undefined): boolean {
+  return body?.free_finished === true;
+}
+
+/** A render that was to be finished as a free one and was reported done without it. */
+export function owesFreeFinish(recorded: unknown, body: Record<string, unknown> | undefined): boolean {
+  return recorded === true && !upstreamFreeFinished(body);
+}

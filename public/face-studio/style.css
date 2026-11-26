@@ -1210,3 +1210,11 @@ main {
 /* `display:flex` above would otherwise override the hidden attribute and show these to everyone. */
 .wm-banner[hidden],
 .wm-callout[hidden] { display: none !important; }
+
+/* Today's free face swap, under the Generate hint (2026-11-25). */
+.daily-free-note {
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+  color: #a7f3d0;
+}
+.daily-free-note strong { color: #6ee7b7; }

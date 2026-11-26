@@ -436,5 +436,15 @@
   "That face was not found.": "Ce visage est introuvable.",
   "Could not load the face. Try again.": "Impossible de charger le visage. Réessayez.",
   "My faces is not available right now.": "Mes visages n’est pas disponible pour le moment.",
-  "The photo did not finish uploading. Try again.": "La photo n’a pas fini d’être envoyée. Réessayez."
+  "The photo did not finish uploading. Try again.": "La photo n’a pas fini d’être envoyée. Réessayez.",
+  "Free account: no watermark. Your photos come out at up to 1536 px with a small nanopocket.ai mark in the corner.": "Compte gratuit : pas de filigrane. Vos photos sortent jusqu’à 1536 px avec une petite marque nanopocket.ai dans le coin.",
+  "Top up credits once for full resolution without the mark.": "Rechargez des crédits une fois pour avoir la pleine résolution sans la marque.",
+  "Get full resolution": "Obtenir la pleine résolution",
+  "1 free face swap every day.": "1 échange de visage gratuit chaque jour.",
+  "Swap one face and it costs no credits.": "Échangez un visage et cela ne coûte aucun crédit.",
+  "Free result: up to 1536 px, with a small nanopocket.ai mark in the corner.": "Résultat gratuit : jusqu’à 1536 px, avec une petite marque nanopocket.ai dans le coin.",
+  "Top up credits once and your next renders come out at full resolution without it.": "Rechargez des crédits une fois et vos prochains rendus sortiront en pleine résolution, sans elle.",
+  "1 free face swap today · Buy more": "1 échange de visage gratuit aujourd’hui · Acheter",
+  "Done! Free result: up to 1536 px with a small nanopocket.ai mark. Top up once for full resolution.": "Terminé ! Résultat gratuit : jusqu’à 1536 px avec une petite marque nanopocket.ai. Rechargez une fois pour la pleine résolution.",
+  "Free result: up to 1536 px with a small nanopocket.ai mark. Top up once for full resolution.": "Résultat gratuit : jusqu’à 1536 px avec une petite marque nanopocket.ai. Rechargez une fois pour la pleine résolution."
 }

@@ -66,7 +66,7 @@
       "heading": "Frequently asked questions",
       "free": {
         "q": "Is NanoPocket free?",
-        "a": "You can start for free. Every new account gets {credits} credits, which cover {swaps} photo face swaps ({faceCredits} credits each), {headswaps} Nano HeadSwap Pro head swaps or {edits} AI photo edits. Results from face swap, head swap and video carry a NanoPocket watermark until the account has bought credits once. Three desktop apps are free: Nano FaceSwap, Nano FacialEdit and Nano ImageTryon."
+        "a": "You can start for free. Every signed-in account gets 1 free photo face swap every day in Nano FaceStudio Online, and every new account also gets {credits} credits, which cover {swaps} photo face swaps ({faceCredits} credits each), {headswaps} Nano HeadSwap Pro head swaps or {edits} AI photo edits. Free Face Studio photos have no watermark: up to 1536 px with a small nanopocket.ai mark in one corner. Head swap and video results carry a NanoPocket watermark until the account has bought credits once. Three desktop apps are free: Nano FaceSwap, Nano FacialEdit and Nano ImageTryon."
       },
       "items": [
         {
@@ -392,10 +392,10 @@
   },
   "faceStudio": {
     "title": "Free Group Photo Face Swap Online: Up to {max} Faces",
-    "description": "Free to start: {grant} credits on sign-up cover {swaps} face swaps. Swap up to {max} faces in one photo, or a whole head, and keep the hair, hands, glasses and jewellery that cross the face. Full resolution, no subscription.",
+    "description": "Free to start: 1 free face swap every day, plus {grant} credits on sign-up for {swaps} more. Swap up to {max} faces in one photo, or a whole head, and keep the hair, hands, glasses and jewellery that cross the face. No watermark on free photos, no subscription.",
     "kicker": "Online tool · in your browser",
     "h1": "Swap every face. Keep everything else.",
-    "lead": "Replace up to {max} faces in one photo, or a whole head, and choose what stays from the original: hair across an eye, a hand on a cheek, glasses, a nose ring. The result comes back at full resolution. Free accounts carry a small NanoPocket.ai watermark, which one top-up removes.",
+    "lead": "Replace up to {max} faces in one photo, or a whole head, and choose what stays from the original: hair across an eye, a hand on a cheek, glasses, a nose ring. Every signed-in account gets 1 free face swap a day. Free photos have no watermark: up to 1536 px with a small nanopocket.ai mark in one corner; one top-up gives full resolution without it.",
     "cta": "Open Nano FaceStudio Online",
     "note": "Free NanoPocket account required. {grant} free credits on sign-up cover {swaps} swaps ({face} credits per face).",
     "examplesHeading": "Real results",
@@ -422,7 +422,7 @@
     "faqHeading": "Frequently asked questions",
     "faq": [
       { "q": "Is it free?", "a": "You can start for free: {grant} credits on sign-up cover {swaps} face swaps. After that it is paid in credits ({face} per face), with no subscription." },
-      { "q": "Is there a watermark?", "a": "Results from an account that has never bought credits carry a NanoPocket.ai watermark. Buy credits once and it is gone from your next results. Free credits do not count as a purchase." },
+      { "q": "Is there a watermark?", "a": "No. Since November 25, 2026, photos from an account that has never bought credits have no watermark. They come out at up to 1536 px on the longer side with a small nanopocket.ai mark in one corner. Buy credits once and your next results are full resolution, up to 4080 × 4080, without the mark. Free credits do not count as a purchase." },
       { "q": "Can I use anyone's photo?", "a": "Only use faces you have the right to use: your own, or those of people who have agreed." },
       { "q": "Does it work on a phone?", "a": "Yes. It runs in any modern browser, and all the work happens on our GPUs." }
     ],
@@ -709,7 +709,7 @@
     "roughly": "{swaps} face swaps, or {edits} photo edits",
     "freeHeading": "Free credits and the watermark",
     "freeNote": "A new account starts with {grant} credits. An account that has bought credits is also topped up to {topup} credits whenever it runs low; one that has never bought gets no top-up. Free credits are limited to one account per person.",
-    "watermarkNote": "The watermark: renders from {video} and Nano FaceStudio Online made on an account that has never bought credits carry a NanoPocket.ai watermark. Buy credits once, with any pack, and it is removed from the renders you make afterwards. Free credits do not count as buying.",
+    "watermarkNote": "The watermark: renders from {video} and Nano HeadSwap Pro made on an account that has never bought credits carry a NanoPocket.ai watermark. Nano FaceStudio Online photos from such an account have none: they are up to 1536 px with a small nanopocket.ai mark in one corner, and every signed-in account gets 1 free face swap there a day. Buy credits once, with any pack, and new renders are full resolution with no watermark or mark. Free credits do not count as buying.",
     "desktopHeading": "Desktop apps: free or a one-time license",
     "desktopNote": "The desktop apps run on your own NVIDIA GPU on Windows, so your photos and videos stay on your computer. A license is separate from credits.",
     "thApp": "App",

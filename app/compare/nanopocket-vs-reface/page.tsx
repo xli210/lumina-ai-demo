@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ComparisonShell, type ComparisonData } from "@/app/components/comparison-shell";
+import { DAILY_FREE_FACE_SWAPS, FREE_PHOTO_MAX_SIDE } from "@/lib/facestudio-daily-free-rules";
 
 const PAGE_URL = "https://nanopocket.ai/compare/nanopocket-vs-reface";
 
@@ -81,7 +82,7 @@ const data: ComparisonData = {
     },
     {
       dimension: "Pricing model",
-      nanopocket: "One-time license + free desktop trial + free online demo.",
+      nanopocket: `One-time license + free desktop trial + free online tools: ${DAILY_FREE_FACE_SWAPS} free photo face swap a day in Nano FaceStudio Online with no watermark (up to ${FREE_PHOTO_MAX_SIDE} px with a small corner mark until a first purchase), plus sign-up credits.`,
       competitor: "Free with watermark; subscription removes watermark and unlocks features.",
       winner: "nanopocket",
     },

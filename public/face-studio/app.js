@@ -109,6 +109,9 @@
   const resultWatermark = document.getElementById("result-watermark");
   const genWatermark = document.getElementById("gen-watermark");
   const wmBanner = document.getElementById("wm-banner");
+  const freeBanner = document.getElementById("free-banner");
+  const resultFree = document.getElementById("result-free");
+  const dailyFreeNote = document.getElementById("daily-free-note");
   const btnDownload = document.getElementById("btn-download");
 
   // Feedback widget refs
@@ -134,6 +137,14 @@
   // ══════════════════════════════════════════════════════════════════════
 
   let creditsAvailable = null;
+  /** Today's free face swap, from /api/credits/balance ({ available, reason } or null). Display only. */
+  let dailyFree = null;
+  /** Whether this account's renders come out as free ones (at most 1536 px, small mark). Display only. */
+  let freeOutput = false;
+
+  function dailyFreeCovers(mode, faceCount) {
+    return Boolean(dailyFree && dailyFree.available) && mode === "face_swap" && faceCount === 1;
+  }
 
   /** A pill in the header showing what the user has left to spend. */
   const creditPill = document.createElement("a");
@@ -150,7 +161,7 @@
     creditPill.hidden = false;
     const out = creditsAvailable < PRICES.face_swap;
     creditPill.textContent = out
-      ? "Out of credits · Buy more"
+      ? (dailyFree && dailyFree.available ? "1 free face swap today · Buy more" : "Out of credits · Buy more")
       : `${creditsAvailable.toLocaleString("en-US")} credits · Top up`;
     creditPill.classList.toggle("low", out);
   }
@@ -181,6 +192,10 @@
         wmBanner.querySelector(".wm-banner-text")?.appendChild(note);
         wmBanner.dataset.offer = "1";
       }
+      dailyFree = data.facestudio_daily_free && typeof data.facestudio_daily_free.available === "boolean" ? data.facestudio_daily_free : null;
+      if (dailyFreeNote) dailyFreeNote.hidden = !(dailyFree && dailyFree.available);
+      freeOutput = Boolean(data.free_output);
+      if (freeBanner) freeBanner.hidden = !freeOutput;
       setCredits(data.available);
       // Say so before the render, not only after: free accounts get a watermark.
       const wm = data.watermark_applies === true;
@@ -1024,15 +1039,17 @@
     // A null balance means we could not read it; leave the button enabled and
     // let the server be the one to refuse, rather than blocking on our own
     // failed request.
-    const affordable = creditsAvailable === null || creditsAvailable >= price;
+    const freeToday = dailyFreeCovers(selectedMode, selectedCount);
+    const affordable = freeToday || creditsAvailable === null || creditsAvailable >= price;
     // Read from the page rather than the constant above, so this is safe however early it is first called.
     const rightsChecked = Boolean(document.getElementById("rights-ok")?.checked);
     const ready = bodyFile && detectionId && selectedCount > 0 && affordable && rightsChecked;
     btnGenerate.disabled = !ready;
 
     const perFace = PRICES[selectedMode] || PRICES.face_swap;
-    const cost =
-      selectedCount > 1
+    const cost = freeToday
+      ? "Free: today's free face swap."
+      : selectedCount > 1
         ? `Costs ${price} credits — ${perFace} per face × ${selectedCount}.`
         : `Costs ${price} credits.`;
     // The Black Friday line goes in a node of its own, so the page's translation (public/i18n/tools.js,
@@ -1066,7 +1083,7 @@
       actionHint.textContent = `Ready: head swap (whole-head replacement, slower). ${cost}`;
     } else {
       actionHint.textContent = `Ready: ${selectedCount} face(s) will be swapped. ${cost}`;
-      withMemberLine();
+      if (!freeToday) withMemberLine();
     }
   }
 
@@ -1180,7 +1197,8 @@
         const url = API_BASE + "/result/" + jobId;
         show('<b>Your earlier picture</b><br><img src="' + url + '" alt="Your earlier render" style="max-width:100%;max-height:420px;border-radius:8px;margin:8px 0;display:block">' +
              '<a href="' + url + '" download="nanopocket-face-studio.png" style="font-weight:600">Download</a> &nbsp;&middot;&nbsp; <a href="/my-images">My images</a>' +
-             (data.watermarked === true ? '<br><small>This image has the NanoPocket.ai watermark. Top up credits once to remove it.</small>' : ""));
+             (data.watermarked === true ? '<br><small>This image has the NanoPocket.ai watermark. Top up credits once to remove it.</small>' :
+              data.free_output === true ? '<br><small>Free result: up to 1536 px with a small nanopocket.ai mark. Top up once for full resolution.</small>' : ""));
         return;
       }
       if (data && data.status === "error") {
@@ -1218,7 +1236,7 @@
         if (data.status === "done") {
           clearInterval(polling);
           polling = null;
-          showResult(jobId, data.elapsed_seconds || 0, data.watermarked === true);
+          showResult(jobId, data.elapsed_seconds || 0, data.watermarked === true, data.free_output === true);
           setProcessing(false);
         } else if (data.status === "error") {
           clearInterval(polling);
@@ -1258,7 +1276,7 @@
     }, 700);
   }
 
-  function showResult(jobId, elapsed, watermarked) {
+  function showResult(jobId, elapsed, watermarked, freeResult) {
     // No cache-busting query: a job id is unique to one render, and the route sends
     // "private, max-age=86400", so re-reading the image (reload, pan, compare) reuses
     // the copy the browser already has instead of fetching ~20 MB again.
@@ -1267,6 +1285,10 @@
     resultTime.textContent = `${elapsed.toFixed(1)}s`;
     // The worker says so when it put the NanoPocket.ai mark on this render.
     if (resultWatermark) resultWatermark.hidden = !watermarked;
+    // A free render: at most 1536 px with a small nanopocket.ai mark (finished by the gateway).
+    if (resultFree) resultFree.hidden = !freeResult;
+    // Today's free swap may just have been used: read the balance again.
+    refreshCredits();
     // Point at video while the balance still covers a Fast clip (at least 25 credits since 10/26).
     const videoNudge = document.getElementById("video-nudge");
     if (videoNudge) {
@@ -1296,7 +1318,9 @@
     resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
     actionHint.textContent = watermarked
       ? "Done! This image has the NanoPocket.ai watermark. Top up credits once to remove it."
-      : "Done!";
+      : freeResult
+        ? "Done! Free result: up to 1536 px with a small nanopocket.ai mark. Top up once for full resolution."
+        : "Done!";
   }
 
   // ────────────────────────────────────────────────────────────────────────

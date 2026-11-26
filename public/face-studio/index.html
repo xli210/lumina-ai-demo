@@ -37,6 +37,15 @@
     </div>
   </header>
 
+  <!-- Free accounts since 2026-11-25: at most 1536 px and a small nanopocket.ai mark instead of the tiled watermark. Shown from /api/credits/balance. -->
+  <div class="wm-banner" id="free-banner" role="note" hidden>
+    <span class="wm-banner-text">
+      <strong>Free account: no watermark. Your photos come out at up to 1536 px with a small nanopocket.ai mark in the corner.</strong>
+      Top up credits once for full resolution without the mark.
+    </span>
+    <a class="wm-btn" href="/credits?from=fs_free_banner" target="_blank" rel="noopener">Get full resolution</a>
+  </div>
+
   <!-- Free accounts: said before they start, not only after. Shown from /api/credits/balance. -->
   <div class="wm-banner" id="wm-banner" role="note" hidden>
     <span class="wm-banner-text">
@@ -166,6 +175,7 @@
           </span>
         </button>
         <p class="action-hint" id="action-hint">Upload a reference for at least one face to enable Generate.</p>
+        <p class="daily-free-note" id="daily-free-note" hidden><strong>1 free face swap every day.</strong> <span>Swap one face and it costs no credits.</span></p>
         <div class="wm-callout" id="gen-watermark" hidden>
           <p><strong>This render will carry a NanoPocket.ai watermark</strong>, because this account has never topped up credits.
           One top-up removes it for good.</p>
@@ -194,6 +204,11 @@
           Top up credits once and your next renders come out clean. Free credits do not count as a top-up,
           and images already made keep their watermark.</p>
           <a class="wm-btn" href="/credits?pack=starter&amp;from=fs_wm_result" target="_blank" rel="noopener">Top up from $5</a>
+        </div>
+        <div class="wm-callout wm-callout-result" id="result-free" hidden>
+          <p><strong>Free result: up to 1536 px, with a small nanopocket.ai mark in the corner.</strong>
+          Top up credits once and your next renders come out at full resolution without it.</p>
+          <a class="wm-btn" href="/credits?pack=starter&amp;from=fs_free_result" target="_blank" rel="noopener">Top up from $5</a>
         </div>
         <div class="wm-callout wm-callout-video" id="video-nudge" hidden>
           <p><strong>Now try it on a video.</strong> <span id="video-nudge-credits"></span>Video FaceSwap 2.5 Online swaps a face or the whole head in a clip, and shows the price before it starts.</p>

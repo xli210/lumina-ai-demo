@@ -11,6 +11,7 @@ import {
   usd,
 } from "@/lib/face-studio-facts";
 import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
+import { DAILY_FREE_FACE_SWAPS, FREE_PHOTO_MAX_SIDE } from "@/lib/facestudio-daily-free-rules";
 
 export const metadata: Metadata = {
   title:
@@ -220,11 +221,11 @@ const data: ProductLandingData = {
       index: "02",
       eyebrow: "Free online demo",
       title: "Try every signed-in account, free.",
-      lead: `Nano FaceStudio Online — the photo side, at /face-studio — gives every signed-in account ${FREE_ALLOWANCE_SHORT} at full resolution with no watermark, then ${usd(FACE_SWAP_USD)} per face replaced, with credits that never expire. It is the only browser face swap that lets you keep the original hair, hands and glasses crossing each face, and it handles up to ${FACESTUDIO_MAX_FACES} faces in one pass. Video FaceSwap Pro stays free for every signed-in account. No card required either way, and no watermark on any output.`,
+      lead: `Nano FaceStudio Online — the photo side, at /face-studio — gives every signed-in account ${DAILY_FREE_FACE_SWAPS} free face swap a day and ${FREE_ALLOWANCE_SHORT} with no watermark (up to ${FREE_PHOTO_MAX_SIDE} px with a small corner mark until a first purchase), then ${usd(FACE_SWAP_USD)} per face replaced, with credits that never expire. It is the only browser face swap that lets you keep the original hair, hands and glasses crossing each face, and it handles up to ${FACESTUDIO_MAX_FACES} faces in one pass. Video FaceSwap Pro stays free for every signed-in account. No card required either way.`,
       bullets: [
         "Image and video face swap demos available in the browser",
         "No credit card and no per-minute fees",
-        "Test outputs are watermark-free",
+        `Free photo face swaps have no watermark (up to ${FREE_PHOTO_MAX_SIDE} px, small corner mark)`,
         "Demo runs on NanoPocket-hosted GPUs, not the user's machine",
       ],
       hint: "Free for signed-in users",
@@ -283,7 +284,7 @@ const data: ProductLandingData = {
   faqs: [
     {
       q: "Is it really free to try?",
-      a: `Free to start, and no card is needed. Video FaceSwap Pro is free for every signed-in account. Nano FaceStudio Online, the photo face swap, gives every account ${FREE_ALLOWANCE_SHORT} at full resolution with no watermark — identical output to a paid render — and face detection is always free. Past the free allowance it is ${usd(FACE_SWAP_USD)} per face replaced and ${usd(HEAD_SWAP_USD)} per head swap, prepaid in credits that never expire, with no subscription and automatic refunds on failed renders. The desktop Pro 2.0 app launches with a free trial at release and is a separate one-time purchase unaffected by credits.`,
+      a: `Free to start, and no card is needed. Video FaceSwap Pro is free for every signed-in account. Nano FaceStudio Online, the photo face swap, gives every account ${DAILY_FREE_FACE_SWAPS} free face swap a day and ${FREE_ALLOWANCE_SHORT}, with no watermark: free photos come out at up to ${FREE_PHOTO_MAX_SIDE} px with a small nanopocket.ai mark in one corner, and one purchase gives full resolution without it. Face detection is always free. Past the free allowance it is ${usd(FACE_SWAP_USD)} per face replaced and ${usd(HEAD_SWAP_USD)} per head swap, prepaid in credits that never expire, with no subscription and automatic refunds on failed renders. The desktop Pro 2.0 app launches with a free trial at release and is a separate one-time purchase unaffected by credits.`,
     },
     {
       q: "How is this different from Roop, FaceFusion, or Rope?",
@@ -312,7 +313,7 @@ const data: ProductLandingData = {
   ],
   closing: {
     title: "Try Nano FaceSwap Pro 2.0 in your browser.",
-    body: `Nano FaceStudio Online runs in the browser today with ${FREE_ALLOWANCE_SHORT}, full resolution, up to ${FACESTUDIO_MAX_FACES} faces per photo, whole-head mode, and per-face control over what survives the swap. Video FaceSwap Pro is free for every signed-in account. The full Nano FaceSwap Pro 2.0 desktop app — virtual identity library, expression editor, and benchmark gallery — launches soon.`,
+    body: `Nano FaceStudio Online runs in the browser today with ${DAILY_FREE_FACE_SWAPS} free face swap a day and ${FREE_ALLOWANCE_SHORT}, full resolution after a first purchase, up to ${FACESTUDIO_MAX_FACES} faces per photo, whole-head mode, and per-face control over what survives the swap. Video FaceSwap Pro is free for every signed-in account. The full Nano FaceSwap Pro 2.0 desktop app — virtual identity library, expression editor, and benchmark gallery — launches soon.`,
     primaryCta: {
       label: "Try free online",
       href: FACESWAP_PRO_DEMO_URL,

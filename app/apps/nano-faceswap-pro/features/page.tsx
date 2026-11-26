@@ -4,6 +4,8 @@ import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
 import { FaceSwapFeatureRows, FACESWAP_PRO_DEMO_URL } from "./feature-rows";
 import { demoStatusEn } from "@/lib/demo-availability";
+import { DAILY_FREE_FACE_SWAPS, FREE_PHOTO_MAX_SIDE } from "@/lib/facestudio-daily-free-rules";
+import { FREE_ALLOWANCE_SHORT } from "@/lib/face-studio-facts";
 
 const DEMO_URL = FACESWAP_PRO_DEMO_URL;
 
@@ -91,7 +93,7 @@ const featuresFaqs = [
   },
   {
     q: "When does the desktop app come out?",
-    a: `The Nano FaceSwap Pro 2.0 desktop app launches shortly after the feature tour goes public. Nano FaceStudio Online at /face-studio is live today: it gives every signed-in account a free allowance of three full-resolution renders with no watermark, handles up to six faces in one photo, and is the only browser face swap with per-face control over which original regions survive. Video FaceSwap Pro: ${demoStatusEn("video")} The desktop release brings the same diffusion pipeline 100% local with no metering.`,
+    a: `The Nano FaceSwap Pro 2.0 desktop app launches shortly after the feature tour goes public. Nano FaceStudio Online at /face-studio is live today: it gives every signed-in account ${DAILY_FREE_FACE_SWAPS} free face swap a day and ${FREE_ALLOWANCE_SHORT}, with no watermark (up to ${FREE_PHOTO_MAX_SIDE} px with a small corner mark until a first purchase), handles up to six faces in one photo, and is the only browser face swap with per-face control over which original regions survive. Video FaceSwap Pro: ${demoStatusEn("video")} The desktop release brings the same diffusion pipeline 100% local with no metering.`,
   },
 ];
 

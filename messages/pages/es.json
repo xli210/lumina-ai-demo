@@ -276,10 +276,10 @@
   },
   "faceStudio": {
     "title": "Face swap gratis para fotos de grupo online: hasta {max} caras",
-    "description": "Gratis para empezar: {grant} créditos al registrarte, suficientes para {swaps} cambios de cara. Cambia hasta {max} caras en una foto, o una cabeza entera, y conserva el pelo, las manos, las gafas y las joyas que pasan por delante de la cara. Resolución completa, sin suscripción.",
+    "description": "Gratis para empezar: 1 cambio de cara gratis cada día, más {grant} créditos al registrarte para {swaps} más. Cambia hasta {max} caras en una foto, o la cabeza entera, y conserva el pelo, las manos, las gafas y las joyas que cruzan la cara. Sin marca de agua en las fotos gratis y sin suscripción.",
     "kicker": "Herramienta online · en tu navegador",
     "h1": "Cambia todas las caras. Conserva todo lo demás.",
-    "lead": "Reemplaza hasta {max} caras en una foto, o una cabeza entera, y elige qué se queda del original: un mechón sobre un ojo, una mano en la mejilla, unas gafas, un piercing en la nariz. El resultado llega a resolución completa. Las cuentas gratuitas llevan una pequeña marca de agua de NanoPocket.ai, que desaparece con una recarga.",
+    "lead": "Sustituye hasta {max} caras en una foto, o la cabeza entera, y elige qué se queda del original: el pelo sobre un ojo, una mano en la mejilla, unas gafas, un piercing en la nariz. Cada cuenta con sesión iniciada tiene 1 cambio de cara gratis al día. Las fotos gratis no llevan marca de agua: hasta 1536 px con una pequeña marca nanopocket.ai en una esquina; una recarga te da la resolución completa sin ella.",
     "cta": "Abrir Nano FaceStudio Online",
     "note": "Necesitas una cuenta gratuita de NanoPocket. Los {grant} créditos gratis al registrarte alcanzan para {swaps} cambios ({face} créditos por cara).",
     "examplesHeading": "Resultados reales",
@@ -335,7 +335,7 @@
       },
       {
         "q": "¿Hay marca de agua?",
-        "a": "Los resultados de una cuenta que nunca ha comprado créditos llevan una marca de agua de NanoPocket.ai. Compra créditos una vez y desaparecerá de tus próximos resultados. Los créditos gratis no cuentan como compra."
+        "a": "No. Desde el 25 de noviembre de 2026, las fotos de una cuenta que nunca ha comprado créditos no llevan marca de agua. Salen con hasta 1536 px en el lado largo y una pequeña marca nanopocket.ai en una esquina. Compra créditos una vez y tus siguientes resultados tendrán la resolución completa, hasta 4080 × 4080, sin la marca. Los créditos gratis no cuentan como compra."
       },
       {
         "q": "¿Puedo usar la foto de cualquiera?",
@@ -677,7 +677,7 @@
     "roughly": "{swaps} cambios de rostro o {edits} ediciones de foto",
     "freeHeading": "Créditos gratis y la marca de agua",
     "freeNote": "Una cuenta nueva empieza con {grant} créditos. Una cuenta que ha comprado créditos también se recarga hasta {topup} créditos cuando se queda corta; una que nunca ha comprado no recibe recarga. Los créditos gratis se limitan a una cuenta por persona.",
-    "watermarkNote": "La marca de agua: los renders de {video} y de Nano FaceStudio Online hechos con una cuenta que nunca ha comprado créditos llevan una marca de agua de NanoPocket.ai. Compra créditos una vez, con cualquier paquete, y desaparece de los renders que hagas después. Los créditos gratis no cuentan como compra.",
+    "watermarkNote": "La marca de agua: los resultados de {video} y de Nano HeadSwap Pro hechos con una cuenta que nunca ha comprado créditos llevan una marca de agua de NanoPocket.ai. Las fotos de Nano FaceStudio Online de esa cuenta no la llevan: salen con hasta 1536 px y una pequeña marca nanopocket.ai en una esquina, y cada cuenta con sesión iniciada tiene allí 1 cambio de cara gratis al día. Compra créditos una vez, con cualquier paquete, y los nuevos resultados saldrán a resolución completa sin marca de agua ni marca. Los créditos gratis no cuentan como compra.",
     "desktopHeading": "Apps de escritorio: gratis o con licencia de pago único",
     "desktopNote": "Las apps de escritorio funcionan en tu propia GPU NVIDIA en Windows, así que tus fotos y vídeos se quedan en tu equipo. La licencia es independiente de los créditos.",
     "thApp": "App",

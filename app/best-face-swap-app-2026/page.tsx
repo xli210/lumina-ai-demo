@@ -13,13 +13,15 @@ import {
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { demoAvailabilityEn } from "@/lib/demo-availability";
+import { DAILY_FREE_FACE_SWAPS, FREE_PHOTO_MAX_SIDE } from "@/lib/facestudio-daily-free-rules";
+import { FREE_ALLOWANCE_SHORT } from "@/lib/face-studio-facts";
 import { Button } from "@/components/ui/button";
 
 const PAGE_URL = "https://nanopocket.ai/best-face-swap-app-2026";
 const LAST_VERIFIED = "2026-05-29";
 const TEST_PERIOD = "April–May 2026";
 /** When the page was last edited (our own entry's facts), as distinct from when the ranking was tested. */
-const LAST_EDITED = "2026-11-19";
+const LAST_EDITED = "2026-11-25";
 
 export const metadata: Metadata = {
   // absolute: the "| NanoPocket" suffix would push the title past what Google shows.
@@ -73,13 +75,13 @@ const TOOLS: Tool[] = [
     bestFor:
       "Anyone who wants the easiest free online face swap that still uses a state-of-the-art diffusion identity stack, plus an optional desktop edition (Nano FaceStudio Pro 1.0) for users who specifically need zero-cloud processing.",
     platform: "Browser-first (Nano FaceStudio Online, no install) + optional desktop edition (Nano FaceStudio Pro 1.0: Windows now, macOS to follow)",
-    pricing: "Free credits for new accounts, then prepaid credits that never expire; free desktop apps with no usage limit (Nano FaceSwap, Nano FacialEdit, Nano ImageTryon); one-time license for the Pro desktop apps; no subscription",
+    pricing: `${DAILY_FREE_FACE_SWAPS} free photo face swap a day for every signed-in account (Nano FaceStudio Online, one face, no watermark) and free credits for new accounts, then prepaid credits that never expire; free desktop apps with no usage limit (Nano FaceSwap, Nano FacialEdit, Nano ImageTryon); one-time license for the Pro desktop apps; no subscription`,
     identityModel:
       "Diffusion-based identity stack — GAN and diffusion models (stronger identity preservation than GAN-only swappers like inswapper_128)",
     videoSupport: "Video FaceSwap 2.5 Online (formerly Video FaceSwap Online; official release since October 2026) swaps a face or whole head in an uploaded clip and keeps the original sound; the free local Nano FaceSwap app also swaps video, with no usage limit and no watermark, up to 4K. Nano FaceStudio Pro 1.0 is a photo studio",
     privacyPosture: "Cloud (free online demo) / Local (optional desktop)",
     strengths: [
-      "In-browser tools — no install, no GPU on the user's device, no subscription; new accounts start with free credits",
+      `In-browser tools — no install, no GPU on the user's device, no subscription; new accounts start with free credits, and every signed-in account gets ${DAILY_FREE_FACE_SWAPS} free photo face swap a day`,
       "GAN and diffusion models — better fidelity than GAN baselines used by most cloud face-swap services",
       "Four single-purpose online tools: photo face swap (up to six faces), photo head swap (Nano HeadSwap Pro, face and hair), video face and head swap, and text-based photo editing",
       "Free Windows app Nano FaceSwap: unlimited photo and video face swaps, no watermark, up to 4K, on the user's own NVIDIA GPU",
@@ -338,7 +340,7 @@ const FAQS = [
   {
     q: "What is the easiest free online face swap that runs in the browser?",
     a:
-      `NanoPocket's /face-swap page is the canonical free browser entry point, and Nano FaceStudio Online at /face-studio is its photo face swap, with free full-resolution renders (a limited free allowance) for a free NanoPocket account and no install. ${demoAvailabilityEn()} Among other browser tools, DeepSwap is the next-easiest but gates non-trivial use behind a subscription; WaveSpeed AI and Magic Hour bundle face swap inside a broader AI suite that's slightly more navigation overhead.`,
+      `NanoPocket's /face-swap page is the canonical free browser entry point, and Nano FaceStudio Online at /face-studio is its photo face swap, with ${DAILY_FREE_FACE_SWAPS} free face swap a day and ${FREE_ALLOWANCE_SHORT} for a free NanoPocket account, no install, and no watermark on free photos (up to ${FREE_PHOTO_MAX_SIDE} px with a small corner mark until a first purchase). ${demoAvailabilityEn()} Among other browser tools, DeepSwap is the next-easiest but gates non-trivial use behind a subscription; WaveSpeed AI and Magic Hour bundle face swap inside a broader AI suite that's slightly more navigation overhead.`,
   },
   {
     q: "Is face swap legal?",

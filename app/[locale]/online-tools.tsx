@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle2, Clapperboard, ImageIcon, UserRoundCog, Wand2 
 import { getTranslations } from "next-intl/server";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACE_STUDIO_NAME, FACE_SWAP_CREDITS, HEAD_SWAP_CREDITS } from "@/lib/face-studio-facts";
+import { DAILY_FREE_FACE_SWAPS, FREE_PHOTO_MAX_SIDE } from "@/lib/facestudio-daily-free-rules";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE } from "@/lib/facestudio-v";
 import { IMAGEEDIT_NAME, IMAGEEDIT_PRICE_RANGE } from "@/lib/imageedit";
@@ -22,6 +23,9 @@ export const PRICE_PARAMS = {
   head: HEAD_SWAP_CREDITS,
   hsp: HEADSWAP_PRO_CREDITS_PER_IMAGE,
   edit: IMAGEEDIT_PRICE_RANGE,
+  /** Nano FaceStudio Online's daily free face swaps and the longer side of a free photo, for the watermark note. */
+  daily: DAILY_FREE_FACE_SWAPS,
+  side: FREE_PHOTO_MAX_SIDE,
 };
 
 const accents = {
@@ -67,7 +71,7 @@ export async function OnlineToolCards({ locale }: { locale: AppLocale }) {
           </div>
         ))}
       </div>
-      <p className="mt-6 max-w-3xl text-xs leading-relaxed text-muted-foreground">{t("watermarkNote")} {t("englishNote")}</p>
+      <p className="mt-6 max-w-3xl text-xs leading-relaxed text-muted-foreground">{t("watermarkNote", PRICE_PARAMS)} {t("englishNote")}</p>
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
+import { DAILY_FREE_FACE_SWAPS, FREE_PHOTO_MAX_SIDE } from "@/lib/facestudio-daily-free-rules";
+import { FREE_ALLOWANCE_SHORT } from "@/lib/face-studio-facts";
 import {
   ProductLandingShell,
   type ProductLandingData,
@@ -277,7 +279,7 @@ const data: ProductLandingData = {
     },
     {
       q: "Should I get this or Nano FaceStudio Pro 1.0?",
-      a: "Nano FaceSwap (this app) is the free desktop face swap: photos and videos up to 4K, no usage limit and no watermark. Nano FaceStudio Pro 1.0 is the diffusion upgrade, with multi-face swap, mask edit, expression editing, Face Vivid, upscale, light adjust, and crop in one app. Nano FaceStudio Online, its browser edition, gives every signed-in NanoPocket account a free allowance of renders.",
+      a: `Nano FaceSwap (this app) is the free desktop face swap: photos and videos up to 4K, no usage limit and no watermark. Nano FaceStudio Pro 1.0 is the diffusion upgrade, with multi-face swap, mask edit, expression editing, Face Vivid, upscale, light adjust, and crop in one app. Nano FaceStudio Online, its browser edition, gives every signed-in NanoPocket account ${DAILY_FREE_FACE_SWAPS} free photo face swap a day and new accounts ${FREE_ALLOWANCE_SHORT}; free photos have no watermark and come out at up to ${FREE_PHOTO_MAX_SIDE} px with a small corner mark.`,
     },
     {
       q: "Do my photos and videos stay private?",

@@ -18,6 +18,12 @@
  */
 
 import {
+  DAILY_FREE_DEFAULT_CAP,
+  DAILY_FREE_FACE_SWAPS,
+  DAILY_FREE_RESET_LABEL,
+  FREE_PHOTO_MAX_SIDE,
+} from "@/lib/facestudio-daily-free-rules";
+import {
   FACESTUDIO_MAX_FACES,
   FREE_TOPUP_CREDITS,
   creditsForMode,
@@ -66,10 +72,25 @@ export const SIGNUP_FREE_SWAPS = Math.floor(SIGNUP_GRANT_CREDITS / FACE_SWAP_CRE
 export const FREE_ALLOWANCE_SHORT = `${SIGNUP_FREE_SWAPS} free swaps on sign-up (${SIGNUP_GRANT_CREDITS} credits)`;
 
 /**
- * The whole free offer as one clause, for every page and LLM file that says what is free: the sign-up grant and
- * the free top-up. "Free" on this site always comes with these numbers, never as "free" alone.
+ * The daily free photo face swap (since 2026-11-25, lib/facestudio-daily-free.ts) as one clause.
  */
-export const FREE_OFFER_EN = `every new account gets ${SIGNUP_GRANT_CREDITS} free credits (${SIGNUP_FREE_SWAPS} photo face swaps), and after a first purchase a balance that runs low is topped back up to ${FREE_TOPUP_CREDITS} free credits (${FREE_RENDERS_PER_TOPUP} swaps)`;
+export const DAILY_FREE_EN = `every signed-in account gets ${DAILY_FREE_FACE_SWAPS} free photo face swap every day in Nano FaceStudio Online (one face per swap, no credits needed, no watermark), on top of the sign-up credits`;
+
+/**
+ * What a free photo looks like in Nano FaceStudio Online since 2026-11-25 (the gateway's finish_free_png).
+ * Only Face Studio: Nano HeadSwap Pro and video results from a never-paid account still carry a tiled watermark.
+ */
+export const FREE_PHOTO_OUTPUT_EN = `Nano FaceStudio Online photos from an account that has never bought credits have no watermark: they come out at up to ${FREE_PHOTO_MAX_SIDE} px on the longer side with a small nanopocket.ai mark in one corner and metadata saying the image is AI-generated; one purchase of credits gives full resolution (up to 4080×4080) without the mark`;
+
+/** The daily free swap's limits, for FAQs and llms files. */
+export const DAILY_FREE_LIMITS_EN = `It resets at ${DAILY_FREE_RESET_LABEL}; an unused free swap does not carry over and cannot be spent on anything else; it follows the same one-account-per-person rule as the sign-up credits; and the site gives out up to ${DAILY_FREE_DEFAULT_CAP} a day in all, so late in a busy day they can run out`;
+
+/**
+ * The whole free offer as one clause, for every page and LLM file that says what is free: the daily free face
+ * swap, the sign-up grant and the free top-up. "Free" on this site always comes with these numbers, never as
+ * "free" alone.
+ */
+export const FREE_OFFER_EN = `every signed-in account gets ${DAILY_FREE_FACE_SWAPS} free photo face swap every day (Nano FaceStudio Online, one face, no watermark), every new account also gets ${SIGNUP_GRANT_CREDITS} free credits (${SIGNUP_FREE_SWAPS} photo face swaps), and after a first purchase a balance that runs low is topped back up to ${FREE_TOPUP_CREDITS} free credits (${FREE_RENDERS_PER_TOPUP} swaps)`;
 
 /** Rendered as `$0.10`. Used only where we compare with rivals' dollar prices; everywhere else prices are in credits. */
 export function usd(amount: number): string {
@@ -124,7 +145,7 @@ export const DIFFERENTIATORS: readonly Differentiator[] = [
   {
     title: "Full-resolution output",
     claim:
-      "Results are returned at the source resolution, up to 4080×4080 and around 20 MB of PNG, with no downscale. Renders from an account that has never bought credits carry a tiled NanoPocket.ai watermark; one purchase of credits removes it for good.",
+      `Results are returned at the source resolution, up to 4080×4080 and around 20 MB of PNG, with no downscale, once an account has bought credits. Free photos have no watermark: up to ${FREE_PHOTO_MAX_SIDE} px with a small nanopocket.ai mark in one corner.`,
     contrast:
       "Free and mid tiers elsewhere cap at 720p or 1080p and watermark the output; Reface's free tier is 720p watermarked, Akool's is 720p watermarked.",
   },
@@ -294,7 +315,7 @@ export const FACE_STUDIO_FAQ: readonly FactQA[] = [
   },
   {
     q: "Is there a free tier for Nano FaceStudio Online?",
-    a: `Yes. A signed-in NanoPocket account is topped up to ${FREE_TOPUP_CREDITS} credits when it runs low, which is ${FREE_RENDERS_PER_TOPUP} single-face swaps at full resolution (watermarked until the account has bought credits once), or one render replacing ${FREE_RENDERS_PER_TOPUP} faces at once. Only an account that has bought credits is topped up; one that has never bought has its sign-up credits only. Face detection is always free. The top-up goes up to ${FREE_TOPUP_CREDITS} rather than adding to it, so it does not accumulate.`,
+    a: `Yes. Every signed-in account gets ${DAILY_FREE_FACE_SWAPS} free face swap (one face) every day, with no credits needed, and every new account also gets ${SIGNUP_GRANT_CREDITS} free credits (${SIGNUP_FREE_SWAPS} more swaps). ${DAILY_FREE_LIMITS_EN}. Free photos have no watermark: they come out at up to ${FREE_PHOTO_MAX_SIDE} px with a small nanopocket.ai mark in one corner, and one purchase gives full resolution without it. An account that has bought credits is also topped up to ${FREE_TOPUP_CREDITS} credits when it runs low (${FREE_RENDERS_PER_TOPUP} single-face swaps); the top-up goes up to ${FREE_TOPUP_CREDITS} rather than adding to it. Face detection is always free.`,
   },
   {
     q: "Can Nano FaceStudio Online swap more than one face in a photo?",
@@ -306,7 +327,7 @@ export const FACE_STUDIO_FAQ: readonly FactQA[] = [
   },
   {
     q: "What resolution does Nano FaceStudio Online output?",
-    a: "Results are returned at the source resolution, up to 4080×4080, as PNG of around 20 MB. Renders from an account that has never bought credits, including the free allowance, carry a tiled NanoPocket.ai watermark; once you have bought credits, even once, they never do. Competing free and mid tiers commonly cap at 720p or 1080p and watermark output.",
+    a: `Once an account has bought credits, even once, results are returned at the source resolution, up to 4080×4080, as PNG of around 20 MB. Before that, including the daily free swap and the sign-up credits, a result has no watermark but is at most ${FREE_PHOTO_MAX_SIDE} px on its longer side, with a small nanopocket.ai mark in one corner and metadata saying it is AI-generated. Competing free and mid tiers commonly cap at 720p or 1080p and watermark output.`,
   },
   {
     q: "Does Nano FaceStudio Online charge for a render that fails?",
@@ -354,6 +375,6 @@ export const FACE_STUDIO_STEPS: readonly { name: string; text: string }[] = [
   },
   {
     name: "Compare and download",
-    text: "The result loads into a synced before/after viewer at full resolution. A brush tool paints back any region of the original. Download is unlimited, and unwatermarked once you have bought credits.",
+    text: `The result loads into a synced before/after viewer. A brush tool paints back any region of the original. Download is unlimited and never watermarked; free photos are up to ${FREE_PHOTO_MAX_SIDE} px with a small corner mark, full resolution once you have bought credits.`,
   },
 ];

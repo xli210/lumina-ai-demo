@@ -31,20 +31,21 @@ import {
 } from "@/lib/face-studio-facts";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACESTUDIO_MAX_FACES } from "@/lib/facestudio";
+import { DAILY_FREE_FACE_SWAPS, FREE_PHOTO_MAX_SIDE } from "@/lib/facestudio-daily-free-rules";
 import { demoAvailabilityEn } from "@/lib/demo-availability";
 import { FREE_TIER } from "@/lib/free-tier";
 import { BEST_FREE_COPY } from "@/lib/best-free-face-swap-copy";
 import { FreeTierBlock } from "../components/free-tier-block";
 
 const PAGE_URL = "https://nanopocket.ai/face-swap";
-const LAST_VERIFIED = "2026-11-16";
+const LAST_VERIFIED = "2026-11-25";
 
 export const metadata: Metadata = {
   title:
     // The layout template appends " | NanoPocket"; the brand is not repeated here.
     "Free AI Face Swap Online — Photo, Group Photo & Video, No Install",
   description:
-    `Free AI face swap in your browser: ${SIGNUP_GRANT_CREDITS} free credits on sign-up (${SIGNUP_FREE_SWAPS} photo face swaps), no card, no install, no subscription. Swap up to ${FACESTUDIO_MAX_FACES} faces in one photo at full resolution, or a face in a video. Watermark until your first top-up.`,
+    `Free AI face swap in your browser: ${DAILY_FREE_FACE_SWAPS} free photo face swap every day plus ${SIGNUP_GRANT_CREDITS} free credits on sign-up (${SIGNUP_FREE_SWAPS} photo face swaps), no card, no install, no subscription. Swap up to ${FACESTUDIO_MAX_FACES} faces in one photo, or a face in a video. Free photos have no watermark (up to ${FREE_PHOTO_MAX_SIDE} px, small corner mark); free videos are watermarked until your first top-up.`,
   keywords: [
     "free online face swap",
     "ai face swap online",
@@ -66,7 +67,7 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     title: "Free AI Face Swap Online — runs in your browser",
     description:
-      `Diffusion-grade face swap that runs in your browser. ${SIGNUP_GRANT_CREDITS} free credits on sign-up (${SIGNUP_FREE_SWAPS} photo swaps), no install, no subscription.`,
+      `Diffusion-grade face swap that runs in your browser. ${DAILY_FREE_FACE_SWAPS} free photo face swap every day plus ${SIGNUP_GRANT_CREDITS} free credits on sign-up (${SIGNUP_FREE_SWAPS} photo swaps), no install, no subscription.`,
     images: ["/images/vivid/gemini-after.jpg"],
   },
   other: {
@@ -90,8 +91,8 @@ const ONLINE_DEMO_COPY: OnlineDemoCopy[] = [
       `Up to ${FACESTUDIO_MAX_FACES} faces per photo, each with its own reference — most tools do one`,
       "Keep the original hair, hands and glasses that cross a face, per face — everywhere else they get painted over",
       "Whole-head swap for when a face-only result reads as a mask",
-      `Full source resolution, up to 4080×4080; one top-up removes the watermark`,
-      `${FREE_ALLOWANCE_SHORT}, then ${FACE_SWAP_CREDITS} credits a face — no subscription, credits never expire`,
+      `Free photos have no watermark: up to ${FREE_PHOTO_MAX_SIDE} px with a small corner mark; one purchase gives full source resolution, up to 4080×4080`,
+      `${DAILY_FREE_FACE_SWAPS} free face swap every day and ${FREE_ALLOWANCE_SHORT}, then ${FACE_SWAP_CREDITS} credits a face — no subscription, credits never expire`,
     ],
     Icon: ImageIcon,
     accent: "violet",
@@ -151,7 +152,7 @@ const COMPARE_ROWS: CompareRow[] = [
     tool: "NanoPocket — free to start",
     setup: "Browser only — open and go",
     signup: "Free NanoPocket account, no card",
-    pricing: `${SIGNUP_GRANT_CREDITS} free credits on sign-up, then pay per use (free top-ups after a first purchase) in credits; no subscription`,
+    pricing: `${DAILY_FREE_FACE_SWAPS} free photo face swap a day and ${SIGNUP_GRANT_CREDITS} free credits on sign-up, then pay per use (free top-ups after a first purchase) in credits; no subscription`,
     identity: "Diffusion stack",
     privacy: "Cloud GPU for the demo, volatile only, not used for training",
     highlight: true,
@@ -203,7 +204,7 @@ const FAQS = [
   { q: BEST_FREE_COPY.en.faq[0].q, a: `${BEST_FREE_COPY.en.faq[0].a} The full comparison, with sources: /best-free-face-swap.` },
   {
     q: "Is the online face swap really free?",
-    a: `Free to start: ${FREE_OFFER_EN}. No card is needed. Nano FaceStudio Online, the photo face swap, renders the free swaps at full resolution — the same output as a paid render apart from a small NanoPocket.ai watermark, which one top-up removes — and face detection is always free. Past that it is ${FACE_SWAP_CREDITS} credits per face replaced — one pass runs per face, so faces you leave alone are free — prepaid in credits that never expire, with no subscription and no auto-renewal. A render that fails is refunded in full automatically. Nano FaceStudio Pro 1.0, the local desktop version, is a separate, optional, one-time-purchase product; buying credits does not affect a desktop license and owning one does not consume credits.`,
+    a: `Free to start: ${FREE_OFFER_EN}. No card is needed. Nano FaceStudio Online, the photo face swap, renders the free swaps with no watermark at up to ${FREE_PHOTO_MAX_SIDE} px on the longer side, with a small nanopocket.ai mark in one corner; one purchase of credits gives full resolution without the mark. Face detection is always free. Past that it is ${FACE_SWAP_CREDITS} credits per face replaced — one pass runs per face, so faces you leave alone are free — prepaid in credits that never expire, with no subscription and no auto-renewal. A render that fails is refunded in full automatically. Nano FaceStudio Pro 1.0, the local desktop version, is a separate, optional, one-time-purchase product; buying credits does not affect a desktop license and owning one does not consume credits.`,
   },
   {
     q: "Do I need an account?",
@@ -219,7 +220,7 @@ const FAQS = [
   },
   {
     q: "What resolution do the results come out at, and is there a watermark?",
-    a: "Nano FaceStudio Online returns results at the source resolution, up to 4080×4080, as PNG of around 20 MB. Renders from an account that has never bought credits carry a tiled NanoPocket.ai watermark; once you have bought credits, even once, they never do. Reface's free tier is 720p watermarked and Akool's is 720p watermarked; most free and mid tiers elsewhere cap at 720p or 1080p. Uploads are accepted up to 40 MB because the photo goes straight to object storage rather than through a web server.",
+    a: `Once an account has bought credits, even once, Nano FaceStudio Online returns results at the source resolution, up to 4080×4080, as PNG of around 20 MB, with no mark. Renders from an account that has never bought credits, including the daily free swap, have no watermark but come out at up to ${FREE_PHOTO_MAX_SIDE} px on the longer side with a small nanopocket.ai mark in one corner and metadata saying the image is AI-generated. Reface's free tier is 720p watermarked and Akool's is 720p watermarked; most free and mid tiers elsewhere cap at 720p or 1080p. Uploads are accepted up to 40 MB because the photo goes straight to object storage rather than through a web server.`,
   },
   {
     q: "Do I need a GPU on my machine?",
@@ -315,7 +316,7 @@ const howToJsonLd = {
   "@type": "HowTo",
   name: "How to face-swap a photo online for free with NanoPocket",
   description:
-    `Three steps to a free in-browser face swap with NanoPocket: ${SIGNUP_GRANT_CREDITS} free credits on sign-up cover ${SIGNUP_FREE_SWAPS} photo face swaps. No install, no subscription.`,
+    `Three steps to a free in-browser face swap with NanoPocket: ${DAILY_FREE_FACE_SWAPS} free photo face swap every day, and ${SIGNUP_GRANT_CREDITS} free credits on sign-up cover ${SIGNUP_FREE_SWAPS} more. No install, no subscription.`,
   totalTime: "PT2M",
   estimatedCost: { "@type": "MonetaryAmount", currency: "USD", value: "0" },
   inLanguage: "en",
@@ -346,7 +347,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 3,
       name: "Upload and swap",
-      text: "Drop in the target photo or video and a reference face. Our GAN and diffusion models produce the swap in a few seconds. Download the result. There is no subscription, and Nano FaceStudio Online includes a free allowance of renders (watermarked until you have bought credits once).",
+      text: `Drop in the target photo or video and a reference face. Our GAN and diffusion models produce the swap in a few seconds. Download the result. There is no subscription, and Nano FaceStudio Online includes ${DAILY_FREE_FACE_SWAPS} free photo face swap a day on top of the sign-up credits; until you have bought credits once, its photos have no watermark and come out at up to ${FREE_PHOTO_MAX_SIDE} px with a small corner mark.`,
     },
   ],
 };
@@ -397,8 +398,10 @@ export default function FaceSwapPage() {
             Diffusion-grade face swap that runs in your browser. Sign in once
             with a free NanoPocket account, upload a photo and a reference
             face, and get a swap in seconds. No GPU required on your machine
-            and no subscription: {SIGNUP_GRANT_CREDITS} free credits on sign-up
-            cover {SIGNUP_FREE_SWAPS} photo face swaps at full resolution.
+            and no subscription: {DAILY_FREE_FACE_SWAPS} free photo face swap
+            every day, and {SIGNUP_GRANT_CREDITS} free credits on sign-up cover
+            {SIGNUP_FREE_SWAPS} more, with no watermark (up to {FREE_PHOTO_MAX_SIDE} px
+            with a small corner mark until your first purchase).
           </p>
 
           <div className="mb-6 flex flex-wrap items-center gap-3 text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground">

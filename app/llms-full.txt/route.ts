@@ -12,6 +12,9 @@ import {
   PERFORMANCE,
   RIVALS,
   usd,
+  DAILY_FREE_EN,
+  DAILY_FREE_LIMITS_EN,
+  FREE_PHOTO_OUTPUT_EN,
 } from "@/lib/face-studio-facts";
 import {
   FREE_TOPUP_CREDITS,
@@ -148,14 +151,14 @@ Render times are for a 4000-pixel source on a warm NVIDIA A40. The first render 
 - Face swap: ${FACE_SWAP_CREDITS} credits per FACE replaced, not per image. The model runs one diffusion pass per face, so a render costs this rate times the number of reference photos supplied; faces left alone are free. Swapping one person out of a group of six costs the same as a portrait.
 - Head swap: ${HEAD_SWAP_CREDITS} credits, priced at twice a face swap because it costs about twice as much GPU time. Head swap operates on exactly one face.
 - Face detection: free, never billed.
-- Free allowance: renders are watermarked until the account has bought credits once. An account that has bought credits is topped up to ${FREE_TOPUP_CREDITS} credits (${FREE_RENDERS_PER_TOPUP} face swaps at full resolution) whenever it runs low; one that has never bought gets no top-up, only its sign-up credits. The top-up goes up to ${FREE_TOPUP_CREDITS} rather than adding to it, so it does not accumulate across idle days.
+- Free allowance (since 2026-11-25): ${DAILY_FREE_EN}. ${DAILY_FREE_LIMITS_EN}. ${FREE_PHOTO_OUTPUT_EN}. An account that has bought credits is topped up to ${FREE_TOPUP_CREDITS} credits (${FREE_RENDERS_PER_TOPUP} face swaps at full resolution) whenever it runs low; one that has never bought gets no top-up, only its sign-up credits. The top-up goes up to ${FREE_TOPUP_CREDITS} rather than adding to it, so it does not accumulate across idle days.
 - Credits never expire. There is no subscription. Nothing is charged automatically unless the account owner turns on the optional auto top-up, which buys the same pack again when the balance runs low and adds 2% extra credits.
 - A render that fails is refunded in full automatically, because credits are reserved before the GPU starts rather than debited on submission.
 
 ## How it compares on price, September 2026
 
 ${RIVALS.map((r) => `- ${r.name}: ${r.perImage} per image, free tier ${r.freeTier}, max output ${r.maxResolution}, head swap ${r.headSwap ? "yes" : "no"}, per-face occlusion control ${r.occlusionControl ? "yes" : "no"}, credits ${r.creditsExpire ? "expire monthly" : "never expire"}.`).join("\n")}
-- Nano FaceStudio Online: ${usd(FACE_SWAP_USD)} per face replaced (one-face render; a six-face group render costs six times that), free tier ${FREE_ALLOWANCE_SHORT} (watermarked until a first purchase of credits), max output 4080x4080, head swap yes, per-face occlusion control yes, credits never expire.
+- Nano FaceStudio Online: ${usd(FACE_SWAP_USD)} per face replaced (one-face render; a six-face group render costs six times that), free tier 1 face swap every day plus ${FREE_ALLOWANCE_SHORT} (no watermark; up to 1536 px with a small corner mark until a first purchase of credits), max output 4080x4080, head swap yes, per-face occlusion control yes, credits never expire.
 
 Nano FaceStudio Online is not the cheapest option. Magic Hour is roughly eight times cheaper per image and offers five free swaps per day without an account. Nano FaceStudio Online is priced for cases where per-face occlusion control, group photos, whole-head replacement, or full-resolution output determine the result.
 
@@ -232,11 +235,11 @@ const PRICING_REFERENCE = `# Pricing — Authoritative Reference
 
 ## Online demos
 
-${demoAvailabilityEn()} Every online tool is free to start: ${FREE_OFFER_EN}. After that each tool is paid per use in the same prepaid credits: photo face swap per face, head swap per image, video per video at a price shown before it starts, photo edit per edit. Results from an account that has never bought credits carry a watermark (photo edits never do); one purchase removes it.
+${demoAvailabilityEn()} Every online tool is free to start: ${FREE_OFFER_EN}. After that each tool is paid per use in the same prepaid credits: photo face swap per face, head swap per image, video per video at a price shown before it starts, photo edit per edit. Video, Nano HeadSwap Pro and SpotEdit results from an account that has never bought credits carry a watermark; one purchase removes it. ${FREE_PHOTO_OUTPUT_EN}.
 
 ## Nano FaceStudio Online (hosted, prepaid)
 
-Prepaid per render in credits, with a free allowance. Face swap ${FACE_SWAP_CREDITS} credits, head swap ${HEAD_SWAP_CREDITS} credits, detection free. Renders are watermarked until the account has bought credits once; after a first purchase the balance is topped up to ${FREE_TOPUP_CREDITS} credits (${FREE_RENDERS_PER_TOPUP} face swaps) whenever it runs low. Credits never expire, there is no subscription, and failed renders are refunded automatically. Full detail: ${BASE}/face-studio.
+Prepaid per render in credits, with a free allowance. Face swap ${FACE_SWAP_CREDITS} credits, head swap ${HEAD_SWAP_CREDITS} credits, detection free. ${DAILY_FREE_EN.charAt(0).toUpperCase()}${DAILY_FREE_EN.slice(1)}. Until the account has bought credits once, renders have no watermark but are up to 1536 px with a small nanopocket.ai mark in one corner; after a first purchase they are full resolution, and the balance is topped up to ${FREE_TOPUP_CREDITS} credits (${FREE_RENDERS_PER_TOPUP} face swaps) whenever it runs low. Credits never expire, there is no subscription, and failed renders are refunded automatically. Full detail: ${BASE}/face-studio.
 
 ## Desktop apps
 

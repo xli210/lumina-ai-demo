@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Sparkles, Video, ArrowRight, X, Palette, Wand2, ScanFace } from "lucide-react";
+import { Sparkles, Video, ArrowRight, X, Palette, Wand2, ScanFace, Gift } from "lucide-react";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
 import { PRODUCTS } from "@/lib/products";
 import { BLACK_FRIDAY_ENDS_LABEL, blackFridayOn, blackFridayUpcoming, formatUsdCents } from "@/lib/black-friday";
@@ -21,6 +21,15 @@ interface WhatsNewItem {
 }
 
 const ITEMS: WhatsNewItem[] = [
+  {
+    id: "facestudio-daily-free",
+    label: "FREE DAILY",
+    labelClassName: "bg-emerald-100 text-emerald-700 ring-emerald-200",
+    icon: Gift,
+    iconClassName: "text-emerald-600",
+    text: "New: 1 free photo face swap every day for every signed-in account, and free photos have no watermark (up to 1536 px, a small nanopocket.ai mark in the corner)",
+    href: "/face-studio",
+  },
   {
     id: "video-faceswap-neo",
     label: "NEW MODEL",
@@ -91,7 +100,8 @@ const ITEMS: WhatsNewItem[] = [
 // v15: Sharper face for the video head swap.
 // v17: Neo is live, with its launch-week offer (v16 was the first Neo item).
 // v18: Black Friday (24 Nov to 24 Dec 2026).
-const STORAGE_KEY = "nanopocket_whats_new_dismissed_v18";
+// v19: 1 free photo face swap a day, and no watermark on free Face Studio photos (2026-11-25).
+const STORAGE_KEY = "nanopocket_whats_new_dismissed_v19";
 
 
 /**

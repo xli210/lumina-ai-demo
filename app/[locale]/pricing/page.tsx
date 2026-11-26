@@ -12,6 +12,7 @@ import { FACESTUDIO_MAX_FACES, FACESTUDIO_PRICE_PER_FACE, FREE_TOPUP_CREDITS } f
 import { IMAGE_EDIT_NAME, IMAGE_EDIT_PRICE_CREDITS } from "@/lib/image-edit-facts";
 import { FACESTUDIO_V_NAME } from "@/lib/facestudio-v";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
+import { DAILY_FREE_DEFAULT_CAP, DAILY_FREE_FACE_SWAPS, FREE_PHOTO_MAX_SIDE } from "@/lib/facestudio-daily-free-rules";
 import { hreflangAlternates, isAppLocale, TRANSLATED_PAGES, translatedOrEnglish, type AppLocale } from "@/lib/i18n/locales";
 import { fillCopy, pageCopy } from "@/lib/i18n/page-copy";
 
@@ -36,6 +37,10 @@ const VALUES = {
   grant: SIGNUP_GRANT_CREDITS,
   topup: FREE_TOPUP_CREDITS,
   video: FACESTUDIO_V_NAME,
+  // Nano FaceStudio Online's daily free face swap, its site-wide daily ceiling, and the longer side of a free photo.
+  daily: DAILY_FREE_FACE_SWAPS,
+  cap: DAILY_FREE_DEFAULT_CAP,
+  side: FREE_PHOTO_MAX_SIDE,
 };
 
 const APP_PAGE: Record<string, string> = {

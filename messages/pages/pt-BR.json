@@ -276,10 +276,10 @@
   },
   "faceStudio": {
     "title": "Troca de rosto grátis em fotos de grupo, online: até {max} rostos",
-    "description": "Grátis para começar: {grant} créditos no cadastro rendem {swaps} trocas de rosto. Troque até {max} rostos em uma foto, ou uma cabeça inteira, e mantenha o cabelo, as mãos, os óculos e as joias que passam pela frente do rosto. Resolução total, sem assinatura.",
+    "description": "Grátis para começar: 1 troca de rosto grátis por dia, mais {grant} créditos no cadastro para mais {swaps}. Troque até {max} rostos numa foto, ou a cabeça inteira, e mantenha o cabelo, as mãos, os óculos e as joias que passam pelo rosto. Sem marca d'água nas fotos grátis e sem assinatura.",
     "kicker": "Ferramenta online · no navegador",
     "h1": "Troque todos os rostos. Mantenha todo o resto.",
-    "lead": "Substitua até {max} rostos em uma foto, ou uma cabeça inteira, e escolha o que fica do original: cabelo sobre um olho, uma mão na bochecha, óculos, um piercing no nariz. O resultado volta em resolução total. Contas grátis levam uma pequena marca d'água da NanoPocket.ai, que uma recarga remove.",
+    "lead": "Troque até {max} rostos numa foto, ou a cabeça inteira, e escolha o que fica do original: o cabelo sobre um olho, uma mão no rosto, óculos, um piercing no nariz. Toda conta com login tem 1 troca de rosto grátis por dia. As fotos grátis não têm marca d'água: até 1536 px com uma pequena marca nanopocket.ai num canto; uma recarga dá a resolução total sem ela.",
     "cta": "Abrir o Nano FaceStudio Online",
     "note": "É preciso ter uma conta grátis da NanoPocket. {grant} créditos grátis no cadastro rendem {swaps} trocas ({face} créditos por rosto).",
     "examplesHeading": "Resultados reais",
@@ -335,7 +335,7 @@
       },
       {
         "q": "Tem marca d'água?",
-        "a": "Os resultados de uma conta que nunca comprou créditos levam a marca d'água da NanoPocket.ai. Compre créditos uma vez e ela some dos próximos resultados. Créditos grátis não contam como compra."
+        "a": "Não. Desde 25 de novembro de 2026, as fotos de uma conta que nunca comprou créditos não têm marca d'água. Elas saem com até 1536 px no lado maior e uma pequena marca nanopocket.ai num canto. Compre créditos uma vez e os próximos resultados saem em resolução total, até 4080 × 4080, sem a marca. Créditos grátis não contam como compra."
       },
       {
         "q": "Posso usar a foto de qualquer pessoa?",
@@ -677,7 +677,7 @@
     "roughly": "{swaps} trocas de rosto, ou {edits} edições de foto",
     "freeHeading": "Créditos grátis e a marca d'água",
     "freeNote": "Uma conta nova começa com {grant} créditos. Uma conta que já comprou créditos também é recarregada até {topup} créditos sempre que o saldo está baixo; quem nunca comprou não recebe essa recarga. Os créditos grátis são limitados a uma conta por pessoa.",
-    "watermarkNote": "A marca d'água: os resultados de {video} e do Nano FaceStudio Online feitos em uma conta que nunca comprou créditos levam a marca d'água da NanoPocket.ai. Compre créditos uma vez, com qualquer pacote, e ela sai dos resultados que você fizer depois. Créditos grátis não contam como compra.",
+    "watermarkNote": "A marca d'água: os resultados do {video} e do Nano HeadSwap Pro feitos numa conta que nunca comprou créditos têm marca d'água da NanoPocket.ai. As fotos do Nano FaceStudio Online dessa conta não têm: saem com até 1536 px e uma pequena marca nanopocket.ai num canto, e toda conta com login tem ali 1 troca de rosto grátis por dia. Compre créditos uma vez, com qualquer pacote, e os novos resultados saem em resolução total, sem marca d'água nem marca. Créditos grátis não contam como compra.",
     "desktopHeading": "Apps para desktop: grátis ou com licença de pagamento único",
     "desktopNote": "Os apps para desktop rodam na sua própria GPU NVIDIA, no Windows, então suas fotos e vídeos ficam no seu computador. A licença é separada dos créditos.",
     "thApp": "App",

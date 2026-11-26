@@ -20,6 +20,8 @@ import {
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { SIGNED_APPS_PHRASE } from "@/lib/download-hashes";
+import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
+import { DAILY_FREE_FACE_SWAPS } from "@/lib/facestudio-daily-free-rules";
 
 const PAGE_URL = "https://nanopocket.ai/trust";
 const LAST_VERIFIED = "2026-05-29";
@@ -165,7 +167,7 @@ const PRICING_TERMS: PricingTerm[] = [
   { label: "Trial", value: "7-day free trial on paid apps, no credit card needed. Nano FaceStudio Pro has no trial; its free online tools at /face-swap are the preview." },
   { label: "Free apps", value: "Nano FaceSwap, Nano FacialEdit and Nano ImageTryon: permanent free license at no cost, no usage limit, no time limit, no upsell. Nano FaceSwap output has no watermark." },
   { label: "Activations per license", value: "1 machine per license by default. Force-takeover is supported on the user's account page." },
-  { label: "Hidden charges", value: "None. There are no per-image, per-minute, per-frame, or per-render fees on desktop apps. Online demos are free for signed-in NanoPocket accounts." },
+  { label: "Hidden charges", value: `None. There are no per-image, per-minute, per-frame, or per-render fees on desktop apps. The online tools are paid per use in credits, with the price shown before each job; every signed-in account gets ${DAILY_FREE_FACE_SWAPS} free photo face swap a day in Nano FaceStudio Online and every new account ${SIGNUP_GRANT_CREDITS} free credits.` },
   { label: "Recurring fees", value: "None. The license does not expire and does not require a yearly renewal." },
   { label: "Future updates", value: "Minor and patch updates (e.g. 1.0.4 → 1.0.5) are included free for life. Major version upgrades (e.g. 3.0 → 4.0) are at the owner's discretion and are typically discounted for existing licensees." },
   { label: "Refund policy", value: "Desktop app purchases are non-refundable after activation. A purchase with zero activations and zero generations may be refunded on request within 14 days." },
@@ -681,7 +683,7 @@ const trustFaqJsonLd = {
       name: "Are there hidden charges or recurring fees?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. Desktop licenses are one-time and machine-bound, with no per-image, per-minute, or per-frame fees. Online demos are free for every signed-in NanoPocket account. There is no auto-renewal, no yearly subscription, and no usage meter.",
+        text: `No. Desktop licenses are one-time and machine-bound, with no per-image, per-minute, or per-frame fees. The online tools are paid per use in credits, with the price shown before each job; every signed-in NanoPocket account gets ${DAILY_FREE_FACE_SWAPS} free photo face swap a day in Nano FaceStudio Online and every new account ${SIGNUP_GRANT_CREDITS} free credits. There is no auto-renewal, no yearly subscription, and no usage meter.`,
       },
     },
     {

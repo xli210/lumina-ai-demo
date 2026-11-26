@@ -188,8 +188,11 @@ export async function startGenerate(params: {
   });
 }
 
-export async function getJobStatus(jobId: string): Promise<UpstreamResult> {
-  return callUpstream(`/v5/api/status/${encodeURIComponent(jobId)}`, {
+export async function getJobStatus(jobId: string, opts: { finishFree?: boolean } = {}): Promise<UpstreamResult> {
+  // `finish=free`: the gateway turns a finished free render into its free version
+  // (lib/facestudio-watermark.ts, freeOutputStyle) before it reports it done.
+  const query = opts.finishFree ? "?finish=free" : "";
+  return callUpstream(`/v5/api/status/${encodeURIComponent(jobId)}${query}`, {
     method: "GET",
     timeoutMs: 20_000,
   });

@@ -2,6 +2,7 @@ import type { BlogPost } from "@/lib/blog-posts";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { CREDIT_PACKS } from "@/lib/credit-packs";
 import { SIGNUP_FREE_SWAPS } from "@/lib/face-studio-facts";
+import { DAILY_FREE_FACE_SWAPS, FREE_PHOTO_MAX_SIDE } from "@/lib/facestudio-daily-free-rules";
 import { FREE_VIDEO_FACE_SWAP_SECONDS } from "@/lib/free-tier";
 import { FACESTUDIO_PRO_REGULAR_PRICE_CENTS } from "@/lib/products";
 
@@ -16,6 +17,10 @@ import { FACESTUDIO_PRO_REGULAR_PRICE_CENTS } from "@/lib/products";
  *
  * Nano FaceSwap's output has no watermark, no usage limit and keeps the input resolution up to 4K
  * (owner, 2026-11-19); the free-no-watermark guide says so since 2026-11-22.
+ *
+ * Since 2026-11-25 Nano FaceStudio Online gives every signed-in account a free photo face swap a day, and its free
+ * photos have no watermark (up to FREE_PHOTO_MAX_SIDE px with a small corner mark); video, Nano HeadSwap Pro and
+ * SpotEdit results from a never-paid account still carry the watermark. The free-no-watermark and GPU guides say so.
  *
  * Deliberately not said, because nothing in the repo supports it: that a named competitor is slower, worse or unsafe, or that a specific card such as the
  * RTX 3070 has been benchmarked (the tested series is RTX 30/40/50; the speed numbers are from an RTX
@@ -101,6 +106,7 @@ Use a face only if you have the right to. NanoPocket asks you to confirm it on t
     description:
       "How much graphics memory face swap needs. The minimum for each NanoPocket desktop app, why an 8 GB card such as the RTX 3070 is enough for face swap, how to check your own card, and what to do if it is not.",
     date: DATE,
+    updated: "2026-11-25",
     keywords: [
       "can my gpu run face swap",
       "face swap rtx 3070",
@@ -155,15 +161,15 @@ You can also run \`nvidia-smi\` in a terminal, which prints the card name and it
 
 ## If your card is not enough
 
-You do not need new hardware to swap a face. The [online tools](/face-studio) run on NanoPocket's own GPUs, in any modern browser: new accounts start with ${SIGNUP_GRANT_CREDITS} free credits, which pay for ${SIGNUP_FREE_SWAPS} photo face swaps. Video is paid in credits too, with the price shown before each clip. See [face swap software that runs on your PC](/blog/face-swap-software-that-runs-offline-on-your-pc) for what each route involves.`,
+You do not need new hardware to swap a face. The [online tools](/face-studio) run on NanoPocket's own GPUs, in any modern browser: new accounts start with ${SIGNUP_GRANT_CREDITS} free credits, which pay for ${SIGNUP_FREE_SWAPS} photo face swaps, and every signed-in account gets ${DAILY_FREE_FACE_SWAPS} free photo face swap a day. Video is paid in credits too, with the price shown before each clip. See [face swap software that runs on your PC](/blog/face-swap-software-that-runs-offline-on-your-pc) for what each route involves.`,
   },
   {
     slug: "free-ai-face-swap-no-watermark-what-is-free",
     title: "Free AI Face Swap Without a Watermark: What Is Actually Free in 2026",
     description:
-      "Most free online face swappers add a watermark or cap you after a few tries. The honest options: a free app that runs on your own PC with no limit and no watermark, and what NanoPocket's free credits do and do not include.",
+      "Most free online face swappers add a watermark or cap you after a few tries. The honest options: a free app that runs on your own PC with no limit and no watermark, and what NanoPocket's daily free photo swap and free credits do and do not include.",
     date: DATE,
-    updated: "2026-11-22",
+    updated: "2026-11-25",
     keywords: [
       "free face swap no watermark",
       "free ai face swap",
@@ -180,13 +186,13 @@ You do not need new hardware to swap a face. The [online tools](/face-studio) ru
     },
     cta: {
       title: "Try it free",
-      body: `New accounts start with ${SIGNUP_GRANT_CREDITS} free credits (${SIGNUP_FREE_SWAPS} photo face swaps). Results carry a watermark until you add credits once.`,
+      body: `Every signed-in account gets ${DAILY_FREE_FACE_SWAPS} free photo face swap a day, and new accounts start with ${SIGNUP_GRANT_CREDITS} free credits (${SIGNUP_FREE_SWAPS} photo face swaps). Free photos have no watermark: up to ${FREE_PHOTO_MAX_SIDE} px with a small corner mark until you add credits once.`,
       href: "/face-studio",
       label: "Open Nano FaceStudio Online",
     },
     content: `## The short answer
 
-A face swap that is **free, unlimited and watermark-free on someone else's servers** does not really exist: the servers cost money, so a hosted tool either marks the result, caps your use, or charges. The ways to get a swap with no hosted watermark are to **run software on your own PC**, or to pay a small one-off amount online. Here is what each option involves.
+A face swap that is **free, unlimited and watermark-free on someone else's servers** does not really exist: the servers cost money, so a hosted tool either marks the result, caps your use, or charges. The ways to get a swap with no hosted watermark are to **run software on your own PC**, to use a capped free allowance (NanoPocket's photo face swap gives one free swap a day with no watermark, at a reduced size), or to pay a small one-off amount online. Here is what each option involves.
 
 ## Option 1: run it on your own computer
 
@@ -195,16 +201,16 @@ Software that runs on your own graphics card has no server to bill you for, so t
 - **Open-source projects** such as FaceFusion, Roop and Rope are free. You install and configure them yourself, usually with Python.
 - **[Nano FaceSwap](/apps/nano-faceswap)** is NanoPocket's free desktop app for Windows: **no usage limit, no watermark** on photos or videos, output that keeps your file's resolution up to 4K, a free licence key, and the photos and videos stay on your disk. It needs an NVIDIA card with at least 6 GB of memory. See [which face swap software runs on your PC](/blog/face-swap-software-that-runs-offline-on-your-pc) and [whether your GPU is enough](/blog/can-my-gpu-run-face-swap-rtx-3070-8gb-vram).
 
-## Option 2: free credits online
+## Option 2: a free swap a day and free credits online
 
-NanoPocket's online tools need nothing installed. Every new account starts with **${SIGNUP_GRANT_CREDITS} free credits**, enough for ${SIGNUP_FREE_SWAPS} photo face swaps, with no card and no subscription.
+NanoPocket's online tools need nothing installed. Every signed-in account gets **${DAILY_FREE_FACE_SWAPS} free photo face swap every day** in [Nano FaceStudio Online](/face-studio) (one face, no credits needed; the day runs midnight to midnight Pacific time and an unused one does not carry over). Every new account also starts with **${SIGNUP_GRANT_CREDITS} free credits**, enough for ${SIGNUP_FREE_SWAPS} photo face swaps, with no card and no subscription.
 
 What that does and does not include:
 
-- **Results carry a watermark** until the account has bought credits once. The free credits are for trying the tool, not for finished work.
-- **Adding credits once removes it.** The smallest pack is ${starterPrice}. Credits never expire and there is no subscription.
+- **Free photos have no watermark.** Photo face swaps from an account that has never bought credits, from the daily swap or the sign-up credits, come out at up to ${FREE_PHOTO_MAX_SIDE} px on the longer side with a small nanopocket.ai mark in one corner and metadata saying the image is AI-generated.
+- **Adding credits once gives full resolution** (up to 4080×4080) without the mark, and removes the watermark from video, head swap and photo edit results. The smallest pack is ${starterPrice}. Credits never expire and there is no subscription.
 - **Video** is included: the free credits cover one video face swap of up to ${FREE_VIDEO_FACE_SWAP_SECONDS} seconds in 1080p (4K costs twice the credits), with the watermark. After that, video is paid in credits, with the price shown before each clip. A video that fails is refunded.
-- **Photo edits** in [SpotEdit](/image-edit) follow the same rule.
+- **Photo edits** in [SpotEdit](/image-edit) and head swaps in [Nano HeadSwap Pro](/headswap-pro) carry a watermark until the account has bought credits once.
 - **No credit card is needed** to start.
 
 ## Which one should you pick?
@@ -212,8 +218,8 @@ What that does and does not include:
 | You | Best choice |
 |---|---|
 | Have an NVIDIA card (6 GB or more) and swap often | Run it locally: free, private, no per-clip cost |
-| Have no suitable card, or want a quick one-off | Online: ${starterPrice} once removes the watermark |
-| Just want to see how it looks | The free credits, knowing the result is marked |
+| Have no suitable card, or want a quick one-off | Online: ${starterPrice} once gives full resolution and removes the watermark |
+| Just want to see how it looks | The daily free photo swap: no watermark, up to ${FREE_PHOTO_MAX_SIDE} px with a small corner mark |
 | Need a video head swap | Online, in [Video FaceSwap 2.5 Online](/facestudio-v) |
 
 ## A warning about "free" claims

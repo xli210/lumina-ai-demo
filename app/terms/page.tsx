@@ -166,11 +166,14 @@ export default function TermsPage() {
         <Section id="demos" title="3. Online tools">
           The online tools (Nano FaceStudio Online, Nano HeadSwap Pro, Video FaceSwap 2.5 Online and
           SpotEdit, formerly Nano ImageEdit 2.0 Online) are available to every signed-in NanoPocket account. New
-          accounts receive free credits; beyond them, use is paid in prepaid credits as described
-          on the Pricing page. They are best-effort, rate-limited services with no uptime SLA.
-          Before a face is processed, the tools ask the user to confirm the right to use it.
-          Results made by an account that has never bought credits carry a visible NanoPocket
-          watermark. The user retains all rights to outputs, subject to the Acceptable Use policy
+          accounts receive free credits, and every signed-in account gets one free Nano FaceStudio
+          Online face swap (one face) a day while the day&apos;s site-wide allowance lasts; beyond
+          them, use is paid in prepaid credits as described on the Pricing page. They are
+          best-effort, rate-limited services with no uptime SLA. Before a face is processed, the
+          tools ask the user to confirm the right to use it. For an account that has never bought
+          credits, Nano FaceStudio Online photos are delivered at up to 1536 pixels on the longer
+          side with a small NanoPocket mark in one corner, and results from the other online tools
+          carry a visible NanoPocket watermark. The user retains all rights to outputs, subject to the Acceptable Use policy
           below. How uploads and results are stored, and for how long, is described in the{" "}
           <Link
             href="/privacy#demos"
@@ -184,8 +187,10 @@ export default function TermsPage() {
         <Section id="billing" title="4. Billing">
           <ul className="list-disc space-y-2 pl-5">
             <li>
-              <strong>Free credits.</strong> Welcome credits and any free top-up are
-              intended for one account per person. We may decline them to an account opened from
+              <strong>Free credits.</strong> Welcome credits, any free top-up and the daily free
+              face swap are intended for one account per person. The daily free face swap does not
+              carry over to another day, cannot be used for anything else, and may run out when the
+              day&apos;s site-wide allowance is used up. We may decline them to an account opened from
               a device or network that has already received them, and we may remove free credits
               obtained through multiple accounts. Credits you have bought are never affected.
             </li>
@@ -397,7 +402,8 @@ export default function TermsPage() {
           <p className="mb-3">
             Everything the online tools and the desktop apps produce is generated or altered by AI.
             Results made by an account that has never bought credits carry a visible NanoPocket
-            watermark.
+            watermark, or, for Nano FaceStudio Online photos, a small NanoPocket mark in one corner
+            together with metadata identifying the image as AI-generated.
           </p>
           <p>
             When the user publishes or shares a result, the user is responsible for complying with
@@ -505,6 +511,9 @@ export default function TermsPage() {
             constitutes acceptance of the new Terms.
           </p>
           <p>
+            On 2026-11-25 sections 3, 4 and 8 were updated, without a new version, to describe the
+            daily free face swap and the corner mark on free Nano FaceStudio Online photos. The
+            change only adds to what free accounts get, so it applies at once.
             Version 1.7 (announced 2026-11-23, effective 2026-12-07) adds the safety review of
             online-tool jobs in section 9: review copies kept privately for up to 30 days, looked
             at by authorised staff to stop misuse and used internally to evaluate our models, never

@@ -436,5 +436,15 @@
   "That face was not found.": "그 얼굴을 찾을 수 없습니다.",
   "Could not load the face. Try again.": "얼굴을 불러오지 못했습니다. 다시 시도해 주세요.",
   "My faces is not available right now.": "지금은 내 얼굴을 사용할 수 없습니다.",
-  "The photo did not finish uploading. Try again.": "사진 업로드가 끝나지 않았습니다. 다시 시도해 주세요."
+  "The photo did not finish uploading. Try again.": "사진 업로드가 끝나지 않았습니다. 다시 시도해 주세요.",
+  "Free account: no watermark. Your photos come out at up to 1536 px with a small nanopocket.ai mark in the corner.": "무료 계정: 워터마크가 없습니다. 사진은 최대 1536px이며 모서리에 작은 nanopocket.ai 표시가 들어갑니다.",
+  "Top up credits once for full resolution without the mark.": "크레딧을 한 번 충전하면 표시 없이 원본 해상도로 받을 수 있습니다.",
+  "Get full resolution": "원본 해상도로 받기",
+  "1 free face swap every day.": "매일 1회 무료 얼굴 교체.",
+  "Swap one face and it costs no credits.": "얼굴 하나를 바꾸면 크레딧이 들지 않습니다.",
+  "Free result: up to 1536 px, with a small nanopocket.ai mark in the corner.": "무료 결과: 최대 1536px, 모서리에 작은 nanopocket.ai 표시.",
+  "Top up credits once and your next renders come out at full resolution without it.": "크레딧을 한 번 충전하면 다음 결과부터 표시 없이 원본 해상도로 나옵니다.",
+  "1 free face swap today · Buy more": "오늘 무료 얼굴 교체 1회 · 구매하기",
+  "Done! Free result: up to 1536 px with a small nanopocket.ai mark. Top up once for full resolution.": "완료! 무료 결과: 최대 1536px, 작은 nanopocket.ai 표시. 한 번 충전하면 원본 해상도로 받을 수 있습니다.",
+  "Free result: up to 1536 px with a small nanopocket.ai mark. Top up once for full resolution.": "무료 결과: 최대 1536px, 작은 nanopocket.ai 표시. 한 번 충전하면 원본 해상도로 받을 수 있습니다."
 }

@@ -3,7 +3,12 @@ import { NextRequest } from "next/server";
 import { privateJson, requireJobOwner } from "@/lib/facestudio-gate";
 import { getJobStatus, upstreamString } from "@/lib/facestudio-server";
 import { captureHold, getCreditAccount, releaseHold } from "@/lib/credits-server";
-import { WATERMARK_MISSING_BODY as RENDER_NOT_FINISHED_BODY, owesMissingWatermark } from "@/lib/facestudio-watermark";
+import {
+  WATERMARK_MISSING_BODY as RENDER_NOT_FINISHED_BODY,
+  owesFreeFinish,
+  owesMissingWatermark,
+} from "@/lib/facestudio-watermark";
+import { returnDailyFree } from "@/lib/facestudio-daily-free";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -36,6 +41,17 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
   const gate = await requireJobOwner(jobId);
   if (!gate.ok) return gate.response;
   const { userId, hold } = gate;
+  // A free render (never-bought account): finished by the gateway before it counts as done.
+  const freeOutput = hold.estimate?.free_output === true;
+  // Paid for by today's free face swap: said to the page, and its credits go back if it fails.
+  const dailyFree = hold.estimate?.daily_free === true;
+  const flags = { ...(freeOutput ? { free_output: true } : {}), ...(dailyFree ? { daily_free: true } : {}) };
+
+  /** Release a hold nothing was made for, and take back a daily free swap's credits with it. */
+  async function release(reason: string): Promise<void> {
+    await releaseHold(hold.id, reason);
+    if (dailyFree) await returnDailyFree({ userId, credits: hold.amount, holdId: hold.id });
+  }
 
   // Captured only after the render was seen to land, watermark included, and
   // its image is read from storage, so nothing is left to ask the gateway.
@@ -48,6 +64,7 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
         ok: true,
         progress_pct: 1,
         ...(hold.estimate?.watermark === true ? { watermarked: true } : {}),
+        ...flags,
         credits_charged: 0,
         balance: account.balance,
         available: account.available,
@@ -66,7 +83,7 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
 
   let upstream;
   try {
-    upstream = await getJobStatus(jobId);
+    upstream = await getJobStatus(jobId, { finishFree: freeOutput });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";
     console.error("[facestudio] status fetch failed:", message);
@@ -99,9 +116,27 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
     console.error("[facestudio] watermark requested but missing:", jobId);
     if (!settled) {
       try {
-        await releaseHold(hold.id, "watermark_missing");
+        await release("watermark_missing");
       } catch (err: unknown) {
         console.error("[facestudio] release after missing watermark failed:", err instanceof Error ? err.message : err);
+      }
+    }
+    const account = await getCreditAccount(userId);
+    return privateJson(
+      { ...RENDER_NOT_FINISHED_BODY, credits_charged: 0, balance: account.balance, available: account.available },
+      200
+    );
+  }
+
+  // A free render reported done without its free version (a gateway from before
+  // 2026-11-25): the full-size image must not be handed over or billed.
+  if (status === "done" && freeOutput && owesFreeFinish(true, upstream.body)) {
+    console.error("[facestudio] free finish requested but missing:", jobId);
+    if (!settled) {
+      try {
+        await release("free_finish_missing");
+      } catch (err: unknown) {
+        console.error("[facestudio] release after missing free finish failed:", err instanceof Error ? err.message : err);
       }
     }
     const account = await getCreditAccount(userId);
@@ -145,7 +180,9 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
     return privateJson(
       {
         ...upstream.body,
-        credits_charged: charged,
+        ...flags,
+        // A daily free swap was paid with credits granted for it, so the balance did not move.
+        credits_charged: dailyFree ? 0 : charged,
         balance: account.balance,
         available: account.available,
       },
@@ -160,7 +197,7 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
         // person's input, not a GPU failure, and the reliability page must not
         // count it against us.
         const reason = upstreamString(upstream.body, "error_kind") === "user" ? "input_rejected" : "render_failed";
-        await releaseHold(hold.id, reason);
+        await release(reason);
       } catch (err: unknown) {
         const message = err instanceof Error ? err.message : "Unknown error";
         // The sweeper frees it at TTL, so the user is not permanently out of

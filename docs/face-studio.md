@@ -389,3 +389,36 @@ ghcr.io/yunanwu2168/face-studio-v5:20261007-1` and drains the worker.
 
 Checks: `node --experimental-strip-types scripts/check-facestudio-watermark.mjs` (the rule and the
 checks) and `python facestudio-gateway/test_watermark.py` (the gateway, with RunPod faked).
+
+## Free renders: corner mark instead of the tiled watermark, and one free face swap a day (2026-11-25)
+
+Owner's decision, 2026-11-25: free photos should carry no watermark but a small "nanopocket" mark, and every
+signed-in account gets one free photo face swap a day, with at most 300 a day across the site.
+
+- **Free output.** For an account that has never bought credits (and `FACESTUDIO_WATERMARK=1`), the render
+  route sends `watermark: false` to the worker and records `free_output: true` on the hold. The status route
+  polls the gateway with `?finish=free`; the gateway (`finish_free_png` in `facestudio-gateway/server.py`)
+  then, in a background thread, reads the worker's PNG from R2, scales it so the longer side is at most
+  1536 px (`FREE_MAX_SIDE`), draws "nanopocket.ai" small in the bottom-right corner, adds PNG text chunks and
+  XMP saying it is AI-generated (IPTC digital source type `trainedAlgorithmicMedia`), and writes it back
+  under the same key, so no full-size copy of a free render stays in storage. Until then the status is
+  `running` (`finishing: true`); after, `done` with `free_finished: true`. Only then is the hold captured,
+  and the result route serves an open free hold only when the gateway says it is finished. Three failed
+  finishes in a row turn into an error (`finish_failed`), which refunds. A PNG already carrying the
+  `nanopocket:free` chunk is never finished twice (another instance, a restart).
+  Roll back to the worker's tiled mark: `FACESTUDIO_FREE_OUTPUT=tiled` on Vercel. Deploy order: the gateway
+  first (Render, Manual Deploy), then the site; a site on the new code with an old gateway refunds every
+  free render (`free_finish_missing`).
+  Tests: `python facestudio-gateway/test_free_finish.py` (RunPod and R2 faked).
+- **Daily free face swap** (`lib/facestudio-daily-free.ts`, numbers in `lib/facestudio-daily-free-rules.ts`).
+  One face swap of one face per account per day (midnight to midnight Pacific), for accounts whose free claim
+  was granted or grandfathered and any account that has bought credits. Site-wide cap `FACESTUDIO_DAILY_FREE_CAP`
+  (default 300; 0 turns it off). The hold must be at least 1 credit (migration 009), so the route grants the
+  render's price as `promo` (key `daily_free:<user>:<PT day>:<try>`) and reserves it at once with
+  `daily_free: true` on the hold; every path that releases the hold takes the credits back (`admin_adjust`,
+  key `daily_free_back:<hold>`). Used = an open or captured daily-free hold today; at most 3 tries a day.
+  Upload and detect let an account with today's swap through even with no balance.
+  A hold freed by the expiry sweeper is not taken back (at most one swap's credits).
+- **Cost** (read 2026-11-25): face swap of one face, 14-day median 6.4 s and mean 11.7 s of RunPod queue+run;
+  the endpoint runs on 48 GB cards ($1.22/h A6000/A40, $1.89/h L40/L40S/6000 Ada serverless) with a 60 s idle
+  timeout, so a lone free swap costs about $0.03–0.05 and 300 a day spread out about $8–13 a day.

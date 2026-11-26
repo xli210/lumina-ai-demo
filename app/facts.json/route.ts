@@ -27,6 +27,7 @@ import {
   FREE_VIDEO_HEAD_SWAP_SECONDS,
   VIDEO_OUTPUT_SIZES,
 } from "@/lib/free-tier";
+import { DAILY_FREE_ATTEMPTS, DAILY_FREE_DEFAULT_CAP, DAILY_FREE_FACE_SWAPS, DAILY_FREE_SINCE, FREE_PHOTO_MAX_SIDE } from "@/lib/facestudio-daily-free-rules";
 
 const BASE = "https://nanopocket.ai";
 
@@ -82,7 +83,22 @@ function buildFacts() {
       free_on_sign_up_equals_photo_face_swaps: SIGNUP_FREE_SWAPS,
       free_top_up_after_first_purchase_to: FREE_TOPUP_CREDITS,
       failed_job_charged: false,
-      watermark: "Results from an account that has never bought credits carry a NanoPocket watermark; one purchase removes it.",
+      watermark: `Nano FaceStudio Online photos from an account that has never bought credits have no watermark: up to ${FREE_PHOTO_MAX_SIDE} px on the longer side, a small nanopocket.ai mark in one corner, and AI-generated metadata. Nano HeadSwap Pro, SpotEdit and video results from such an account carry a NanoPocket watermark. One purchase gives full resolution and removes both.`,
+      daily_free_photo_face_swap: {
+        since: DAILY_FREE_SINCE,
+        tool: "Nano FaceStudio Online",
+        url: `${BASE}/face-studio`,
+        per_account_per_day: DAILY_FREE_FACE_SWAPS,
+        faces_per_free_swap: 1,
+        credits_needed: 0,
+        watermark: "None",
+        output: `Up to ${FREE_PHOTO_MAX_SIDE} px on the longer side, with a small nanopocket.ai mark in one corner (full resolution, up to 4080x4080, once the account has bought credits)`,
+        day_resets: "Midnight Pacific time (America/Los_Angeles)",
+        carries_over: false,
+        site_wide_per_day: DAILY_FREE_DEFAULT_CAP,
+        tries_per_day_including_failed_renders: DAILY_FREE_ATTEMPTS,
+        sign_up: "Required (email, no card); one account per person, the same rule as the sign-up credits",
+      },
       packs: CREDIT_PACKS.map((p) => ({
         name: p.name,
         price_usd: usd(p.priceInCents),
@@ -104,7 +120,7 @@ function buildFacts() {
       limits: FREE_TIER.en.limits,
       page: `${BASE}/face-swap#free`,
       compared_with_other_free_sites: `${BASE}/best-free-face-swap`,
-      not_included_on_free: "Online, an email sign-up is required, free results carry a watermark until the first top-up, and the credits are given once on sign-up, not daily. The free Windows apps below have no usage limit, and Nano FaceSwap has no watermark.",
+      not_included_on_free: "Online, an email sign-up is required. The sign-up credits are given once; the daily free is one Nano FaceStudio Online face swap (one face) a day. Free photos there are up to 1536 px with a small corner mark, and free video and HeadSwap Pro results carry a watermark until the first top-up. The free Windows apps below have no usage limit, and Nano FaceSwap has no watermark.",
       free_desktop_app: {
         name: "Nano FaceSwap",
         url: `${BASE}/apps/nano-faceswap`,

@@ -16,6 +16,7 @@ import { NavigationProgress } from "./components/navigation-progress";
 import { DEFAULT_LOCALE, isAppLocale, type AppLocale } from "@/lib/i18n/locales";
 import { demoAvailabilityEn } from "@/lib/demo-availability";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
+import { DAILY_FREE_FACE_SWAPS } from "@/lib/facestudio-daily-free-rules";
 
 import "./globals.css";
 
@@ -74,7 +75,7 @@ export const metadata: Metadata = {
     other: verificationOther,
   },
   description:
-    "Local AI face swap, face editing and virtual try-on for Windows. Your photos and videos stay on your computer, with no subscription: free apps or a one-time license. Online tools are free to start with sign-up credits.",
+    `Local AI face swap, face editing and virtual try-on for Windows. Your photos and videos stay on your computer, with no subscription: free apps or a one-time license. Online tools are free to start with sign-up credits and ${DAILY_FREE_FACE_SWAPS} free photo face swap a day.`,
   keywords: [
     "NanoPocket", "local AI", "generative AI", "offline AI",
     "Runway alternative", "ComfyUI alternative", "Flux local app",
@@ -178,7 +179,7 @@ export default async function RootLayout({
               },
               image: "https://nanopocket.ai/og-image.jpg",
               slogan: "AI face swap in your browser or on your own GPU. Free to start, no subscription.",
-              description: `NanoPocket makes AI face swap and photo tools. In the browser: Video FaceSwap 2.5 Online (swap a face or whole head in a video), Nano FaceStudio Online (up to six faces in one photo), Nano HeadSwap Pro (whole-head swap in a photo) and SpotEdit (edit a photo by describing the change), free to start with ${SIGNUP_GRANT_CREDITS} sign-up credits and paid per use in credits after that. On the desktop: apps for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) that run 100% on the user's GPU, three of them free and the rest one-time licences. No subscriptions.`,
+              description: `NanoPocket makes AI face swap and photo tools. In the browser: Video FaceSwap 2.5 Online (swap a face or whole head in a video), Nano FaceStudio Online (up to six faces in one photo), Nano HeadSwap Pro (whole-head swap in a photo) and SpotEdit (edit a photo by describing the change), free to start with ${SIGNUP_GRANT_CREDITS} sign-up credits and ${DAILY_FREE_FACE_SWAPS} free photo face swap a day in Nano FaceStudio Online, and paid per use in credits after that. On the desktop: apps for Windows (NVIDIA CUDA) and macOS (Apple Silicon Metal) that run 100% on the user's GPU, three of them free and the rest one-time licences. No subscriptions.`,
               disambiguatingDescription:
                 "NanoPocket (legal name NanoPocket AI LLC) is an independent software company at nanopocket.ai that makes AI image and video tools. It does not make nanotechnology products or physical goods. It is not affiliated with Nano Banana, nanobanana.ai, nano-banana.com, nanobnana, or any other Nano-prefixed website that wraps Google's Gemini 2.5 Flash Image API. NanoPocket's face swap runs on its own GAN and diffusion models (on NanoPocket's GPUs online, on the user's GPU on desktop), not on Google's API.",
               contactPoint: [
@@ -402,9 +403,9 @@ export default async function RootLayout({
                   "@id": "https://nanopocket.ai/face-swap",
                   name: "Free AI face swap online — photo and video, runs in your browser",
                   url: "https://nanopocket.ai/face-swap",
-                  dateModified: "2026-06-03",
+                  dateModified: "2026-11-25",
                   description:
-                    "Canonical landing page for NanoPocket's free AI face swap online: photo (up to six faces) and video, free to start with sign-up credits, no install, no subscription, GAN and diffusion models.",
+                    `Canonical landing page for NanoPocket's free AI face swap online: photo (up to six faces) and video, free to start with sign-up credits and ${DAILY_FREE_FACE_SWAPS} free photo face swap a day, no install, no subscription, GAN and diffusion models.`,
                 },
                 {
                   "@type": "TechArticle",

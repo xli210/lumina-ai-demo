@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { privateJson, requireJobOwner } from "@/lib/facestudio-gate";
 import { fetchResult, getJobStatus } from "@/lib/facestudio-server";
-import { upstreamWatermarked } from "@/lib/facestudio-watermark";
+import { upstreamFreeFinished, upstreamWatermarked } from "@/lib/facestudio-watermark";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -14,7 +14,8 @@ interface RouteContext {
 
 /**
  * GET /api/facestudio/result/{jobId}
- * -> image/png at full resolution (up to ~4080x4080, around 20 MB)
+ * -> image/png at full resolution (up to ~4080x4080, around 20 MB); a free
+ *    render (account that never bought credits) at most 1536 px on its longer side
  *
  * Streamed through this route rather than redirected to storage because the
  * console draws the result on a `<canvas>`, which needs a same-origin image.
@@ -49,6 +50,25 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
       }
     } catch (err: unknown) {
       console.error("[facestudio] watermark check failed:", err instanceof Error ? err.message : err);
+      return privateJson({ detail: "Could not fetch the result." }, 502);
+    }
+  }
+
+  // A free render is served only once its free version (at most 1536 px, small
+  // mark, AI metadata) has replaced the worker's full-size PNG in storage. The
+  // status route settles it only after the gateway says so, so a settled hold
+  // needs no second look; an open one asks.
+  if (gate.hold.estimate?.free_output === true && gate.hold.status !== "captured") {
+    if (gate.hold.status !== "open") {
+      return privateJson({ detail: "That result is not ready yet." }, 404);
+    }
+    try {
+      const st = await getJobStatus(jobId, { finishFree: true });
+      if (!upstreamFreeFinished(st.body)) {
+        return privateJson({ detail: "That result is not ready yet." }, 404);
+      }
+    } catch (err: unknown) {
+      console.error("[facestudio] free finish check failed:", err instanceof Error ? err.message : err);
       return privateJson({ detail: "Could not fetch the result." }, 502);
     }
   }

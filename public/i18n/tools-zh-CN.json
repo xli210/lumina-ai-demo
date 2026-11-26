@@ -437,5 +437,15 @@
   "That face was not found.": "找不到这张人脸。",
   "Could not load the face. Try again.": "无法载入这张人脸，请重试。",
   "My faces is not available right now.": "“我的人脸”暂时不可用。",
-  "The photo did not finish uploading. Try again.": "照片没有上传完成，请重试。"
+  "The photo did not finish uploading. Try again.": "照片没有上传完成，请重试。",
+  "Free account: no watermark. Your photos come out at up to 1536 px with a small nanopocket.ai mark in the corner.": "免费账户：没有水印。照片最高 1536 像素，角落有一个小小的 nanopocket.ai 标志。",
+  "Top up credits once for full resolution without the mark.": "充值一次积分，即可获得原图分辨率，且不带标志。",
+  "Get full resolution": "获取原图分辨率",
+  "1 free face swap every day.": "每天 1 次免费换脸。",
+  "Swap one face and it costs no credits.": "换一张脸，不扣积分。",
+  "Free result: up to 1536 px, with a small nanopocket.ai mark in the corner.": "免费结果：最高 1536 像素，角落有一个小小的 nanopocket.ai 标志。",
+  "Top up credits once and your next renders come out at full resolution without it.": "充值一次积分，之后的结果都是原图分辨率，且不带标志。",
+  "1 free face swap today · Buy more": "今天有 1 次免费换脸 · 购买积分",
+  "Done! Free result: up to 1536 px with a small nanopocket.ai mark. Top up once for full resolution.": "完成！免费结果：最高 1536 像素，带一个小小的 nanopocket.ai 标志。充值一次即可获得原图分辨率。",
+  "Free result: up to 1536 px with a small nanopocket.ai mark. Top up once for full resolution.": "免费结果：最高 1536 像素，带一个小小的 nanopocket.ai 标志。充值一次即可获得原图分辨率。"
 }

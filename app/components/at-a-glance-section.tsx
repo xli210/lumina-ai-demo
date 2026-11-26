@@ -10,6 +10,7 @@ import {
   SIGNUP_FREE_SWAPS,
 } from "@/lib/face-studio-facts";
 import { FREE_TOPUP_CREDITS } from "@/lib/facestudio";
+import { DAILY_FREE_FACE_SWAPS, FREE_PHOTO_MAX_SIDE } from "@/lib/facestudio-daily-free-rules";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_PAGE } from "@/lib/facestudio-v";
 import { IMAGEEDIT_CREDITS_PER_EDIT, IMAGEEDIT_NAME } from "@/lib/imageedit";
@@ -27,7 +28,7 @@ const TOOLS = [
     name: FACE_STUDIO_NAME,
     href: FACE_STUDIO_URL,
     what: "Photo face swap. Swaps up to six faces in one photo; you choose who gets which face.",
-    price: `${FACE_SWAP_CREDITS} credits per face; head swap ${HEAD_SWAP_CREDITS} credits`,
+    price: `${FACE_SWAP_CREDITS} credits per face; head swap ${HEAD_SWAP_CREDITS} credits; ${DAILY_FREE_FACE_SWAPS} free face swap (one face) every day`,
   },
   {
     name: HEADSWAP_PRO_NAME,
@@ -50,11 +51,12 @@ const TOOLS = [
 ] as const;
 
 const FACTS = [
+  `Free every day: every signed-in account gets ${DAILY_FREE_FACE_SWAPS} free photo face swap a day in ${FACE_STUDIO_NAME} (one face, no credits needed, no watermark). The day runs midnight to midnight Pacific time and an unused one does not carry over.`,
   `Free to start: new accounts get ${SIGNUP_GRANT_CREDITS} free credits, enough for ${SIGNUP_FREE_SWAPS} photo face swaps. One grant per person; no card needed.`,
   `Free top-ups after a first purchase: an account that has bought credits is topped back up to ${FREE_TOPUP_CREDITS} free credits (${FREE_RENDERS_PER_TOPUP} photo swaps) whenever it runs low.`,
   "Free desktop apps: Nano FaceSwap, Nano FacialEdit and Nano ImageTryon are free for good; the paid apps have a 7-day free trial.",
   "No subscription. Credits are prepaid and never expire. A job that fails is refunded in full.",
-  "Face, head and video swaps from an account that has never bought credits carry a NanoPocket watermark; one purchase removes it. The same goes for photo edits.",
+  `${HEADSWAP_PRO_NAME} images, videos and photo edits from an account that has never bought credits carry a NanoPocket watermark; one purchase removes it. ${FACE_STUDIO_NAME} photos from such an account have no watermark: they come out at up to ${FREE_PHOTO_MAX_SIDE} px with a small nanopocket.ai mark in one corner, and one purchase gives full resolution without it.`,
   "The online tools run in any modern browser. Nothing to install and no GPU needed.",
   "The desktop apps run offline on your own NVIDIA GPU (Windows) and are sold as one-time licences.",
 ];
@@ -88,7 +90,7 @@ export function AtAGlanceSection() {
         </h2>
         <p className="mb-8 max-w-3xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
           NanoPocket (nanopocket.ai) makes AI face swap and photo tools, free to start. Four of them run in your browser
-          with a free account and {SIGNUP_GRANT_CREDITS} free credits; the rest are desktop apps that run on your own
+          with a free account, {SIGNUP_GRANT_CREDITS} free credits and {DAILY_FREE_FACE_SWAPS} free photo face swap a day; the rest are desktop apps that run on your own
           GPU, three of them free.
         </p>
 

@@ -276,10 +276,10 @@
   },
   "faceStudio": {
     "title": "Face swap gratuit en ligne pour photos de groupe : jusqu'à {max} visages",
-    "description": "Gratuit pour commencer : {grant} crédits à l'inscription, soit {swaps} échanges de visage. Échangez jusqu'à {max} visages sur une photo, ou une tête entière, et gardez les cheveux, les mains, les lunettes et les bijoux qui passent devant le visage. Pleine résolution, sans abonnement.",
+    "description": "Gratuit pour commencer : 1 échange de visage gratuit par jour, plus {grant} crédits à l’inscription pour {swaps} de plus. Échangez jusqu’à {max} visages sur une photo, ou une tête entière, en gardant les cheveux, les mains, les lunettes et les bijoux qui passent devant le visage. Pas de filigrane sur les photos gratuites, pas d’abonnement.",
     "kicker": "Outil en ligne · dans votre navigateur",
     "h1": "Échangez chaque visage. Gardez tout le reste.",
-    "lead": "Remplacez jusqu'à {max} visages sur une photo, ou une tête entière, et choisissez ce qui reste de l'original : une mèche sur un œil, une main sur la joue, des lunettes, un anneau de nez. Le résultat revient en pleine résolution. Avec un compte gratuit, il porte un petit filigrane NanoPocket.ai, qu'une seule recharge supprime.",
+    "lead": "Remplacez jusqu’à {max} visages sur une photo, ou une tête entière, et choisissez ce qui reste de l’original : une mèche sur un œil, une main sur la joue, des lunettes, un piercing au nez. Chaque compte connecté a 1 échange de visage gratuit par jour. Les photos gratuites n’ont pas de filigrane : jusqu’à 1536 px avec une petite marque nanopocket.ai dans un coin ; une recharge donne la pleine résolution sans elle.",
     "cta": "Ouvrir Nano FaceStudio Online",
     "note": "Compte NanoPocket gratuit requis. {grant} crédits gratuits à l'inscription, soit {swaps} échanges ({face} crédits par visage).",
     "examplesHeading": "Résultats réels",
@@ -335,7 +335,7 @@
       },
       {
         "q": "Y a-t-il un filigrane ?",
-        "a": "Les résultats d'un compte qui n'a jamais acheté de crédits portent un filigrane NanoPocket.ai. Achetez des crédits une seule fois et il disparaît de vos prochains résultats. Les crédits gratuits ne comptent pas comme un achat."
+        "a": "Non. Depuis le 25 novembre 2026, les photos d’un compte qui n’a jamais acheté de crédits n’ont pas de filigrane. Elles sortent jusqu’à 1536 px sur le grand côté avec une petite marque nanopocket.ai dans un coin. Achetez des crédits une fois et vos résultats suivants seront en pleine résolution, jusqu’à 4080 × 4080, sans la marque. Les crédits gratuits ne comptent pas comme un achat."
       },
       {
         "q": "Puis-je utiliser la photo de n'importe qui ?",
@@ -677,7 +677,7 @@
     "roughly": "{swaps} échanges de visage, ou {edits} retouches photo",
     "freeHeading": "Crédits gratuits et filigrane",
     "freeNote": "Un nouveau compte démarre avec {grant} crédits. Un compte qui a acheté des crédits est aussi rechargé jusqu'à {topup} crédits dès que son solde est bas ; un compte qui n'a jamais rien acheté n'est pas rechargé. Les crédits gratuits sont limités à un compte par personne.",
-    "watermarkNote": "Le filigrane : les rendus de {video} et de Nano FaceStudio Online faits depuis un compte qui n'a jamais acheté de crédits portent un filigrane NanoPocket.ai. Achetez des crédits une seule fois, avec n'importe quel pack, et il disparaît des rendus que vous faites ensuite. Les crédits gratuits ne comptent pas comme un achat.",
+    "watermarkNote": "Le filigrane : les rendus de {video} et de Nano HeadSwap Pro faits sur un compte qui n’a jamais acheté de crédits portent un filigrane NanoPocket.ai. Les photos de Nano FaceStudio Online de ce compte n’en ont pas : elles sortent jusqu’à 1536 px avec une petite marque nanopocket.ai dans un coin, et chaque compte connecté y a 1 échange de visage gratuit par jour. Achetez des crédits une fois, avec n’importe quel pack, et les nouveaux rendus sont en pleine résolution, sans filigrane ni marque. Les crédits gratuits ne comptent pas comme un achat.",
     "desktopHeading": "Applications de bureau : gratuites ou à licence unique",
     "desktopNote": "Les applications de bureau tournent sur votre propre GPU NVIDIA sous Windows : vos photos et vidéos restent sur votre ordinateur. Une licence est distincte des crédits.",
     "thApp": "Application",

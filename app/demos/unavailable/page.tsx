@@ -20,6 +20,7 @@ import {
   type DemoId,
 } from "@/lib/demos";
 import { FREE_ALLOWANCE_SHORT } from "@/lib/face-studio-facts";
+import { DAILY_FREE_FACE_SWAPS, FREE_PHOTO_MAX_SIDE } from "@/lib/facestudio-daily-free-rules";
 
 /**
  * /demos/unavailable?id=<demo>
@@ -119,7 +120,7 @@ export default async function DemoUnavailablePage({ searchParams }: PageProps) {
                       <p className="font-semibold text-foreground">{alt.name}</p>
                       <p className="mt-0.5 text-sm text-muted-foreground">
                         {alt.id === "image"
-                          ? `Photo face swap on our own GPUs — up to six faces at once, full resolution; one top-up removes the watermark. ${FREE_ALLOWANCE_SHORT}.`
+                          ? `Photo face swap on our own GPUs — up to six faces at once; free photos have no watermark (up to ${FREE_PHOTO_MAX_SIDE} px with a small corner mark) and one purchase gives full resolution. ${DAILY_FREE_FACE_SWAPS} free face swap a day and ${FREE_ALLOWANCE_SHORT}.`
                           : "Live now."}
                       </p>
                     </div>

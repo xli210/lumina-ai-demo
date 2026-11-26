@@ -23,6 +23,7 @@ import { suggestPack, suggestionSentence, topUpPath } from "@/lib/credit-packs";
 import { BLACK_FRIDAY_ENDS_LABEL } from "@/lib/black-friday";
 import { todayUtc } from "@/lib/demo-quota";
 import type { CreditAccountState } from "@/lib/credits";
+import { getDailyFreeState } from "@/lib/facestudio-daily-free";
 
 /**
  * Access control for the /api/facestudio/* routes.
@@ -135,7 +136,16 @@ export async function requireSpendableBalance(): Promise<FaceStudioGate> {
   // decides the price from the purchase record.
   const paid = account.lifetime_purchased > 0;
   const minBalance = memberFaceSwapPriceOn(paid) ? Math.min(DETECT_MIN_BALANCE, FACESTUDIO_MEMBER_FACE_SWAP_CREDITS) : DETECT_MIN_BALANCE;
+  // Today's free face swap needs no balance: an account that has it may upload and detect.
+  let hasDailyFree = false;
   if (account.available < minBalance) {
+    try {
+      hasDailyFree = (await getDailyFreeState(userId, paid)).available;
+    } catch (err: unknown) {
+      console.error("[facestudio] daily free check failed:", err instanceof Error ? err.message : err);
+    }
+  }
+  if (account.available < minBalance && !hasDailyFree) {
     const memberOffer =
       !paid && memberFaceSwapPriceOn(true)
         ? ` Black Friday: once you have bought credits, a face swap costs ${FACESTUDIO_MEMBER_FACE_SWAP_CREDITS} credits instead of ${creditsForMode("face_swap")}, until ${BLACK_FRIDAY_ENDS_LABEL}.`

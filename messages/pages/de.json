@@ -276,10 +276,10 @@
   },
   "faceStudio": {
     "title": "Kostenloser Face Swap für Gruppenfotos online: bis zu {max} Gesichter",
-    "description": "Kostenlos starten: {grant} Credits bei der Anmeldung reichen für {swaps} Face Swaps. Tausche bis zu {max} Gesichter in einem Foto oder einen ganzen Kopf und behalte Haare, Hände, Brillen und Schmuck, die vor dem Gesicht liegen. Volle Auflösung, kein Abo.",
+    "description": "Kostenlos starten: jeden Tag 1 Gesichtstausch gratis, dazu {grant} Credits bei der Anmeldung für {swaps} weitere. Tausche bis zu {max} Gesichter in einem Foto oder einen ganzen Kopf und behalte Haare, Hände, Brillen und Schmuck, die übers Gesicht gehen. Kein Wasserzeichen auf kostenlosen Fotos, kein Abo.",
     "kicker": "Online-Tool · im Browser",
     "h1": "Tausche jedes Gesicht. Behalte alles andere.",
-    "lead": "Ersetze bis zu {max} Gesichter in einem Foto oder einen ganzen Kopf und entscheide, was vom Original bleibt: Haare über einem Auge, eine Hand an der Wange, Brillen, ein Nasenring. Das Ergebnis kommt in voller Auflösung zurück. Kostenlose Konten tragen ein kleines NanoPocket.ai-Wasserzeichen, das eine Aufladung entfernt.",
+    "lead": "Ersetze bis zu {max} Gesichter in einem Foto oder einen ganzen Kopf und wähle, was vom Original bleibt: Haare über einem Auge, eine Hand an der Wange, eine Brille, ein Nasenpiercing. Jedes angemeldete Konto hat jeden Tag 1 kostenlosen Gesichtstausch. Kostenlose Fotos haben kein Wasserzeichen: bis zu 1536 px mit einem kleinen nanopocket.ai-Zeichen in einer Ecke; einmal Aufladen bringt die volle Auflösung ohne das Zeichen.",
     "cta": "Nano FaceStudio Online öffnen",
     "note": "Kostenloses NanoPocket-Konto erforderlich. {grant} kostenlose Credits bei der Anmeldung reichen für {swaps} Swaps ({face} Credits pro Gesicht).",
     "examplesHeading": "Echte Ergebnisse",
@@ -335,7 +335,7 @@
       },
       {
         "q": "Gibt es ein Wasserzeichen?",
-        "a": "Ergebnisse von einem Konto, das noch nie Credits gekauft hat, tragen ein NanoPocket.ai-Wasserzeichen. Kaufe einmal Credits, und bei deinen nächsten Ergebnissen ist es weg. Kostenlose Credits zählen nicht als Kauf."
+        "a": "Nein. Seit dem 25. November 2026 haben Fotos von einem Konto, das noch nie Credits gekauft hat, kein Wasserzeichen. Sie kommen mit bis zu 1536 px an der längeren Seite und einem kleinen nanopocket.ai-Zeichen in einer Ecke. Kaufe einmal Credits, dann kommen deine nächsten Ergebnisse in voller Auflösung, bis 4080 × 4080, ohne das Zeichen. Kostenlose Credits zählen nicht als Kauf."
       },
       {
         "q": "Kann ich das Foto von jeder beliebigen Person verwenden?",
@@ -677,7 +677,7 @@
     "roughly": "{swaps} Face Swaps oder {edits} Fotobearbeitungen",
     "freeHeading": "Kostenlose Credits und das Wasserzeichen",
     "freeNote": "Ein neues Konto startet mit {grant} Credits. Ein Konto, das schon Credits gekauft hat, wird außerdem auf {topup} Credits aufgefüllt, sobald das Guthaben knapp wird; ein Konto, das nie gekauft hat, bekommt keine Auffüllung. Kostenlose Credits gibt es nur für ein Konto pro Person.",
-    "watermarkNote": "Das Wasserzeichen: Ergebnisse von {video} und Nano FaceStudio Online, die mit einem Konto erstellt werden, das nie Credits gekauft hat, tragen ein NanoPocket.ai-Wasserzeichen. Kaufe einmal Credits, mit einem beliebigen Paket, und es entfällt bei den Ergebnissen, die du danach erstellst. Kostenlose Credits zählen nicht als Kauf.",
+    "watermarkNote": "Das Wasserzeichen: Ergebnisse von {video} und Nano HeadSwap Pro aus einem Konto, das noch nie Credits gekauft hat, tragen ein NanoPocket.ai-Wasserzeichen. Fotos aus Nano FaceStudio Online haben keins: Sie kommen mit bis zu 1536 px und einem kleinen nanopocket.ai-Zeichen in einer Ecke, und jedes angemeldete Konto hat dort jeden Tag 1 kostenlosen Gesichtstausch. Kaufe einmal Credits, mit einem beliebigen Paket, dann kommen neue Ergebnisse in voller Auflösung ohne Wasserzeichen und ohne Zeichen. Kostenlose Credits zählen nicht als Kauf.",
     "desktopHeading": "Desktop-Apps: kostenlos oder mit Einmallizenz",
     "desktopNote": "Die Desktop-Apps laufen unter Windows auf deiner eigenen NVIDIA-GPU, deine Fotos und Videos bleiben also auf deinem Computer. Eine Lizenz ist unabhängig von Credits.",
     "thApp": "App",

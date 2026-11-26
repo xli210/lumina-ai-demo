@@ -15,6 +15,12 @@ import {
   FREE_TOPUP_CREDITS,
 } from "@/lib/facestudio";
 import { IMAGE_EDIT_NAME, IMAGE_EDIT_PRICE_CREDITS } from "@/lib/image-edit-facts";
+import {
+  DAILY_FREE_DEFAULT_CAP,
+  DAILY_FREE_FACE_SWAPS,
+  DAILY_FREE_RESET_LABEL,
+  FREE_PHOTO_MAX_SIDE,
+} from "@/lib/facestudio-daily-free-rules";
 import { FACESTUDIO_V_NAME, FACESTUDIO_V_VERSION } from "@/lib/facestudio-v";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE, HEADSWAP_PRO_MAX_VARIATIONS, HEADSWAP_PRO_NAME } from "@/lib/headswap-pro";
 
@@ -71,11 +77,11 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "What do the free credits cover?",
-    a: `A new account starts with ${SIGNUP_GRANT_CREDITS} credits. An account that has bought credits is also topped up to ${FREE_TOPUP_CREDITS} credits whenever it runs low; one that has never bought gets no top-up. Free credits are limited to one account per person.`,
+    a: `A new account starts with ${SIGNUP_GRANT_CREDITS} credits. An account that has bought credits is also topped up to ${FREE_TOPUP_CREDITS} credits whenever it runs low; one that has never bought gets no top-up. Free credits are limited to one account per person. Separately, every signed-in account gets ${DAILY_FREE_FACE_SWAPS} free photo face swap every day in Nano FaceStudio Online (one face, no credits needed). The day runs from ${DAILY_FREE_RESET_LABEL} to ${DAILY_FREE_RESET_LABEL}; an unused one does not carry over and cannot be spent on anything else; the same one-account-per-person rule applies; and the site gives out up to ${DAILY_FREE_DEFAULT_CAP} a day in all.`,
   },
   {
     q: "How do I remove the watermark?",
-    a: `Renders from ${FACESTUDIO_V_NAME} and Nano FaceStudio Online made on an account that has never bought credits carry a NanoPocket.ai watermark. Buying credits once, with any pack, removes it for good from the renders you make afterwards. Free credits do not count as buying, and a render already made keeps the mark it was made with. ${IMAGE_EDIT_NAME} and the desktop apps have no watermark.`,
+    a: `Renders from ${FACESTUDIO_V_NAME}, ${HEADSWAP_PRO_NAME} and ${IMAGE_EDIT_NAME} made on an account that has never bought credits carry a NanoPocket.ai watermark. Buying credits once, with any pack, removes it for good from the renders you make afterwards. Nano FaceStudio Online photos from such an account, including the daily free swap, have no watermark: they come out at up to ${FREE_PHOTO_MAX_SIDE} px on the longer side with a small nanopocket.ai mark in one corner, and buying credits once gives full resolution without the mark. Free credits do not count as buying, and a render already made keeps the mark it was made with. The desktop apps have no watermark.`,
   },
   {
     q: "Do credits work in the desktop apps?",
@@ -168,7 +174,7 @@ export default function PricingPage() {
                   <td className={td}>
                     Face swap {FACE} credits per face; head swap {HEAD} credits.
                   </td>
-                  <td className={td}>Up to {FACESTUDIO_MAX_FACES} faces in one photo. Face detection is free. Priced per face replaced, so faces you leave alone cost nothing.</td>
+                  <td className={td}>Up to {FACESTUDIO_MAX_FACES} faces in one photo. Face detection is free. Priced per face replaced, so faces you leave alone cost nothing. {DAILY_FREE_FACE_SWAPS} free face swap (one face) every day for any signed-in account.</td>
                 </tr>
                 <tr className="border-b border-border">
                   <td className={td}><Link href="/headswap-pro" className={textLink}>{HEADSWAP_PRO_NAME}</Link></td>
@@ -185,7 +191,7 @@ export default function PricingPage() {
                 <tr>
                   <td className={td}><Link href="/image-edit" className={textLink}>{IMAGE_EDIT_NAME}</Link></td>
                   <td className={td}>{IMAGE_EDIT_PRICE_CREDITS} credits per edit.</td>
-                  <td className={td}>Lossless PNG, no watermark. For the object tools every pixel outside the edit stays identical.</td>
+                  <td className={td}>Lossless PNG, watermarked until the account has bought credits once. For the object tools every pixel outside the edit stays identical.</td>
                 </tr>
               </tbody>
             </table>
@@ -238,9 +244,19 @@ export default function PricingPage() {
             {FREE_TOPUP_CREDITS} credits whenever it runs low; one that has never bought gets no top-up. Free credits are limited to one account per person.
           </p>
           <p className={note}>
-            <strong className="text-foreground">The watermark:</strong> renders from {FACESTUDIO_V_NAME} and Nano FaceStudio Online
-            made on an account that has never bought credits carry a NanoPocket.ai watermark. Buy credits once, with any pack, and it
-            is removed for good from the renders you make afterwards. Free credits do not count as buying.
+            <strong className="text-foreground">The daily free face swap:</strong> every signed-in account gets{" "}
+            {DAILY_FREE_FACE_SWAPS} free photo face swap every day in Nano FaceStudio Online (one face, no credits needed). The day
+            runs from {DAILY_FREE_RESET_LABEL} to {DAILY_FREE_RESET_LABEL}; an unused one does not carry over and cannot be spent on
+            anything else; the same one-account-per-person rule applies; and the site gives out up to {DAILY_FREE_DEFAULT_CAP} a day
+            in all.
+          </p>
+          <p className={note}>
+            <strong className="text-foreground">The watermark:</strong> renders from {FACESTUDIO_V_NAME}, {HEADSWAP_PRO_NAME} and{" "}
+            {IMAGE_EDIT_NAME} made on an account that has never bought credits carry a NanoPocket.ai watermark. Buy credits once, with
+            any pack, and it is removed for good from the renders you make afterwards. Free credits do not count as buying. Nano
+            FaceStudio Online photos from such an account have no watermark: they come out at up to {FREE_PHOTO_MAX_SIDE} px on the
+            longer side with a small nanopocket.ai mark in one corner, and one purchase gives full resolution (up to 4080×4080)
+            without the mark.
           </p>
         </section>
 
