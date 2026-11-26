@@ -17,6 +17,7 @@ import {
   Video,
   Wand2,
 } from "lucide-react";
+import { FreeOfferStrip } from "./free-offer-strip";
 
 interface HeroSlide {
   src: string;
@@ -214,6 +215,10 @@ export function HeroSection() {
     >
       {/* Room for the What's new bar, which is fixed under the navbar while it is shown. */}
       <div aria-hidden className="w-full shrink-0" style={{ height: "var(--whats-new-h, 0px)" }} />
+      {/* The free offer, first thing under the navbar (owner, 2026-11-25): the hero below fills a desktop screen. */}
+      <div className="w-full pb-4">
+        <FreeOfferStrip locale="en" />
+      </div>
       <div
         className="relative z-10 w-full opacity-0 animate-fade-in"
         style={{ animationDelay: "0.1s" }}

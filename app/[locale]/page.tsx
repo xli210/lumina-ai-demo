@@ -29,6 +29,7 @@ import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACE_SWAP_CREDITS } from "@/lib/face-studio-facts";
 import { HEADSWAP_PRO_CREDITS_PER_IMAGE } from "@/lib/headswap-pro";
 import { IMAGEEDIT_CREDITS_PER_EDIT } from "@/lib/imageedit";
+import { FreeOfferStrip } from "@/app/components/free-offer-strip";
 
 const BASE_URL = "https://nanopocket.ai";
 const PATH = "/";
@@ -158,6 +159,7 @@ export default async function LocalizedHomePage({ params }: PageProps) {
       <Navbar />
       <ContinueBar offsetClass="px-4 pt-16 -mb-20 sm:-mb-24" />
       <div className="pt-16 sm:pt-[4.5rem]">
+        <FreeOfferStrip locale={locale} />
         <BlackFridayTakeover locale={locale} hubHref={translatedOrEnglish("/black-friday", locale)} />
       </div>
 
