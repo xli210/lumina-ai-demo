@@ -6,7 +6,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    "Nano ImageEdit — Local AI Image Generator, a Midjourney Alternative",
+    "Nano ImageEdit — Local AI Midjourney Alternative",
   description:
     "Nano ImageEdit is a local desktop image generator and editor running GAN and diffusion models on a single NVIDIA GPU. Text-to-image, image-to-image, and reference conditioning ship in one app, with a streaming DiT path for GPUs with under 12 GB of VRAM.",
   keywords: [

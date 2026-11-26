@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Tag, Sparkles, Bug, Zap, ArrowLeft } from "lucide-react";
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
-import { appReleases } from "@/lib/release-data";
+import { appReleases, type ReleaseChange } from "@/lib/release-data";
 
 const typeConfig = {
   feature: { icon: Sparkles, label: "New", className: "bg-primary/10 text-primary" },
@@ -26,9 +26,26 @@ export async function generateMetadata({
   if (!app) return { title: "Not Found" };
 
   const latest = app.releases[0];
+  // Bing flagged the old one-line description as too short (2026-11-26): say what the latest version
+  // brings in numbers, then that every earlier version is listed.
+  const count = (type: ReleaseChange["type"], one: string, many: string) => {
+    const n = latest.changes.filter((c) => c.type === type).length;
+    return n === 0 ? null : `${n} ${n === 1 ? one : many}`;
+  };
+  const latestSummary = [
+    count("feature", "new feature", "new features"),
+    count("improvement", "improvement", "improvements"),
+    count("fix", "fix", "fixes"),
+  ]
+    .filter(Boolean)
+    .join(", ");
+  const versions = app.releases.length;
   return {
     title: `${app.app} Release Notes — v${latest.version}`,
-    description: `Release notes and changelog for ${app.app}. See what's new in v${latest.version} and previous versions.`,
+    description:
+      `${app.app} release notes and changelog. Version ${latest.version} (${latest.date})` +
+      (latestSummary ? ` brings ${latestSummary}.` : ".") +
+      ` See every new feature, improvement and bug fix ${versions > 1 ? `across all ${versions} versions` : "in this release"} of the desktop app, newest first.`,
     alternates: { canonical: `/release-notes/${slug}` },
   };
 }

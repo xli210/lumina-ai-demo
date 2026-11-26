@@ -7,7 +7,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    "Free AI Portrait Editor for Windows: Expression Edit, Retouch & Face Swap | Nano FacialEdit",
+    "Nano FacialEdit — Free AI Portrait Editor for Windows",
   description:
     "Nano FacialEdit is a free desktop portrait editor for Windows, with no usage limit, that performs identity-preserving expression editing — open eyes, soften frowns, lift smiles — and skin retouching on a single NVIDIA GPU. Every operation runs offline; no portrait is uploaded to any server.",
   keywords: [

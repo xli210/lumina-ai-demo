@@ -7,7 +7,7 @@ import { ZH_GUIDES } from "@/lib/zh-guides";
 
 const TITLE = "AI 换脸中文指南:视频换脸教程、工具选择、隐私与成本";
 const DESCRIPTION =
-  "NanoPocket 的中文指南:视频怎么换脸、视频换脸工具怎么选、为什么换脸会在手挡脸和侧脸时出问题、本地换脸还是在线换脸。";
+  "NanoPocket 的中文指南:视频怎么换脸、视频换脸工具怎么选、为什么换脸会在手挡脸和侧脸时出问题、本地换脸还是在线换脸,以及手机上怎么做换脸视频、合照怎么多人换脸。讲清每一步的操作、费用、水印和隐私问题。";
 
 export const metadata: Metadata = {
   title: TITLE,

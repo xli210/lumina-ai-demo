@@ -308,7 +308,7 @@ Local AI requires an NVIDIA GPU (8 GB+ VRAM). If you don't have one, cloud servi
   },
   {
     slug: "how-to-run-ai-locally-2026",
-    title: "How to Run AI Video and Image Generation Locally on Your GPU in 2026",
+    title: "How to Run AI Image and Video Models Locally in 2026",
     description: "Complete guide to running AI locally in 2026. Set up Flux.1 for images and LTX-2.3 for videos on your NVIDIA GPU with NanoPocket.",
     date: "2026-03-18",
     keywords: ["run AI locally", "GPU AI tools", "local AI setup", "Flux local", "LTX local", "AI on GPU 2026"],

@@ -43,7 +43,7 @@ const LAST_VERIFIED = "2026-11-25";
 export const metadata: Metadata = {
   title:
     // The layout template appends " | NanoPocket"; the brand is not repeated here.
-    "Free AI Face Swap Online — Photo, Group Photo & Video, No Install",
+    "Free AI Face Swap Online: Photos & Video, No Install",
   description:
     `Free AI face swap in your browser: ${DAILY_FREE_FACE_SWAPS} free photo face swap every day plus ${SIGNUP_GRANT_CREDITS} free credits on sign-up (${SIGNUP_FREE_SWAPS} photo face swaps), no card, no install, no subscription. Swap up to ${FACESTUDIO_MAX_FACES} faces in one photo, or a face in a video. Free photos have no watermark (up to ${FREE_PHOTO_MAX_SIDE} px, small corner mark); free videos are watermarked until your first top-up.`,
   keywords: [
