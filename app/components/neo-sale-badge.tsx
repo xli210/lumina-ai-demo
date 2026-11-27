@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { Tag } from "lucide-react";
 
 /** The end of Neo's launch offer (30% fewer credits for Neo videos); the studio stops it at the same moment (STUDIO_NEO_SALE_UNTIL on Render). */
-export const NEO_SALE_END = Date.UTC(2026, 10, 28, 3, 0, 0);
+// Extended by a week on 2026-11-27 (owner): 4 December 7 pm PT, was 27 November 7 pm PT.
+export const NEO_SALE_END = Date.UTC(2026, 11, 5, 3, 0, 0);
 
 /**
  * "Launch week: Neo videos 30% off until …", shown only while the offer runs. Checked in the browser, so a page built before the end

@@ -19,7 +19,7 @@
  * - Photo face swaps in Face Studio Online cost 5 credits per face instead of 10 for an account that
  *   has bought credits (owner's decision, 2026-11-23); everyone else, and head swaps, keep the
  *   regular price. The rule lives in lib/facestudio.ts (`creditsPerFaceFor`).
- * - Neo (the video model) costs 30% fewer credits until 28 November; that offer lives in
+ * - Neo (the video model) costs 30% fewer credits until 4 December, 7 pm PT (owner, 2026-11-27: extended by a week from 27 November 7 pm PT); that offer lives in
  *   lib/facestudio-v.ts and is listed with the rest on /black-friday.
  *
  * Billing and price wording stays in English on every locale, like the rest of the site.
@@ -77,8 +77,8 @@ export function facestudioVProLaunchPriceOn(now: number = Date.now()): boolean {
  * in app/components/neo-sale-badge.tsx, which the studio enforces (STUDIO_NEO_SALE_UNTIL on Render).
  * Repeated here because a server component cannot read a constant out of a "use client" module.
  */
-export const NEO_SALE_ENDS_AT = Date.UTC(2026, 10, 28, 3, 0, 0);
-export const NEO_SALE_ENDS_LABEL = "Nov 27, 7 pm PT";
+export const NEO_SALE_ENDS_AT = Date.UTC(2026, 11, 5, 3, 0, 0);
+export const NEO_SALE_ENDS_LABEL = "Dec 4, 7 pm PT";
 
 /** "23 days left", "5 hours left"; null once the sale has ended. */
 export function blackFridayTimeLeft(now: number = Date.now()): string | null {

@@ -291,7 +291,7 @@ export function HeroSection() {
                 Our first in-house diffusion video model redraws the face from your photo, frame by frame. Now behind every Best quality video.
               </p>
               {saleOn && (
-                <p className="mt-3 hidden text-sm font-semibold text-amber-300 sm:block">Launch week: Neo videos cost 30% fewer credits, until Nov 28</p>
+                <p className="mt-3 hidden text-sm font-semibold text-amber-300 sm:block">Neo launch offer extended: videos cost 30% fewer credits until Dec 4</p>
               )}
               <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3">
                 <Link href={`${FACESTUDIO_V_LAUNCH}?m=quality`} tabIndex={feature === "neo" ? 0 : -1}>

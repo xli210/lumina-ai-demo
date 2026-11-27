@@ -111,10 +111,10 @@ const en: BlackFridayCopy = {
     cta: "Buy credits",
   },
   neo: {
-    badge: "Neo launch week",
+    badge: "Neo launch offer, extended",
     title: "Neo videos cost 30% fewer credits",
     body:
-      "Neo is our new video model: it redraws the face frame by frame, so the result looks like your photo. During launch week, every Neo video costs 30% fewer credits, and this stacks with the credit pack discount.",
+      "Neo is our new video model: it redraws the face frame by frame, so the result looks like your photo. Until Dec 4, every Neo video costs 30% fewer credits, and this stacks with the credit pack discount.",
     cta: "Try Neo",
   },
   photoSwap: {
@@ -220,10 +220,10 @@ const zhCN: BlackFridayCopy = {
     cta: "购买积分",
   },
   neo: {
-    badge: "Neo 上线周",
+    badge: "Neo 上线优惠已延长",
     title: "Neo 视频少用 30% 积分",
     body:
-      "Neo 是我们的全新视频模型：它逐帧重绘面部，让结果看起来就像你的照片。上线周期间，每个 Neo 视频少用 30% 积分，并可与积分包折扣叠加。",
+      "Neo 是我们的全新视频模型：它逐帧重绘面部，让结果看起来就像你的照片。即日起至 12 月 4 日，每个 Neo 视频少用 30% 积分，并可与积分包折扣叠加。",
     cta: "试用 Neo",
   },
   photoSwap: {
@@ -329,10 +329,10 @@ const ja: BlackFridayCopy = {
     cta: "クレジットを購入",
   },
   neo: {
-    badge: "Neo ローンチウィーク",
+    badge: "Neo ローンチ特典を延長",
     title: "Neo 動画のクレジットが 30% 少なく",
     body:
-      "Neo は新しい動画モデルです。顔を1フレームずつ描き直すので、仕上がりがあなたの写真にそっくりになります。ローンチウィーク中は、すべての Neo 動画が 30% 少ないクレジットで作れ、クレジットパックの割引とも併用できます。",
+      "Neo は新しい動画モデルです。顔を1フレームずつ描き直すので、仕上がりがあなたの写真にそっくりになります。12 月 4 日まで、すべての Neo 動画が 30% 少ないクレジットで作れ、クレジットパックの割引とも併用できます。",
     cta: "Neo を試す",
   },
   photoSwap: {
@@ -438,10 +438,10 @@ const ko: BlackFridayCopy = {
     cta: "크레딧 구매",
   },
   neo: {
-    badge: "Neo 출시 주간",
+    badge: "Neo 출시 혜택 연장",
     title: "Neo 동영상 크레딧 30% 절약",
     body:
-      "Neo는 새로운 동영상 모델입니다. 얼굴을 프레임마다 다시 그려서 결과물이 내 사진처럼 보입니다. 출시 주간에는 모든 Neo 동영상에 크레딧이 30% 적게 들며, 크레딧 팩 할인과 함께 적용됩니다.",
+      "Neo는 새로운 동영상 모델입니다. 얼굴을 프레임마다 다시 그려서 결과물이 내 사진처럼 보입니다. 12월 4일까지 모든 Neo 동영상에 크레딧이 30% 적게 들며, 크레딧 팩 할인과 함께 적용됩니다.",
     cta: "Neo 사용해 보기",
   },
   photoSwap: {
@@ -547,10 +547,10 @@ const es: BlackFridayCopy = {
     cta: "Comprar créditos",
   },
   neo: {
-    badge: "Semana de lanzamiento de Neo",
+    badge: "Oferta de lanzamiento de Neo, ampliada",
     title: "Los vídeos Neo cuestan un 30% menos de créditos",
     body:
-      "Neo es nuestro nuevo modelo de vídeo: redibuja la cara fotograma a fotograma, para que el resultado se parezca a tu foto. Durante la semana de lanzamiento, cada vídeo Neo cuesta un 30% menos de créditos, y se suma al descuento de los paquetes de créditos.",
+      "Neo es nuestro nuevo modelo de vídeo: redibuja la cara fotograma a fotograma, para que el resultado se parezca a tu foto. Hasta el 4 de diciembre, cada vídeo Neo cuesta un 30% menos de créditos, y se suma al descuento de los paquetes de créditos.",
     cta: "Probar Neo",
   },
   photoSwap: {
@@ -656,10 +656,10 @@ const ptBR: BlackFridayCopy = {
     cta: "Comprar créditos",
   },
   neo: {
-    badge: "Semana de lançamento do Neo",
+    badge: "Oferta de lançamento do Neo, prorrogada",
     title: "Vídeos Neo custam 30% menos créditos",
     body:
-      "Neo é nosso novo modelo de vídeo: ele redesenha o rosto quadro a quadro, para que o resultado fique parecido com a sua foto. Durante a semana de lançamento, cada vídeo Neo custa 30% menos créditos, e isso se soma ao desconto do pacote de créditos.",
+      "Neo é nosso novo modelo de vídeo: ele redesenha o rosto quadro a quadro, para que o resultado fique parecido com a sua foto. Até 4 de dezembro, cada vídeo Neo custa 30% menos créditos, e isso se soma ao desconto do pacote de créditos.",
     cta: "Experimentar o Neo",
   },
   photoSwap: {
@@ -765,10 +765,10 @@ const de: BlackFridayCopy = {
     cta: "Credits kaufen",
   },
   neo: {
-    badge: "Neo-Startwoche",
+    badge: "Neo-Startangebot verlängert",
     title: "Neo-Videos kosten 30% weniger Credits",
     body:
-      "Neo ist unser neues Videomodell: Es zeichnet das Gesicht Bild für Bild neu, damit das Ergebnis aussieht wie auf deinem Foto. In der Startwoche kostet jedes Neo-Video 30% weniger Credits, zusätzlich zum Rabatt auf Credit-Pakete.",
+      "Neo ist unser neues Videomodell: Es zeichnet das Gesicht Bild für Bild neu, damit das Ergebnis aussieht wie auf deinem Foto. Bis zum 4. Dezember kostet jedes Neo-Video 30% weniger Credits, zusätzlich zum Rabatt auf Credit-Pakete.",
     cta: "Neo ausprobieren",
   },
   photoSwap: {
@@ -874,10 +874,10 @@ const fr: BlackFridayCopy = {
     cta: "Acheter des crédits",
   },
   neo: {
-    badge: "Semaine de lancement de Neo",
+    badge: "Offre de lancement Neo prolongée",
     title: "Les vidéos Neo coûtent 30% de crédits en moins",
     body:
-      "Neo est notre nouveau modèle vidéo : il redessine le visage image par image, pour un résultat qui ressemble à votre photo. Pendant la semaine de lancement, chaque vidéo Neo coûte 30% de crédits en moins, en plus de la remise sur les packs de crédits.",
+      "Neo est notre nouveau modèle vidéo : il redessine le visage image par image, pour un résultat qui ressemble à votre photo. Jusqu’au 4 décembre, chaque vidéo Neo coûte 30% de crédits en moins, en plus de la remise sur les packs de crédits.",
     cta: "Essayer Neo",
   },
   photoSwap: {

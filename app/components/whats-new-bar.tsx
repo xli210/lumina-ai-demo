@@ -36,7 +36,7 @@ const ITEMS: WhatsNewItem[] = [
     labelClassName: "bg-rose-100 text-rose-700 ring-rose-200",
     icon: Sparkles,
     iconClassName: "text-rose-600",
-    text: `Neo is live: our first in-house multi-step diffusion video model now makes every Best quality video, and the face looks like your photo. Launch week: 30% fewer credits until Nov 28`,
+    text: `Neo is live: our first in-house multi-step diffusion video model now makes every Best quality video, and the face looks like your photo. Launch offer extended: 30% fewer credits until Dec 4`,
     href: "/neo",
   },
   {
