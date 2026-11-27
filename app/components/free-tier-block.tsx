@@ -6,7 +6,18 @@ import { FREE_TIER, FREE_TIER_COMPARISON_SOURCE } from "@/lib/free-tier";
  * "What you can try for free, and in what quality": the free credits, what they buy in each online tool
  * and the output size, as a table an AI answer can quote. Copy and figures are in lib/free-tier.ts.
  */
-export function FreeTierBlock({ lang, id = "free", compareLink = true }: { lang: "en" | "pt-BR"; id?: string; compareLink?: boolean }) {
+export function FreeTierBlock({
+  lang,
+  id = "free",
+  compareLink = true,
+  signUpHref = "/auth/sign-up",
+}: {
+  lang: "en" | "pt-BR";
+  id?: string;
+  compareLink?: boolean;
+  /** Where the sign-up button goes; a page can add ?next= so sign-up ends in its tool. */
+  signUpHref?: string;
+}) {
   const c = FREE_TIER[lang];
   return (
     <section id={id} className="px-6 pb-12">
@@ -50,7 +61,7 @@ export function FreeTierBlock({ lang, id = "free", compareLink = true }: { lang:
           </p>
         )}
         <Link
-          href="/auth/sign-up"
+          href={signUpHref}
           className="mt-5 inline-flex items-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
         >
           {c.cta} <ArrowRight className="ml-2 h-4 w-4" />

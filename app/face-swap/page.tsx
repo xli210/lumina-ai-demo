@@ -123,6 +123,9 @@ const ONLINE_DEMO_COPY: OnlineDemoCopy[] = [
   },
 ];
 
+/** Ad visitors searched for a face swap: after signing up, open the photo face swap tool, not the /start hub. */
+const SIGN_UP_TO_FACE_STUDIO = "/auth/sign-up?next=%2Fface-studio%2Flaunch";
+
 const ONLINE_DEMOS = ONLINE_DEMO_COPY.map((c) => {
   const demo = DEMOS.find((d) => d.id === c.id)!;
   return {
@@ -422,7 +425,7 @@ export default function FaceSwapPage() {
               </a>
             </Button>
             <Button asChild variant="outline" size="lg" className="rounded-full">
-              <Link href="/auth/sign-up">
+              <Link href={SIGN_UP_TO_FACE_STUDIO}>
                 Create free account <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -430,7 +433,7 @@ export default function FaceSwapPage() {
         </div>
       </section>
 
-      <FreeTierBlock lang="en" />
+      <FreeTierBlock lang="en" signUpHref={SIGN_UP_TO_FACE_STUDIO} />
 
       {/* Online demos */}
       <section id="demos" className="px-6 pb-12">

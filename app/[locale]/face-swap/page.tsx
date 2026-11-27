@@ -27,6 +27,8 @@ import { BEST_FREE_COPY } from "@/lib/best-free-face-swap-copy";
 import { FreeTierBlock } from "../../components/free-tier-block";
 
 const BASE_URL = "https://nanopocket.ai";
+/** Ad visitors searched for a face swap: after signing up, open the photo face swap tool, not the /start hub. */
+const SIGN_UP_TO_FACE_STUDIO = "/auth/sign-up?next=%2Fface-studio%2Flaunch";
 const PATH = "/face-swap";
 const LAST_VERIFIED = "2026-10-30";
 
@@ -180,7 +182,7 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
               size="lg"
               className="rounded-full bg-foreground text-background"
             >
-              <Link href="/face-studio">
+              <Link href={translatedOrEnglish("/face-studio", locale)}>
                 {t("hero.ctaPrimary")} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -190,7 +192,7 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
               size="lg"
               className="rounded-full"
             >
-              <Link href="/auth/sign-up">
+              <Link href={SIGN_UP_TO_FACE_STUDIO}>
                 {t("hero.ctaSecondary")} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -198,7 +200,7 @@ export default async function LocalizedFaceSwapPage({ params }: PageProps) {
         </div>
       </section>
 
-      {locale === "pt-BR" && <FreeTierBlock lang="pt-BR" />}
+      {locale === "pt-BR" && <FreeTierBlock lang="pt-BR" signUpHref={SIGN_UP_TO_FACE_STUDIO} />}
 
       {/* The online tools */}
       <section className="px-6 pb-12">
