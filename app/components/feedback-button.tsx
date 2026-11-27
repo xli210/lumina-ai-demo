@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { MessageSquarePlus } from "lucide-react";
+import { useScrolledPast } from "./use-scrolled-past";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ContactForm } from "../contact/contact-form";
 
@@ -17,6 +18,8 @@ const QUIET_PREFIXES = ["/contact", "/auth", "/checkout", "/admin"];
 export function FeedbackButton() {
   const pathname = usePathname() ?? "/";
   const [open, setOpen] = useState(false);
+  // On a phone the button would cover the first screen's buttons: it appears once the page is scrolled.
+  const scrolled = useScrolledPast();
   if (QUIET_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"))) return null;
 
   return (
@@ -24,7 +27,7 @@ export function FeedbackButton() {
       <DialogTrigger asChild>
         <button
           type="button"
-          className="fixed bottom-4 right-4 z-40 inline-flex items-center gap-2 rounded-full border border-border bg-card/95 px-4 py-2.5 text-sm font-medium text-foreground shadow-lg backdrop-blur transition-colors hover:bg-muted sm:bottom-6 sm:right-6"
+          className={`${scrolled ? "" : "max-sm:hidden "}fixed bottom-4 right-4 z-40 inline-flex items-center gap-2 rounded-full border border-border bg-card/95 px-4 py-2.5 text-sm font-medium text-foreground shadow-lg backdrop-blur transition-colors hover:bg-muted sm:bottom-6 sm:right-6`}
         >
           <MessageSquarePlus className="h-4 w-4 text-primary" />
           Feedback

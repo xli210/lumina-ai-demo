@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowRight, Download, LayoutGrid, ScanFace, Sparkles, UserRoundCog, Video, Wand2, X } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useScrolledPast } from "./use-scrolled-past";
 import { trackEvent } from "@/lib/analytics";
 import { SIGNUP_GRANT_CREDITS } from "@/lib/credits";
 import { FACESTUDIO_V_LAUNCH, FACESTUDIO_V_NAME } from "@/lib/facestudio-v";
@@ -89,6 +90,8 @@ export function QuickStart() {
   // null until the session has been read: the links depend on it.
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
   const [open, setOpen] = useState(false);
+  // On a phone the pill would cover the first screen's buttons: it appears once the page is scrolled.
+  const scrolled = useScrolledPast();
   // SpotEdit's public pages speak to retouchers, and this button offers them face swaps.
   const quiet = QUIET_PREFIXES.some((p) => pathname.startsWith(p)) || pathname.endsWith("/image-edit");
 
@@ -150,7 +153,7 @@ export function QuickStart() {
         }}
         aria-expanded={false}
         aria-controls="quick-start"
-        className="fixed bottom-[4.25rem] right-4 z-40 inline-flex items-center gap-2 rounded-full border border-sky-300/40 bg-neutral-950/95 px-4 py-2.5 text-sm font-medium text-white shadow-lg backdrop-blur transition-colors hover:bg-neutral-900 sm:bottom-[4.75rem] sm:right-6"
+        className={`${scrolled ? "" : "max-sm:hidden "}fixed bottom-[4.25rem] right-4 z-40 inline-flex items-center gap-2 rounded-full border border-sky-300/40 bg-neutral-950/95 px-4 py-2.5 text-sm font-medium text-white shadow-lg backdrop-blur transition-colors hover:bg-neutral-900 sm:bottom-[4.75rem] sm:right-6`}
       >
         <LayoutGrid className="h-4 w-4 text-sky-200" />
         Tools
