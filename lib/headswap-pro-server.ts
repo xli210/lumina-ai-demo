@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { captureHold, releaseHold, type CreditHoldRecord } from "@/lib/credits-server";
+import type { StaleReport } from "@/lib/settle-sweep";
 import {
   HEADSWAP_PRO_SERVICE,
   HEADSWAP_PRO_TICKET_TTL_SECONDS,
@@ -178,7 +179,7 @@ export async function reconcileOpenHolds(userId: string): Promise<void> {
  * (`releaseExpiredHolds`, which cannot tell a made swap from one that never ran) returns the credits.
  * Called before that sweep. A hold the gateway cannot be asked about stays open.
  */
-export async function settleStaleHolds(limit = 10): Promise<number> {
+export async function settleStaleHolds(limit = 10, report?: StaleReport): Promise<number> {
   const { data, error } = await createAdminClient()
     .from("credit_holds")
     .select("id, user_id, amount, status, service, job_ref, created_at, estimate")
@@ -194,9 +195,18 @@ export async function settleStaleHolds(limit = 10): Promise<number> {
     try {
       const o = await settleHold(h);
       if (o.status === "settled" || o.status === "refunded") settled += 1;
+      if (report) {
+        report.seen += 1;
+        if (o.status === "held" && o.note) report.unreachable += 1;          // (a note is the gateway not answering; plain "held" is a swap still running)
+      }
     } catch (err: unknown) {
+      if (report) {
+        report.seen += 1;
+        report.failed += 1;
+      }
       console.error("[headswap] settling a stale hold failed:", err instanceof Error ? err.message : err);
     }
   }
+  if (report) report.settled += settled;
   return settled;
 }

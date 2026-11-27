@@ -8,6 +8,7 @@ import {
 } from "@/lib/credits-server";
 import { FACESTUDIO_V_SERVICE } from "@/lib/facestudio-v";
 import { bearerToken, signStudioToken, verifyStudioToken } from "@/lib/facestudio-v-token";
+import type { StaleReport } from "@/lib/settle-sweep";
 import { billingEnabledIn, decideSettlement, parseStudioAddress, priceFits, type StudioBilling, type StudioJob } from "@/lib/facestudio-v-billing";
 
 export { bearerToken, signStudioToken, verifyStudioToken };
@@ -281,7 +282,7 @@ export async function reconcileOpenHolds(userId: string): Promise<void> {
  * video and the expiry sweep would return the credits. Called before that sweep.
  * A hold the studio cannot be asked about stays open (settleHold says "unreachable").
  */
-export async function settleStaleHolds(limit = 10): Promise<number> {
+export async function settleStaleHolds(limit = 10, report?: StaleReport): Promise<number> {
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("credit_holds")
@@ -298,10 +299,19 @@ export async function settleStaleHolds(limit = 10): Promise<number> {
     try {
       const o = await settleHold(h);
       if (o.status === "settled" || o.status === "refunded") settled += 1;
+      if (report) {
+        report.seen += 1;
+        if (o.status === "unreachable") report.unreachable += 1;
+      }
     } catch (err: unknown) {
+      if (report) {
+        report.seen += 1;
+        report.failed += 1;
+      }
       console.error("[facestudio-v] settling a stale hold failed:", err instanceof Error ? err.message : err);
     }
   }
+  if (report) report.settled += settled;
   return settled;
 }
 
