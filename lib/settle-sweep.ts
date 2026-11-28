@@ -57,6 +57,8 @@ export interface SweepSteps {
   settleHeadswap: () => Promise<unknown>;
   /** SpotEdit's, as its worker says. */
   settleEdits: () => Promise<unknown>;
+  /** Nano FaceStudio Online's (photo face swap), as its gateway says (lib/facestudio-settle.ts). */
+  settlePhotos: () => Promise<unknown>;
   /** Every service's reservations past their time, returned in full. */
   releaseExpired: () => Promise<unknown>;
 }
@@ -67,6 +69,7 @@ export interface SweepResult {
   video: StepOutcome;
   headswap: StepOutcome;
   edits: StepOutcome;
+  photos: StepOutcome;
   /** null when it was not run: some settle above did not finish (see `held_back`). */
   expired: StepOutcome | null;
   held_back?: string;
@@ -96,7 +99,7 @@ async function within(p: () => Promise<unknown>, ms: number): Promise<StepOutcom
 }
 
 /**
- * The settles, then the expiry sweep, in `budgetMs`.
+ * The settles (video, HeadSwap Pro, SpotEdit, photo face swap), then the expiry sweep, in `budgetMs`.
  *
  * The expiry sweep returns the credits of every reservation past its time and cannot tell a made
  * video from one that never ran, so it runs only after all three settles finished: a settle cut off
@@ -109,11 +112,13 @@ export async function runSweep(steps: SweepSteps, budgetMs: number, now: () => n
   const video = await within(steps.settleVideo, left());
   const headswap = await within(steps.settleHeadswap, left());
   const edits = await within(steps.settleEdits, left());
+  const photos = await within(steps.settlePhotos, left());
   const unfinished = (
     [
       ["video", video],
       ["headswap", headswap],
       ["edits", edits],
+      ["photos", photos],
     ] as const
   ).filter(([, o]) => !o.ok);
   if (unfinished.length) {
@@ -121,11 +126,12 @@ export async function runSweep(steps: SweepSteps, budgetMs: number, now: () => n
       video,
       headswap,
       edits,
+      photos,
       expired: null,
       held_back: "not run: " + unfinished.map(([name, o]) => `${name} ${(o as { why: string }).why}`).join(", "),
       ms: now() - t0,
     };
   }
   const expired = await within(steps.releaseExpired, left());
-  return { video, headswap, edits, expired, ms: now() - t0 };
+  return { video, headswap, edits, photos, expired, ms: now() - t0 };
 }

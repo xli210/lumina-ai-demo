@@ -13,6 +13,7 @@ function steps(over = {}, calls = []) {
     settleVideo: step("settleVideo", { settled: 2 }),
     settleHeadswap: step("settleHeadswap", { settled: 0 }),
     settleEdits: step("settleEdits", undefined),
+    settlePhotos: step("settlePhotos", { settled: 1 }),
     releaseExpired: step("releaseExpired", 3),
   };
 }
@@ -35,21 +36,22 @@ test("only the partner secret is let in", () => {
 test("all settles finish: then the expiry sweep, in that order", async () => {
   const calls = [];
   const r = await runSweep(steps({}, calls), 5000);
-  assert.deepEqual(calls, ["settleVideo", "settleHeadswap", "settleEdits", "releaseExpired"]);
+  assert.deepEqual(calls, ["settleVideo", "settleHeadswap", "settleEdits", "settlePhotos", "releaseExpired"]);
+  assert.deepEqual(r.photos, { ok: true, value: { settled: 1 } });
   assert.deepEqual(r.video, { ok: true, value: { settled: 2 } });
   assert.deepEqual(r.expired, { ok: true, value: 3 });
   assert.equal(r.held_back, undefined);
 });
 
 test("a settle that fails holds the expiry sweep back (it would return made work)", async () => {
-  for (const which of ["settleVideo", "settleHeadswap", "settleEdits"]) {
+  for (const which of ["settleVideo", "settleHeadswap", "settleEdits", "settlePhotos"]) {
     const calls = [];
     const r = await runSweep(steps({ [which]: async () => { calls.push(which); throw new Error("studio did not answer"); } }, calls), 5000);
     assert.equal(r.expired, null, which);
     assert.ok(!calls.includes("releaseExpired"), which + ": the sweep must not run");
     assert.match(r.held_back, /error/, which);
     // the other settles still ran
-    assert.equal(calls.length, 3, which);
+    assert.equal(calls.length, 4, which);
   }
 });
 

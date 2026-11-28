@@ -3,6 +3,7 @@ import { releaseExpiredHolds } from "@/lib/credits-server";
 import { settleStaleHolds } from "@/lib/facestudio-v-server";
 import { settleStaleHolds as settleStaleHeadswapHolds } from "@/lib/headswap-pro-server";
 import { settleStaleEdits } from "@/lib/imageedit-server";
+import { settleStalePhotoHolds } from "@/lib/facestudio-settle";
 import { partnerAllowed, runSweep, settledOrThrow } from "@/lib/settle-sweep";
 
 export const dynamic = "force-dynamic";
@@ -18,7 +19,7 @@ const NO_STORE = { "cache-control": "private, no-store" };
  * POST /api/facestudio-v/settle-stale   (header X-Studio-Partner: the partner secret)
  *
  * Charge or return the reservations whose page was closed before the end, for Video FaceSwap,
- * HeadSwap Pro and SpotEdit, then return those past their time. The same steps that run when
+ * HeadSwap Pro, SpotEdit and Nano FaceStudio Online (photo face swap), then return those past their time. The same steps that run when
  * somebody starts a paid video (/api/facestudio-v/hold), on a clock: the studio calls this every
  * few minutes, so a video made for someone who closed the tab is charged within minutes instead of
  * whenever the next paid video happens (lib/settle-sweep.ts). Answers counts only.
@@ -40,6 +41,7 @@ export async function POST(request: Request) {
       settleVideo: () => settledOrThrow((report) => settleStaleHolds(25, report)),
       settleHeadswap: () => settledOrThrow((report) => settleStaleHeadswapHolds(10, report)),
       settleEdits: () => settleStaleEdits(10),
+      settlePhotos: () => settledOrThrow((report) => settleStalePhotoHolds(20, report)),
       releaseExpired: () => releaseExpiredHolds(20),
     },
     BUDGET_MS
