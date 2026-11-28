@@ -102,7 +102,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/download`, lastModified: new Date("2026-11-09"), changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE}/video-face-swap-test-results`, lastModified: new Date("2026-10-24"), changeFrequency: "monthly", priority: 0.75 },
     ...translatedEntries("/head-swap", "weekly", 0.9, "2026-11-16"),
-    ...translatedEntries("/best-free-face-swap", "weekly", 0.9, "2026-11-25"),
+    ...translatedEntries("/best-free-face-swap", "weekly", 0.9, "2026-11-28"),
     { url: `${BASE}/video-head-swap`, lastModified: new Date("2026-11-08"), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/release-notes`, lastModified: new Date("2026-10-21"), changeFrequency: "weekly", priority: 0.7 },
     // What everything costs: read from the code that charges it, so it is always current.

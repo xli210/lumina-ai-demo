@@ -3,6 +3,7 @@ import { VIDEO_FACE_SWAP_GUIDE_POSTS } from "@/lib/blog-posts-video-face-swap";
 import { FACE_SWAP_ANSWER_POSTS } from "@/lib/blog-posts-face-swap-answers";
 import { DIFFUSION_HEAD_SWAP_POSTS } from "@/lib/blog-posts-diffusion-head-swap";
 import { SPOTEDIT_PRO_POSTS } from "@/lib/blog-posts-spotedit-pro";
+import { HEAD_SWAP_GUIDE_POSTS } from "@/lib/blog-posts-head-swap-guides";
 
 export interface BlogPost {
   slug: string;
@@ -20,6 +21,7 @@ export interface BlogPost {
 }
 
 export const BLOG_POSTS: BlogPost[] = [
+  ...HEAD_SWAP_GUIDE_POSTS,
   ...SPOTEDIT_PRO_POSTS,
   ...DIFFUSION_HEAD_SWAP_POSTS,
   ...VIDEO_FACE_SWAP_GUIDE_POSTS,

@@ -3,13 +3,17 @@ import Link from "next/link";
 import { Navbar } from "./navbar";
 import { Footer } from "./footer";
 import { FreeTierBlock } from "./free-tier-block";
-import { HEAD_SWAP_COPY, HEAD_SWAP_MODIFIED, HEAD_SWAP_PATH } from "@/lib/head-swap-copy";
-import { hreflangAlternates, TRANSLATED_PAGES } from "@/lib/i18n/locales";
+import { HEAD_SWAP_COPY, HEAD_SWAP_MODIFIED, HEAD_SWAP_PATH, type HeadSwapLang } from "@/lib/head-swap-copy";
+import { hreflangAlternates, TRANSLATED_PAGES, translatedOrEnglish } from "@/lib/i18n/locales";
 
-/** /head-swap and /pt-BR/head-swap: the same page in two languages. Copy is in lib/head-swap-copy.ts. */
+/**
+ * /head-swap and its translations (/pt-BR, /es, /de, /ja): the same page in each language. Copy is in lib/head-swap-copy.ts.
+ * The free-tier block exists only in English and Portuguese, so the other languages leave it out; their answer and FAQ
+ * already state the free credits. Tool links go to the page in the same language where one exists.
+ */
 
 const BASE = "https://nanopocket.ai";
-type Lang = "en" | "pt-BR";
+type Lang = HeadSwapLang;
 
 const pageUrl = (lang: Lang) => `${BASE}${lang === "en" ? "" : `/${lang}`}${HEAD_SWAP_PATH}`;
 
@@ -18,10 +22,7 @@ export function headSwapMetadata(lang: Lang): Metadata {
   return {
     title: c.title,
     description: c.description,
-    keywords:
-      lang === "en"
-        ? ["ai head swap", "head swap online", "head swap with hair", "whole head swap", "video head swap", "photo head swap", "free head swap"]
-        : ["troca de cabeça ia", "trocar cabeça online", "troca de cabeça com cabelo", "troca de cabeça em vídeo", "trocar cabeça em foto"],
+    keywords: c.keywords,
     alternates: {
       canonical: pageUrl(lang),
       languages: hreflangAlternates(BASE, HEAD_SWAP_PATH, TRANSLATED_PAGES[HEAD_SWAP_PATH]),
@@ -37,6 +38,13 @@ export function headSwapMetadata(lang: Lang): Metadata {
     other: { "article:modified_time": HEAD_SWAP_MODIFIED },
   };
 }
+
+/** Step-by-step guides (English) in lib/blog-posts-head-swap-guides.ts. */
+const GUIDES = [
+  { href: "/blog/how-to-head-swap-a-photo-online", label: "How to swap a whole head in a photo" },
+  { href: "/blog/how-to-do-a-video-head-swap", label: "How to do a video head swap" },
+  { href: "/blog/head-swap-vs-face-swap-which-to-use", label: "Head swap vs face swap" },
+];
 
 const h2 = "mb-4 mt-12 text-2xl font-bold tracking-tight text-foreground";
 const listItem = "ml-5 text-sm leading-relaxed text-muted-foreground";
@@ -103,7 +111,7 @@ export function HeadSwapPage({ lang }: { lang: Lang }) {
                 {c.tools.map((t) => (
                   <tr key={t.name} className="border-b border-border/50 align-top last:border-0">
                     <th scope="row" className="px-4 py-3 text-left font-medium">
-                      <Link href={t.href} className="text-primary hover:underline">{t.name}</Link>
+                      <Link href={translatedOrEnglish(t.href, lang)} className="text-primary hover:underline">{t.name}</Link>
                       <span className="mt-1 block text-xs font-normal text-muted-foreground">{t.kind}</span>
                     </th>
                     <td className="px-4 py-3 text-muted-foreground">{t.bestFor}</td>
@@ -143,7 +151,7 @@ export function HeadSwapPage({ lang }: { lang: Lang }) {
         </div>
       </article>
 
-      <FreeTierBlock lang={lang} />
+      {(lang === "en" || lang === "pt-BR") && <FreeTierBlock lang={lang} />}
 
       <section className="px-6 pb-20">
         <div className="mx-auto max-w-5xl">
@@ -162,6 +170,14 @@ export function HeadSwapPage({ lang }: { lang: Lang }) {
               <Link href="/video-head-swap" className="font-medium text-primary hover:underline">/video-head-swap</Link>
               {" · "}
               <Link href="/blog/diffusion-head-swap-vs-gan-face-swap" className="font-medium text-primary hover:underline">Diffusion Head Swap vs GAN Face Swap</Link>
+            </p>
+            <p className="mt-3">
+              {GUIDES.map((g, i) => (
+                <span key={g.href}>
+                  {i > 0 && " · "}
+                  <Link href={g.href} className="font-medium text-primary hover:underline">{g.label}</Link>
+                </span>
+              ))}
             </p>
             <p className="mt-3">{c.consent}</p>
           </div>
