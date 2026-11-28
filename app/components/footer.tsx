@@ -10,16 +10,31 @@ import { Wordmark } from "./wordmark";
  * ~60 pages this footer reaches and had not found /best-free-face-swap, /head-swap or the skin test in 6-9 days
  * (ai_fetches, 2026-11-25). Product and brand names stay in English; the rest is short enough to keep here.
  */
-const GUIDE_LABELS: Record<AppLocale, { free: string; head: string; skin: string }> = {
-  en: { free: "Free face swap", head: "Head swap", skin: "Skin texture test" },
-  "zh-CN": { free: "免费换脸", head: "换头", skin: "皮肤质感测试" },
-  ja: { free: "無料フェイススワップ", head: "ヘッドスワップ", skin: "肌の質感テスト" },
-  ko: { free: "무료 페이스 스왑", head: "헤드 스왑", skin: "피부 질감 테스트" },
-  es: { free: "Face swap gratis", head: "Cambio de cabeza", skin: "Prueba de textura de piel" },
-  "pt-BR": { free: "Troca de rosto grátis", head: "Troca de cabeça", skin: "Teste de textura de pele" },
-  de: { free: "Kostenloser Face Swap", head: "Kopftausch", skin: "Hauttextur-Test" },
-  fr: { free: "Face swap gratuit", head: "Échange de tête", skin: "Test de texture de peau" },
+const GUIDE_LABELS: Record<AppLocale, { free: string; head: string; videoHead: string; skin: string }> = {
+  en: { free: "Free face swap", head: "Head swap", videoHead: "Video head swap", skin: "Skin texture test" },
+  "zh-CN": { free: "免费换脸", head: "换头", videoHead: "视频换头", skin: "皮肤质感测试" },
+  ja: { free: "無料フェイススワップ", head: "ヘッドスワップ", videoHead: "動画ヘッドスワップ", skin: "肌の質感テスト" },
+  ko: { free: "무료 페이스 스왑", head: "헤드 스왑", videoHead: "동영상 헤드 스왑", skin: "피부 질감 테스트" },
+  es: { free: "Face swap gratis", head: "Cambio de cabeza", videoHead: "Cambio de cabeza en vídeo", skin: "Prueba de textura de piel" },
+  "pt-BR": { free: "Troca de rosto grátis", head: "Troca de cabeça", videoHead: "Troca de cabeça em vídeo", skin: "Teste de textura de pele" },
+  de: { free: "Kostenloser Face Swap", head: "Kopftausch", videoHead: "Kopftausch im Video", skin: "Hauttextur-Test" },
+  fr: { free: "Face swap gratuit", head: "Échange de tête", videoHead: "Échange de tête en vidéo", skin: "Test de texture de peau" },
 };
+
+/**
+ * Guides that answer the questions people ask ChatGPT about face and head swap. OAI-SearchBot fetched /blog 152 times
+ * in November 2026 and still never opened 13 of the 25 posts it links (the rest once, last on 11/13): one link from an
+ * index page is not enough, a link from every page is (the three footer guides above were fetched within hours of
+ * going in). The posts are English only, so the row shows on English pages only.
+ */
+const FOOTER_GUIDES: { href: string; label: string }[] = [
+  { href: "/blog/how-to-head-swap-a-photo-online", label: "How to swap a whole head in a photo" },
+  { href: "/blog/how-to-do-a-video-head-swap", label: "How to do a video head swap" },
+  { href: "/blog/head-swap-vs-face-swap-which-to-use", label: "Head swap vs face swap" },
+  { href: "/blog/how-to-swap-a-face-in-a-video", label: "How to swap a face in a video" },
+  { href: "/blog/best-video-face-swap-tools-2026-how-to-choose", label: "Choosing a video face swap tool" },
+  { href: "/blog/free-ai-face-swap-no-watermark-what-is-free", label: "What free face swap really includes" },
+];
 
 export function Footer() {
   const t = useTranslations("Ui.footer");
@@ -144,6 +159,12 @@ export function Footer() {
             {(GUIDE_LABELS[locale] ?? GUIDE_LABELS.en).head}
           </Link>
           <Link
+            href={translatedOrEnglish("/video-head-swap", locale)}
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+          >
+            {(GUIDE_LABELS[locale] ?? GUIDE_LABELS.en).videoHead}
+          </Link>
+          <Link
             href={translatedOrEnglish("/data/face-swap-skin-test", locale)}
             className="text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
@@ -217,6 +238,21 @@ export function Footer() {
           &copy; {new Date().getFullYear()} NanoPocket. All rights reserved.
         </p>
       </div>
+
+      {isEnglish && (
+        <nav aria-label="Guides" className="mx-auto mt-8 flex max-w-7xl flex-wrap items-center justify-center gap-x-5 gap-y-2 px-6 md:justify-start">
+          <span className="text-xs font-medium text-muted-foreground">Guides:</span>
+          {FOOTER_GUIDES.map((g) => (
+            <Link
+              key={g.href}
+              href={g.href}
+              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {g.label}
+            </Link>
+          ))}
+        </nav>
+      )}
 
       <div className="mx-auto max-w-7xl border-t border-border mt-8 pt-8 px-6">
         <details className="group">

@@ -33,6 +33,9 @@ const PRIVATE_DISALLOW = [
   "/account",
   "/account/",
   "/api/",
+  // Sign-in and sign-up pages are noindex, yet in November 2026 OAI-SearchBot fetched /auth/login 386 times and
+  // /auth/sign-up 235 times (about 7.5% of its crawl) while it never opened half the blog. Keep crawls for content.
+  "/auth/",
   "/auth/reset-password",
   "/auth/error",
   "/checkout/success",

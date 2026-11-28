@@ -216,7 +216,8 @@ export function hreflangAlternates(
   };
   for (const loc of translatedLocales) {
     if (loc === DEFAULT_LOCALE) continue;
-    map[loc] = `${baseUrl}/${loc}${normalized}`;
+    // The home page is /zh-CN, not /zh-CN/ (the trailing slash answers with a 308 redirect).
+    map[loc] = normalized === "/" ? `${baseUrl}/${loc}` : `${baseUrl}/${loc}${normalized}`;
   }
   return map;
 }
