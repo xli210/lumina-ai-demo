@@ -6,6 +6,7 @@ import { DEVICE_COOKIE, isDeviceId } from "@/lib/device-cookie";
 import { emailDomain, isDisposableEmail } from "@/lib/disposable-email";
 import { MAJOR_MAIL_PROVIDERS, TEMP_MAIL_PROVIDERS, mailProviderOf } from "@/lib/mail-provider";
 import { aliasOfClaimedMailbox } from "@/lib/free-claim-alias";
+import { SMALL_DOMAIN_WINDOW_DAYS, farmVerdict } from "@/lib/farm-rules";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 /**
@@ -234,11 +235,11 @@ export async function claimFreeCredits(
 }
 
 /**
- * A server that receives mail for this many other domains among our recent sign-ups, and is not
- * a big mail provider, is treated as temp mail: a real company's mail server serves its own
- * domain, while a temp-mail service or a farm puts every new domain on the same machine.
+ * A server that receives mail for other domains among our recent sign-ups, and is not a big mail provider, is treated as temp mail:
+ * a real company's mail server serves its own domain, while a temp-mail service or a farm puts every new domain on the same machine.
+ * And a small domain that keeps opening free accounts is a farm's own. The thresholds are in lib/farm-rules.ts.
  */
-export const MAX_OTHER_DOMAINS_PER_MAIL_SERVER = 2;
+export { MAX_OTHER_DOMAINS_PER_MAIL_SERVER } from "@/lib/farm-rules";
 const MAIL_SERVER_WINDOW_DAYS = 90;
 
 type AdminClient = ReturnType<typeof createAdminClient>;
@@ -248,6 +249,13 @@ async function isTempMailProvider(supabase: AdminClient, provider: string, domai
   if (TEMP_MAIL_PROVIDERS.has(provider)) return true;
   if (MAJOR_MAIL_PROVIDERS.has(provider)) return false;
   const since = new Date(Date.now() - MAIL_SERVER_WINDOW_DAYS * 86_400_000).toISOString();
+  const sinceSmall = new Date(Date.now() - SMALL_DOMAIN_WINDOW_DAYS * 86_400_000).toISOString();
+  const same = await supabase
+    .from("free_credit_claims")
+    .select("user_id", { count: "exact", head: true })
+    .eq("email_domain", domain)
+    .eq("outcome", "granted")
+    .gte("created_at", sinceSmall);
   const { data, error } = await supabase
     .from("free_credit_claims")
     .select("email_domain")
@@ -261,7 +269,13 @@ async function isTempMailProvider(supabase: AdminClient, provider: string, domai
     return false;
   }
   const others = new Set((data ?? []).map((r: { email_domain: string | null }) => r.email_domain).filter(Boolean));
-  return others.size >= MAX_OTHER_DOMAINS_PER_MAIL_SERVER;
+  const verdict = farmVerdict(
+    { provider, otherDomains: others.size, sameDomainGranted: same.error ? 0 : same.count ?? 0 },
+    TEMP_MAIL_PROVIDERS,
+    MAJOR_MAIL_PROVIDERS
+  );
+  if (verdict.refuse) console.warn(`[free-claim] free credits withheld for a sign-up on ${domain}: ${verdict.why}`);
+  return verdict.refuse;
 }
 
 /** Store the address's domain and mail provider on the claim, so the rule above can learn. */

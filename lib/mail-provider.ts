@@ -51,6 +51,7 @@ export const TEMP_MAIL_PROVIDERS: ReadonlySet<string> = new Set([
   "ip:138.197.228.18", // thechiv.com, volhoo.com, anonmart.com, bonuscable.com, dvdee.com, forims.com
   "ip:95.216.191.158", // ooynib, tanpony, lnovic, olipii, gmeenramy, ruutukf, bwmyga
   "ip:45.79.100.107", // zefvo.com
+  "ip:159.203.157.224", // thinkatime.com, tipsfuel.com: random local parts, welcome credits spent on HeadSwap Pro at once (2026-11-28)
 ]);
 
 /**

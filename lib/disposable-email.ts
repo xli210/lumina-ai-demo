@@ -27,6 +27,8 @@ const DISPOSABLE_DOMAINS: ReadonlySet<string> = new Set([
   "bookgame.org",
   "37xiao.com",
   "moblha.com",
+  "thinkatime.com", // 2026-11-28: four accounts, random local parts, HeadSwap Pro credits spent at once (with tipsfuel.com, one mail server)
+  "tipsfuel.com",
   // Found 2026-11-05 while building the email list: random local parts only.
   "gmeenramy.com",
   "olipii.com",
