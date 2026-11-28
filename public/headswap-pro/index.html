@@ -143,6 +143,8 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
 .v5-progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #60a5fa, #ffffff); transition: width 0.4s ease; border-radius: 999px; }
 .v5-progress-meta { margin-top: 10px; display: flex; justify-content: space-between; gap: 12px; font-size: 0.85rem; color: var(--text-muted); }
 .v5-progress-meta .desc { color: #fff; }
+.v5-progress-leave { margin: 10px 0 0; font-size: 0.85rem; color: var(--text-muted); }
+.v5-progress-leave a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 
 /* result */
 .result-section { margin-top: 48px; animation: fade-up 0.5s ease; }
@@ -294,6 +296,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
     <div class="v5-progress-card">
       <div class="v5-progress-bar-wrap"><div class="v5-progress-bar" id="bar"></div></div>
       <div class="v5-progress-meta"><span class="desc" id="progDesc">Starting…</span><span id="progTime">0 s</span></div>
+      <p class="v5-progress-leave" id="progLeave" hidden><a href="/my-images" target="_blank" rel="noopener">You can close this page. The result will be in My images.</a></p>
     </div>
   </section>
 
@@ -805,10 +808,12 @@ async function poll() {
 function showProgress(desc, frac) {
   $("progress").hidden = false;
   $("progDesc").textContent = desc;
-  $("progTime").textContent = Math.round((Date.now() - S.t0) / 1000) + " s";
+  const secs = Math.round((Date.now() - S.t0) / 1000);
+  $("progTime").textContent = secs + " s";
+  $("progLeave").hidden = secs < 10;          // a swap that takes a while (a GPU starting): the page can be closed, the result waits under My images
   $("bar").style.width = Math.max(3, Math.round(100 * Math.min(1, frac))) + "%";
 }
-function hideProgress() { $("progress").hidden = true; }
+function hideProgress() { $("progress").hidden = true; $("progLeave").hidden = true; }
 
 function renderThumbs() {
   const th = $("thumbs"); th.innerHTML = "";

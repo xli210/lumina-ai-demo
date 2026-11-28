@@ -1218,3 +1218,7 @@ main {
   color: #a7f3d0;
 }
 .daily-free-note strong { color: #6ee7b7; }
+
+/* "You can close this page" under the progress bar, shown once a render takes a while (app.js LEAVE_NOTE_AFTER_S) */
+.v5-progress-leave { margin: 10px 0 0; font-size: 0.85rem; color: var(--text-muted, #9aa0a6); }
+.v5-progress-leave a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }

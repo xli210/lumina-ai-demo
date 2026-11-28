@@ -103,6 +103,9 @@
   const progressSection = document.getElementById("progress-section");
   const progressBar = document.getElementById("progress-bar");
   const progressElapsed = document.getElementById("progress-elapsed");
+  // After this long, say the page can be closed: the render goes on, it is settled without the page, and it waits under My images.
+  const progressLeave = document.getElementById("progress-leave");
+  const LEAVE_NOTE_AFTER_S = 10;
 
   const resultSection = document.getElementById("result-section");
   const resultTime = document.getElementById("result-time");
@@ -1100,6 +1103,7 @@
     resultSection.hidden = true;
     progressBar.style.width = "0%";
     progressElapsed.textContent = "0s";
+    if (progressLeave) progressLeave.hidden = true;
     resetFeedback();
 
     // Per-face occlusion-preserve picks: { "0": [1,4,15], ... }
@@ -1228,6 +1232,7 @@
         const pct = Math.max(0, Math.min(1, data.progress_pct || 0)) * 100;
         progressBar.style.width = pct.toFixed(1) + "%";
         progressElapsed.textContent = `${(data.elapsed_seconds || 0).toFixed(0)}s`;
+        if (progressLeave) progressLeave.hidden = !((data.elapsed_seconds || 0) >= LEAVE_NOTE_AFTER_S);
 
         // This route is where the reservation settles, so its reply carries
         // the balance that resulted.
